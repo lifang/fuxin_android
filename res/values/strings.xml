@@ -7,5 +7,8 @@
     <string name="address_book">通讯</string>
     <string name="settings">设置</string>
     <string name="send">发送</string>
+    <string name="please_user">输入帐号</string>
+    <string name="please_pwd">输入密码</string>
+    <string name="fuhao">></string>
 
 </resources>

@@ -136,7 +136,7 @@
             android:flipInterval="30"
             android:persistentDrawingCache="animation" />
 
-        <com.comdosoft.fuxun.view.CirclePageIndicator
+        <com.zhishi.fuxun.view.CirclePageIndicator
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/indicator"
             android:layout_width="fill_parent"

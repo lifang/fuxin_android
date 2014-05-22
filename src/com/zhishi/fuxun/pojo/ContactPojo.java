@@ -1,4 +1,4 @@
-package com.comdosoft.fuxun.pojo;
+package com.zhishi.fuxun.pojo;
 
 /**
  * @作者 马龙

@@ -889,13 +889,14 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int shadow_bottom=0x7f0200aa;
         public static final int shadow_left=0x7f0200ab;
         public static final int shadow_right=0x7f0200ac;
-        public static final int testimg=0x7f0200ad;
-        public static final int trans=0x7f0200af;
-        public static final int yue_icon=0x7f0200ae;
+        public static final int test=0x7f0200ad;
+        public static final int testimg=0x7f0200ae;
+        public static final int trans=0x7f0200b0;
+        public static final int yue_icon=0x7f0200af;
     }
     public static final class id {
         public static final int accordion=0x7f04000b;
-        public static final int action_settings=0x7f040045;
+        public static final int action_settings=0x7f04004d;
         public static final int address_tv=0x7f040020;
         public static final int all=0x7f04001f;
         public static final int auto=0x7f040010;
@@ -914,10 +915,13 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int contact_linear=0x7f04003a;
         public static final int contact_name=0x7f04003b;
         public static final int contact_order=0x7f04003c;
+        public static final int content=0x7f04004b;
         public static final int cubein=0x7f040002;
         public static final int cubeout=0x7f040003;
+        public static final int dath=0x7f04004c;
         public static final int disabled=0x7f040016;
         public static final int dismiss=0x7f040015;
+        public static final int email=0x7f04003f;
         public static final int face_btn=0x7f040025;
         public static final int face_iv=0x7f04002d;
         public static final int face_ll=0x7f040029;
@@ -926,6 +930,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int fliphorizontal=0x7f040005;
         public static final int flipvertical=0x7f040004;
         public static final int fullscreen=0x7f04000f;
+        public static final int head=0x7f040047;
         public static final int indicator=0x7f04002b;
         public static final int info_buyIcon=0x7f040031;
         public static final int info_img=0x7f04002e;
@@ -933,16 +938,19 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int info_rem=0x7f040030;
         public static final int info_remText=0x7f040032;
         public static final int inputBar=0x7f040024;
+        public static final int layout=0x7f040046;
+        public static final int layout2=0x7f040049;
         public static final int left=0x7f04000c;
-        public static final int main_cursor=0x7f040042;
-        public static final int main_viewPager=0x7f040043;
+        public static final int main_cursor=0x7f040043;
+        public static final int main_viewPager=0x7f040044;
         public static final int manualOnly=0x7f040019;
         public static final int margin=0x7f04000e;
-        public static final int menu_address_book=0x7f040040;
-        public static final int menu_settings=0x7f040041;
-        public static final int menu_talk=0x7f04003f;
+        public static final int menu_address_book=0x7f040041;
+        public static final int menu_settings=0x7f040042;
+        public static final int menu_talk=0x7f040040;
         public static final int middle=0x7f040011;
         public static final int msg_et=0x7f040026;
+        public static final int name=0x7f04004a;
         public static final int none=0x7f040012;
         public static final int plus_btn=0x7f040027;
         public static final int plus_img=0x7f040037;
@@ -958,10 +966,11 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int rotatedown=0x7f04000a;
         public static final int rotateup=0x7f040009;
         public static final int send_btn=0x7f040028;
+        public static final int size=0x7f040048;
         public static final int stack=0x7f040006;
         public static final int standard=0x7f040000;
         public static final int tablet=0x7f040001;
-        public static final int talk_listview=0x7f040044;
+        public static final int talk_listview=0x7f040045;
         public static final int zoomin=0x7f040007;
         public static final int zoomout=0x7f040008;
     }
@@ -977,9 +986,11 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int chat_item_right=0x7f030005;
         public static final int chat_plus_item=0x7f030006;
         public static final int contact_item=0x7f030007;
-        public static final int main=0x7f030008;
-        public static final int settings=0x7f030009;
-        public static final int talk=0x7f03000a;
+        public static final int login=0x7f030008;
+        public static final int main=0x7f030009;
+        public static final int settings=0x7f03000a;
+        public static final int talk=0x7f03000b;
+        public static final int talk_adpter=0x7f03000c;
     }
     public static final class menu {
         public static final int main=0x7f0b0000;
@@ -988,6 +999,9 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int action_settings=0x7f090001;
         public static final int address_book=0x7f090003;
         public static final int app_name=0x7f090000;
+        public static final int fuhao=0x7f090008;
+        public static final int please_pwd=0x7f090007;
+        public static final int please_user=0x7f090006;
         public static final int send=0x7f090005;
         public static final int settings=0x7f090004;
         public static final int talk=0x7f090002;
