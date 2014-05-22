@@ -57,7 +57,7 @@ public class MainActivity extends Activity implements OnPageChangeListener {
 		views = new ArrayList<View>();
 		Intent intent = new Intent(context, TalkActivity.class);
 		views.add(getView("Talk", intent));
-		Intent intent2 = new Intent(context, AddressBookActivity.class);
+		Intent intent2 = new Intent(context, ContactActivity.class);
 		views.add(getView("AddressBook", intent2));
 		Intent intent3 = new Intent(context, SettingsActivity.class);
 		views.add(getView("Settings", intent3));

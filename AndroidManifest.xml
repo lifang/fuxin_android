@@ -7,7 +7,8 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="18" />
-
+    <uses-permission android:name="android.permission.READ_CONTACTS" >
+    </uses-permission>
     <application
         android:name="com.fuwu.mobileim.util.FxApplication"
         android:allowBackup="true"
@@ -28,6 +29,8 @@
         <activity android:name="com.fuwu.mobileim.activity.TalkActivity" />
         <activity android:name="com.fuwu.mobileim.activity.AddressBookActivity" />
         <activity android:name="com.fuwu.mobileim.activity.SettingsActivity" />
+        <activity android:name="com.fuwu.mobileim.activity.ContactActivity" >
+        </activity>
     </application>
 
 </manifest>

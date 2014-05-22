@@ -92,7 +92,7 @@ public class ContactActivity extends Activity {
 	private Button button_all, button_recently, button_trading,
 			button_subscription;
 	int width;
-
+	private List<Button> btnList = new ArrayList<Button>();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -115,7 +115,7 @@ public class ContactActivity extends Activity {
 			  public void onItemClick(AdapterView<?> parent, View view,
 			    int position, long id) {
 			    Toast.makeText(getApplicationContext(),
-			      "Click ListItem Number " + position, Toast.LENGTH_LONG)
+			      "跳转到对话界面" + position, Toast.LENGTH_LONG)
 			      .show();
 			  }
 			}); 
@@ -271,9 +271,14 @@ public class ContactActivity extends Activity {
 		button_recently = (Button) findViewById(R.id.button_recently);
 		button_trading = (Button) findViewById(R.id.button_trading);
 		button_subscription = (Button) findViewById(R.id.button_subscription);
-		button_all.setWidth(button_width);
-		button_recently.setWidth(button_width);
-		button_trading.setWidth(button_width);
-		button_subscription.setWidth(button_width);
+		btnList.add(button_all);
+		btnList.add(button_recently);
+		btnList.add(button_trading);
+		btnList.add(button_subscription);
+		for (int i = 0; i < btnList.size(); i++) {
+			btnList.get(i).setWidth(button_width);
+//			btnList.get(i).setOnClickListener(l)
+		}
+
 	}
 }
