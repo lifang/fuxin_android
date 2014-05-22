@@ -1,4 +1,4 @@
-package com.comdosoft.fuxun.adapter;
+package com.zhishi.fuxun.adapter;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import com.comdo.fuxun.R;
-import com.comdosoft.fuxun.pojo.Contact;
+import com.zhishi.fuxun.pojo.Contact;
 
 
 /**

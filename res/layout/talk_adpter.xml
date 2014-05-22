@@ -15,7 +15,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp" >
 
-            <com.zhishi.fuxun.util.CircularImage
+            <com.zhishi.fuxun.view.CircularImage
                 android:id="@+id/head"
                 android:layout_width="50dp"
                 android:layout_height="50dp"

@@ -1,4 +1,4 @@
-package com.comdosoft.fuxun.view;
+package com.zhishi.fuxun.view;
 
 
 

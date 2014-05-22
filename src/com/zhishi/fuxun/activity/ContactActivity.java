@@ -1,4 +1,4 @@
-package com.comdosoft.fuxun.activity;
+package com.zhishi.fuxun.activity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,12 +21,12 @@ import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.comdo.fuxun.R;
-import com.comdosoft.fuxun.adapter.ContactAdapter;
-import com.comdosoft.fuxun.pojo.Contact;
-
+import com.zhishi.fuxun.adapter.ContactAdapter;
+import com.zhishi.fuxun.pojo.Contact;
 
 /**
  * 联系人列表界面。
+ * 
  * @作者 丁作强
  * @时间 2014-5-22 下午4:38:33
  */
@@ -98,7 +98,8 @@ public class ContactActivity extends Activity {
 		width = display.getWidth();
 		setButton();
 
-		adapter = new ContactAdapter(this, R.layout.contact_adapter_item, contacts);
+		adapter = new ContactAdapter(this, R.layout.contact_adapter_item,
+				contacts);
 		// titleLayout = (LinearLayout) findViewById(R.id.title_layout);
 		sectionToastLayout = (RelativeLayout) findViewById(R.id.section_toast_layout);
 		// title = (TextView) findViewById(R.id.title);
@@ -246,7 +247,7 @@ public class ContactActivity extends Activity {
 	/**
 	 * 设置button的 宽度 以及监听
 	 * 
-	 *           
+	 * 
 	 */
 	private void setButton() {
 
