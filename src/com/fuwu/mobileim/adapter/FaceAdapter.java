@@ -3,6 +3,7 @@ package com.fuwu.mobileim.adapter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;

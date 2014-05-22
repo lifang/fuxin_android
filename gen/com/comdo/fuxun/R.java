@@ -895,8 +895,9 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int shadow_right=0x7f0200b0;
         public static final int test=0x7f0200b1;
         public static final int testimg=0x7f0200b2;
-        public static final int trans=0x7f0200b4;
-        public static final int yue_icon=0x7f0200b3;
+        public static final int trans=0x7f0200b5;
+        public static final int yuan=0x7f0200b3;
+        public static final int yue_icon=0x7f0200b4;
     }
     public static final class id {
         public static final int a_layout=0x7f040039;

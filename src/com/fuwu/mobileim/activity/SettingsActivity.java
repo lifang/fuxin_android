@@ -1,8 +1,9 @@
 package com.fuwu.mobileim.activity;
 
-import com.comdo.fuxun.R;
 import android.app.Activity;
 import android.os.Bundle;
+
+import com.comdo.fuxun.R;
 
 /**
  * @作者 马龙

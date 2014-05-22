@@ -4,14 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
-import com.comdo.fuxun.R;
-import com.fuwu.mobileim.adapter.FaceAdapter;
-import com.fuwu.mobileim.adapter.FacePageAdapter;
-import com.fuwu.mobileim.adapter.MessageListViewAdapter;
-import com.fuwu.mobileim.pojo.MessagePojo;
-import com.fuwu.mobileim.util.FxApplication;
-import com.fuwu.mobileim.util.LastTimeMap;
-import com.fuwu.mobileim.view.CirclePageIndicator;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -38,14 +30,23 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.SimpleAdapter;
+
+import com.comdo.fuxun.R;
+import com.fuwu.mobileim.adapter.FaceAdapter;
+import com.fuwu.mobileim.adapter.FacePageAdapter;
+import com.fuwu.mobileim.adapter.MessageListViewAdapter;
+import com.fuwu.mobileim.pojo.MessagePojo;
+import com.fuwu.mobileim.util.FxApplication;
+import com.fuwu.mobileim.util.LastTimeMap;
+import com.fuwu.mobileim.view.CirclePageIndicator;
 
 /**
  * @作者 马龙
