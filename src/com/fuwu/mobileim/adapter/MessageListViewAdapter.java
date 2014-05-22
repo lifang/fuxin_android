@@ -1,4 +1,4 @@
-package com.zhishi.fuxun.adapter;
+package com.fuwu.mobileim.adapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +24,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.comdo.fuxun.R;
-import com.zhishi.fuxun.pojo.MessagePojo;
-import com.zhishi.fuxun.util.FxApplication;
-import com.zhishi.fuxun.util.TimeUtil;
+import com.fuwu.mobileim.pojo.MessagePojo;
+import com.fuwu.mobileim.util.FxApplication;
+import com.fuwu.mobileim.util.TimeUtil;
 
 /**
  * @作者 马龙

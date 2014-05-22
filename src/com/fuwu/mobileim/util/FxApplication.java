@@ -1,89 +1,36 @@
-package com.zhishi.fuxun.activity;
+package com.fuwu.mobileim.util;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import com.comdo.fuxun.R;
-import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
-import android.os.Bundle;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.ImageSpan;
-import android.widget.TextView;
+
+import android.app.Application;
 
 /**
  * @作者 马龙
- * @时间 创建时间：2014-5-14 下午12:06:40
+ * @时间 创建时间：2014-5-19 下午12:15:25
  */
-public class AddressBookActivity extends Activity {
+public class FxApplication extends Application {
+	public static final int NUM_PAGE = 6;// 总共有多少页
+	public static int NUM = 20;// 每页20个表情,还有最后一个删除button
 	private Map<String, Integer> mFaceMap = new LinkedHashMap<String, Integer>();
-	public static final Pattern EMOTION_URL = Pattern.compile("\\[(\\S+?)\\]");
-	private TextView tv;
+	private static FxApplication mApplication;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.address_book);
-		initFaceMap();
-		tv = (TextView) findViewById(R.id.address_tv);
-		tv.setText(convertNormalStringToSpannableString("哈[色]哈哈[呲牙]"));
+	public synchronized static FxApplication getInstance() {
+		return mApplication;
 	}
 
-	private CharSequence convertNormalStringToSpannableString(String message) {
-		// TODO Auto-generated method stub
-		String hackTxt;
-		if (message.startsWith("[") && message.endsWith("]")) {
-			hackTxt = message + " ";
-		} else {
-			hackTxt = message;
-		}
-		SpannableString value = SpannableString.valueOf(hackTxt);
+	@Override
+	public void onCreate() {
+		super.onCreate();
+		mApplication = this;
+		initFaceMap();
+	}
 
-		Matcher localMatcher = EMOTION_URL.matcher(value);
-		while (localMatcher.find()) {
-			String str2 = localMatcher.group(0);
-			int k = localMatcher.start();
-			int m = localMatcher.end();
-			// k = str2.lastIndexOf("[");
-			// Log.i("way", "str2.length = "+str2.length()+", k = " + k);
-			// str2 = str2.substring(k, m);
-			if (m - k < 8) {
-				if (mFaceMap.containsKey(str2)) {
-					int face = mFaceMap.get(str2);
-					Bitmap bitmap = BitmapFactory.decodeResource(
-							this.getResources(), face);
-					if (bitmap != null) {
-						int rawHeigh = bitmap.getHeight();
-						int rawWidth = bitmap.getHeight();
-						int newHeight = 30;
-						int newWidth = 30;
-						// 计算缩放因子
-						float heightScale = ((float) newHeight) / rawHeigh;
-						float widthScale = ((float) newWidth) / rawWidth;
-						// 新建立矩阵
-						Matrix matrix = new Matrix();
-						matrix.postScale(heightScale, widthScale);
-						// 设置图片的旋转角度
-						// matrix.postRotate(-30);
-						// 设置图片的倾斜
-						// matrix.postSkew(0.1f, 0.1f);
-						// 将图片大小压缩
-						// 压缩后图片的宽和高以及kB大小均会变化
-						Bitmap newBitmap = Bitmap.createBitmap(bitmap, 0, 0,
-								rawWidth, rawHeigh, matrix, true);
-						ImageSpan localImageSpan = new ImageSpan(this,
-								newBitmap, ImageSpan.ALIGN_BASELINE);
-						value.setSpan(localImageSpan, k, m,
-								Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-					}
-				}
-			}
-		}
-		return value;
+	public Map<String, Integer> getFaceMap() {
+		if (!mFaceMap.isEmpty())
+			return mFaceMap;
+		return null;
 	}
 
 	private void initFaceMap() {

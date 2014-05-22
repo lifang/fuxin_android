@@ -1,8 +1,8 @@
-package com.zhishi.fuxun.activity;
+package com.fuwu.mobileim.activity;
 
 import java.util.ArrayList;
 import com.comdo.fuxun.R;
-import com.zhishi.fuxun.adapter.MainViewPagerAdapter;
+import com.fuwu.mobileim.adapter.MainViewPagerAdapter;
 
 import android.os.Bundle;
 import android.app.Activity;

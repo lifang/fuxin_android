@@ -1,4 +1,4 @@
-package com.zhishi.fuxun.util;
+package com.fuwu.mobileim.view;
 
 
 

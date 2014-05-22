@@ -1,4 +1,4 @@
-package com.zhishi.fuxun.activity;
+package com.fuwu.mobileim.activity;
 
 import com.comdo.fuxun.R;
 

@@ -1,4 +1,4 @@
-package com.zhishi.fuxun.adapter;
+package com.fuwu.mobileim.adapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.comdo.fuxun.R;
-import com.zhishi.fuxun.util.FxApplication;
+import com.fuwu.mobileim.util.FxApplication;
 
 public class FaceAdapter extends BaseAdapter {
 	

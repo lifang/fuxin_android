@@ -1,17 +1,17 @@
-package com.zhishi.fuxun.activity;
+package com.fuwu.mobileim.activity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import com.comdo.fuxun.R;
-import com.zhishi.fuxun.adapter.FaceAdapter;
-import com.zhishi.fuxun.adapter.FacePageAdapter;
-import com.zhishi.fuxun.adapter.MessageListViewAdapter;
-import com.zhishi.fuxun.pojo.MessagePojo;
-import com.zhishi.fuxun.util.FxApplication;
-import com.zhishi.fuxun.util.LastTimeMap;
-import com.zhishi.fuxun.view.CirclePageIndicator;
+import com.fuwu.mobileim.adapter.FaceAdapter;
+import com.fuwu.mobileim.adapter.FacePageAdapter;
+import com.fuwu.mobileim.adapter.MessageListViewAdapter;
+import com.fuwu.mobileim.pojo.MessagePojo;
+import com.fuwu.mobileim.util.FxApplication;
+import com.fuwu.mobileim.util.LastTimeMap;
+import com.fuwu.mobileim.view.CirclePageIndicator;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

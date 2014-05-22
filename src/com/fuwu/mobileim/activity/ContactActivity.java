@@ -1,4 +1,4 @@
-package com.zhishi.fuxun.activity;
+package com.fuwu.mobileim.activity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +21,8 @@ import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.comdo.fuxun.R;
-import com.zhishi.fuxun.adapter.ContactAdapter;
-import com.zhishi.fuxun.pojo.Contact;
+import com.fuwu.mobileim.adapter.ContactAdapter;
+import com.fuwu.mobileim.pojo.Contact;
 
 /**
  * 联系人列表界面。

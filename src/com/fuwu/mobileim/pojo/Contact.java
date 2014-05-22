@@ -1,4 +1,4 @@
-package com.zhishi.fuxun.pojo;
+package com.fuwu.mobileim.pojo;
 
 /**
  * 联系人实体类

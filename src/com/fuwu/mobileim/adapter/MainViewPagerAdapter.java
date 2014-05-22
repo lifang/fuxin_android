@@ -1,4 +1,4 @@
-package com.zhishi.fuxun.adapter;
+package com.fuwu.mobileim.adapter;
 
 import java.util.List;
 import android.support.v4.view.PagerAdapter;
