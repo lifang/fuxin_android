@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.zhishi.fuxun.view;
+package com.fuwu.mobileim.view;
 
 import android.support.v4.view.ViewPager;
 

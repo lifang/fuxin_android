@@ -1,4 +1,4 @@
-package com.zhishi.fuxun.adapter;
+package com.fuwu.mobileim.adapter;
 
 import java.util.List;
 
@@ -12,8 +12,7 @@ import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import com.comdo.fuxun.R;
-import com.fuwu.mobileim.model.Models.Contact;
-import com.zhishi.fuxun.pojo.ContactPojo;
+import com.fuwu.mobileim.pojo.ContactPojo;
 
 
 /**

@@ -1,4 +1,4 @@
-package com.zhishi.fuxun.util;
+package com.fuwu.mobileim.util;
 
 import android.annotation.SuppressLint;
 import java.util.HashMap;

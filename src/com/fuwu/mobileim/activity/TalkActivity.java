@@ -1,4 +1,4 @@
-package com.zhishi.fuxun.activity;
+package com.fuwu.mobileim.activity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.comdo.fuxun.R;
-import com.zhishi.fuxun.pojo.ContactPojo;
-import com.zhishi.fuxun.util.CircularImage;
+import com.fuwu.mobileim.pojo.ContactPojo;
+import com.fuwu.mobileim.view.CircularImage;
 
 public class TalkActivity extends Activity {
 	private ListView mListView;
