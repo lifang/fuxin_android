@@ -11,6 +11,10 @@ public class ContactPojo {
 	private String lastMes;
 	private String img;
 	private int type;
+	/**
+	 * 排序字母
+	 */
+	private String sortKey;
 
 	public ContactPojo() {
 	}
@@ -23,6 +27,14 @@ public class ContactPojo {
 		this.lastMes = lastMes;
 		this.img = img;
 		this.type = type;
+	}
+
+	public String getSortKey() {
+		return sortKey;
+	}
+
+	public void setSortKey(String sortKey) {
+		this.sortKey = sortKey;
 	}
 
 	public String getImg() {

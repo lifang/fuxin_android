@@ -12,7 +12,8 @@ import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import com.comdo.fuxun.R;
-import com.zhishi.fuxun.pojo.Contact;
+import com.fuwu.mobileim.model.Models.Contact;
+import com.zhishi.fuxun.pojo.ContactPojo;
 
 
 /**
@@ -20,19 +21,19 @@ import com.zhishi.fuxun.pojo.Contact;
  * @作者 丁作强
  * @时间 2014-5-22 下午4:39:09
  */
-public class ContactAdapter extends ArrayAdapter<Contact> {
+public class ContactAdapter extends ArrayAdapter<ContactPojo> {
 
 	/**
 	 * 需要渲染的item布局文件
 	 */
 	private int resource;
-	private List<Contact> contacts;
+	private List<ContactPojo> contacts;
 	/**
 	 * 字母表分组工具
 	 */
 	private SectionIndexer mIndexer;
 
-	public ContactAdapter(Context context, int textViewResourceId, List<Contact> objects) {
+	public ContactAdapter(Context context, int textViewResourceId, List<ContactPojo> objects) {
 		super(context, textViewResourceId, objects);
 		resource = textViewResourceId;
 		contacts= objects;
@@ -40,7 +41,7 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		Contact contact = getItem(position);
+		ContactPojo contact = getItem(position);
 		RelativeLayout layout = null;
 		if (convertView == null) {
 			layout = (RelativeLayout) LayoutInflater.from(getContext()).inflate(resource, null);

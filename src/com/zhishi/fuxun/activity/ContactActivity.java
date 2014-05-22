@@ -12,6 +12,8 @@ import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AlphabetIndexer;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -19,10 +21,11 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.comdo.fuxun.R;
 import com.zhishi.fuxun.adapter.ContactAdapter;
-import com.zhishi.fuxun.pojo.Contact;
+import com.zhishi.fuxun.pojo.ContactPojo;
 
 /**
  * 联系人列表界面。
@@ -75,7 +78,7 @@ public class ContactActivity extends Activity {
 	/**
 	 * 存储所有手机中的联系人
 	 */
-	private List<Contact> contacts = new ArrayList<Contact>();
+	private List<ContactPojo> contacts = new ArrayList<ContactPojo>();
 
 	/**
 	 * 定义字母表的排序规则
@@ -107,6 +110,15 @@ public class ContactActivity extends Activity {
 		alphabetButton = (Button) findViewById(R.id.alphabetButton);
 		contactsListView = (ListView) findViewById(R.id.contacts_list_view);
 		contactsListView.setDivider(null);
+		contactsListView.setOnItemClickListener(new OnItemClickListener() {
+			  @Override
+			  public void onItemClick(AdapterView<?> parent, View view,
+			    int position, long id) {
+			    Toast.makeText(getApplicationContext(),
+			      "Click ListItem Number " + position, Toast.LENGTH_LONG)
+			      .show();
+			  }
+			}); 
 		Uri uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
 		Cursor cursor = getContentResolver().query(uri,
 				new String[] { "display_name", "sort_key" }, null, null,
@@ -115,7 +127,7 @@ public class ContactActivity extends Activity {
 			do {
 				String name = cursor.getString(0);
 				String sortKey = getSortKey(cursor.getString(1));
-				Contact contact = new Contact();
+				ContactPojo contact = new ContactPojo();
 				contact.setName(name);
 				contact.setSortKey(sortKey);
 				contacts.add(contact);
