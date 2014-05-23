@@ -249,7 +249,7 @@ public class ContactActivity extends Activity {
 	 */
 	private String getSortKey(String sortKeyString) {
 		alphabetButton.getHeight();
-		String key = sortKeyString.substring(0, 1).toUpperCase();
+		String key = sortKeyString.substring(0, 1).toUpperCase();//toUpperCase 方法返回一个字符串，该字符串中的所有字母都被转化为大写字母
 		if (key.matches("[A-Z]")) {
 			return key;
 		}
@@ -277,8 +277,9 @@ public class ContactActivity extends Activity {
 		btnList.add(button_subscription);
 		for (int i = 0; i < btnList.size(); i++) {
 			btnList.get(i).setWidth(button_width);
-//			btnList.get(i).setOnClickListener(l)
+//			
+			
 		}
-
+//		button_all.setOnClickListener(listener);
 	}
 }
