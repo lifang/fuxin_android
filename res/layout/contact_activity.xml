@@ -14,30 +14,38 @@
         <Button
             android:id="@+id/button_all"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/icon" />
+            android:layout_height="40dip"
+            android:layout_gravity="center"
+            android:text="@string/button_all"
+            android:background="@drawable/icon"
+             />
 
         <Button
             android:id="@+id/button_recently"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dip"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/icon" />
+            android:text="@string/button_recently"
+            android:background="@drawable/icon"
+            />
 
         <Button
             android:id="@+id/button_trading"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dip"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/icon" />
+            android:text="@string/button_trading"
+            android:background="@drawable/icon"
+            />
 
         <Button
             android:id="@+id/button_subscription"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dip"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/icon" />
+            android:text="@string/button_subscription"
+            android:background="@drawable/icon"
+             />
     </LinearLayout>
 
     <ListView
