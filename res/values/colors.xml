@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-     <color name="text_shadow_color">#66000000</color>
+
+    <color name="text_shadow_color">#66000000</color>
+
     <drawable name="trans">@color/color_hei_8</drawable>
+
     <color name="color_hei">#ff000000</color>
     <color name="color_hei_8">#00000000</color>
     <color name="color_cihei">#ff333333</color>
@@ -114,5 +117,8 @@
     <color name="qzone_picviewer_loading_bg">#99000000</color>
     <color name="qzone_picviewer_loading_loaded">#ffffffff</color>
     <color name="qzone_picviewer_description">#ffe0e0e0</color>
-     <color name="holo_blue">#FF33E5B5</color>
+    <color name="holo_blue">#FF33E5B5</color>
+    <color name="address_book_buttoncolor_red">#D0151C</color>
+    <color name="address_book_buttoncolor_white">#FFFFFF</color>
+
 </resources>
