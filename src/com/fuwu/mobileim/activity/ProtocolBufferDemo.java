@@ -3,7 +3,7 @@ package com.fuwu.mobileim.activity;
 
 import com.fuwu.mobileim.model.Models.AuthenticationRequest;
 import com.fuwu.mobileim.model.Models.AuthenticationResponse;
-import com.fuwu.mobileim.model.Models.MessageInfo;
+import com.fuwu.mobileim.model.Models.Contact;
 import com.google.protobuf.InvalidProtocolBufferException;
 
 class ProtocolBufferDemo {
@@ -17,6 +17,10 @@ class ProtocolBufferDemo {
 			if (request.getUserName() == "MockUserName") {
 				result = true;
 			}
+			
+			Contact c = Contact.parseFrom(authenticationRequest);
+//			c.get
+			
 			AuthenticationResponse.Builder builder = AuthenticationResponse
 					.newBuilder();
 			builder.setToken("aa");

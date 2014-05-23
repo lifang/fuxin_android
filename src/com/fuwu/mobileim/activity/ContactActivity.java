@@ -12,6 +12,8 @@ import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AlphabetIndexer;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -19,10 +21,11 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.comdo.fuxun.R;
+import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.adapter.ContactAdapter;
-import com.fuwu.mobileim.pojo.Contact;
+import com.fuwu.mobileim.pojo.ContactPojo;
 
 /**
  * 联系人列表界面。
@@ -75,7 +78,7 @@ public class ContactActivity extends Activity {
 	/**
 	 * 存储所有手机中的联系人
 	 */
-	private List<Contact> contacts = new ArrayList<Contact>();
+	private List<ContactPojo> contacts = new ArrayList<ContactPojo>();
 
 	/**
 	 * 定义字母表的排序规则
@@ -89,7 +92,7 @@ public class ContactActivity extends Activity {
 	private Button button_all, button_recently, button_trading,
 			button_subscription;
 	int width;
-
+	private List<Button> btnList = new ArrayList<Button>();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -107,6 +110,15 @@ public class ContactActivity extends Activity {
 		alphabetButton = (Button) findViewById(R.id.alphabetButton);
 		contactsListView = (ListView) findViewById(R.id.contacts_list_view);
 		contactsListView.setDivider(null);
+		contactsListView.setOnItemClickListener(new OnItemClickListener() {
+			  @Override
+			  public void onItemClick(AdapterView<?> parent, View view,
+			    int position, long id) {
+			    Toast.makeText(getApplicationContext(),
+			      "跳转到对话界面" + position, Toast.LENGTH_LONG)
+			      .show();
+			  }
+			}); 
 		Uri uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
 		Cursor cursor = getContentResolver().query(uri,
 				new String[] { "display_name", "sort_key" }, null, null,
@@ -115,7 +127,7 @@ public class ContactActivity extends Activity {
 			do {
 				String name = cursor.getString(0);
 				String sortKey = getSortKey(cursor.getString(1));
-				Contact contact = new Contact();
+				ContactPojo contact = new ContactPojo();
 				contact.setName(name);
 				contact.setSortKey(sortKey);
 				contacts.add(contact);
@@ -259,9 +271,14 @@ public class ContactActivity extends Activity {
 		button_recently = (Button) findViewById(R.id.button_recently);
 		button_trading = (Button) findViewById(R.id.button_trading);
 		button_subscription = (Button) findViewById(R.id.button_subscription);
-		button_all.setWidth(button_width);
-		button_recently.setWidth(button_width);
-		button_trading.setWidth(button_width);
-		button_subscription.setWidth(button_width);
+		btnList.add(button_all);
+		btnList.add(button_recently);
+		btnList.add(button_trading);
+		btnList.add(button_subscription);
+		for (int i = 0; i < btnList.size(); i++) {
+			btnList.get(i).setWidth(button_width);
+//			btnList.get(i).setOnClickListener(l)
+		}
+
 	}
 }

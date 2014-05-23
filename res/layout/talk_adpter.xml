@@ -7,8 +7,10 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="80dp"
+        android:paddingBottom="10dp"
         android:paddingLeft="10dp"
-        android:paddingRight="20dp" >
+        android:paddingRight="20dp"
+        android:paddingTop="10dp" >
 
         <RelativeLayout
             android:id="@+id/layout"
@@ -36,6 +38,7 @@
                     android:id="@+id/size"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp"
                     android:text="1" />
             </LinearLayout>
         </RelativeLayout>

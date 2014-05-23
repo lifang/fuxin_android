@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
-import com.comdo.fuxun.R;
+import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.util.FxApplication;
 
 public class FaceAdapter extends BaseAdapter {

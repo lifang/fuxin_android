@@ -11,7 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.comdo.fuxun.R;
+import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.pojo.ContactPojo;
 
 /**

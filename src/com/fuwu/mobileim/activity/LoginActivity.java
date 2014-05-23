@@ -3,7 +3,7 @@ package com.fuwu.mobileim.activity;
 import android.app.Activity;
 import android.os.Bundle;
 
-import com.comdo.fuxun.R;
+import com.fuwu.mobileim.R;
 
 public class LoginActivity extends Activity {
 

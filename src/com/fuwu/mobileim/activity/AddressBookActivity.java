@@ -15,7 +15,7 @@ import android.text.Spanned;
 import android.text.style.ImageSpan;
 import android.widget.TextView;
 
-import com.comdo.fuxun.R;
+import com.fuwu.mobileim.R;
 
 /**
  * @作者 马龙

@@ -5,7 +5,7 @@ import java.util.Map;
 
 import android.app.Application;
 
-import com.comdo.fuxun.R;
+import com.fuwu.mobileim.R;
 
 /**
  * @作者 马龙

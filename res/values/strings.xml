@@ -10,5 +10,6 @@
     <string name="please_user">输入帐号</string>
     <string name="please_pwd">输入密码</string>
     <string name="fuhao">></string>
+    <string name="delate">删除对话</string>
 
 </resources>

@@ -25,7 +25,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.comdo.fuxun.R;
+import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.pojo.MessagePojo;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.TimeUtil;

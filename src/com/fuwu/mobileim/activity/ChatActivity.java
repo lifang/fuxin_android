@@ -39,7 +39,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
-import com.comdo.fuxun.R;
+import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.adapter.FaceAdapter;
 import com.fuwu.mobileim.adapter.FacePageAdapter;
 import com.fuwu.mobileim.adapter.MessageListViewAdapter;
