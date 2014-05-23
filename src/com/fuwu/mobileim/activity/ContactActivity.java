@@ -91,8 +91,11 @@ public class ContactActivity extends Activity {
 	private int lastFirstVisibleItem = -1;
 	private Button button_all, button_recently, button_trading,
 			button_subscription;
+	private Button view1, view2, view3;
 	int width;
 	private List<Button> btnList = new ArrayList<Button>();
+	private int buttonNumber = -1;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -111,14 +114,13 @@ public class ContactActivity extends Activity {
 		contactsListView = (ListView) findViewById(R.id.contacts_list_view);
 		contactsListView.setDivider(null);
 		contactsListView.setOnItemClickListener(new OnItemClickListener() {
-			  @Override
-			  public void onItemClick(AdapterView<?> parent, View view,
-			    int position, long id) {
-			    Toast.makeText(getApplicationContext(),
-			      "跳转到对话界面" + position, Toast.LENGTH_LONG)
-			      .show();
-			  }
-			}); 
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				Toast.makeText(getApplicationContext(), "跳转到对话界面" + position,
+						Toast.LENGTH_LONG).show();
+			}
+		});
 		Uri uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
 		Cursor cursor = getContentResolver().query(uri,
 				new String[] { "display_name", "sort_key" }, null, null,
@@ -249,7 +251,8 @@ public class ContactActivity extends Activity {
 	 */
 	private String getSortKey(String sortKeyString) {
 		alphabetButton.getHeight();
-		String key = sortKeyString.substring(0, 1).toUpperCase();//toUpperCase 方法返回一个字符串，该字符串中的所有字母都被转化为大写字母
+		String key = sortKeyString.substring(0, 1).toUpperCase();// toUpperCase
+																	// 方法返回一个字符串，该字符串中的所有字母都被转化为大写字母
 		if (key.matches("[A-Z]")) {
 			return key;
 		}
@@ -262,11 +265,29 @@ public class ContactActivity extends Activity {
 	 * 
 	 */
 	private void setButton() {
-
+		int width0 = 4; // 边框宽度
+		int width1 = 20; // 外部边框距左右边界距离
+		int hight0 = 100; // 外部边框高度
+		int hight1 = hight0 - width0 * 2; // button高度
 		LinearLayout a_layout = (LinearLayout) findViewById(R.id.a_layout);
 		LayoutParams param = (LayoutParams) a_layout.getLayoutParams();
 		param.leftMargin = 20;
-		int button_width = (width - 20 * 2) / 4;
+		param.rightMargin = 20;
+		param.topMargin = 10;
+		param.bottomMargin = 10;
+		param.height = hight0;
+
+		view1 = (Button) findViewById(R.id.view_1);
+		view2 = (Button) findViewById(R.id.view_2);
+		view3 = (Button) findViewById(R.id.view_3);
+		view1.setWidth(width0);
+		view2.setWidth(width0);
+		view3.setWidth(width0);
+		view1.setHeight(hight1);
+		view2.setHeight(hight1);
+		view3.setHeight(hight1);
+
+		int button_width = (width - width1 * 2 - 5 * width0) / 4;
 		button_all = (Button) findViewById(R.id.button_all);
 		button_recently = (Button) findViewById(R.id.button_recently);
 		button_trading = (Button) findViewById(R.id.button_trading);
@@ -277,9 +298,60 @@ public class ContactActivity extends Activity {
 		btnList.add(button_subscription);
 		for (int i = 0; i < btnList.size(); i++) {
 			btnList.get(i).setWidth(button_width);
-//			
-			
+			btnList.get(i).setHeight(hight1);
+			//
+
 		}
-//		button_all.setOnClickListener(listener);
+		button_all.setOnClickListener(listener_0);
+		button_recently.setOnClickListener(listener_1);
+		button_trading.setOnClickListener(listener_2);
+		button_subscription.setOnClickListener(listener_3);
+	}
+
+	private View.OnClickListener listener_0 = new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			buttonNumber = 0;
+			setButtonColor(buttonNumber);
+		}
+	};
+	private View.OnClickListener listener_1 = new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			buttonNumber = 1;
+			setButtonColor(buttonNumber);
+		}
+	};	private View.OnClickListener listener_2 = new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			buttonNumber = 2;
+			setButtonColor(buttonNumber);
+		}
+	};	private View.OnClickListener listener_3 = new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			buttonNumber = 3;
+			setButtonColor(buttonNumber);
+		}
+	};
+	private void setButtonColor(int buttonNumber) {
+		btnList.get(0).setBackgroundResource(R.drawable.left_shape_white);
+		btnList.get(1).setBackgroundResource(R.drawable.middle_shape_white);
+		btnList.get(2).setBackgroundResource(R.drawable.middle_shape_white);
+		btnList.get(3).setBackgroundResource(R.drawable.right_shape_white);
+		switch (buttonNumber) {
+		case 0:
+			btnList.get(buttonNumber).setBackgroundResource(R.drawable.left_shape_red);
+			break;
+		case 1:
+		case 2:
+			btnList.get(buttonNumber).setBackgroundResource(R.drawable.middle_shape_red);
+			break;
+		case 3:
+			btnList.get(buttonNumber).setBackgroundResource(R.drawable.right_shape_red);
+			break;
+		default:
+			break;
+		}
 	}
 }
