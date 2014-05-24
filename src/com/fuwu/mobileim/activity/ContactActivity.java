@@ -80,6 +80,7 @@ public class ContactActivity extends Activity {
 	 * 存储所有手机中的联系人
 	 */
 	private List<ContactPojo> contacts = new ArrayList<ContactPojo>();
+	private List<ContactPojo> contacts2 = new ArrayList<ContactPojo>();
 
 	/**
 	 * 定义字母表的排序规则
@@ -136,9 +137,17 @@ public class ContactActivity extends Activity {
 				ContactPojo contact = new ContactPojo();
 				contact.setName(name);
 				contact.setSortKey(sortKey);
-				contacts.add(contact);
+//				if (sortKey.equals("#")) {
+//					contacts2.add(contact);
+//				}else {
+					contacts.add(contact);
+//				}
+				
 			} while (cursor.moveToNext());
 		}
+//		for (int i = 0; i < contacts2.size(); i++) {
+//			contacts.add(contacts2.get(i));
+//		}
 		startManagingCursor(cursor);
 		indexer = new AlphabetIndexer(cursor, 1, alphabet);
 		adapter.setIndexer(indexer);
