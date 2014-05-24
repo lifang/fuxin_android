@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -119,6 +120,9 @@ public class ContactActivity extends Activity {
 					int position, long id) {
 				Toast.makeText(getApplicationContext(), "跳转到对话界面" + position,
 						Toast.LENGTH_LONG).show();
+				Intent intentp = new Intent();
+				intentp.setClass(ContactActivity.this, ContactActivity.class);//
+				startActivityForResult(intentp, 0);
 			}
 		});
 		Uri uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
@@ -267,7 +271,7 @@ public class ContactActivity extends Activity {
 	private void setButton() {
 		int width0 = 4; // 边框宽度
 		int width1 = 20; // 外部边框距左右边界距离
-		int hight0 = 100; // 外部边框高度
+		int hight0 = 80; // 外部边框高度
 		int hight1 = hight0 - width0 * 2; // button高度
 		LinearLayout a_layout = (LinearLayout) findViewById(R.id.a_layout);
 		LayoutParams param = (LayoutParams) a_layout.getLayoutParams();
@@ -299,8 +303,6 @@ public class ContactActivity extends Activity {
 		for (int i = 0; i < btnList.size(); i++) {
 			btnList.get(i).setWidth(button_width);
 			btnList.get(i).setHeight(hight1);
-			//
-
 		}
 		button_all.setOnClickListener(listener_0);
 		button_recently.setOnClickListener(listener_1);

@@ -120,5 +120,6 @@
     <color name="holo_blue">#FF33E5B5</color>
     <color name="address_book_buttoncolor_red">#D0151C</color>
     <color name="address_book_buttoncolor_white">#FFFFFF</color>
-
+    
+    
 </resources>

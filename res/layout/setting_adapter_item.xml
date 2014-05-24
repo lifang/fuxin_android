@@ -1,0 +1,61 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dip"
+        android:background="@color/white" >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30dp"
+            android:src="@drawable/icon" />
+
+        <TextView
+            android:id="@+id/titleStr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="34dp"
+            android:layout_toRightOf="@+id/imageView1"
+            android:text="aaaaaaaaa"
+            android:textColor="#333333"
+            android:textSize="30px" />
+
+        <ImageView
+            android:id="@+id/gou"
+            android:layout_width="50px"
+            android:layout_height="30px"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="22dp"
+            android:background="@drawable/gou" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" >
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#E1E1E1" />
+
+        <View
+            android:id="@+id/item_thicklines"
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:visibility="gone"
+            android:background="#C9C9C9" />
+    </RelativeLayout>
+
+</RelativeLayout>
