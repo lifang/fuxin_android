@@ -86,10 +86,10 @@ public class SettingsActivity extends Activity {
 //			startActivity(intent);
 			break;
 		case 4://屏蔽管理
-			Toast.makeText(getApplicationContext(), "屏蔽管理" ,
-					Toast.LENGTH_LONG).show();
-//			Intent intent = new Intent (SettingsActivity.this,SettingsActivity.class);			
-//			startActivity(intent);
+//			Toast.makeText(getApplicationContext(), "屏蔽管理" ,
+//					Toast.LENGTH_LONG).show();
+			Intent intent = new Intent (SettingsActivity.this,BlockManagementActivity.class);			
+			startActivity(intent);
 			break;
 		case 5://系统公告管理
 			Toast.makeText(getApplicationContext(), "系统公告管理" ,
@@ -140,17 +140,26 @@ public class SettingsActivity extends Activity {
 			} else {
 				layout = (RelativeLayout) convertView;
 			}
-			ImageView im = (ImageView) layout.findViewById(R.id.imageView1);
+			ImageView im = (ImageView) layout.findViewById(R.id.setting_adapter_item_iv);
 			TextView titleStr = (TextView) layout.findViewById(R.id.titleStr);
 			Resources resources = getResources();
 			im.setImageResource(icon[position]);
 			titleStr.setText(titleArr[position]);
-			if (position==5) {
-				View view  = (View)layout.findViewById(R.id.item_thicklines);
-				view.setVisibility(View.VISIBLE);
-			}
+			RelativeLayout re = (RelativeLayout) layout.findViewById(R.id.notice_sign);
+			TextView te = (TextView) layout.findViewById(R.id.notice_number);
 			
-
+			if (position==5) {
+//				如果有通知，则显示通知数目
+				if (true) {
+					te.setText("4");
+				}else {
+					re.setVisibility(View.GONE);
+				}
+			}else { //  当前postion 不为5时，隐藏黑色线条和圆形红色块
+				View view  = (View)layout.findViewById(R.id.item_thicklines);
+				view.setVisibility(View.GONE);
+				re.setVisibility(View.GONE);
+			}
 			return layout;
 		}
 	}

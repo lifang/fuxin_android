@@ -10,8 +10,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/out_button_shape"
-        android:paddingLeft="2dp"
-         >
+        android:paddingLeft="2dp" >
 
         <Button
             android:id="@+id/button_all"
@@ -76,14 +75,15 @@
         android:scrollbars="none" >
     </ListView>
 
-    <Button
-        android:id="@+id/alphabetButton"
-        android:layout_width="wrap_content"
-        android:layout_height="550dip"
+
+
+    <com.fuwu.mobileim.view.SideBar
+        android:id="@+id/sidrbar"
+        android:layout_width="30.0dip"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/a_layout"
-        android:layout_marginRight="20px"
-        android:background="@drawable/a_z" />
+        android:layout_height="fill_parent"
+        android:layout_gravity="right|center" />
 
     <RelativeLayout
         android:id="@+id/section_toast_layout"

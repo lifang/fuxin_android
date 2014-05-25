@@ -14,4 +14,6 @@
     <string name="button_recently">最近</string>
     <string name="button_trading">交易</string>
     <string name="button_subscription">订阅</string>
+    <string name="block_management">屏蔽管理</string>
+    <string name="restore">恢复</string>
 </resources>

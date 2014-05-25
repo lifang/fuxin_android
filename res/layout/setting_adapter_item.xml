@@ -9,7 +9,7 @@
         android:background="@color/white" >
 
         <ImageView
-            android:id="@+id/imageView1"
+            android:id="@+id/setting_adapter_item_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -22,11 +22,37 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="34dp"
-            android:layout_toRightOf="@+id/imageView1"
+            android:layout_marginLeft="64dp"
+            android:layout_toRightOf="@+id/setting_adapter_item_iv"
             android:text="aaaaaaaaa"
             android:textColor="#333333"
             android:textSize="30px" />
+
+        <RelativeLayout
+            android:id="@+id/notice_sign"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/titleStr"
+            android:layout_marginLeft="20dp"
+            android:background="@color/white" >
+
+            <ImageView
+                android:layout_width="40px"
+                android:layout_height="40px"
+                android:layout_centerVertical="true"
+                android:background="@drawable/setting_notice_sign" />
+
+            <TextView
+                android:id="@+id/notice_number"
+                android:layout_width="40px"
+                android:layout_height="40px"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:text="3"
+                android:textColor="@color/white"
+                android:textSize="30px" />
+        </RelativeLayout>
 
         <ImageView
             android:id="@+id/gou"
@@ -54,7 +80,6 @@
             android:id="@+id/item_thicklines"
             android:layout_width="fill_parent"
             android:layout_height="2dp"
-            android:visibility="gone"
             android:background="#C9C9C9" />
     </RelativeLayout>
 
