@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,14 +18,19 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.comdo.fuxun.R;
+import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.view.CircularImage;
+import com.fuwu.mobileim.view.MyDialog;
 
+/**
+ * 作者: 张秀楠 时间：2014-5-23 下午4:34:44
+ */
 public class TalkActivity extends Activity {
 	private ListView mListView;
 	private myListViewAdapter clvAdapter;
 	private List<ContactPojo> list = new ArrayList<ContactPojo>();
+	public Intent intent = new Intent();
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -46,12 +52,30 @@ public class TalkActivity extends Activity {
 		mListView.setOnItemLongClickListener(new OnItemLongClickListener() {
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-				Toast.makeText(TalkActivity.this, "长按:" + arg2,
-						Toast.LENGTH_SHORT).show();
+				showLoginDialog(arg2);
 				return false;
 			}
 		});
 
+	}
+
+	private void showLoginDialog(int item) {
+		View view = getLayoutInflater().inflate(R.layout.talk_builder, null);
+		final TextView btnYes = (TextView) view.findViewById(R.id.name);
+		btnYes.setText(list.get(item).getName());
+		final TextView del = (TextView) view.findViewById(R.id.del_talk);
+		// 设置对话框显示的View
+		// 点击确定是的监听
+		final MyDialog builder = new MyDialog(TalkActivity.this, 0, 0, view,
+				R.style.mydialog);
+		del.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View arg0) {
+				Toast.makeText(TalkActivity.this, "删除成功！", Toast.LENGTH_SHORT)
+						.show();
+				builder.dismiss();
+			}
+		});
+		builder.show();
 	}
 
 	public class myListViewAdapter extends BaseAdapter {

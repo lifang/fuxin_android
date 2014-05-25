@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package com.comdo.fuxun;
+package com.fuwu.mobileim;
 
 public final class R {
     public static final class array {
@@ -616,9 +616,9 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int comment_nick_name=0x7f06005b;
         public static final int contact_category_text=0x7f060031;
         public static final int contact_category_text_focused=0x7f060032;
-        public static final int default_circle_indicator_fill_color=0x7f060074;
-        public static final int default_circle_indicator_page_color=0x7f060075;
-        public static final int default_circle_indicator_stroke_color=0x7f060076;
+        public static final int default_circle_indicator_fill_color=0x7f060075;
+        public static final int default_circle_indicator_page_color=0x7f060076;
+        public static final int default_circle_indicator_stroke_color=0x7f060077;
         public static final int doodle_bg=0x7f06001c;
         public static final int emo_item_sel=0x7f060046;
         public static final int feed_image_background_color=0x7f060060;
@@ -649,6 +649,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int myfeed_item_praise_text=0x7f060066;
         public static final int no_auto_reply_normal=0x7f060044;
         public static final int no_auto_reply_press=0x7f060045;
+        public static final int qianhui=0x7f060074;
         public static final int qq_normal=0x7f06001d;
         public static final int qzone_black=0x7f060048;
         public static final int qzone_feed_comm_text_un=0x7f06006b;
@@ -682,7 +683,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int search_text=0x7f06001a;
         public static final int semi_transparent=0x7f060025;
         public static final int semi_transparent_w=0x7f060026;
-        public static final int send_btn_textcolor=0x7f060077;
+        public static final int send_btn_textcolor=0x7f060078;
         public static final int setting_bg=0x7f060043;
         public static final int setting_text1=0x7f060041;
         public static final int setting_text2=0x7f060042;
@@ -884,158 +885,185 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int icon=0x7f0200a0;
         public static final int left_shape_red=0x7f0200a1;
         public static final int left_shape_white=0x7f0200a2;
-        public static final int middle_shape_red=0x7f0200a3;
-        public static final int middle_shape_white=0x7f0200a4;
-        public static final int other=0x7f0200a5;
-        public static final int out_button_shape=0x7f0200a6;
-        public static final int pic=0x7f0200a7;
-        public static final int pic_hover=0x7f0200a8;
-        public static final int plus=0x7f0200a9;
-        public static final int plus_hover=0x7f0200aa;
-        public static final int pop_btn_face_selector=0x7f0200ab;
-        public static final int progress_horizontal=0x7f0200ac;
-        public static final int progress_horizontal1=0x7f0200ad;
-        public static final int progress_receivepic=0x7f0200ae;
-        public static final int qzone_progressbar_drawable_default=0x7f0200af;
-        public static final int restore_button_shape=0x7f0200b0;
-        public static final int right_shape_red=0x7f0200b1;
-        public static final int right_shape_white=0x7f0200b2;
-        public static final int sc_horizontalprogress=0x7f0200b3;
-        public static final int section_toast=0x7f0200b4;
-        public static final int send=0x7f0200b5;
-        public static final int send_hover=0x7f0200b6;
-        public static final int setting_image1=0x7f0200b7;
-        public static final int setting_image2=0x7f0200b8;
-        public static final int setting_image3=0x7f0200b9;
-        public static final int setting_image4=0x7f0200ba;
-        public static final int setting_image5=0x7f0200bb;
-        public static final int setting_image6=0x7f0200bc;
-        public static final int setting_image7=0x7f0200bd;
-        public static final int setting_notice_sign=0x7f0200be;
-        public static final int shadow_bottom=0x7f0200bf;
-        public static final int shadow_left=0x7f0200c0;
-        public static final int shadow_right=0x7f0200c1;
-        public static final int shape=0x7f0200c2;
-        public static final int sidebar_background=0x7f0200c3;
-        public static final int test=0x7f0200c4;
-        public static final int testimg=0x7f0200c5;
-        public static final int trans=0x7f0200c8;
-        public static final int yue=0x7f0200c6;
-        public static final int yue_icon=0x7f0200c7;
+        public static final int login_btn=0x7f0200a3;
+        public static final int middle_shape_red=0x7f0200a4;
+        public static final int middle_shape_white=0x7f0200a5;
+        public static final int other=0x7f0200a6;
+        public static final int out_button_shape=0x7f0200a7;
+        public static final int pic=0x7f0200a8;
+        public static final int pic_hover=0x7f0200a9;
+        public static final int plus=0x7f0200aa;
+        public static final int plus_hover=0x7f0200ab;
+        public static final int pop_btn_face_selector=0x7f0200ac;
+        public static final int progress_horizontal=0x7f0200ad;
+        public static final int progress_horizontal1=0x7f0200ae;
+        public static final int progress_receivepic=0x7f0200af;
+        public static final int qzone_progressbar_drawable_default=0x7f0200b0;
+        public static final int restore_button_shape=0x7f0200b1;
+        public static final int right_shape_red=0x7f0200b2;
+        public static final int right_shape_white=0x7f0200b3;
+        public static final int sc_horizontalprogress=0x7f0200b4;
+        public static final int section_toast=0x7f0200b5;
+        public static final int send=0x7f0200b6;
+        public static final int send_hover=0x7f0200b7;
+        public static final int setting_image1=0x7f0200b8;
+        public static final int setting_image2=0x7f0200b9;
+        public static final int setting_image3=0x7f0200ba;
+        public static final int setting_image4=0x7f0200bb;
+        public static final int setting_image5=0x7f0200bc;
+        public static final int setting_image6=0x7f0200bd;
+        public static final int setting_image7=0x7f0200be;
+        public static final int setting_notice_sign=0x7f0200bf;
+        public static final int shadow_bottom=0x7f0200c0;
+        public static final int shadow_left=0x7f0200c1;
+        public static final int shadow_right=0x7f0200c2;
+        public static final int shape=0x7f0200c3;
+        public static final int sidebar_background=0x7f0200c4;
+        public static final int talk_dialog=0x7f0200c5;
+        public static final int test=0x7f0200c6;
+        public static final int testimg=0x7f0200c7;
+        public static final int trans=0x7f0200cb;
+        public static final int yuan=0x7f0200c8;
+        public static final int yue=0x7f0200c9;
+        public static final int yue_icon=0x7f0200ca;
     }
     public static final class id {
-        public static final int a_layout=0x7f05003e;
+        public static final int a_layout=0x7f05004c;
         public static final int accordion=0x7f05000b;
-        public static final int action_settings=0x7f050071;
+        public static final int action_settings=0x7f050089;
         public static final int address_tv=0x7f050020;
+        public static final int agreement=0x7f05002c;
         public static final int all=0x7f05001f;
         public static final int auto=0x7f050010;
-        public static final int block_face=0x7f050024;
-        public static final int block_management_listView=0x7f050022;
-        public static final int block_name=0x7f050025;
-        public static final int block_restore=0x7f050026;
+        public static final int block_face=0x7f050032;
+        public static final int block_management_listView=0x7f050030;
+        public static final int block_name=0x7f050033;
+        public static final int block_restore=0x7f050034;
         public static final int both=0x7f050013;
         public static final int bottom=0x7f05001e;
-        public static final int button_all=0x7f05003f;
-        public static final int button_recently=0x7f050041;
-        public static final int button_subscription=0x7f050045;
-        public static final int button_trading=0x7f050043;
-        public static final int chat_back=0x7f050021;
-        public static final int chat_datetime=0x7f050038;
-        public static final int chat_icon=0x7f050039;
-        public static final int chat_listView=0x7f050028;
-        public static final int chat_other=0x7f050027;
-        public static final int chat_plus_panel=0x7f050031;
-        public static final int chat_textView2=0x7f05003b;
-        public static final int contact_date=0x7f050053;
-        public static final int contact_img=0x7f05004e;
-        public static final int contact_lastMes=0x7f050052;
-        public static final int contact_linear=0x7f05004f;
-        public static final int contact_name=0x7f050050;
-        public static final int contact_order=0x7f050051;
-        public static final int contacts_list_view=0x7f050046;
-        public static final int content=0x7f05006f;
+        public static final int button_all=0x7f05004d;
+        public static final int button_recently=0x7f05004f;
+        public static final int button_subscription=0x7f050053;
+        public static final int button_trading=0x7f050051;
+        public static final int chat_back=0x7f05002f;
+        public static final int chat_datetime=0x7f050046;
+        public static final int chat_icon=0x7f050047;
+        public static final int chat_listView=0x7f050036;
+        public static final int chat_other=0x7f050035;
+        public static final int chat_plus_panel=0x7f05003f;
+        public static final int chat_textView2=0x7f050049;
+        public static final int contact_date=0x7f050061;
+        public static final int contact_img=0x7f05005c;
+        public static final int contact_lastMes=0x7f050060;
+        public static final int contact_linear=0x7f05005d;
+        public static final int contact_name=0x7f05005e;
+        public static final int contact_order=0x7f05005f;
+        public static final int contacts_list_view=0x7f050054;
+        public static final int content=0x7f050086;
         public static final int cubein=0x7f050002;
         public static final int cubeout=0x7f050003;
-        public static final int dath=0x7f050070;
+        public static final int dath=0x7f050087;
+        public static final int del_talk=0x7f050088;
         public static final int disabled=0x7f050016;
         public static final int dismiss=0x7f050015;
-        public static final int email=0x7f050054;
-        public static final int face_btn=0x7f05002a;
-        public static final int face_iv=0x7f050032;
-        public static final int face_ll=0x7f05002e;
-        public static final int face_pager=0x7f05002f;
+        public static final int exit=0x7f050022;
+        public static final int face_btn=0x7f050038;
+        public static final int face_iv=0x7f050040;
+        public static final int face_ll=0x7f05003c;
+        public static final int face_pager=0x7f05003d;
         public static final int flip=0x7f05001d;
         public static final int fliphorizontal=0x7f050005;
         public static final int flipvertical=0x7f050004;
+        public static final int forgetpwd=0x7f050066;
         public static final int fullscreen=0x7f05000f;
-        public static final int gou=0x7f05004c;
-        public static final int head=0x7f05006c;
-        public static final int huifu_item=0x7f050068;
-        public static final int indicator=0x7f050030;
-        public static final int info_buyIcon=0x7f050036;
-        public static final int info_img=0x7f050033;
-        public static final int info_name=0x7f050034;
-        public static final int info_rem=0x7f050035;
-        public static final int info_remText=0x7f050037;
-        public static final int inputBar=0x7f050029;
-        public static final int item_thicklines=0x7f05005f;
-        public static final int layout=0x7f05006b;
-        public static final int layout2=0x7f05006e;
+        public static final int gou=0x7f05005a;
+        public static final int head=0x7f050062;
+        public static final int huifu_item=0x7f050080;
+        public static final int indicator=0x7f05003e;
+        public static final int info_buyIcon=0x7f050044;
+        public static final int info_img=0x7f050041;
+        public static final int info_name=0x7f050042;
+        public static final int info_rem=0x7f050043;
+        public static final int info_remText=0x7f050045;
+        public static final int inputBar=0x7f050037;
+        public static final int item_thicklines=0x7f050077;
+        public static final int layout=0x7f050083;
+        public static final int layout2=0x7f050085;
         public static final int left=0x7f05000c;
-        public static final int main_cursor=0x7f050058;
-        public static final int main_viewPager=0x7f05005a;
+        public static final int login_btn=0x7f050064;
+        public static final int main_cursor=0x7f05006a;
+        public static final int main_viewPager=0x7f05006c;
         public static final int manualOnly=0x7f050019;
         public static final int margin=0x7f05000e;
-        public static final int menu_address_book=0x7f050056;
-        public static final int menu_settings=0x7f050057;
-        public static final int menu_talk=0x7f050055;
-        public static final int message_content=0x7f050063;
+        public static final int menu_address_book=0x7f050068;
+        public static final int menu_settings=0x7f050069;
+        public static final int menu_talk=0x7f050067;
+        public static final int message_content=0x7f05007b;
         public static final int middle=0x7f050011;
-        public static final int msg_et=0x7f05002b;
-        public static final int name=0x7f05004b;
-        public static final int name_layout=0x7f050023;
+        public static final int msg_et=0x7f050039;
+        public static final int name=0x7f050059;
+        public static final int name_layout=0x7f050031;
+        public static final int name_tag=0x7f05006d;
+        public static final int next=0x7f05002e;
         public static final int none=0x7f050012;
-        public static final int notice_number=0x7f05005e;
-        public static final int notice_sign=0x7f05005d;
-        public static final int plus_btn=0x7f05002c;
-        public static final int plus_img=0x7f05003c;
-        public static final int plus_tv=0x7f05003d;
+        public static final int notice_number=0x7f050076;
+        public static final int notice_sign=0x7f050075;
+        public static final int phone=0x7f050025;
+        public static final int phone_error=0x7f050027;
+        public static final int phone_ok=0x7f050026;
+        public static final int phone_tag=0x7f050070;
+        public static final int plus_btn=0x7f05003a;
+        public static final int plus_img=0x7f05004a;
+        public static final int plus_tv=0x7f05004b;
         public static final int pullDownFromTop=0x7f05001a;
         public static final int pullFromEnd=0x7f050018;
         public static final int pullFromStart=0x7f050017;
         public static final int pullUpFromBottom=0x7f05001b;
-        public static final int red_horizontal_line=0x7f050059;
-        public static final int relativeLayout1=0x7f05003a;
+        public static final int pwd=0x7f050023;
+        public static final int pwd_tag=0x7f05006e;
+        public static final int pwds=0x7f050024;
+        public static final int pwds_tag=0x7f05006f;
+        public static final int red_horizontal_line=0x7f05006b;
+        public static final int regist=0x7f050065;
+        public static final int regist_over=0x7f050072;
+        public static final int relativeLayout1=0x7f050048;
         public static final int reveal=0x7f050014;
         public static final int right=0x7f05000d;
         public static final int rotate=0x7f05001c;
         public static final int rotatedown=0x7f05000a;
         public static final int rotateup=0x7f050009;
-        public static final int section_toast_layout=0x7f050048;
-        public static final int section_toast_text=0x7f050049;
-        public static final int send_btn=0x7f05002d;
-        public static final int setting_adapter_item_iv=0x7f05005b;
-        public static final int setting_listview=0x7f050069;
-        public static final int setting_teachername=0x7f050065;
-        public static final int setting_top=0x7f050060;
-        public static final int setting_userface=0x7f050062;
-        public static final int setting_userface0=0x7f050061;
-        public static final int setting_userface2=0x7f050067;
-        public static final int sex_item=0x7f050066;
-        public static final int sidrbar=0x7f050047;
-        public static final int size=0x7f05006d;
-        public static final int sort_key=0x7f05004a;
+        public static final int section_toast_layout=0x7f050056;
+        public static final int section_toast_text=0x7f050057;
+        public static final int send_btn=0x7f05003b;
+        public static final int setting_adapter_item_iv=0x7f050073;
+        public static final int setting_listview=0x7f050081;
+        public static final int setting_teachername=0x7f05007d;
+        public static final int setting_top=0x7f050078;
+        public static final int setting_userface=0x7f05007a;
+        public static final int setting_userface0=0x7f050079;
+        public static final int setting_userface2=0x7f05007f;
+        public static final int sex_item=0x7f05007e;
+        public static final int sidrbar=0x7f050055;
+        public static final int size=0x7f050084;
+        public static final int sort_key=0x7f050058;
         public static final int stack=0x7f050006;
         public static final int standard=0x7f050000;
         public static final int tablet=0x7f050001;
-        public static final int talk_listview=0x7f05006a;
-        public static final int titleStr=0x7f05005c;
-        public static final int user_face=0x7f050064;
-        public static final int view_1=0x7f050040;
-        public static final int view_2=0x7f050042;
-        public static final int view_3=0x7f050044;
-        public static final int yue=0x7f05004d;
+        public static final int talk_listview=0x7f050082;
+        public static final int title=0x7f050021;
+        public static final int titleStr=0x7f050074;
+        public static final int user=0x7f050063;
+        public static final int user_face=0x7f05007c;
+        public static final int view=0x7f050028;
+        public static final int view_1=0x7f05004e;
+        public static final int view_2=0x7f050050;
+        public static final int view_3=0x7f050052;
+        public static final int xy=0x7f05002d;
+        public static final int yue=0x7f05005b;
+        public static final int yz=0x7f050029;
+        public static final int yz_error=0x7f05002b;
+        public static final int yz_send=0x7f05002a;
+        public static final int yz_tag=0x7f050071;
         public static final int zoomin=0x7f050007;
         public static final int zoomout=0x7f050008;
     }
@@ -1044,53 +1072,72 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     }
     public static final class layout {
         public static final int address_book=0x7f030000;
-        public static final int block_management=0x7f030001;
-        public static final int block_management_adapter_item=0x7f030002;
-        public static final int chat=0x7f030003;
-        public static final int chat_face=0x7f030004;
-        public static final int chat_info=0x7f030005;
-        public static final int chat_item_left=0x7f030006;
-        public static final int chat_item_right=0x7f030007;
-        public static final int chat_plus_item=0x7f030008;
-        public static final int contact_activity=0x7f030009;
-        public static final int contact_adapter_item=0x7f03000a;
-        public static final int contact_item=0x7f03000b;
-        public static final int login=0x7f03000c;
-        public static final int main=0x7f03000d;
-        public static final int setting_adapter_item=0x7f03000e;
-        public static final int settings=0x7f03000f;
-        public static final int talk=0x7f030010;
-        public static final int talk_adpter=0x7f030011;
+        public static final int backpwd=0x7f030001;
+        public static final int block_management=0x7f030002;
+        public static final int block_management_adapter_item=0x7f030003;
+        public static final int chat=0x7f030004;
+        public static final int chat_face=0x7f030005;
+        public static final int chat_info=0x7f030006;
+        public static final int chat_item_left=0x7f030007;
+        public static final int chat_item_right=0x7f030008;
+        public static final int chat_plus_item=0x7f030009;
+        public static final int contact_activity=0x7f03000a;
+        public static final int contact_adapter_item=0x7f03000b;
+        public static final int contact_item=0x7f03000c;
+        public static final int login=0x7f03000d;
+        public static final int main=0x7f03000e;
+        public static final int regist=0x7f03000f;
+        public static final int setting_adapter_item=0x7f030010;
+        public static final int settings=0x7f030011;
+        public static final int talk=0x7f030012;
+        public static final int talk_adpter=0x7f030013;
+        public static final int talk_builder=0x7f030014;
     }
     public static final class menu {
         public static final int main=0x7f0c0000;
     }
     public static final class string {
-        public static final int action_settings=0x7f0a0001;
-        public static final int address_book=0x7f0a0003;
-        public static final int app_name=0x7f0a0000;
-        public static final int block_management=0x7f0a000d;
-        public static final int button_all=0x7f0a0009;
-        public static final int button_recently=0x7f0a000a;
-        public static final int button_subscription=0x7f0a000c;
-        public static final int button_trading=0x7f0a000b;
-        public static final int fuhao=0x7f0a0008;
-        public static final int please_pwd=0x7f0a0007;
-        public static final int please_user=0x7f0a0006;
-        public static final int restore=0x7f0a000e;
-        public static final int send=0x7f0a0005;
-        public static final int settings=0x7f0a0004;
-        public static final int talk=0x7f0a0002;
+        public static final int action_settings=0x7f0a0004;
+        public static final int address_book=0x7f0a0006;
+        public static final int agreement=0x7f0a0016;
+        public static final int agreement2=0x7f0a0017;
+        public static final int app_name=0x7f0a0002;
+        public static final int back_title=0x7f0a001e;
+        public static final int block_management=0x7f0a0000;
+        public static final int button_all=0x7f0a000d;
+        public static final int button_recently=0x7f0a000e;
+        public static final int button_subscription=0x7f0a0010;
+        public static final int button_trading=0x7f0a000f;
+        public static final int delate=0x7f0a000c;
+        public static final int forgot_pwd=0x7f0a0014;
+        public static final int fuhao=0x7f0a000b;
+        public static final int login=0x7f0a0011;
+        public static final int name=0x7f0a0003;
+        public static final int next=0x7f0a0015;
+        public static final int phone_ok=0x7f0a0019;
+        public static final int please_pwd=0x7f0a000a;
+        public static final int please_user=0x7f0a0009;
+        public static final int regist=0x7f0a0012;
+        public static final int regist_error=0x7f0a0018;
+        public static final int regist_over=0x7f0a001d;
+        public static final int regist_title=0x7f0a0013;
+        public static final int restore=0x7f0a0001;
+        public static final int send=0x7f0a0008;
+        public static final int settings=0x7f0a0007;
+        public static final int talk=0x7f0a0005;
+        public static final int yz_error=0x7f0a001a;
+        public static final int yz_send=0x7f0a001b;
+        public static final int yz_sends=0x7f0a001c;
     }
     public static final class style {
-        public static final int A1_Font=0x7f0b0002;
-        public static final int A2_Font=0x7f0b0003;
-        public static final int A3_Font=0x7f0b0004;
-        public static final int A4_Font=0x7f0b0005;
-        public static final int A5_Font=0x7f0b0006;
-        public static final int A6_Font=0x7f0b0007;
-        public static final int A7_Font=0x7f0b0008;
-        public static final int A8_Font=0x7f0b0009;
+        public static final int A1_Font=0x7f0b0003;
+        public static final int A2_Font=0x7f0b0004;
+        public static final int A3_Font=0x7f0b0005;
+        public static final int A4_Font=0x7f0b0006;
+        public static final int A5_Font=0x7f0b0007;
+        public static final int A6_Font=0x7f0b0008;
+        public static final int A7_Font=0x7f0b0009;
+        public static final int A8_Font=0x7f0b000a;
         /** 
         Base application theme for API 11+. This theme completely replaces
         AppBaseTheme from res/values/styles.xml on API 11+ devices.
@@ -1103,66 +1150,67 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f0b0041;
-        public static final int B1_Font=0x7f0b000a;
-        public static final int B2_Font=0x7f0b000b;
-        public static final int B3_Font=0x7f0b000c;
-        public static final int B4_Font=0x7f0b000d;
-        public static final int B5_Font=0x7f0b000e;
-        public static final int B6_Font=0x7f0b000f;
-        public static final int B7_Font=0x7f0b0010;
-        public static final int C1_Font=0x7f0b0011;
-        public static final int C2_Font=0x7f0b0012;
-        public static final int C3_Font=0x7f0b0013;
-        public static final int C4_Font=0x7f0b0014;
-        public static final int C5_Font=0x7f0b0015;
-        public static final int C6_Font=0x7f0b0016;
-        public static final int C7_Font=0x7f0b0017;
-        public static final int CustomWindowTitleBackground=0x7f0b003c;
-        public static final int D1_Font=0x7f0b0018;
-        public static final int D2_Font=0x7f0b0019;
-        public static final int D3_Font=0x7f0b001a;
-        public static final int D4_Font=0x7f0b001b;
-        public static final int D5_Font=0x7f0b001c;
-        public static final int D6_Font=0x7f0b0001;
-        public static final int D8_Font=0x7f0b001d;
+        public static final int AppBaseTheme=0x7f0b0042;
+        public static final int B1_Font=0x7f0b000b;
+        public static final int B2_Font=0x7f0b000c;
+        public static final int B3_Font=0x7f0b000d;
+        public static final int B4_Font=0x7f0b000e;
+        public static final int B5_Font=0x7f0b000f;
+        public static final int B6_Font=0x7f0b0010;
+        public static final int B7_Font=0x7f0b0011;
+        public static final int C1_Font=0x7f0b0012;
+        public static final int C2_Font=0x7f0b0013;
+        public static final int C3_Font=0x7f0b0014;
+        public static final int C4_Font=0x7f0b0015;
+        public static final int C5_Font=0x7f0b0016;
+        public static final int C6_Font=0x7f0b0017;
+        public static final int C7_Font=0x7f0b0018;
+        public static final int CustomWindowTitleBackground=0x7f0b003d;
+        public static final int D1_Font=0x7f0b0019;
+        public static final int D2_Font=0x7f0b001a;
+        public static final int D3_Font=0x7f0b001b;
+        public static final int D4_Font=0x7f0b001c;
+        public static final int D5_Font=0x7f0b001d;
+        public static final int D6_Font=0x7f0b0002;
+        public static final int D8_Font=0x7f0b001e;
         /**  设置屏幕变暗 
          */
-        public static final int Dialog=0x7f0b0000;
-        public static final int E1_Font=0x7f0b001e;
-        public static final int E2_Font=0x7f0b001f;
-        public static final int F1_Font=0x7f0b0020;
-        public static final int G1_Font=0x7f0b0021;
-        public static final int H1_Font=0x7f0b0022;
-        public static final int I1_Font=0x7f0b0023;
-        public static final int J1_Font=0x7f0b0024;
-        public static final int K1_Font=0x7f0b0025;
-        public static final int L1_Font=0x7f0b0026;
-        public static final int M1_Font=0x7f0b0027;
-        public static final int N1_Font=0x7f0b0028;
-        public static final int O1_Font=0x7f0b0029;
-        public static final int P1_Font=0x7f0b002a;
-        public static final int P2_Font=0x7f0b002b;
-        public static final int Q1_Font=0x7f0b002c;
-        public static final int Q2_Font=0x7f0b002d;
-        public static final int Q3_Font=0x7f0b002e;
-        public static final int Q4_Font=0x7f0b002f;
-        public static final int R1_Font=0x7f0b0030;
-        public static final int RedGreen=0x7f0b003a;
-        public static final int S1_Font=0x7f0b0031;
-        public static final int S2_Font=0x7f0b0032;
-        public static final int T1_Font=0x7f0b0033;
-        public static final int T1_Outline_Font=0x7f0b0034;
-        public static final int T2_Font=0x7f0b0035;
-        public static final int T2_Outline_Font=0x7f0b0036;
-        public static final int TextAppearance_StatusBar=0x7f0b0037;
-        public static final int TextAppearance_StatusBar_EventContent=0x7f0b0038;
-        public static final int TextAppearance_StatusBar_EventContent_Title=0x7f0b0039;
-        public static final int customListView=0x7f0b003b;
-        public static final int customProgressBar=0x7f0b003e;
-        public static final int customProgressBar1=0x7f0b003f;
-        public static final int horizontalProgressBarStyle=0x7f0b0040;
-        public static final int progress_drawable_default=0x7f0b003d;
+        public static final int Dialog=0x7f0b0001;
+        public static final int E1_Font=0x7f0b001f;
+        public static final int E2_Font=0x7f0b0020;
+        public static final int F1_Font=0x7f0b0021;
+        public static final int G1_Font=0x7f0b0022;
+        public static final int H1_Font=0x7f0b0023;
+        public static final int I1_Font=0x7f0b0024;
+        public static final int J1_Font=0x7f0b0025;
+        public static final int K1_Font=0x7f0b0026;
+        public static final int L1_Font=0x7f0b0027;
+        public static final int M1_Font=0x7f0b0028;
+        public static final int N1_Font=0x7f0b0029;
+        public static final int O1_Font=0x7f0b002a;
+        public static final int P1_Font=0x7f0b002b;
+        public static final int P2_Font=0x7f0b002c;
+        public static final int Q1_Font=0x7f0b002d;
+        public static final int Q2_Font=0x7f0b002e;
+        public static final int Q3_Font=0x7f0b002f;
+        public static final int Q4_Font=0x7f0b0030;
+        public static final int R1_Font=0x7f0b0031;
+        public static final int RedGreen=0x7f0b003b;
+        public static final int S1_Font=0x7f0b0032;
+        public static final int S2_Font=0x7f0b0033;
+        public static final int T1_Font=0x7f0b0034;
+        public static final int T1_Outline_Font=0x7f0b0035;
+        public static final int T2_Font=0x7f0b0036;
+        public static final int T2_Outline_Font=0x7f0b0037;
+        public static final int TextAppearance_StatusBar=0x7f0b0038;
+        public static final int TextAppearance_StatusBar_EventContent=0x7f0b0039;
+        public static final int TextAppearance_StatusBar_EventContent_Title=0x7f0b003a;
+        public static final int customListView=0x7f0b003c;
+        public static final int customProgressBar=0x7f0b003f;
+        public static final int customProgressBar1=0x7f0b0040;
+        public static final int horizontalProgressBarStyle=0x7f0b0041;
+        public static final int mydialog=0x7f0b0000;
+        public static final int progress_drawable_default=0x7f0b003e;
     }
     public static final class styleable {
         /** Attributes that can be used with a CirclePageIndicator.
@@ -1173,13 +1221,13 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
            <tr><th>Attribute</th><th>Description</th></tr>
            <tr><td><code>{@link #CirclePageIndicator_android_background android:background}</code></td><td> View background </td></tr>
            <tr><td><code>{@link #CirclePageIndicator_android_orientation android:orientation}</code></td><td> Orientation of the indicator.</td></tr>
-           <tr><td><code>{@link #CirclePageIndicator_centered com.comdo.fuxun:centered}</code></td><td> Whether or not the indicators should be centered.</td></tr>
-           <tr><td><code>{@link #CirclePageIndicator_fillColor com.comdo.fuxun:fillColor}</code></td><td> Color of the filled circle that represents the current page.</td></tr>
-           <tr><td><code>{@link #CirclePageIndicator_pageColor com.comdo.fuxun:pageColor}</code></td><td> Color of the filled circles that represents pages.</td></tr>
-           <tr><td><code>{@link #CirclePageIndicator_radius com.comdo.fuxun:radius}</code></td><td> Radius of the circles.</td></tr>
-           <tr><td><code>{@link #CirclePageIndicator_snap com.comdo.fuxun:snap}</code></td><td> Whether or not the selected indicator snaps to the circles.</td></tr>
-           <tr><td><code>{@link #CirclePageIndicator_strokeColor com.comdo.fuxun:strokeColor}</code></td><td> Color of the open circles.</td></tr>
-           <tr><td><code>{@link #CirclePageIndicator_strokeWidth com.comdo.fuxun:strokeWidth}</code></td><td> Width of the stroke used to draw the circles.</td></tr>
+           <tr><td><code>{@link #CirclePageIndicator_centered com.fuwu.mobileim:centered}</code></td><td> Whether or not the indicators should be centered.</td></tr>
+           <tr><td><code>{@link #CirclePageIndicator_fillColor com.fuwu.mobileim:fillColor}</code></td><td> Color of the filled circle that represents the current page.</td></tr>
+           <tr><td><code>{@link #CirclePageIndicator_pageColor com.fuwu.mobileim:pageColor}</code></td><td> Color of the filled circles that represents pages.</td></tr>
+           <tr><td><code>{@link #CirclePageIndicator_radius com.fuwu.mobileim:radius}</code></td><td> Radius of the circles.</td></tr>
+           <tr><td><code>{@link #CirclePageIndicator_snap com.fuwu.mobileim:snap}</code></td><td> Whether or not the selected indicator snaps to the circles.</td></tr>
+           <tr><td><code>{@link #CirclePageIndicator_strokeColor com.fuwu.mobileim:strokeColor}</code></td><td> Color of the open circles.</td></tr>
+           <tr><td><code>{@link #CirclePageIndicator_strokeWidth com.fuwu.mobileim:strokeWidth}</code></td><td> Width of the stroke used to draw the circles.</td></tr>
            </table>
            @see #CirclePageIndicator_android_background
            @see #CirclePageIndicator_android_orientation
@@ -1227,7 +1275,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.comdo.fuxun:centered
+          @attr name com.fuwu.mobileim:centered
         */
         public static final int CirclePageIndicator_centered = 2;
         /**
@@ -1244,7 +1292,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.comdo.fuxun:fillColor
+          @attr name com.fuwu.mobileim:fillColor
         */
         public static final int CirclePageIndicator_fillColor = 4;
         /**
@@ -1261,7 +1309,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.comdo.fuxun:pageColor
+          @attr name com.fuwu.mobileim:pageColor
         */
         public static final int CirclePageIndicator_pageColor = 5;
         /**
@@ -1279,7 +1327,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.comdo.fuxun:radius
+          @attr name com.fuwu.mobileim:radius
         */
         public static final int CirclePageIndicator_radius = 6;
         /**
@@ -1295,7 +1343,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.comdo.fuxun:snap
+          @attr name com.fuwu.mobileim:snap
         */
         public static final int CirclePageIndicator_snap = 7;
         /**
@@ -1312,7 +1360,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.comdo.fuxun:strokeColor
+          @attr name com.fuwu.mobileim:strokeColor
         */
         public static final int CirclePageIndicator_strokeColor = 8;
         /**
@@ -1330,7 +1378,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.comdo.fuxun:strokeWidth
+          @attr name com.fuwu.mobileim:strokeWidth
         */
         public static final int CirclePageIndicator_strokeWidth = 3;
         /** Attributes that can be used with a JazzyViewPager.
@@ -1339,10 +1387,10 @@ containing a value of this type.
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #JazzyViewPager_fadeJazzEnabled com.comdo.fuxun:fadeJazzEnabled}</code></td><td></td></tr>
-           <tr><td><code>{@link #JazzyViewPager_outlineColor com.comdo.fuxun:outlineColor}</code></td><td></td></tr>
-           <tr><td><code>{@link #JazzyViewPager_outlineEnabled com.comdo.fuxun:outlineEnabled}</code></td><td></td></tr>
-           <tr><td><code>{@link #JazzyViewPager_style com.comdo.fuxun:style}</code></td><td></td></tr>
+           <tr><td><code>{@link #JazzyViewPager_fadeJazzEnabled com.fuwu.mobileim:fadeJazzEnabled}</code></td><td></td></tr>
+           <tr><td><code>{@link #JazzyViewPager_outlineColor com.fuwu.mobileim:outlineColor}</code></td><td></td></tr>
+           <tr><td><code>{@link #JazzyViewPager_outlineEnabled com.fuwu.mobileim:outlineEnabled}</code></td><td></td></tr>
+           <tr><td><code>{@link #JazzyViewPager_style com.fuwu.mobileim:style}</code></td><td></td></tr>
            </table>
            @see #JazzyViewPager_fadeJazzEnabled
            @see #JazzyViewPager_outlineColor
@@ -1353,7 +1401,7 @@ containing a value of this type.
             0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003
         };
         /**
-          <p>This symbol is the offset where the {@link com.comdo.fuxun.R.attr#fadeJazzEnabled}
+          <p>This symbol is the offset where the {@link com.fuwu.mobileim.R.attr#fadeJazzEnabled}
           attribute's value can be found in the {@link #JazzyViewPager} array.
 
 
@@ -1363,11 +1411,11 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.comdo.fuxun:fadeJazzEnabled
+          @attr name com.fuwu.mobileim:fadeJazzEnabled
         */
         public static final int JazzyViewPager_fadeJazzEnabled = 1;
         /**
-          <p>This symbol is the offset where the {@link com.comdo.fuxun.R.attr#outlineColor}
+          <p>This symbol is the offset where the {@link com.fuwu.mobileim.R.attr#outlineColor}
           attribute's value can be found in the {@link #JazzyViewPager} array.
 
 
@@ -1375,11 +1423,11 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
 <p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
-          @attr name com.comdo.fuxun:outlineColor
+          @attr name com.fuwu.mobileim:outlineColor
         */
         public static final int JazzyViewPager_outlineColor = 3;
         /**
-          <p>This symbol is the offset where the {@link com.comdo.fuxun.R.attr#outlineEnabled}
+          <p>This symbol is the offset where the {@link com.fuwu.mobileim.R.attr#outlineEnabled}
           attribute's value can be found in the {@link #JazzyViewPager} array.
 
 
@@ -1389,11 +1437,11 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.comdo.fuxun:outlineEnabled
+          @attr name com.fuwu.mobileim:outlineEnabled
         */
         public static final int JazzyViewPager_outlineEnabled = 2;
         /**
-          <p>This symbol is the offset where the {@link com.comdo.fuxun.R.attr#style}
+          <p>This symbol is the offset where the {@link com.fuwu.mobileim.R.attr#style}
           attribute's value can be found in the {@link #JazzyViewPager} array.
 
 
@@ -1416,7 +1464,7 @@ containing a value of this type.
 <tr><td><code>rotatedown</code></td><td>10</td><td></td></tr>
 <tr><td><code>accordion</code></td><td>11</td><td></td></tr>
 </table>
-          @attr name com.comdo.fuxun:style
+          @attr name com.fuwu.mobileim:style
         */
         public static final int JazzyViewPager_style = 0;
         /** Attributes that can be used with a PullToRefresh.
@@ -1425,27 +1473,27 @@ containing a value of this type.
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #PullToRefresh_ptrAdapterViewBackground com.comdo.fuxun:ptrAdapterViewBackground}</code></td><td> BELOW HERE ARE DEPRECEATED.</td></tr>
-           <tr><td><code>{@link #PullToRefresh_ptrAnimationStyle com.comdo.fuxun:ptrAnimationStyle}</code></td><td> Style of Animation should be used displayed when pulling.</td></tr>
-           <tr><td><code>{@link #PullToRefresh_ptrDrawable com.comdo.fuxun:ptrDrawable}</code></td><td> Drawable to use as Loading Indicator.</td></tr>
-           <tr><td><code>{@link #PullToRefresh_ptrDrawableBottom com.comdo.fuxun:ptrDrawableBottom}</code></td><td></td></tr>
-           <tr><td><code>{@link #PullToRefresh_ptrDrawableEnd com.comdo.fuxun:ptrDrawableEnd}</code></td><td> Drawable to use as Loading Indicator in the Footer View.</td></tr>
-           <tr><td><code>{@link #PullToRefresh_ptrDrawableStart com.comdo.fuxun:ptrDrawableStart}</code></td><td> Drawable to use as Loading Indicator in the Header View.</td></tr>
-           <tr><td><code>{@link #PullToRefresh_ptrDrawableTop com.comdo.fuxun:ptrDrawableTop}</code></td><td></td></tr>
-           <tr><td><code>{@link #PullToRefresh_ptrHeaderBackground com.comdo.fuxun:ptrHeaderBackground}</code></td><td> A drawable to use as the background of the Header and Footer Loading Views </td></tr>
-           <tr><td><code>{@link #PullToRefresh_ptrHeaderSubTextColor com.comdo.fuxun:ptrHeaderSubTextColor}</code></td><td> Text Color of the Header and Footer Loading Views Sub Header </td></tr>
-           <tr><td><code>{@link #PullToRefresh_ptrHeaderTextAppearance com.comdo.fuxun:ptrHeaderTextAppearance}</code></td><td> Base text color, typeface, size, and style for Header and Footer Loading Views </td></tr>
-           <tr><td><code>{@link #PullToRefresh_ptrHeaderTextColor com.comdo.fuxun:ptrHeaderTextColor}</code></td><td> Text Color of the Header and Footer Loading Views </td></tr>
-           <tr><td><code>{@link #PullToRefresh_ptrListViewExtrasEnabled com.comdo.fuxun:ptrListViewExtrasEnabled}</code></td><td>
+           <tr><td><code>{@link #PullToRefresh_ptrAdapterViewBackground com.fuwu.mobileim:ptrAdapterViewBackground}</code></td><td> BELOW HERE ARE DEPRECEATED.</td></tr>
+           <tr><td><code>{@link #PullToRefresh_ptrAnimationStyle com.fuwu.mobileim:ptrAnimationStyle}</code></td><td> Style of Animation should be used displayed when pulling.</td></tr>
+           <tr><td><code>{@link #PullToRefresh_ptrDrawable com.fuwu.mobileim:ptrDrawable}</code></td><td> Drawable to use as Loading Indicator.</td></tr>
+           <tr><td><code>{@link #PullToRefresh_ptrDrawableBottom com.fuwu.mobileim:ptrDrawableBottom}</code></td><td></td></tr>
+           <tr><td><code>{@link #PullToRefresh_ptrDrawableEnd com.fuwu.mobileim:ptrDrawableEnd}</code></td><td> Drawable to use as Loading Indicator in the Footer View.</td></tr>
+           <tr><td><code>{@link #PullToRefresh_ptrDrawableStart com.fuwu.mobileim:ptrDrawableStart}</code></td><td> Drawable to use as Loading Indicator in the Header View.</td></tr>
+           <tr><td><code>{@link #PullToRefresh_ptrDrawableTop com.fuwu.mobileim:ptrDrawableTop}</code></td><td></td></tr>
+           <tr><td><code>{@link #PullToRefresh_ptrHeaderBackground com.fuwu.mobileim:ptrHeaderBackground}</code></td><td> A drawable to use as the background of the Header and Footer Loading Views </td></tr>
+           <tr><td><code>{@link #PullToRefresh_ptrHeaderSubTextColor com.fuwu.mobileim:ptrHeaderSubTextColor}</code></td><td> Text Color of the Header and Footer Loading Views Sub Header </td></tr>
+           <tr><td><code>{@link #PullToRefresh_ptrHeaderTextAppearance com.fuwu.mobileim:ptrHeaderTextAppearance}</code></td><td> Base text color, typeface, size, and style for Header and Footer Loading Views </td></tr>
+           <tr><td><code>{@link #PullToRefresh_ptrHeaderTextColor com.fuwu.mobileim:ptrHeaderTextColor}</code></td><td> Text Color of the Header and Footer Loading Views </td></tr>
+           <tr><td><code>{@link #PullToRefresh_ptrListViewExtrasEnabled com.fuwu.mobileim:ptrListViewExtrasEnabled}</code></td><td>
         	Whether PullToRefreshListView has it's extras enabled.</td></tr>
-           <tr><td><code>{@link #PullToRefresh_ptrMode com.comdo.fuxun:ptrMode}</code></td><td> Mode of Pull-to-Refresh that should be used </td></tr>
-           <tr><td><code>{@link #PullToRefresh_ptrOverScroll com.comdo.fuxun:ptrOverScroll}</code></td><td> Whether Android's built-in Over Scroll should be utilised for Pull-to-Refresh.</td></tr>
-           <tr><td><code>{@link #PullToRefresh_ptrRefreshableViewBackground com.comdo.fuxun:ptrRefreshableViewBackground}</code></td><td> A drawable to use as the background of the Refreshable View </td></tr>
-           <tr><td><code>{@link #PullToRefresh_ptrRotateDrawableWhilePulling com.comdo.fuxun:ptrRotateDrawableWhilePulling}</code></td><td>
+           <tr><td><code>{@link #PullToRefresh_ptrMode com.fuwu.mobileim:ptrMode}</code></td><td> Mode of Pull-to-Refresh that should be used </td></tr>
+           <tr><td><code>{@link #PullToRefresh_ptrOverScroll com.fuwu.mobileim:ptrOverScroll}</code></td><td> Whether Android's built-in Over Scroll should be utilised for Pull-to-Refresh.</td></tr>
+           <tr><td><code>{@link #PullToRefresh_ptrRefreshableViewBackground com.fuwu.mobileim:ptrRefreshableViewBackground}</code></td><td> A drawable to use as the background of the Refreshable View </td></tr>
+           <tr><td><code>{@link #PullToRefresh_ptrRotateDrawableWhilePulling com.fuwu.mobileim:ptrRotateDrawableWhilePulling}</code></td><td>
         	Whether the Drawable should be continually rotated as you pull.</td></tr>
-           <tr><td><code>{@link #PullToRefresh_ptrScrollingWhileRefreshingEnabled com.comdo.fuxun:ptrScrollingWhileRefreshingEnabled}</code></td><td> Whether the user can scroll while the View is Refreshing </td></tr>
-           <tr><td><code>{@link #PullToRefresh_ptrShowIndicator com.comdo.fuxun:ptrShowIndicator}</code></td><td> Whether the Indicator overlay(s) should be used </td></tr>
-           <tr><td><code>{@link #PullToRefresh_ptrSubHeaderTextAppearance com.comdo.fuxun:ptrSubHeaderTextAppearance}</code></td><td> Base text color, typeface, size, and style for Header and Footer Loading Views Sub Header </td></tr>
+           <tr><td><code>{@link #PullToRefresh_ptrScrollingWhileRefreshingEnabled com.fuwu.mobileim:ptrScrollingWhileRefreshingEnabled}</code></td><td> Whether the user can scroll while the View is Refreshing </td></tr>
+           <tr><td><code>{@link #PullToRefresh_ptrShowIndicator com.fuwu.mobileim:ptrShowIndicator}</code></td><td> Whether the Indicator overlay(s) should be used </td></tr>
+           <tr><td><code>{@link #PullToRefresh_ptrSubHeaderTextAppearance com.fuwu.mobileim:ptrSubHeaderTextAppearance}</code></td><td> Base text color, typeface, size, and style for Header and Footer Loading Views Sub Header </td></tr>
            </table>
            @see #PullToRefresh_ptrAdapterViewBackground
            @see #PullToRefresh_ptrAnimationStyle
@@ -1485,7 +1533,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
           <p>This is a private symbol.
-          @attr name com.comdo.fuxun:ptrAdapterViewBackground
+          @attr name com.fuwu.mobileim:ptrAdapterViewBackground
         */
         public static final int PullToRefresh_ptrAdapterViewBackground = 16;
         /**
@@ -1504,7 +1552,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <tr><td><code>flip</code></td><td>0x1</td><td></td></tr>
 </table>
           <p>This is a private symbol.
-          @attr name com.comdo.fuxun:ptrAnimationStyle
+          @attr name com.fuwu.mobileim:ptrAnimationStyle
         */
         public static final int PullToRefresh_ptrAnimationStyle = 12;
         /**
@@ -1516,17 +1564,17 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.comdo.fuxun:ptrDrawable
+          @attr name com.fuwu.mobileim:ptrDrawable
         */
         public static final int PullToRefresh_ptrDrawable = 6;
         /**
-          <p>This symbol is the offset where the {@link com.comdo.fuxun.R.attr#ptrDrawableBottom}
+          <p>This symbol is the offset where the {@link com.fuwu.mobileim.R.attr#ptrDrawableBottom}
           attribute's value can be found in the {@link #PullToRefresh} array.
 
 
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-          @attr name com.comdo.fuxun:ptrDrawableBottom
+          @attr name com.fuwu.mobileim:ptrDrawableBottom
         */
         public static final int PullToRefresh_ptrDrawableBottom = 18;
         /**
@@ -1538,7 +1586,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.comdo.fuxun:ptrDrawableEnd
+          @attr name com.fuwu.mobileim:ptrDrawableEnd
         */
         public static final int PullToRefresh_ptrDrawableEnd = 8;
         /**
@@ -1550,17 +1598,17 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.comdo.fuxun:ptrDrawableStart
+          @attr name com.fuwu.mobileim:ptrDrawableStart
         */
         public static final int PullToRefresh_ptrDrawableStart = 7;
         /**
-          <p>This symbol is the offset where the {@link com.comdo.fuxun.R.attr#ptrDrawableTop}
+          <p>This symbol is the offset where the {@link com.fuwu.mobileim.R.attr#ptrDrawableTop}
           attribute's value can be found in the {@link #PullToRefresh} array.
 
 
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-          @attr name com.comdo.fuxun:ptrDrawableTop
+          @attr name com.fuwu.mobileim:ptrDrawableTop
         */
         public static final int PullToRefresh_ptrDrawableTop = 17;
         /**
@@ -1574,7 +1622,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
           <p>This is a private symbol.
-          @attr name com.comdo.fuxun:ptrHeaderBackground
+          @attr name com.fuwu.mobileim:ptrHeaderBackground
         */
         public static final int PullToRefresh_ptrHeaderBackground = 1;
         /**
@@ -1588,7 +1636,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
           <p>This is a private symbol.
-          @attr name com.comdo.fuxun:ptrHeaderSubTextColor
+          @attr name com.fuwu.mobileim:ptrHeaderSubTextColor
         */
         public static final int PullToRefresh_ptrHeaderSubTextColor = 3;
         /**
@@ -1600,7 +1648,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.comdo.fuxun:ptrHeaderTextAppearance
+          @attr name com.fuwu.mobileim:ptrHeaderTextAppearance
         */
         public static final int PullToRefresh_ptrHeaderTextAppearance = 10;
         /**
@@ -1614,7 +1662,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
           <p>This is a private symbol.
-          @attr name com.comdo.fuxun:ptrHeaderTextColor
+          @attr name com.fuwu.mobileim:ptrHeaderTextColor
         */
         public static final int PullToRefresh_ptrHeaderTextColor = 2;
         /**
@@ -1631,7 +1679,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
 <p>May be a boolean value, either "<code>true</code>" or "<code>false</code>".
           <p>This is a private symbol.
-          @attr name com.comdo.fuxun:ptrListViewExtrasEnabled
+          @attr name com.fuwu.mobileim:ptrListViewExtrasEnabled
         */
         public static final int PullToRefresh_ptrListViewExtrasEnabled = 14;
         /**
@@ -1655,7 +1703,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <tr><td><code>pullUpFromBottom</code></td><td>0x2</td><td></td></tr>
 </table>
           <p>This is a private symbol.
-          @attr name com.comdo.fuxun:ptrMode
+          @attr name com.fuwu.mobileim:ptrMode
         */
         public static final int PullToRefresh_ptrMode = 4;
         /**
@@ -1668,7 +1716,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
 <p>May be a boolean value, either "<code>true</code>" or "<code>false</code>".
           <p>This is a private symbol.
-          @attr name com.comdo.fuxun:ptrOverScroll
+          @attr name com.fuwu.mobileim:ptrOverScroll
         */
         public static final int PullToRefresh_ptrOverScroll = 9;
         /**
@@ -1682,7 +1730,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
           <p>This is a private symbol.
-          @attr name com.comdo.fuxun:ptrRefreshableViewBackground
+          @attr name com.fuwu.mobileim:ptrRefreshableViewBackground
         */
         public static final int PullToRefresh_ptrRefreshableViewBackground = 0;
         /**
@@ -1698,7 +1746,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
 <p>May be a boolean value, either "<code>true</code>" or "<code>false</code>".
           <p>This is a private symbol.
-          @attr name com.comdo.fuxun:ptrRotateDrawableWhilePulling
+          @attr name com.fuwu.mobileim:ptrRotateDrawableWhilePulling
         */
         public static final int PullToRefresh_ptrRotateDrawableWhilePulling = 15;
         /**
@@ -1711,7 +1759,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
 <p>May be a boolean value, either "<code>true</code>" or "<code>false</code>".
           <p>This is a private symbol.
-          @attr name com.comdo.fuxun:ptrScrollingWhileRefreshingEnabled
+          @attr name com.fuwu.mobileim:ptrScrollingWhileRefreshingEnabled
         */
         public static final int PullToRefresh_ptrScrollingWhileRefreshingEnabled = 13;
         /**
@@ -1724,7 +1772,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
 <p>May be a boolean value, either "<code>true</code>" or "<code>false</code>".
           <p>This is a private symbol.
-          @attr name com.comdo.fuxun:ptrShowIndicator
+          @attr name com.fuwu.mobileim:ptrShowIndicator
         */
         public static final int PullToRefresh_ptrShowIndicator = 5;
         /**
@@ -1736,7 +1784,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.comdo.fuxun:ptrSubHeaderTextAppearance
+          @attr name com.fuwu.mobileim:ptrSubHeaderTextAppearance
         */
         public static final int PullToRefresh_ptrSubHeaderTextAppearance = 11;
         /**  SlidingLayer 
@@ -1745,10 +1793,10 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #SlidingLayer_close_on_tapEnabled com.comdo.fuxun:close_on_tapEnabled}</code></td><td></td></tr>
-           <tr><td><code>{@link #SlidingLayer_shadow_drawable com.comdo.fuxun:shadow_drawable}</code></td><td></td></tr>
-           <tr><td><code>{@link #SlidingLayer_shadow_width com.comdo.fuxun:shadow_width}</code></td><td></td></tr>
-           <tr><td><code>{@link #SlidingLayer_stickTo com.comdo.fuxun:stickTo}</code></td><td></td></tr>
+           <tr><td><code>{@link #SlidingLayer_close_on_tapEnabled com.fuwu.mobileim:close_on_tapEnabled}</code></td><td></td></tr>
+           <tr><td><code>{@link #SlidingLayer_shadow_drawable com.fuwu.mobileim:shadow_drawable}</code></td><td></td></tr>
+           <tr><td><code>{@link #SlidingLayer_shadow_width com.fuwu.mobileim:shadow_width}</code></td><td></td></tr>
+           <tr><td><code>{@link #SlidingLayer_stickTo com.fuwu.mobileim:stickTo}</code></td><td></td></tr>
            </table>
            @see #SlidingLayer_close_on_tapEnabled
            @see #SlidingLayer_shadow_drawable
@@ -1759,7 +1807,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
             0x7f010021, 0x7f010022, 0x7f010023, 0x7f010024
         };
         /**
-          <p>This symbol is the offset where the {@link com.comdo.fuxun.R.attr#close_on_tapEnabled}
+          <p>This symbol is the offset where the {@link com.fuwu.mobileim.R.attr#close_on_tapEnabled}
           attribute's value can be found in the {@link #SlidingLayer} array.
 
 
@@ -1769,11 +1817,11 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.comdo.fuxun:close_on_tapEnabled
+          @attr name com.fuwu.mobileim:close_on_tapEnabled
         */
         public static final int SlidingLayer_close_on_tapEnabled = 2;
         /**
-          <p>This symbol is the offset where the {@link com.comdo.fuxun.R.attr#shadow_drawable}
+          <p>This symbol is the offset where the {@link com.fuwu.mobileim.R.attr#shadow_drawable}
           attribute's value can be found in the {@link #SlidingLayer} array.
 
 
@@ -1783,11 +1831,11 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.comdo.fuxun:shadow_drawable
+          @attr name com.fuwu.mobileim:shadow_drawable
         */
         public static final int SlidingLayer_shadow_drawable = 0;
         /**
-          <p>This symbol is the offset where the {@link com.comdo.fuxun.R.attr#shadow_width}
+          <p>This symbol is the offset where the {@link com.fuwu.mobileim.R.attr#shadow_width}
           attribute's value can be found in the {@link #SlidingLayer} array.
 
 
@@ -1799,11 +1847,11 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.comdo.fuxun:shadow_width
+          @attr name com.fuwu.mobileim:shadow_width
         */
         public static final int SlidingLayer_shadow_width = 1;
         /**
-          <p>This symbol is the offset where the {@link com.comdo.fuxun.R.attr#stickTo}
+          <p>This symbol is the offset where the {@link com.fuwu.mobileim.R.attr#stickTo}
           attribute's value can be found in the {@link #SlidingLayer} array.
 
 
@@ -1818,7 +1866,7 @@ containing a value of this type.
 <tr><td><code>left</code></td><td>-2</td><td></td></tr>
 <tr><td><code>middle</code></td><td>-3</td><td></td></tr>
 </table>
-          @attr name com.comdo.fuxun:stickTo
+          @attr name com.fuwu.mobileim:stickTo
         */
         public static final int SlidingLayer_stickTo = 3;
         /**  SlidingMenu 
@@ -1827,20 +1875,20 @@ containing a value of this type.
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #SlidingMenu_behindOffset com.comdo.fuxun:behindOffset}</code></td><td></td></tr>
-           <tr><td><code>{@link #SlidingMenu_behindScrollScale com.comdo.fuxun:behindScrollScale}</code></td><td></td></tr>
-           <tr><td><code>{@link #SlidingMenu_behindWidth com.comdo.fuxun:behindWidth}</code></td><td></td></tr>
-           <tr><td><code>{@link #SlidingMenu_fadeDegree com.comdo.fuxun:fadeDegree}</code></td><td></td></tr>
-           <tr><td><code>{@link #SlidingMenu_fadeEnabled com.comdo.fuxun:fadeEnabled}</code></td><td></td></tr>
-           <tr><td><code>{@link #SlidingMenu_mode com.comdo.fuxun:mode}</code></td><td></td></tr>
-           <tr><td><code>{@link #SlidingMenu_selectorDrawable com.comdo.fuxun:selectorDrawable}</code></td><td></td></tr>
-           <tr><td><code>{@link #SlidingMenu_selectorEnabled com.comdo.fuxun:selectorEnabled}</code></td><td></td></tr>
-           <tr><td><code>{@link #SlidingMenu_shadowDrawable com.comdo.fuxun:shadowDrawable}</code></td><td></td></tr>
-           <tr><td><code>{@link #SlidingMenu_shadowWidth com.comdo.fuxun:shadowWidth}</code></td><td></td></tr>
-           <tr><td><code>{@link #SlidingMenu_touchModeAbove com.comdo.fuxun:touchModeAbove}</code></td><td></td></tr>
-           <tr><td><code>{@link #SlidingMenu_touchModeBehind com.comdo.fuxun:touchModeBehind}</code></td><td></td></tr>
-           <tr><td><code>{@link #SlidingMenu_viewAbove com.comdo.fuxun:viewAbove}</code></td><td></td></tr>
-           <tr><td><code>{@link #SlidingMenu_viewBehind com.comdo.fuxun:viewBehind}</code></td><td></td></tr>
+           <tr><td><code>{@link #SlidingMenu_behindOffset com.fuwu.mobileim:behindOffset}</code></td><td></td></tr>
+           <tr><td><code>{@link #SlidingMenu_behindScrollScale com.fuwu.mobileim:behindScrollScale}</code></td><td></td></tr>
+           <tr><td><code>{@link #SlidingMenu_behindWidth com.fuwu.mobileim:behindWidth}</code></td><td></td></tr>
+           <tr><td><code>{@link #SlidingMenu_fadeDegree com.fuwu.mobileim:fadeDegree}</code></td><td></td></tr>
+           <tr><td><code>{@link #SlidingMenu_fadeEnabled com.fuwu.mobileim:fadeEnabled}</code></td><td></td></tr>
+           <tr><td><code>{@link #SlidingMenu_mode com.fuwu.mobileim:mode}</code></td><td></td></tr>
+           <tr><td><code>{@link #SlidingMenu_selectorDrawable com.fuwu.mobileim:selectorDrawable}</code></td><td></td></tr>
+           <tr><td><code>{@link #SlidingMenu_selectorEnabled com.fuwu.mobileim:selectorEnabled}</code></td><td></td></tr>
+           <tr><td><code>{@link #SlidingMenu_shadowDrawable com.fuwu.mobileim:shadowDrawable}</code></td><td></td></tr>
+           <tr><td><code>{@link #SlidingMenu_shadowWidth com.fuwu.mobileim:shadowWidth}</code></td><td></td></tr>
+           <tr><td><code>{@link #SlidingMenu_touchModeAbove com.fuwu.mobileim:touchModeAbove}</code></td><td></td></tr>
+           <tr><td><code>{@link #SlidingMenu_touchModeBehind com.fuwu.mobileim:touchModeBehind}</code></td><td></td></tr>
+           <tr><td><code>{@link #SlidingMenu_viewAbove com.fuwu.mobileim:viewAbove}</code></td><td></td></tr>
+           <tr><td><code>{@link #SlidingMenu_viewBehind com.fuwu.mobileim:viewBehind}</code></td><td></td></tr>
            </table>
            @see #SlidingMenu_behindOffset
            @see #SlidingMenu_behindScrollScale
@@ -1864,7 +1912,7 @@ containing a value of this type.
             0x7f01001f, 0x7f010020
         };
         /**
-          <p>This symbol is the offset where the {@link com.comdo.fuxun.R.attr#behindOffset}
+          <p>This symbol is the offset where the {@link com.fuwu.mobileim.R.attr#behindOffset}
           attribute's value can be found in the {@link #SlidingMenu} array.
 
 
@@ -1876,11 +1924,11 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.comdo.fuxun:behindOffset
+          @attr name com.fuwu.mobileim:behindOffset
         */
         public static final int SlidingMenu_behindOffset = 3;
         /**
-          <p>This symbol is the offset where the {@link com.comdo.fuxun.R.attr#behindScrollScale}
+          <p>This symbol is the offset where the {@link com.fuwu.mobileim.R.attr#behindScrollScale}
           attribute's value can be found in the {@link #SlidingMenu} array.
 
 
@@ -1890,11 +1938,11 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.comdo.fuxun:behindScrollScale
+          @attr name com.fuwu.mobileim:behindScrollScale
         */
         public static final int SlidingMenu_behindScrollScale = 5;
         /**
-          <p>This symbol is the offset where the {@link com.comdo.fuxun.R.attr#behindWidth}
+          <p>This symbol is the offset where the {@link com.fuwu.mobileim.R.attr#behindWidth}
           attribute's value can be found in the {@link #SlidingMenu} array.
 
 
@@ -1906,11 +1954,11 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.comdo.fuxun:behindWidth
+          @attr name com.fuwu.mobileim:behindWidth
         */
         public static final int SlidingMenu_behindWidth = 4;
         /**
-          <p>This symbol is the offset where the {@link com.comdo.fuxun.R.attr#fadeDegree}
+          <p>This symbol is the offset where the {@link com.fuwu.mobileim.R.attr#fadeDegree}
           attribute's value can be found in the {@link #SlidingMenu} array.
 
 
@@ -1920,11 +1968,11 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.comdo.fuxun:fadeDegree
+          @attr name com.fuwu.mobileim:fadeDegree
         */
         public static final int SlidingMenu_fadeDegree = 11;
         /**
-          <p>This symbol is the offset where the {@link com.comdo.fuxun.R.attr#fadeEnabled}
+          <p>This symbol is the offset where the {@link com.fuwu.mobileim.R.attr#fadeEnabled}
           attribute's value can be found in the {@link #SlidingMenu} array.
 
 
@@ -1934,11 +1982,11 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.comdo.fuxun:fadeEnabled
+          @attr name com.fuwu.mobileim:fadeEnabled
         */
         public static final int SlidingMenu_fadeEnabled = 10;
         /**
-          <p>This symbol is the offset where the {@link com.comdo.fuxun.R.attr#mode}
+          <p>This symbol is the offset where the {@link com.fuwu.mobileim.R.attr#mode}
           attribute's value can be found in the {@link #SlidingMenu} array.
 
 
@@ -1951,21 +1999,21 @@ containing a value of this type.
 <tr><td><code>left</code></td><td>0</td><td></td></tr>
 <tr><td><code>right</code></td><td>1</td><td></td></tr>
 </table>
-          @attr name com.comdo.fuxun:mode
+          @attr name com.fuwu.mobileim:mode
         */
         public static final int SlidingMenu_mode = 0;
         /**
-          <p>This symbol is the offset where the {@link com.comdo.fuxun.R.attr#selectorDrawable}
+          <p>This symbol is the offset where the {@link com.fuwu.mobileim.R.attr#selectorDrawable}
           attribute's value can be found in the {@link #SlidingMenu} array.
 
 
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-          @attr name com.comdo.fuxun:selectorDrawable
+          @attr name com.fuwu.mobileim:selectorDrawable
         */
         public static final int SlidingMenu_selectorDrawable = 13;
         /**
-          <p>This symbol is the offset where the {@link com.comdo.fuxun.R.attr#selectorEnabled}
+          <p>This symbol is the offset where the {@link com.fuwu.mobileim.R.attr#selectorEnabled}
           attribute's value can be found in the {@link #SlidingMenu} array.
 
 
@@ -1975,21 +2023,21 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.comdo.fuxun:selectorEnabled
+          @attr name com.fuwu.mobileim:selectorEnabled
         */
         public static final int SlidingMenu_selectorEnabled = 12;
         /**
-          <p>This symbol is the offset where the {@link com.comdo.fuxun.R.attr#shadowDrawable}
+          <p>This symbol is the offset where the {@link com.fuwu.mobileim.R.attr#shadowDrawable}
           attribute's value can be found in the {@link #SlidingMenu} array.
 
 
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-          @attr name com.comdo.fuxun:shadowDrawable
+          @attr name com.fuwu.mobileim:shadowDrawable
         */
         public static final int SlidingMenu_shadowDrawable = 8;
         /**
-          <p>This symbol is the offset where the {@link com.comdo.fuxun.R.attr#shadowWidth}
+          <p>This symbol is the offset where the {@link com.fuwu.mobileim.R.attr#shadowWidth}
           attribute's value can be found in the {@link #SlidingMenu} array.
 
 
@@ -2001,11 +2049,11 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.comdo.fuxun:shadowWidth
+          @attr name com.fuwu.mobileim:shadowWidth
         */
         public static final int SlidingMenu_shadowWidth = 9;
         /**
-          <p>This symbol is the offset where the {@link com.comdo.fuxun.R.attr#touchModeAbove}
+          <p>This symbol is the offset where the {@link com.fuwu.mobileim.R.attr#touchModeAbove}
           attribute's value can be found in the {@link #SlidingMenu} array.
 
 
@@ -2018,11 +2066,11 @@ containing a value of this type.
 <tr><td><code>margin</code></td><td>0</td><td></td></tr>
 <tr><td><code>fullscreen</code></td><td>1</td><td></td></tr>
 </table>
-          @attr name com.comdo.fuxun:touchModeAbove
+          @attr name com.fuwu.mobileim:touchModeAbove
         */
         public static final int SlidingMenu_touchModeAbove = 6;
         /**
-          <p>This symbol is the offset where the {@link com.comdo.fuxun.R.attr#touchModeBehind}
+          <p>This symbol is the offset where the {@link com.fuwu.mobileim.R.attr#touchModeBehind}
           attribute's value can be found in the {@link #SlidingMenu} array.
 
 
@@ -2035,27 +2083,27 @@ containing a value of this type.
 <tr><td><code>margin</code></td><td>0</td><td></td></tr>
 <tr><td><code>fullscreen</code></td><td>1</td><td></td></tr>
 </table>
-          @attr name com.comdo.fuxun:touchModeBehind
+          @attr name com.fuwu.mobileim:touchModeBehind
         */
         public static final int SlidingMenu_touchModeBehind = 7;
         /**
-          <p>This symbol is the offset where the {@link com.comdo.fuxun.R.attr#viewAbove}
+          <p>This symbol is the offset where the {@link com.fuwu.mobileim.R.attr#viewAbove}
           attribute's value can be found in the {@link #SlidingMenu} array.
 
 
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-          @attr name com.comdo.fuxun:viewAbove
+          @attr name com.fuwu.mobileim:viewAbove
         */
         public static final int SlidingMenu_viewAbove = 1;
         /**
-          <p>This symbol is the offset where the {@link com.comdo.fuxun.R.attr#viewBehind}
+          <p>This symbol is the offset where the {@link com.fuwu.mobileim.R.attr#viewBehind}
           attribute's value can be found in the {@link #SlidingMenu} array.
 
 
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-          @attr name com.comdo.fuxun:viewBehind
+          @attr name com.fuwu.mobileim:viewBehind
         */
         public static final int SlidingMenu_viewBehind = 2;
         /**  SwipeBackLayout 
@@ -2064,11 +2112,11 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #SwipeBackLayout_edge_flag com.comdo.fuxun:edge_flag}</code></td><td></td></tr>
-           <tr><td><code>{@link #SwipeBackLayout_edge_size com.comdo.fuxun:edge_size}</code></td><td></td></tr>
-           <tr><td><code>{@link #SwipeBackLayout_shadow_bottom com.comdo.fuxun:shadow_bottom}</code></td><td></td></tr>
-           <tr><td><code>{@link #SwipeBackLayout_shadow_left com.comdo.fuxun:shadow_left}</code></td><td></td></tr>
-           <tr><td><code>{@link #SwipeBackLayout_shadow_right com.comdo.fuxun:shadow_right}</code></td><td></td></tr>
+           <tr><td><code>{@link #SwipeBackLayout_edge_flag com.fuwu.mobileim:edge_flag}</code></td><td></td></tr>
+           <tr><td><code>{@link #SwipeBackLayout_edge_size com.fuwu.mobileim:edge_size}</code></td><td></td></tr>
+           <tr><td><code>{@link #SwipeBackLayout_shadow_bottom com.fuwu.mobileim:shadow_bottom}</code></td><td></td></tr>
+           <tr><td><code>{@link #SwipeBackLayout_shadow_left com.fuwu.mobileim:shadow_left}</code></td><td></td></tr>
+           <tr><td><code>{@link #SwipeBackLayout_shadow_right com.fuwu.mobileim:shadow_right}</code></td><td></td></tr>
            </table>
            @see #SwipeBackLayout_edge_flag
            @see #SwipeBackLayout_edge_size
@@ -2081,7 +2129,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
             0x7f010046
         };
         /**
-          <p>This symbol is the offset where the {@link com.comdo.fuxun.R.attr#edge_flag}
+          <p>This symbol is the offset where the {@link com.fuwu.mobileim.R.attr#edge_flag}
           attribute's value can be found in the {@link #SwipeBackLayout} array.
 
 
@@ -2096,11 +2144,11 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <tr><td><code>bottom</code></td><td>2</td><td></td></tr>
 <tr><td><code>all</code></td><td>3</td><td></td></tr>
 </table>
-          @attr name com.comdo.fuxun:edge_flag
+          @attr name com.fuwu.mobileim:edge_flag
         */
         public static final int SwipeBackLayout_edge_flag = 1;
         /**
-          <p>This symbol is the offset where the {@link com.comdo.fuxun.R.attr#edge_size}
+          <p>This symbol is the offset where the {@link com.fuwu.mobileim.R.attr#edge_size}
           attribute's value can be found in the {@link #SwipeBackLayout} array.
 
 
@@ -2112,37 +2160,37 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.comdo.fuxun:edge_size
+          @attr name com.fuwu.mobileim:edge_size
         */
         public static final int SwipeBackLayout_edge_size = 0;
         /**
-          <p>This symbol is the offset where the {@link com.comdo.fuxun.R.attr#shadow_bottom}
+          <p>This symbol is the offset where the {@link com.fuwu.mobileim.R.attr#shadow_bottom}
           attribute's value can be found in the {@link #SwipeBackLayout} array.
 
 
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-          @attr name com.comdo.fuxun:shadow_bottom
+          @attr name com.fuwu.mobileim:shadow_bottom
         */
         public static final int SwipeBackLayout_shadow_bottom = 4;
         /**
-          <p>This symbol is the offset where the {@link com.comdo.fuxun.R.attr#shadow_left}
+          <p>This symbol is the offset where the {@link com.fuwu.mobileim.R.attr#shadow_left}
           attribute's value can be found in the {@link #SwipeBackLayout} array.
 
 
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-          @attr name com.comdo.fuxun:shadow_left
+          @attr name com.fuwu.mobileim:shadow_left
         */
         public static final int SwipeBackLayout_shadow_left = 2;
         /**
-          <p>This symbol is the offset where the {@link com.comdo.fuxun.R.attr#shadow_right}
+          <p>This symbol is the offset where the {@link com.fuwu.mobileim.R.attr#shadow_right}
           attribute's value can be found in the {@link #SwipeBackLayout} array.
 
 
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-          @attr name com.comdo.fuxun:shadow_right
+          @attr name com.fuwu.mobileim:shadow_right
         */
         public static final int SwipeBackLayout_shadow_right = 3;
         /**  swipe listview 
@@ -2151,16 +2199,16 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #SwipeListView_swipeActionLeft com.comdo.fuxun:swipeActionLeft}</code></td><td></td></tr>
-           <tr><td><code>{@link #SwipeListView_swipeActionRight com.comdo.fuxun:swipeActionRight}</code></td><td></td></tr>
-           <tr><td><code>{@link #SwipeListView_swipeAnimationTime com.comdo.fuxun:swipeAnimationTime}</code></td><td></td></tr>
-           <tr><td><code>{@link #SwipeListView_swipeBackView com.comdo.fuxun:swipeBackView}</code></td><td></td></tr>
-           <tr><td><code>{@link #SwipeListView_swipeCloseAllItemsWhenMoveList com.comdo.fuxun:swipeCloseAllItemsWhenMoveList}</code></td><td></td></tr>
-           <tr><td><code>{@link #SwipeListView_swipeFrontView com.comdo.fuxun:swipeFrontView}</code></td><td></td></tr>
-           <tr><td><code>{@link #SwipeListView_swipeMode com.comdo.fuxun:swipeMode}</code></td><td></td></tr>
-           <tr><td><code>{@link #SwipeListView_swipeOffsetLeft com.comdo.fuxun:swipeOffsetLeft}</code></td><td></td></tr>
-           <tr><td><code>{@link #SwipeListView_swipeOffsetRight com.comdo.fuxun:swipeOffsetRight}</code></td><td></td></tr>
-           <tr><td><code>{@link #SwipeListView_swipeOpenOnLongPress com.comdo.fuxun:swipeOpenOnLongPress}</code></td><td></td></tr>
+           <tr><td><code>{@link #SwipeListView_swipeActionLeft com.fuwu.mobileim:swipeActionLeft}</code></td><td></td></tr>
+           <tr><td><code>{@link #SwipeListView_swipeActionRight com.fuwu.mobileim:swipeActionRight}</code></td><td></td></tr>
+           <tr><td><code>{@link #SwipeListView_swipeAnimationTime com.fuwu.mobileim:swipeAnimationTime}</code></td><td></td></tr>
+           <tr><td><code>{@link #SwipeListView_swipeBackView com.fuwu.mobileim:swipeBackView}</code></td><td></td></tr>
+           <tr><td><code>{@link #SwipeListView_swipeCloseAllItemsWhenMoveList com.fuwu.mobileim:swipeCloseAllItemsWhenMoveList}</code></td><td></td></tr>
+           <tr><td><code>{@link #SwipeListView_swipeFrontView com.fuwu.mobileim:swipeFrontView}</code></td><td></td></tr>
+           <tr><td><code>{@link #SwipeListView_swipeMode com.fuwu.mobileim:swipeMode}</code></td><td></td></tr>
+           <tr><td><code>{@link #SwipeListView_swipeOffsetLeft com.fuwu.mobileim:swipeOffsetLeft}</code></td><td></td></tr>
+           <tr><td><code>{@link #SwipeListView_swipeOffsetRight com.fuwu.mobileim:swipeOffsetRight}</code></td><td></td></tr>
+           <tr><td><code>{@link #SwipeListView_swipeOpenOnLongPress com.fuwu.mobileim:swipeOpenOnLongPress}</code></td><td></td></tr>
            </table>
            @see #SwipeListView_swipeActionLeft
            @see #SwipeListView_swipeActionRight
@@ -2179,7 +2227,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
             0x7f01002d, 0x7f01002e
         };
         /**
-          <p>This symbol is the offset where the {@link com.comdo.fuxun.R.attr#swipeActionLeft}
+          <p>This symbol is the offset where the {@link com.fuwu.mobileim.R.attr#swipeActionLeft}
           attribute's value can be found in the {@link #SwipeListView} array.
 
 
@@ -2192,11 +2240,11 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <tr><td><code>reveal</code></td><td>0</td><td></td></tr>
 <tr><td><code>dismiss</code></td><td>1</td><td></td></tr>
 </table>
-          @attr name com.comdo.fuxun:swipeActionLeft
+          @attr name com.fuwu.mobileim:swipeActionLeft
         */
         public static final int SwipeListView_swipeActionLeft = 8;
         /**
-          <p>This symbol is the offset where the {@link com.comdo.fuxun.R.attr#swipeActionRight}
+          <p>This symbol is the offset where the {@link com.fuwu.mobileim.R.attr#swipeActionRight}
           attribute's value can be found in the {@link #SwipeListView} array.
 
 
@@ -2209,11 +2257,11 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <tr><td><code>reveal</code></td><td>0</td><td></td></tr>
 <tr><td><code>dismiss</code></td><td>1</td><td></td></tr>
 </table>
-          @attr name com.comdo.fuxun:swipeActionRight
+          @attr name com.fuwu.mobileim:swipeActionRight
         */
         public static final int SwipeListView_swipeActionRight = 9;
         /**
-          <p>This symbol is the offset where the {@link com.comdo.fuxun.R.attr#swipeAnimationTime}
+          <p>This symbol is the offset where the {@link com.fuwu.mobileim.R.attr#swipeAnimationTime}
           attribute's value can be found in the {@link #SwipeListView} array.
 
 
@@ -2223,21 +2271,21 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.comdo.fuxun:swipeAnimationTime
+          @attr name com.fuwu.mobileim:swipeAnimationTime
         */
         public static final int SwipeListView_swipeAnimationTime = 1;
         /**
-          <p>This symbol is the offset where the {@link com.comdo.fuxun.R.attr#swipeBackView}
+          <p>This symbol is the offset where the {@link com.fuwu.mobileim.R.attr#swipeBackView}
           attribute's value can be found in the {@link #SwipeListView} array.
 
 
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-          @attr name com.comdo.fuxun:swipeBackView
+          @attr name com.fuwu.mobileim:swipeBackView
         */
         public static final int SwipeListView_swipeBackView = 6;
         /**
-          <p>This symbol is the offset where the {@link com.comdo.fuxun.R.attr#swipeCloseAllItemsWhenMoveList}
+          <p>This symbol is the offset where the {@link com.fuwu.mobileim.R.attr#swipeCloseAllItemsWhenMoveList}
           attribute's value can be found in the {@link #SwipeListView} array.
 
 
@@ -2247,21 +2295,21 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.comdo.fuxun:swipeCloseAllItemsWhenMoveList
+          @attr name com.fuwu.mobileim:swipeCloseAllItemsWhenMoveList
         */
         public static final int SwipeListView_swipeCloseAllItemsWhenMoveList = 4;
         /**
-          <p>This symbol is the offset where the {@link com.comdo.fuxun.R.attr#swipeFrontView}
+          <p>This symbol is the offset where the {@link com.fuwu.mobileim.R.attr#swipeFrontView}
           attribute's value can be found in the {@link #SwipeListView} array.
 
 
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-          @attr name com.comdo.fuxun:swipeFrontView
+          @attr name com.fuwu.mobileim:swipeFrontView
         */
         public static final int SwipeListView_swipeFrontView = 5;
         /**
-          <p>This symbol is the offset where the {@link com.comdo.fuxun.R.attr#swipeMode}
+          <p>This symbol is the offset where the {@link com.fuwu.mobileim.R.attr#swipeMode}
           attribute's value can be found in the {@link #SwipeListView} array.
 
 
@@ -2276,11 +2324,11 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <tr><td><code>right</code></td><td>2</td><td></td></tr>
 <tr><td><code>left</code></td><td>3</td><td></td></tr>
 </table>
-          @attr name com.comdo.fuxun:swipeMode
+          @attr name com.fuwu.mobileim:swipeMode
         */
         public static final int SwipeListView_swipeMode = 7;
         /**
-          <p>This symbol is the offset where the {@link com.comdo.fuxun.R.attr#swipeOffsetLeft}
+          <p>This symbol is the offset where the {@link com.fuwu.mobileim.R.attr#swipeOffsetLeft}
           attribute's value can be found in the {@link #SwipeListView} array.
 
 
@@ -2292,11 +2340,11 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.comdo.fuxun:swipeOffsetLeft
+          @attr name com.fuwu.mobileim:swipeOffsetLeft
         */
         public static final int SwipeListView_swipeOffsetLeft = 2;
         /**
-          <p>This symbol is the offset where the {@link com.comdo.fuxun.R.attr#swipeOffsetRight}
+          <p>This symbol is the offset where the {@link com.fuwu.mobileim.R.attr#swipeOffsetRight}
           attribute's value can be found in the {@link #SwipeListView} array.
 
 
@@ -2308,11 +2356,11 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.comdo.fuxun:swipeOffsetRight
+          @attr name com.fuwu.mobileim:swipeOffsetRight
         */
         public static final int SwipeListView_swipeOffsetRight = 3;
         /**
-          <p>This symbol is the offset where the {@link com.comdo.fuxun.R.attr#swipeOpenOnLongPress}
+          <p>This symbol is the offset where the {@link com.fuwu.mobileim.R.attr#swipeOpenOnLongPress}
           attribute's value can be found in the {@link #SwipeListView} array.
 
 
@@ -2322,7 +2370,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.comdo.fuxun:swipeOpenOnLongPress
+          @attr name com.fuwu.mobileim:swipeOpenOnLongPress
         */
         public static final int SwipeListView_swipeOpenOnLongPress = 0;
         /** Attributes that can be used with a ViewPagerIndicator.
@@ -2331,12 +2379,12 @@ containing a value of this type.
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #ViewPagerIndicator_vpiCirclePageIndicatorStyle com.comdo.fuxun:vpiCirclePageIndicatorStyle}</code></td><td> Style of the circle indicator.</td></tr>
-           <tr><td><code>{@link #ViewPagerIndicator_vpiIconPageIndicatorStyle com.comdo.fuxun:vpiIconPageIndicatorStyle}</code></td><td> Style of the icon indicator's views.</td></tr>
-           <tr><td><code>{@link #ViewPagerIndicator_vpiLinePageIndicatorStyle com.comdo.fuxun:vpiLinePageIndicatorStyle}</code></td><td> Style of the line indicator.</td></tr>
-           <tr><td><code>{@link #ViewPagerIndicator_vpiTabPageIndicatorStyle com.comdo.fuxun:vpiTabPageIndicatorStyle}</code></td><td> Style of the tab indicator's tabs.</td></tr>
-           <tr><td><code>{@link #ViewPagerIndicator_vpiTitlePageIndicatorStyle com.comdo.fuxun:vpiTitlePageIndicatorStyle}</code></td><td> Style of the title indicator.</td></tr>
-           <tr><td><code>{@link #ViewPagerIndicator_vpiUnderlinePageIndicatorStyle com.comdo.fuxun:vpiUnderlinePageIndicatorStyle}</code></td><td> Style of the underline indicator.</td></tr>
+           <tr><td><code>{@link #ViewPagerIndicator_vpiCirclePageIndicatorStyle com.fuwu.mobileim:vpiCirclePageIndicatorStyle}</code></td><td> Style of the circle indicator.</td></tr>
+           <tr><td><code>{@link #ViewPagerIndicator_vpiIconPageIndicatorStyle com.fuwu.mobileim:vpiIconPageIndicatorStyle}</code></td><td> Style of the icon indicator's views.</td></tr>
+           <tr><td><code>{@link #ViewPagerIndicator_vpiLinePageIndicatorStyle com.fuwu.mobileim:vpiLinePageIndicatorStyle}</code></td><td> Style of the line indicator.</td></tr>
+           <tr><td><code>{@link #ViewPagerIndicator_vpiTabPageIndicatorStyle com.fuwu.mobileim:vpiTabPageIndicatorStyle}</code></td><td> Style of the tab indicator's tabs.</td></tr>
+           <tr><td><code>{@link #ViewPagerIndicator_vpiTitlePageIndicatorStyle com.fuwu.mobileim:vpiTitlePageIndicatorStyle}</code></td><td> Style of the title indicator.</td></tr>
+           <tr><td><code>{@link #ViewPagerIndicator_vpiUnderlinePageIndicatorStyle com.fuwu.mobileim:vpiUnderlinePageIndicatorStyle}</code></td><td> Style of the underline indicator.</td></tr>
            </table>
            @see #ViewPagerIndicator_vpiCirclePageIndicatorStyle
            @see #ViewPagerIndicator_vpiIconPageIndicatorStyle
@@ -2358,7 +2406,7 @@ containing a value of this type.
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.comdo.fuxun:vpiCirclePageIndicatorStyle
+          @attr name com.fuwu.mobileim:vpiCirclePageIndicatorStyle
         */
         public static final int ViewPagerIndicator_vpiCirclePageIndicatorStyle = 0;
         /**
@@ -2370,7 +2418,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.comdo.fuxun:vpiIconPageIndicatorStyle
+          @attr name com.fuwu.mobileim:vpiIconPageIndicatorStyle
         */
         public static final int ViewPagerIndicator_vpiIconPageIndicatorStyle = 1;
         /**
@@ -2382,7 +2430,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.comdo.fuxun:vpiLinePageIndicatorStyle
+          @attr name com.fuwu.mobileim:vpiLinePageIndicatorStyle
         */
         public static final int ViewPagerIndicator_vpiLinePageIndicatorStyle = 2;
         /**
@@ -2394,7 +2442,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.comdo.fuxun:vpiTabPageIndicatorStyle
+          @attr name com.fuwu.mobileim:vpiTabPageIndicatorStyle
         */
         public static final int ViewPagerIndicator_vpiTabPageIndicatorStyle = 4;
         /**
@@ -2406,7 +2454,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.comdo.fuxun:vpiTitlePageIndicatorStyle
+          @attr name com.fuwu.mobileim:vpiTitlePageIndicatorStyle
         */
         public static final int ViewPagerIndicator_vpiTitlePageIndicatorStyle = 3;
         /**
@@ -2418,7 +2466,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.comdo.fuxun:vpiUnderlinePageIndicatorStyle
+          @attr name com.fuwu.mobileim:vpiUnderlinePageIndicatorStyle
         */
         public static final int ViewPagerIndicator_vpiUnderlinePageIndicatorStyle = 5;
     };

@@ -1,24 +1,24 @@
 package com.fuwu.mobileim.activity;
 
 import java.util.ArrayList;
-import com.comdo.fuxun.R;
-import com.fuwu.mobileim.adapter.MainViewPagerAdapter;
 
-import android.os.Bundle;
 import android.app.Activity;
 import android.app.LocalActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Matrix;
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.DisplayMetrics;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
+
+import com.fuwu.mobileim.R;
+import com.fuwu.mobileim.adapter.MainViewPagerAdapter;
 
 /**
  * @作者 马龙

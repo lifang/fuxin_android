@@ -1,5 +1,5 @@
 /** Automatically generated file. DO NOT MODIFY */
-package com.comdo.fuxun;
+package com.fuwu.mobileim;
 
 public final class BuildConfig {
     public final static boolean DEBUG = true;

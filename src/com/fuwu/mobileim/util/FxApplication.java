@@ -2,9 +2,10 @@ package com.fuwu.mobileim.util;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import com.comdo.fuxun.R;
 
 import android.app.Application;
+
+import com.fuwu.mobileim.R;
 
 /**
  * @作者 马龙

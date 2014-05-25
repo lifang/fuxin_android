@@ -1,4 +1,4 @@
-package com.fuwu.mobileim.activity;
+﻿package com.fuwu.mobileim.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -18,12 +18,12 @@ import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.comdo.fuxun.R;
+import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.view.CircularImage;
 
 /**
  * @作者 马龙
- * @时间 创建时间：2014-5-14 下午12:06:40
+ * @时间  创建时间：2014-5-14 下午12:06:40
  */
 public class SettingsActivity extends Activity {
 

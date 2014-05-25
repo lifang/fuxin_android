@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -23,7 +24,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.comdo.fuxun.R;
+
+import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.pojo.MessagePojo;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.TimeUtil;

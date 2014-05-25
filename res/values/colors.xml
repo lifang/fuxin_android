@@ -80,7 +80,7 @@
     <color name="qzone_white">#ffffffff</color>
     <color name="qzone_transparent">#00ffffff</color>
     <color name="gray">#ff777777</color>
-    <color name="red">#ffff0000</color>
+    <color name="red">#D11B21</color>
     <color name="transparentpercent">#e5000000</color>
     <color name="lightgray">#ff555555</color>
     <color name="button_reply_normal">#ffffffff</color>
@@ -122,4 +122,6 @@
     <color name="address_book_buttoncolor_white">#FFFFFF</color>
     
     
+    <color name="qianhui">#CCCCCC</color>
+
 </resources>
