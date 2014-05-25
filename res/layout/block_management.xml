@@ -10,7 +10,7 @@
         android:background="#d11b21" >
 
         <ImageButton
-            android:id="@+id/chat_back"
+            android:id="@+id/block_management_back"
             android:layout_width="40dip"
             android:layout_height="40dip"
             android:layout_centerVertical="true"

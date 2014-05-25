@@ -21,19 +21,19 @@ import android.widget.Toast;
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.adapter.ContactAdapter;
 import com.fuwu.mobileim.pojo.ContactPojo;
+import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.view.CharacterParser;
 import com.fuwu.mobileim.view.PinyinComparator;
 import com.fuwu.mobileim.view.SideBar;
 import com.fuwu.mobileim.view.SideBar.OnTouchingLetterChangedListener;
 
 public class ContactActivity extends Activity {
+	
+	private FxApplication fxApplication;
 	private ListView sortListView;
 	private SideBar sideBar;
 	private TextView dialog;
 	private ContactAdapter adapter;
-	/**
-	 * 弹出式分组上的文字
-	 */
 	/**
 	 * 弹出式分组的布局
 	 */
@@ -65,6 +65,7 @@ public class ContactActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.contact_activity);
+		fxApplication= (FxApplication) getApplication();
 		initViews();
 		Display display = this.getWindowManager().getDefaultDisplay();
 		width = display.getWidth();
@@ -80,6 +81,7 @@ public class ContactActivity extends Activity {
 
 		// 根据a-z进行排序源数据
 		Collections.sort(SourceDateList, pinyinComparator);
+		fxApplication.setContactsList(SourceDateList);
 		sectionToastLayout = (RelativeLayout) findViewById(R.id.section_toast_layout);
 		sectionToastText = (TextView) findViewById(R.id.section_toast_text);
 
@@ -133,7 +135,7 @@ public class ContactActivity extends Activity {
 		});
 
 		
-		adapter = new ContactAdapter(this, SourceDateList);
+		adapter = new ContactAdapter(this, SourceDateList,1);
 		sortListView.setAdapter(adapter);
 
 	}
@@ -219,6 +221,8 @@ public class ContactActivity extends Activity {
 		public void onClick(View v) {
 			buttonNumber = 0;
 			setButtonColor(buttonNumber);
+			adapter = new ContactAdapter(ContactActivity.this, SourceDateList,1);
+			sortListView.setAdapter(adapter);
 		}
 	};
 	private View.OnClickListener listener_1 = new View.OnClickListener() {
@@ -226,6 +230,8 @@ public class ContactActivity extends Activity {
 		public void onClick(View v) {
 			buttonNumber = 1;
 			setButtonColor(buttonNumber);
+			adapter = new ContactAdapter(ContactActivity.this, SourceDateList,0);
+			sortListView.setAdapter(adapter);
 		}
 	};
 	private View.OnClickListener listener_2 = new View.OnClickListener() {
@@ -233,6 +239,8 @@ public class ContactActivity extends Activity {
 		public void onClick(View v) {
 			buttonNumber = 2;
 			setButtonColor(buttonNumber);
+			adapter = new ContactAdapter(ContactActivity.this, SourceDateList,0);
+			sortListView.setAdapter(adapter);
 		}
 	};
 	private View.OnClickListener listener_3 = new View.OnClickListener() {
@@ -240,6 +248,8 @@ public class ContactActivity extends Activity {
 		public void onClick(View v) {
 			buttonNumber = 3;
 			setButtonColor(buttonNumber);
+			adapter = new ContactAdapter(ContactActivity.this, SourceDateList,0);
+			sortListView.setAdapter(adapter);
 		}
 	};
 

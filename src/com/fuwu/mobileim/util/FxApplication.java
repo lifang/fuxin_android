@@ -1,11 +1,14 @@
 package com.fuwu.mobileim.util;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import android.app.Application;
 
 import com.fuwu.mobileim.R;
+import com.fuwu.mobileim.pojo.ContactPojo;
 
 /**
  * @作者 马龙
@@ -16,7 +19,9 @@ public class FxApplication extends Application {
 	public static int NUM = 20;// 每页20个表情,还有最后一个删除button
 	private Map<String, Integer> mFaceMap = new LinkedHashMap<String, Integer>();
 	private static FxApplication mApplication;
+	private List<ContactPojo> contactsList = new ArrayList<ContactPojo>();
 
+	
 	public synchronized static FxApplication getInstance() {
 		return mApplication;
 	}
@@ -28,6 +33,14 @@ public class FxApplication extends Application {
 		initFaceMap();
 	}
 
+	public List<ContactPojo> getContactsList() {
+		return contactsList;
+	}
+
+	public void setContactsList(List<ContactPojo> contactsList) {
+		this.contactsList = contactsList;
+	}
+	
 	public Map<String, Integer> getFaceMap() {
 		if (!mFaceMap.isEmpty())
 			return mFaceMap;

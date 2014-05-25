@@ -56,7 +56,7 @@ public class SideBar extends View {
 		int singleHeight = height / b.length;// 获取每一个字母的高度
 
 		for (int i = 0; i < b.length; i++) {
-			paint.setColor(Color.rgb(33, 65, 98));
+			paint.setColor(Color.rgb(201, 201, 201));
 			// paint.setColor(Color.WHITE);
 			paint.setTypeface(Typeface.DEFAULT_BOLD);
 			paint.setAntiAlias(true);
@@ -95,7 +95,7 @@ public class SideBar extends View {
 			break;
 
 		default:
-			setBackgroundResource(R.drawable.sidebar_background);
+//			setBackgroundResource(R.drawable.sidebar_background);
 			if (oldChoose != c) {
 				if (c >= 0 && c < b.length) {
 					if (listener != null) {

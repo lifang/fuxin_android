@@ -40,7 +40,7 @@ public class SettingsActivity extends Activity {
 	}
 
 	private void init() {
-		
+		RelativeLayout setting_top = (RelativeLayout) findViewById(R.id.setting_top);// 用户个人信息部分
 		RelativeLayout a_layout = (RelativeLayout) findViewById(R.id.setting_userface0);
 		CircularImage userface = (CircularImage) findViewById(R.id.setting_userface);// 头像
 		ImageView setting_sex_item = (ImageView) findViewById(R.id.setting_sex_item);// 性别
@@ -68,7 +68,17 @@ public class SettingsActivity extends Activity {
 
 			}
 		});
+		setting_top.setOnClickListener(listener1);//  给个人信息部分设置监听
 	}
+	
+	private View.OnClickListener listener1 = new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			Toast.makeText(getApplicationContext(), "跳到个人信息页面" ,
+					Toast.LENGTH_LONG).show();
+		}
+	};
+	
 	/**
 	 * 跳转到功能页面
 	 * 
@@ -76,10 +86,12 @@ public class SettingsActivity extends Activity {
 	private void jumpToActivity(int num) {
 		switch (num) {
 		case 0://新版本检测
-//			
+			Toast.makeText(getApplicationContext(), "新版本检测" ,
+					Toast.LENGTH_LONG).show();			
 			break;
 		case 1://清除全部聊天记录
-
+			Toast.makeText(getApplicationContext(), "清除全部聊天记录" ,
+					Toast.LENGTH_LONG).show();
 			break;
 		case 2://消息推送
 			Toast.makeText(getApplicationContext(), "消息推送" ,
@@ -106,7 +118,8 @@ public class SettingsActivity extends Activity {
 //			startActivity(intent);
 			break;
 		case 6://退出登录
-//			
+			Toast.makeText(getApplicationContext(), "退出登录" ,
+					Toast.LENGTH_LONG).show();
 			break;
 		default:
 			break;

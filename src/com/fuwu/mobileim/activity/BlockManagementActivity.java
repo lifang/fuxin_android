@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -29,6 +30,7 @@ import com.fuwu.mobileim.pojo.ContactPojo;
 public class BlockManagementActivity extends Activity {
 	private ListView mListView;
 	private myListViewAdapter clvAdapter;
+	private ImageButton block_management_back;// 返回按钮
 	private List<ContactPojo> list = new ArrayList<ContactPojo>();
 	private Handler handler = new Handler() {
 		/*
@@ -67,12 +69,22 @@ public class BlockManagementActivity extends Activity {
 		list.add(cp2);
 		list.add(cp3);
 		list.add(cp4);
+		block_management_back= (ImageButton) findViewById(R.id.block_management_back);
 		mListView = (ListView) findViewById(R.id.block_management_listView);
 		mListView.setDivider(null);
 		clvAdapter = new myListViewAdapter(this);
 		mListView.setAdapter(clvAdapter);
+		block_management_back.setOnClickListener(listener1);//  给返回按钮设置监听
 	}
 
+	
+	private View.OnClickListener listener1 = new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			BlockManagementActivity.this.finish();
+		}
+	};
+	
 	public class myListViewAdapter extends BaseAdapter {
 		private LayoutInflater mInflater;
 		private Context mcontext = null;
