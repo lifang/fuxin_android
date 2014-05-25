@@ -23,12 +23,12 @@
         android:background="#FFFFFF" >
 
         <com.fuwu.mobileim.view.CircularImage
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dip"
             android:layout_marginRight="10dip"
-            android:src="@drawable/icon" />
+            android:src="@drawable/moren" />
 
         <TextView
             android:id="@+id/name"

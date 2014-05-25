@@ -17,7 +17,7 @@
            android:layout_centerVertical="true"
             android:layout_marginLeft="20dip"
             android:layout_marginRight="10dip"
-            android:src="@drawable/icon" />
+            android:src="@drawable/moren" />
 
         <TextView
             android:id="@+id/block_name"

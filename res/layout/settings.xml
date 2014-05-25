@@ -21,7 +21,7 @@
                 android:id="@+id/setting_userface"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
-                android:src="@drawable/icon" />
+                android:src="@drawable/moren" />
         </RelativeLayout>
 
         <RelativeLayout
