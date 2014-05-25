@@ -7,86 +7,77 @@
     <RelativeLayout
         android:id="@+id/setting_top"
         android:layout_width="fill_parent"
-        android:layout_height="80dp"
+        android:layout_height="100dp"
         android:background="@color/white"
         android:gravity="center_vertical"
         android:orientation="vertical" >
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/setting_userface0"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical" >
 
             <com.fuwu.mobileim.view.CircularImage
                 android:id="@+id/setting_userface"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center_vertical"
                 android:src="@drawable/icon" />
-        </RelativeLayout>
+        </LinearLayout>
 
         <RelativeLayout
-            android:id="@+id/setting_relativeLayout1"
+            android:id="@+id/relativeLayout1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/message_content"
+            android:layout_alignTop="@+id/user_face"
+            android:layout_marginLeft="20dp"
             android:layout_toRightOf="@+id/setting_userface0" >
 
             <TextView
-                android:id="@+id/setting_teachername"
+                android:id="@+id/block_display_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignRight="@+id/message_content"
                 android:text="叮叮叮"
                 android:textColor="#333333"
-                android:textSize="18dp" />
+                android:textSize="16dp" />
 
             <ImageView
-                android:id="@+id/setting_sex_item"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:layout_alignTop="@+id/setting_teachername"
+                android:id="@+id/sex_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="26.8px"
-                android:layout_toRightOf="@+id/setting_teachername"
+                android:layout_toRightOf="@+id/block_display_name"
                 android:background="@drawable/nv" />
 
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/setting_userface2"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/setting_teachername"
+                android:layout_marginRight="1px"
                 android:gravity="center_vertical" >
 
                 <ImageView
-                    android:id="@+id/certification_one"
+                    android:id="@+id/huifu_item"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:background="@drawable/certification1" />
+                    android:background="@drawable/gou" />
 
                 <ImageView
-                    android:id="@+id/certification_two"
+                    android:id="@+id/huifu_item"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
-                    android:layout_toRightOf="@+id/certification_one"
-                    android:background="@drawable/certification2" />
+                    android:background="@drawable/gou" />
 
                 <ImageView
-                    android:id="@+id/certification_three"
+                    android:id="@+id/huifu_item"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
-                    android:layout_toRightOf="@+id/certification_two"
-                    android:background="@drawable/certification3" />
-
-                <ImageView
-                    android:layout_width="50px"
-                    android:layout_height="30px"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="22dp"
-                    android:background="@drawable/right_item" />
-            </RelativeLayout>
+                    android:background="@drawable/gou" />
+            </LinearLayout>
         </RelativeLayout>
     </RelativeLayout>
 

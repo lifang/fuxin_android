@@ -41,11 +41,19 @@ public class SettingsActivity extends Activity {
 
 	private void init() {
 		
-		LinearLayout a_layout = (LinearLayout) findViewById(R.id.setting_userface0);
+		RelativeLayout a_layout = (RelativeLayout) findViewById(R.id.setting_userface0);
+		CircularImage userface = (CircularImage) findViewById(R.id.setting_userface);// 头像
+		ImageView setting_sex_item = (ImageView) findViewById(R.id.setting_sex_item);// 性别
+		ImageView certification_one = (ImageView) findViewById(R.id.certification_one);// 验证1
+		ImageView certification_two = (ImageView) findViewById(R.id.certification_two);// 验证2
+		ImageView certification_three = (ImageView) findViewById(R.id.certification_three);// 验证3
 		LayoutParams param = (LayoutParams) a_layout.getLayoutParams();
-		param.leftMargin = 60;
-		param.height = 150;
-		param.width = 150;
+		param.leftMargin = 40;
+		param.topMargin = 20;
+		RelativeLayout setting_relativeLayout1 = (RelativeLayout) findViewById(R.id.setting_relativeLayout1);
+		LayoutParams param2 = (LayoutParams) setting_relativeLayout1.getLayoutParams();
+		param2.leftMargin = 30;
+		param2.topMargin = 20;
 //		setting_userface = (CircularImage) findViewById(R.id.setting_userface);
 //		setting_userface.
 		listview=(ListView) findViewById(R.id.setting_listview);

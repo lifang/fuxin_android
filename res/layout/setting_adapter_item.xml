@@ -22,11 +22,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="64dp"
+            android:layout_marginLeft="20dp"
             android:layout_toRightOf="@+id/setting_adapter_item_iv"
             android:text="aaaaaaaaa"
             android:textColor="#333333"
-            android:textSize="30px" />
+            android:textSize="35px" />
 
         <RelativeLayout
             android:id="@+id/notice_sign"
@@ -61,15 +61,15 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="22dp"
-            android:background="@drawable/gou" />
+            android:background="@drawable/right_item" />
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp" >
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp" >
 
         <View
             android:layout_width="fill_parent"

@@ -69,19 +69,8 @@ public class BlockManagementActivity extends Activity {
 		list.add(cp4);
 		mListView = (ListView) findViewById(R.id.block_management_listView);
 		mListView.setDivider(null);
-		mListView.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				// 这里要利用adapter.getItem(position)来获取当前position所对应的对象
-				Toast.makeText(getApplication(), "111111", Toast.LENGTH_SHORT)
-						.show();
-			}
-		});
 		clvAdapter = new myListViewAdapter(this);
 		mListView.setAdapter(clvAdapter);
-
 	}
 
 	public class myListViewAdapter extends BaseAdapter {
@@ -172,15 +161,29 @@ public class BlockManagementActivity extends Activity {
 						}
 					};
 
-//					if (ExerciseBookTool.isConnect(HomepageAllActivity.this)) {
-//						thread.start();
-//					} else {
-//						handler.sendEmptyMessage(7);
-//					}
+					// if (ExerciseBookTool.isConnect(HomepageAllActivity.this))
+					// {
+					// thread.start();
+					// } else {
+					// handler.sendEmptyMessage(7);
+					// }
+
+					Toast.makeText(getApplicationContext(), "恢复",
+							Toast.LENGTH_SHORT).show();
 
 				}
 			});
+			
+			layout.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					Toast.makeText(getApplication(), list.get(arg0).getName(), Toast.LENGTH_SHORT)
+					.show();
+					
+				}});
 			return layout;
 		}
 	}
+
 }

@@ -23,19 +23,22 @@
             android:label="@string/app_name" >
         </activity>
         <activity android:name="com.fuwu.mobileim.activity.MainActivity" >
-        </activity>
-        <activity android:name="com.fuwu.mobileim.activity.TalkActivity" />
-        <activity android:name="com.fuwu.mobileim.activity.AddressBookActivity" />
-        <activity android:name="com.fuwu.mobileim.activity.SettingsActivity" />
-        <activity android:name="com.fuwu.mobileim.activity.ContactActivity" />
-        <activity android:name="com.fuwu.mobileim.activity.LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.fuwu.mobileim.activity.TalkActivity" />
+        <activity android:name="com.fuwu.mobileim.activity.AddressBookActivity" />
+        <activity android:name="com.fuwu.mobileim.activity.SettingsActivity" />
+        <activity android:name="com.fuwu.mobileim.activity.ContactActivity" />
+        <activity android:name="com.fuwu.mobileim.activity.LoginActivity" >
+            
+        </activity>
         <activity android:name="com.fuwu.mobileim.activity.BlockManagementActivity" >
+        </activity>
+        <activity android:name="com.fuwu.mobileim.activity.BlockManagementDisplayActivity" >
         </activity>
         <activity android:name="com.fuwu.mobileim.activity.RegistActivity" />
         <activity android:name="com.fuwu.mobileim.activity.BackPwdActicity" />
