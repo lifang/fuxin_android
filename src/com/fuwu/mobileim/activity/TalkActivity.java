@@ -7,16 +7,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +23,9 @@ import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.view.CircularImage;
 import com.fuwu.mobileim.view.MyDialog;
 
+/**
+ * 作者: 张秀楠 时间：2014-5-23 下午4:34:44
+ */
 public class TalkActivity extends Activity {
 	private ListView mListView;
 	private myListViewAdapter clvAdapter;
@@ -52,27 +52,29 @@ public class TalkActivity extends Activity {
 		mListView.setOnItemLongClickListener(new OnItemLongClickListener() {
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-				// intent.putExtra("name", list.get(arg2).getName());
-				// intent.setClass(TalkActivity.this,
-				// TalkBuilderActivity.class);
-				// startActivityForResult(intent, 0);
-				showLoginDialog(list.get(arg2).getName());
+				showLoginDialog(arg2);
 				return false;
 			}
 		});
 
 	}
 
-	private void showLoginDialog(String name) {
+	private void showLoginDialog(int item) {
 		View view = getLayoutInflater().inflate(R.layout.talk_builder, null);
 		final TextView btnYes = (TextView) view.findViewById(R.id.name);
-		btnYes.setText(name);
+		btnYes.setText(list.get(item).getName());
 		final TextView del = (TextView) view.findViewById(R.id.del_talk);
-
-		MyDialog builder = new MyDialog(TalkActivity.this, 0, 0, view,
-				R.style.mydialog);
 		// 设置对话框显示的View
 		// 点击确定是的监听
+		final MyDialog builder = new MyDialog(TalkActivity.this, 0, 0, view,
+				R.style.mydialog);
+		del.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View arg0) {
+				Toast.makeText(TalkActivity.this, "删除成功！", Toast.LENGTH_SHORT)
+						.show();
+				builder.dismiss();
+			}
+		});
 		builder.show();
 	}
 

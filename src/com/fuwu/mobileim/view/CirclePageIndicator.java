@@ -391,7 +391,6 @@ public class CirclePageIndicator extends View implements PageIndicator {
 		return true;
 	}
 
-	@Override
 	public void setViewPager(ViewPager view) {
 		if (mViewPager == view) {
 			return;
@@ -408,13 +407,11 @@ public class CirclePageIndicator extends View implements PageIndicator {
 		invalidate();
 	}
 
-	@Override
 	public void setViewPager(ViewPager view, int initialPosition) {
 		setViewPager(view);
 		setCurrentItem(initialPosition);
 	}
 
-	@Override
 	public void setCurrentItem(int item) {
 		if (mViewPager == null) {
 			throw new IllegalStateException("ViewPager has not been bound.");
@@ -424,12 +421,10 @@ public class CirclePageIndicator extends View implements PageIndicator {
 		invalidate();
 	}
 
-	@Override
 	public void notifyDataSetChanged() {
 		invalidate();
 	}
 
-	@Override
 	public void onPageScrollStateChanged(int state) {
 		mScrollState = state;
 
@@ -438,7 +433,6 @@ public class CirclePageIndicator extends View implements PageIndicator {
 		}
 	}
 
-	@Override
 	public void onPageScrolled(int position, float positionOffset,
 			int positionOffsetPixels) {
 		mCurrentPage = position;
@@ -451,7 +445,6 @@ public class CirclePageIndicator extends View implements PageIndicator {
 		}
 	}
 
-	@Override
 	public void onPageSelected(int position) {
 		if (mSnap || mScrollState == ViewPager.SCROLL_STATE_IDLE) {
 			mCurrentPage = position;
@@ -464,7 +457,6 @@ public class CirclePageIndicator extends View implements PageIndicator {
 		}
 	}
 
-	@Override
 	public void setOnPageChangeListener(ViewPager.OnPageChangeListener listener) {
 		mListener = listener;
 	}
@@ -474,7 +466,6 @@ public class CirclePageIndicator extends View implements PageIndicator {
 	 * 
 	 * @see android.view.View#onMeasure(int, int)
 	 */
-	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 		if (mOrientation == HORIZONTAL) {
 			setMeasuredDimension(measureLong(widthMeasureSpec),

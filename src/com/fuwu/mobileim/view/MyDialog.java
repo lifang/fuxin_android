@@ -31,7 +31,7 @@ public class MyDialog extends Dialog {
 		Display d = m.getDefaultDisplay(); // 为获取屏幕宽、高
 
 		android.view.WindowManager.LayoutParams p = getWindow().getAttributes(); // 获取对话框当前的参数值
-		p.height = (int) (d.getHeight() * 0.21); // 高度设置
+		p.height = (int) (d.getHeight() * 0.2); // 高度设置
 		p.width = (int) (d.getWidth() * 0.8); // 宽度设置
 		p.alpha = 1.0f; // 设置本 身透明度
 		p.dimAmount = 0.6f; // 设置黑暗度
