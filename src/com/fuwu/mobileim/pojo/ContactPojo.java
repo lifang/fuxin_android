@@ -15,6 +15,8 @@ public class ContactPojo {
 	 * 排序字母
 	 */
 	private String sortKey;
+	private String sortLetters;  //显示数据拼音的首字母
+	
 
 	public ContactPojo() {
 	}
@@ -29,6 +31,12 @@ public class ContactPojo {
 		this.type = type;
 	}
 
+	public String getSortLetters() {
+		return sortLetters;
+	}
+	public void setSortLetters(String sortLetters) {
+		this.sortLetters = sortLetters;
+	}
 	public String getSortKey() {
 		return sortKey;
 	}

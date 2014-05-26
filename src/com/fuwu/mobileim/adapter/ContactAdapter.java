@@ -6,89 +6,173 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.RelativeLayout;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.pojo.ContactPojo;
 
-
 /**
  * 联系人列表适配器
+ * 
  * @作者 丁作强
  * @时间 2014-5-22 下午4:39:09
  */
-public class ContactAdapter extends ArrayAdapter<ContactPojo> {
+public class ContactAdapter extends BaseAdapter implements SectionIndexer {
+	private List<ContactPojo> list = null;
+	private Context mContext;
+	private int num = -1;
 
-	/**
-	 * 需要渲染的item布局文件
-	 */
-	private int resource;
-	private List<ContactPojo> contacts;
-	/**
-	 * 字母表分组工具
-	 */
-	private SectionIndexer mIndexer;
-
-	public ContactAdapter(Context context, int textViewResourceId, List<ContactPojo> objects) {
-		super(context, textViewResourceId, objects);
-		resource = textViewResourceId;
-		contacts= objects;
+	public ContactAdapter(Context mContext, List<ContactPojo> list, int num) {
+		this.mContext = mContext;
+		this.list = list;
+		this.num = num;
 	}
 
-	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		ContactPojo contact = getItem(position);
-		RelativeLayout layout = null;
-		if (convertView == null) {
-			layout = (RelativeLayout) LayoutInflater.from(getContext()).inflate(resource, null);
-		} else {
-			layout = (RelativeLayout) convertView;
-		}
-		TextView name = (TextView) layout.findViewById(R.id.name);
-		RelativeLayout sortKeyLayout = (RelativeLayout) layout.findViewById(R.id.sort_key_layout);
-		TextView sortKey = (TextView) layout.findViewById(R.id.sort_key);
-		name.setText(contact.getName());
-		int section = mIndexer.getSectionForPosition(position);
-		if (position == mIndexer.getPositionForSection(section)) {
-			sortKey.setText(contact.getSortKey()+" ["+getNumber(contact.getSortKey())+"人]");
-			sortKeyLayout.setVisibility(View.VISIBLE);
-		} else {
-			sortKeyLayout.setVisibility(View.GONE);
-		}
-		return layout;
-	}
-
-	
-//	public Object[] getSections()  返回索引数组
-//	 public int getPositionForSection(int sectionIndex) 按指定索引查找，返回匹配的第一行数据项位置或比较接近的数据项的位置
-//	public int getSectionForPosition(int position)  按指定数据项的位置，返回匹配的索引项。
-//	public void setCursor(Cursor cursor)  当数据发生变化时，更新数据源（Cursor）
-	
-	
 	/**
-	 * 给当前适配器传入一个分组工具。
+	 * 当ListView数据发生变化时,调用此方法来更新ListView
 	 * 
-	 * @param indexer
+	 * @param list
 	 */
-	public void setIndexer(SectionIndexer indexer) {
-		mIndexer = indexer;
+	public void updateListView(List<ContactPojo> list) {
+		this.list = list;
+		notifyDataSetChanged();
 	}
+
+	public int getCount() {
+		return this.list.size();
+	}
+
+	public Object getItem(int position) {
+		return list.get(position);
+	}
+
+	public long getItemId(int position) {
+		return position;
+	}
+
+	public View getView(final int position, View view, ViewGroup arg2) {
+		ViewHolder viewHolder = null;
+		final ContactPojo contact = list.get(position);
+		if (view == null) {
+			viewHolder = new ViewHolder();
+			view = LayoutInflater.from(mContext).inflate(
+					R.layout.contact_adapter_item, null);
+			viewHolder.contact_name = (TextView) view
+					.findViewById(R.id.contact_name);
+			viewHolder.contact_sort_key = (TextView) view
+					.findViewById(R.id.contact_sort_key);
+			viewHolder.contact_user_face = (ImageView) view
+					.findViewById(R.id.contact_user_face);
+			viewHolder.contact_gou = (ImageView) view
+					.findViewById(R.id.contact_gou);
+			viewHolder.contact_yue = (ImageView) view
+					.findViewById(R.id.contact_yue);
+
+			view.setTag(viewHolder);
+		} else {
+			viewHolder = (ViewHolder) view.getTag();
+		}
+
+		// 根据position获取分类的首字母的Char ascii值
+		int section = getSectionForPosition(position);
+
+		if (num != -1) { // 搜索时传值-1 ，不分组
+			// 如果当前位置等于该分类首字母的Char的位置 ，则认为是第一次出现
+			if (position == getPositionForSection(section)) {
+				viewHolder.contact_sort_key.setVisibility(View.VISIBLE);
+				viewHolder.contact_sort_key.setText(contact.getSortKey() + " ["
+						+ getNumber(contact.getSortKey()) + "人]");
+			} else {
+				viewHolder.contact_sort_key.setVisibility(View.GONE);
+			}
+		} else {
+			viewHolder.contact_sort_key.setVisibility(View.GONE);
+		}
+
+		if (num == 1) { // num =1时 ，代表全部，，要判断是否 购买和订阅
+
+			// 此处加是否 购买和订阅的 判断，，有的话显示，没的话 隐藏
+			// if (condition) {
+			//
+			// }
+
+		} else {
+			viewHolder.contact_gou.setVisibility(View.GONE);
+			viewHolder.contact_yue.setVisibility(View.GONE);
+		}
+
+		viewHolder.contact_name.setText(this.list.get(position).getName());
+
+		return view;
+
+	}
+
+	final static class ViewHolder {
+		TextView contact_sort_key; // 分组关键字
+		TextView contact_name; // 名称
+		ImageView contact_user_face; // 头像
+		ImageView contact_gou; // 购
+		ImageView contact_yue; // 阅
+	}
+
+	/**
+	 * 根据ListView的当前位置获取分类的首字母的Char ascii值
+	 */
+	public int getSectionForPosition(int position) {
+		return list.get(position).getSortKey().charAt(0);
+	}
+
+	/**
+	 * 根据分类的首字母的Char ascii值获取其第一次出现该首字母的位置
+	 */
+	public int getPositionForSection(int section) {
+		for (int i = 0; i < getCount(); i++) {
+			String sortStr = list.get(i).getSortKey();
+			char firstChar = sortStr.toUpperCase().charAt(0);
+			if (firstChar == section) {
+				return i;
+			}
+		}
+
+		return -1;
+	}
+
+	/**
+	 * 提取英文的首字母，非英文字母用#代替。
+	 * 
+	 * @param str
+	 * @return
+	 */
+	private String getAlpha(String str) {
+		String sortStr = str.trim().substring(0, 1).toUpperCase();
+		// 正则表达式，判断首字母是否是英文字母
+		if (sortStr.matches("[A-Z]")) {
+			return sortStr;
+		} else {
+			return "#";
+		}
+	}
+
 	/**
 	 * 返回单个分组的大小。
 	 * 
 	 * @param str
 	 */
 	public int getNumber(String str) {
-		int a =0;
-		for (int i = 0; i < contacts.size(); i++) {
-			if(contacts.get(i).getSortKey().equals(str)){
-				a=a+1;
+		int a = 0;
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i).getSortKey().equals(str)) {
+				a = a + 1;
 			}
 		}
 		return a;
 	}
 
+	@Override
+	public Object[] getSections() {
+		return null;
+	}
 }
