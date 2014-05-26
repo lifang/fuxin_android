@@ -48,10 +48,10 @@
             android:paddingRight="20dp" >
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:contentDescription="@string/app_name"
-                android:src="@drawable/ic_launcher" />
+                android:src="@drawable/login_user" />
 
             <EditText
                 android:id="@+id/user"
@@ -80,10 +80,10 @@
             android:paddingRight="20dp" >
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:contentDescription="@string/app_name"
-                android:src="@drawable/ic_launcher" />
+                android:src="@drawable/login_pwd" />
 
             <EditText
                 android:id="@+id/pwd"

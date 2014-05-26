@@ -67,8 +67,7 @@ public class LoginActivity extends Activity implements OnClickListener,
 
 	class test implements Runnable {
 		public void run() {
-			new HttpUtil().doPost2("https://118.242.18.189/api/Message",
-					"\"CglNb2NrVG9rZW4QAQ==\"");
+
 		}
 	}
 }

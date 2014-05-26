@@ -120,10 +120,10 @@
     <color name="holo_blue">#FF33E5B5</color>
     <color name="address_book_buttoncolor_red">#D0151C</color>
     <color name="address_book_buttoncolor_white">#FFFFFF</color>
-    
-    
     <color name="qianhui">#CCCCCC</color>
     <color name="regist_bg">#F1F1F1</color>
     <color name="regist_btn">#D3D3D3</color>
+    <color name="system_textColor">#333333</color>
+    <color name="system_textColor2">#999999</color>
 
 </resources>

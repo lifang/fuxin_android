@@ -12,30 +12,31 @@ public class MessagePojo {
 	// file
 	public static final int MESSAGE_TYPE_FILE = 3;
 
-	private int msgType;
-	private long time;// 消息日期
-	private String message;// 消息内容
-	private String img;
+	private int userId;
+	private String sendTime;// 消息日期
+	private String content;// 消息内容
 	private int isComMeg = 0;// 0接收/1发送 消息
-	private int isTimeShow = 0; // 0显示/1不显示 时间
+	private int msgType;
 
-	public MessagePojo(int msgType, long time, String message, String img,
-			int isComMeg, int isTimeShow) {
+	public MessagePojo() {
+	}
+
+	public MessagePojo(int userId, String sendTime, String content, int isComMeg,
+			int msgType) {
 		super();
-		this.msgType = msgType;
-		this.time = time;
-		this.message = message;
-		this.img = img;
+		this.userId = userId;
+		this.sendTime = sendTime;
+		this.content = content;
 		this.isComMeg = isComMeg;
-		this.isTimeShow = isTimeShow;
+		this.msgType = msgType;
 	}
 
-	public int getIsTimeShow() {
-		return isTimeShow;
+	public int getUserId() {
+		return userId;
 	}
 
-	public void setIsTimeShow(int isTimeShow) {
-		this.isTimeShow = isTimeShow;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 	public int getMsgType() {
@@ -46,35 +47,27 @@ public class MessagePojo {
 		this.msgType = msgType;
 	}
 
-	public long getTime() {
-		return time;
+	public String getSendTime() {
+		return sendTime;
 	}
 
-	public void setTime(long time) {
-		this.time = time;
+	public void setSendTime(String sendTime) {
+		this.sendTime = sendTime;
 	}
 
-	public String getMessage() {
-		return message;
+	public String getContent() {
+		return content;
 	}
 
-	public void setMessage(String message) {
-		this.message = message;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
-	public String getImg() {
-		return img;
-	}
-
-	public void setImg(String headImg) {
-		this.img = headImg;
-	}
-
-	public int isComMeg() {
+	public int getIsComMeg() {
 		return isComMeg;
 	}
 
-	public void setComMeg(int isComMeg) {
+	public void setIsComMeg(int isComMeg) {
 		this.isComMeg = isComMeg;
 	}
 
