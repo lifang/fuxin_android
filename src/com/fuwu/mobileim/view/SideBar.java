@@ -26,6 +26,7 @@ public class SideBar extends View {
 
 	private TextView mTextDialog;
 	private RelativeLayout relativeLayout;
+
 	public void setTextView(TextView mTextDialog) {
 		this.mTextDialog = mTextDialog;
 	}
@@ -33,6 +34,7 @@ public class SideBar extends View {
 	public void setRelativeLayout(RelativeLayout relativeLayout) {
 		this.relativeLayout = relativeLayout;
 	}
+
 	public SideBar(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 	}
@@ -64,7 +66,7 @@ public class SideBar extends View {
 			// 选中的状态
 			if (i == choose) {
 				paint.setColor(Color.rgb(201, 201, 201));
-//				paint.setColor(Color.parseColor("#3399ff"));
+				// paint.setColor(Color.parseColor("#3399ff"));
 				paint.setFakeBoldText(true);
 			}
 			// x坐标等于中间-字符串宽度的一半.
@@ -96,7 +98,7 @@ public class SideBar extends View {
 			break;
 
 		default:
-//			setBackgroundResource(R.drawable.sidebar_background);
+			// setBackgroundResource(R.drawable.sidebar_background);
 			if (oldChoose != c) {
 				if (c >= 0 && c < b.length) {
 					if (listener != null) {
@@ -107,7 +109,7 @@ public class SideBar extends View {
 						mTextDialog.setVisibility(View.VISIBLE);
 						relativeLayout.setVisibility(View.VISIBLE);
 					}
-					
+
 					choose = c;
 					invalidate();
 				}

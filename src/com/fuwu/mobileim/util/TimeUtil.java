@@ -4,10 +4,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-/** 
-* @作者 马龙 
-* @时间 2014-5-16 下午2:00:41 
-*/ 
+/**
+ * @作者 马龙
+ * @时间 2014-5-16 下午2:00:41
+ */
 public class TimeUtil {
 	static String[] weekDays = { "星期日", "星期一", "星期二", "星期三", "星期四", "星期五",
 			"星期六" };

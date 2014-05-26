@@ -28,7 +28,7 @@ import com.fuwu.mobileim.view.SideBar;
 import com.fuwu.mobileim.view.SideBar.OnTouchingLetterChangedListener;
 
 public class ContactActivity extends Activity {
-	
+
 	private FxApplication fxApplication;
 	private ListView sortListView;
 	private SideBar sideBar;
@@ -65,7 +65,7 @@ public class ContactActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.contact_activity);
-		fxApplication= (FxApplication) getApplication();
+		fxApplication = (FxApplication) getApplication();
 		initViews();
 		Display display = this.getWindowManager().getDefaultDisplay();
 		width = display.getWidth();
@@ -95,30 +95,30 @@ public class ContactActivity extends Activity {
 				sideBar.setTextView(sectionToastText);
 				sideBar.setRelativeLayout(sectionToastLayout);
 				float alphabetHeight = sideBar.getHeight();
-				int   pos = getPositionForAlphabet(s);
-				float y = (pos*100 / 27f)*alphabetHeight/100;
-				 LayoutParams param = (LayoutParams) sectionToastLayout
-				 .getLayoutParams();
-				 param.rightMargin = 60;
-				 param.topMargin = (int) y;
+				int pos = getPositionForAlphabet(s);
+				float y = (pos * 100 / 27f) * alphabetHeight / 100;
+				LayoutParams param = (LayoutParams) sectionToastLayout
+						.getLayoutParams();
+				param.rightMargin = 60;
+				param.topMargin = (int) y;
 				// sectionToastText.setText(s);
 				// 该字母首次出现的位置
 				int position = adapter.getPositionForSection(s.charAt(0));
 				if (position != -1) {
 					sortListView.setSelection(position);
-					
-//					 TextView tv= (TextView)
-//							 sortListView.getChildAt(position).findViewById(R.id.sort_key);
-//					 String tv_str = (String) tv.getText().toString();
-//					SpannableStringBuilder style2 = new SpannableStringBuilder(tv_str);
-//					style2.setSpan(new ForegroundColorSpan(Color.RED), 0,
-//							1, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
-//					tv.setText(style2);
+
+					// TextView tv= (TextView)
+					// sortListView.getChildAt(position).findViewById(R.id.sort_key);
+					// String tv_str = (String) tv.getText().toString();
+					// SpannableStringBuilder style2 = new
+					// SpannableStringBuilder(tv_str);
+					// style2.setSpan(new ForegroundColorSpan(Color.RED), 0,
+					// 1, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+					// tv.setText(style2);
 				}
 
 			}
 		});
-		
 
 		sortListView = (ListView) findViewById(R.id.contacts_list_view);
 		sortListView.setDivider(null);
@@ -134,8 +134,7 @@ public class ContactActivity extends Activity {
 			}
 		});
 
-		
-		adapter = new ContactAdapter(this, SourceDateList,1);
+		adapter = new ContactAdapter(this, SourceDateList, 1);
 		sortListView.setAdapter(adapter);
 
 	}
@@ -221,7 +220,8 @@ public class ContactActivity extends Activity {
 		public void onClick(View v) {
 			buttonNumber = 0;
 			setButtonColor(buttonNumber);
-			adapter = new ContactAdapter(ContactActivity.this, SourceDateList,1);
+			adapter = new ContactAdapter(ContactActivity.this, SourceDateList,
+					1);
 			sortListView.setAdapter(adapter);
 		}
 	};
@@ -230,7 +230,8 @@ public class ContactActivity extends Activity {
 		public void onClick(View v) {
 			buttonNumber = 1;
 			setButtonColor(buttonNumber);
-			adapter = new ContactAdapter(ContactActivity.this, SourceDateList,0);
+			adapter = new ContactAdapter(ContactActivity.this, SourceDateList,
+					0);
 			sortListView.setAdapter(adapter);
 		}
 	};
@@ -239,7 +240,8 @@ public class ContactActivity extends Activity {
 		public void onClick(View v) {
 			buttonNumber = 2;
 			setButtonColor(buttonNumber);
-			adapter = new ContactAdapter(ContactActivity.this, SourceDateList,0);
+			adapter = new ContactAdapter(ContactActivity.this, SourceDateList,
+					0);
 			sortListView.setAdapter(adapter);
 		}
 	};
@@ -248,7 +250,8 @@ public class ContactActivity extends Activity {
 		public void onClick(View v) {
 			buttonNumber = 3;
 			setButtonColor(buttonNumber);
-			adapter = new ContactAdapter(ContactActivity.this, SourceDateList,0);
+			adapter = new ContactAdapter(ContactActivity.this, SourceDateList,
+					0);
 			sortListView.setAdapter(adapter);
 		}
 	};
@@ -280,15 +283,15 @@ public class ContactActivity extends Activity {
 	/**
 	 * 根据分类的首字母获取 字母表中的位置
 	 */
-	public int getPositionForAlphabet(String  s) {
+	public int getPositionForAlphabet(String s) {
 		for (int i = 0; i < alphabet.length(); i++) {
-			String sortStr = alphabet.charAt(i)+"";
+			String sortStr = alphabet.charAt(i) + "";
 			if (s.equals(sortStr)) {
-				return i+1;
+				return i + 1;
 			}
 		}
-		
+
 		return -1;
 	}
-	
+
 }

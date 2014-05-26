@@ -38,7 +38,8 @@
         </activity>
         <activity android:name="com.fuwu.mobileim.activity.BlockManagementActivity" >
         </activity>
-        <activity android:name="com.fuwu.mobileim.activity.BlockManagementDisplayActivity" >
+        <activity android:name="com.fuwu.mobileim.activity.BlockManagementDisplayActivity" 
+            android:theme="@style/Dialog">
         </activity>
         <activity android:name="com.fuwu.mobileim.activity.RegistActivity" />
         <activity android:name="com.fuwu.mobileim.activity.BackPwdActicity" />

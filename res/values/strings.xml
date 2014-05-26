@@ -33,5 +33,6 @@
     <string name="regist_over">完成</string>
     <string name="back_title">找回密码</string>
     <string name="cancel">取消</string>
+    <string name="receive_mess">恢复接收此人消息</string>
 
 </resources>

@@ -26,7 +26,7 @@
             android:layout_marginLeft="64dp"
             android:text="叮叮叮"
             android:textColor="#333333"
-            android:textSize="30px" />
+            android:textSize="35px" />
 
         <Button
             android:id="@+id/block_restore"

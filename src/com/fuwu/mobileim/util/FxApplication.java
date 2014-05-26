@@ -21,7 +21,6 @@ public class FxApplication extends Application {
 	private static FxApplication mApplication;
 	private List<ContactPojo> contactsList = new ArrayList<ContactPojo>();
 
-	
 	public synchronized static FxApplication getInstance() {
 		return mApplication;
 	}
@@ -40,7 +39,7 @@ public class FxApplication extends Application {
 	public void setContactsList(List<ContactPojo> contactsList) {
 		this.contactsList = contactsList;
 	}
-	
+
 	public Map<String, Integer> getFaceMap() {
 		if (!mFaceMap.isEmpty())
 			return mFaceMap;
