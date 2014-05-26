@@ -8,7 +8,7 @@
             android:id="@+id/contact_sort_key"
             android:layout_width="fill_parent"
             android:layout_height="23dip"
-            android:layout_gravity="center_horizontal"
+            android:gravity="center_vertical"
             android:background="#F4F4F4"
             android:text="sdfsf"
             android:paddingLeft="15dip"

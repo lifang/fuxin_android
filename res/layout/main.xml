@@ -7,7 +7,7 @@
         android:id="@+id/main_top"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
-        android:background="#CC0000"
+        android:background="@color/red_block"
         android:gravity="center_vertical"
         android:orientation="horizontal" >
 
@@ -37,7 +37,7 @@
         android:id="@+id/main_search"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
-        android:background="#CC0000"
+        android:background="@color/red_block"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:visibility="gone" >
@@ -64,6 +64,7 @@
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/searchitem"
                 android:background="@color/white"
+                android:textColor="#B1B1B1"
                 android:singleLine="true"
                 android:textSize="18dp" />
 

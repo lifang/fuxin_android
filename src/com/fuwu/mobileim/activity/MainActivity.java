@@ -9,10 +9,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Matrix;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
+import android.text.TextWatcher;
 import android.text.style.AbsoluteSizeSpan;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -20,6 +24,7 @@ import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -27,7 +32,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.adapter.ContactAdapter;
@@ -38,6 +42,11 @@ import com.fuwu.mobileim.util.FxApplication;
 /**
  * @作者 马龙
  * @时间 2014-5-14 下午12:06:08
+ */
+
+/**
+ * @作者 丁作强
+ * @时间 2014-5-26 上午10:02:56
  */
 public class MainActivity extends Activity implements OnPageChangeListener {
 	private FxApplication fxApplication;
@@ -76,6 +85,7 @@ private LinearLayout contacts_search_linearLayout;// 搜索 内容显示部分
 		changeTitleStyle();
 		InitImageView();
 		InitViewPager();
+		setEdittextListening();
 	}
 
 	public void InitViewPager() {
@@ -144,8 +154,8 @@ private LinearLayout contacts_search_linearLayout;// 搜索 内容显示部分
 			contacts_search_linearLayout.setVisibility(View.VISIBLE);
 			//  模拟
 			SourceDateList= fxApplication.getContactsList();
-			 adapter = new ContactAdapter(MainActivity.this, SourceDateList,-1);
-			contacts_search_listview.setAdapter(adapter);
+//			 adapter = new ContactAdapter(MainActivity.this, SourceDateList,-1);
+//			contacts_search_listview.setAdapter(adapter);
 		}
 	};
 	private View.OnClickListener listener2 = new View.OnClickListener() {
@@ -159,8 +169,43 @@ private LinearLayout contacts_search_linearLayout;// 搜索 内容显示部分
 		public void onClick(View v) {
 			main_search.setVisibility(View.GONE);
 			contacts_search_linearLayout.setVisibility(View.GONE);
+			contact_search_edittext.setText("");
 		}
 	};
+	
+	/**
+	 * 搜索输入框文本监听
+	 */
+	public void setEdittextListening() {
+		contact_search_edittext.addTextChangedListener(new TextWatcher() {
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+				String content = contact_search_edittext.getText().toString();
+				adapter = new ContactAdapter(MainActivity.this, findSimilarContacts(content),-1);
+				contacts_search_listview.setAdapter(adapter);
+			}
+
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+			}
+
+			public void afterTextChanged(Editable s) {
+			}
+		});
+	}
+	
+	public List<ContactPojo> findSimilarContacts(String et) {
+		List<ContactPojo>  findlist = new ArrayList<ContactPojo>();
+		if (et.length()>0) {
+		for (int i = 0; i < SourceDateList.size(); i++) {
+			if (SourceDateList.get(i).getName().indexOf(et) != -1) {
+				findlist.add(SourceDateList.get(i));
+			}
+		}	
+		}
+		
+		return findlist;
+	}
 	/**
 	 * 初始化动画
 	 */
@@ -230,4 +275,5 @@ private LinearLayout contacts_search_linearLayout;// 搜索 内容显示部分
 		return manager.startActivity(id, intent).getDecorView();
 	}
 
+	
 }
