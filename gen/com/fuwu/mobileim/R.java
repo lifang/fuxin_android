@@ -616,9 +616,9 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int comment_nick_name=0x7f06005b;
         public static final int contact_category_text=0x7f060031;
         public static final int contact_category_text_focused=0x7f060032;
-        public static final int default_circle_indicator_fill_color=0x7f060079;
-        public static final int default_circle_indicator_page_color=0x7f06007a;
-        public static final int default_circle_indicator_stroke_color=0x7f06007b;
+        public static final int default_circle_indicator_fill_color=0x7f06007b;
+        public static final int default_circle_indicator_page_color=0x7f06007c;
+        public static final int default_circle_indicator_stroke_color=0x7f06007d;
         public static final int doodle_bg=0x7f06001c;
         public static final int emo_item_sel=0x7f060046;
         public static final int feed_image_background_color=0x7f060060;
@@ -667,6 +667,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int qzone_white=0x7f060049;
         public static final int recent_msg=0x7f060019;
         public static final int red=0x7f06004c;
+        public static final int red_block=0x7f060079;
         public static final int regist_bg=0x7f060075;
         public static final int regist_btn=0x7f060076;
         public static final int sc_black=0x7f060036;
@@ -685,7 +686,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int search_text=0x7f06001a;
         public static final int semi_transparent=0x7f060025;
         public static final int semi_transparent_w=0x7f060026;
-        public static final int send_btn_textcolor=0x7f06007c;
+        public static final int send_btn_textcolor=0x7f06007e;
         public static final int setting_bg=0x7f060043;
         public static final int setting_text1=0x7f060041;
         public static final int setting_text2=0x7f060042;
@@ -696,6 +697,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int tag_textview1=0x7f06003e;
         public static final int tag_textview2=0x7f06003f;
         public static final int tag_textview3=0x7f060040;
+        public static final int text_color=0x7f06007a;
         public static final int text_comment=0x7f060056;
         public static final int text_drag_refresh_big=0x7f06003d;
         public static final int text_nick_name=0x7f060055;

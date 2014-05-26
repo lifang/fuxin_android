@@ -83,7 +83,7 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 			// 如果当前位置等于该分类首字母的Char的位置 ，则认为是第一次出现
 			if (position == getPositionForSection(section)) {
 				viewHolder.contact_sort_key.setVisibility(View.VISIBLE);
-				viewHolder.contact_sort_key.setText(contact.getSortKey() + " ["
+				viewHolder.contact_sort_key.setText(contact.getSortKey() + "  ["
 						+ getNumber(contact.getSortKey()) + "人]");
 			} else {
 				viewHolder.contact_sort_key.setVisibility(View.GONE);
