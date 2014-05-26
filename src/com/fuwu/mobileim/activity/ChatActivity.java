@@ -1,12 +1,15 @@
 package com.fuwu.mobileim.activity;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,6 +17,8 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.Editable;
@@ -22,6 +27,7 @@ import android.text.SpannableString;
 import android.text.TextWatcher;
 import android.text.style.ImageSpan;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -43,10 +49,15 @@ import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.adapter.FaceAdapter;
 import com.fuwu.mobileim.adapter.FacePageAdapter;
 import com.fuwu.mobileim.adapter.MessageListViewAdapter;
+import com.fuwu.mobileim.model.Models.MessageRequest;
+import com.fuwu.mobileim.model.Models.MessageResponse;
 import com.fuwu.mobileim.pojo.MessagePojo;
+import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FxApplication;
-import com.fuwu.mobileim.util.LastTimeMap;
+import com.fuwu.mobileim.util.HttpUtil;
+import com.fuwu.mobileim.util.TimeUtil;
 import com.fuwu.mobileim.view.CirclePageIndicator;
+import com.google.protobuf.InvalidProtocolBufferException;
 
 /**
  * @作者 马龙
@@ -75,6 +86,16 @@ public class ChatActivity extends Activity implements OnClickListener,
 	private List<String> keys;
 	private List<MessagePojo> list;
 	private MessageListViewAdapter mMessageAdapter;
+	private ProgressDialog pd;
+	private DBManager db;
+	private Handler handler = new Handler() {
+
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			pd.dismiss();
+		}
+
+	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -84,14 +105,53 @@ public class ChatActivity extends Activity implements OnClickListener,
 		initView();
 		initFacePage();
 		initPlusGridView();
+		// pd = new ProgressDialog(this);
+		// pd.setMessage("正在加载");
+		// pd.show();
+//		new chatMessage().start();
+	}
+
+	class chatMessage extends Thread {
+		@Override
+		public void run() {
+			super.run();
+			try {
+				MessageRequest.Builder builder = MessageRequest.newBuilder();
+				builder.setUserId(1);
+				builder.setToken("MockToken");
+				MessageRequest response = builder.build();
+				String https = "https://118.242.18.189/api/Message";
+				MessageResponse mr = MessageResponse.parseFrom(HttpUtil
+						.sendHttps(response.toByteArray(), https, "POST"));
+				Log.i("Ax", "messageCount:" + mr.getMessageListsCount());
+				if (mr.getMessageListsCount() > 0) {
+					com.fuwu.mobileim.model.Models.MessageList mes = mr
+							.getMessageLists(0);
+					Log.i("Ax", "count:" + mes.getMessagesCount());
+					if (mes.getMessagesCount() > 0) {
+						Log.i("Ax", "content:"
+								+ mes.getMessages(0).getContent());
+						Log.i("Ax", "time:" + mes.getMessages(0).getSendTime());
+					}
+				}
+			} catch (InvalidProtocolBufferException e) {
+				e.printStackTrace();
+			}
+			handler.sendEmptyMessage(1);
+		}
 	}
 
 	public void initData() {
+		db = new DBManager(this);
 		DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
 		height = displayMetrics.heightPixels;
 		Set<String> keySet = FxApplication.getInstance().getFaceMap().keySet();
 		keys = new ArrayList<String>();
 		keys.addAll(keySet);
+		if (!db.isOpen()) {
+			db = new DBManager(this);
+		}
+		list = db.queryMessageList(1);
 	}
 
 	public void initView() {
@@ -149,15 +209,12 @@ public class ChatActivity extends Activity implements OnClickListener,
 			}
 		});
 
-		list = new ArrayList<MessagePojo>();
-		LastTimeMap.addLastTime(1, System.currentTimeMillis());
-		for (int i = 0; i < 10; i++) {
-			list.add(new MessagePojo(1, System.currentTimeMillis(), "哈哈嘿嘿呵呵"
-					+ i, "", i % 2 == 0 ? 0 : 1, i));
-		}
+		// LastTimeMap.addLastTime(1, System.currentTimeMillis());
+
 		mMessageAdapter = new MessageListViewAdapter(getResources(), this, list);
 		mListView.setAdapter(mMessageAdapter);
 		mListView.setOnTouchListener(this);
+		mListView.setSelection(list.size() - 1);
 	}
 
 	private void initFacePage() {
@@ -377,16 +434,22 @@ public class ChatActivity extends Activity implements OnClickListener,
 		case R.id.send_btn:
 			String str = msgEt.getText().toString();
 			if (str != null && !str.isEmpty()) {
-				int t = 1;
-				if (LastTimeMap.isFiveMin(1)) {
-					t = 0;
-					LastTimeMap.addLastTime(1, System.currentTimeMillis());
+				if (!db.isOpen()) {
+					db = new DBManager(this);
 				}
-				MessagePojo mp = new MessagePojo(1, System.currentTimeMillis(),
-						str, "", 1, t);
+				MessagePojo mp;
+				if (TimeUtil.isFiveMin(db.getLastTime(1))) {
+					SimpleDateFormat format = new SimpleDateFormat(
+							"yy-MM-dd HH:mm");
+					Date today = new Date(System.currentTimeMillis());
+					mp = new MessagePojo(1, format.format(today), str, 1, 1);
+				} else {
+					mp = new MessagePojo(1, "", str, 1, 1);
+				}
 				mMessageAdapter.updMessage(mp);
 				mListView.setSelection(list.size() - 1);
 				msgEt.setText("");
+				db.addMessage(mp);
 			}
 			break;
 		case R.id.msg_et:

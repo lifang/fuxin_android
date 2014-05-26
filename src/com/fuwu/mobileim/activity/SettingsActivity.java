@@ -11,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
@@ -87,6 +86,7 @@ public class SettingsActivity extends Activity {
 	 * 
 	 */
 	private void jumpToActivity(int num) {
+		Intent intent = new Intent();
 		switch (num) {
 		case 0:// 新版本检测
 			Toast.makeText(getApplicationContext(), "新版本检测", Toast.LENGTH_LONG)
@@ -113,7 +113,7 @@ public class SettingsActivity extends Activity {
 		case 4:// 屏蔽管理
 			// Toast.makeText(getApplicationContext(), "屏蔽管理" ,
 			// Toast.LENGTH_LONG).show();
-			Intent intent = new Intent(SettingsActivity.this,
+			intent.setClass(SettingsActivity.this,
 					BlockManagementActivity.class);
 			startActivity(intent);
 			break;
@@ -123,6 +123,8 @@ public class SettingsActivity extends Activity {
 			// Intent intent = new Intent
 			// (SettingsActivity.this,SettingsActivity.class);
 			// startActivity(intent);
+			intent.setClass(SettingsActivity.this, SystemPushActivity.class);
+			startActivity(intent);
 			break;
 		case 6:// 退出登录
 			Toast.makeText(getApplicationContext(), "退出登录", Toast.LENGTH_LONG)
@@ -143,21 +145,15 @@ public class SettingsActivity extends Activity {
 		private String[] titleArr = new String[] { "新版本检测", "清除全部聊天记录", "消息推送",
 				"修改密码", "屏蔽管理", "系统公告管理", "退出登录" }; //
 
-		@Override
 		public int getCount() {
-			// TODO Auto-generated method stub
 			return titleArr.length;
 		}
 
-		@Override
 		public Object getItem(int position) {
-			// TODO Auto-generated method stub
 			return null;
 		}
 
-		@Override
 		public long getItemId(int position) {
-			// TODO Auto-generated method stub
 			return 0;
 		}
 

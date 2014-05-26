@@ -78,7 +78,7 @@ public class MessageListViewAdapter extends BaseAdapter {
 		if (convertView == null
 				|| convertView.getTag(R.drawable.ic_launcher + position) == null) {
 			holder = new ViewHolder();
-			if (mp.isComMeg() == 0) {
+			if (mp.getIsComMeg() == 0) {
 				convertView = mInflater.inflate(R.layout.chat_item_left, null);
 			} else {
 				convertView = mInflater.inflate(R.layout.chat_item_right, null);
@@ -97,13 +97,15 @@ public class MessageListViewAdapter extends BaseAdapter {
 
 		holder.img.setImageBitmap(toRoundBitmap(BitmapFactory.decodeResource(
 				res, R.drawable.headpic)));
-		if (mp.getIsTimeShow() == 0) {
-			holder.time.setText(TimeUtil.getChatTime(mp.getTime()));
+		// if (mp.getIsTimeShow() == 0) {
+		if (mp.getSendTime() != null && !mp.getSendTime().equals("")) {
+			holder.time.setText(TimeUtil.getChatTime(mp.getSendTime()));
 			holder.time.setVisibility(View.VISIBLE);
 		}
+		// }
 
 		holder.mes
-				.setText(convertNormalStringToSpannableString(mp.getMessage()));
+				.setText(convertNormalStringToSpannableString(mp.getContent()));
 		return convertView;
 	}
 
@@ -177,7 +179,6 @@ public class MessageListViewAdapter extends BaseAdapter {
 	}
 
 	private CharSequence convertNormalStringToSpannableString(String message) {
-		// TODO Auto-generated method stub
 		String hackTxt;
 		if (message.startsWith("[") && message.endsWith("]")) {
 			hackTxt = message + " ";

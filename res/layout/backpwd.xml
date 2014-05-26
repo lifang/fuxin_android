@@ -222,11 +222,14 @@
                 <CheckBox
                     android:id="@+id/agreement"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/checkboxing"
+                    android:button="@null" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     android:text="@string/agreement"
                     android:textSize="16sp" />
 
