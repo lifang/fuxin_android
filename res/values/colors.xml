@@ -123,5 +123,7 @@
     <color name="red_block">#d11b21</color>
     <color name="text_color">#333333</color>
     <color name="qianhui">#CCCCCC</color>
+    <color name="regist_bg">#F1F1F1</color>
+    <color name="regist_btn">#D3D3D3</color>
 
 </resources>
