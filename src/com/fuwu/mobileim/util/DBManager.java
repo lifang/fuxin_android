@@ -2,12 +2,12 @@ package com.fuwu.mobileim.util;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.fuwu.mobileim.pojo.MessagePojo;
+import com.fuwu.mobileim.pojo.TalkPojo;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-
-import com.fuwu.mobileim.pojo.MessagePojo;
 
 public class DBManager {
 	private DBHelper helper;
@@ -25,6 +25,37 @@ public class DBManager {
 					"INSERT INTO message VALUES(null,?,?,?,?,?)",
 					new Object[] { mp.getUserId(), mp.getContent(),
 							mp.getSendTime(), mp.getMsgType(), mp.getIsComMeg() });
+			db.setTransactionSuccessful();
+		} finally {
+			db.endTransaction();
+		}
+	}
+
+	public void addMessageList(List<MessagePojo> mps) {
+		db.beginTransaction();
+		try {
+			for (int i = 0; i < mps.size(); i++) {
+				MessagePojo mp = mps.get(i);
+				db.execSQL(
+						"INSERT INTO message VALUES(null,?,?,?,?,?)",
+						new Object[] { mp.getUserId(), mp.getContent(),
+								mp.getSendTime(), mp.getMsgType(),
+								mp.getIsComMeg() });
+			}
+			db.setTransactionSuccessful();
+		} finally {
+			db.endTransaction();
+		}
+	}
+
+	public void addTalk(TalkPojo tp) {
+		db.beginTransaction();
+		try {
+			db.execSQL(
+					"INSERT INTO talk VALUES(null,?,?,?,?,?,?)",
+					new Object[] { tp.getContact_id(), tp.getNick_name(),
+							tp.getHead_pic(), tp.getContent(), tp.getTime(),
+							tp.getMes_count() });
 			db.setTransactionSuccessful();
 		} finally {
 			db.endTransaction();

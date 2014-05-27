@@ -15,7 +15,7 @@ import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.util.FxApplication;
 
 public class FaceAdapter extends BaseAdapter {
-	
+
 	private LayoutInflater inflater;
 	private int currentPage = 0;
 	private Map<String, Integer> mFaceMap;
@@ -30,7 +30,7 @@ public class FaceAdapter extends BaseAdapter {
 	}
 
 	private void initData() {
-		for(Map.Entry<String, Integer> entry:mFaceMap.entrySet()){
+		for (Map.Entry<String, Integer> entry : mFaceMap.entrySet()) {
 			faceList.add(entry.getValue());
 		}
 	}

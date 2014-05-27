@@ -38,5 +38,6 @@
     <string name="validate2">180秒内有效</string>
     <string name="update_title">修改密码</string>
     <string name="yzm_error">验证码错误！</string>
+    <string name="receive_mess">恢复接收此人消息</string>
 
 </resources>

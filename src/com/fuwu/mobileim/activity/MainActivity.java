@@ -66,7 +66,8 @@ public class MainActivity extends Activity implements OnPageChangeListener {
 	private ImageView contact_search_empty;// 搜索框 清空图标
 	private Button contact_search_cancel;// 搜索功能 取消按钮
 	private ListView contacts_search_listview;// 搜索到的内容 listview
-private LinearLayout contacts_search_linearLayout;// 搜索 内容显示部分
+	private LinearLayout contacts_search_linearLayout;// 搜索 内容显示部分
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -79,7 +80,7 @@ private LinearLayout contacts_search_linearLayout;// 搜索 内容显示部分
 		context = MainActivity.this;
 		manager = new LocalActivityManager(this, true);
 		manager.dispatchCreate(savedInstanceState);
-		fxApplication= (FxApplication) getApplication();
+		fxApplication = (FxApplication) getApplication();
 		searchMethod();
 
 		changeTitleStyle();
@@ -122,40 +123,45 @@ private LinearLayout contacts_search_linearLayout;// 搜索 内容显示部分
 	 * 搜索相关设置
 	 */
 	public void searchMethod() {
-		contacts_search_linearLayout=(LinearLayout) findViewById(R.id.contacts_search_linearLayout); // 
-		contacts_search_listview=(ListView) findViewById(R.id.contacts_search_list_view); // 搜索到的内容 listview
+		contacts_search_linearLayout = (LinearLayout) findViewById(R.id.contacts_search_linearLayout); //
+		contacts_search_listview = (ListView) findViewById(R.id.contacts_search_list_view); // 搜索到的内容
+																							// listview
 		contact_search = (ImageView) findViewById(R.id.contact_search); // 搜索功能图标
 		main_search = (RelativeLayout) findViewById(R.id.main_search);// 搜索框全部
 		contact_search_edittext = (TextView) findViewById(R.id.contact_search_edittext);// 搜索框输入框
 		contact_search_empty = (ImageView) findViewById(R.id.contact_search_empty);// 搜索框清空图标
-		contact_search_cancel= (Button) findViewById(R.id.contact_search_cancel);// 搜索功能 取消按钮 
+		contact_search_cancel = (Button) findViewById(R.id.contact_search_cancel);// 搜索功能
+																					// 取消按钮
 		contact_search.setOnClickListener(listener1);
 		contact_search_empty.setOnClickListener(listener2);
 		contact_search_cancel.setOnClickListener(listener3);
 		contacts_search_listview.setDivider(null);
-		contacts_search_listview.setOnItemClickListener(new OnItemClickListener() {
+		contacts_search_listview
+				.setOnItemClickListener(new OnItemClickListener() {
 
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				// 这里要利用adapter.getItem(position)来获取当前position所对应的对象
-				Toast.makeText(getApplication(),
-						((ContactPojo) adapter.getItem(position)).getName(),
-						Toast.LENGTH_SHORT).show();
-			}
-		});
+					@Override
+					public void onItemClick(AdapterView<?> parent, View view,
+							int position, long id) {
+						// 这里要利用adapter.getItem(position)来获取当前position所对应的对象
+						Toast.makeText(
+								getApplication(),
+								((ContactPojo) adapter.getItem(position))
+										.getName(), Toast.LENGTH_SHORT).show();
+					}
+				});
 
 	}
-	
+
 	private View.OnClickListener listener1 = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
 			main_search.setVisibility(View.VISIBLE);
 			contacts_search_linearLayout.setVisibility(View.VISIBLE);
-			//  模拟
-			SourceDateList= fxApplication.getContactsList();
-//			 adapter = new ContactAdapter(MainActivity.this, SourceDateList,-1);
-//			contacts_search_listview.setAdapter(adapter);
+			// 模拟
+			SourceDateList = fxApplication.getContactsList();
+			// adapter = new ContactAdapter(MainActivity.this,
+			// SourceDateList,-1);
+			// contacts_search_listview.setAdapter(adapter);
 		}
 	};
 	private View.OnClickListener listener2 = new View.OnClickListener() {
@@ -172,7 +178,7 @@ private LinearLayout contacts_search_linearLayout;// 搜索 内容显示部分
 			contact_search_edittext.setText("");
 		}
 	};
-	
+
 	/**
 	 * 搜索输入框文本监听
 	 */
@@ -181,7 +187,8 @@ private LinearLayout contacts_search_linearLayout;// 搜索 内容显示部分
 			public void onTextChanged(CharSequence s, int start, int before,
 					int count) {
 				String content = contact_search_edittext.getText().toString();
-				adapter = new ContactAdapter(MainActivity.this, findSimilarContacts(content),-1);
+				adapter = new ContactAdapter(MainActivity.this,
+						findSimilarContacts(content), -1);
 				contacts_search_listview.setAdapter(adapter);
 			}
 
@@ -193,19 +200,20 @@ private LinearLayout contacts_search_linearLayout;// 搜索 内容显示部分
 			}
 		});
 	}
-	
+
 	public List<ContactPojo> findSimilarContacts(String et) {
-		List<ContactPojo>  findlist = new ArrayList<ContactPojo>();
-		if (et.length()>0) {
-		for (int i = 0; i < SourceDateList.size(); i++) {
-			if (SourceDateList.get(i).getName().indexOf(et) != -1) {
-				findlist.add(SourceDateList.get(i));
+		List<ContactPojo> findlist = new ArrayList<ContactPojo>();
+		if (et.length() > 0) {
+			for (int i = 0; i < SourceDateList.size(); i++) {
+				if (SourceDateList.get(i).getName().indexOf(et) != -1) {
+					findlist.add(SourceDateList.get(i));
+				}
 			}
-		}	
 		}
-		
+
 		return findlist;
 	}
+
 	/**
 	 * 初始化动画
 	 */
@@ -275,5 +283,4 @@ private LinearLayout contacts_search_linearLayout;// 搜索 内容显示部分
 		return manager.startActivity(id, intent).getDecorView();
 	}
 
-	
 }

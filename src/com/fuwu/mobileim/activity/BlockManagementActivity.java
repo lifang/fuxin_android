@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -69,22 +70,21 @@ public class BlockManagementActivity extends Activity {
 		list.add(cp2);
 		list.add(cp3);
 		list.add(cp4);
-		block_management_back= (ImageButton) findViewById(R.id.block_management_back);
+		block_management_back = (ImageButton) findViewById(R.id.block_management_back);
 		mListView = (ListView) findViewById(R.id.block_management_listView);
 		mListView.setDivider(null);
 		clvAdapter = new myListViewAdapter(this);
 		mListView.setAdapter(clvAdapter);
-		block_management_back.setOnClickListener(listener1);//  给返回按钮设置监听
+		block_management_back.setOnClickListener(listener1);// 给返回按钮设置监听
 	}
 
-	
 	private View.OnClickListener listener1 = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
 			BlockManagementActivity.this.finish();
 		}
 	};
-	
+
 	public class myListViewAdapter extends BaseAdapter {
 		private LayoutInflater mInflater;
 		private Context mcontext = null;
@@ -185,15 +185,19 @@ public class BlockManagementActivity extends Activity {
 
 				}
 			});
-			
+
 			layout.setOnClickListener(new View.OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
-					Toast.makeText(getApplication(), list.get(arg0).getName(), Toast.LENGTH_SHORT)
-					.show();
-					
-				}});
+					// Toast.makeText(getApplication(),
+					// list.get(arg0).getName(), Toast.LENGTH_SHORT)
+					// .show();
+					Intent intent = new Intent(BlockManagementActivity.this,
+							BlockManagementDisplayActivity.class);
+					startActivity(intent);
+				}
+			});
 			return layout;
 		}
 	}

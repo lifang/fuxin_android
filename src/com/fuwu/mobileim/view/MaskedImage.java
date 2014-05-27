@@ -1,7 +1,5 @@
 package com.fuwu.mobileim.view;
 
-
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -12,8 +10,6 @@ import android.graphics.Xfermode;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
-
-
 
 public abstract class MaskedImage extends ImageView {
 	private static final Xfermode MASK_XFERMODE;
@@ -33,7 +29,8 @@ public abstract class MaskedImage extends ImageView {
 		super(paramContext, paramAttributeSet);
 	}
 
-	public MaskedImage(Context paramContext, AttributeSet paramAttributeSet, int paramInt) {
+	public MaskedImage(Context paramContext, AttributeSet paramAttributeSet,
+			int paramInt) {
 		super(paramContext, paramAttributeSet, paramInt);
 	}
 
@@ -51,7 +48,8 @@ public abstract class MaskedImage extends ImageView {
 				Paint localPaint2 = this.paint;
 				Xfermode localXfermode1 = MASK_XFERMODE;
 				@SuppressWarnings("unused")
-				Xfermode localXfermode2 = localPaint2.setXfermode(localXfermode1);
+				Xfermode localXfermode2 = localPaint2
+						.setXfermode(localXfermode1);
 			}
 			float f1 = getWidth();
 			float f2 = getHeight();
@@ -72,7 +70,7 @@ public abstract class MaskedImage extends ImageView {
 		} catch (Exception localException) {
 			StringBuilder localStringBuilder = new StringBuilder()
 					.append("Attempting to draw with recycled bitmap. View ID = ");
-			System.out.println("localStringBuilder=="+localStringBuilder);
+			System.out.println("localStringBuilder==" + localStringBuilder);
 		}
 	}
 }

@@ -17,10 +17,10 @@ class ProtocolBufferDemo {
 			if (request.getUserName() == "MockUserName") {
 				result = true;
 			}
-			
+
 			Contact c = Contact.parseFrom(authenticationRequest);
-//			c.get
-			
+			// c.get
+
 			AuthenticationResponse.Builder builder = AuthenticationResponse
 					.newBuilder();
 			builder.setToken("aa");

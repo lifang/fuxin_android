@@ -79,6 +79,9 @@ public class TimeUtil {
 
 	public static boolean isFiveMin(String date) {
 		try {
+			if (date == null || date.equals("")) {
+				return true;
+			}
 			SimpleDateFormat format = new SimpleDateFormat("yy-MM-dd HH:mm");
 			Date sendDay = format.parse(date);
 			long time = sendDay.getTime();

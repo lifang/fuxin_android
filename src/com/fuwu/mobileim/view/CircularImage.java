@@ -1,7 +1,5 @@
 package com.fuwu.mobileim.view;
 
-
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -18,7 +16,8 @@ public class CircularImage extends MaskedImage {
 		super(paramContext, paramAttributeSet);
 	}
 
-	public CircularImage(Context paramContext, AttributeSet paramAttributeSet, int paramInt) {
+	public CircularImage(Context paramContext, AttributeSet paramAttributeSet,
+			int paramInt) {
 		super(paramContext, paramAttributeSet, paramInt);
 	}
 

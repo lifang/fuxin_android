@@ -11,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
@@ -111,8 +110,8 @@ public class SettingsActivity extends Activity {
 			startActivity(intent);
 			break;
 		case 4:// 屏蔽管理
-				// Toast.makeText(getApplicationContext(), "屏蔽管理" ,
-				// Toast.LENGTH_LONG).show();
+			// Toast.makeText(getApplicationContext(), "屏蔽管理" ,
+			// Toast.LENGTH_LONG).show();
 			intent.setClass(SettingsActivity.this,
 					BlockManagementActivity.class);
 			startActivity(intent);
@@ -120,6 +119,9 @@ public class SettingsActivity extends Activity {
 		case 5:// 系统公告管理
 			Toast.makeText(getApplicationContext(), "系统公告管理", Toast.LENGTH_LONG)
 					.show();
+			// Intent intent = new Intent
+			// (SettingsActivity.this,SettingsActivity.class);
+			// startActivity(intent);
 			intent.setClass(SettingsActivity.this, SystemPushActivity.class);
 			startActivity(intent);
 			break;
@@ -154,6 +156,7 @@ public class SettingsActivity extends Activity {
 			return 0;
 		}
 
+		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			RelativeLayout layout = null;
 			if (convertView == null) {
