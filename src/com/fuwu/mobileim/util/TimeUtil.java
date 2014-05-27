@@ -7,11 +7,7 @@ import java.util.Date;
 
 /**
  * @作者 马龙
-<<<<<<< HEAD
- * @时间 2014-5-16 下午2:00:41
-=======
  * @时间 2014-5-26 上午9:57:21
->>>>>>> c39595f8fb5b0bca0474307094b7b9a7f5b5aedc
  */
 public class TimeUtil {
 	static String[] weekDays = { "星期日", "星期一", "星期二", "星期三", "星期四", "星期五",
@@ -83,6 +79,9 @@ public class TimeUtil {
 
 	public static boolean isFiveMin(String date) {
 		try {
+			if (date == null || date.equals("")) {
+				return true;
+			}
 			SimpleDateFormat format = new SimpleDateFormat("yy-MM-dd HH:mm");
 			Date sendDay = format.parse(date);
 			long time = sendDay.getTime();
