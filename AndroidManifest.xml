@@ -40,6 +40,7 @@
         <activity android:name="com.fuwu.mobileim.activity.BlockManagementActivity" />
         <activity android:name="com.fuwu.mobileim.activity.BlockManagementDisplayActivity" />
         <activity android:name="com.fuwu.mobileim.activity.SystemPushActivity" />
+        <activity android:name="com.fuwu.mobileim.activity.UpdatePwdActivity" />
     </application>
 
 </manifest>

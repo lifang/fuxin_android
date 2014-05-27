@@ -955,11 +955,12 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     public static final class id {
         public static final int a_layout=0x7f05005a;
         public static final int accordion=0x7f05000b;
-        public static final int action_settings=0x7f05009c;
+        public static final int action_settings=0x7f0500a5;
         public static final int address_tv=0x7f050020;
         public static final int agreement=0x7f05002e;
         public static final int all=0x7f05001f;
         public static final int auto=0x7f050010;
+        public static final int backpwd_over=0x7f050030;
         public static final int block_display_name=0x7f05003d;
         public static final int block_face=0x7f050034;
         public static final int block_management_back=0x7f050031;
@@ -972,9 +973,9 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int button_recently=0x7f05005d;
         public static final int button_subscription=0x7f050061;
         public static final int button_trading=0x7f05005f;
-        public static final int certification_one=0x7f05008f;
-        public static final int certification_three=0x7f050091;
-        public static final int certification_two=0x7f050090;
+        public static final int certification_one=0x7f050091;
+        public static final int certification_three=0x7f050093;
+        public static final int certification_two=0x7f050092;
         public static final int chat_back=0x7f050043;
         public static final int chat_datetime=0x7f050055;
         public static final int chat_icon=0x7f050056;
@@ -1000,12 +1001,12 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int contacts_list_view=0x7f050062;
         public static final int contacts_search_linearLayout=0x7f050083;
         public static final int contacts_search_list_view=0x7f050084;
-        public static final int content=0x7f050095;
+        public static final int content=0x7f050097;
         public static final int cubein=0x7f050002;
         public static final int cubeout=0x7f050003;
-        public static final int dath=0x7f05009a;
-        public static final int del_talk=0x7f05009b;
-        public static final int delete=0x7f050092;
+        public static final int dath=0x7f05009c;
+        public static final int del_talk=0x7f05009d;
+        public static final int delete=0x7f050094;
         public static final int disabled=0x7f050016;
         public static final int dismiss=0x7f050015;
         public static final int exit=0x7f050022;
@@ -1018,7 +1019,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int flipvertical=0x7f050004;
         public static final int forgetpwd=0x7f050074;
         public static final int fullscreen=0x7f05000f;
-        public static final int gou=0x7f05008b;
+        public static final int gou=0x7f05008d;
         public static final int head=0x7f050070;
         public static final int huifu_item=0x7f050041;
         public static final int indicator=0x7f05004d;
@@ -1028,11 +1029,11 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int info_rem=0x7f050052;
         public static final int info_remText=0x7f050054;
         public static final int inputBar=0x7f050046;
-        public static final int item_thicklines=0x7f05008c;
-        public static final int layout=0x7f050097;
-        public static final int layout2=0x7f050099;
+        public static final int item_thicklines=0x7f05008e;
+        public static final int layout=0x7f050099;
+        public static final int layout2=0x7f05009b;
         public static final int left=0x7f05000c;
-        public static final int list=0x7f050093;
+        public static final int list=0x7f050095;
         public static final int login_btn=0x7f050072;
         public static final int main_cursor=0x7f050080;
         public static final int main_search=0x7f050078;
@@ -1049,10 +1050,16 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int name=0x7f050085;
         public static final int name_layout=0x7f050033;
         public static final int name_tag=0x7f050086;
-        public static final int news=0x7f050094;
+        public static final int new_pwd=0x7f0500a0;
+        public static final int new_pwd_tag=0x7f0500a1;
+        public static final int new_pwds=0x7f0500a2;
+        public static final int new_pwds_tag=0x7f0500a3;
+        public static final int news=0x7f050096;
         public static final int none=0x7f050012;
-        public static final int notice_number=0x7f05008a;
-        public static final int notice_sign=0x7f050089;
+        public static final int notice_number=0x7f05008c;
+        public static final int notice_sign=0x7f05008b;
+        public static final int old_pwd=0x7f05009e;
+        public static final int old_pwd_tag=0x7f05009f;
         public static final int phone=0x7f050028;
         public static final int phone_ok=0x7f050029;
         public static final int phone_tag=0x7f05002a;
@@ -1069,7 +1076,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int pwds_tag=0x7f050026;
         public static final int red_horizontal_line=0x7f050081;
         public static final int regist=0x7f050073;
-        public static final int regist_over=0x7f050030;
+        public static final int regist_over=0x7f050088;
         public static final int relativeLayout1=0x7f05003a;
         public static final int reveal=0x7f050014;
         public static final int right=0x7f05000d;
@@ -1080,10 +1087,10 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int section_toast_layout=0x7f050064;
         public static final int section_toast_text=0x7f050065;
         public static final int send_btn=0x7f05004a;
-        public static final int setting_adapter_item_iv=0x7f050087;
+        public static final int setting_adapter_item_iv=0x7f050089;
         public static final int setting_listview=0x7f050042;
-        public static final int setting_relativeLayout1=0x7f05008d;
-        public static final int setting_sex_item=0x7f05008e;
+        public static final int setting_relativeLayout1=0x7f05008f;
+        public static final int setting_sex_item=0x7f050090;
         public static final int setting_teachername=0x7f050040;
         public static final int setting_top=0x7f050037;
         public static final int setting_userface=0x7f050039;
@@ -1091,15 +1098,17 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int setting_userface2=0x7f05003f;
         public static final int sex_item=0x7f05003e;
         public static final int sidrbar=0x7f050063;
-        public static final int size=0x7f050098;
+        public static final int size=0x7f05009a;
         public static final int stack=0x7f050006;
         public static final int standard=0x7f050000;
         public static final int tablet=0x7f050001;
-        public static final int talk_listview=0x7f050096;
+        public static final int talk_listview=0x7f050098;
         public static final int title=0x7f050021;
-        public static final int titleStr=0x7f050088;
+        public static final int titleStr=0x7f05008a;
+        public static final int update_over=0x7f0500a4;
         public static final int user=0x7f050071;
         public static final int user_face=0x7f05003c;
+        public static final int validate_time=0x7f050087;
         public static final int view=0x7f050027;
         public static final int view_1=0x7f05005c;
         public static final int view_2=0x7f05005e;
@@ -1139,6 +1148,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int talk=0x7f030015;
         public static final int talk_adpter=0x7f030016;
         public static final int talk_builder=0x7f030017;
+        public static final int update_pwd=0x7f030018;
     }
     public static final class menu {
         public static final int main=0x7f0c0000;
@@ -1174,9 +1184,13 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int settings=0x7f0a0007;
         public static final int system_title=0x7f0a001f;
         public static final int talk=0x7f0a0005;
+        public static final int update_title=0x7f0a0023;
+        public static final int validate=0x7f0a0021;
+        public static final int validate2=0x7f0a0022;
         public static final int yz_error=0x7f0a001a;
         public static final int yz_send=0x7f0a001b;
         public static final int yz_sends=0x7f0a001c;
+        public static final int yzm_error=0x7f0a0024;
     }
     public static final class style {
         public static final int A1_Font=0x7f0b0003;

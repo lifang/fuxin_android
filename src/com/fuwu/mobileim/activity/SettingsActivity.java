@@ -107,9 +107,8 @@ public class SettingsActivity extends Activity {
 		case 3:// 修改密码
 			Toast.makeText(getApplicationContext(), "修改密码", Toast.LENGTH_LONG)
 					.show();
-			// Intent intent = new Intent
-			// (SettingsActivity.this,SettingsActivity.class);
-			// startActivity(intent);
+			intent.setClass(SettingsActivity.this, UpdatePwdActivity.class);
+			startActivity(intent);
 			break;
 		case 4:// 屏蔽管理
 				// Toast.makeText(getApplicationContext(), "屏蔽管理" ,
