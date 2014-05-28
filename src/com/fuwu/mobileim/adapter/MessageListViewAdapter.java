@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -53,6 +52,11 @@ public class MessageListViewAdapter extends BaseAdapter {
 
 	public void updMessage(MessagePojo cp) {
 		list.add(cp);
+		notifyDataSetChanged();
+	}
+
+	public void updMessageList(List<MessagePojo> list) {
+		this.list = list;
 		notifyDataSetChanged();
 	}
 
@@ -179,6 +183,7 @@ public class MessageListViewAdapter extends BaseAdapter {
 	}
 
 	private CharSequence convertNormalStringToSpannableString(String message) {
+		// TODO Auto-generated method stub
 		String hackTxt;
 		if (message.startsWith("[") && message.endsWith("]")) {
 			hackTxt = message + " ";

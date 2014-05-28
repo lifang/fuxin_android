@@ -11,4 +11,12 @@ public interface Urlinterface {
 
 	String getContacts = IP + "/api/Contact";// 获得联系人
 
+	// 注册
+	static final String REGIST = IP + "/api/Register";
+	// 短信验证
+	static final String ValidateCode = IP + "/api/ValidateCode";
+	// 登陆
+	static final String LOGIN = IP + "/api/Authentication";
+	// 修改密码
+	static final String PASSWORD = IP + "/api/Password";
 }

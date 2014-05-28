@@ -71,4 +71,11 @@ public class MessagePojo {
 		this.isComMeg = isComMeg;
 	}
 
+	@Override
+	public String toString() {
+		return "MessagePojo [userId=" + userId + ", sendTime=" + sendTime
+				+ ", content=" + content + ", isComMeg=" + isComMeg
+				+ ", msgType=" + msgType + "]";
+	}
+
 }

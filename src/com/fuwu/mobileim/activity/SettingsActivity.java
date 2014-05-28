@@ -110,13 +110,12 @@ public class SettingsActivity extends Activity {
 		case 3:// 修改密码
 			Toast.makeText(getApplicationContext(), "修改密码", Toast.LENGTH_LONG)
 					.show();
-			// Intent intent = new Intent
-			// (SettingsActivity.this,SettingsActivity.class);
-			// startActivity(intent);
+			intent.setClass(SettingsActivity.this, UpdatePwdActivity.class);
+			startActivity(intent);
 			break;
 		case 4:// 屏蔽管理
-			// Toast.makeText(getApplicationContext(), "屏蔽管理" ,
-			// Toast.LENGTH_LONG).show();
+				// Toast.makeText(getApplicationContext(), "屏蔽管理" ,
+				// Toast.LENGTH_LONG).show();
 			intent.setClass(SettingsActivity.this,
 					BlockManagementActivity.class);
 			startActivity(intent);
@@ -131,8 +130,8 @@ public class SettingsActivity extends Activity {
 			startActivity(intent);
 			break;
 		case 6:// 退出登录
-			Toast.makeText(getApplicationContext(), "退出登录", Toast.LENGTH_LONG)
-					.show();
+			intent.setClass(SettingsActivity.this, LoginActivity.class);
+			startActivity(intent);
 			break;
 		default:
 			break;

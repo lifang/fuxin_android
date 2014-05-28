@@ -9,8 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Matrix;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.Editable;
@@ -19,6 +17,7 @@ import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
 import android.text.style.AbsoluteSizeSpan;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
@@ -67,6 +66,7 @@ public class MainActivity extends Activity implements OnPageChangeListener {
 	private Button contact_search_cancel;// 搜索功能 取消按钮
 	private ListView contacts_search_listview;// 搜索到的内容 listview
 	private LinearLayout contacts_search_linearLayout;// 搜索 内容显示部分
+	private MainViewPagerAdapter pagerAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -98,8 +98,8 @@ public class MainActivity extends Activity implements OnPageChangeListener {
 		views.add(getView("AddressBook", intent2));
 		Intent intent3 = new Intent(context, SettingsActivity.class);
 		views.add(getView("Settings", intent3));
-
-		viewPager.setAdapter(new MainViewPagerAdapter(views));
+		pagerAdapter = new MainViewPagerAdapter(views);
+		viewPager.setAdapter(pagerAdapter);
 		viewPager.setCurrentItem(0);
 		viewPager.setOnPageChangeListener(this);
 	}
@@ -279,6 +279,10 @@ public class MainActivity extends Activity implements OnPageChangeListener {
 			contact_search.setVisibility(View.VISIBLE);
 		} else {
 			contact_search.setVisibility(View.GONE);
+		}
+		if (arg0 == 0) {
+			Log.i("Max", "进入1");
+			viewPager.setAdapter(pagerAdapter);
 		}
 	}
 

@@ -22,6 +22,9 @@ public class FxApplication extends Application {
 	private static FxApplication mApplication;
 	private List<ContactPojo> contactsList = new ArrayList<ContactPojo>();
 	private  Map<Integer, ContactPojo> contactsMap = new HashMap<Integer, ContactPojo>();
+	private int user_id;
+	private String token;
+
 	public synchronized static FxApplication getInstance() {
 		return mApplication;
 	}
@@ -169,6 +172,22 @@ public class FxApplication extends Application {
 
 		mFaceMap.put("[右太极]", R.drawable.f105);
 		mFaceMap.put("[闭嘴]", R.drawable.f106);
+	}
+
+	public int getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 
 }

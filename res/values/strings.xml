@@ -34,6 +34,10 @@
     <string name="back_title">找回密码</string>
     <string name="system_title">系统公告</string>
     <string name="cancel">取消</string>
+    <string name="validate">已向手机发送验证码</string>
+    <string name="validate2">180秒内有效</string>
+    <string name="update_title">修改密码</string>
+    <string name="yzm_error">验证码错误！</string>
     <string name="receive_mess">恢复接收此人消息</string>
     <string name="my_info">我的信息</string>
     <string name="my_info_userface">头像：</string>

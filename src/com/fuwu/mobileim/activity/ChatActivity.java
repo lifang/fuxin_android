@@ -7,10 +7,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
+import com.fuwu.mobileim.R;
+import com.fuwu.mobileim.adapter.FaceAdapter;
+import com.fuwu.mobileim.adapter.FacePageAdapter;
+import com.fuwu.mobileim.adapter.MessageListViewAdapter;
+import com.fuwu.mobileim.pojo.MessagePojo;
+import com.fuwu.mobileim.util.DBManager;
+import com.fuwu.mobileim.util.FxApplication;
+import com.fuwu.mobileim.util.TimeUtil;
+import com.fuwu.mobileim.view.CirclePageIndicator;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -27,7 +40,6 @@ import android.text.SpannableString;
 import android.text.TextWatcher;
 import android.text.style.ImageSpan;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -36,28 +48,15 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.SimpleAdapter;
-
-import com.fuwu.mobileim.R;
-import com.fuwu.mobileim.adapter.FaceAdapter;
-import com.fuwu.mobileim.adapter.FacePageAdapter;
-import com.fuwu.mobileim.adapter.MessageListViewAdapter;
-import com.fuwu.mobileim.model.Models.MessageRequest;
-import com.fuwu.mobileim.model.Models.MessageResponse;
-import com.fuwu.mobileim.pojo.MessagePojo;
-import com.fuwu.mobileim.util.DBManager;
-import com.fuwu.mobileim.util.FxApplication;
-import com.fuwu.mobileim.util.HttpUtil;
-import com.fuwu.mobileim.util.TimeUtil;
-import com.fuwu.mobileim.view.CirclePageIndicator;
-import com.google.protobuf.InvalidProtocolBufferException;
 
 /**
  * @作者 马龙
@@ -88,13 +87,22 @@ public class ChatActivity extends Activity implements OnClickListener,
 	private MessageListViewAdapter mMessageAdapter;
 	private ProgressDialog pd;
 	private DBManager db;
+	private RequstReceiver mReuRequstReceiver;
 	private Handler handler = new Handler() {
-
+		@Override
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
-			pd.dismiss();
+			switch (msg.what) {
+			case 1:
+				break;
+			case 2:
+				Toast.makeText(getApplicationContext(), "更新记录", 0).show();
+				updateMessageData();
+				mMessageAdapter.updMessageList(list);
+				break;
+			}
+			// pd.dismiss();
 		}
-
 	};
 
 	@Override
@@ -108,35 +116,17 @@ public class ChatActivity extends Activity implements OnClickListener,
 		// pd = new ProgressDialog(this);
 		// pd.setMessage("正在加载");
 		// pd.show();
-//		new chatMessage().start();
+		mReuRequstReceiver = new RequstReceiver();
+
+		Intent i = new Intent();
+		i.setClass(ChatActivity.this, RequstService.class);
+		startService(i);
 	}
 
 	class chatMessage extends Thread {
 		@Override
 		public void run() {
 			super.run();
-			try {
-				MessageRequest.Builder builder = MessageRequest.newBuilder();
-				builder.setUserId(1);
-				builder.setToken("MockToken");
-				MessageRequest response = builder.build();
-				String https = "https://118.242.18.189/api/Message";
-				MessageResponse mr = MessageResponse.parseFrom(HttpUtil
-						.sendHttps(response.toByteArray(), https, "POST"));
-				Log.i("Ax", "messageCount:" + mr.getMessageListsCount());
-				if (mr.getMessageListsCount() > 0) {
-					com.fuwu.mobileim.model.Models.MessageList mes = mr
-							.getMessageLists(0);
-					Log.i("Ax", "count:" + mes.getMessagesCount());
-					if (mes.getMessagesCount() > 0) {
-						Log.i("Ax", "content:"
-								+ mes.getMessages(0).getContent());
-						Log.i("Ax", "time:" + mes.getMessages(0).getSendTime());
-					}
-				}
-			} catch (InvalidProtocolBufferException e) {
-				e.printStackTrace();
-			}
 			handler.sendEmptyMessage(1);
 		}
 	}
@@ -148,6 +138,10 @@ public class ChatActivity extends Activity implements OnClickListener,
 		Set<String> keySet = FxApplication.getInstance().getFaceMap().keySet();
 		keys = new ArrayList<String>();
 		keys.addAll(keySet);
+		updateMessageData();
+	}
+
+	public void updateMessageData() {
 		if (!db.isOpen()) {
 			db = new DBManager(this);
 		}
@@ -208,8 +202,6 @@ public class ChatActivity extends Activity implements OnClickListener,
 				return false;
 			}
 		});
-
-		// LastTimeMap.addLastTime(1, System.currentTimeMillis());
 
 		mMessageAdapter = new MessageListViewAdapter(getResources(), this, list);
 		mListView.setAdapter(mMessageAdapter);
@@ -495,6 +487,27 @@ public class ChatActivity extends Activity implements OnClickListener,
 		} else {
 			mPlusBtn.setVisibility(View.VISIBLE);
 			mSendBtn.setVisibility(View.GONE);
+		}
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		registerReceiver(mReuRequstReceiver, new IntentFilter(
+				"com.comdosoft.fuxun.REQUEST_ACTION"));
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		unregisterReceiver(mReuRequstReceiver);
+
+	}
+
+	class RequstReceiver extends BroadcastReceiver {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			handler.sendEmptyMessage(2);
 		}
 	}
 }

@@ -28,27 +28,29 @@
             android:label="@string/app_name" >
         </activity>
         <activity android:name="com.fuwu.mobileim.activity.MainActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name="com.fuwu.mobileim.activity.TalkActivity" />
         <activity android:name="com.fuwu.mobileim.activity.AddressBookActivity" />
         <activity android:name="com.fuwu.mobileim.activity.SettingsActivity" />
         <activity android:name="com.fuwu.mobileim.activity.ContactActivity" />
         <activity android:name="com.fuwu.mobileim.activity.LoginActivity" >
-            
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name="com.fuwu.mobileim.activity.BlockManagementActivity" >
         </activity>
-        <activity android:name="com.fuwu.mobileim.activity.BlockManagementDisplayActivity" 
-            android:theme="@style/Dialog">
+        <activity
+            android:name="com.fuwu.mobileim.activity.BlockManagementDisplayActivity"
+            android:theme="@style/Dialog" >
         </activity>
         <activity android:name="com.fuwu.mobileim.activity.RegistActivity" />
         <activity android:name="com.fuwu.mobileim.activity.BackPwdActicity" />
         <activity android:name="com.fuwu.mobileim.activity.SystemPushActivity" />
+        <activity android:name="com.fuwu.mobileim.activity.UpdatePwdActivity" />
+
+        <service android:name="com.fuwu.mobileim.activity.RequstService" />
         <activity android:name="com.fuwu.mobileim.activity.MyInformationActivity" />
     </application>
 
