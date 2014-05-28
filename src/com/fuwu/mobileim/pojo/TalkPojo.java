@@ -1,7 +1,8 @@
-package com.fuwu.mobileim.pojo; 
-/** 
- * @作者 马龙 
- * @时间 创建时间：2014-5-26 下午3:02:43 
+package com.fuwu.mobileim.pojo;
+
+/**
+ * @作者 马龙
+ * @时间 创建时间：2014-5-26 下午3:02:43
  */
 public class TalkPojo {
 
@@ -11,8 +12,9 @@ public class TalkPojo {
 	private String content;
 	private String time;
 	private int mes_count;
-	
-	public TalkPojo(){}
+
+	public TalkPojo() {
+	}
 
 	public TalkPojo(int contact_id, String nick_name, String head_pic,
 			String content, String time, int mes_count) {
@@ -73,6 +75,4 @@ public class TalkPojo {
 		this.mes_count = mes_count;
 	}
 
-	
 }
- 
