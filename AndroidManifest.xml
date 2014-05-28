@@ -11,11 +11,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_CONTACTS" >
     </uses-permission>
-    <!-- 在SDCard中创建于删除文件的权限 -->
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-
-    <!-- 在SDCard中写入数据的权限 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name="com.fuwu.mobileim.util.FxApplication"
@@ -47,13 +42,11 @@
             android:theme="@style/Dialog" >
         </activity>
         <activity android:name="com.fuwu.mobileim.activity.RegistActivity" />
-        <activity android:name="com.fuwu.mobileim.activity.BackPwdActicity" />
+        <activity android:name="com.fuwu.mobileim.activity.ResetPasswordActicity" />
         <activity android:name="com.fuwu.mobileim.activity.SystemPushActivity" />
         <activity android:name="com.fuwu.mobileim.activity.UpdatePwdActivity" />
 
         <service android:name="com.fuwu.mobileim.activity.RequstService" />
-
-        <activity android:name="com.fuwu.mobileim.activity.MyInformationActivity" />
     </application>
 
 </manifest>

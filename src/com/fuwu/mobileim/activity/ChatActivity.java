@@ -123,11 +123,10 @@ public class ChatActivity extends Activity implements OnClickListener,
 
 		Intent i = new Intent();
 		i.setClass(ChatActivity.this, RequstService.class);
-		 startService(i);
+		startService(i);
 	}
 
 	class chatMessage extends Thread {
-		@Override
 		public void run() {
 			super.run();
 			handler.sendEmptyMessage(1);
