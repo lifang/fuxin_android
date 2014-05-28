@@ -1,8 +1,9 @@
 package com.fuwu.mobileim.pojo;
 
+
 /**
- * @作者 马龙
- * @时间 创建时间：2014-5-14 下午2:17:56
+ * @作者 丁作强
+ * @时间 2014-5-28 上午10:07:55
  */
 public class ContactPojo {
 
@@ -11,25 +12,53 @@ public class ContactPojo {
 	private String name; // 昵称
 	private String customName;  // 备注
 	private String userface_url;  // 头像路径
+	private int sex;  //  性别
 	private int source;  //  是否交易 是否订阅
 	private String lastContactTime; //最近联系时间
+	private Boolean isBlocked; //是否屏蔽
 	
 
 	public ContactPojo() {
 	}
 
 
-	public ContactPojo(int contacId, String sortKey, String name,
-			String custom_name, String userface_url, int source,
-			String lastContactTime) {
+
+	public ContactPojo(int contactId, String sortKey, String name,
+			String customName, String userface_url, int sex, int source,
+			String lastContactTime, Boolean isBlocked) {
 		super();
-		this.contactId = contacId;
+		this.contactId = contactId;
 		this.sortKey = sortKey;
 		this.name = name;
-		this.customName = custom_name;
+		this.customName = customName;
 		this.userface_url = userface_url;
+		this.sex = sex;
 		this.source = source;
 		this.lastContactTime = lastContactTime;
+		this.isBlocked = isBlocked;
+	}
+
+
+
+
+
+	public int getSex() {
+		return sex;
+	}
+
+
+	public void setSex(int sex) {
+		this.sex = sex;
+	}
+
+
+	public Boolean getIsBlocked() {
+		return isBlocked;
+	}
+
+
+	public void setIsBlocked(Boolean isBlocked) {
+		this.isBlocked = isBlocked;
 	}
 
 

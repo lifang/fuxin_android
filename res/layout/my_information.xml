@@ -26,11 +26,14 @@
             android:textColor="#ffffff"
             android:textSize="18dp" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageButton
+            android:id="@+id/my_info_confirm"
+            android:layout_width="40dip"
+            android:layout_height="40dip"
             android:layout_alignParentRight="true"
-            android:text="确认" />
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15.0dip"
+            android:background="@drawable/myinfo_confirm" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -69,7 +72,9 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="50dip"
-        android:background="@color/white" >
+        android:background="@color/white"
+        android:focusable="true"
+        android:focusableInTouchMode="true" >
 
         <TextView
             android:layout_width="wrap_content"
@@ -80,14 +85,18 @@
             android:textColor="#333333"
             android:textSize="16dp" />
 
-        <TextView
+        <EditText
             android:id="@+id/myinfo_nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="22dp"
+            android:maxLength="32"
+            android:singleLine="true"
             android:text="haohaizi"
+            android:background="@null"
+            
             android:textColor="#333333"
             android:textSize="16dp" />
 

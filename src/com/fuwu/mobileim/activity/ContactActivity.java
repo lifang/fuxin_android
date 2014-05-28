@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -23,6 +25,7 @@ import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.adapter.ContactAdapter;
 import com.fuwu.mobileim.model.Models.ContactRequest;
@@ -45,6 +48,7 @@ public class ContactActivity extends Fragment {
 	private SideBar sideBar;
 	private TextView dialog;
 	private ContactAdapter adapter;
+	private View rootView;
 	/**
 	 * 弹出式分组的布局
 	 */
@@ -72,7 +76,6 @@ public class ContactActivity extends Fragment {
 	private int buttonNumber = -1;
 	private List<Button> btnList = new ArrayList<Button>();
 	private String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ#";
-	private View rootView;
 	SideBar b;
 	private Handler handler = new Handler() {
 		/*
@@ -91,7 +94,8 @@ public class ContactActivity extends Fragment {
 
 				fxApplication.setContactsList(contactsList);
 				fxApplication.setContactsMap(contactsMap);
-				adapter = new ContactAdapter(getActivity(), contactsList, 1);
+				adapter = new ContactAdapter(getActivity(),
+						contactsList, 1);
 				sortListView.setAdapter(adapter);
 
 				break;
@@ -143,41 +147,54 @@ public class ContactActivity extends Fragment {
 								.getName());
 						String customName = res.getContacts(i).getCustomName();
 						String userface_url = res.getContacts(i).getTileUrl();
+						int sex = res.getContacts(i).getGender();
 						int source = res.getContacts(i).getSource();
 						String lastContactTime = res.getContacts(i)
 								.getLastContactTime();// 2014-05-27 11:42:18
+						Boolean isBlocked = res.getContacts(i).getIsBlocked();
 
 						ContactPojo coPojo = new ContactPojo(contactId,
-								sortKey, name, customName, userface_url,
-								source, lastContactTime);
+								sortKey, name, customName, userface_url, sex,
+								source, lastContactTime, isBlocked);
 						contactsList.add(coPojo);
 						if (i < 5) {
 
 							ContactPojo coPojo2 = new ContactPojo(
-									contactId,
+									contactId + 1000,
 									"A",
 									"2013-05-27 11:42:18",
 									customName,
 									"http://www.baidu.com/img/baidu_sylogo1.gif",
-									3, "2013-05-27 11:42:18");
+									sex, 3, "2013-05-27 11:42:18", isBlocked);
 							contactsList.add(coPojo2);
+
+						}
+						if (i > 5 && i < 15) {
 							ContactPojo coPojo3 = new ContactPojo(
-									contactId,
+									contactId + 1000,
 									"R",
 									"2014-05-27 11:42:18",
 									customName,
 									"http://www.baidu.com/img/baidu_sylogo1.gif",
-									8, "2014-05-27 11:42:18");
+									sex, 8, "2014-05-27 11:42:18", isBlocked);
 							contactsList.add(coPojo3);
-							ContactPojo coPojo4 = new ContactPojo(contactId,
-									"O", "2014-04-27 11:42:18", customName,
-									userface_url, 11, "2014-04-27 11:42:18");
+
+						}
+						if (i > 15 && i < 25) {
+							ContactPojo coPojo4 = new ContactPojo(
+									contactId + 1000, "O",
+									"2014-04-27 11:42:18", customName,
+									userface_url, sex, 11,
+									"2014-04-27 11:42:18", isBlocked);
 							contactsList.add(coPojo4);
 						}
 						if (i == 1) {
-							Log.i("Ax", "userface_url:" + userface_url
+							Log.i("Ax", "contactId:" + contactId
+									+ "userface_url:" + userface_url
 									+ "---source:" + source
-									+ "---lastContactTime:" + lastContactTime);
+									+ "---lastContactTime:" + lastContactTime
+									+ "----sex:"
+									+ res.getContacts(i).getGender());
 						}
 						contactsMap.put(contactId, coPojo);
 					}
@@ -207,12 +224,10 @@ public class ContactActivity extends Fragment {
 		pinyinComparator = new PinyinComparator();
 		Thread thread = new Thread(new getContacts());
 		thread.start();
-
 		sectionToastLayout = (RelativeLayout) rootView
 				.findViewById(R.id.section_toast_layout);
 		sectionToastText = (TextView) rootView
 				.findViewById(R.id.section_toast_text);
-		sectionToastText.setText("aa");
 		sideBar = (SideBar) rootView.findViewById(R.id.sidrbar);
 		// 设置右侧触摸监听
 		sideBar.setOnTouchingLetterChangedListener(new OnTouchingLetterChangedListener() {
@@ -323,8 +338,7 @@ public class ContactActivity extends Fragment {
 		int width1 = 20; // 外部边框距左右边界距离
 		int hight0 = 80; // 外部边框高度
 		int hight1 = hight0 - width0 * 2; // button高度
-		LinearLayout a_layout = (LinearLayout) rootView
-				.findViewById(R.id.a_layout);
+		LinearLayout a_layout = (LinearLayout) rootView.findViewById(R.id.a_layout);
 		LayoutParams param = (LayoutParams) a_layout.getLayoutParams();
 		param.leftMargin = 20;
 		param.rightMargin = 20;
@@ -346,8 +360,7 @@ public class ContactActivity extends Fragment {
 		button_all = (Button) rootView.findViewById(R.id.button_all);
 		button_recently = (Button) rootView.findViewById(R.id.button_recently);
 		button_trading = (Button) rootView.findViewById(R.id.button_trading);
-		button_subscription = (Button) rootView
-				.findViewById(R.id.button_subscription);
+		button_subscription = (Button) rootView.findViewById(R.id.button_subscription);
 		btnList.add(button_all);
 		btnList.add(button_recently);
 		btnList.add(button_trading);
@@ -390,7 +403,8 @@ public class ContactActivity extends Fragment {
 				Collections.sort(list1, pinyinComparator);
 				adapter = new ContactAdapter(getActivity(), list1, 0);
 			} else {
-				adapter = new ContactAdapter(getActivity(), contactsList1, 0);
+				adapter = new ContactAdapter(getActivity(),
+						contactsList1, 0);
 			}
 
 			sortListView.setAdapter(adapter);

@@ -11,6 +11,11 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_CONTACTS" >
     </uses-permission>
+    <!-- 在SDCard中创建于删除文件的权限 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+
+    <!-- 在SDCard中写入数据的权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name="com.fuwu.mobileim.util.FxApplication"
@@ -18,20 +23,17 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@android:style/Theme.NoTitleBar" >
+        <activity
+            android:name="com.fuwu.mobileim.activity.ChatActivity"
+            android:label="@string/app_name" >
+        </activity>
         <activity android:name="com.fuwu.mobileim.activity.MainActivity" >
         </activity>
         <activity android:name="com.fuwu.mobileim.activity.TalkActivity" />
-        <activity android:name="com.fuwu.mobileim.activity.FragmentAActivity" />
+        <activity android:name="com.fuwu.mobileim.activity.AddressBookActivity" />
         <activity android:name="com.fuwu.mobileim.activity.SettingsActivity" />
         <activity android:name="com.fuwu.mobileim.activity.ContactActivity" />
-        <activity android:name="com.fuwu.mobileim.activity.ChatActivity" >
-        </activity>
         <activity android:name="com.fuwu.mobileim.activity.LoginActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name="com.fuwu.mobileim.activity.BlockManagementActivity" >
         </activity>
@@ -40,11 +42,20 @@
             android:theme="@style/Dialog" >
         </activity>
         <activity android:name="com.fuwu.mobileim.activity.RegistActivity" />
-        <activity android:name="com.fuwu.mobileim.activity.ResetPasswordActicity" />
+        <activity android:name="com.fuwu.mobileim.activity.BackPwdActicity" />
         <activity android:name="com.fuwu.mobileim.activity.SystemPushActivity" />
         <activity android:name="com.fuwu.mobileim.activity.UpdatePwdActivity" />
 
         <service android:name="com.fuwu.mobileim.activity.RequstService" />
+
+        <activity android:name="com.fuwu.mobileim.activity.MyInformationActivity" />
+        <activity android:name="com.fuwu.mobileim.activity.FragmengtActivity" >
+        <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter> 
+        </activity>
     </application>
 
 </manifest>
