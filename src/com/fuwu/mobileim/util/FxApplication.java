@@ -1,6 +1,7 @@
 package com.fuwu.mobileim.util;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,7 @@ public class FxApplication extends Application {
 	private Map<String, Integer> mFaceMap = new LinkedHashMap<String, Integer>();
 	private static FxApplication mApplication;
 	private List<ContactPojo> contactsList = new ArrayList<ContactPojo>();
+	private  Map<Integer, ContactPojo> contactsMap = new HashMap<Integer, ContactPojo>();
 	private int user_id;
 	private String token;
 
@@ -40,6 +42,14 @@ public class FxApplication extends Application {
 
 	public void setContactsList(List<ContactPojo> contactsList) {
 		this.contactsList = contactsList;
+	}
+
+	public Map<Integer, ContactPojo> getContactsMap() {
+		return contactsMap;
+	}
+
+	public void setContactsMap(Map<Integer, ContactPojo> contactsMap) {
+		this.contactsMap = contactsMap;
 	}
 
 	public Map<String, Integer> getFaceMap() {

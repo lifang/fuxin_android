@@ -67,6 +67,11 @@ public class TalkActivity extends Activity {
 		setContentView(R.layout.talk);
 		initData();
 		mListView = (ListView) findViewById(R.id.talk_listview);
+		for (int i = 0; i < 20; i++) {
+//			list.add(new ContactPojo("联系人" + i, "5月7日", "最近的一条对话文本记录", "你好啊", 0));
+		}
+		clvAdapter = new myListViewAdapter(this);
+		mListView.setAdapter(clvAdapter);
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {

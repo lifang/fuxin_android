@@ -13,6 +13,7 @@ public class MessagePojo {
 	public static final int MESSAGE_TYPE_FILE = 3;
 
 	private int userId;
+	private int contactId;
 	private String sendTime;// 消息日期
 	private String content;// 消息内容
 	private int isComMeg = 0;// 0接收/1发送 消息
@@ -21,10 +22,11 @@ public class MessagePojo {
 	public MessagePojo() {
 	}
 
-	public MessagePojo(int userId, String sendTime, String content, int isComMeg,
-			int msgType) {
+	public MessagePojo(int userId, int contactId, String sendTime,
+			String content, int isComMeg, int msgType) {
 		super();
 		this.userId = userId;
+		this.contactId = contactId;
 		this.sendTime = sendTime;
 		this.content = content;
 		this.isComMeg = isComMeg;
@@ -37,6 +39,14 @@ public class MessagePojo {
 
 	public void setUserId(int userId) {
 		this.userId = userId;
+	}
+	
+	public int getContactId() {
+		return contactId;
+	}
+
+	public void setContactId(int contactId) {
+		this.contactId = contactId;
 	}
 
 	public int getMsgType() {

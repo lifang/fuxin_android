@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lint>
-    <issue id="SimpleDateFormat">
+    <issue id="HandlerLeak" severity="ignore" />
+    <issue id="SimpleDateFormat" severity="ignore">
         <ignore path="src/com/comdosoft/fuxun/util/TimeUtil.java" />
     </issue>
 </lint>
