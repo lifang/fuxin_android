@@ -54,7 +54,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="20dp"
                     android:background="@null"
-                    android:hint="请填写愿密码"
+                    android:hint="请填写原密码"
                     android:inputType="text"
                     android:textColor="#333333"
                     android:textColorHint="@color/qianhui" />

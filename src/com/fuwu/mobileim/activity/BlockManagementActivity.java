@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.pojo.ContactPojo;
+import com.fuwu.mobileim.util.FxApplication;
 
 public class BlockManagementActivity extends Activity {
 	private ListView mListView;
@@ -53,23 +54,18 @@ public class BlockManagementActivity extends Activity {
 			}
 		}
 	};
+	private FxApplication fxApplication;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.block_management);
-
-		ContactPojo cp1 = new ContactPojo();
-		cp1.setName("丁作强1");
-		ContactPojo cp2 = new ContactPojo();
-		cp2.setName("丁作强2");
-		ContactPojo cp3 = new ContactPojo();
-		cp3.setName("丁作强3");
-		ContactPojo cp4 = new ContactPojo();
-		cp4.setName("丁作强4");
-		list.add(cp1);
-		list.add(cp2);
-		list.add(cp3);
-		list.add(cp4);
+		fxApplication = (FxApplication) getApplication();
+		// 获得被屏蔽的联系人
+		for (int i = 0; i < fxApplication.getContactsList().size(); i++) {
+			if (fxApplication.getContactsList().get(i).getIsBlocked()) {
+				list.add(fxApplication.getContactsList().get(i));
+			}
+		}
 		block_management_back = (ImageButton) findViewById(R.id.block_management_back);
 		mListView = (ListView) findViewById(R.id.block_management_listView);
 		mListView.setDivider(null);
@@ -107,6 +103,7 @@ public class BlockManagementActivity extends Activity {
 		}
 
 		public View getView(final int arg0, View arg1, ViewGroup arg2) {
+			final ContactPojo contact = list.get(arg0);
 			RelativeLayout layout = null;
 			if (arg1 == null) {
 				layout = (RelativeLayout) LayoutInflater.from(
@@ -118,7 +115,7 @@ public class BlockManagementActivity extends Activity {
 			// CircularImage head = (CircularImage)
 			// layout.findViewById(R.id.block_face);
 			TextView name = (TextView) layout.findViewById(R.id.block_name);
-			name.setText(list.get(arg0).getName());
+			name.setText(contact.getName());
 			Button restore = (Button) layout.findViewById(R.id.block_restore);
 			restore.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
@@ -190,11 +187,9 @@ public class BlockManagementActivity extends Activity {
 
 				@Override
 				public void onClick(View v) {
-					// Toast.makeText(getApplication(),
-					// list.get(arg0).getName(), Toast.LENGTH_SHORT)
-					// .show();
 					Intent intent = new Intent(BlockManagementActivity.this,
 							BlockManagementDisplayActivity.class);
+					intent.putExtra("contactId",contact.getContactId() );
 					startActivity(intent);
 				}
 			});

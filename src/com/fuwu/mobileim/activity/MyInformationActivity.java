@@ -30,6 +30,8 @@ import com.fuwu.mobileim.pojo.ContactPojo;
 
 public class MyInformationActivity extends Activity {
 	private ImageButton my_info_back;// 返回按钮
+	private ImageButton my_info_confirm;// 保存按钮
+	
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
@@ -52,12 +54,22 @@ public class MyInformationActivity extends Activity {
 
 		my_info_back = (ImageButton) findViewById(R.id.my_info_back);
 		my_info_back.setOnClickListener(listener1);// 给返回按钮设置监听
+		my_info_confirm= (ImageButton) findViewById(R.id.my_info_confirm);
+		my_info_confirm.setOnClickListener(listener2);// 给保存按钮设置监听
 	}
 
 	private View.OnClickListener listener1 = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
 			MyInformationActivity.this.finish();
+		}
+	};
+	
+	private View.OnClickListener listener2 = new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			Toast.makeText(getApplicationContext(), "提交修改", Toast.LENGTH_LONG)
+			.show();
 		}
 	};
 

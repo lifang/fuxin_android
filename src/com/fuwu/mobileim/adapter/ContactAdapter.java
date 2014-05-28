@@ -23,6 +23,7 @@ import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.Urlinterface;
+import com.fuwu.mobileim.view.CircularImage;
 
 /**
  * 联系人列表适配器
@@ -72,7 +73,7 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 					.findViewById(R.id.contact_name);
 			TextView contact_sort_key = (TextView) view
 					.findViewById(R.id.contact_sort_key);
-			ImageView contact_user_face = (ImageView) view
+			CircularImage contact_user_face = (CircularImage) view
 					.findViewById(R.id.contact_user_face);
 			ImageView contact_gou = (ImageView) view
 					.findViewById(R.id.contact_gou);

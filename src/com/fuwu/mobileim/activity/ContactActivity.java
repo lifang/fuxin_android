@@ -141,33 +141,41 @@ public class ContactActivity extends Activity {
 								.getName());
 						String customName = res.getContacts(i).getCustomName();
 						String userface_url = res.getContacts(i).getTileUrl();
+						int sex= res.getContacts(i).getGender();
 						int source = res.getContacts(i).getSource();
 						String lastContactTime = res.getContacts(i)
 								.getLastContactTime();// 2014-05-27 11:42:18
+						Boolean isBlocked = res.getContacts(i).getIsBlocked();
 
 						ContactPojo coPojo = new ContactPojo(contactId,
 								sortKey, name, customName, userface_url,
-								source, lastContactTime);
+								sex,source, lastContactTime,isBlocked);
 						contactsList.add(coPojo);
 						if (i < 5) {
 
-							ContactPojo coPojo2 = new ContactPojo(contactId,
+							ContactPojo coPojo2 = new ContactPojo(contactId+1000,
 									"A", "2013-05-27 11:42:18", customName,
-									"http://www.baidu.com/img/baidu_sylogo1.gif", 3, "2013-05-27 11:42:18");
+									"http://www.baidu.com/img/baidu_sylogo1.gif",sex, 3, "2013-05-27 11:42:18",isBlocked);
 							contactsList.add(coPojo2);
-							ContactPojo coPojo3 = new ContactPojo(contactId,
+
+						}
+						if (i > 5&&i < 15) {
+							ContactPojo coPojo3 = new ContactPojo(contactId+1000,
 									"R", "2014-05-27 11:42:18", customName,
-									"http://www.baidu.com/img/baidu_sylogo1.gif", 8, "2014-05-27 11:42:18");
+									"http://www.baidu.com/img/baidu_sylogo1.gif",sex, 8, "2014-05-27 11:42:18",isBlocked);
 							contactsList.add(coPojo3);
-							ContactPojo coPojo4 = new ContactPojo(contactId,
+							
+						}
+						if (i>15&&i<25) {
+							ContactPojo coPojo4 = new ContactPojo(contactId+1000,
 									"O", "2014-04-27 11:42:18", customName,
-									userface_url, 11, "2014-04-27 11:42:18");
+									userface_url,sex, 11, "2014-04-27 11:42:18",isBlocked);
 							contactsList.add(coPojo4);
 						}
 						if (i == 1) {
-							Log.i("Ax", "userface_url:" + userface_url
+							Log.i("Ax","contactId:"+contactId+ "userface_url:" + userface_url
 									+ "---source:" + source
-									+ "---lastContactTime:" + lastContactTime);
+									+ "---lastContactTime:" + lastContactTime+"----sex:"+res.getContacts(i).getGender());
 						}
 						contactsMap.put(contactId, coPojo);
 					}
