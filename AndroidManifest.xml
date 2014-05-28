@@ -25,6 +25,8 @@
         <activity android:name="com.fuwu.mobileim.activity.SettingsActivity" />
         <activity android:name="com.fuwu.mobileim.activity.ContactActivity" />
         <activity android:name="com.fuwu.mobileim.activity.ChatActivity" >
+        </activity>
+        <activity android:name="com.fuwu.mobileim.activity.LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

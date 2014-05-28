@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,12 +33,13 @@ import com.fuwu.mobileim.view.MyDialog;
 /**
  * 作者: 张秀楠 时间：2014-5-23 下午4:34:44
  */
-public class TalkActivity extends Activity {
+public class TalkActivity extends Fragment {
 	private ListView mListView;
 	private myListViewAdapter clvAdapter;
 	private List<TalkPojo> list = new ArrayList<TalkPojo>();
 	public Intent intent = new Intent();
 	private DBManager db;
+	private View rootView;
 	private int uid = 1;
 	private int contact_id;
 	@SuppressLint("HandlerLeak")
@@ -51,32 +52,33 @@ public class TalkActivity extends Activity {
 			case 2:
 				updateMessageData();
 				Log.i("Max", list.size() + "-");
-				clvAdapter = new myListViewAdapter(TalkActivity.this);
+				clvAdapter = new myListViewAdapter(getActivity());
 				mListView.setAdapter(clvAdapter);
 				break;
 			case 3:
-				Toast.makeText(getApplicationContext(), "删除失败",
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(getActivity(), "删除失败", Toast.LENGTH_SHORT)
+						.show();
 				break;
 			}
 		}
 	};
 
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.talk);
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		rootView = inflater.inflate(R.layout.talk, container, false);
 		initData();
-		mListView = (ListView) findViewById(R.id.talk_listview);
+		mListView = (ListView) rootView.findViewById(R.id.talk_listview);
 		for (int i = 0; i < 20; i++) {
 			// list.add(new ContactPojo("联系人" + i, "5月7日", "最近的一条对话文本记录", "你好啊",
 			// 0));
 		}
-		clvAdapter = new myListViewAdapter(this);
+		clvAdapter = new myListViewAdapter(getActivity());
 		mListView.setAdapter(clvAdapter);
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				intent.setClass(TalkActivity.this, ChatActivity.class);
+				intent.setClass(getActivity(), ChatActivity.class);
 				startActivity(intent);
 			}
 		});
@@ -90,17 +92,18 @@ public class TalkActivity extends Activity {
 			}
 		});
 		Log.i("aa", "onCreate");
-		handler.sendEmptyMessage(2);
+		return rootView;
 	}
 
 	private void showLoginDialog(int item) {
-		View view = getLayoutInflater().inflate(R.layout.talk_builder, null);
+		View view = getActivity().getLayoutInflater().inflate(
+				R.layout.talk_builder, null);
 		final TextView btnYes = (TextView) view.findViewById(R.id.name);
 		btnYes.setText(list.get(item).getNick_name());
 		final TextView del = (TextView) view.findViewById(R.id.del_talk);
 		// 设置对话框显示的View
 		// 点击确定是的监听
-		final MyDialog builder = new MyDialog(TalkActivity.this, 0, 0, view,
+		final MyDialog builder = new MyDialog(getActivity(), 0, 0, view,
 				R.style.mydialog);
 		del.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View arg0) {
@@ -176,30 +179,25 @@ public class TalkActivity extends Activity {
 
 	public void updateMessageData() {
 		if (!db.isOpen()) {
-			db = new DBManager(this);
+			db = new DBManager(getActivity());
 		}
 		list = db.queryTalkList(uid);
 	}
 
 	public boolean delTalkData() {
 		if (!db.isOpen()) {
-			db = new DBManager(this);
+			db = new DBManager(getActivity());
 		}
 		return db.delTalk(uid, contact_id);
 	}
 
 	public void initData() {
-		db = new DBManager(this);
+		db = new DBManager(getActivity());
 		updateMessageData();
 	}
 
-	protected void onRestart() {
-		Log.i("aa", "11111");
-		super.onRestart();
-	}
-
-	protected void onResume() {
-		Log.i("aa", "22222");
+	public void onResume() {
+		handler.sendEmptyMessage(2);
 		super.onResume();
 	}
 

@@ -22,7 +22,7 @@ public class FragmengtActivity extends FragmentActivity {
 		super.onCreate(arg0);
 		setContentView(R.layout.main);
 		vp = (ViewPager) findViewById(R.id.main_viewPager);
-		list.add(new FragmentAActivity());
+		list.add(new TalkActivity());
 		list.add(new ContactActivity());
 		list.add(new FragmentCActivity());
 

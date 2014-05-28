@@ -104,12 +104,6 @@ public class ContactActivity extends Fragment {
 	};
 
 	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-
-	}
-
-	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		rootView = inflater
@@ -214,10 +208,10 @@ public class ContactActivity extends Fragment {
 		Thread thread = new Thread(new getContacts());
 		thread.start();
 
-		sectionToastLayout = (RelativeLayout) rootView.findViewById(
-				R.id.section_toast_layout);
-		sectionToastText = (TextView) rootView.findViewById(
-				R.id.section_toast_text);
+		sectionToastLayout = (RelativeLayout) rootView
+				.findViewById(R.id.section_toast_layout);
+		sectionToastText = (TextView) rootView
+				.findViewById(R.id.section_toast_text);
 		sectionToastText.setText("aa");
 		sideBar = (SideBar) rootView.findViewById(R.id.sidrbar);
 		// 设置右侧触摸监听
@@ -254,8 +248,8 @@ public class ContactActivity extends Fragment {
 			}
 		});
 
-		sortListView = (ListView) rootView.findViewById(
-				R.id.contacts_list_view);
+		sortListView = (ListView) rootView
+				.findViewById(R.id.contacts_list_view);
 		sortListView.setDivider(null);
 		sortListView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -329,8 +323,8 @@ public class ContactActivity extends Fragment {
 		int width1 = 20; // 外部边框距左右边界距离
 		int hight0 = 80; // 外部边框高度
 		int hight1 = hight0 - width0 * 2; // button高度
-		LinearLayout a_layout = (LinearLayout) rootView.findViewById(
-				R.id.a_layout);
+		LinearLayout a_layout = (LinearLayout) rootView
+				.findViewById(R.id.a_layout);
 		LayoutParams param = (LayoutParams) a_layout.getLayoutParams();
 		param.leftMargin = 20;
 		param.rightMargin = 20;
@@ -350,12 +344,10 @@ public class ContactActivity extends Fragment {
 
 		int button_width = (width - width1 * 2 - 5 * width0) / 4;
 		button_all = (Button) rootView.findViewById(R.id.button_all);
-		button_recently = (Button) rootView.findViewById(
-				R.id.button_recently);
-		button_trading = (Button) rootView.findViewById(
-				R.id.button_trading);
-		button_subscription = (Button) rootView.findViewById(
-				R.id.button_subscription);
+		button_recently = (Button) rootView.findViewById(R.id.button_recently);
+		button_trading = (Button) rootView.findViewById(R.id.button_trading);
+		button_subscription = (Button) rootView
+				.findViewById(R.id.button_subscription);
 		btnList.add(button_all);
 		btnList.add(button_recently);
 		btnList.add(button_trading);
