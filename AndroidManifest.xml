@@ -23,17 +23,13 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@android:style/Theme.NoTitleBar" >
-        <activity
-            android:name="com.fuwu.mobileim.activity.ChatActivity"
-            android:label="@string/app_name" >
-        </activity>
         <activity android:name="com.fuwu.mobileim.activity.MainActivity" >
         </activity>
         <activity android:name="com.fuwu.mobileim.activity.TalkActivity" />
-        <activity android:name="com.fuwu.mobileim.activity.AddressBookActivity" />
+        <activity android:name="com.fuwu.mobileim.activity.FragmentAActivity" />
         <activity android:name="com.fuwu.mobileim.activity.SettingsActivity" />
         <activity android:name="com.fuwu.mobileim.activity.ContactActivity" />
-        <activity android:name="com.fuwu.mobileim.activity.LoginActivity" >
+        <activity android:name="com.fuwu.mobileim.activity.ChatActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -30,6 +30,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -123,7 +124,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 
 		Intent i = new Intent();
 		i.setClass(ChatActivity.this, RequstService.class);
-		 startService(i);
+		startService(i);
 	}
 
 	class chatMessage extends Thread {

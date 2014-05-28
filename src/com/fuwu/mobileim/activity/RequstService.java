@@ -93,7 +93,7 @@ public class RequstService extends Service {
 							// Log.i("Ax", "Message:" + mp.toString());
 							list.add(mp);
 							if (j == mesCount - 1) {
-								TalkPojo tp = new TalkPojo(i, j, "", "",
+								TalkPojo tp = new TalkPojo(1, j, "", "",
 										m.getContent(), m.getSendTime(),
 										mesCount);
 								db.addTalk(tp);
