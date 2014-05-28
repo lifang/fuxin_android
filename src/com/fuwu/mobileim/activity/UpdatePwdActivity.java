@@ -31,6 +31,9 @@ import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.google.protobuf.InvalidProtocolBufferException;
 
+/**
+ * 作者: 张秀楠 时间：2014-5-27 下午3:23:31
+ */
 public class UpdatePwdActivity extends Activity implements OnClickListener,
 		OnFocusChangeListener {
 

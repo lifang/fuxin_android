@@ -89,18 +89,21 @@ public class LoginActivity extends Activity implements OnClickListener,
 			this.finish();
 			break;
 		case R.id.login_btn:
-			user = user_text.getText().toString();
-			pwd = pwd_text.getText().toString();
-			if (user.equals("") && pwd.equals("")) {
-				Toast.makeText(LoginActivity.this, "用户名或密码不可为空",
-						Toast.LENGTH_SHORT).show();
-			} else {
-				prodialog = new ProgressDialog(LoginActivity.this);
-				prodialog.setMessage("正在获取最新作业");
-				prodialog.setCanceledOnTouchOutside(false);
-				prodialog.show();
-				new Thread(new Login_Post()).start();
-			}
+			// user = user_text.getText().toString();
+			// pwd = pwd_text.getText().toString();
+			// if (user.equals("") && pwd.equals("")) {
+			// Toast.makeText(LoginActivity.this, "用户名或密码不可为空",
+			// Toast.LENGTH_SHORT).show();
+			// } else {
+			// prodialog = new ProgressDialog(LoginActivity.this);
+			// prodialog.setMessage("努力登陆中..");
+			// prodialog.setCanceledOnTouchOutside(false);
+			// prodialog.show();
+			// new Thread(new Login_Post()).start();
+			// }
+			intent.setClass(LoginActivity.this, MainActivity.class);
+			startActivity(intent);
+			LoginActivity.this.finish();
 			break;
 		}
 	}
