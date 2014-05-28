@@ -3,6 +3,7 @@ package com.fuwu.mobileim.activity;
 import java.util.ArrayList;
 import java.util.List;
 import com.fuwu.mobileim.R;
+import com.fuwu.mobileim.activity.MainActivity.menuOnclick;
 import com.fuwu.mobileim.adapter.ContactAdapter;
 import com.fuwu.mobileim.adapter.FragmentViewPagerAdapter;
 import com.fuwu.mobileim.adapter.MainViewPagerAdapter;
@@ -11,6 +12,7 @@ import com.fuwu.mobileim.util.FxApplication;
 
 import android.app.LocalActivityManager;
 import android.content.Intent;
+import android.graphics.Matrix;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -20,8 +22,12 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
 import android.text.style.AbsoluteSizeSpan;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -49,11 +55,19 @@ public class FragmengtActivity extends FragmentActivity {
 	private FxApplication fxApplication;
 	private List<ContactPojo> SourceDateList;
 	private ContactAdapter adapter;
+	private ImageView cursor;
+	private int offset = 0;
+	private int currIndex = 0;
+	private int cursorW = 0;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		setContentView(R.layout.main);
+		findViewById(R.id.menu_talk).setOnClickListener(new menuOnclick(0));
+		findViewById(R.id.menu_address_book).setOnClickListener(
+				new menuOnclick(1));
+		findViewById(R.id.menu_settings).setOnClickListener(new menuOnclick(2));
 		vp = (ViewPager) findViewById(R.id.main_viewPager);
 		list.add(new TalkActivity());
 		list.add(new ContactActivity());
@@ -65,6 +79,7 @@ public class FragmengtActivity extends FragmentActivity {
 			@Override
 			public void onExtraPageSelected(int i) {
 				super.onExtraPageSelected(i);
+				changeLocation(i);
 				if (i == 1) {
 					contact_search.setVisibility(View.VISIBLE);
 				} else {
@@ -80,7 +95,35 @@ public class FragmengtActivity extends FragmentActivity {
 
 		changeTitleStyle();
 		setEdittextListening();
+		InitImageView();
 
+	}
+	
+	/**
+	 * 初始化动画
+	 */
+	public void InitImageView() {
+		cursor = (ImageView) findViewById(R.id.main_cursor);
+		DisplayMetrics dm = new DisplayMetrics();
+		getWindowManager().getDefaultDisplay().getMetrics(dm);
+		cursorW = cursor.getWidth();
+		int screenW = dm.widthPixels;// 获取分辨率宽度
+		offset = (screenW / 3 - cursorW) / 2;// 计算偏移量
+		Matrix matrix = new Matrix();
+		matrix.postTranslate(offset, 0);
+		cursor.setImageMatrix(matrix);// 设置动画初始位置
+	}
+
+	// 自定义更改图片位置
+	public void changeLocation(int index) {
+		int one = offset * 2 + cursorW;// 页卡1 -> 页卡2 偏移量
+		Animation animation = new TranslateAnimation(one * currIndex, one
+				* index, 0, 0);// 显然这个比较简洁，只有一行代码。
+		animation.setFillAfter(true);// True:图片停在动画结束位置
+		currIndex = index;
+		animation.setDuration(300);
+		vp.setCurrentItem(index);
+		cursor.startAnimation(animation);
 	}
 
 	/**
@@ -194,6 +237,23 @@ public class FragmengtActivity extends FragmentActivity {
 		}
 
 		return findlist;
+	}
+	
+	class menuOnclick implements OnClickListener {
+		private int index = 0;
+
+		public menuOnclick(int index) {
+			super();
+			this.index = index;
+		}
+
+		@Override
+		public void onClick(View v) {
+			if (index != currIndex) {
+				changeLocation(index);
+			}
+		}
+
 	}
 
 }
