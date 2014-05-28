@@ -155,7 +155,6 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 				ValidateCodeResponse response = ValidateCodeResponse
 						.parseFrom(httpReturn);
 				if (response.getIsSucceed()) {
-
 					validate_boolean = false;
 
 					if (time != 180) {
@@ -163,7 +162,6 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 					} else {
 						timer.schedule(timerTask, 1000, 1000);
 					}
-
 					handler.sendEmptyMessage(0);
 				} else {
 					handler.sendEmptyMessage(2);

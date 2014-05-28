@@ -5,14 +5,15 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Display;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -22,7 +23,6 @@ import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.adapter.ContactAdapter;
 import com.fuwu.mobileim.model.Models.ContactRequest;
@@ -38,7 +38,7 @@ import com.fuwu.mobileim.view.PinyinComparator;
 import com.fuwu.mobileim.view.SideBar;
 import com.fuwu.mobileim.view.SideBar.OnTouchingLetterChangedListener;
 
-public class ContactActivity extends Activity {
+public class ContactActivity extends Fragment {
 
 	private FxApplication fxApplication;
 	private ListView sortListView;
@@ -72,6 +72,7 @@ public class ContactActivity extends Activity {
 	private int buttonNumber = -1;
 	private List<Button> btnList = new ArrayList<Button>();
 	private String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ#";
+	private View rootView;
 	SideBar b;
 	private Handler handler = new Handler() {
 		/*
@@ -89,9 +90,8 @@ public class ContactActivity extends Activity {
 				}
 
 				fxApplication.setContactsList(contactsList);
-				 fxApplication.setContactsMap(contactsMap);
-				adapter = new ContactAdapter(ContactActivity.this,
-						contactsList, 1);
+				fxApplication.setContactsMap(contactsMap);
+				adapter = new ContactAdapter(getActivity(), contactsList, 1);
 				sortListView.setAdapter(adapter);
 
 				break;
@@ -104,14 +104,22 @@ public class ContactActivity extends Activity {
 	};
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.contact_activity);
-		fxApplication = (FxApplication) getApplication();
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		rootView = inflater
+				.inflate(R.layout.contact_activity, container, false);
+		fxApplication = (FxApplication) getActivity().getApplication();
 		initViews();
-		Display display = this.getWindowManager().getDefaultDisplay();
+		Display display = getActivity().getWindowManager().getDefaultDisplay();
 		width = display.getWidth();
 		setButton();
+		return rootView;
 	}
 
 	/**
@@ -151,13 +159,21 @@ public class ContactActivity extends Activity {
 						contactsList.add(coPojo);
 						if (i < 5) {
 
-							ContactPojo coPojo2 = new ContactPojo(contactId,
-									"A", "2013-05-27 11:42:18", customName,
-									"http://www.baidu.com/img/baidu_sylogo1.gif", 3, "2013-05-27 11:42:18");
+							ContactPojo coPojo2 = new ContactPojo(
+									contactId,
+									"A",
+									"2013-05-27 11:42:18",
+									customName,
+									"http://www.baidu.com/img/baidu_sylogo1.gif",
+									3, "2013-05-27 11:42:18");
 							contactsList.add(coPojo2);
-							ContactPojo coPojo3 = new ContactPojo(contactId,
-									"R", "2014-05-27 11:42:18", customName,
-									"http://www.baidu.com/img/baidu_sylogo1.gif", 8, "2014-05-27 11:42:18");
+							ContactPojo coPojo3 = new ContactPojo(
+									contactId,
+									"R",
+									"2014-05-27 11:42:18",
+									customName,
+									"http://www.baidu.com/img/baidu_sylogo1.gif",
+									8, "2014-05-27 11:42:18");
 							contactsList.add(coPojo3);
 							ContactPojo coPojo4 = new ContactPojo(contactId,
 									"O", "2014-04-27 11:42:18", customName,
@@ -198,10 +214,12 @@ public class ContactActivity extends Activity {
 		Thread thread = new Thread(new getContacts());
 		thread.start();
 
-		sectionToastLayout = (RelativeLayout) findViewById(R.id.section_toast_layout);
-		sectionToastText = (TextView) findViewById(R.id.section_toast_text);
-
-		sideBar = (SideBar) findViewById(R.id.sidrbar);
+		sectionToastLayout = (RelativeLayout) rootView.findViewById(
+				R.id.section_toast_layout);
+		sectionToastText = (TextView) rootView.findViewById(
+				R.id.section_toast_text);
+		sectionToastText.setText("aa");
+		sideBar = (SideBar) rootView.findViewById(R.id.sidrbar);
 		// 设置右侧触摸监听
 		sideBar.setOnTouchingLetterChangedListener(new OnTouchingLetterChangedListener() {
 
@@ -236,7 +254,8 @@ public class ContactActivity extends Activity {
 			}
 		});
 
-		sortListView = (ListView) findViewById(R.id.contacts_list_view);
+		sortListView = (ListView) rootView.findViewById(
+				R.id.contacts_list_view);
 		sortListView.setDivider(null);
 		sortListView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -244,12 +263,11 @@ public class ContactActivity extends Activity {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				// 这里要利用adapter.getItem(position)来获取当前position所对应的对象
-//				Toast.makeText(getApplication(),
-//						((ContactPojo) adapter.getItem(position)).getName(),
-//						Toast.LENGTH_SHORT).show();
-				Toast.makeText(
-				getApplication(),
-				"传参，，跳到对话界面", Toast.LENGTH_SHORT).show();
+				// Toast.makeText(getApplication(),
+				// ((ContactPojo) adapter.getItem(position)).getName(),
+				// Toast.LENGTH_SHORT).show();
+				Toast.makeText(getActivity().getApplication(), "传参，，跳到对话界面",
+						Toast.LENGTH_SHORT).show();
 			}
 		});
 
@@ -311,7 +329,8 @@ public class ContactActivity extends Activity {
 		int width1 = 20; // 外部边框距左右边界距离
 		int hight0 = 80; // 外部边框高度
 		int hight1 = hight0 - width0 * 2; // button高度
-		LinearLayout a_layout = (LinearLayout) findViewById(R.id.a_layout);
+		LinearLayout a_layout = (LinearLayout) rootView.findViewById(
+				R.id.a_layout);
 		LayoutParams param = (LayoutParams) a_layout.getLayoutParams();
 		param.leftMargin = 20;
 		param.rightMargin = 20;
@@ -319,9 +338,9 @@ public class ContactActivity extends Activity {
 		param.bottomMargin = 10;
 		param.height = hight0;
 
-		view1 = (Button) findViewById(R.id.view_1);
-		view2 = (Button) findViewById(R.id.view_2);
-		view3 = (Button) findViewById(R.id.view_3);
+		view1 = (Button) rootView.findViewById(R.id.view_1);
+		view2 = (Button) rootView.findViewById(R.id.view_2);
+		view3 = (Button) rootView.findViewById(R.id.view_3);
 		view1.setWidth(width0);
 		view2.setWidth(width0);
 		view3.setWidth(width0);
@@ -330,10 +349,13 @@ public class ContactActivity extends Activity {
 		view3.setHeight(hight1);
 
 		int button_width = (width - width1 * 2 - 5 * width0) / 4;
-		button_all = (Button) findViewById(R.id.button_all);
-		button_recently = (Button) findViewById(R.id.button_recently);
-		button_trading = (Button) findViewById(R.id.button_trading);
-		button_subscription = (Button) findViewById(R.id.button_subscription);
+		button_all = (Button) rootView.findViewById(R.id.button_all);
+		button_recently = (Button) rootView.findViewById(
+				R.id.button_recently);
+		button_trading = (Button) rootView.findViewById(
+				R.id.button_trading);
+		button_subscription = (Button) rootView.findViewById(
+				R.id.button_subscription);
 		btnList.add(button_all);
 		btnList.add(button_recently);
 		btnList.add(button_trading);
@@ -354,7 +376,7 @@ public class ContactActivity extends Activity {
 		public void onClick(View v) {
 			buttonNumber = 0;
 			setButtonColor(buttonNumber);
-			adapter = new ContactAdapter(ContactActivity.this, contactsList, 1);
+			adapter = new ContactAdapter(getActivity(), contactsList, 1);
 			sortListView.setAdapter(adapter);
 		}
 	};
@@ -374,10 +396,9 @@ public class ContactActivity extends Activity {
 					list1.add(contactsList1.get(i));
 				}
 				Collections.sort(list1, pinyinComparator);
-				adapter = new ContactAdapter(ContactActivity.this, list1, 0);
+				adapter = new ContactAdapter(getActivity(), list1, 0);
 			} else {
-				adapter = new ContactAdapter(ContactActivity.this,
-						contactsList1, 0);
+				adapter = new ContactAdapter(getActivity(), contactsList1, 0);
 			}
 
 			sortListView.setAdapter(adapter);
@@ -398,7 +419,7 @@ public class ContactActivity extends Activity {
 					contactsList2.add(contactsList.get(i));
 				}
 			}
-			adapter = new ContactAdapter(ContactActivity.this, contactsList2, 0);
+			adapter = new ContactAdapter(getActivity(), contactsList2, 0);
 			sortListView.setAdapter(adapter);
 		}
 	};
@@ -416,7 +437,7 @@ public class ContactActivity extends Activity {
 					contactsList3.add(contactsList.get(i));
 				}
 			}
-			adapter = new ContactAdapter(ContactActivity.this, contactsList3, 0);
+			adapter = new ContactAdapter(getActivity(), contactsList3, 0);
 			sortListView.setAdapter(adapter);
 		}
 	};
