@@ -9,8 +9,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -53,10 +51,8 @@ public class RegistActivity extends Activity implements OnClickListener,
 	public Button yz_send;
 	public boolean phone_btn = true;
 	private RelativeLayout view;
-	private String yznumber = "123456";
 	private CheckBox agreement;
 	private Button over;
-	private boolean yz_boolean = false;
 	public Intent intent = new Intent();
 	public RelativeLayout validate_time;
 	private Timer timer;
@@ -68,9 +64,16 @@ public class RegistActivity extends Activity implements OnClickListener,
 			super.handleMessage(msg);
 			switch (msg.what) {
 			case 0:
-				yz_text.setText(yznumber);
+				// yz_text.setText(yznumber);
 				break;
 			case 1:
+				intent.setClass(RegistActivity.this, MainActivity.class);
+				startActivity(intent);
+				RegistActivity.this.finish();
+				break;
+			case 2:
+				Toast.makeText(RegistActivity.this, "注册失败", Toast.LENGTH_SHORT)
+						.show();
 				break;
 			}
 		}
@@ -94,27 +97,7 @@ public class RegistActivity extends Activity implements OnClickListener,
 		name_text.setOnFocusChangeListener(this);
 		pwd_text.setOnFocusChangeListener(this);
 		pwds_text.setOnFocusChangeListener(this);
-		yz_text.addTextChangedListener(new TextWatcher() {
-			public void onTextChanged(CharSequence arg0, int arg1, int arg2,
-					int arg3) {
-			}
 
-			public void beforeTextChanged(CharSequence arg0, int arg1,
-					int arg2, int arg3) {
-			}
-
-			public void afterTextChanged(Editable arg0) {
-				if (arg0.toString().equals(yznumber)) {
-					yz_tag.setVisibility(View.GONE);
-					yz_boolean = true;
-					regist_btnOver();
-				} else {
-					yz_tag.setVisibility(View.VISIBLE);
-					yz_boolean = false;
-					regist_btnOver();
-				}
-			}
-		});
 		validate_time = (RelativeLayout) findViewById(R.id.validate_time);
 		name_tag = (TextView) findViewById(R.id.name_tag);
 		pwd_tag = (TextView) findViewById(R.id.pwd_tag);
@@ -147,7 +130,7 @@ public class RegistActivity extends Activity implements OnClickListener,
 		if (phone_btn) {
 			return false;
 		}
-		if (!yz_boolean) {
+		if (yz_text.getText().toString().equals("")) {
 			return false;
 		}
 		if (!agreement.isChecked()) {
@@ -180,14 +163,11 @@ public class RegistActivity extends Activity implements OnClickListener,
 						.sendHttps(request.toByteArray(), Urlinterface.REGIST,
 								"POST"));
 				if (response.getIsSucceed()) {
-					intent.setClass(RegistActivity.this, MainActivity.class);
-					startActivity(intent);
+					handler.sendEmptyMessage(1);
 				} else {
 					Log.i("Max", "注册是否成功:" + response.getIsSucceed() + "/"
 							+ response.getErrorCode());
-					// Toast.makeText(RegistActivity.this,
-					// "errorCode:" + response.getErrorCode(),
-					// Toast.LENGTH_SHORT).show();
+					handler.sendEmptyMessage(2);
 				}
 			} catch (InvalidProtocolBufferException e) {
 				e.printStackTrace();

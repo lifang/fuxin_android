@@ -49,9 +49,7 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 	public Button yz_send;
 	public boolean phone_btn = true;
 	private RelativeLayout view;
-	private String yznumber = "123456";
 	private Button over;
-	private boolean yz_boolean = false;
 	public Intent intent = new Intent();
 	public RelativeLayout validate_time;
 	private Timer timer;
@@ -66,7 +64,7 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 			super.handleMessage(msg);
 			switch (msg.what) {
 			case 0:
-				yz_text.setText(yznumber);
+				// yz_text.setText(yznumber);
 				break;
 			case 1:
 				Toast.makeText(UpdatePwdActivity.this, "修改密码成功",
@@ -103,27 +101,7 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 		old_pwd.setOnFocusChangeListener(this);
 		new_pwd.setOnFocusChangeListener(this);
 		new_pwds.setOnFocusChangeListener(this);
-		yz_text.addTextChangedListener(new TextWatcher() {
-			public void onTextChanged(CharSequence arg0, int arg1, int arg2,
-					int arg3) {
-			}
 
-			public void beforeTextChanged(CharSequence arg0, int arg1,
-					int arg2, int arg3) {
-			}
-
-			public void afterTextChanged(Editable arg0) {
-				if (arg0.toString().equals(yznumber)) {
-					yz_tag.setVisibility(View.GONE);
-					yz_boolean = true;
-					regist_btnOver();
-				} else {
-					yz_tag.setVisibility(View.VISIBLE);
-					yz_boolean = false;
-					regist_btnOver();
-				}
-			}
-		});
 		validate_time = (RelativeLayout) findViewById(R.id.validate_time);
 		old_pwd_tag = (TextView) findViewById(R.id.old_pwd_tag);
 		new_pwd_tag = (TextView) findViewById(R.id.new_pwd_tag);
@@ -224,7 +202,7 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 		if (phone_btn) {
 			return false;
 		}
-		if (!yz_boolean) {
+		if (yz_text.getText().toString().equals("")) {
 			return false;
 		}
 		return true;
