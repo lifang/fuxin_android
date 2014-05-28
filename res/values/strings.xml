@@ -35,5 +35,14 @@
     <string name="system_title">系统公告</string>
     <string name="cancel">取消</string>
     <string name="receive_mess">恢复接收此人消息</string>
+    <string name="my_info">我的信息</string>
+    <string name="my_info_userface">头像：</string>
+    <string name="my_info_nickname">昵称：</string>
+    <string name="my_info_certification">行业认证：</string>
+    <string name="my_info_classtype">课程类别：</string>
+    <string name="my_info_mobile">手机号码：</string>
+    <string name="my_info_email">邮箱：</string>
+    <string name="my_info_birthday">生日：</string>
+    <string name="my_info_sex">性别：</string>
 
 </resources>

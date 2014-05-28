@@ -49,12 +49,12 @@ public class SettingsActivity extends Activity {
 		ImageView certification_three = (ImageView) findViewById(R.id.certification_three);// 验证3
 		LayoutParams param = (LayoutParams) a_layout.getLayoutParams();
 		param.leftMargin = 40;
-		param.topMargin = 20;
+		param.topMargin = 50;
 		RelativeLayout setting_relativeLayout1 = (RelativeLayout) findViewById(R.id.setting_relativeLayout1);
 		LayoutParams param2 = (LayoutParams) setting_relativeLayout1
 				.getLayoutParams();
 		param2.leftMargin = 30;
-		param2.topMargin = 20;
+		param2.topMargin = 38;
 		// setting_userface = (CircularImage)
 		// findViewById(R.id.setting_userface);
 		// setting_userface.
@@ -76,8 +76,12 @@ public class SettingsActivity extends Activity {
 	private View.OnClickListener listener1 = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			Toast.makeText(getApplicationContext(), "跳到个人信息页面",
-					Toast.LENGTH_LONG).show();
+//			Toast.makeText(getApplicationContext(), "跳到个人信息页面",
+//					Toast.LENGTH_LONG).show();
+			Intent intent = new Intent();
+			intent.setClass(SettingsActivity.this,
+					MyInformationActivity.class);
+			startActivity(intent);
 		}
 	};
 

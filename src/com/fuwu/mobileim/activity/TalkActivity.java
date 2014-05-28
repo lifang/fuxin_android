@@ -37,7 +37,7 @@ public class TalkActivity extends Activity {
 		setContentView(R.layout.talk);
 		mListView = (ListView) findViewById(R.id.talk_listview);
 		for (int i = 0; i < 20; i++) {
-			list.add(new ContactPojo("联系人" + i, "5月7日", "最近的一条对话文本记录", "你好啊", 0));
+//			list.add(new ContactPojo("联系人" + i, "5月7日", "最近的一条对话文本记录", "你好啊", 0));
 		}
 		clvAdapter = new myListViewAdapter(this);
 		mListView.setAdapter(clvAdapter);
@@ -107,9 +107,9 @@ public class TalkActivity extends Activity {
 			TextView name = (TextView) arg1.findViewById(R.id.name);
 			name.setText(list.get(arg0).getName());
 			TextView content = (TextView) arg1.findViewById(R.id.content);
-			content.setText(list.get(arg0).getLastMes());
-			TextView dath = (TextView) arg1.findViewById(R.id.dath);
-			dath.setText(list.get(arg0).getDate());
+//			content.setText(list.get(arg0).getLastMes());
+//			TextView dath = (TextView) arg1.findViewById(R.id.dath);
+//			dath.setText(list.get(arg0).getDate());
 			return arg1;
 		}
 	}

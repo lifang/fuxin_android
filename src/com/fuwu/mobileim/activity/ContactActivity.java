@@ -2,10 +2,15 @@ package com.fuwu.mobileim.activity;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,8 +25,14 @@ import android.widget.Toast;
 
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.adapter.ContactAdapter;
+import com.fuwu.mobileim.model.Models.ContactRequest;
+import com.fuwu.mobileim.model.Models.ContactResponse;
 import com.fuwu.mobileim.pojo.ContactPojo;
+import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
+import com.fuwu.mobileim.util.HttpUtil;
+import com.fuwu.mobileim.util.LongDataComparator;
+import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CharacterParser;
 import com.fuwu.mobileim.view.PinyinComparator;
 import com.fuwu.mobileim.view.SideBar;
@@ -43,12 +54,14 @@ public class ContactActivity extends Activity {
 	 * 汉字转换成拼音的类
 	 */
 	private CharacterParser characterParser;
-	private List<ContactPojo> SourceDateList;
+	private List<ContactPojo> contactsList; // 联系人arraylist数组
+	public Map<Integer, ContactPojo> contactsMap; // 联系人Map数组
 
 	/**
 	 * 根据拼音来排列ListView里面的数据类
 	 */
 	private PinyinComparator pinyinComparator;
+	private LongDataComparator longDataComparator;
 	/**
 	 * 定义字母表的排序规则
 	 */
@@ -60,6 +73,35 @@ public class ContactActivity extends Activity {
 	private List<Button> btnList = new ArrayList<Button>();
 	private String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ#";
 	SideBar b;
+	private Handler handler = new Handler() {
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see android.os.Handler#handleMessage(android.os.Message)
+		 */
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case 0:
+
+				// 根据a-z进行排序源数据
+				if (contactsList.size() > 1) { // 2个以上进行排序
+					Collections.sort(contactsList, pinyinComparator);
+				}
+
+				fxApplication.setContactsList(contactsList);
+				 fxApplication.setContactsMap(contactsMap);
+				adapter = new ContactAdapter(ContactActivity.this,
+						contactsList, 1);
+				sortListView.setAdapter(adapter);
+
+				break;
+			case 7:
+				// Toast.makeText(getApplicationContext(),
+				// ExerciseBookParams.INTERNET, Toast.LENGTH_SHORT).show();
+				break;
+			}
+		}
+	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -72,16 +114,90 @@ public class ContactActivity extends Activity {
 		setButton();
 	}
 
+	/**
+	 * 
+	 * 获得所有联系人
+	 * 
+	 * 
+	 */
+
+	class getContacts implements Runnable {
+		public void run() {
+			try {
+				ContactRequest.Builder builder = ContactRequest.newBuilder();
+				builder.setUserId(1);
+				builder.setToken("MockToken");
+				ContactRequest response = builder.build();
+
+				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
+						Urlinterface.getContacts, "POST");
+				if (by.length > 0) {
+
+					ContactResponse res = ContactResponse.parseFrom(by);
+					for (int i = 0; i < res.getContactsCount(); i++) {
+						int contactId = res.getContacts(i).getContactId();
+						String name = res.getContacts(i).getName();
+						String sortKey = findSortKey(res.getContacts(i)
+								.getName());
+						String customName = res.getContacts(i).getCustomName();
+						String userface_url = res.getContacts(i).getTileUrl();
+						int source = res.getContacts(i).getSource();
+						String lastContactTime = res.getContacts(i)
+								.getLastContactTime();// 2014-05-27 11:42:18
+
+						ContactPojo coPojo = new ContactPojo(contactId,
+								sortKey, name, customName, userface_url,
+								source, lastContactTime);
+						contactsList.add(coPojo);
+						if (i < 5) {
+
+							ContactPojo coPojo2 = new ContactPojo(contactId,
+									"A", "2013-05-27 11:42:18", customName,
+									"http://www.baidu.com/img/baidu_sylogo1.gif", 3, "2013-05-27 11:42:18");
+							contactsList.add(coPojo2);
+							ContactPojo coPojo3 = new ContactPojo(contactId,
+									"R", "2014-05-27 11:42:18", customName,
+									"http://www.baidu.com/img/baidu_sylogo1.gif", 8, "2014-05-27 11:42:18");
+							contactsList.add(coPojo3);
+							ContactPojo coPojo4 = new ContactPojo(contactId,
+									"O", "2014-04-27 11:42:18", customName,
+									userface_url, 11, "2014-04-27 11:42:18");
+							contactsList.add(coPojo4);
+						}
+						if (i == 1) {
+							Log.i("Ax", "userface_url:" + userface_url
+									+ "---source:" + source
+									+ "---lastContactTime:" + lastContactTime);
+						}
+						contactsMap.put(contactId, coPojo);
+					}
+				}
+				Message msg = new Message();// 创建Message 对象
+				msg.what = 0;
+				handler.sendMessage(msg);
+
+				// handler.sendEmptyMessage(0);
+			} catch (Exception e) {
+				// prodialog.dismiss();
+				// handler.sendEmptyMessage(7);
+			}
+		}
+	}
+
 	private void initViews() {
+		contactsList = new ArrayList<ContactPojo>();
+		contactsMap = new HashMap<Integer, ContactPojo>();
+
+		// contactsList =
+		// filledData(getResources().getStringArray(R.array.date));
+
 		// 实例化汉字转拼音类
 		characterParser = CharacterParser.getInstance();
 
 		pinyinComparator = new PinyinComparator();
-		SourceDateList = filledData(getResources().getStringArray(R.array.date));
+		Thread thread = new Thread(new getContacts());
+		thread.start();
 
-		// 根据a-z进行排序源数据
-		Collections.sort(SourceDateList, pinyinComparator);
-		fxApplication.setContactsList(SourceDateList);
 		sectionToastLayout = (RelativeLayout) findViewById(R.id.section_toast_layout);
 		sectionToastText = (TextView) findViewById(R.id.section_toast_text);
 
@@ -128,14 +244,31 @@ public class ContactActivity extends Activity {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				// 这里要利用adapter.getItem(position)来获取当前position所对应的对象
-				Toast.makeText(getApplication(),
-						((ContactPojo) adapter.getItem(position)).getName(),
-						Toast.LENGTH_SHORT).show();
+//				Toast.makeText(getApplication(),
+//						((ContactPojo) adapter.getItem(position)).getName(),
+//						Toast.LENGTH_SHORT).show();
+				Toast.makeText(
+				getApplication(),
+				"传参，，跳到对话界面", Toast.LENGTH_SHORT).show();
 			}
 		});
 
-		adapter = new ContactAdapter(this, SourceDateList, 1);
-		sortListView.setAdapter(adapter);
+	}
+
+	/**
+	 * 获得首字母
+	 */
+	private String findSortKey(String str) {
+
+		String pinyin = characterParser.getSelling(str);
+		String sortString = pinyin.substring(0, 1).toUpperCase();
+
+		// 正则表达式，判断首字母是否是英文字母
+		if (sortString.matches("[A-Z]")) {
+			return sortString.toUpperCase();
+		} else {
+			return "#";
+		}
 
 	}
 
@@ -215,43 +348,75 @@ public class ContactActivity extends Activity {
 		button_subscription.setOnClickListener(listener_3);
 	}
 
+	// 全部
 	private View.OnClickListener listener_0 = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
 			buttonNumber = 0;
 			setButtonColor(buttonNumber);
-			adapter = new ContactAdapter(ContactActivity.this, SourceDateList,
-					1);
+			adapter = new ContactAdapter(ContactActivity.this, contactsList, 1);
 			sortListView.setAdapter(adapter);
 		}
 	};
+	// 最近
 	private View.OnClickListener listener_1 = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
 			buttonNumber = 1;
 			setButtonColor(buttonNumber);
-			adapter = new ContactAdapter(ContactActivity.this, SourceDateList,
-					0);
+			longDataComparator = new LongDataComparator();
+
+			List<ContactPojo> contactsList1 = fxApplication.getContactsList();
+			if (contactsList1.size() > 20) { // 20个以上进行排序
+				Collections.sort(contactsList1, longDataComparator);
+				List<ContactPojo> list1 = new ArrayList<ContactPojo>();
+				for (int i = 0; i < 20; i++) {
+					list1.add(contactsList1.get(i));
+				}
+				Collections.sort(list1, pinyinComparator);
+				adapter = new ContactAdapter(ContactActivity.this, list1, 0);
+			} else {
+				adapter = new ContactAdapter(ContactActivity.this,
+						contactsList1, 0);
+			}
+
 			sortListView.setAdapter(adapter);
 		}
 	};
+	// 交易
 	private View.OnClickListener listener_2 = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
 			buttonNumber = 2;
 			setButtonColor(buttonNumber);
-			adapter = new ContactAdapter(ContactActivity.this, SourceDateList,
-					0);
+			List<ContactPojo> contactsList2 = new ArrayList<ContactPojo>();
+			;
+			for (int i = 0; i < contactsList.size(); i++) {
+				String str = FuXunTools.toNumber(contactsList.get(i)
+						.getSource());
+				if (FuXunTools.isExist(str, 0, 1)) {
+					contactsList2.add(contactsList.get(i));
+				}
+			}
+			adapter = new ContactAdapter(ContactActivity.this, contactsList2, 0);
 			sortListView.setAdapter(adapter);
 		}
 	};
+	// 订阅
 	private View.OnClickListener listener_3 = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
 			buttonNumber = 3;
 			setButtonColor(buttonNumber);
-			adapter = new ContactAdapter(ContactActivity.this, SourceDateList,
-					0);
+			List<ContactPojo> contactsList3 = new ArrayList<ContactPojo>();
+			for (int i = 0; i < contactsList.size(); i++) {
+				String str = FuXunTools.toNumber(contactsList.get(i)
+						.getSource());
+				if (FuXunTools.isExist(str, 2, 3)) {
+					contactsList3.add(contactsList.get(i));
+				}
+			}
+			adapter = new ContactAdapter(ContactActivity.this, contactsList3, 0);
 			sortListView.setAdapter(adapter);
 		}
 	};
@@ -290,7 +455,6 @@ public class ContactActivity extends Activity {
 				return i + 1;
 			}
 		}
-
 		return -1;
 	}
 

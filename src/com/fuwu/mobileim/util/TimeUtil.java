@@ -80,6 +80,20 @@ public class TimeUtil {
 		}
 		return result;
 	}
+	
+	public static long getLongTime(String time) {
+		if (time == null || time.equals("")) {
+			return 0;
+		}
+		try {
+			SimpleDateFormat format = new SimpleDateFormat("yy-MM-dd HH:mm:ss");
+			Date sendDay = format.parse(time);
+			return sendDay.getTime();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
 
 	public static boolean isFiveMin(String date) {
 		try {
