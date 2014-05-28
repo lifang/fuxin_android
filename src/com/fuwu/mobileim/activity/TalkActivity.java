@@ -1,11 +1,16 @@
 package com.fuwu.mobileim.activity;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -18,6 +23,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -29,6 +35,12 @@ import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.TimeUtil;
 import com.fuwu.mobileim.view.CircularImage;
 import com.fuwu.mobileim.view.MyDialog;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 /**
  * 作者: 张秀楠 时间：2014-5-23 下午4:34:44
@@ -40,8 +52,11 @@ public class TalkActivity extends Fragment {
 	public Intent intent = new Intent();
 	private DBManager db;
 	private View rootView;
+	private RequstReceiver mReuRequstReceiver;
 	private int uid = 1;
 	private int contact_id;
+	DisplayImageOptions options;
+	protected ImageLoader imageLoader = ImageLoader.getInstance();
 	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
@@ -68,11 +83,14 @@ public class TalkActivity extends Fragment {
 			Bundle savedInstanceState) {
 		rootView = inflater.inflate(R.layout.talk, container, false);
 		initData();
+		options = new DisplayImageOptions.Builder()
+				.showImageOnLoading(R.drawable.test)
+				.showImageForEmptyUri(R.drawable.test)
+				.showImageOnFail(R.drawable.test).cacheInMemory(true)
+				.cacheOnDisk(true).considerExifParams(true)
+				.displayer(new RoundedBitmapDisplayer(20)).build();
+		mReuRequstReceiver = new RequstReceiver();
 		mListView = (ListView) rootView.findViewById(R.id.talk_listview);
-		for (int i = 0; i < 20; i++) {
-			// list.add(new ContactPojo("联系人" + i, "5月7日", "最近的一条对话文本记录", "你好啊",
-			// 0));
-		}
 		clvAdapter = new myListViewAdapter(getActivity());
 		mListView.setAdapter(clvAdapter);
 		mListView.setOnItemClickListener(new OnItemClickListener() {
@@ -117,6 +135,7 @@ public class TalkActivity extends Fragment {
 	public class myListViewAdapter extends BaseAdapter {
 		private LayoutInflater mInflater;
 		private Context mcontext = null;
+		private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
 
 		public myListViewAdapter(Context context) {
 			this.mcontext = context;
@@ -136,34 +155,51 @@ public class TalkActivity extends Fragment {
 		}
 
 		public View getView(int arg0, View arg1, ViewGroup arg2) {
+			ViewHolder holder;
 			if (arg1 == null) {
 				arg1 = mInflater.inflate(R.layout.talk_adpter, null);
-			}
-			CircularImage head = (CircularImage) arg1.findViewById(R.id.head);
-			LinearLayout statics = (LinearLayout) arg1
-					.findViewById(R.id.statics);
-			TextView size = (TextView) arg1.findViewById(R.id.size);
-			if (list.get(arg0).getMes_count() == 0) {
-				statics.setVisibility(View.GONE);
+				holder = new ViewHolder();
+				holder.head = (CircularImage) arg1.findViewById(R.id.head);
+				holder.statics = (LinearLayout) arg1.findViewById(R.id.statics);
+				holder.size = (TextView) arg1.findViewById(R.id.size);
+				holder.name = (TextView) arg1.findViewById(R.id.name);
+				holder.content = (TextView) arg1.findViewById(R.id.content);
+				holder.dath = (TextView) arg1.findViewById(R.id.dath);
+				arg1.setTag(holder);
 			} else {
-				size.setText(list.get(arg0).getMes_count() + "");
-				statics.setVisibility(View.VISIBLE);
+				holder = (ViewHolder) arg1.getTag();
 			}
-			TextView name = (TextView) arg1.findViewById(R.id.name);
-			TextView content = (TextView) arg1.findViewById(R.id.content);
-			TextView dath = (TextView) arg1.findViewById(R.id.dath);
+
+			if (list.get(arg0).getMes_count() == 0) {
+				holder.statics.setVisibility(View.GONE);
+			} else {
+				holder.size.setText(list.get(arg0).getMes_count() + "");
+				holder.statics.setVisibility(View.VISIBLE);
+			}
 			String names = list.get(arg0).getNick_name();
 			if (names.equals("")) {
-				name.setText("暂未设置昵称");
+				holder.name.setText("暂未设置昵称");
 			} else {
-				name.setText(list.get(arg0).getNick_name());
+				holder.name.setText(names);
 			}
-			content.setText(list.get(arg0).getContent());
-			dath.setText(TimeUtil.getChatTime(list.get(arg0).getTime()));
-
+			holder.content.setText("嗨你好,嗨再见");
+			holder.dath.setText(TimeUtil.getChatTime(list.get(arg0).getTime()));
+			imageLoader
+					.displayImage(
+							"http://www.sinaimg.cn/dy/slidenews/9_img/2012_28/32172_1081661_673195.jpg",
+							holder.head, options, animateFirstListener);
 			return arg1;
 
 		}
+	}
+
+	static final class ViewHolder {
+		CircularImage head;
+		LinearLayout statics;
+		TextView size;
+		TextView name;
+		TextView content;
+		TextView dath;
 	}
 
 	// 获取对话列表
@@ -198,7 +234,39 @@ public class TalkActivity extends Fragment {
 
 	public void onResume() {
 		handler.sendEmptyMessage(2);
+		getActivity().registerReceiver(mReuRequstReceiver,
+				new IntentFilter("com.comdosoft.fuxun.REQUEST_ACTION"));
 		super.onResume();
 	}
 
+	public void onPause() {
+		super.onPause();
+		getActivity().unregisterReceiver(mReuRequstReceiver);
+	}
+
+	class RequstReceiver extends BroadcastReceiver {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			handler.sendEmptyMessage(2);
+		}
+	}
+
+	private static class AnimateFirstDisplayListener extends
+			SimpleImageLoadingListener {
+
+		static final List<String> displayedImages = Collections
+				.synchronizedList(new LinkedList<String>());
+
+		public void onLoadingComplete(String imageUri, View view,
+				Bitmap loadedImage) {
+			if (loadedImage != null) {
+				ImageView imageView = (ImageView) view;
+				boolean firstDisplay = !displayedImages.contains(imageUri);
+				if (firstDisplay) {
+					FadeInBitmapDisplayer.animate(imageView, 500);
+					displayedImages.add(imageUri);
+				}
+			}
+		}
+	}
 }

@@ -45,9 +45,7 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 	public Button yz_send;
 	public boolean phone_btn = true;
 	private RelativeLayout view;
-	private String yznumber = "123456";
 	private Button over;
-	private boolean yz_boolean = false;
 	public Intent intent = new Intent();
 	private Timer timer;
 	public int time = 180;
@@ -60,7 +58,7 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 			super.handleMessage(msg);
 			switch (msg.what) {
 			case 0:
-				yz_text.setText(yznumber);
+				// yz_text.setText(yznumber);
 				break;
 			case 1:
 				break;
@@ -85,27 +83,7 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 		yz_text = (EditText) findViewById(R.id.yz);
 		pwd_text.setOnFocusChangeListener(this);
 		pwds_text.setOnFocusChangeListener(this);
-		yz_text.addTextChangedListener(new TextWatcher() {
-			public void onTextChanged(CharSequence arg0, int arg1, int arg2,
-					int arg3) {
-			}
 
-			public void beforeTextChanged(CharSequence arg0, int arg1,
-					int arg2, int arg3) {
-			}
-
-			public void afterTextChanged(Editable arg0) {
-				if (arg0.toString().equals(yznumber)) {
-					yz_tag.setVisibility(View.GONE);
-					yz_boolean = true;
-					regist_btnOver();
-				} else {
-					yz_tag.setVisibility(View.VISIBLE);
-					yz_boolean = false;
-					regist_btnOver();
-				}
-			}
-		});
 		validate_time = (RelativeLayout) findViewById(R.id.validate_time);
 		name_tag = (TextView) findViewById(R.id.name_tag);
 		pwd_tag = (TextView) findViewById(R.id.pwd_tag);
@@ -133,7 +111,7 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 		if (phone_btn) {
 			return false;
 		}
-		if (!yz_boolean) {
+		if (yz_text.getText().toString().equals("")) {
 			return false;
 		}
 		return true;
