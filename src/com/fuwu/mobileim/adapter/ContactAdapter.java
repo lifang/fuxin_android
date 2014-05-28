@@ -1,16 +1,8 @@
 package com.fuwu.mobileim.adapter;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.List;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +12,8 @@ import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import com.fuwu.mobileim.R;
-import com.fuwu.mobileim.adapter.FaceAdapter.ViewHolder;
 import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.util.FuXunTools;
-import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CircularImage;
 
 /**
@@ -36,7 +26,6 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 	private List<ContactPojo> list = null;
 	private Context mContext;
 	private int num = -1;
-
 	public ContactAdapter(Context mContext, List<ContactPojo> list, int num) {
 		this.mContext = mContext;
 		this.list = list;
@@ -88,15 +77,9 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 		// 设置头像
 		String face_str = contact.getUserface_url();
 		if (face_str.length() > 4) {
-			File f = new File(Urlinterface.head_pic, "bbb");
-			if (f.exists()) {
-				Log.i("linshi------------", "加载本地图片");
-				Drawable dra = new BitmapDrawable(
-						BitmapFactory.decodeFile(Urlinterface.head_pic + "bbb"));
-				viewHolder.contact_user_face.setImageDrawable(dra);
-			} else {
-				FuXunTools.set_bk(face_str, viewHolder.contact_user_face);
-			}
+
+			FuXunTools.setBackground(face_str,
+					viewHolder.contact_user_face);
 		} else {
 
 			viewHolder.contact_user_face.setImageResource(R.drawable.moren);
@@ -208,5 +191,7 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 	public Object[] getSections() {
 		return null;
 	}
+	
+
 
 }

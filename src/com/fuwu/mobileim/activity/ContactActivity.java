@@ -3,10 +3,12 @@ package com.fuwu.mobileim.activity;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -19,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -40,6 +43,11 @@ import com.fuwu.mobileim.view.CharacterParser;
 import com.fuwu.mobileim.view.PinyinComparator;
 import com.fuwu.mobileim.view.SideBar;
 import com.fuwu.mobileim.view.SideBar.OnTouchingLetterChangedListener;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 public class ContactActivity extends Fragment {
 
@@ -164,7 +172,7 @@ public class ContactActivity extends Fragment {
 									"A",
 									"2013-05-27 11:42:18",
 									customName,
-									"http://www.baidu.com/img/baidu_sylogo1.gif",
+									"http://www.sinaimg.cn/dy/slidenews/9_img/2012_28/32172_1081661_673195.jpg",
 									sex, 3, "2013-05-27 11:42:18", isBlocked);
 							contactsList.add(coPojo2);
 
@@ -175,7 +183,7 @@ public class ContactActivity extends Fragment {
 									"R",
 									"2014-05-27 11:42:18",
 									customName,
-									"http://www.baidu.com/img/baidu_sylogo1.gif",
+									"http://www.sinaimg.cn/dy/slidenews/9_img/2012_28/32172_1081661_673195.jpg",
 									sex, 8, "2014-05-27 11:42:18", isBlocked);
 							contactsList.add(coPojo3);
 
@@ -484,5 +492,6 @@ public class ContactActivity extends Fragment {
 		}
 		return -1;
 	}
+
 
 }
