@@ -59,7 +59,9 @@ public class TimeUtil {
 			Date sendDay = format.parse(date);
 			int temp = Integer.parseInt(sdf.format(today))
 					- Integer.parseInt(sdf.format(sendDay));
-
+			if (sendDay.getTime() <= 0) {
+				return "未知";
+			}
 			if (temp > 7) {
 				result = getTime(sendDay.getTime());
 			} else if (temp > 1) {
@@ -75,6 +77,20 @@ public class TimeUtil {
 		} catch (ParseException e) {
 		}
 		return result;
+	}
+
+	public static long getLongTime(String time) {
+		if (time == null || time.equals("")) {
+			return 0;
+		}
+		try {
+			SimpleDateFormat format = new SimpleDateFormat("yy-MM-dd HH:mm:ss");
+			Date sendDay = format.parse(time);
+			return sendDay.getTime();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return 0;
 	}
 
 	public static boolean isFiveMin(String date) {

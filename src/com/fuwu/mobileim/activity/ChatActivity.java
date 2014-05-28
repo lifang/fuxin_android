@@ -6,17 +6,19 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
-
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.adapter.FaceAdapter;
 import com.fuwu.mobileim.adapter.FacePageAdapter;
 import com.fuwu.mobileim.adapter.MessageListViewAdapter;
+import com.fuwu.mobileim.model.Models.SendMessageRequest;
+import com.fuwu.mobileim.model.Models.SendMessageResponse;
 import com.fuwu.mobileim.pojo.MessagePojo;
 import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FxApplication;
+import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.TimeUtil;
 import com.fuwu.mobileim.view.CirclePageIndicator;
-
+import com.google.protobuf.InvalidProtocolBufferException;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -40,6 +42,7 @@ import android.text.SpannableString;
 import android.text.TextWatcher;
 import android.text.style.ImageSpan;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -120,7 +123,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 
 		Intent i = new Intent();
 		i.setClass(ChatActivity.this, RequstService.class);
-		startService(i);
+		 startService(i);
 	}
 
 	class chatMessage extends Thread {
@@ -145,7 +148,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 		if (!db.isOpen()) {
 			db = new DBManager(this);
 		}
-		list = db.queryMessageList(1);
+		list = db.queryMessageList(1, 2);
 	}
 
 	public void initView() {
@@ -380,6 +383,35 @@ public class ChatActivity extends Activity implements OnClickListener,
 		return resizeBitmap;
 	}
 
+	class SendMessageThread extends Thread {
+		@Override
+		public void run() {
+			super.run();
+			try {
+				SendMessageRequest.Builder builder = SendMessageRequest
+						.newBuilder();
+				builder.setToken("MockToken");
+				builder.setUserId(1);
+				com.fuwu.mobileim.model.Models.Message.Builder mes = com.fuwu.mobileim.model.Models.Message
+						.newBuilder();
+				mes.setContactId(2);
+				mes.setUserId(1);
+				// mes.setSendTime("2014-05-27 14:07:30");
+				mes.setContent("你好");
+				builder.setMessage(mes);
+				SendMessageRequest smr = builder.build();
+				SendMessageResponse response = SendMessageResponse
+						.parseFrom(HttpUtil.sendHttps(smr.toByteArray(),
+								"https://118.242.18.189/api/Message", "PUT"));
+				Log.i("Ax",
+						response.getIsSucceed() + "--"
+								+ response.getErrorCode());
+			} catch (InvalidProtocolBufferException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 	// 防止乱pageview乱滚动
 	private OnTouchListener forbidenScroll() {
 		return new OnTouchListener() {
@@ -430,14 +462,15 @@ public class ChatActivity extends Activity implements OnClickListener,
 					db = new DBManager(this);
 				}
 				MessagePojo mp;
-				if (TimeUtil.isFiveMin(db.getLastTime(1))) {
+				if (TimeUtil.isFiveMin(db.getLastTime(1, 2))) {
 					SimpleDateFormat format = new SimpleDateFormat(
 							"yy-MM-dd HH:mm");
 					Date today = new Date(System.currentTimeMillis());
-					mp = new MessagePojo(1, format.format(today), str, 1, 1);
+					mp = new MessagePojo(1, 2, format.format(today), str, 1, 1);
 				} else {
-					mp = new MessagePojo(1, "", str, 1, 1);
+					mp = new MessagePojo(1, 2, "", str, 1, 1);
 				}
+				new SendMessageThread().start();
 				mMessageAdapter.updMessage(mp);
 				mListView.setSelection(list.size() - 1);
 				msgEt.setText("");

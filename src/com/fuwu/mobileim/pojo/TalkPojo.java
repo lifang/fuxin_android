@@ -1,28 +1,40 @@
-package com.fuwu.mobileim.pojo; 
-/** 
- * @作者 马龙 
- * @时间 创建时间：2014-5-26 下午3:02:43 
+package com.fuwu.mobileim.pojo;
+
+/**
+ * @作者 马龙
+ * @时间 创建时间：2014-5-26 下午3:02:43
  */
 public class TalkPojo {
 
+	private int user_id;
 	private int contact_id;
 	private String nick_name;
 	private String head_pic;
 	private String content;
 	private String time;
 	private int mes_count;
-	
-	public TalkPojo(){}
 
-	public TalkPojo(int contact_id, String nick_name, String head_pic,
-			String content, String time, int mes_count) {
+	public TalkPojo() {
+	}
+
+	public TalkPojo(int user_id, int contact_id, String nick_name,
+			String head_pic, String content, String time, int mes_count) {
 		super();
+		this.user_id = user_id;
 		this.contact_id = contact_id;
 		this.nick_name = nick_name;
 		this.head_pic = head_pic;
 		this.content = content;
 		this.time = time;
 		this.mes_count = mes_count;
+	}
+
+	public int getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
 	}
 
 	public int getContact_id() {
@@ -73,6 +85,4 @@ public class TalkPojo {
 		this.mes_count = mes_count;
 	}
 
-	
 }
- 

@@ -27,8 +27,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.fuwu.mobileim.activity.MainActivity" >
-        </activity>
         <activity android:name="com.fuwu.mobileim.activity.TalkActivity" />
         <activity android:name="com.fuwu.mobileim.activity.AddressBookActivity" />
         <activity android:name="com.fuwu.mobileim.activity.SettingsActivity" />
