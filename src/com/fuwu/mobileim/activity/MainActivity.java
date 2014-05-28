@@ -143,14 +143,13 @@ public class MainActivity extends Activity implements OnPageChangeListener {
 					public void onItemClick(AdapterView<?> parent, View view,
 							int position, long id) {
 						// 这里要利用adapter.getItem(position)来获取当前position所对应的对象
-//						Toast.makeText(
-//								getApplication(),
-//								((ContactPojo) adapter.getItem(position))
-//										.getName(), Toast.LENGTH_SHORT).show();
-						Toast.makeText(
-						getApplication(),
-						"传参，，跳到对话界面，并清空搜索框", Toast.LENGTH_SHORT).show();
-//						contact_search_edittext.setText("");
+						// Toast.makeText(
+						// getApplication(),
+						// ((ContactPojo) adapter.getItem(position))
+						// .getName(), Toast.LENGTH_SHORT).show();
+						Toast.makeText(getApplication(), "传参，，跳到对话界面，并清空搜索框",
+								Toast.LENGTH_SHORT).show();
+						// contact_search_edittext.setText("");
 					}
 				});
 

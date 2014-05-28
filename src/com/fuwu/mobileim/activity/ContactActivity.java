@@ -224,10 +224,10 @@ public class ContactActivity extends Fragment {
 		pinyinComparator = new PinyinComparator();
 		Thread thread = new Thread(new getContacts());
 		thread.start();
-
-		sectionToastLayout = (RelativeLayout)rootView.findViewById(R.id.section_toast_layout);
-		sectionToastText = (TextView) rootView.findViewById(R.id.section_toast_text);
-
+		sectionToastLayout = (RelativeLayout) rootView
+				.findViewById(R.id.section_toast_layout);
+		sectionToastText = (TextView) rootView
+				.findViewById(R.id.section_toast_text);
 		sideBar = (SideBar) rootView.findViewById(R.id.sidrbar);
 		// 设置右侧触摸监听
 		sideBar.setOnTouchingLetterChangedListener(new OnTouchingLetterChangedListener() {
@@ -263,7 +263,8 @@ public class ContactActivity extends Fragment {
 			}
 		});
 
-		sortListView = (ListView) rootView.findViewById(R.id.contacts_list_view);
+		sortListView = (ListView) rootView
+				.findViewById(R.id.contacts_list_view);
 		sortListView.setDivider(null);
 		sortListView.setOnItemClickListener(new OnItemClickListener() {
 
