@@ -88,12 +88,12 @@ public class RequstService extends Service {
 						List<MessagePojo> list = new ArrayList<MessagePojo>();
 						for (int j = 0; j < mesCount; j++) {
 							Message m = mes.getMessages(j);
-							MessagePojo mp = new MessagePojo(i,
+							MessagePojo mp = new MessagePojo(i, j,
 									m.getSendTime(), m.getContent(), 0, 1);
-//							Log.i("Ax", "Message:" + mp.toString());
+							// Log.i("Ax", "Message:" + mp.toString());
 							list.add(mp);
 							if (j == mesCount - 1) {
-								TalkPojo tp = new TalkPojo(i, "", "",
+								TalkPojo tp = new TalkPojo(1, j, "", "",
 										m.getContent(), m.getSendTime(),
 										mesCount);
 								db.addTalk(tp);

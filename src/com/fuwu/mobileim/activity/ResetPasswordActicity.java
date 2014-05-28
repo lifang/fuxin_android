@@ -16,9 +16,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -28,12 +25,13 @@ import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.model.Models.ValidateCodeRequest;
 import com.fuwu.mobileim.model.Models.ValidateCodeResponse;
 import com.fuwu.mobileim.util.FuXunTools;
+import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.google.protobuf.InvalidProtocolBufferException;
 
-public class BackPwdActicity extends Activity implements OnClickListener,
-		OnFocusChangeListener, OnCheckedChangeListener {
+public class ResetPasswordActicity extends Activity implements OnClickListener,
+		OnFocusChangeListener {
 	public EditText pwd_text;
 	public EditText pwds_text;
 	public EditText phone_text;
@@ -48,7 +46,6 @@ public class BackPwdActicity extends Activity implements OnClickListener,
 	public boolean phone_btn = true;
 	private RelativeLayout view;
 	private String yznumber = "123456";
-	private CheckBox agreement;
 	private Button over;
 	private boolean yz_boolean = false;
 	public Intent intent = new Intent();
@@ -56,6 +53,7 @@ public class BackPwdActicity extends Activity implements OnClickListener,
 	public int time = 180;
 	private RelativeLayout validate_time;
 	private boolean validate_boolean = false;
+	private FxApplication fx;
 	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
@@ -72,8 +70,9 @@ public class BackPwdActicity extends Activity implements OnClickListener,
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.backpwd);
-		findViewById(R.id.exit).setOnClickListener(this);
+		setContentView(R.layout.resetpassword);
+		fx = (FxApplication) getApplication();
+		initialize();
 	}
 
 	// 初始化
@@ -118,8 +117,6 @@ public class BackPwdActicity extends Activity implements OnClickListener,
 		phone_ok.setOnClickListener(this);
 		yz_send = (Button) findViewById(R.id.yz_send);
 		yz_send.setOnClickListener(this);
-		agreement = (CheckBox) findViewById(R.id.agreement);
-		agreement.setOnCheckedChangeListener(this);
 		over = (Button) findViewById(R.id.backpwd_over);
 		over.setOnClickListener(this);
 		over.setClickable(false);
@@ -139,9 +136,6 @@ public class BackPwdActicity extends Activity implements OnClickListener,
 		if (!yz_boolean) {
 			return false;
 		}
-		if (!agreement.isChecked()) {
-			return false;
-		}
 		return true;
 	}
 
@@ -149,16 +143,15 @@ public class BackPwdActicity extends Activity implements OnClickListener,
 	class ValidateCode_Post implements Runnable {
 		public void run() {
 			try {
-				Log.i("Max", "--" + phone_text.getText().toString());
 				ValidateCodeRequest.Builder builder = ValidateCodeRequest
 						.newBuilder();
 				builder.setPhoneNumber(phone_text.getText().toString());
+				builder.setType("");
 				ValidateCodeRequest request = builder.build();
 				ValidateCodeResponse response = ValidateCodeResponse
 						.parseFrom(HttpUtil.sendHttps(request.toByteArray(),
 								Urlinterface.ValidateCode, "POST"));
 				if (response.getIsSucceed()) {
-					yznumber = response.getValidateCode();
 					validate_boolean = false;
 
 					if (time != 180) {
@@ -166,7 +159,6 @@ public class BackPwdActicity extends Activity implements OnClickListener,
 					} else {
 						timer.schedule(timerTask, 1000, 1000);
 					}
-					Log.i("Max", "短信验证码:" + response.getValidateCode());
 					handler.sendEmptyMessage(0);
 				} else {
 					// Toast.makeText(RegistActivity.this,
@@ -179,37 +171,36 @@ public class BackPwdActicity extends Activity implements OnClickListener,
 		}
 	}
 
-	// 短信验证
+	// 找回密码
 	class Backpwd_Post implements Runnable {
 		public void run() {
-			try {
-				Log.i("Max", "--" + phone_text.getText().toString());
-				ValidateCodeRequest.Builder builder = ValidateCodeRequest
-						.newBuilder();
-				builder.setPhoneNumber(phone_text.getText().toString());
-				ValidateCodeRequest request = builder.build();
-				ValidateCodeResponse response = ValidateCodeResponse
-						.parseFrom(HttpUtil.sendHttps(request.toByteArray(),
-								Urlinterface.ValidateCode, "POST"));
-				if (response.getIsSucceed()) {
-					yznumber = response.getValidateCode();
-					validate_boolean = false;
-
-					if (time != 180) {
-						time = 180;
-					} else {
-						timer.schedule(timerTask, 1000, 1000);
-					}
-					Log.i("Max", "短信验证码:" + response.getValidateCode());
-					handler.sendEmptyMessage(0);
-				} else {
-					// Toast.makeText(RegistActivity.this,
-					// "errorCode:" + response.getErrorCode(),
-					// Toast.LENGTH_SHORT).show();
-				}
-			} catch (InvalidProtocolBufferException e) {
-				e.printStackTrace();
-			}
+			// try {
+			// ResetPasswordRequest.Builder builder = ResetPasswordRequest
+			// .newBuilder();
+			// builder.setToken(fx.getToken());
+			// ValidateCodeRequest request = builder.build();
+			// ValidateCodeResponse response = ValidateCodeResponse
+			// .parseFrom(HttpUtil.sendHttps(request.toByteArray(),
+			// Urlinterface.RESETPASSWORD, "PUT"));
+			// if (response.getIsSucceed()) {
+			// yznumber = response.getValidateCode();
+			// validate_boolean = false;
+			//
+			// if (time != 180) {
+			// time = 180;
+			// } else {
+			// timer.schedule(timerTask, 1000, 1000);
+			// }
+			// Log.i("Max", "短信验证码:" + response.getValidateCode());
+			// handler.sendEmptyMessage(0);
+			// } else {
+			// // Toast.makeText(RegistActivity.this,
+			// // "errorCode:" + response.getErrorCode(),
+			// // Toast.LENGTH_SHORT).show();
+			// }
+			// } catch (InvalidProtocolBufferException e) {
+			// e.printStackTrace();
+			// }
 		}
 	}
 
@@ -239,7 +230,7 @@ public class BackPwdActicity extends Activity implements OnClickListener,
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.exit:
-			Intent intent = new Intent(BackPwdActicity.this,
+			Intent intent = new Intent(ResetPasswordActicity.this,
 					LoginActivity.class);
 			startActivity(intent);
 			this.finish();
@@ -279,22 +270,18 @@ public class BackPwdActicity extends Activity implements OnClickListener,
 			break;
 		case R.id.yz_send:
 			if (phone_btn) {
-				Toast.makeText(BackPwdActicity.this, "请先填写手机号码",
+				Toast.makeText(ResetPasswordActicity.this, "请先填写手机号码",
 						Toast.LENGTH_SHORT).show();
 			} else {
 				if (validate_boolean) {
 					new Thread(new ValidateCode_Post()).start();
 				} else {
-					Toast.makeText(BackPwdActicity.this, "请等180秒后再次发送验证码",
-							Toast.LENGTH_SHORT).show();
+					Toast.makeText(ResetPasswordActicity.this,
+							"请等180秒后再次发送验证码", Toast.LENGTH_SHORT).show();
 				}
 			}
 			break;
 		}
-	}
-
-	public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
-		regist_btnOver();
 	}
 
 	public void onFocusChange(View v, boolean hasFocus) {

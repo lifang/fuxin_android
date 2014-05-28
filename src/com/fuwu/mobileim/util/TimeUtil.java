@@ -59,7 +59,9 @@ public class TimeUtil {
 			Date sendDay = format.parse(date);
 			int temp = Integer.parseInt(sdf.format(today))
 					- Integer.parseInt(sdf.format(sendDay));
-
+			if (sendDay.getTime() <= 0) {
+				return "未知";
+			}
 			if (temp > 7) {
 				result = getTime(sendDay.getTime());
 			} else if (temp > 1) {

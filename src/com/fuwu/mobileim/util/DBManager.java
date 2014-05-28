@@ -25,9 +25,10 @@ public class DBManager {
 		db.beginTransaction();
 		try {
 			db.execSQL(
-					"INSERT INTO message VALUES(null,?,?,?,?,?)",
-					new Object[] { mp.getUserId(), mp.getContent(),
-							mp.getSendTime(), mp.getMsgType(), mp.getIsComMeg() });
+					"INSERT INTO message VALUES(null,?,?,?,?,?,?)",
+					new Object[] { mp.getUserId(), mp.getContactId(),
+							mp.getContent(), mp.getSendTime(), mp.getMsgType(),
+							mp.getIsComMeg() });
 			db.setTransactionSuccessful();
 		} finally {
 			db.endTransaction();
@@ -40,10 +41,10 @@ public class DBManager {
 			for (int i = 0; i < mps.size(); i++) {
 				MessagePojo mp = mps.get(i);
 				db.execSQL(
-						"INSERT INTO message VALUES(null,?,?,?,?,?)",
-						new Object[] { mp.getUserId(), mp.getContent(),
-								mp.getSendTime(), mp.getMsgType(),
-								mp.getIsComMeg() });
+						"INSERT INTO message VALUES(null,?,?,?,?,?,?)",
+						new Object[] { mp.getUserId(), mp.getContactId(),
+								mp.getContent(), mp.getSendTime(),
+								mp.getMsgType(), mp.getIsComMeg() });
 			}
 			db.setTransactionSuccessful();
 		} finally {
@@ -55,19 +56,19 @@ public class DBManager {
 		db.beginTransaction();
 		try {
 			db.execSQL(
-					"INSERT INTO talk VALUES(null,?,?,?,?,?,?)",
-					new Object[] { tp.getContact_id(), tp.getNick_name(),
-							tp.getHead_pic(), tp.getContent(), tp.getTime(),
-							tp.getMes_count() });
+					"INSERT INTO talk VALUES(null,?,?,?,?,?,?,?)",
+					new Object[] { tp.getUser_id(), tp.getContact_id(),
+							tp.getNick_name(), tp.getHead_pic(),
+							tp.getContent(), tp.getTime(), tp.getMes_count() });
 			db.setTransactionSuccessful();
 		} finally {
 			db.endTransaction();
 		}
 	}
 
-	public List<MessagePojo> queryMessageList(int user_id) {
+	public List<MessagePojo> queryMessageList(int user_id, int contact_id) {
 		ArrayList<MessagePojo> mpList = new ArrayList<MessagePojo>();
-		Cursor c = queryMessageCursor(user_id);
+		Cursor c = queryMessageCursor(user_id, contact_id);
 		while (c.moveToNext()) {
 			MessagePojo mp = new MessagePojo();
 			mp.setUserId(user_id);
@@ -81,7 +82,16 @@ public class DBManager {
 		return mpList;
 	}
 
+	public String getLastTime(int user_id, int contact_id) {
+		Cursor c = queryMessageLastTimeCursor(user_id, contact_id);
+		if (c.moveToLast()) {
+			return c.getString(c.getColumnIndex("time"));
+		}
+		return null;
+	}
+
 	public List<TalkPojo> queryTalkList(int user_id) {
+		Log.i("Max", user_id + "");
 		ArrayList<TalkPojo> talkList = new ArrayList<TalkPojo>();
 		Cursor c = queryTalkCursor(user_id);
 		while (c.moveToNext()) {
@@ -99,11 +109,12 @@ public class DBManager {
 		return talkList;
 	}
 
-	public boolean delTalk(int user_id) {
+	public boolean delTalk(int user_id, int contact_id) {
 		boolean flag = true;
 		db = helper.getWritableDatabase();
 		try {
-			db.execSQL("DELETE FROM talk WHERE contact_id = " + user_id);
+			db.execSQL("DELETE FROM talk WHERE user_id = " + user_id
+					+ " and contact_id = " + contact_id);
 		} catch (SQLException e) {
 			Log.i("Max", "删除异常:" + e.toString());
 			flag = false;
@@ -112,30 +123,24 @@ public class DBManager {
 		return flag;
 	}
 
-	public String getLastTime(int user_id) {
-		Cursor c = queryMessageLastTimeCursor(user_id);
-		if (c.moveToLast()) {
-			return c.getString(c.getColumnIndex("time"));
-		}
-		return null;
+	public Cursor queryMessageCursor(int user_id, int contact_id) {
+		Cursor c = db.rawQuery(
+				"SELECT * FROM message where user_id = ? and contact_id = ?",
+				new String[] { user_id + "", contact_id + "" });
+		return c;
 	}
 
-	public Cursor queryMessageCursor(int user_id) {
-		Cursor c = db.rawQuery("SELECT * FROM message where user_id = ?",
-				new String[] { user_id + "" });
+	public Cursor queryMessageLastTimeCursor(int user_id, int contact_id) {
+		Cursor c = db
+				.rawQuery(
+						"SELECT * FROM message where user_id = ? and contact_id = ? and time != ?",
+						new String[] { user_id + "", contact_id + "", "" });
 		return c;
 	}
 
 	public Cursor queryTalkCursor(int user_id) {
-		Cursor c = db.rawQuery("SELECT * FROM talk where contact_id = ?",
+		Cursor c = db.rawQuery("SELECT * FROM talk where user_id = ?",
 				new String[] { user_id + "" });
-		return c;
-	}
-
-	public Cursor queryMessageLastTimeCursor(int user_id) {
-		Cursor c = db.rawQuery(
-				"SELECT * FROM message where user_id = ? and time != ?",
-				new String[] { user_id + "", "" });
 		return c;
 	}
 

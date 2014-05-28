@@ -5,7 +5,6 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,12 +18,12 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fuwu.mobileim.R;
-import com.fuwu.mobileim.activity.ChatActivity.chatMessage;
 import com.fuwu.mobileim.pojo.TalkPojo;
 import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.TimeUtil;
@@ -41,6 +40,7 @@ public class TalkActivity extends Activity {
 	public Intent intent = new Intent();
 	private DBManager db;
 	private int uid = 1;
+	private int contact_id;
 	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
@@ -68,7 +68,8 @@ public class TalkActivity extends Activity {
 		initData();
 		mListView = (ListView) findViewById(R.id.talk_listview);
 		for (int i = 0; i < 20; i++) {
-//			list.add(new ContactPojo("联系人" + i, "5月7日", "最近的一条对话文本记录", "你好啊", 0));
+			// list.add(new ContactPojo("联系人" + i, "5月7日", "最近的一条对话文本记录", "你好啊",
+			// 0));
 		}
 		clvAdapter = new myListViewAdapter(this);
 		mListView.setAdapter(clvAdapter);
@@ -83,6 +84,7 @@ public class TalkActivity extends Activity {
 		mListView.setOnItemLongClickListener(new OnItemLongClickListener() {
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
+				contact_id = list.get(arg2).getContact_id();
 				showLoginDialog(arg2);
 				return false;
 			}
@@ -135,17 +137,27 @@ public class TalkActivity extends Activity {
 				arg1 = mInflater.inflate(R.layout.talk_adpter, null);
 			}
 			CircularImage head = (CircularImage) arg1.findViewById(R.id.head);
+			LinearLayout statics = (LinearLayout) arg1
+					.findViewById(R.id.statics);
+			TextView size = (TextView) arg1.findViewById(R.id.size);
+			if (list.get(arg0).getMes_count() == 0) {
+				statics.setVisibility(View.GONE);
+			} else {
+				size.setText(list.get(arg0).getMes_count() + "");
+				statics.setVisibility(View.VISIBLE);
+			}
 			TextView name = (TextView) arg1.findViewById(R.id.name);
+			TextView content = (TextView) arg1.findViewById(R.id.content);
+			TextView dath = (TextView) arg1.findViewById(R.id.dath);
 			String names = list.get(arg0).getNick_name();
 			if (names.equals("")) {
 				name.setText("暂未设置昵称");
 			} else {
 				name.setText(list.get(arg0).getNick_name());
 			}
-			TextView content = (TextView) arg1.findViewById(R.id.content);
 			content.setText(list.get(arg0).getContent());
-			TextView dath = (TextView) arg1.findViewById(R.id.dath);
 			dath.setText(TimeUtil.getChatTime(list.get(arg0).getTime()));
+
 			return arg1;
 
 		}
@@ -173,7 +185,7 @@ public class TalkActivity extends Activity {
 		if (!db.isOpen()) {
 			db = new DBManager(this);
 		}
-		return db.delTalk(uid);
+		return db.delTalk(uid, contact_id);
 	}
 
 	public void initData() {

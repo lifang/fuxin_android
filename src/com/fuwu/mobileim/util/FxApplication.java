@@ -21,12 +21,16 @@ public class FxApplication extends Application {
 	private Map<String, Integer> mFaceMap = new LinkedHashMap<String, Integer>();
 	private static FxApplication mApplication;
 	private List<ContactPojo> contactsList = new ArrayList<ContactPojo>();
-	private  Map<Integer, ContactPojo> contactsMap = new HashMap<Integer, ContactPojo>();
+	private Map<Integer, ContactPojo> contactsMap = new HashMap<Integer, ContactPojo>();
 	private int user_id;
 	private String token;
 
 	public synchronized static FxApplication getInstance() {
 		return mApplication;
+	}
+
+	public FxApplication() {
+		this.setToken("MockToken");
 	}
 
 	@Override

@@ -28,7 +28,7 @@ public class HttpUtil {
 		try {
 			String base = "\"" + Base64.encodeToString(data, Base64.DEFAULT)
 					+ "\"";
-			Log.i("Ax", base);
+			Log.i("Ax", method + ":" + base);
 			byte[] b = base.getBytes("UTF-8");
 			SSLContext sc = SSLContext.getInstance("TLS");
 

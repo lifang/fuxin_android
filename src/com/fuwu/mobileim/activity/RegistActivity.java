@@ -208,7 +208,6 @@ public class RegistActivity extends Activity implements OnClickListener,
 						.parseFrom(HttpUtil.sendHttps(request.toByteArray(),
 								Urlinterface.ValidateCode, "POST"));
 				if (response.getIsSucceed()) {
-					yznumber = response.getValidateCode();
 					validate_boolean = false;
 
 					if (time != 180) {
@@ -216,7 +215,6 @@ public class RegistActivity extends Activity implements OnClickListener,
 					} else {
 						timer.schedule(timerTask, 1000, 1000);
 					}
-					Log.i("Max", "短信验证码:" + response.getValidateCode());
 					handler.sendEmptyMessage(0);
 				} else {
 					// Toast.makeText(RegistActivity.this,
