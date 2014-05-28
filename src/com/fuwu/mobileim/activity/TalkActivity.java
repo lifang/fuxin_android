@@ -143,11 +143,11 @@ public class TalkActivity extends Fragment {
 		}
 
 		public int getCount() {
-			return 50;
+			return list.size();
 		}
 
 		public Object getItem(int arg0) {
-			return 0;
+			return list.get(arg0);
 		}
 
 		public long getItemId(int arg0) {
@@ -155,37 +155,51 @@ public class TalkActivity extends Fragment {
 		}
 
 		public View getView(int arg0, View arg1, ViewGroup arg2) {
+			ViewHolder holder;
 			if (arg1 == null) {
 				arg1 = mInflater.inflate(R.layout.talk_adpter, null);
-			}
-			CircularImage head = (CircularImage) arg1.findViewById(R.id.head);
-			LinearLayout statics = (LinearLayout) arg1
-					.findViewById(R.id.statics);
-			TextView size = (TextView) arg1.findViewById(R.id.size);
-			// if (list.get(arg0).getMes_count() == 0) {
-			// statics.setVisibility(View.GONE);
-			// } else {
-			// size.setText(list.get(arg0).getMes_count() + "");
-			// statics.setVisibility(View.VISIBLE);
-			// }
-			TextView name = (TextView) arg1.findViewById(R.id.name);
-			TextView content = (TextView) arg1.findViewById(R.id.content);
-			TextView dath = (TextView) arg1.findViewById(R.id.dath);
-			String names = "nan";// list.get(arg0).getNick_name();
-			if (names.equals("")) {
-				name.setText("暂未设置昵称");
+				holder = new ViewHolder();
+				holder.head = (CircularImage) arg1.findViewById(R.id.head);
+				holder.statics = (LinearLayout) arg1.findViewById(R.id.statics);
+				holder.size = (TextView) arg1.findViewById(R.id.size);
+				holder.name = (TextView) arg1.findViewById(R.id.name);
+				holder.content = (TextView) arg1.findViewById(R.id.content);
+				holder.dath = (TextView) arg1.findViewById(R.id.dath);
+				arg1.setTag(holder);
 			} else {
-				name.setText(names);
+				holder = (ViewHolder) arg1.getTag();
 			}
-			content.setText("嗨你好,嗨再见");
-			// dath.setText(TimeUtil.getChatTime(list.get(arg0).getTime()));
+
+			if (list.get(arg0).getMes_count() == 0) {
+				holder.statics.setVisibility(View.GONE);
+			} else {
+				holder.size.setText(list.get(arg0).getMes_count() + "");
+				holder.statics.setVisibility(View.VISIBLE);
+			}
+			String names = list.get(arg0).getNick_name();
+			if (names.equals("")) {
+				holder.name.setText("暂未设置昵称");
+			} else {
+				holder.name.setText(names);
+			}
+			holder.content.setText("嗨你好,嗨再见");
+			holder.dath.setText(TimeUtil.getChatTime(list.get(arg0).getTime()));
 			imageLoader
 					.displayImage(
 							"http://www.sinaimg.cn/dy/slidenews/9_img/2012_28/32172_1081661_673195.jpg",
-							head, options, animateFirstListener);
+							holder.head, options, animateFirstListener);
 			return arg1;
 
 		}
+	}
+
+	static final class ViewHolder {
+		CircularImage head;
+		LinearLayout statics;
+		TextView size;
+		TextView name;
+		TextView content;
+		TextView dath;
 	}
 
 	// 获取对话列表

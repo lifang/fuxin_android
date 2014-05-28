@@ -50,11 +50,11 @@
 
         <activity android:name="com.fuwu.mobileim.activity.MyInformationActivity" />
         <activity android:name="com.fuwu.mobileim.activity.FragmengtActivity" >
-        <intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter> 
+            </intent-filter>
         </activity>
     </application>
 
