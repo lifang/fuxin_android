@@ -20,6 +20,7 @@ import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import com.fuwu.mobileim.R;
+import com.fuwu.mobileim.adapter.FaceAdapter.ViewHolder;
 import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.Urlinterface;
@@ -67,75 +68,76 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 	public View getView(final int position, View view, ViewGroup arg2) {
 		ViewHolder viewHolder = null;
 		final ContactPojo contact = list.get(position);
+		if (view == null) {
+			viewHolder = new ViewHolder();
 			view = LayoutInflater.from(mContext).inflate(
 					R.layout.contact_adapter_item, null);
-			TextView contact_name = (TextView) view
-					.findViewById(R.id.contact_name);
-			TextView contact_sort_key = (TextView) view
+			viewHolder.contact_name = (TextView) view.findViewById(R.id.contact_name);
+			viewHolder.contact_sort_key = (TextView) view
 					.findViewById(R.id.contact_sort_key);
-			CircularImage contact_user_face = (CircularImage) view
+			viewHolder.contact_user_face = (CircularImage) view
 					.findViewById(R.id.contact_user_face);
-			ImageView contact_gou = (ImageView) view
-					.findViewById(R.id.contact_gou);
-			ImageView contact_yue = (ImageView) view
-					.findViewById(R.id.contact_yue);
+			viewHolder.contact_gou = (ImageView) view.findViewById(R.id.contact_gou);
+			viewHolder.contact_yue = (ImageView) view.findViewById(R.id.contact_yue);
 
+			view.setTag(viewHolder);
+		}else {
+			viewHolder = (ViewHolder) view.getTag();
+		}
 
 		// 设置头像
 		String face_str = contact.getUserface_url();
-		if (face_str.length()>4) {
+		if (face_str.length() > 4) {
 			File f = new File(Urlinterface.head_pic, "bbb");
 			if (f.exists()) {
-				Log.i("linshi------------","加载本地图片");
+				Log.i("linshi------------", "加载本地图片");
 				Drawable dra = new BitmapDrawable(
-						BitmapFactory.decodeFile(Urlinterface.head_pic
-								+ "bbb"));
-				contact_user_face.setImageDrawable(dra);
+						BitmapFactory.decodeFile(Urlinterface.head_pic + "bbb"));
+				viewHolder.contact_user_face.setImageDrawable(dra);
 			} else {
-				FuXunTools.set_bk(face_str, contact_user_face);
+				FuXunTools.set_bk(face_str, viewHolder.contact_user_face);
 			}
-		}
-				
-	
+		} else {
 
-		
-		
+			viewHolder.contact_user_face.setImageResource(R.drawable.moren);
+		}
+
 		// 根据position获取分类的首字母的Char ascii值
 		int section = getSectionForPosition(position);
 
 		if (num != -1) { // 搜索时传值-1 ，不分组
 			// 如果当前位置等于该分类首字母的Char的位置 ，则认为是第一次出现
 			if (position == getPositionForSection(section)) {
-				contact_sort_key.setVisibility(View.VISIBLE);
-				contact_sort_key.setText(contact.getSortKey()
-						+ "  [" + getNumber(contact.getSortKey()) + "人]");
+				viewHolder.contact_sort_key.setVisibility(View.VISIBLE);
+				viewHolder.contact_sort_key.setText(contact.getSortKey() + "  ["
+						+ getNumber(contact.getSortKey()) + "人]");
 			} else {
-				contact_sort_key.setVisibility(View.GONE);
+				viewHolder.contact_sort_key.setVisibility(View.GONE);
 			}
 		} else {
-			contact_sort_key.setVisibility(View.GONE);
+			viewHolder.contact_sort_key.setVisibility(View.GONE);
 		}
 
 		if (num == 1) { // num =1时 ，代表全部，，要判断是否 购买和订阅
 
 			String str = FuXunTools.toNumber(contact.getSource());
 			if (FuXunTools.isExist(str, 0, 1)) {
-				contact_gou.setVisibility(View.VISIBLE);
+				viewHolder.contact_gou.setVisibility(View.VISIBLE);
 			} else {
-				contact_gou.setVisibility(View.GONE);
+				viewHolder.contact_gou.setVisibility(View.GONE);
 			}
 			if (FuXunTools.isExist(str, 2, 3)) {
-				contact_yue.setVisibility(View.VISIBLE);
+				viewHolder.contact_yue.setVisibility(View.VISIBLE);
 			} else {
-				contact_yue.setVisibility(View.GONE);
+				viewHolder.contact_yue.setVisibility(View.GONE);
 			}
 
 		} else {
-			contact_gou.setVisibility(View.GONE);
-			contact_yue.setVisibility(View.GONE);
+			viewHolder.contact_gou.setVisibility(View.GONE);
+			viewHolder.contact_yue.setVisibility(View.GONE);
 		}
 
-		contact_name.setText(contact.getName());
+		viewHolder.contact_name.setText(contact.getName());
 
 		return view;
 
@@ -144,11 +146,10 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 	final static class ViewHolder {
 		TextView contact_sort_key; // 分组关键字
 		TextView contact_name; // 名称
-		ImageView contact_user_face; // 头像
+		CircularImage contact_user_face; // 头像
 		ImageView contact_gou; // 购
 		ImageView contact_yue; // 阅
 	}
-	
 
 	/**
 	 * 根据ListView的当前位置获取分类的首字母的Char ascii值
