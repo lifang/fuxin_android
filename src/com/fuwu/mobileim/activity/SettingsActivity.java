@@ -1,9 +1,10 @@
 ﻿package com.fuwu.mobileim.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,39 +19,44 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fuwu.mobileim.R;
+import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.view.CircularImage;
 
 /**
  * @作者 马龙
  * @时间 创建时间：2014-5-14 下午12:06:40
  */
-public class SettingsActivity extends Activity {
+public class SettingsActivity extends Fragment {
 
 	private ListView listview;
 	SettingBottomAdapter adapter;
 	private CircularImage setting_userface;
+	private View rootView;
 
+	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.settings);
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		rootView = inflater
+				.inflate(R.layout.settings, container, false);
+
 		adapter = new SettingBottomAdapter();
 		init();
-
+		return rootView;
 	}
 
 	private void init() {
-		RelativeLayout setting_top = (RelativeLayout) findViewById(R.id.setting_top);// 用户个人信息部分
-		RelativeLayout a_layout = (RelativeLayout) findViewById(R.id.setting_userface0);
-		CircularImage userface = (CircularImage) findViewById(R.id.setting_userface);// 头像
-		ImageView setting_sex_item = (ImageView) findViewById(R.id.setting_sex_item);// 性别
-		ImageView certification_one = (ImageView) findViewById(R.id.certification_one);// 验证1
-		ImageView certification_two = (ImageView) findViewById(R.id.certification_two);// 验证2
-		ImageView certification_three = (ImageView) findViewById(R.id.certification_three);// 验证3
+		RelativeLayout setting_top = (RelativeLayout) rootView.findViewById(R.id.setting_top);// 用户个人信息部分
+		RelativeLayout a_layout = (RelativeLayout) rootView.findViewById(R.id.setting_userface0);
+		CircularImage userface = (CircularImage) rootView.findViewById(R.id.setting_userface);// 头像
+		ImageView setting_sex_item = (ImageView) rootView.findViewById(R.id.setting_sex_item);// 性别
+		ImageView certification_one = (ImageView) rootView.findViewById(R.id.certification_one);// 验证1
+		ImageView certification_two = (ImageView) rootView.findViewById(R.id.certification_two);// 验证2
+		ImageView certification_three = (ImageView) rootView.findViewById(R.id.certification_three);// 验证3
 		LayoutParams param = (LayoutParams) a_layout.getLayoutParams();
 		param.leftMargin = 40;
 		param.topMargin = 50;
-		RelativeLayout setting_relativeLayout1 = (RelativeLayout) findViewById(R.id.setting_relativeLayout1);
+		RelativeLayout setting_relativeLayout1 = (RelativeLayout) rootView.findViewById(R.id.setting_relativeLayout1);
 		LayoutParams param2 = (LayoutParams) setting_relativeLayout1
 				.getLayoutParams();
 		param2.leftMargin = 30;
@@ -58,7 +64,7 @@ public class SettingsActivity extends Activity {
 		// setting_userface = (CircularImage)
 		// findViewById(R.id.setting_userface);
 		// setting_userface.
-		listview = (ListView) findViewById(R.id.setting_listview);
+		listview = (ListView) rootView.findViewById(R.id.setting_listview);
 		listview.setDivider(null);
 		listview.setAdapter(adapter);
 		listview.setOnItemClickListener(new OnItemClickListener() {
@@ -76,10 +82,10 @@ public class SettingsActivity extends Activity {
 	private View.OnClickListener listener1 = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
-//			Toast.makeText(getApplicationContext(), "跳到个人信息页面",
+//			Toast.makeText(getActivity().getApplication(), "跳到个人信息页面",
 //					Toast.LENGTH_LONG).show();
 			Intent intent = new Intent();
-			intent.setClass(SettingsActivity.this,
+			intent.setClass(getActivity(),
 					MyInformationActivity.class);
 			startActivity(intent);
 		}
@@ -93,44 +99,44 @@ public class SettingsActivity extends Activity {
 		Intent intent = new Intent();
 		switch (num) {
 		case 0:// 新版本检测
-			Toast.makeText(getApplicationContext(), "新版本检测", Toast.LENGTH_LONG)
+			Toast.makeText(getActivity().getApplication(), "新版本检测", Toast.LENGTH_LONG)
 					.show();
 			break;
 		case 1:// 清除全部聊天记录
-			Toast.makeText(getApplicationContext(), "清除全部聊天记录",
+			Toast.makeText(getActivity().getApplication(), "清除全部聊天记录",
 					Toast.LENGTH_LONG).show();
 			break;
 		case 2:// 消息推送
-			Toast.makeText(getApplicationContext(), "消息推送", Toast.LENGTH_LONG)
+			Toast.makeText(getActivity().getApplication(), "消息推送", Toast.LENGTH_LONG)
 					.show();
 			// Intent intent = new Intent
 			// (SettingsActivity.this,SettingsActivity.class);
 			// startActivity(intent);
 			break;
 		case 3:// 修改密码
-			Toast.makeText(getApplicationContext(), "修改密码", Toast.LENGTH_LONG)
+			Toast.makeText(getActivity().getApplication(), "修改密码", Toast.LENGTH_LONG)
 					.show();
-			intent.setClass(SettingsActivity.this, UpdatePwdActivity.class);
+			intent.setClass(getActivity(), UpdatePwdActivity.class);
 			startActivity(intent);
 			break;
 		case 4:// 屏蔽管理
-				// Toast.makeText(getApplicationContext(), "屏蔽管理" ,
+				// Toast.makeText(getActivity().getApplication(), "屏蔽管理" ,
 				// Toast.LENGTH_LONG).show();
-			intent.setClass(SettingsActivity.this,
+			intent.setClass(getActivity(),
 					BlockManagementActivity.class);
 			startActivity(intent);
 			break;
 		case 5:// 系统公告管理
-			Toast.makeText(getApplicationContext(), "系统公告管理", Toast.LENGTH_LONG)
+			Toast.makeText(getActivity().getApplication(), "系统公告管理", Toast.LENGTH_LONG)
 					.show();
 			// Intent intent = new Intent
 			// (SettingsActivity.this,SettingsActivity.class);
 			// startActivity(intent);
-			intent.setClass(SettingsActivity.this, SystemPushActivity.class);
+			intent.setClass(getActivity(), SystemPushActivity.class);
 			startActivity(intent);
 			break;
 		case 6:// 退出登录
-			intent.setClass(SettingsActivity.this, LoginActivity.class);
+			intent.setClass(getActivity(), LoginActivity.class);
 			startActivity(intent);
 			break;
 		default:
@@ -165,7 +171,7 @@ public class SettingsActivity extends Activity {
 			RelativeLayout layout = null;
 			if (convertView == null) {
 				layout = (RelativeLayout) LayoutInflater.from(
-						SettingsActivity.this).inflate(
+						getActivity()).inflate(
 						R.layout.setting_adapter_item, null);
 			} else {
 				layout = (RelativeLayout) convertView;

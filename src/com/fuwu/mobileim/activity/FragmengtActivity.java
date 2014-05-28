@@ -20,6 +20,7 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
 import android.text.style.AbsoluteSizeSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -48,6 +49,7 @@ public class FragmengtActivity extends FragmentActivity {
 	private FxApplication fxApplication;
 	private List<ContactPojo> SourceDateList;
 	private ContactAdapter adapter;
+
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
@@ -55,21 +57,31 @@ public class FragmengtActivity extends FragmentActivity {
 		vp = (ViewPager) findViewById(R.id.main_viewPager);
 		list.add(new FragmentAActivity());
 		list.add(new ContactActivity());
-		list.add(new FragmentCActivity());
+		list.add(new SettingsActivity());
 
-		new FragmentViewPagerAdapter(list, vp, this.getSupportFragmentManager());
-		
-		
+		FragmentViewPagerAdapter adapter = new FragmentViewPagerAdapter(list,
+				vp, this.getSupportFragmentManager());
+		adapter.setOnExtraPageChangeListener(new FragmentViewPagerAdapter.OnExtraPageChangeListener() {
+			@Override
+			public void onExtraPageSelected(int i) {
+				super.onExtraPageSelected(i);
+				if (i == 1) {
+					contact_search.setVisibility(View.VISIBLE);
+				} else {
+					contact_search.setVisibility(View.GONE);
+				}
+				
+			}
+		});
+
 		contact_search = (ImageView) findViewById(R.id.contact_search);
 		fxApplication = (FxApplication) getApplication();
 		searchMethod();
 
 		changeTitleStyle();
 		setEdittextListening();
-	
+
 	}
-	
-	
 
 	/**
 	 * 改变“手机褔务网v1.0” 的 样式
@@ -110,14 +122,13 @@ public class FragmengtActivity extends FragmentActivity {
 					public void onItemClick(AdapterView<?> parent, View view,
 							int position, long id) {
 						// 这里要利用adapter.getItem(position)来获取当前position所对应的对象
-//						Toast.makeText(
-//								getApplication(),
-//								((ContactPojo) adapter.getItem(position))
-//										.getName(), Toast.LENGTH_SHORT).show();
-						Toast.makeText(
-						getApplication(),
-						"传参，，跳到对话界面，并清空搜索框", Toast.LENGTH_SHORT).show();
-//						contact_search_edittext.setText("");
+						// Toast.makeText(
+						// getApplication(),
+						// ((ContactPojo) adapter.getItem(position))
+						// .getName(), Toast.LENGTH_SHORT).show();
+						Toast.makeText(getApplication(), "传参，，跳到对话界面，并清空搜索框",
+								Toast.LENGTH_SHORT).show();
+						// contact_search_edittext.setText("");
 					}
 				});
 

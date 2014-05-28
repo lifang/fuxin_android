@@ -21,6 +21,7 @@ public class FragmentViewPagerAdapter extends PagerAdapter implements
 	private ViewPager viewPager;
 	private FragmentManager fm;
 	private int current = 0;
+	private OnExtraPageChangeListener onExtraPageChangeListener;
 
 	public FragmentViewPagerAdapter(List<Fragment> list, ViewPager viewPager,
 			FragmentManager fm) {
@@ -30,6 +31,20 @@ public class FragmentViewPagerAdapter extends PagerAdapter implements
 		this.fm = fm;
 		this.viewPager.setAdapter(this);
 		this.viewPager.setOnPageChangeListener(this);
+	}
+
+	public OnExtraPageChangeListener getOnExtraPageChangeListener() {
+		return onExtraPageChangeListener;
+	}
+
+	/**
+	 * 设置页面切换额外功能监听器
+	 * 
+	 * @param onExtraPageChangeListener
+	 */
+	public void setOnExtraPageChangeListener(
+			OnExtraPageChangeListener onExtraPageChangeListener) {
+		this.onExtraPageChangeListener = onExtraPageChangeListener;
 	}
 
 	@Override
@@ -70,10 +85,16 @@ public class FragmentViewPagerAdapter extends PagerAdapter implements
 
 	@Override
 	public void onPageScrollStateChanged(int arg0) {
+		if (null != onExtraPageChangeListener) { // 如果设置了额外功能接口
+			onExtraPageChangeListener.onExtraPageScrollStateChanged(arg0);
+		}
 	}
 
 	@Override
 	public void onPageScrolled(int arg0, float arg1, int arg2) {
+		if (null != onExtraPageChangeListener) { // 如果设置了额外功能接口
+			onExtraPageChangeListener.onExtraPageScrolled(arg0, arg1, arg2);
+		}
 	}
 
 	@Override
@@ -85,6 +106,21 @@ public class FragmentViewPagerAdapter extends PagerAdapter implements
 			list.get(arg0).onResume(); // 调用切换后Fargment的onResume()
 		}
 		current = arg0;
+
+		if (null != onExtraPageChangeListener) { // 如果设置了额外功能接口
+			onExtraPageChangeListener.onExtraPageSelected(arg0);
+		}
+	}
+
+	public static class OnExtraPageChangeListener {
+		public void onExtraPageScrolled(int i, float v, int i2) {
+		}
+
+		public void onExtraPageSelected(int i) {
+		}
+
+		public void onExtraPageScrollStateChanged(int i) {
+		}
 	}
 
 }
