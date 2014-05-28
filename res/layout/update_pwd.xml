@@ -25,14 +25,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="@string/regist_title"
+            android:text="@string/update_title"
             android:textColor="@color/white"
             android:textSize="18sp" />
     </RelativeLayout>
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+        android:layout_height="wrap_content" >
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -47,20 +47,20 @@
                 android:layout_height="wrap_content" >
 
                 <EditText
-                    android:id="@+id/name"
+                    android:id="@+id/old_pwd"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="20dp"
                     android:background="@null"
-                    android:hint="输入昵称,建议6到8个字符"
+                    android:hint="请填写愿密码"
                     android:inputType="text"
                     android:textColor="#333333"
                     android:textColorHint="@color/qianhui" />
 
                 <TextView
-                    android:id="@+id/name_tag"
+                    android:id="@+id/old_pwd_tag"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -83,19 +83,19 @@
                 android:layout_height="wrap_content" >
 
                 <EditText
-                    android:id="@+id/pwd"
+                    android:id="@+id/new_pwd"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:background="@null"
-                    android:hint="输入密码"
+                    android:hint="输入新密码"
                     android:inputType="text"
                     android:textColor="#333333"
                     android:textColorHint="@color/qianhui" />
 
                 <TextView
-                    android:id="@+id/pwd_tag"
+                    android:id="@+id/new_pwd_tag"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -118,19 +118,19 @@
                 android:layout_height="wrap_content" >
 
                 <EditText
-                    android:id="@+id/pwds"
+                    android:id="@+id/new_pwds"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:background="@null"
-                    android:hint="确认密码"
+                    android:hint="确认新密码"
                     android:inputType="text"
                     android:textColor="#333333"
                     android:textColorHint="@color/qianhui" />
 
                 <TextView
-                    android:id="@+id/pwds_tag"
+                    android:id="@+id/new_pwds_tag"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -273,39 +273,8 @@
                     android:textSize="16sp" />
             </RelativeLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:gravity="center"
-                android:orientation="horizontal" >
-
-                <CheckBox
-                    android:id="@+id/agreement"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:background="@drawable/checkboxing"
-                    android:button="@null" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:text="@string/agreement"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/xy"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/agreement2"
-                    android:textColor="@color/red"
-                    android:textSize="16sp" />
-            </LinearLayout>
-
             <Button
-                android:id="@+id/regist_over"
+                android:id="@+id/update_over"
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="40dp"

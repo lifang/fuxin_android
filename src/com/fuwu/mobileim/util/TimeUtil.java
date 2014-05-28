@@ -78,7 +78,7 @@ public class TimeUtil {
 		}
 		return result;
 	}
-
+	
 	public static long getLongTime(String time) {
 		if (time == null || time.equals("")) {
 			return 0;

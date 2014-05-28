@@ -9,18 +9,19 @@
         android:layout_width="fill_parent"
         android:layout_height="80dp"
         android:background="@color/white"
-        android:gravity="center_vertical"
+        
         android:orientation="vertical" >
 
         <RelativeLayout
             android:id="@+id/setting_userface0"
             android:layout_width="wrap_content"
+            android:gravity="center_vertical"
             android:layout_height="wrap_content" >
 
             <com.fuwu.mobileim.view.CircularImage
                 android:id="@+id/setting_userface"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
                 android:src="@drawable/moren" />
         </RelativeLayout>
 
@@ -36,14 +37,14 @@
                 android:layout_height="wrap_content"
                 android:text="叮叮叮"
                 android:textColor="#333333"
-                android:textSize="18dp" />
+                android:textSize="19dp" />
 
             <ImageView
                 android:id="@+id/setting_sex_item"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:layout_alignTop="@+id/setting_teachername"
-                android:layout_marginLeft="26.8px"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/setting_teachername"
                 android:background="@drawable/nv" />
 
@@ -51,6 +52,7 @@
                 android:id="@+id/setting_userface2"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:layout_below="@+id/setting_teachername"
                 android:gravity="center_vertical" >
 
@@ -66,7 +68,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="19dp"
                     android:layout_toRightOf="@+id/certification_one"
                     android:background="@drawable/certification2" />
 
@@ -75,7 +77,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="19dp"
                     android:layout_toRightOf="@+id/certification_two"
                     android:background="@drawable/certification3" />
 

@@ -6,83 +6,102 @@ package com.fuwu.mobileim.pojo;
  */
 public class ContactPojo {
 
-	private String name;
-	private String date;
-	private String lastMes;
-	private String img;
-	private int type;
-	/**
-	 * 排序字母
-	 */
-	private String sortKey;
-	private String sortLetters; // 显示数据拼音的首字母
+	private int contactId;  // id
+	private String sortKey;  // 显示数据拼音的首字母
+	private String name; // 昵称
+	private String customName;  // 备注
+	private String userface_url;  // 头像路径
+	private int source;  //  是否交易 是否订阅
+	private String lastContactTime; //最近联系时间
+	
 
 	public ContactPojo() {
 	}
 
-	public ContactPojo(String name, String date, String lastMes, String img,
-			int type) {
+
+	public ContactPojo(int contacId, String sortKey, String name,
+			String custom_name, String userface_url, int source,
+			String lastContactTime) {
 		super();
+		this.contactId = contacId;
+		this.sortKey = sortKey;
 		this.name = name;
-		this.date = date;
-		this.lastMes = lastMes;
-		this.img = img;
-		this.type = type;
+		this.customName = custom_name;
+		this.userface_url = userface_url;
+		this.source = source;
+		this.lastContactTime = lastContactTime;
 	}
 
-	public String getSortLetters() {
-		return sortLetters;
+
+	public int getContactId() {
+		return contactId;
 	}
 
-	public void setSortLetters(String sortLetters) {
-		this.sortLetters = sortLetters;
+
+	public void setContactId(int contactId) {
+		this.contactId = contactId;
 	}
+
 
 	public String getSortKey() {
 		return sortKey;
 	}
 
+
 	public void setSortKey(String sortKey) {
 		this.sortKey = sortKey;
 	}
 
-	public String getImg() {
-		return img;
-	}
-
-	public void setImg(String img) {
-		this.img = img;
-	}
 
 	public String getName() {
 		return name;
 	}
 
+
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	public String getDate() {
-		return date;
+
+	public String getCustomName() {
+		return customName;
 	}
 
-	public void setDate(String date) {
-		this.date = date;
+
+	public void setCustomName(String custom_name) {
+		this.customName = custom_name;
 	}
 
-	public String getLastMes() {
-		return lastMes;
+
+	public String getUserface_url() {
+		return userface_url;
 	}
 
-	public void setLastMes(String lastMes) {
-		this.lastMes = lastMes;
+
+	public void setUserface_url(String userface_url) {
+		this.userface_url = userface_url;
 	}
 
-	public int getOrder() {
-		return type;
+
+	public int getSource() {
+		return source;
 	}
 
-	public void setOrder(int type) {
-		this.type = type;
+
+	public void setSource(int source) {
+		this.source = source;
 	}
+
+
+	public String getLastContactTime() {
+		return lastContactTime;
+	}
+
+
+	public void setLastContactTime(String lastContactTime) {
+		this.lastContactTime = lastContactTime;
+	}
+
+
+
 }
