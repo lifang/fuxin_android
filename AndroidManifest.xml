@@ -34,6 +34,11 @@
         <activity android:name="com.fuwu.mobileim.activity.SettingsActivity" />
         <activity android:name="com.fuwu.mobileim.activity.ContactActivity" />
         <activity android:name="com.fuwu.mobileim.activity.LoginActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name="com.fuwu.mobileim.activity.BlockManagementActivity" >
         </activity>
@@ -50,11 +55,6 @@
 
         <activity android:name="com.fuwu.mobileim.activity.MyInformationActivity" />
         <activity android:name="com.fuwu.mobileim.activity.FragmengtActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
