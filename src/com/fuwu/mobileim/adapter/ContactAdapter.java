@@ -1,12 +1,8 @@
 package com.fuwu.mobileim.adapter;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.List;
-
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -18,7 +14,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
-
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.util.FuXunTools;

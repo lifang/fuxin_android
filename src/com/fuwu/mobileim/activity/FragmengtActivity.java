@@ -26,7 +26,14 @@ public class FragmengtActivity extends FragmentActivity {
 		list.add(new ContactActivity());
 		list.add(new FragmentCActivity());
 
-		new FragmentViewPagerAdapter(list, vp, this.getSupportFragmentManager());
+		FragmentViewPagerAdapter adapter = new FragmentViewPagerAdapter(list,
+				vp, this.getSupportFragmentManager());
+		adapter.setOnExtraPageChangeListener(new FragmentViewPagerAdapter.OnExtraPageChangeListener() {
+			@Override
+			public void onExtraPageSelected(int i) {
+				super.onExtraPageSelected(i);
+			}
+		});
 	}
 
 }

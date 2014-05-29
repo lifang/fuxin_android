@@ -211,8 +211,8 @@ public class ContactActivity extends Fragment {
 		characterParser = CharacterParser.getInstance();
 
 		pinyinComparator = new PinyinComparator();
-		Thread thread = new Thread(new getContacts());
-		thread.start();
+//		Thread thread = new Thread(new getContacts());
+//		thread.start();
 
 		sectionToastLayout = (RelativeLayout) rootView.findViewById(
 				R.id.section_toast_layout);
