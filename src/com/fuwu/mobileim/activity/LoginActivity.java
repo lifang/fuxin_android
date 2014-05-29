@@ -84,7 +84,7 @@ public class LoginActivity extends Activity implements OnClickListener,
 			this.finish();
 			break;
 		case R.id.forgetpwd:
-			intent.setClass(LoginActivity.this, BackPwdActicity.class);
+			intent.setClass(LoginActivity.this, ResetPasswordActicity.class);
 			startActivity(intent);
 			this.finish();
 			break;

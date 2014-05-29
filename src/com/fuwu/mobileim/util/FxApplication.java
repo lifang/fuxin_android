@@ -7,9 +7,14 @@ import java.util.List;
 import java.util.Map;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.pojo.ContactPojo;
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
 /**
  * @作者 马龙
@@ -21,7 +26,7 @@ public class FxApplication extends Application {
 	private Map<String, Integer> mFaceMap = new LinkedHashMap<String, Integer>();
 	private static FxApplication mApplication;
 	private List<ContactPojo> contactsList = new ArrayList<ContactPojo>();
-	private  Map<Integer, ContactPojo> contactsMap = new HashMap<Integer, ContactPojo>();
+	private Map<Integer, ContactPojo> contactsMap = new HashMap<Integer, ContactPojo>();
 	private int user_id;
 	private String token;
 
@@ -29,11 +34,35 @@ public class FxApplication extends Application {
 		return mApplication;
 	}
 
-	@Override
+	public FxApplication() {
+		this.setToken("MockToken");
+	}
+
 	public void onCreate() {
+
 		super.onCreate();
+
+		initImageLoader(getApplicationContext());
 		mApplication = this;
 		initFaceMap();
+
+	}
+
+	public static void initImageLoader(Context context) {
+		// This configuration tuning is custom. You can tune every option, you
+		// may tune some of them,
+		// or you can create default configuration by
+		// ImageLoaderConfiguration.createDefault(this);
+		// method.
+		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
+				context).threadPriority(Thread.NORM_PRIORITY - 2)
+				.denyCacheImageMultipleSizesInMemory()
+				.diskCacheFileNameGenerator(new Md5FileNameGenerator())
+				.tasksProcessingOrder(QueueProcessingType.LIFO)
+				.writeDebugLogs() // Remove for release app
+				.build();
+		// Initialize ImageLoader with configuration.
+		ImageLoader.getInstance().init(config);
 	}
 
 	public List<ContactPojo> getContactsList() {

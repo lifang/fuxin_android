@@ -21,7 +21,6 @@ import com.fuwu.mobileim.view.CirclePageIndicator;
 import com.google.protobuf.InvalidProtocolBufferException;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -30,7 +29,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Matrix;
-import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -89,7 +87,6 @@ public class ChatActivity extends Activity implements OnClickListener,
 	private List<String> keys;
 	private List<MessagePojo> list;
 	private MessageListViewAdapter mMessageAdapter;
-	private ProgressDialog pd;
 	private DBManager db;
 	private RequstReceiver mReuRequstReceiver;
 	private Handler handler = new Handler() {
@@ -100,12 +97,12 @@ public class ChatActivity extends Activity implements OnClickListener,
 			case 1:
 				break;
 			case 2:
-				Toast.makeText(getApplicationContext(), "更新记录", 0).show();
+				Toast.makeText(getApplicationContext(), "更新记录",
+						Toast.LENGTH_SHORT).show();
 				updateMessageData();
 				mMessageAdapter.updMessageList(list);
 				break;
 			}
-			// pd.dismiss();
 		}
 	};
 
@@ -117,22 +114,12 @@ public class ChatActivity extends Activity implements OnClickListener,
 		initView();
 		initFacePage();
 		initPlusGridView();
-		// pd = new ProgressDialog(this);
-		// pd.setMessage("正在加载");
-		// pd.show();
+
 		mReuRequstReceiver = new RequstReceiver();
 
-		Intent i = new Intent();
-		i.setClass(ChatActivity.this, RequstService.class);
-		startService(i);
-	}
-
-	class chatMessage extends Thread {
-		@Override
-		public void run() {
-			super.run();
-			handler.sendEmptyMessage(1);
-		}
+		// Intent i = new Intent();
+		// i.setClass(ChatActivity.this, RequstService.class);
+		// startService(i);
 	}
 
 	public void initData() {
@@ -361,26 +348,17 @@ public class ChatActivity extends Activity implements OnClickListener,
 
 	public Bitmap getBitmapScale(Bitmap bmp) {
 		int bmpWidth = bmp.getWidth();
-
 		int bmpHeight = bmp.getHeight();
-
 		// 缩放图片的尺寸
-
 		float scale = (height / 1920f) * 100;
-
 		float scaleWidth = (float) scale / bmpWidth; // 按固定大小缩放 sWidth 写多大就多大
-
 		float scaleHeight = (float) scale / bmpHeight;
 
 		Matrix matrix = new Matrix();
-
 		matrix.postScale(scaleWidth, scaleHeight);// 产生缩放后的Bitmap对象
-
 		Bitmap resizeBitmap = Bitmap.createBitmap(bmp, 0, 0, bmpWidth,
 				bmpHeight, matrix, false);
-
 		bmp.recycle();
-
 		return resizeBitmap;
 	}
 

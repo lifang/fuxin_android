@@ -91,6 +91,7 @@ public class DBManager {
 	}
 
 	public List<TalkPojo> queryTalkList(int user_id) {
+		Log.i("Max", user_id + "");
 		ArrayList<TalkPojo> talkList = new ArrayList<TalkPojo>();
 		Cursor c = queryTalkCursor(user_id);
 		while (c.moveToNext()) {
@@ -108,11 +109,12 @@ public class DBManager {
 		return talkList;
 	}
 
-	public boolean delTalk(int user_id) {
+	public boolean delTalk(int user_id, int contact_id) {
 		boolean flag = true;
 		db = helper.getWritableDatabase();
 		try {
-			db.execSQL("DELETE FROM talk WHERE contact_id = " + user_id);
+			db.execSQL("DELETE FROM talk WHERE user_id = " + user_id
+					+ " and contact_id = " + contact_id);
 		} catch (SQLException e) {
 			Log.i("Max", "删除异常:" + e.toString());
 			flag = false;
@@ -137,7 +139,7 @@ public class DBManager {
 	}
 
 	public Cursor queryTalkCursor(int user_id) {
-		Cursor c = db.rawQuery("SELECT * FROM talk where contact_id = ?",
+		Cursor c = db.rawQuery("SELECT * FROM talk where user_id = ?",
 				new String[] { user_id + "" });
 		return c;
 	}

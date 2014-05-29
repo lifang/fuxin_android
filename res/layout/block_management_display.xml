@@ -82,7 +82,7 @@
         android:background="#E1E1E1" />
 
     <Button
-        android:id="@+id/display_restore2"
+        android:id="@+id/block_display_restore"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
         android:text="@string/receive_mess"

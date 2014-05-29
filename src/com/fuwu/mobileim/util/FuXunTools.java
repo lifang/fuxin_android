@@ -1,17 +1,15 @@
 package com.fuwu.mobileim.util;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.apache.http.client.HttpClient;
-import org.apache.http.impl.client.DefaultHttpClient;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -19,10 +17,45 @@ import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import com.fuwu.mobileim.R;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 public class FuXunTools {
 	private static Bitmap bm = null;
+	protected static ImageLoader imageLoader = ImageLoader.getInstance();
+	static DisplayImageOptions options = new DisplayImageOptions.Builder()
+			.showImageOnLoading(R.drawable.moren)
+			.showImageForEmptyUri(R.drawable.moren)
+			.showImageOnFail(R.drawable.moren).cacheInMemory(true)
+			.cacheOnDisk(true).considerExifParams(true)
+			.displayer(new RoundedBitmapDisplayer(20)).build();
+	private static ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
+
+	private static class AnimateFirstDisplayListener extends
+			SimpleImageLoadingListener {
+
+		static final List<String> displayedImages = Collections
+				.synchronizedList(new LinkedList<String>());
+
+		public void onLoadingComplete(String imageUri, View view,
+				Bitmap loadedImage) {
+			if (loadedImage != null) {
+				ImageView imageView = (ImageView) view;
+				boolean firstDisplay = !displayedImages.contains(imageUri);
+				if (firstDisplay) {
+					FadeInBitmapDisplayer.animate(imageView, 500);
+					displayedImages.add(imageUri);
+				}
+			}
+		}
+	}
 
 	// 判断手机号合法性
 	public static boolean isMobileNO(String mobiles) {
@@ -78,7 +111,6 @@ public class FuXunTools {
 
 		Thread thread = new Thread() {
 			public void run() {
-				HttpClient hc = new DefaultHttpClient();
 				Drawable face_drawable;
 				try {
 					Log.i("linshi------------", url);
@@ -105,13 +137,13 @@ public class FuXunTools {
 						Log.i("linshi",
 								bm.getWidth() + "---2---" + bm.getHeight());
 						File f = new File(Urlinterface.head_pic, "bbb");
-						
+
 						if (f.exists()) {
 							f.delete();
 						}
-						if(!f.getParentFile().exists()){
+						if (!f.getParentFile().exists()) {
 							f.getParentFile().mkdirs();
-							}
+						}
 						Log.i("linshi", "----1");
 						FileOutputStream out = new FileOutputStream(f);
 						Log.i("linshi", "----6");
@@ -129,7 +161,7 @@ public class FuXunTools {
 						mHandler.sendMessage(msg);
 
 					}
-					
+
 				} catch (Exception e) {
 					Log.i("linshi", "发生异常");
 					// Log.i("linshi", url);
@@ -140,5 +172,9 @@ public class FuXunTools {
 
 		thread.start();
 
+	}
+
+	public static void setBackground(final String url, final ImageView imageView) {
+		imageLoader.displayImage(url, imageView, options, animateFirstListener);
 	}
 }
