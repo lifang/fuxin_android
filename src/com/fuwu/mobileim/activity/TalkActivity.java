@@ -74,6 +74,9 @@ public class TalkActivity extends Fragment {
 				Toast.makeText(getActivity(), "删除失败", Toast.LENGTH_SHORT)
 						.show();
 				break;
+			case 4:
+				clvAdapter.notifyDataSetChanged();
+				break;
 			}
 		}
 	};
@@ -234,14 +237,11 @@ public class TalkActivity extends Fragment {
 
 	public void onResume() {
 		handler.sendEmptyMessage(2);
-		getActivity().registerReceiver(mReuRequstReceiver,
-				new IntentFilter("com.comdosoft.fuxun.REQUEST_ACTION"));
 		super.onResume();
 	}
 
 	public void onPause() {
 		super.onPause();
-		getActivity().unregisterReceiver(mReuRequstReceiver);
 	}
 
 	class RequstReceiver extends BroadcastReceiver {
