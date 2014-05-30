@@ -155,15 +155,21 @@ public class TalkActivity extends Fragment {
 	}
 
 	public void onResume() {
-		handler.sendEmptyMessage(2);
+		// handler.sendEmptyMessage(4);
 		// getActivity().registerReceiver(mReuRequstReceiver,
 		// new IntentFilter("com.comdosoft.fuxun.REQUEST_ACTION"));
+		Log.i("Max", "onResume");
 		super.onResume();
 	}
 
 	public void onPause() {
+		Log.i("Max", "onPause");
 		super.onPause();
-		// getActivity().unregisterReceiver(mReuRequstReceiver);
+	}
+
+	public void onStart() {
+		Log.i("Max", "onStart");
+		super.onStart();
 	}
 
 	class RequstReceiver extends BroadcastReceiver {
