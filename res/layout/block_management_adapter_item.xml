@@ -14,8 +14,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dip"
-            android:layout_marginRight="10dip"
+            android:layout_marginLeft="19dip"
             android:src="@drawable/moren" />
 
         <TextView
@@ -23,10 +22,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="64dp"
+            android:layout_marginLeft="70dp"
             android:text="叮叮叮"
             android:textColor="#333333"
-            android:textSize="35px" />
+            android:textSize="19dp" />
 
         <Button
             android:id="@+id/block_restore"
@@ -34,18 +33,18 @@
             android:layout_height="40dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="17dp"
             android:background="@drawable/restore_button_shape"
             android:text="@string/restore"
-            android:textSize="33px" />
+            android:textSize="19dp" />
     </RelativeLayout>
 
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:background="#D4D4D4" />
 
 </RelativeLayout>

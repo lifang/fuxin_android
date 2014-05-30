@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="10dp"
             android:background="@drawable/contact_search_png"
             android:visibility="gone" />
     </RelativeLayout>
@@ -64,8 +64,8 @@
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/searchitem"
                 android:background="@color/white"
-                android:textColor="#B1B1B1"
                 android:singleLine="true"
+                android:textColor="#B1B1B1"
                 android:textSize="18dp" />
 
             <ImageView
@@ -115,8 +115,8 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="@string/talk"
-                    android:textColor="#9C9C9C"
-                    android:textSize="18dp" />
+                    android:textColor="@color/red_block"
+                    android:textSize="20dp" />
 
                 <TextView
                     android:id="@+id/menu_address_book"
@@ -125,8 +125,8 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="@string/address_book"
-                    android:textColor="#9C9C9C"
-                    android:textSize="18dp" />
+                    android:textColor="@color/text_color"
+                    android:textSize="20dp" />
 
                 <TextView
                     android:id="@+id/menu_settings"
@@ -135,8 +135,8 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="@string/settings"
-                    android:textColor="#9C9C9C"
-                    android:textSize="18dp" />
+                    android:textColor="@color/text_color"
+                    android:textSize="20dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -186,8 +186,8 @@
         android:layout_height="fill_parent"
         android:layout_below="@+id/main_top"
         android:background="@color/white"
-        android:visibility="gone" 
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:visibility="gone" >
 
         <TextView
             android:layout_width="fill_parent"

@@ -14,7 +14,7 @@
             android:layout_width="40dip"
             android:layout_height="40dip"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="15.0dip"
+            android:layout_marginLeft="10.0dip"
             android:background="@drawable/back" />
 
         <TextView
@@ -24,7 +24,7 @@
             android:layout_centerVertical="true"
             android:text="@string/block_management"
             android:textColor="#ffffff"
-            android:textSize="18dp" />
+            android:textSize="20dp" />
     </RelativeLayout>
 
     <ListView

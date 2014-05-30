@@ -11,6 +11,7 @@ import android.content.Context;
 
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.pojo.ContactPojo;
+import com.fuwu.mobileim.pojo.ProfilePojo;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -29,6 +30,7 @@ public class FxApplication extends Application {
 	private Map<Integer, ContactPojo> contactsMap = new HashMap<Integer, ContactPojo>();
 	private int user_id;
 	private String token;
+	private ProfilePojo profilePojo= new ProfilePojo();
 
 	public synchronized static FxApplication getInstance() {
 		return mApplication;
@@ -218,5 +220,14 @@ public class FxApplication extends Application {
 	public void setToken(String token) {
 		this.token = token;
 	}
+
+	public ProfilePojo getProfilePojo() {
+		return profilePojo;
+	}
+
+	public void setProfilePojo(ProfilePojo profilePojo) {
+		this.profilePojo = profilePojo;
+	}
+	
 
 }

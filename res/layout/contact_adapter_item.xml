@@ -11,9 +11,9 @@
             android:gravity="center_vertical"
             android:background="#F4F4F4"
             android:text="sdfsf"
-            android:paddingLeft="15dip"
-            android:textColor="#555555"
-            android:textSize="13sp" />
+            android:paddingLeft="20dp"
+            android:textColor="@color/text_color"
+            android:textSize="15dp" />
 
 
     <LinearLayout
@@ -28,8 +28,8 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dip"
-            android:layout_marginRight="10dip"
+            android:layout_marginLeft="15dip"
+            android:layout_marginRight="15dip"
             android:src="@drawable/moren" />
 
         <TextView
@@ -38,22 +38,22 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:textColor="#333333"
-            android:textSize="30px" />
+            android:textSize="18dp" />
 
         <ImageView
             android:id="@+id/contact_gou"
-            android:layout_width="50px"
-            android:layout_height="30px"
+            android:layout_width="25dp"
+            android:layout_height="15dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="30px"
+            android:layout_marginLeft="15dp"
             android:background="@drawable/gou" />
 
         <ImageView
             android:id="@+id/contact_yue"
-            android:layout_width="50px"
-            android:layout_height="30px"
+            android:layout_width="25dp"
+            android:layout_height="15dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="30px"
+            android:layout_marginLeft="15dp"
             android:background="@drawable/yue" />
     </LinearLayout>
 

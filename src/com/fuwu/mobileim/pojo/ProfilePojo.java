@@ -8,10 +8,8 @@ public class ProfilePojo {
     private String nickName;//  昵称
     private int gender ;//  性别
     private String tileUrl;//  头像
-    private Boolean isProvider;//  
+    private Boolean isProvider;//  福师
     private String lisence;//  行业认证
-    private String publishClassType;//  课程类型
-    private String signature;//  个性签名
     private String mobile;//  手机号码
     private String email;//  邮箱
     private String birthday;//  生日
@@ -24,7 +22,7 @@ public class ProfilePojo {
 
 	public ProfilePojo(int userId, String name, String nickName, int gender,
 			String tileUrl, Boolean isProvider, String lisence,
-			String publishClassType, String signature, String mobile,
+			 String mobile,
 			String email, String birthday) {
 		super();
 		this.userId = userId;
@@ -32,10 +30,8 @@ public class ProfilePojo {
 		this.nickName = nickName;
 		this.gender = gender;
 		this.tileUrl = tileUrl;
-		this.isProvider = isProvider;
+		this.isProvider = isProvider;// 福师
 		this.lisence = lisence;
-		this.publishClassType = publishClassType;
-		this.signature = signature;
 		this.mobile = mobile;
 		this.email = email;
 		this.birthday = birthday;
@@ -112,24 +108,7 @@ public class ProfilePojo {
 	}
 
 
-	public String getPublishClassType() {
-		return publishClassType;
-	}
 
-
-	public void setPublishClassType(String publishClassType) {
-		this.publishClassType = publishClassType;
-	}
-
-
-	public String getSignature() {
-		return signature;
-	}
-
-
-	public void setSignature(String signature) {
-		this.signature = signature;
-	}
 
 
 	public String getMobile() {

@@ -124,7 +124,7 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 				ValidateCodeRequest.Builder builder = ValidateCodeRequest
 						.newBuilder();
 				builder.setPhoneNumber(phone_text.getText().toString());
-				builder.setType("");
+//				builder.setType("");
 				ValidateCodeRequest request = builder.build();
 				ValidateCodeResponse response = ValidateCodeResponse
 						.parseFrom(HttpUtil.sendHttps(request.toByteArray(),

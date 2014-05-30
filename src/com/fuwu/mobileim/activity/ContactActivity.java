@@ -24,6 +24,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.adapter.ContactAdapter;
@@ -45,8 +46,8 @@ import com.fuwu.mobileim.view.XListView.IXListViewListener;
 public class ContactActivity extends Fragment implements IXListViewListener {
 
 	private FxApplication fxApplication;
-	private ListView sortListView;//  普通的 listview，最近，订阅，交易 这三个部分使用
-	private XListView xListView;//  可上拉刷新 的 listview ，全部 部分使用
+	private ListView sortListView;// 普通的 listview，最近，订阅，交易 这三个部分使用
+	private XListView xListView;// 可上拉刷新 的 listview ，全部 部分使用
 	private SideBar sideBar;
 	private TextView dialog;
 	private ContactAdapter adapter;
@@ -96,8 +97,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 
 				fxApplication.setContactsList(contactsList);
 				fxApplication.setContactsMap(contactsMap);
-				adapter = new ContactAdapter(getActivity(),
-						contactsList, 1);
+				adapter = new ContactAdapter(getActivity(), contactsList, 1);
 				xListView.setAdapter(adapter);
 
 				break;
@@ -110,14 +110,17 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 
 				fxApplication.setContactsList(contactsList);
 				fxApplication.setContactsMap(contactsMap);
-				adapter = new ContactAdapter(getActivity(),
-						contactsList, 1);
+				adapter = new ContactAdapter(getActivity(), contactsList, 1);
 				xListView.setAdapter(adapter);
 				onLoad();
 				break;
+			case 6:
+				 Toast.makeText(getActivity(),
+						 "请求失败", Toast.LENGTH_SHORT).show();
+				break;
 			case 7:
-				// Toast.makeText(getApplicationContext(),
-				// ExerciseBookParams.INTERNET, Toast.LENGTH_SHORT).show();
+				 Toast.makeText(getActivity(),
+				 "网络错误", Toast.LENGTH_SHORT).show();
 				break;
 			}
 		}
@@ -138,7 +141,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 
 	/**
 	 * 
-	 * 第一次  获得所有联系人
+	 * 第一次 获得所有联系人
 	 * 
 	 * 
 	 */
@@ -156,6 +159,8 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 				if (by.length > 0) {
 
 					ContactResponse res = ContactResponse.parseFrom(by);
+					if (res.getIsSucceed()) {
+						
 					for (int i = 0; i < res.getContactsCount(); i++) {
 						int contactId = res.getContacts(i).getContactId();
 						String name = res.getContacts(i).getName();
@@ -168,22 +173,28 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 						String lastContactTime = res.getContacts(i)
 								.getLastContactTime();// 2014-05-27 11:42:18
 						Boolean isBlocked = res.getContacts(i).getIsBlocked();
+						Boolean isProvider = res.getContacts(i).getIsProvider();
+
 						String lisence = res.getContacts(i).getLisence();
-						String publishClassType = res.getContacts(i).getPublishClassType();
-						String signature = res.getContacts(i).getSignature();
+						String publishClassType = res.getContacts(i)
+								.getPublishClassType();
+						String signature = null;
+						// String signature = res.getContacts(i).getSignature();
 						ContactPojo coPojo = new ContactPojo(contactId,
 								sortKey, name, customName, userface_url, sex,
-								source, lastContactTime, isBlocked,lisence,publishClassType,signature);
+								source, lastContactTime, isBlocked, isProvider,
+								lisence, signature);
 						contactsList.add(coPojo);
 						if (i < 5) {
 
 							ContactPojo coPojo2 = new ContactPojo(
 									contactId + 1000,
-									"A",
-									"2013-05-27 11:42:18",
+									"S",
+									"斯蒂芬森",
 									customName,
 									"http://www.sinaimg.cn/dy/slidenews/9_img/2012_28/32172_1081661_673195.jpg",
-									sex, 3, "2013-05-27 11:42:18", isBlocked,lisence,publishClassType,signature);
+									sex, 3, "2013-05-27 11:42:18", isBlocked,
+									isProvider, lisence, signature);
 							contactsList.add(coPojo2);
 
 						}
@@ -194,7 +205,8 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 									"2014-05-27 11:42:18",
 									customName,
 									"http://www.sinaimg.cn/dy/slidenews/9_img/2012_28/32172_1081661_673195.jpg",
-									sex, 8, "2014-05-27 11:42:18", isBlocked,lisence,publishClassType,signature);
+									sex, 8, "2014-05-27 11:42:18", isBlocked,
+									isProvider, lisence, signature);
 							contactsList.add(coPojo3);
 
 						}
@@ -203,7 +215,8 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 									contactId + 1000, "O",
 									"2014-04-27 11:42:18", customName,
 									userface_url, sex, 11,
-									"2014-04-27 11:42:18", isBlocked,lisence,publishClassType,signature);
+									"2014-04-27 11:42:18", isBlocked,
+									isProvider, lisence, signature);
 							contactsList.add(coPojo4);
 						}
 						if (i == 1) {
@@ -216,10 +229,15 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 						}
 						contactsMap.put(contactId, coPojo);
 					}
+						Message msg = new Message();// 创建Message 对象
+						msg.what = 0;
+						handler.sendMessage(msg);
+					}else {
+						handler.sendEmptyMessage(6);
+					}
+					
 				}
-				Message msg = new Message();// 创建Message 对象
-				msg.what = 0;
-				handler.sendMessage(msg);
+				
 
 				// handler.sendEmptyMessage(0);
 			} catch (Exception e) {
@@ -228,11 +246,10 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			}
 		}
 	}
-	
-	
+
 	/**
 	 * 
-	 * 第二次  获得所有联系人
+	 * 第二次 获得所有联系人
 	 * 
 	 * 
 	 */
@@ -247,7 +264,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 
 				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
 						Urlinterface.getContacts, "POST");
-				if (by.length > 0) {
+				if (by.length > 0&&by!=null) {
 					contactsList = new ArrayList<ContactPojo>();
 					contactsMap = new HashMap<Integer, ContactPojo>();
 					ContactResponse res = ContactResponse.parseFrom(by);
@@ -263,14 +280,19 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 						String lastContactTime = res.getContacts(i)
 								.getLastContactTime();// 2014-05-27 11:42:18
 						Boolean isBlocked = res.getContacts(i).getIsBlocked();
+						Boolean isProvider = res.getContacts(i).getIsProvider();
+
 						String lisence = res.getContacts(i).getLisence();
-						String publishClassType = res.getContacts(i).getPublishClassType();
-						String signature = res.getContacts(i).getSignature();
+						String publishClassType = res.getContacts(i)
+								.getPublishClassType();
+						String signature = null;
+						// String signature = res.getContacts(i).getSignature();
 						ContactPojo coPojo = new ContactPojo(contactId,
 								sortKey, name, customName, userface_url, sex,
-								source, lastContactTime, isBlocked,lisence,publishClassType,signature);
+								source, lastContactTime, isBlocked, isProvider,
+								lisence, signature);
 						contactsList.add(coPojo);
-						
+
 						contactsMap.put(contactId, coPojo);
 					}
 				}
@@ -285,7 +307,6 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			}
 		}
 	}
-
 
 	private void initViews() {
 		contactsList = new ArrayList<ContactPojo>();
@@ -327,7 +348,6 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 					sortListView.setSelection(position);
 					xListView.setSelection(position);
 
-
 					// TextView tv= (TextView)
 					// sortListView.getChildAt(position).findViewById(R.id.sort_key);
 					// String tv_str = (String) tv.getText().toString();
@@ -349,11 +369,10 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				
+
 				Intent intent = new Intent();
-//				intent.p
-				intent.setClass(getActivity(),
-						ChatActivity.class);
+				// intent.p
+				intent.setClass(getActivity(), ChatActivity.class);
 				startActivity(intent);
 			}
 		});
@@ -366,11 +385,10 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				
+
 				Intent intent = new Intent();
-//				intent.p
-				intent.setClass(getActivity(),
-						ChatActivity.class);
+				// intent.p
+				intent.setClass(getActivity(), ChatActivity.class);
 				startActivity(intent);
 			}
 		});
@@ -422,6 +440,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		return mSortList;
 
 	}
+
 	/**
 	 * 设置button的 宽度 以及监听
 	 * 
@@ -430,9 +449,10 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 	private void setButton() {
 		int width0 = 4; // 边框宽度
 		int width1 = 20; // 外部边框距左右边界距离
-		int hight0 = 80; // 外部边框高度
+		int hight0 = 70; // 外部边框高度
 		int hight1 = hight0 - width0 * 2; // button高度
-		LinearLayout a_layout = (LinearLayout) rootView.findViewById(R.id.a_layout);
+		LinearLayout a_layout = (LinearLayout) rootView
+				.findViewById(R.id.a_layout);
 		LayoutParams param = (LayoutParams) a_layout.getLayoutParams();
 		param.leftMargin = 20;
 		param.rightMargin = 20;
@@ -454,7 +474,8 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		button_all = (Button) rootView.findViewById(R.id.button_all);
 		button_recently = (Button) rootView.findViewById(R.id.button_recently);
 		button_trading = (Button) rootView.findViewById(R.id.button_trading);
-		button_subscription = (Button) rootView.findViewById(R.id.button_subscription);
+		button_subscription = (Button) rootView
+				.findViewById(R.id.button_subscription);
 		btnList.add(button_all);
 		btnList.add(button_recently);
 		btnList.add(button_trading);
@@ -476,8 +497,8 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			buttonNumber = 0;
 			setButtonColor(buttonNumber);
 			xListView.setVisibility(View.VISIBLE);
-//			List<ContactPojo> contactsList = fxApplication.getContactsList();
-//			Collections.sort(contactsList, pinyinComparator);
+			// List<ContactPojo> contactsList = fxApplication.getContactsList();
+			// Collections.sort(contactsList, pinyinComparator);
 			adapter = new ContactAdapter(getActivity(), contactsList, 1);
 			xListView.setAdapter(adapter);
 			sortListView.setVisibility(View.GONE);
@@ -501,8 +522,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 				Collections.sort(list1, pinyinComparator);
 				adapter = new ContactAdapter(getActivity(), list1, 0);
 			} else {
-				adapter = new ContactAdapter(getActivity(),
-						contactsList1, 0);
+				adapter = new ContactAdapter(getActivity(), contactsList1, 0);
 			}
 			sortListView.setVisibility(View.VISIBLE);
 			xListView.setVisibility(View.GONE);
@@ -552,6 +572,16 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 	};
 
 	private void setButtonColor(int buttonNumber) {
+		for (int i = 0; i < btnList.size(); i++) {
+			if (buttonNumber == i) {
+				btnList.get(i).setTextColor(
+						this.getResources().getColor(R.color.white));
+			} else {
+				btnList.get(i).setTextColor(
+						this.getResources().getColor(R.color.red_block));
+
+			}
+		}
 		btnList.get(0).setBackgroundResource(R.drawable.left_shape_white);
 		btnList.get(1).setBackgroundResource(R.drawable.middle_shape_white);
 		btnList.get(2).setBackgroundResource(R.drawable.middle_shape_white);
@@ -587,18 +617,19 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		}
 		return -1;
 	}
+
 	private void onLoad() {
 		xListView.stopRefresh();
 	}
+
 	@Override
 	public void onRefresh() {
 		// TODO Auto-generated method stub
-		
+
 		Thread thread = new Thread(new getContacts2());
 		thread.start();
 		Log.i("linshi", "1111111111111111111111111111");
-		
-	}
 
+	}
 
 }
