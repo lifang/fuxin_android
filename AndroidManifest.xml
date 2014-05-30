@@ -56,6 +56,9 @@
         <activity android:name="com.fuwu.mobileim.activity.MyInformationActivity" />
         <activity android:name="com.fuwu.mobileim.activity.FragmengtActivity" >
         </activity>
+        <activity android:name="com.fuwu.mobileim.activity.ResetPasswordActicity" />
+        <activity android:name="com.fuwu.mobileim.activity.PushSettingActivity" >
+        </activity>
     </application>
 
 </manifest>

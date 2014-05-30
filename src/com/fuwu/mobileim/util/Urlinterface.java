@@ -8,17 +8,17 @@ public interface Urlinterface {
 	static final String tag = "FuXun";
 	static final String SHARED = "FuXun";
 	static final double current_version = 0.0;// 应用版本号
-	static final String IP = "https://118.242.18.189";
+	static final String IP = "https://118.242.18.189/IMApi/";
 
-	String getContacts = IP + "/api/Contact";// 获得联系人
+	String getContacts = IP + "api/Contact";// 获得联系人
 	// 注册
-	static final String REGIST = IP + "/api/Register";
+	static final String REGIST = IP + "api/Register";
 	// 短信验证
-	static final String ValidateCode = IP + "/api/ValidateCode";
+	static final String ValidateCode = IP + "api/ValidateCode";
 	// 登陆
-	static final String LOGIN = IP + "/api/Authentication";
+	static final String LOGIN = IP + "api/Authentication";
 	// 修改密码
-	static final String PASSWORD = IP + "/api/Password";
-	// 修改密码
-	static final String RESETPASSWORD = IP + "/api/ResetPassword";
+	static final String PASSWORD = IP + "api/ChangePassword";
+	// 找回密码
+	static final String RESETPASSWORD = IP + "api/ResetPassword";
 }

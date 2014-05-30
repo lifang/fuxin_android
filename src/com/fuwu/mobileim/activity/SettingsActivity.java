@@ -112,15 +112,10 @@ public class SettingsActivity extends Fragment {
 					Toast.LENGTH_LONG).show();
 			break;
 		case 2:// 消息推送
-			Toast.makeText(getActivity().getApplication(), "消息推送",
-					Toast.LENGTH_LONG).show();
-			// Intent intent = new Intent
-			// (SettingsActivity.this,SettingsActivity.class);
-			// startActivity(intent);
+			intent.setClass(getActivity(), PushSettingActivity.class);
+			startActivity(intent);
 			break;
 		case 3:// 修改密码
-			Toast.makeText(getActivity().getApplication(), "修改密码",
-					Toast.LENGTH_LONG).show();
 			intent.setClass(getActivity(), UpdatePwdActivity.class);
 			startActivity(intent);
 			break;

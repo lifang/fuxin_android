@@ -3,12 +3,9 @@ package com.fuwu.mobileim.activity;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import android.app.Activity;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -21,7 +18,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -43,11 +39,6 @@ import com.fuwu.mobileim.view.CharacterParser;
 import com.fuwu.mobileim.view.PinyinComparator;
 import com.fuwu.mobileim.view.SideBar;
 import com.fuwu.mobileim.view.SideBar.OnTouchingLetterChangedListener;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 public class ContactActivity extends Fragment {
 
@@ -102,8 +93,7 @@ public class ContactActivity extends Fragment {
 
 				fxApplication.setContactsList(contactsList);
 				fxApplication.setContactsMap(contactsMap);
-				adapter = new ContactAdapter(getActivity(),
-						contactsList, 1);
+				adapter = new ContactAdapter(getActivity(), contactsList, 1);
 				sortListView.setAdapter(adapter);
 
 				break;
@@ -346,7 +336,8 @@ public class ContactActivity extends Fragment {
 		int width1 = 20; // 外部边框距左右边界距离
 		int hight0 = 80; // 外部边框高度
 		int hight1 = hight0 - width0 * 2; // button高度
-		LinearLayout a_layout = (LinearLayout) rootView.findViewById(R.id.a_layout);
+		LinearLayout a_layout = (LinearLayout) rootView
+				.findViewById(R.id.a_layout);
 		LayoutParams param = (LayoutParams) a_layout.getLayoutParams();
 		param.leftMargin = 20;
 		param.rightMargin = 20;
@@ -368,7 +359,8 @@ public class ContactActivity extends Fragment {
 		button_all = (Button) rootView.findViewById(R.id.button_all);
 		button_recently = (Button) rootView.findViewById(R.id.button_recently);
 		button_trading = (Button) rootView.findViewById(R.id.button_trading);
-		button_subscription = (Button) rootView.findViewById(R.id.button_subscription);
+		button_subscription = (Button) rootView
+				.findViewById(R.id.button_subscription);
 		btnList.add(button_all);
 		btnList.add(button_recently);
 		btnList.add(button_trading);
@@ -411,8 +403,7 @@ public class ContactActivity extends Fragment {
 				Collections.sort(list1, pinyinComparator);
 				adapter = new ContactAdapter(getActivity(), list1, 0);
 			} else {
-				adapter = new ContactAdapter(getActivity(),
-						contactsList1, 0);
+				adapter = new ContactAdapter(getActivity(), contactsList1, 0);
 			}
 
 			sortListView.setAdapter(adapter);
@@ -492,6 +483,5 @@ public class ContactActivity extends Fragment {
 		}
 		return -1;
 	}
-
 
 }

@@ -90,7 +90,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@null"
                     android:hint="输入密码"
-                    android:inputType="text"
+                    android:inputType="textPassword"
                     android:textColor="#333333"
                     android:textColorHint="@color/qianhui" />
 
@@ -125,7 +125,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@null"
                     android:hint="确认密码"
-                    android:inputType="text"
+                    android:inputType="textPassword"
                     android:textColor="#333333"
                     android:textColorHint="@color/qianhui" />
 

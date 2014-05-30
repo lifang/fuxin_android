@@ -26,8 +26,10 @@ import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.model.Models.RegisterRequest;
 import com.fuwu.mobileim.model.Models.RegisterResponse;
 import com.fuwu.mobileim.model.Models.ValidateCodeRequest;
+import com.fuwu.mobileim.model.Models.ValidateCodeRequest.ValidateType;
 import com.fuwu.mobileim.model.Models.ValidateCodeResponse;
 import com.fuwu.mobileim.util.FuXunTools;
+import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.google.protobuf.InvalidProtocolBufferException;
@@ -58,22 +60,37 @@ public class RegistActivity extends Activity implements OnClickListener,
 	private Timer timer;
 	public int time = 180;
 	private boolean validate_boolean = false;
+	private String error_code;
+	private FxApplication fx;
 	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
 			switch (msg.what) {
 			case 0:
-				// yz_text.setText(yznumber);
+				Toast.makeText(RegistActivity.this, "短信已发出请注意查看",
+						Toast.LENGTH_SHORT).show();
 				break;
 			case 1:
-				intent.setClass(RegistActivity.this, MainActivity.class);
+				intent.setClass(RegistActivity.this, FragmengtActivity.class);
 				startActivity(intent);
 				RegistActivity.this.finish();
 				break;
 			case 2:
-				Toast.makeText(RegistActivity.this, "注册失败", Toast.LENGTH_SHORT)
-						.show();
+				if (!error_code.equals("")) {
+					String errorString = fx.error_map.get(error_code);
+					if (errorString == null) {
+						Toast.makeText(RegistActivity.this, "注册失败",
+								Toast.LENGTH_SHORT).show();
+					} else {
+						Toast.makeText(RegistActivity.this, errorString,
+								Toast.LENGTH_SHORT).show();
+					}
+				}
+				break;
+			case 3:
+				Toast.makeText(RegistActivity.this, "短信发送失败,请重试",
+						Toast.LENGTH_SHORT).show();
 				break;
 			}
 		}
@@ -82,6 +99,7 @@ public class RegistActivity extends Activity implements OnClickListener,
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.regist);
+		fx = (FxApplication) getApplication();
 		initialize();
 	}
 
@@ -156,17 +174,20 @@ public class RegistActivity extends Activity implements OnClickListener,
 				builder.setMobilePhoneNumber(phone_text.getText().toString());
 				builder.setName(name_text.getText().toString());
 				builder.setPassword(pwd_text.getText().toString());
-				builder.setPasswordConfirm(pwd_text.getText().toString());
-				builder.setValidateCode("123456");
+				builder.setPasswordConfirm(pwds_text.getText().toString());
+				builder.setValidateCode(yz_text.getText().toString());
 				RegisterRequest request = builder.build();
 				RegisterResponse response = RegisterResponse.parseFrom(HttpUtil
 						.sendHttps(request.toByteArray(), Urlinterface.REGIST,
 								"POST"));
+				Log.i("Max", phone_text.getText().toString() + "/"
+						+ name_text.getText().toString() + "/"
+						+ pwd_text.getText().toString() + "/"
+						+ yz_text.getText().toString());
 				if (response.getIsSucceed()) {
 					handler.sendEmptyMessage(1);
 				} else {
-					Log.i("Max", "注册是否成功:" + response.getIsSucceed() + "/"
-							+ response.getErrorCode());
+					error_code = response.getErrorCode().toString();
 					handler.sendEmptyMessage(2);
 				}
 			} catch (InvalidProtocolBufferException e) {
@@ -183,13 +204,16 @@ public class RegistActivity extends Activity implements OnClickListener,
 				ValidateCodeRequest.Builder builder = ValidateCodeRequest
 						.newBuilder();
 				builder.setPhoneNumber(phone_text.getText().toString());
+				builder.setType(ValidateType.Register);
 				ValidateCodeRequest request = builder.build();
 				ValidateCodeResponse response = ValidateCodeResponse
 						.parseFrom(HttpUtil.sendHttps(request.toByteArray(),
 								Urlinterface.ValidateCode, "POST"));
+				Log.i("Max",
+						response.getIsSucceed() + "??"
+								+ response.getErrorCode());
 				if (response.getIsSucceed()) {
 					validate_boolean = false;
-
 					if (time != 180) {
 						time = 180;
 					} else {
@@ -197,9 +221,8 @@ public class RegistActivity extends Activity implements OnClickListener,
 					}
 					handler.sendEmptyMessage(0);
 				} else {
-					// Toast.makeText(RegistActivity.this,
-					// "errorCode:" + response.getErrorCode(),
-					// Toast.LENGTH_SHORT).show();
+					validate_boolean = true;
+					handler.sendEmptyMessage(3);
 				}
 			} catch (InvalidProtocolBufferException e) {
 				e.printStackTrace();
@@ -243,6 +266,7 @@ public class RegistActivity extends Activity implements OnClickListener,
 				phone_text.setText("");
 				phone_ok.setText("确定");
 				phone_text.requestFocus();// 获取焦点
+				timer.cancel();
 				view.setBackgroundColor(getResources().getColor(R.color.white));
 			}
 			regist_btnOver();
@@ -282,7 +306,7 @@ public class RegistActivity extends Activity implements OnClickListener,
 			switch (arg0.getId()) {
 			case R.id.name:
 				String name = name_text.getText().toString();
-				if (name.equals("") || name.length() > 8) {
+				if (name.equals("") || name.length() > 30) {
 					name_tag.setVisibility(View.VISIBLE);
 				} else {
 					name_tag.setVisibility(View.GONE);

@@ -6,15 +6,18 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
 
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.pojo.ContactPojo;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 /**
  * @作者 马龙
@@ -26,9 +29,12 @@ public class FxApplication extends Application {
 	private Map<String, Integer> mFaceMap = new LinkedHashMap<String, Integer>();
 	private static FxApplication mApplication;
 	private List<ContactPojo> contactsList = new ArrayList<ContactPojo>();
+	@SuppressLint("UseSparseArrays")
 	private Map<Integer, ContactPojo> contactsMap = new HashMap<Integer, ContactPojo>();
 	private int user_id;
 	private String token;
+	public DisplayImageOptions options;
+	public Map<String, String> error_map;
 
 	public synchronized static FxApplication getInstance() {
 		return mApplication;
@@ -41,7 +47,24 @@ public class FxApplication extends Application {
 	public void onCreate() {
 
 		super.onCreate();
-
+		error_map = new HashMap<String, String>();
+		error_map.put("InvalidUserName", "用户名不存在");
+		error_map.put("InvalidPassword", "密码不正确");
+		error_map.put("InvalidPasswordExceedCount", "密码错误次数过多");
+		error_map.put("NotActivate", "服务器无响应");
+		error_map.put("InvalidValidateCode", "验证码错误");
+		error_map.put("InvalidDatabase", "连接数据库失败");
+		error_map.put("ExistingUserYes", "昵称已被注册");
+		error_map.put("InvalidMatchPassword", "两次密码不一致");
+		error_map.put("InvalidPasswordConfirm", "两次密码不一致");
+		error_map.put("InvalidPhoneNumber", "手机号码错误");
+		error_map.put("InvalidOriginalPassword", "原密码错误");
+		options = new DisplayImageOptions.Builder()
+				.showImageOnLoading(R.drawable.test)
+				.showImageForEmptyUri(R.drawable.test)
+				.showImageOnFail(R.drawable.test).cacheInMemory(true)
+				.cacheOnDisk(false).considerExifParams(true)
+				.displayer(new RoundedBitmapDisplayer(20)).build();
 		initImageLoader(getApplicationContext());
 		mApplication = this;
 		initFaceMap();
