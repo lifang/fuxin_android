@@ -3,15 +3,14 @@ package com.fuwu.mobileim.activity;
 import java.util.ArrayList;
 import java.util.List;
 import com.fuwu.mobileim.R;
-import com.fuwu.mobileim.activity.MainActivity.menuOnclick;
 import com.fuwu.mobileim.adapter.ContactAdapter;
 import com.fuwu.mobileim.adapter.FragmentViewPagerAdapter;
-import com.fuwu.mobileim.adapter.MainViewPagerAdapter;
 import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.util.FxApplication;
-
-import android.app.LocalActivityManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Matrix;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -23,20 +22,18 @@ import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
 import android.text.style.AbsoluteSizeSpan;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
 /**
  * @作者 马龙
@@ -56,18 +53,17 @@ public class FragmengtActivity extends FragmentActivity {
 	private List<ContactPojo> SourceDateList;
 	private ContactAdapter adapter;
 	private ImageView cursor;
+	private RequstReceiver mReuRequstReceiver;
 	private int offset = 0;
 	private int currIndex = 0;
 	private int cursorW = 0;
-
+	private List<TextView> btnList = new ArrayList<TextView>();
+	private TextView menu_talk, menu_address_book, menu_settings;
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		setContentView(R.layout.main);
-		findViewById(R.id.menu_talk).setOnClickListener(new menuOnclick(0));
-		findViewById(R.id.menu_address_book).setOnClickListener(
-				new menuOnclick(1));
-		findViewById(R.id.menu_settings).setOnClickListener(new menuOnclick(2));
+		getButton();
 		vp = (ViewPager) findViewById(R.id.main_viewPager);
 		list.add(new TalkActivity());
 		list.add(new ContactActivity());
@@ -80,12 +76,12 @@ public class FragmengtActivity extends FragmentActivity {
 			public void onExtraPageSelected(int i) {
 				super.onExtraPageSelected(i);
 				changeLocation(i);
+				changeColor(i);
 				if (i == 1) {
 					contact_search.setVisibility(View.VISIBLE);
 				} else {
 					contact_search.setVisibility(View.GONE);
 				}
-				
 			}
 		});
 		Intent i = new Intent();
@@ -94,12 +90,49 @@ public class FragmengtActivity extends FragmentActivity {
 
 		contact_search = (ImageView) findViewById(R.id.contact_search);
 		fxApplication = (FxApplication) getApplication();
+		mReuRequstReceiver = new RequstReceiver();
+
 		searchMethod();
 
 		changeTitleStyle();
 		setEdittextListening();
 		InitImageView();
+	}
 
+	/**
+	 * 获得button 以及设置监听
+	 * 
+	 * 
+	 */
+	private void getButton() {
+		menu_talk = (TextView) findViewById(R.id.menu_talk);
+		menu_address_book = (TextView)findViewById(R.id.menu_address_book);
+		menu_settings = (TextView) findViewById(R.id.menu_settings);
+		btnList.add(menu_talk);
+		btnList.add(menu_address_book);
+		btnList.add(menu_settings);
+		menu_talk.setOnClickListener(new menuOnclick(0));
+		menu_address_book.setOnClickListener(
+				new menuOnclick(1));
+		menu_settings.setOnClickListener(new menuOnclick(2));
+	}
+	/**
+	 * 改变文本 的颜色
+	 * 
+	 * 
+	 */
+	private void changeColor(int buttonNumber) {
+		
+		for (int i = 0; i < btnList.size(); i++) {
+			if (buttonNumber == i) {
+				btnList.get(i).setTextColor(
+						this.getResources().getColor(R.color.red_block));
+			} else {
+				btnList.get(i).setTextColor(
+						this.getResources().getColor(R.color.text_color));
+
+			}
+		}
 	}
 	
 	/**
@@ -141,7 +174,6 @@ public class FragmengtActivity extends FragmentActivity {
 		style2.setSpan(new AbsoluteSizeSpan(25), 3, tv_str.length(),
 				Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 		tv.setText(style2);
-
 	}
 
 	/**
@@ -246,7 +278,7 @@ public class FragmengtActivity extends FragmentActivity {
 
 		return findlist;
 	}
-	
+
 	class menuOnclick implements OnClickListener {
 		private int index = 0;
 
@@ -261,7 +293,27 @@ public class FragmengtActivity extends FragmentActivity {
 				changeLocation(index);
 			}
 		}
+	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		registerReceiver(mReuRequstReceiver, new IntentFilter(
+				"com.comdosoft.fuxun.REQUEST_ACTION"));
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		unregisterReceiver(mReuRequstReceiver);
+
+	}
+
+	class RequstReceiver extends BroadcastReceiver {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			list.get(0).onStart();
+		}
 	}
 
 }

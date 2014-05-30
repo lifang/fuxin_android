@@ -75,7 +75,8 @@ public class LoginActivity extends Activity implements OnClickListener,
 	public void initialize() {
 		user_text = (EditText) findViewById(R.id.user);
 		pwd_text = (EditText) findViewById(R.id.pwd);
-		user_text.setText("15862373890");
+		user_text.setText("MockUserName");
+		// pwd_text.setText("111111");
 	}
 
 	public void onClick(View v) {
@@ -121,8 +122,8 @@ public class LoginActivity extends Activity implements OnClickListener,
 						.parseFrom(HttpUtil.sendHttps(request.toByteArray(),
 								Urlinterface.LOGIN, "POST"));
 				if (response.getIsSucceed()) {
-					fx.setUser_id(response.getUserId());
-					fx.setToken(response.getToken());
+					fx.setUser_id(1);
+					fx.setToken("MockToken");
 					handler.sendEmptyMessage(0);
 
 				} else {

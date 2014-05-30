@@ -1,7 +1,6 @@
 package com.fuwu.mobileim.adapter;
 
 import java.util.List;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,11 +9,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
-
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.util.FuXunTools;
-import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CircularImage;
 
 /**

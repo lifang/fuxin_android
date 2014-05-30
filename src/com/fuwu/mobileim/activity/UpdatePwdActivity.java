@@ -23,15 +23,14 @@ import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.model.Models.ChangePasswordRequest;
 import com.fuwu.mobileim.model.Models.ChangePasswordResponse;
 import com.fuwu.mobileim.model.Models.ValidateCodeRequest;
-import com.fuwu.mobileim.model.Models.ValidateCodeResponse;
 import com.fuwu.mobileim.model.Models.ValidateCodeRequest.ValidateType;
+import com.fuwu.mobileim.model.Models.ValidateCodeResponse;
 import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.MyDialog;
 import com.google.protobuf.InvalidProtocolBufferException;
-import com.nostra13.universalimageloader.core.assist.ViewScaleType;
 
 /**
  * 作者: 张秀楠 时间：2014-5-27 下午3:23:31
@@ -159,7 +158,7 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 					handler.sendEmptyMessage(0);
 				} else {
 					validate_boolean = true;
-					Log.i("Max", response.getErrorCode()+"");
+					Log.i("Max", response.getErrorCode() + "");
 					handler.sendEmptyMessage(2);
 				}
 
@@ -336,8 +335,8 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 		del.setText("确定");
 		// 设置对话框显示的View
 		// 点击确定是的监听
-		final MyDialog builder = new MyDialog(UpdatePwdActivity.this, 0, 0,
-				view, R.style.mydialog);
+		final MyDialog builder = new MyDialog(UpdatePwdActivity.this, 0, view,
+				R.style.mydialog);
 		del.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View arg0) {
 				builder.dismiss();

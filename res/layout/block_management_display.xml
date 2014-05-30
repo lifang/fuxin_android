@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:text="叮叮叮"
                 android:textColor="#333333"
-                android:textSize="18dp" />
+                android:textSize="19dp" />
 
             <ImageView
                 android:id="@+id/block_display_sex_item"
@@ -72,7 +72,7 @@
                 android:layout_below="@+id/block_display_name"
                 android:text="叮叮叮"
                 android:textColor="#CCCCCC"
-                android:textSize="16dp" />
+                android:textSize="17dp" />
         </RelativeLayout>
     </RelativeLayout>
 
@@ -86,7 +86,7 @@
         android:layout_width="fill_parent"
         android:layout_height="50dp"
         android:text="@string/receive_mess"
-        android:textSize="18dp"
+        android:textSize="19dp"
         android:background="@drawable/button_bottom_shape" 
         />
 

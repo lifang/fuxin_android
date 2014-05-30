@@ -1,6 +1,7 @@
 package com.fuwu.mobileim.adapter;
 
 import java.util.List;
+
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;

@@ -78,13 +78,13 @@ public class TimeUtil {
 		}
 		return result;
 	}
-	
+
 	public static long getLongTime(String time) {
 		if (time == null || time.equals("")) {
 			return 0;
 		}
 		try {
-			SimpleDateFormat format = new SimpleDateFormat("yy-MM-dd HH:mm:ss");
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			Date sendDay = format.parse(time);
 			return sendDay.getTime();
 		} catch (ParseException e) {
@@ -93,15 +93,17 @@ public class TimeUtil {
 		return 0;
 	}
 
-	public static boolean isFiveMin(String date) {
+	public static boolean isFiveMin(String date, String sendTime) {
 		try {
 			if (date == null || date.equals("")) {
 				return true;
 			}
-			SimpleDateFormat format = new SimpleDateFormat("yy-MM-dd HH:mm");
+			SimpleDateFormat format = new SimpleDateFormat(
+					"yyyy-MM-dd HH:mm:ss");
 			Date sendDay = format.parse(date);
+			Date sd = format.parse(sendTime);
 			long time = sendDay.getTime();
-			if (System.currentTimeMillis() - time >= 300000) {
+			if (sd.getTime() - time >= 300000) {
 				return true;
 			}
 		} catch (ParseException e) {

@@ -17,7 +17,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:textColor="@color/white"
             android:background="@drawable/left_shape_red"
+            android:textSize="17dp" 
             android:text="@string/button_all" />
 
         <Button
@@ -32,7 +34,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:textColor="@color/red_block"
             android:background="@drawable/middle_shape_white"
+            android:textSize="17dp" 
             android:text="@string/button_recently" />
 
         <Button
@@ -47,7 +51,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:textColor="@color/red_block"
             android:background="@drawable/middle_shape_white"
+            android:textSize="17dp" 
             android:text="@string/button_trading" />
 
         <Button
@@ -62,7 +68,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:textColor="@color/red_block"
             android:background="@drawable/right_shape_white"
+            android:textSize="17dp" 
             android:text="@string/button_subscription" />
     </LinearLayout>
 

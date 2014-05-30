@@ -113,7 +113,7 @@ public class TalkActivity extends Fragment {
 		final TextView del = (TextView) view.findViewById(R.id.del_talk);
 		// 设置对话框显示的View
 		// 点击确定是的监听
-		final MyDialog builder = new MyDialog(getActivity(), 0, 0, view,
+		final MyDialog builder = new MyDialog(getActivity(), 0, view,
 				R.style.mydialog);
 		del.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View arg0) {

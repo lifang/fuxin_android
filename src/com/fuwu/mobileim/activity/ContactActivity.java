@@ -115,12 +115,12 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 				onLoad();
 				break;
 			case 6:
-				Toast.makeText(getActivity(), "请求失败", Toast.LENGTH_SHORT)
-						.show();
+				 Toast.makeText(getActivity(),
+						 "请求失败", Toast.LENGTH_SHORT).show();
 				break;
 			case 7:
-				Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT)
-						.show();
+				 Toast.makeText(getActivity(),
+				 "网络错误", Toast.LENGTH_SHORT).show();
 				break;
 			}
 		}
@@ -160,90 +160,84 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 
 					ContactResponse res = ContactResponse.parseFrom(by);
 					if (res.getIsSucceed()) {
+						
+					for (int i = 0; i < res.getContactsCount(); i++) {
+						int contactId = res.getContacts(i).getContactId();
+						String name = res.getContacts(i).getName();
+						String sortKey = findSortKey(res.getContacts(i)
+								.getName());
+						String customName = res.getContacts(i).getCustomName();
+						String userface_url = res.getContacts(i).getTileUrl();
+						int sex = res.getContacts(i).getGender();
+						int source = res.getContacts(i).getSource();
+						String lastContactTime = res.getContacts(i)
+								.getLastContactTime();// 2014-05-27 11:42:18
+						Boolean isBlocked = res.getContacts(i).getIsBlocked();
+						Boolean isProvider = res.getContacts(i).getIsProvider();
 
-						for (int i = 0; i < res.getContactsCount(); i++) {
-							int contactId = res.getContacts(i).getContactId();
-							String name = res.getContacts(i).getName();
-							String sortKey = findSortKey(res.getContacts(i)
-									.getName());
-							String customName = res.getContacts(i)
-									.getCustomName();
-							String userface_url = res.getContacts(i)
-									.getTileUrl();
-							int sex = res.getContacts(i).getGender();
-							int source = res.getContacts(i).getSource();
-							String lastContactTime = res.getContacts(i)
-									.getLastContactTime();// 2014-05-27 11:42:18
-							Boolean isBlocked = res.getContacts(i)
-									.getIsBlocked();
-							Boolean isProvider = res.getContacts(i)
-									.getIsProvider();
+						String lisence = res.getContacts(i).getLisence();
+						String publishClassType = res.getContacts(i)
+								.getPublishClassType();
+						String signature = null;
+						// String signature = res.getContacts(i).getSignature();
+						ContactPojo coPojo = new ContactPojo(contactId,
+								sortKey, name, customName, userface_url, sex,
+								source, lastContactTime, isBlocked, isProvider,
+								lisence, signature);
+						contactsList.add(coPojo);
+						if (i < 5) {
 
-							String lisence = res.getContacts(i).getLisence();
-							String publishClassType = res.getContacts(i)
-									.getPublishClassType();
-							String signature = null;
-							// String signature =
-							// res.getContacts(i).getSignature();
-							ContactPojo coPojo = new ContactPojo(contactId,
-									sortKey, name, customName, userface_url,
-									sex, source, lastContactTime, isBlocked,
+							ContactPojo coPojo2 = new ContactPojo(
+									contactId + 1000,
+									"S",
+									"斯蒂芬森",
+									customName,
+									"http://www.sinaimg.cn/dy/slidenews/9_img/2012_28/32172_1081661_673195.jpg",
+									sex, 3, "2013-05-27 11:42:18", isBlocked,
 									isProvider, lisence, signature);
-							contactsList.add(coPojo);
-							if (i < 5) {
+							contactsList.add(coPojo2);
 
-								ContactPojo coPojo2 = new ContactPojo(
-										contactId + 1000,
-										"S",
-										"斯蒂芬森",
-										customName,
-										"http://www.sinaimg.cn/dy/slidenews/9_img/2012_28/32172_1081661_673195.jpg",
-										sex, 3, "2013-05-27 11:42:18",
-										isBlocked, isProvider, lisence,
-										signature);
-								contactsList.add(coPojo2);
-
-							}
-							if (i > 5 && i < 15) {
-								ContactPojo coPojo3 = new ContactPojo(
-										contactId + 1000,
-										"R",
-										"2014-05-27 11:42:18",
-										customName,
-										"http://www.sinaimg.cn/dy/slidenews/9_img/2012_28/32172_1081661_673195.jpg",
-										sex, 8, "2014-05-27 11:42:18",
-										isBlocked, isProvider, lisence,
-										signature);
-								contactsList.add(coPojo3);
-
-							}
-							if (i > 15 && i < 25) {
-								ContactPojo coPojo4 = new ContactPojo(
-										contactId + 1000, "O",
-										"2014-04-27 11:42:18", customName,
-										userface_url, sex, 11,
-										"2014-04-27 11:42:18", isBlocked,
-										isProvider, lisence, signature);
-								contactsList.add(coPojo4);
-							}
-							if (i == 1) {
-								Log.i("Ax", "contactId:" + contactId
-										+ "userface_url:" + userface_url
-										+ "---source:" + source
-										+ "---lastContactTime:"
-										+ lastContactTime + "----sex:"
-										+ res.getContacts(i).getGender());
-							}
-							contactsMap.put(contactId, coPojo);
 						}
+						if (i > 5 && i < 15) {
+							ContactPojo coPojo3 = new ContactPojo(
+									contactId + 1000,
+									"R",
+									"2014-05-27 11:42:18",
+									customName,
+									"http://www.sinaimg.cn/dy/slidenews/9_img/2012_28/32172_1081661_673195.jpg",
+									sex, 8, "2014-05-27 11:42:18", isBlocked,
+									isProvider, lisence, signature);
+							contactsList.add(coPojo3);
+
+						}
+						if (i > 15 && i < 25) {
+							ContactPojo coPojo4 = new ContactPojo(
+									contactId + 1000, "O",
+									"2014-04-27 11:42:18", customName,
+									userface_url, sex, 11,
+									"2014-04-27 11:42:18", isBlocked,
+									isProvider, lisence, signature);
+							contactsList.add(coPojo4);
+						}
+						if (i == 1) {
+							Log.i("Ax", "contactId:" + contactId
+									+ "userface_url:" + userface_url
+									+ "---source:" + source
+									+ "---lastContactTime:" + lastContactTime
+									+ "----sex:"
+									+ res.getContacts(i).getGender());
+						}
+						contactsMap.put(contactId, coPojo);
+					}
 						Message msg = new Message();// 创建Message 对象
 						msg.what = 0;
 						handler.sendMessage(msg);
-					} else {
+					}else {
 						handler.sendEmptyMessage(6);
 					}
-
+					
 				}
+				
 
 				// handler.sendEmptyMessage(0);
 			} catch (Exception e) {
@@ -270,7 +264,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 
 				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
 						Urlinterface.getContacts, "POST");
-				if (by.length > 0 && by != null) {
+				if (by.length > 0&&by!=null) {
 					contactsList = new ArrayList<ContactPojo>();
 					contactsMap = new HashMap<Integer, ContactPojo>();
 					ContactResponse res = ContactResponse.parseFrom(by);
@@ -325,12 +319,17 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		characterParser = CharacterParser.getInstance();
 
 		pinyinComparator = new PinyinComparator();
+
+//		Thread thread = new Thread(new getContacts());
+//		thread.start();
+
 		Thread thread = new Thread(new getContacts());
 		thread.start();
 		sectionToastLayout = (RelativeLayout) rootView
 				.findViewById(R.id.section_toast_layout);
 		sectionToastText = (TextView) rootView
 				.findViewById(R.id.section_toast_text);
+
 		sideBar = (SideBar) rootView.findViewById(R.id.sidrbar);
 		// 设置右侧触摸监听
 		sideBar.setOnTouchingLetterChangedListener(new OnTouchingLetterChangedListener() {

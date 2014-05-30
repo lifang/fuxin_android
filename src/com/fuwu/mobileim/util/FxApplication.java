@@ -12,6 +12,7 @@ import android.content.Context;
 
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.pojo.ContactPojo;
+import com.fuwu.mobileim.pojo.ProfilePojo;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -33,6 +34,7 @@ public class FxApplication extends Application {
 	private Map<Integer, ContactPojo> contactsMap = new HashMap<Integer, ContactPojo>();
 	private int user_id;
 	private String token;
+	private ProfilePojo profilePojo= new ProfilePojo();
 	public DisplayImageOptions options;
 	public Map<String, String> error_map;
 
@@ -112,19 +114,19 @@ public class FxApplication extends Application {
 
 	private void initFaceMap() {
 		// TODO Auto-generated method stub
-		mFaceMap.put("[呲牙]", R.drawable.f000);
-		mFaceMap.put("[调皮]", R.drawable.f001);
-		mFaceMap.put("[流汗]", R.drawable.f002);
-		mFaceMap.put("[偷笑]", R.drawable.f003);
-		mFaceMap.put("[再见]", R.drawable.f004);
-		mFaceMap.put("[敲打]", R.drawable.f005);
-		mFaceMap.put("[擦汗]", R.drawable.f006);
-		mFaceMap.put("[猪头]", R.drawable.f007);
-		mFaceMap.put("[玫瑰]", R.drawable.f008);
-		mFaceMap.put("[流泪]", R.drawable.f009);
-		mFaceMap.put("[大哭]", R.drawable.f010);
-		mFaceMap.put("[嘘]", R.drawable.f011);
-		mFaceMap.put("[酷]", R.drawable.f012);
+		mFaceMap.put("[呲牙]", R.drawable.emoji_1f60a);
+		mFaceMap.put("[调皮]", R.drawable.emoji_1f60b);
+		mFaceMap.put("[流汗]", R.drawable.emoji_1f60c);
+		mFaceMap.put("[偷笑]", R.drawable.emoji_1f60d);
+		mFaceMap.put("[再见]", R.drawable.emoji_1f60e);
+		mFaceMap.put("[敲打]", R.drawable.emoji_1f60f);
+		mFaceMap.put("[擦汗]", R.drawable.emoji_1f61a);
+		mFaceMap.put("[猪头]", R.drawable.emoji_1f61c);
+		mFaceMap.put("[玫瑰]", R.drawable.emoji_1f61f);
+		mFaceMap.put("[流泪]", R.drawable.emoji_1f62a);
+		mFaceMap.put("[大哭]", R.drawable.emoji_1f62b);
+		mFaceMap.put("[嘘]", R.drawable.emoji_1f62d);
+		mFaceMap.put("[酷]", R.drawable.emoji_1f62f);
 		mFaceMap.put("[抓狂]", R.drawable.f013);
 		mFaceMap.put("[委屈]", R.drawable.f014);
 		mFaceMap.put("[便便]", R.drawable.f015);
@@ -241,5 +243,14 @@ public class FxApplication extends Application {
 	public void setToken(String token) {
 		this.token = token;
 	}
+
+	public ProfilePojo getProfilePojo() {
+		return profilePojo;
+	}
+
+	public void setProfilePojo(ProfilePojo profilePojo) {
+		this.profilePojo = profilePojo;
+	}
+	
 
 }

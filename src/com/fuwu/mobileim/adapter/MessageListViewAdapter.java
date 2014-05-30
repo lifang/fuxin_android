@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -19,6 +20,7 @@ import android.text.Spanned;
 import android.text.style.ImageSpan;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -26,8 +28,10 @@ import android.widget.TextView;
 
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.pojo.MessagePojo;
+import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.TimeUtil;
+import com.fuwu.mobileim.view.MyDialog;
 
 /**
  * @作者 马龙
@@ -101,12 +105,19 @@ public class MessageListViewAdapter extends BaseAdapter {
 
 		holder.img.setImageBitmap(toRoundBitmap(BitmapFactory.decodeResource(
 				res, R.drawable.headpic)));
-		// if (mp.getIsTimeShow() == 0) {
 		if (mp.getSendTime() != null && !mp.getSendTime().equals("")) {
 			holder.time.setText(TimeUtil.getChatTime(mp.getSendTime()));
 			holder.time.setVisibility(View.VISIBLE);
 		}
-		// }
+		if (mp.getIsComMeg() == 0) {
+			holder.img.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					showLoginDialog();
+				}
+			});
+
+		}
 
 		holder.mes
 				.setText(convertNormalStringToSpannableString(mp.getContent()));
@@ -118,6 +129,16 @@ public class MessageListViewAdapter extends BaseAdapter {
 		public TextView mes;
 		public TextView order;
 		public ImageView img;
+	}
+
+	private void showLoginDialog() {
+		View view = mInflater.inflate(R.layout.chat_info, null);
+		final ImageView img = (ImageView) view.findViewById(R.id.info_img);
+		img.setImageBitmap(FuXunTools.toRoundBitmap(BitmapFactory
+				.decodeResource(mContext.getResources(), R.drawable.headpic)));
+		final MyDialog builder = new MyDialog(mContext, 1, view,
+				R.style.mydialog);
+		builder.show();
 	}
 
 	/**

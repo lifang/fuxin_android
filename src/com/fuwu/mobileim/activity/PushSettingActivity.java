@@ -1,9 +1,9 @@
 package com.fuwu.mobileim.activity;
 
-import com.fuwu.mobileim.R;
-
 import android.app.Activity;
 import android.os.Bundle;
+
+import com.fuwu.mobileim.R;
 
 public class PushSettingActivity extends Activity {
 
