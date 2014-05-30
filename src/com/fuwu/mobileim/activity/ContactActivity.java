@@ -422,7 +422,6 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		return mSortList;
 
 	}
-
 	/**
 	 * 设置button的 宽度 以及监听
 	 * 
