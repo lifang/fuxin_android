@@ -122,9 +122,6 @@ public class ChatActivity extends Activity implements OnClickListener,
 		// pd.show();
 		mReuRequstReceiver = new RequstReceiver();
 
-		Intent i = new Intent();
-		i.setClass(ChatActivity.this, RequstService.class);
-		startService(i);
 	}
 
 	class chatMessage extends Thread {

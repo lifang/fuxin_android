@@ -1,10 +1,16 @@
 ﻿package com.fuwu.mobileim.activity;
 
+import java.util.ArrayList;
+
 import android.content.Intent;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.provider.ContactsContract.Profile;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +25,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fuwu.mobileim.R;
-import com.fuwu.mobileim.util.FxApplication;
+import com.fuwu.mobileim.model.Models.ProfileRequest;
+import com.fuwu.mobileim.model.Models.ProfileResponse;
+import com.fuwu.mobileim.util.HttpUtil;
+import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CircularImage;
 
 /**
@@ -27,11 +36,30 @@ import com.fuwu.mobileim.view.CircularImage;
  * @时间 创建时间：2014-5-14 下午12:06:40
  */
 public class SettingsActivity extends Fragment {
-
 	private ListView listview;
 	SettingBottomAdapter adapter;
 	private CircularImage setting_userface;
 	private View rootView;
+	private Profile profile;
+	private Handler handler = new Handler() {
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see android.os.Handler#handleMessage(android.os.Message)
+		 */
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case 0:
+
+
+				break;
+			case 7:
+				// Toast.makeText(getApplicationContext(),
+				// ExerciseBookParams.INTERNET, Toast.LENGTH_SHORT).show();
+				break;
+			}
+		}
+	};
 
 	
 	@Override
@@ -44,7 +72,41 @@ public class SettingsActivity extends Fragment {
 		init();
 		return rootView;
 	}
+	/**
+	 * 
+	 * 获得个人详细信息
+	 * 
+	 * 
+	 */
 
+	class getProfile implements Runnable {
+		public void run() {
+			try {
+				ProfileRequest.Builder builder = ProfileRequest.newBuilder();
+				builder.setUserId(1);
+				builder.setToken("MockToken");
+				ProfileRequest response = builder.build();
+
+				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
+						Urlinterface.getProfile, "POST");
+				if (by.length > 0) {
+
+//					ProfileResponse res = ProfileResponse.parseFrom(by);
+
+				}
+				Message msg = new Message();// 创建Message 对象
+				msg.what = 0;
+				handler.sendMessage(msg);
+
+				// handler.sendEmptyMessage(0);
+			} catch (Exception e) {
+				// prodialog.dismiss();
+				 handler.sendEmptyMessage(7);
+			}
+		}
+	}
+	
+	
 	private void init() {
 		RelativeLayout setting_top = (RelativeLayout) rootView.findViewById(R.id.setting_top);// 用户个人信息部分
 		RelativeLayout a_layout = (RelativeLayout) rootView.findViewById(R.id.setting_userface0);

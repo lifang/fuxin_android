@@ -234,14 +234,14 @@ public class TalkActivity extends Fragment {
 
 	public void onResume() {
 		handler.sendEmptyMessage(2);
-		getActivity().registerReceiver(mReuRequstReceiver,
-				new IntentFilter("com.comdosoft.fuxun.REQUEST_ACTION"));
+//		getActivity().registerReceiver(mReuRequstReceiver,
+//				new IntentFilter("com.comdosoft.fuxun.REQUEST_ACTION"));
 		super.onResume();
 	}
 
 	public void onPause() {
 		super.onPause();
-		getActivity().unregisterReceiver(mReuRequstReceiver);
+//		getActivity().unregisterReceiver(mReuRequstReceiver);
 	}
 
 	class RequstReceiver extends BroadcastReceiver {

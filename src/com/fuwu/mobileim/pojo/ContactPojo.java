@@ -17,15 +17,17 @@ public class ContactPojo {
 	private String lastContactTime; //最近联系时间
 	private Boolean isBlocked; //是否屏蔽
 	
-
+    private String lisence; // 认证
+    private String publishClassType;  // 课程类型
+    private String signature ; //  个性签名
 	public ContactPojo() {
 	}
 
 
-
 	public ContactPojo(int contactId, String sortKey, String name,
 			String customName, String userface_url, int sex, int source,
-			String lastContactTime, Boolean isBlocked) {
+			String lastContactTime, Boolean isBlocked, String lisence,
+			String publishClassType, String signature) {
 		super();
 		this.contactId = contactId;
 		this.sortKey = sortKey;
@@ -36,11 +38,44 @@ public class ContactPojo {
 		this.source = source;
 		this.lastContactTime = lastContactTime;
 		this.isBlocked = isBlocked;
+		this.lisence = lisence;
+		this.publishClassType = publishClassType;
+		this.signature = signature;
 	}
 
 
 
 
+
+
+
+
+
+	public String getLisence() {
+		return lisence;
+	}
+
+
+
+	public void setLisence(String lisence) {
+		this.lisence = lisence;
+	}
+
+	public String getPublishClassType() {
+		return publishClassType;
+	}
+
+	public void setPublishClassType(String publishClassType) {
+		this.publishClassType = publishClassType;
+	}
+
+	public String getSignature() {
+		return signature;
+	}
+
+	public void setSignature(String signature) {
+		this.signature = signature;
+	}
 
 	public int getSex() {
 		return sex;

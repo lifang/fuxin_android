@@ -88,6 +88,9 @@ public class FragmengtActivity extends FragmentActivity {
 				
 			}
 		});
+		Intent i = new Intent();
+		i.setClass(this, RequstService.class);
+		startService(i);
 
 		contact_search = (ImageView) findViewById(R.id.contact_search);
 		fxApplication = (FxApplication) getApplication();
@@ -127,15 +130,15 @@ public class FragmengtActivity extends FragmentActivity {
 	}
 
 	/**
-	 * 改变“手机褔务网v1.0” 的 样式
+	 * 改变“褔务网v1.0” 的 样式
 	 */
 	public void changeTitleStyle() {
 		TextView tv = (TextView) findViewById(R.id.contact_title);
 		String tv_str = (String) tv.getText().toString();
 		SpannableStringBuilder style2 = new SpannableStringBuilder(tv_str);
-		style2.setSpan(new AbsoluteSizeSpan(40), 0, 5,
+		style2.setSpan(new AbsoluteSizeSpan(40), 0, 3,
 				Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-		style2.setSpan(new AbsoluteSizeSpan(25), 5, tv_str.length(),
+		style2.setSpan(new AbsoluteSizeSpan(25), 3, tv_str.length(),
 				Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 		tv.setText(style2);
 
@@ -169,9 +172,14 @@ public class FragmengtActivity extends FragmentActivity {
 						// getApplication(),
 						// ((ContactPojo) adapter.getItem(position))
 						// .getName(), Toast.LENGTH_SHORT).show();
-						Toast.makeText(getApplication(), "传参，，跳到对话界面，并清空搜索框",
-								Toast.LENGTH_SHORT).show();
-						// contact_search_edittext.setText("");
+//						Toast.makeText(getApplication(), "传参，，跳到对话界面，并清空搜索框",
+//								Toast.LENGTH_SHORT).show();
+						Intent intent = new Intent();
+//						intent.p
+						intent.setClass(FragmengtActivity.this,
+								ChatActivity.class);
+						startActivity(intent);
+						 contact_search_edittext.setText("");
 					}
 				});
 
