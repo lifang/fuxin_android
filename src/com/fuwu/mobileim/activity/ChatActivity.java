@@ -17,6 +17,7 @@ import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.TimeUtil;
+import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CirclePageIndicator;
 import com.google.protobuf.InvalidProtocolBufferException;
 import android.annotation.SuppressLint;
@@ -56,7 +57,6 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.SimpleAdapter;
 
@@ -97,8 +97,8 @@ public class ChatActivity extends Activity implements OnClickListener,
 			case 1:
 				break;
 			case 2:
-				Toast.makeText(getApplicationContext(), "更新记录",
-						Toast.LENGTH_SHORT).show();
+				// Toast.makeText(getApplicationContext(), "更新记录",
+				// Toast.LENGTH_SHORT).show();
 				updateMessageData();
 				mMessageAdapter.updMessageList(list);
 				break;
@@ -116,10 +116,6 @@ public class ChatActivity extends Activity implements OnClickListener,
 		initPlusGridView();
 
 		mReuRequstReceiver = new RequstReceiver();
-
-		// Intent i = new Intent();
-		// i.setClass(ChatActivity.this, RequstService.class);
-		// startService(i);
 	}
 
 	public void initData() {
@@ -155,6 +151,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 		mSendBtn.setOnClickListener(this);
 		msgEt.setOnClickListener(this);
 		msgEt.addTextChangedListener(this);
+		mBack.setOnClickListener(this);
 		mBack.setImageBitmap(getBitmapScale(BitmapFactory.decodeResource(
 				getResources(), R.drawable.back)));
 		mOther.setImageBitmap(getBitmapScale(BitmapFactory.decodeResource(
@@ -381,7 +378,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 				SendMessageRequest smr = builder.build();
 				SendMessageResponse response = SendMessageResponse
 						.parseFrom(HttpUtil.sendHttps(smr.toByteArray(),
-								"https://118.242.18.189/api/Message", "PUT"));
+								Urlinterface.Message, "PUT"));
 				Log.i("Ax",
 						response.getIsSucceed() + "--"
 								+ response.getErrorCode());
@@ -441,11 +438,13 @@ public class ChatActivity extends Activity implements OnClickListener,
 					db = new DBManager(this);
 				}
 				MessagePojo mp;
-				if (TimeUtil.isFiveMin(db.getLastTime(1, 2))) {
-					SimpleDateFormat format = new SimpleDateFormat(
-							"yy-MM-dd HH:mm");
+				SimpleDateFormat sdf = new SimpleDateFormat(
+						"yyyy-MM-dd HH:mm:ss");
+				if (TimeUtil.isFiveMin(db.getLastTime(1, 2), sdf
+						.format(new Date(
+								System.currentTimeMillis() - 11 * 60 * 1000)))) {
 					Date today = new Date(System.currentTimeMillis());
-					mp = new MessagePojo(1, 2, format.format(today), str, 1, 1);
+					mp = new MessagePojo(1, 2, sdf.format(today), str, 1, 1);
 				} else {
 					mp = new MessagePojo(1, 2, "", str, 1, 1);
 				}
@@ -465,6 +464,9 @@ public class ChatActivity extends Activity implements OnClickListener,
 				isPlusShow = false;
 				mPlusGridView.setVisibility(View.GONE);
 			}
+			break;
+		case R.id.chat_back:
+			this.finish();
 			break;
 		}
 	}

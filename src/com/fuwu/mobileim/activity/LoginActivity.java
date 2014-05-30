@@ -44,7 +44,7 @@ public class LoginActivity extends Activity implements OnClickListener,
 			prodialog.dismiss();
 			switch (msg.what) {
 			case 0:
-				intent.setClass(LoginActivity.this, MainActivity.class);
+				intent.setClass(LoginActivity.this, FragmengtActivity.class);
 				startActivity(intent);
 				LoginActivity.this.finish();
 				break;
@@ -73,6 +73,8 @@ public class LoginActivity extends Activity implements OnClickListener,
 	public void initialize() {
 		user_text = (EditText) findViewById(R.id.user);
 		pwd_text = (EditText) findViewById(R.id.pwd);
+		user_text.setText("15862373890");
+		pwd_text.setText("111111");
 	}
 
 	public void onClick(View v) {
@@ -89,21 +91,18 @@ public class LoginActivity extends Activity implements OnClickListener,
 			this.finish();
 			break;
 		case R.id.login_btn:
-			// user = user_text.getText().toString();
-			// pwd = pwd_text.getText().toString();
-			// if (user.equals("") && pwd.equals("")) {
-			// Toast.makeText(LoginActivity.this, "用户名或密码不可为空",
-			// Toast.LENGTH_SHORT).show();
-			// } else {
-			// prodialog = new ProgressDialog(LoginActivity.this);
-			// prodialog.setMessage("努力登陆中..");
-			// prodialog.setCanceledOnTouchOutside(false);
-			// prodialog.show();
-			// new Thread(new Login_Post()).start();
-			// }
-			intent.setClass(LoginActivity.this, MainActivity.class);
-			startActivity(intent);
-			LoginActivity.this.finish();
+			user = user_text.getText().toString();
+			pwd = pwd_text.getText().toString();
+			if (user.equals("") && pwd.equals("")) {
+				Toast.makeText(LoginActivity.this, "用户名或密码不可为空",
+						Toast.LENGTH_SHORT).show();
+			} else {
+				prodialog = new ProgressDialog(LoginActivity.this);
+				prodialog.setMessage("努力登陆中..");
+				prodialog.setCanceledOnTouchOutside(false);
+				prodialog.show();
+				new Thread(new Login_Post()).start();
+			}
 			break;
 		}
 	}

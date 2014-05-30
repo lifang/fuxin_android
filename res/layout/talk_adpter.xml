@@ -14,8 +14,8 @@
 
         <RelativeLayout
             android:id="@+id/layout"
-            android:layout_width="60dp"
-            android:layout_height="60dp" >
+            android:layout_width="55dp"
+            android:layout_height="55dp" >
 
             <com.fuwu.mobileim.view.CircularImage
                 android:id="@+id/head"
@@ -28,19 +28,19 @@
 
             <LinearLayout
                 android:id="@+id/statics"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginRight="5dp"
                 android:background="@drawable/yuan"
                 android:gravity="center" >
 
                 <TextView
                     android:id="@+id/size"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="1dp" />
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:textSize="12sp"
+                    android:gravity="center" />
             </LinearLayout>
         </RelativeLayout>
 

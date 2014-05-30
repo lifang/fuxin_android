@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import android.annotation.SuppressLint;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -70,6 +69,9 @@ public class TalkActivity extends Fragment {
 				Toast.makeText(getActivity(), "删除失败", Toast.LENGTH_SHORT)
 						.show();
 				break;
+			case 4:
+				clvAdapter.notifyDataSetChanged();
+				break;
 			}
 		}
 	};
@@ -116,7 +118,7 @@ public class TalkActivity extends Fragment {
 		final TextView del = (TextView) view.findViewById(R.id.del_talk);
 		// 设置对话框显示的View
 		// 点击确定是的监听
-		final MyDialog builder = new MyDialog(getActivity(), 0, 0, view,
+		final MyDialog builder = new MyDialog(getActivity(), 0, view,
 				R.style.mydialog);
 		del.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View arg0) {
@@ -184,7 +186,6 @@ public class TalkActivity extends Fragment {
 							"http://www.sinaimg.cn/dy/slidenews/9_img/2012_28/32172_1081661_673195.jpg",
 							holder.head, options, animateFirstListener);
 			return arg1;
-
 		}
 	}
 
@@ -228,7 +229,7 @@ public class TalkActivity extends Fragment {
 	}
 
 	public void onResume() {
-		handler.sendEmptyMessage(2);
+		// handler.sendEmptyMessage(4);
 		super.onResume();
 	}
 

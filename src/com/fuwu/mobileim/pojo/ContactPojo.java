@@ -15,7 +15,7 @@ public class ContactPojo {
 	private int sex;  //  性别
 	private int source;  //  是否交易 是否订阅
 	private String lastContactTime; //最近联系时间
-	private Boolean isBlocked; //是否屏蔽
+	private boolean isBlocked; //是否屏蔽
 	
 
 	public ContactPojo() {
@@ -25,7 +25,7 @@ public class ContactPojo {
 
 	public ContactPojo(int contactId, String sortKey, String name,
 			String customName, String userface_url, int sex, int source,
-			String lastContactTime, Boolean isBlocked) {
+			String lastContactTime, boolean isBlocked) {
 		super();
 		this.contactId = contactId;
 		this.sortKey = sortKey;
@@ -52,12 +52,12 @@ public class ContactPojo {
 	}
 
 
-	public Boolean getIsBlocked() {
+	public boolean getIsBlocked() {
 		return isBlocked;
 	}
 
 
-	public void setIsBlocked(Boolean isBlocked) {
+	public void setIsBlocked(boolean isBlocked) {
 		this.isBlocked = isBlocked;
 	}
 

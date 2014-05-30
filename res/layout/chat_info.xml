@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#ffffff"
-    android:orientation="vertical" >
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/chat_info_style"
+    android:orientation="vertical"
+    android:padding="10dp" >
 
     <ImageView
         android:id="@+id/info_img"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="5dp"
         android:src="@drawable/headpic" />
 
     <TextView
@@ -16,6 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/info_img"
+        android:layout_marginLeft="10dp"
         android:layout_toRightOf="@id/info_img"
         android:text="王菲菲"
         android:textColor="#000000"
@@ -25,32 +29,44 @@
         android:id="@+id/info_rem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/info_img"
         android:layout_alignLeft="@id/info_name"
-        android:layout_below="@id/info_name"
-        android:layout_marginTop="10dp"
         android:text="备注:好学生" />
 
     <ImageView
-        android:id="@+id/info_buyIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/info_name"
-        android:layout_below="@id/info_rem"
-        android:src="@drawable/buy_icon" />
+        android:id="@+id/info_yueIcon"
+        android:layout_width="30dp"
+        android:layout_height="17dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/info_img"
+        android:layout_marginRight="15dp"
+        android:src="@drawable/yue" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/info_rem"
-        android:layout_toRightOf="@id/info_buyIcon"
-        android:src="@drawable/yue_icon" />
+        android:layout_width="30dp"
+        android:layout_height="17dp"
+        android:layout_alignTop="@id/info_yueIcon"
+        android:layout_toLeftOf="@id/info_yueIcon"
+        android:src="@drawable/gou" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/info_img"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="5dp"
+        android:background="#cccccc" />
 
     <TextView
         android:id="@+id/info_remText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/info_img"
-        android:text="设置备注:" />
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:text="设置备注 : "
+        android:textColor="#000000" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -58,5 +74,53 @@
         android:layout_alignTop="@id/info_remText"
         android:layout_toRightOf="@id/info_remText"
         android:text="小学生" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/info_remText"
+        android:layout_marginTop="5dp"
+        android:background="#cccccc" />
+
+    <TextView
+        android:id="@+id/info_lisence"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/info_remText"
+        android:layout_below="@id/info_remText"
+        android:layout_marginTop="15dp"
+        android:text="认证行业 : "
+        android:textColor="#000000" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/info_lisence"
+        android:layout_toRightOf="@id/info_lisence"
+        android:text="中学教师" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/info_lisence"
+        android:layout_marginTop="5dp"
+        android:background="#cccccc" />
+
+    <TextView
+        android:id="@+id/info_sign"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/info_remText"
+        android:layout_below="@id/info_lisence"
+        android:layout_marginTop="15dp"
+        android:text="个人简介 : "
+        android:textColor="#000000" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/info_sign"
+        android:layout_toRightOf="@id/info_sign"
+        android:text="好好学习,天天向上" />
 
 </RelativeLayout>

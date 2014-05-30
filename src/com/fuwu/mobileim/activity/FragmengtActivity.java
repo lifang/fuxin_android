@@ -274,7 +274,7 @@ public class FragmengtActivity extends FragmentActivity {
 	class RequstReceiver extends BroadcastReceiver {
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			list.get(0).onResume();
+			list.get(0).onStart();
 		}
 	}
 
