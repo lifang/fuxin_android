@@ -1,7 +1,8 @@
 package com.fuwu.mobileim.util;
 
-import android.annotation.SuppressLint;
 import java.util.HashMap;
+
+import android.annotation.SuppressLint;
 
 /**
  * @作者 马龙

@@ -10,6 +10,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.apache.http.client.HttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -179,6 +183,60 @@ public class FuXunTools {
 		thread.start();
 
 	}
+	public static void getBitmap(final String url) {
+
+
+		Thread thread = new Thread() {
+			public void run() {
+				HttpClient hc = new DefaultHttpClient();
+				try {
+					Log.i("linshi------------", url);
+					URL myurl = new URL(url);
+					// 获得连接
+					HttpURLConnection conn = (HttpURLConnection) myurl
+							.openConnection();
+					conn.setConnectTimeout(6000);// 设置超时
+					conn.setDoInput(true);
+					conn.setUseCaches(false);// 不缓存
+					conn.connect();
+					InputStream is = conn.getInputStream();// 获得图片的数据流
+					// bm =decodeSampledBitmapFromStream(is,150,150);
+					BitmapFactory.Options options = new BitmapFactory.Options();
+					options.inJustDecodeBounds = false;
+					// options.outWidth = 159;
+					// options.outHeight = 159;
+					options.inSampleSize = 1;
+					bm = BitmapFactory.decodeStream(is, null, options);
+					Log.i("linshi", bm.getWidth() + "---" + bm.getHeight());
+					is.close();
+					if (bm != null) {
+						File f = new File(Urlinterface.head_pic, "bbb");
+						if (f.exists()) {
+							f.delete();
+						}
+						if (!f.getParentFile().exists()) {
+							f.getParentFile().mkdirs();
+						}
+						Log.i("linshi", "----1");
+						FileOutputStream out = new FileOutputStream(f);
+						Log.i("linshi", "----6");
+						bm.compress(Bitmap.CompressFormat.PNG, 60, out);
+						out.flush();
+						out.close();
+						Log.i("linshi", "已经保存");
+					}
+
+				} catch (Exception e) {
+					Log.i("linshi", "发生异常");
+					// Log.i("linshi", url);
+				}
+
+			}
+		};
+
+		thread.start();
+
+	}
 
 	/**
 	 * 转换图片成圆形
@@ -245,4 +303,6 @@ public class FuXunTools {
 	public static void setBackground(final String url, final ImageView imageView) {
 		imageLoader.displayImage(url, imageView, options, animateFirstListener);
 	}
+	
+	
 }

@@ -26,9 +26,10 @@
         <activity android:name="com.fuwu.mobileim.activity.MainActivity" />
         <activity android:name="com.fuwu.mobileim.activity.TalkActivity" />
         <activity android:name="com.fuwu.mobileim.activity.AddressBookActivity" />
-        <activity android:name="com.fuwu.mobileim.activity.SettingsActivity" />
+        <activity android:name="com.fuwu.mobileim.activity.SettingsActivity" >
+        </activity>
         <activity android:name="com.fuwu.mobileim.activity.ContactActivity" />
-        <activity android:name="com.fuwu.mobileim.activity.FragmengtActivity" >
+        <activity android:name="com.fuwu.mobileim.activity.LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -47,6 +48,10 @@
         <activity android:name="com.fuwu.mobileim.activity.ChatActivity" />
 
         <service android:name="com.fuwu.mobileim.activity.RequstService" />
+
+        <activity android:name="com.fuwu.mobileim.activity.FragmengtActivity" />
+        <activity android:name="com.fuwu.mobileim.activity.ResetPasswordActicity" />
+        <activity android:name="com.fuwu.mobileim.activity.PushSettingActivity" />
     </application>
 
 </manifest>

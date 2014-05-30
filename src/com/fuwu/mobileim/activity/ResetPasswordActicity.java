@@ -9,8 +9,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,12 +20,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fuwu.mobileim.R;
+import com.fuwu.mobileim.model.Models.ResetPasswordRequest;
+import com.fuwu.mobileim.model.Models.ResetPasswordResponse;
 import com.fuwu.mobileim.model.Models.ValidateCodeRequest;
+import com.fuwu.mobileim.model.Models.ValidateCodeRequest.ValidateType;
 import com.fuwu.mobileim.model.Models.ValidateCodeResponse;
 import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.Urlinterface;
+import com.fuwu.mobileim.view.MyDialog;
 import com.google.protobuf.InvalidProtocolBufferException;
 
 public class ResetPasswordActicity extends Activity implements OnClickListener,
@@ -53,14 +55,37 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 	private boolean validate_boolean = false;
 	private FxApplication fx;
 	@SuppressLint("HandlerLeak")
+	private String error_code;
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
 			switch (msg.what) {
 			case 0:
-				// yz_text.setText(yznumber);
+				Toast.makeText(ResetPasswordActicity.this, "短信已发出请注意查看",
+						Toast.LENGTH_SHORT).show();
 				break;
 			case 1:
+				showLoginDialog();
+				break;
+			case 3:
+				Toast.makeText(ResetPasswordActicity.this, "短信发送失败,请重试",
+						Toast.LENGTH_SHORT).show();
+				break;
+			case 4:
+				if (!error_code.equals("")) {
+					String errorString = fx.error_map.get(error_code);
+					if (errorString == null) {
+						Toast.makeText(ResetPasswordActicity.this, "找回失败",
+								Toast.LENGTH_SHORT).show();
+					}
+					if (error_code.equals("InvalidPassword")) {
+						Toast.makeText(ResetPasswordActicity.this, "密码不可少于6位",
+								Toast.LENGTH_SHORT).show();
+					} else {
+						Toast.makeText(ResetPasswordActicity.this, errorString,
+								Toast.LENGTH_SHORT).show();
+					}
+				}
 				break;
 			}
 		}
@@ -85,7 +110,6 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 		pwds_text.setOnFocusChangeListener(this);
 
 		validate_time = (RelativeLayout) findViewById(R.id.validate_time);
-		name_tag = (TextView) findViewById(R.id.name_tag);
 		pwd_tag = (TextView) findViewById(R.id.pwd_tag);
 		pwds_tag = (TextView) findViewById(R.id.pwds_tag);
 		phone_tag = (TextView) findViewById(R.id.phone_tag);
@@ -111,9 +135,9 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 		if (phone_btn) {
 			return false;
 		}
-		if (yz_text.getText().toString().equals("")) {
-			return false;
-		}
+		// if (yz_text.getText().toString().equals("")) {
+		// return false;
+		// }
 		return true;
 	}
 
@@ -124,14 +148,13 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 				ValidateCodeRequest.Builder builder = ValidateCodeRequest
 						.newBuilder();
 				builder.setPhoneNumber(phone_text.getText().toString());
-//				builder.setType("");
+				builder.setType(ValidateType.ResetPassword);
 				ValidateCodeRequest request = builder.build();
 				ValidateCodeResponse response = ValidateCodeResponse
 						.parseFrom(HttpUtil.sendHttps(request.toByteArray(),
 								Urlinterface.ValidateCode, "POST"));
 				if (response.getIsSucceed()) {
 					validate_boolean = false;
-
 					if (time != 180) {
 						time = 180;
 					} else {
@@ -139,9 +162,9 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 					}
 					handler.sendEmptyMessage(0);
 				} else {
-					// Toast.makeText(RegistActivity.this,
-					// "errorCode:" + response.getErrorCode(),
-					// Toast.LENGTH_SHORT).show();
+					validate_boolean = true;
+					Log.i("Max", response.getErrorCode() + "");
+					handler.sendEmptyMessage(3);
 				}
 			} catch (InvalidProtocolBufferException e) {
 				e.printStackTrace();
@@ -152,33 +175,26 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 	// 找回密码
 	class Backpwd_Post implements Runnable {
 		public void run() {
-			// try {
-			// ResetPasswordRequest.Builder builder = ResetPasswordRequest
-			// .newBuilder();
-			// builder.setToken(fx.getToken());
-			// ValidateCodeRequest request = builder.build();
-			// ValidateCodeResponse response = ValidateCodeResponse
-			// .parseFrom(HttpUtil.sendHttps(request.toByteArray(),
-			// Urlinterface.RESETPASSWORD, "PUT"));
-			// if (response.getIsSucceed()) {
-			// yznumber = response.getValidateCode();
-			// validate_boolean = false;
-			//
-			// if (time != 180) {
-			// time = 180;
-			// } else {
-			// timer.schedule(timerTask, 1000, 1000);
-			// }
-			// Log.i("Max", "短信验证码:" + response.getValidateCode());
-			// handler.sendEmptyMessage(0);
-			// } else {
-			// // Toast.makeText(RegistActivity.this,
-			// // "errorCode:" + response.getErrorCode(),
-			// // Toast.LENGTH_SHORT).show();
-			// }
-			// } catch (InvalidProtocolBufferException e) {
-			// e.printStackTrace();
-			// }
+			try {
+				ResetPasswordRequest.Builder builder = ResetPasswordRequest
+						.newBuilder();
+				builder.setPhoneNumber(phone_text.getText().toString());
+				builder.setValidateCode(yz_text.getText().toString());
+				builder.setPassword(pwd_text.getText().toString());
+				builder.setPasswordConfirm(pwds_text.getText().toString());
+				ResetPasswordRequest request = builder.build();
+				ResetPasswordResponse response = ResetPasswordResponse
+						.parseFrom(HttpUtil.sendHttps(request.toByteArray(),
+								Urlinterface.RESETPASSWORD, "PUT"));
+				if (response.getIsSucceed()) {
+					handler.sendEmptyMessage(1);
+				} else {
+					error_code = response.getErrorCode().toString();
+					handler.sendEmptyMessage(4);
+				}
+			} catch (InvalidProtocolBufferException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -286,5 +302,27 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 			}
 			regist_btnOver();
 		}
+	}
+
+	private void showLoginDialog() {
+		View view = getLayoutInflater().inflate(R.layout.talk_builder, null);
+		final TextView btnYes = (TextView) view.findViewById(R.id.name);
+		btnYes.setText("找回密码成功");
+		final TextView del = (TextView) view.findViewById(R.id.del_talk);
+		del.setText("确定");
+		// 设置对话框显示的View
+		// 点击确定是的监听
+		final MyDialog builder = new MyDialog(ResetPasswordActicity.this, 0,
+				view, R.style.mydialog);
+		del.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View arg0) {
+				builder.dismiss();
+				intent.setClass(ResetPasswordActicity.this,
+						FragmengtActivity.class);
+				startActivity(intent);
+				ResetPasswordActicity.this.finish();
+			}
+		});
+		builder.show();
 	}
 }

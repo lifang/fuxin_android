@@ -3,7 +3,7 @@
 
     <string name="block_management">屏蔽管理</string>
     <string name="restore">恢复</string>
-    <string name="app_name">手机福务网V1.0</string>
+    <string name="app_name">福务网V1.0</string>
     <string name="name">福务网</string>
     <string name="action_settings">Settings</string>
     <string name="talk">对话</string>
@@ -48,5 +48,12 @@
     <string name="my_info_email">邮箱：</string>
     <string name="my_info_birthday">生日：</string>
     <string name="my_info_sex">性别：</string>
+    <string name="pushsetting">消息推送</string>
+    <string name="pushsetting_ing">消息主动推送</string>
+    <string name="pushsetting_sound">消息提示音</string>
+    <string name="pushsetting_shake">消息震动</string>
+    <string name="xlistview_header_hint_normal">下拉刷新</string>
+    <string name="xlistview_header_hint_ready">松开刷新数据</string>
+    <string name="xlistview_header_hint_loading">正在加载...</string>
 
 </resources>

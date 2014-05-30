@@ -27,14 +27,13 @@ import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
 /**
  * @作者 马龙
@@ -58,15 +57,13 @@ public class FragmengtActivity extends FragmentActivity {
 	private int offset = 0;
 	private int currIndex = 0;
 	private int cursorW = 0;
-
+	private List<TextView> btnList = new ArrayList<TextView>();
+	private TextView menu_talk, menu_address_book, menu_settings;
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		setContentView(R.layout.main);
-		findViewById(R.id.menu_talk).setOnClickListener(new menuOnclick(0));
-		findViewById(R.id.menu_address_book).setOnClickListener(
-				new menuOnclick(1));
-		findViewById(R.id.menu_settings).setOnClickListener(new menuOnclick(2));
+		getButton();
 		vp = (ViewPager) findViewById(R.id.main_viewPager);
 		list.add(new TalkActivity());
 		list.add(new ContactActivity());
@@ -79,6 +76,7 @@ public class FragmengtActivity extends FragmentActivity {
 			public void onExtraPageSelected(int i) {
 				super.onExtraPageSelected(i);
 				changeLocation(i);
+				changeColor(i);
 				if (i == 1) {
 					contact_search.setVisibility(View.VISIBLE);
 				} else {
@@ -86,14 +84,13 @@ public class FragmengtActivity extends FragmentActivity {
 				}
 			}
 		});
+		Intent i = new Intent();
+		i.setClass(this, RequstService.class);
+		startService(i);
 
 		contact_search = (ImageView) findViewById(R.id.contact_search);
 		fxApplication = (FxApplication) getApplication();
 		mReuRequstReceiver = new RequstReceiver();
-
-		Intent i = new Intent();
-		i.setClass(FragmengtActivity.this, RequstService.class);
-		startService(i);
 
 		searchMethod();
 
@@ -102,6 +99,42 @@ public class FragmengtActivity extends FragmentActivity {
 		InitImageView();
 	}
 
+	/**
+	 * 获得button 以及设置监听
+	 * 
+	 * 
+	 */
+	private void getButton() {
+		menu_talk = (TextView) findViewById(R.id.menu_talk);
+		menu_address_book = (TextView)findViewById(R.id.menu_address_book);
+		menu_settings = (TextView) findViewById(R.id.menu_settings);
+		btnList.add(menu_talk);
+		btnList.add(menu_address_book);
+		btnList.add(menu_settings);
+		menu_talk.setOnClickListener(new menuOnclick(0));
+		menu_address_book.setOnClickListener(
+				new menuOnclick(1));
+		menu_settings.setOnClickListener(new menuOnclick(2));
+	}
+	/**
+	 * 改变文本 的颜色
+	 * 
+	 * 
+	 */
+	private void changeColor(int buttonNumber) {
+		
+		for (int i = 0; i < btnList.size(); i++) {
+			if (buttonNumber == i) {
+				btnList.get(i).setTextColor(
+						this.getResources().getColor(R.color.red_block));
+			} else {
+				btnList.get(i).setTextColor(
+						this.getResources().getColor(R.color.text_color));
+
+			}
+		}
+	}
+	
 	/**
 	 * 初始化动画
 	 */
@@ -130,15 +163,15 @@ public class FragmengtActivity extends FragmentActivity {
 	}
 
 	/**
-	 * 改变“手机褔务网v1.0” 的 样式
+	 * 改变“褔务网v1.0” 的 样式
 	 */
 	public void changeTitleStyle() {
 		TextView tv = (TextView) findViewById(R.id.contact_title);
 		String tv_str = (String) tv.getText().toString();
 		SpannableStringBuilder style2 = new SpannableStringBuilder(tv_str);
-		style2.setSpan(new AbsoluteSizeSpan(40), 0, 5,
+		style2.setSpan(new AbsoluteSizeSpan(40), 0, 3,
 				Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-		style2.setSpan(new AbsoluteSizeSpan(25), 5, tv_str.length(),
+		style2.setSpan(new AbsoluteSizeSpan(25), 3, tv_str.length(),
 				Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 		tv.setText(style2);
 	}
@@ -171,9 +204,14 @@ public class FragmengtActivity extends FragmentActivity {
 						// getApplication(),
 						// ((ContactPojo) adapter.getItem(position))
 						// .getName(), Toast.LENGTH_SHORT).show();
-						Toast.makeText(getApplication(), "传参，，跳到对话界面，并清空搜索框",
-								Toast.LENGTH_SHORT).show();
-						// contact_search_edittext.setText("");
+//						Toast.makeText(getApplication(), "传参，，跳到对话界面，并清空搜索框",
+//								Toast.LENGTH_SHORT).show();
+						Intent intent = new Intent();
+//						intent.p
+						intent.setClass(FragmengtActivity.this,
+								ChatActivity.class);
+						startActivity(intent);
+						 contact_search_edittext.setText("");
 					}
 				});
 

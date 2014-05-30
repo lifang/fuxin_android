@@ -14,7 +14,7 @@
             android:layout_width="40dip"
             android:layout_height="40dip"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="15.0dip"
+            android:layout_marginLeft="10dip"
             android:background="@drawable/back" />
 
         <TextView
@@ -24,7 +24,7 @@
             android:layout_centerVertical="true"
             android:text="@string/my_info"
             android:textColor="#ffffff"
-            android:textSize="18dp" />
+            android:textSize="20dp" />
 
         <ImageButton
             android:id="@+id/my_info_confirm"
@@ -32,7 +32,7 @@
             android:layout_height="40dip"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="15.0dip"
+            android:layout_marginRight="10.0dip"
             android:background="@drawable/myinfo_confirm" />
     </RelativeLayout>
 
@@ -46,10 +46,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="17dp"
             android:text="@string/my_info_userface"
-            android:textColor="#333333"
-            android:textSize="16dp" />
+            android:textColor="@color/text_color"
+            android:textSize="19dp" />
 
         <com.fuwu.mobileim.view.CircularImage
             android:id="@+id/myinfo_userface"
@@ -57,15 +57,15 @@
             android:layout_height="40dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="22dp"
+            android:layout_marginRight="17dp"
             android:src="@drawable/moren" />
 
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:background="#E1E1E1" />
     </RelativeLayout>
 
@@ -80,10 +80,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="17dp"
             android:text="@string/my_info_nickname"
-            android:textColor="#333333"
-            android:textSize="16dp" />
+            android:textColor="@color/text_color"
+            android:textSize="19dp" />
 
         <EditText
             android:id="@+id/myinfo_nickname"
@@ -91,21 +91,21 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="22dp"
+            android:layout_marginRight="17dp"
             android:maxLength="32"
             android:singleLine="true"
             android:text="haohaizi"
             android:background="@null"
             
             android:textColor="#333333"
-            android:textSize="16dp" />
+            android:textSize="19dp" />
 
         <View
             android:layout_width="fill_parent"
             android:layout_height="2dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:background="#999999" />
     </RelativeLayout>
 
@@ -118,10 +118,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="17dp"
             android:text="@string/my_info_certification"
             android:textColor="#999999"
-            android:textSize="16dp" />
+            android:textSize="19dp" />
 
         <TextView
             android:id="@+id/myinfo_certification"
@@ -129,19 +129,21 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="22dp"
+            android:layout_marginRight="17dp"
             android:text="haohaizi"
             android:textColor="#999999"
-            android:textSize="16dp" />
+            android:textSize="19dp" />
 
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:background="#E1E1E1" />
     </RelativeLayout>
+
+
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -152,44 +154,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
-            android:text="@string/my_info_classtype"
-            android:textColor="#999999"
-            android:textSize="16dp" />
-
-        <TextView
-            android:id="@+id/myinfo_classtype"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="22dp"
-            android:text="haohaizi"
-            android:textColor="#999999"
-            android:textSize="16dp" />
-
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="#E1E1E1" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="50dip"
-        android:background="@color/white" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="17dp"
             android:text="@string/my_info_mobile"
             android:textColor="#999999"
-            android:textSize="16dp" />
+            android:textSize="19dp" />
 
         <TextView
             android:id="@+id/myinfo_mobile"
@@ -197,17 +165,17 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="22dp"
+            android:layout_marginRight="17dp"
             android:text="haohaizi"
             android:textColor="#999999"
-            android:textSize="16dp" />
+            android:textSize="19dp" />
 
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:background="#E1E1E1" />
     </RelativeLayout>
 
@@ -220,10 +188,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="17dp"
             android:text="@string/my_info_email"
             android:textColor="#999999"
-            android:textSize="16dp" />
+            android:textSize="19dp" />
 
         <TextView
             android:id="@+id/myinfo_email"
@@ -231,17 +199,17 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="22dp"
+            android:layout_marginRight="17dp"
             android:text="haohaizi"
             android:textColor="#999999"
-            android:textSize="16dp" />
+            android:textSize="19dp" />
 
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:background="#E1E1E1" />
     </RelativeLayout>
 
@@ -254,10 +222,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="17dp"
             android:text="@string/my_info_birthday"
             android:textColor="#999999"
-            android:textSize="16dp" />
+            android:textSize="19dp" />
 
         <TextView
             android:id="@+id/myinfo_birthday"
@@ -265,17 +233,17 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="22dp"
+            android:layout_marginRight="17dp"
             android:text="haohaizi"
             android:textColor="#999999"
-            android:textSize="16dp" />
+            android:textSize="19dp" />
 
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:background="#E1E1E1" />
     </RelativeLayout>
 
@@ -288,10 +256,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="17dp"
             android:text="@string/my_info_sex"
             android:textColor="#999999"
-            android:textSize="16dp" />
+            android:textSize="19dp" />
 
         <TextView
             android:id="@+id/myinfo_sex"
@@ -299,17 +267,17 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="22dp"
+            android:layout_marginRight="17dp"
             android:text="haohaizi"
             android:textColor="#999999"
-            android:textSize="16dp" />
+            android:textSize="20dp" />
 
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:background="#E1E1E1" />
     </RelativeLayout>
 

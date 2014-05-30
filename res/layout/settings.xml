@@ -16,12 +16,14 @@
             android:id="@+id/setting_userface0"
             android:layout_width="wrap_content"
             android:gravity="center_vertical"
+            
             android:layout_height="wrap_content" >
 
             <com.fuwu.mobileim.view.CircularImage
                 android:id="@+id/setting_userface"
                 android:layout_width="42dp"
                 android:layout_height="42dp"
+                android:layout_marginLeft="5dp"
                 android:src="@drawable/moren" />
         </RelativeLayout>
 
@@ -46,7 +48,7 @@
                 android:layout_marginTop="4dp"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/setting_teachername"
-                android:background="@drawable/nv" />
+                 />
 
             <RelativeLayout
                 android:id="@+id/setting_userface2"
@@ -86,7 +88,7 @@
                     android:layout_height="30px"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="22dp"
+                    android:layout_marginRight="17dp"
                     android:background="@drawable/right_item" />
             </RelativeLayout>
         </RelativeLayout>
@@ -96,8 +98,8 @@
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:background="#E1E1E1" />
 
     <ListView

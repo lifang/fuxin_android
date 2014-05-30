@@ -23,10 +23,13 @@ import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.model.Models.ChangePasswordRequest;
 import com.fuwu.mobileim.model.Models.ChangePasswordResponse;
 import com.fuwu.mobileim.model.Models.ValidateCodeRequest;
+import com.fuwu.mobileim.model.Models.ValidateCodeRequest.ValidateType;
 import com.fuwu.mobileim.model.Models.ValidateCodeResponse;
 import com.fuwu.mobileim.util.FuXunTools;
+import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.Urlinterface;
+import com.fuwu.mobileim.view.MyDialog;
 import com.google.protobuf.InvalidProtocolBufferException;
 
 /**
@@ -38,7 +41,6 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 	private EditText old_pwd;
 	private EditText new_pwd;
 	private EditText new_pwds;
-	private EditText yzm;
 	private EditText yz_text;
 	private EditText phone_text;
 	public TextView phone_tag;
@@ -56,26 +58,39 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 	private TextView old_pwd_tag;
 	private TextView new_pwd_tag;
 	private TextView new_pwds_tag;
+	private FxApplication fx;
+	private String error_code;
 	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
 			switch (msg.what) {
 			case 0:
-				// yz_text.setText(yznumber);
+				Toast.makeText(UpdatePwdActivity.this, "短信已发出请注意查看",
+						Toast.LENGTH_SHORT).show();
 				break;
 			case 1:
-				Toast.makeText(UpdatePwdActivity.this, "修改密码成功",
-						Toast.LENGTH_SHORT).show();
-				UpdatePwdActivity.this.finish();
+				showLoginDialog();
 				break;
 			case 2:
 				Toast.makeText(UpdatePwdActivity.this, "获取短信验证码失败!",
 						Toast.LENGTH_SHORT).show();
 				break;
 			case 3:
-				Toast.makeText(UpdatePwdActivity.this, "修改密码失败!",
-						Toast.LENGTH_SHORT).show();
+				if (!error_code.equals("")) {
+					String errorString = fx.error_map.get(error_code);
+					if (errorString == null) {
+						Toast.makeText(UpdatePwdActivity.this, "找回失败",
+								Toast.LENGTH_SHORT).show();
+					}
+					if (error_code.equals("InvalidPassword")) {
+						Toast.makeText(UpdatePwdActivity.this, "新密码不可少于6位",
+								Toast.LENGTH_SHORT).show();
+					} else {
+						Toast.makeText(UpdatePwdActivity.this, errorString,
+								Toast.LENGTH_SHORT).show();
+					}
+				}
 				break;
 			}
 		}
@@ -84,6 +99,7 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.update_pwd);
+		fx = (FxApplication) getApplication();
 		initialize();
 	}
 
@@ -124,6 +140,7 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 				ValidateCodeRequest.Builder builder = ValidateCodeRequest
 						.newBuilder();
 				builder.setPhoneNumber(phone_text.getText().toString());
+				builder.setType(ValidateType.ChangePassword);
 				ValidateCodeRequest request = builder.build();
 				byte[] httpReturn = HttpUtil.sendHttps(request.toByteArray(),
 						Urlinterface.ValidateCode, "POST");
@@ -140,6 +157,8 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 					}
 					handler.sendEmptyMessage(0);
 				} else {
+					validate_boolean = true;
+					Log.i("Max", response.getErrorCode() + "");
 					handler.sendEmptyMessage(2);
 				}
 
@@ -155,12 +174,12 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 			try {
 				ChangePasswordRequest.Builder builder = ChangePasswordRequest
 						.newBuilder();
-				builder.setToken("MockToken");
-				builder.setUserId(1);
+				builder.setToken(fx.getToken());
+				builder.setUserId(fx.getUser_id());
 				builder.setOriginalPassword(old_pwd.getText().toString());
 				builder.setPassword(new_pwd.getText().toString());
 				builder.setPasswordConfirm(new_pwds.getText().toString());
-
+				builder.setValidateCode(yz_text.getText().toString());
 				ChangePasswordRequest request = builder.build();
 
 				ChangePasswordResponse response = ChangePasswordResponse
@@ -169,6 +188,7 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 				if (response.getIsSucceed()) {
 					handler.sendEmptyMessage(1);
 				} else {
+					error_code = response.getErrorCode().toString();
 					handler.sendEmptyMessage(3);
 				}
 			} catch (InvalidProtocolBufferException e) {
@@ -200,9 +220,9 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 		if (phone_btn) {
 			return false;
 		}
-		if (yz_text.getText().toString().equals("")) {
-			return false;
-		}
+		// if (yz_text.getText().toString().equals("")) {
+		// return false;
+		// }
 		return true;
 	}
 
@@ -225,7 +245,6 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 			this.finish();
 			break;
 		case R.id.update_over:
-			Log.i("Max", judge() + "");
 			new Thread(new UpdatePwd_Post()).start();
 			break;
 		case R.id.phone_ok:
@@ -249,8 +268,6 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 					}
 				}
 			} else {
-				Toast.makeText(UpdatePwdActivity.this, "111",
-						Toast.LENGTH_SHORT).show();
 				phone_btn = true;
 				phone_text.setEnabled(true);
 				phone_text.setText("");
@@ -308,5 +325,24 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 			}
 			regist_btnOver();
 		}
+	}
+
+	private void showLoginDialog() {
+		View view = getLayoutInflater().inflate(R.layout.talk_builder, null);
+		final TextView btnYes = (TextView) view.findViewById(R.id.name);
+		btnYes.setText("修改密码成功");
+		final TextView del = (TextView) view.findViewById(R.id.del_talk);
+		del.setText("确定");
+		// 设置对话框显示的View
+		// 点击确定是的监听
+		final MyDialog builder = new MyDialog(UpdatePwdActivity.this, 0, view,
+				R.style.mydialog);
+		del.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View arg0) {
+				builder.dismiss();
+				UpdatePwdActivity.this.finish();
+			}
+		});
+		builder.show();
 	}
 }

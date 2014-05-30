@@ -5,8 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import android.util.Log;
-
 /**
  * @作者 马龙
  * @时间 2014-5-26 上午9:57:21

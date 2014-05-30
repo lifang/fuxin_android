@@ -1,14 +1,14 @@
 package com.fuwu.mobileim.activity;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+
 import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
+
 import com.fuwu.mobileim.model.Models.Message;
 import com.fuwu.mobileim.model.Models.MessageList;
 import com.fuwu.mobileim.model.Models.MessageRequest;
@@ -119,13 +119,13 @@ public class RequstService extends Service {
 											mesCount);
 									db.addTalk(tp);
 								}
+								db.addMessageList(list);
 							}
-							db.addMessageList(list);
+							Intent intnet = new Intent(
+									"com.comdosoft.fuxun.REQUEST_ACTION");
+							sendBroadcast(intnet);
+							Thread.sleep(60 * 1000);
 						}
-						Intent intnet = new Intent(
-								"com.comdosoft.fuxun.REQUEST_ACTION");
-						sendBroadcast(intnet);
-						Thread.sleep(60 * 1000);
 					}
 				}
 			} catch (InterruptedException e) {

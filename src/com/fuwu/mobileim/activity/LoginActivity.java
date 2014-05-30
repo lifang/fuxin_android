@@ -1,8 +1,5 @@
 package com.fuwu.mobileim.activity;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -49,10 +46,15 @@ public class LoginActivity extends Activity implements OnClickListener,
 				LoginActivity.this.finish();
 				break;
 			case 1:
-				Map<String, String> map = getErrorMap();
 				if (!error_code.equals("")) {
-					Toast.makeText(LoginActivity.this, map.get(error_code),
-							Toast.LENGTH_SHORT).show();
+					String errorString = fx.error_map.get(error_code);
+					if (errorString == null) {
+						Toast.makeText(LoginActivity.this, "登陆失败",
+								Toast.LENGTH_SHORT).show();
+					} else {
+						Toast.makeText(LoginActivity.this, errorString,
+								Toast.LENGTH_SHORT).show();
+					}
 				}
 				break;
 			}
@@ -73,8 +75,8 @@ public class LoginActivity extends Activity implements OnClickListener,
 	public void initialize() {
 		user_text = (EditText) findViewById(R.id.user);
 		pwd_text = (EditText) findViewById(R.id.pwd);
-		user_text.setText("15862373890");
-		pwd_text.setText("111111");
+		user_text.setText("MockUserName");
+		// pwd_text.setText("111111");
 	}
 
 	public void onClick(View v) {
@@ -120,8 +122,8 @@ public class LoginActivity extends Activity implements OnClickListener,
 						.parseFrom(HttpUtil.sendHttps(request.toByteArray(),
 								Urlinterface.LOGIN, "POST"));
 				if (response.getIsSucceed()) {
-					fx.setUser_id(response.getUserId());
-					fx.setToken(response.getToken());
+					fx.setUser_id(1);
+					fx.setToken("MockToken");
 					handler.sendEmptyMessage(0);
 
 				} else {
@@ -133,14 +135,5 @@ public class LoginActivity extends Activity implements OnClickListener,
 				e.printStackTrace();
 			}
 		}
-	}
-
-	public Map<String, String> getErrorMap() {
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("InvalidUserName", "用户名不存在");
-		map.put("InvalidPassword", "密码不正确");
-		map.put("InvalidPasswordExceedCount", "密码错误次数过多");
-		map.put("NotActivate", "服务器无响应");
-		return map;
 	}
 }

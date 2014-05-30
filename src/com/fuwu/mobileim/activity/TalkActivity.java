@@ -1,14 +1,15 @@
 package com.fuwu.mobileim.activity;
 
+import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
+
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
@@ -19,39 +20,30 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.fuwu.mobileim.R;
+import com.fuwu.mobileim.adapter.TalkListViewAdapter;
 import com.fuwu.mobileim.pojo.TalkPojo;
 import com.fuwu.mobileim.util.DBManager;
-import com.fuwu.mobileim.util.TimeUtil;
-import com.fuwu.mobileim.view.CircularImage;
+import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.view.MyDialog;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 /**
  * 作者: 张秀楠 时间：2014-5-23 下午4:34:44
  */
 public class TalkActivity extends Fragment {
 	private ListView mListView;
-	private myListViewAdapter clvAdapter;
+	private TalkListViewAdapter clvAdapter;
 	private List<TalkPojo> list = new ArrayList<TalkPojo>();
 	public Intent intent = new Intent();
 	private DBManager db;
 	private View rootView;
-	private int uid = 1;
+	private RequstReceiver mReuRequstReceiver;
 	private int contact_id;
-	DisplayImageOptions options;
-	protected ImageLoader imageLoader = ImageLoader.getInstance();
+	private FxApplication fx;
 	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
@@ -61,8 +53,9 @@ public class TalkActivity extends Fragment {
 				break;
 			case 2:
 				updateMessageData();
+				clvAdapter = new TalkListViewAdapter(getActivity(), list,
+						fx.options);
 				Log.i("Max", list.size() + "-");
-				clvAdapter = new myListViewAdapter(getActivity());
 				mListView.setAdapter(clvAdapter);
 				break;
 			case 3:
@@ -80,15 +73,11 @@ public class TalkActivity extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		rootView = inflater.inflate(R.layout.talk, container, false);
+		fx = (FxApplication) getActivity().getApplication();
 		initData();
-		options = new DisplayImageOptions.Builder()
-				.showImageOnLoading(R.drawable.test)
-				.showImageForEmptyUri(R.drawable.test)
-				.showImageOnFail(R.drawable.test).cacheInMemory(true)
-				.cacheOnDisk(true).considerExifParams(true)
-				.displayer(new RoundedBitmapDisplayer(20)).build();
+
+		mReuRequstReceiver = new RequstReceiver();
 		mListView = (ListView) rootView.findViewById(R.id.talk_listview);
-		clvAdapter = new myListViewAdapter(getActivity());
 		mListView.setAdapter(clvAdapter);
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
@@ -107,6 +96,12 @@ public class TalkActivity extends Fragment {
 			}
 		});
 		Log.i("aa", "onCreate");
+		File file = new File(Environment.getExternalStorageDirectory()
+				+ "/test.jpg");
+		if (file.exists()) {
+			Log.i("Max", "存在");
+		}
+		handler.sendEmptyMessage(2);
 		return rootView;
 	}
 
@@ -129,75 +124,6 @@ public class TalkActivity extends Fragment {
 		builder.show();
 	}
 
-	public class myListViewAdapter extends BaseAdapter {
-		private LayoutInflater mInflater;
-		private Context mcontext = null;
-		private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
-
-		public myListViewAdapter(Context context) {
-			this.mcontext = context;
-			this.mInflater = LayoutInflater.from(mcontext);
-		}
-
-		public int getCount() {
-			return list.size();
-		}
-
-		public Object getItem(int arg0) {
-			return list.get(arg0);
-		}
-
-		public long getItemId(int arg0) {
-			return arg0;
-		}
-
-		public View getView(int arg0, View arg1, ViewGroup arg2) {
-			ViewHolder holder;
-			if (arg1 == null) {
-				arg1 = mInflater.inflate(R.layout.talk_adpter, null);
-				holder = new ViewHolder();
-				holder.head = (CircularImage) arg1.findViewById(R.id.head);
-				holder.statics = (LinearLayout) arg1.findViewById(R.id.statics);
-				holder.size = (TextView) arg1.findViewById(R.id.size);
-				holder.name = (TextView) arg1.findViewById(R.id.name);
-				holder.content = (TextView) arg1.findViewById(R.id.content);
-				holder.dath = (TextView) arg1.findViewById(R.id.dath);
-				arg1.setTag(holder);
-			} else {
-				holder = (ViewHolder) arg1.getTag();
-			}
-
-			if (list.get(arg0).getMes_count() == 0) {
-				holder.statics.setVisibility(View.GONE);
-			} else {
-				holder.size.setText(list.get(arg0).getMes_count() + "");
-				holder.statics.setVisibility(View.VISIBLE);
-			}
-			String names = list.get(arg0).getNick_name();
-			if (names.equals("")) {
-				holder.name.setText("暂未设置昵称");
-			} else {
-				holder.name.setText(names);
-			}
-			holder.content.setText("嗨你好,嗨再见");
-			holder.dath.setText(TimeUtil.getChatTime(list.get(arg0).getTime()));
-			imageLoader
-					.displayImage(
-							"http://www.sinaimg.cn/dy/slidenews/9_img/2012_28/32172_1081661_673195.jpg",
-							holder.head, options, animateFirstListener);
-			return arg1;
-		}
-	}
-
-	static final class ViewHolder {
-		CircularImage head;
-		LinearLayout statics;
-		TextView size;
-		TextView name;
-		TextView content;
-		TextView dath;
-	}
-
 	// 获取对话列表
 	class DeleteDB implements Runnable {
 		public void run() {
@@ -213,14 +139,14 @@ public class TalkActivity extends Fragment {
 		if (!db.isOpen()) {
 			db = new DBManager(getActivity());
 		}
-		list = db.queryTalkList(uid);
+		list = db.queryTalkList(fx.getUser_id());
 	}
 
 	public boolean delTalkData() {
 		if (!db.isOpen()) {
 			db = new DBManager(getActivity());
 		}
-		return db.delTalk(uid, contact_id);
+		return db.delTalk(fx.getUser_id(), contact_id);
 	}
 
 	public void initData() {
@@ -230,25 +156,25 @@ public class TalkActivity extends Fragment {
 
 	public void onResume() {
 		// handler.sendEmptyMessage(4);
+		// getActivity().registerReceiver(mReuRequstReceiver,
+		// new IntentFilter("com.comdosoft.fuxun.REQUEST_ACTION"));
+		Log.i("Max", "onResume");
 		super.onResume();
 	}
 
-	private static class AnimateFirstDisplayListener extends
-			SimpleImageLoadingListener {
+	public void onPause() {
+		Log.i("Max", "onPause");
+		super.onPause();
+	}
 
-		static final List<String> displayedImages = Collections
-				.synchronizedList(new LinkedList<String>());
+	public void onStart() {
+		Log.i("Max", "onStart");
+		super.onStart();
+	}
 
-		public void onLoadingComplete(String imageUri, View view,
-				Bitmap loadedImage) {
-			if (loadedImage != null) {
-				ImageView imageView = (ImageView) view;
-				boolean firstDisplay = !displayedImages.contains(imageUri);
-				if (firstDisplay) {
-					FadeInBitmapDisplayer.animate(imageView, 500);
-					displayedImages.add(imageUri);
-				}
-			}
+	class RequstReceiver extends BroadcastReceiver {
+		public void onReceive(Context context, Intent intent) {
+			handler.sendEmptyMessage(4);
 		}
 	}
 }

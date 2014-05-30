@@ -17,7 +17,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:textColor="@color/white"
             android:background="@drawable/left_shape_red"
+            android:textSize="17dp" 
             android:text="@string/button_all" />
 
         <Button
@@ -32,7 +34,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:textColor="@color/red_block"
             android:background="@drawable/middle_shape_white"
+            android:textSize="17dp" 
             android:text="@string/button_recently" />
 
         <Button
@@ -47,7 +51,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:textColor="@color/red_block"
             android:background="@drawable/middle_shape_white"
+            android:textSize="17dp" 
             android:text="@string/button_trading" />
 
         <Button
@@ -62,7 +68,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:textColor="@color/red_block"
             android:background="@drawable/right_shape_white"
+            android:textSize="17dp" 
             android:text="@string/button_subscription" />
     </LinearLayout>
 
@@ -72,17 +80,26 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/a_layout"
         android:fadingEdge="none"
+        android:visibility="gone"
         android:scrollbars="none" >
     </ListView>
 
-
+    <com.fuwu.mobileim.view.XListView
+        android:id="@+id/contacts_list_view_refresh"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/a_layout"
+        
+        android:fadingEdge="none"
+        android:scrollbars="none" >
+    </com.fuwu.mobileim.view.XListView>
 
     <com.fuwu.mobileim.view.SideBar
         android:id="@+id/sidrbar"
         android:layout_width="30.0dip"
+        android:layout_height="fill_parent"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/a_layout"
-        android:layout_height="fill_parent"
         android:layout_gravity="right|center" />
 
     <RelativeLayout
