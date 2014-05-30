@@ -115,6 +115,7 @@
         android:background="@color/white" >
 
         <TextView
+            android:id="@+id/hangye"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -130,6 +131,8 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="17dp"
+            android:layout_toRightOf="@+id/hangye"
+            android:singleLine="true"
             android:text="haohaizi"
             android:textColor="#999999"
             android:textSize="19dp" />
