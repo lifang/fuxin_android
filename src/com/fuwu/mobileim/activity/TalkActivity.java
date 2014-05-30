@@ -74,6 +74,9 @@ public class TalkActivity extends Fragment {
 				Toast.makeText(getActivity(), "删除失败", Toast.LENGTH_SHORT)
 						.show();
 				break;
+			case 4:
+				clvAdapter.notifyDataSetChanged();
+				break;
 			}
 		}
 	};

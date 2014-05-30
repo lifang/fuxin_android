@@ -61,12 +61,10 @@ public class SettingsActivity extends Fragment {
 		}
 	};
 
-	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		rootView = inflater
-				.inflate(R.layout.settings, container, false);
+		rootView = inflater.inflate(R.layout.settings, container, false);
 
 		adapter = new SettingBottomAdapter();
 		init();
@@ -108,17 +106,25 @@ public class SettingsActivity extends Fragment {
 	
 	
 	private void init() {
-		RelativeLayout setting_top = (RelativeLayout) rootView.findViewById(R.id.setting_top);// 用户个人信息部分
-		RelativeLayout a_layout = (RelativeLayout) rootView.findViewById(R.id.setting_userface0);
-		CircularImage userface = (CircularImage) rootView.findViewById(R.id.setting_userface);// 头像
-		ImageView setting_sex_item = (ImageView) rootView.findViewById(R.id.setting_sex_item);// 性别
-		ImageView certification_one = (ImageView) rootView.findViewById(R.id.certification_one);// 验证1
-		ImageView certification_two = (ImageView) rootView.findViewById(R.id.certification_two);// 验证2
-		ImageView certification_three = (ImageView) rootView.findViewById(R.id.certification_three);// 验证3
+		RelativeLayout setting_top = (RelativeLayout) rootView
+				.findViewById(R.id.setting_top);// 用户个人信息部分
+		RelativeLayout a_layout = (RelativeLayout) rootView
+				.findViewById(R.id.setting_userface0);
+		CircularImage userface = (CircularImage) rootView
+				.findViewById(R.id.setting_userface);// 头像
+		ImageView setting_sex_item = (ImageView) rootView
+				.findViewById(R.id.setting_sex_item);// 性别
+		ImageView certification_one = (ImageView) rootView
+				.findViewById(R.id.certification_one);// 验证1
+		ImageView certification_two = (ImageView) rootView
+				.findViewById(R.id.certification_two);// 验证2
+		ImageView certification_three = (ImageView) rootView
+				.findViewById(R.id.certification_three);// 验证3
 		LayoutParams param = (LayoutParams) a_layout.getLayoutParams();
 		param.leftMargin = 40;
 		param.topMargin = 50;
-		RelativeLayout setting_relativeLayout1 = (RelativeLayout) rootView.findViewById(R.id.setting_relativeLayout1);
+		RelativeLayout setting_relativeLayout1 = (RelativeLayout) rootView
+				.findViewById(R.id.setting_relativeLayout1);
 		LayoutParams param2 = (LayoutParams) setting_relativeLayout1
 				.getLayoutParams();
 		param2.leftMargin = 30;
@@ -144,11 +150,10 @@ public class SettingsActivity extends Fragment {
 	private View.OnClickListener listener1 = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
-//			Toast.makeText(getActivity().getApplication(), "跳到个人信息页面",
-//					Toast.LENGTH_LONG).show();
+			// Toast.makeText(getActivity().getApplication(), "跳到个人信息页面",
+			// Toast.LENGTH_LONG).show();
 			Intent intent = new Intent();
-			intent.setClass(getActivity(),
-					MyInformationActivity.class);
+			intent.setClass(getActivity(), MyInformationActivity.class);
 			startActivity(intent);
 		}
 	};
@@ -161,39 +166,33 @@ public class SettingsActivity extends Fragment {
 		Intent intent = new Intent();
 		switch (num) {
 		case 0:// 新版本检测
-			Toast.makeText(getActivity().getApplication(), "新版本检测", Toast.LENGTH_LONG)
-					.show();
+			Toast.makeText(getActivity().getApplication(), "新版本检测",
+					Toast.LENGTH_LONG).show();
 			break;
 		case 1:// 清除全部聊天记录
 			Toast.makeText(getActivity().getApplication(), "清除全部聊天记录",
 					Toast.LENGTH_LONG).show();
 			break;
 		case 2:// 消息推送
-			Toast.makeText(getActivity().getApplication(), "消息推送", Toast.LENGTH_LONG)
-					.show();
+			Toast.makeText(getActivity().getApplication(), "消息推送",
+					Toast.LENGTH_LONG).show();
 			// Intent intent = new Intent
 			// (SettingsActivity.this,SettingsActivity.class);
 			// startActivity(intent);
 			break;
 		case 3:// 修改密码
-			Toast.makeText(getActivity().getApplication(), "修改密码", Toast.LENGTH_LONG)
-					.show();
+			Toast.makeText(getActivity().getApplication(), "修改密码",
+					Toast.LENGTH_LONG).show();
 			intent.setClass(getActivity(), UpdatePwdActivity.class);
 			startActivity(intent);
 			break;
 		case 4:// 屏蔽管理
 				// Toast.makeText(getActivity().getApplication(), "屏蔽管理" ,
 				// Toast.LENGTH_LONG).show();
-			intent.setClass(getActivity(),
-					BlockManagementActivity.class);
+			intent.setClass(getActivity(), BlockManagementActivity.class);
 			startActivity(intent);
 			break;
 		case 5:// 系统公告管理
-			Toast.makeText(getActivity().getApplication(), "系统公告管理", Toast.LENGTH_LONG)
-					.show();
-			// Intent intent = new Intent
-			// (SettingsActivity.this,SettingsActivity.class);
-			// startActivity(intent);
 			intent.setClass(getActivity(), SystemPushActivity.class);
 			startActivity(intent);
 			break;
@@ -232,9 +231,8 @@ public class SettingsActivity extends Fragment {
 		public View getView(int position, View convertView, ViewGroup parent) {
 			RelativeLayout layout = null;
 			if (convertView == null) {
-				layout = (RelativeLayout) LayoutInflater.from(
-						getActivity()).inflate(
-						R.layout.setting_adapter_item, null);
+				layout = (RelativeLayout) LayoutInflater.from(getActivity())
+						.inflate(R.layout.setting_adapter_item, null);
 			} else {
 				layout = (RelativeLayout) convertView;
 			}
