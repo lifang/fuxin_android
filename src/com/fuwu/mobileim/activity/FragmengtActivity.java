@@ -2,15 +2,7 @@ package com.fuwu.mobileim.activity;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.fuwu.mobileim.R;
-import com.fuwu.mobileim.activity.MainActivity.menuOnclick;
-import com.fuwu.mobileim.adapter.ContactAdapter;
-import com.fuwu.mobileim.adapter.FragmentViewPagerAdapter;
-import com.fuwu.mobileim.adapter.MainViewPagerAdapter;
-import com.fuwu.mobileim.pojo.ContactPojo;
-import com.fuwu.mobileim.util.FxApplication;
 
-import android.app.LocalActivityManager;
 import android.content.Intent;
 import android.graphics.Matrix;
 import android.os.Bundle;
@@ -23,21 +15,24 @@ import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
 import android.text.style.AbsoluteSizeSpan;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.RelativeLayout.LayoutParams;
+
+import com.fuwu.mobileim.R;
+import com.fuwu.mobileim.adapter.ContactAdapter;
+import com.fuwu.mobileim.adapter.FragmentViewPagerAdapter;
+import com.fuwu.mobileim.pojo.ContactPojo;
+import com.fuwu.mobileim.util.FxApplication;
 
 /**
  * @作者 马龙

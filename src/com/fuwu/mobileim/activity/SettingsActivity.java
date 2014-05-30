@@ -1,15 +1,11 @@
 ﻿package com.fuwu.mobileim.activity;
 
-import java.util.ArrayList;
-
 import android.content.Intent;
 import android.content.res.Resources;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.ContactsContract.Profile;
-import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,7 +22,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fuwu.mobileim.R;
-import com.fuwu.mobileim.activity.ContactActivity.getContacts;
 import com.fuwu.mobileim.model.Models.ProfileRequest;
 import com.fuwu.mobileim.model.Models.ProfileResponse;
 import com.fuwu.mobileim.pojo.ProfilePojo;
@@ -264,15 +259,10 @@ public class SettingsActivity extends Fragment {
 					Toast.LENGTH_LONG).show();
 			break;
 		case 2:// 消息推送
-			Toast.makeText(getActivity().getApplication(), "消息推送",
-					Toast.LENGTH_LONG).show();
-			// Intent intent = new Intent
-			// (SettingsActivity.this,SettingsActivity.class);
-			// startActivity(intent);
+			intent.setClass(getActivity(), PushSettingActivity.class);
+			startActivity(intent);
 			break;
 		case 3:// 修改密码
-			Toast.makeText(getActivity().getApplication(), "修改密码",
-					Toast.LENGTH_LONG).show();
 			intent.setClass(getActivity(), UpdatePwdActivity.class);
 			startActivity(intent);
 			break;

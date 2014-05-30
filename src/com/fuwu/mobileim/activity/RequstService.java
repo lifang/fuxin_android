@@ -2,11 +2,13 @@ package com.fuwu.mobileim.activity;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
+
 import com.fuwu.mobileim.model.Models.Message;
 import com.fuwu.mobileim.model.Models.MessageList;
 import com.fuwu.mobileim.model.Models.MessageRequest;

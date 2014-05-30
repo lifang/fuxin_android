@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.util.FuXunTools;
-import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CircularImage;
 
 /**

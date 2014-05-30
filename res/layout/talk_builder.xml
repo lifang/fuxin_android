@@ -14,7 +14,7 @@
         android:paddingLeft="20dp"
         android:text="马龙"
         android:textColor="#469AD3"
-        android:textSize="22dp" />
+        android:textSize="18dp" />
 
     <View
         android:layout_width="fill_parent"

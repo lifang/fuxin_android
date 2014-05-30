@@ -35,7 +35,6 @@
         </activity>
         <activity android:name="com.fuwu.mobileim.activity.ContactActivity" />
         <activity android:name="com.fuwu.mobileim.activity.LoginActivity" >
-            
         </activity>
         <activity android:name="com.fuwu.mobileim.activity.BlockManagementActivity" >
         </activity>
@@ -51,14 +50,17 @@
         <service android:name="com.fuwu.mobileim.activity.RequstService" />
 
         <activity android:name="com.fuwu.mobileim.activity.MyInformationActivity" >
-            
         </activity>
         <activity android:name="com.fuwu.mobileim.activity.FragmengtActivity" >
-        <intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter></activity>
+            </intent-filter>
+        </activity>
+        <activity android:name="com.fuwu.mobileim.activity.ResetPasswordActicity" />
+        <activity android:name="com.fuwu.mobileim.activity.PushSettingActivity" >
+        </activity>
     </application>
 
 </manifest>
