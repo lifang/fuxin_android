@@ -77,7 +77,7 @@ public class RequstService extends Service {
 					builder.setUserId(1);
 					builder.setToken("MockToken");
 					MessageRequest response = builder.build();
-					String https = "https://118.242.18.189/api/Message";
+					String https = "https://118.242.18.189/IMApiMock/api/Message";
 					MessageResponse mr = MessageResponse.parseFrom(HttpUtil
 							.sendHttps(response.toByteArray(), https, "POST"));
 					int contactCount = mr.getMessageListsCount();

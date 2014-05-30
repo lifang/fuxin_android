@@ -72,17 +72,26 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/a_layout"
         android:fadingEdge="none"
+        android:visibility="gone"
         android:scrollbars="none" >
     </ListView>
 
-
+    <com.fuwu.mobileim.view.XListView
+        android:id="@+id/contacts_list_view_refresh"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/a_layout"
+        
+        android:fadingEdge="none"
+        android:scrollbars="none" >
+    </com.fuwu.mobileim.view.XListView>
 
     <com.fuwu.mobileim.view.SideBar
         android:id="@+id/sidrbar"
         android:layout_width="30.0dip"
+        android:layout_height="fill_parent"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/a_layout"
-        android:layout_height="fill_parent"
         android:layout_gravity="right|center" />
 
     <RelativeLayout

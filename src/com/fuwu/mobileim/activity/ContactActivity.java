@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -39,11 +40,14 @@ import com.fuwu.mobileim.view.CharacterParser;
 import com.fuwu.mobileim.view.PinyinComparator;
 import com.fuwu.mobileim.view.SideBar;
 import com.fuwu.mobileim.view.SideBar.OnTouchingLetterChangedListener;
+import com.fuwu.mobileim.view.XListView;
+import com.fuwu.mobileim.view.XListView.IXListViewListener;
 
-public class ContactActivity extends Fragment {
+public class ContactActivity extends Fragment implements IXListViewListener {
 
 	private FxApplication fxApplication;
-	private ListView sortListView;
+	private ListView sortListView;// 普通的 listview，最近，订阅，交易 这三个部分使用
+	private XListView xListView;// 可上拉刷新 的 listview ，全部 部分使用
 	private SideBar sideBar;
 	private TextView dialog;
 	private ContactAdapter adapter;
@@ -94,12 +98,29 @@ public class ContactActivity extends Fragment {
 				fxApplication.setContactsList(contactsList);
 				fxApplication.setContactsMap(contactsMap);
 				adapter = new ContactAdapter(getActivity(), contactsList, 1);
-				sortListView.setAdapter(adapter);
+				xListView.setAdapter(adapter);
 
 				break;
+			case 1:
+
+				// 根据a-z进行排序源数据
+				if (contactsList.size() > 1) { // 2个以上进行排序
+					Collections.sort(contactsList, pinyinComparator);
+				}
+
+				fxApplication.setContactsList(contactsList);
+				fxApplication.setContactsMap(contactsMap);
+				adapter = new ContactAdapter(getActivity(), contactsList, 1);
+				xListView.setAdapter(adapter);
+				onLoad();
+				break;
+			case 6:
+				Toast.makeText(getActivity(), "请求失败", Toast.LENGTH_SHORT)
+						.show();
+				break;
 			case 7:
-				// Toast.makeText(getApplicationContext(),
-				// ExerciseBookParams.INTERNET, Toast.LENGTH_SHORT).show();
+				Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT)
+						.show();
 				break;
 			}
 		}
@@ -120,7 +141,7 @@ public class ContactActivity extends Fragment {
 
 	/**
 	 * 
-	 * 获得所有联系人
+	 * 第一次 获得所有联系人
 	 * 
 	 * 
 	 */
@@ -138,6 +159,121 @@ public class ContactActivity extends Fragment {
 				if (by.length > 0) {
 
 					ContactResponse res = ContactResponse.parseFrom(by);
+					if (res.getIsSucceed()) {
+
+						for (int i = 0; i < res.getContactsCount(); i++) {
+							int contactId = res.getContacts(i).getContactId();
+							String name = res.getContacts(i).getName();
+							String sortKey = findSortKey(res.getContacts(i)
+									.getName());
+							String customName = res.getContacts(i)
+									.getCustomName();
+							String userface_url = res.getContacts(i)
+									.getTileUrl();
+							int sex = res.getContacts(i).getGender();
+							int source = res.getContacts(i).getSource();
+							String lastContactTime = res.getContacts(i)
+									.getLastContactTime();// 2014-05-27 11:42:18
+							Boolean isBlocked = res.getContacts(i)
+									.getIsBlocked();
+							Boolean isProvider = res.getContacts(i)
+									.getIsProvider();
+
+							String lisence = res.getContacts(i).getLisence();
+							String publishClassType = res.getContacts(i)
+									.getPublishClassType();
+							String signature = null;
+							// String signature =
+							// res.getContacts(i).getSignature();
+							ContactPojo coPojo = new ContactPojo(contactId,
+									sortKey, name, customName, userface_url,
+									sex, source, lastContactTime, isBlocked,
+									isProvider, lisence, signature);
+							contactsList.add(coPojo);
+							if (i < 5) {
+
+								ContactPojo coPojo2 = new ContactPojo(
+										contactId + 1000,
+										"S",
+										"斯蒂芬森",
+										customName,
+										"http://www.sinaimg.cn/dy/slidenews/9_img/2012_28/32172_1081661_673195.jpg",
+										sex, 3, "2013-05-27 11:42:18",
+										isBlocked, isProvider, lisence,
+										signature);
+								contactsList.add(coPojo2);
+
+							}
+							if (i > 5 && i < 15) {
+								ContactPojo coPojo3 = new ContactPojo(
+										contactId + 1000,
+										"R",
+										"2014-05-27 11:42:18",
+										customName,
+										"http://www.sinaimg.cn/dy/slidenews/9_img/2012_28/32172_1081661_673195.jpg",
+										sex, 8, "2014-05-27 11:42:18",
+										isBlocked, isProvider, lisence,
+										signature);
+								contactsList.add(coPojo3);
+
+							}
+							if (i > 15 && i < 25) {
+								ContactPojo coPojo4 = new ContactPojo(
+										contactId + 1000, "O",
+										"2014-04-27 11:42:18", customName,
+										userface_url, sex, 11,
+										"2014-04-27 11:42:18", isBlocked,
+										isProvider, lisence, signature);
+								contactsList.add(coPojo4);
+							}
+							if (i == 1) {
+								Log.i("Ax", "contactId:" + contactId
+										+ "userface_url:" + userface_url
+										+ "---source:" + source
+										+ "---lastContactTime:"
+										+ lastContactTime + "----sex:"
+										+ res.getContacts(i).getGender());
+							}
+							contactsMap.put(contactId, coPojo);
+						}
+						Message msg = new Message();// 创建Message 对象
+						msg.what = 0;
+						handler.sendMessage(msg);
+					} else {
+						handler.sendEmptyMessage(6);
+					}
+
+				}
+
+				// handler.sendEmptyMessage(0);
+			} catch (Exception e) {
+				// prodialog.dismiss();
+				// handler.sendEmptyMessage(7);
+			}
+		}
+	}
+
+	/**
+	 * 
+	 * 第二次 获得所有联系人
+	 * 
+	 * 
+	 */
+
+	class getContacts2 implements Runnable {
+		public void run() {
+			try {
+				ContactRequest.Builder builder = ContactRequest.newBuilder();
+				builder.setUserId(1);
+				builder.setToken("MockToken");
+				ContactRequest response = builder.build();
+
+				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
+						Urlinterface.getContacts, "POST");
+				if (by.length > 0 && by != null) {
+					contactsList = new ArrayList<ContactPojo>();
+					contactsMap = new HashMap<Integer, ContactPojo>();
+					ContactResponse res = ContactResponse.parseFrom(by);
 					for (int i = 0; i < res.getContactsCount(); i++) {
 						int contactId = res.getContacts(i).getContactId();
 						String name = res.getContacts(i).getName();
@@ -150,55 +286,24 @@ public class ContactActivity extends Fragment {
 						String lastContactTime = res.getContacts(i)
 								.getLastContactTime();// 2014-05-27 11:42:18
 						Boolean isBlocked = res.getContacts(i).getIsBlocked();
+						Boolean isProvider = res.getContacts(i).getIsProvider();
 
+						String lisence = res.getContacts(i).getLisence();
+						String publishClassType = res.getContacts(i)
+								.getPublishClassType();
+						String signature = null;
+						// String signature = res.getContacts(i).getSignature();
 						ContactPojo coPojo = new ContactPojo(contactId,
 								sortKey, name, customName, userface_url, sex,
-								source, lastContactTime, isBlocked);
+								source, lastContactTime, isBlocked, isProvider,
+								lisence, signature);
 						contactsList.add(coPojo);
-						if (i < 5) {
 
-							ContactPojo coPojo2 = new ContactPojo(
-									contactId + 1000,
-									"A",
-									"2013-05-27 11:42:18",
-									customName,
-									"http://www.sinaimg.cn/dy/slidenews/9_img/2012_28/32172_1081661_673195.jpg",
-									sex, 3, "2013-05-27 11:42:18", isBlocked);
-							contactsList.add(coPojo2);
-
-						}
-						if (i > 5 && i < 15) {
-							ContactPojo coPojo3 = new ContactPojo(
-									contactId + 1000,
-									"R",
-									"2014-05-27 11:42:18",
-									customName,
-									"http://www.sinaimg.cn/dy/slidenews/9_img/2012_28/32172_1081661_673195.jpg",
-									sex, 8, "2014-05-27 11:42:18", isBlocked);
-							contactsList.add(coPojo3);
-
-						}
-						if (i > 15 && i < 25) {
-							ContactPojo coPojo4 = new ContactPojo(
-									contactId + 1000, "O",
-									"2014-04-27 11:42:18", customName,
-									userface_url, sex, 11,
-									"2014-04-27 11:42:18", isBlocked);
-							contactsList.add(coPojo4);
-						}
-						if (i == 1) {
-							Log.i("Ax", "contactId:" + contactId
-									+ "userface_url:" + userface_url
-									+ "---source:" + source
-									+ "---lastContactTime:" + lastContactTime
-									+ "----sex:"
-									+ res.getContacts(i).getGender());
-						}
 						contactsMap.put(contactId, coPojo);
 					}
 				}
 				Message msg = new Message();// 创建Message 对象
-				msg.what = 0;
+				msg.what = 1;
 				handler.sendMessage(msg);
 
 				// handler.sendEmptyMessage(0);
@@ -247,6 +352,7 @@ public class ContactActivity extends Fragment {
 				int position = adapter.getPositionForSection(s.charAt(0));
 				if (position != -1) {
 					sortListView.setSelection(position);
+					xListView.setSelection(position);
 
 					// TextView tv= (TextView)
 					// sortListView.getChildAt(position).findViewById(R.id.sort_key);
@@ -269,12 +375,27 @@ public class ContactActivity extends Fragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				// 这里要利用adapter.getItem(position)来获取当前position所对应的对象
-				// Toast.makeText(getApplication(),
-				// ((ContactPojo) adapter.getItem(position)).getName(),
-				// Toast.LENGTH_SHORT).show();
-				Toast.makeText(getActivity().getApplication(), "传参，，跳到对话界面",
-						Toast.LENGTH_SHORT).show();
+
+				Intent intent = new Intent();
+				// intent.p
+				intent.setClass(getActivity(), ChatActivity.class);
+				startActivity(intent);
+			}
+		});
+		xListView = (XListView) rootView
+				.findViewById(R.id.contacts_list_view_refresh);
+		xListView.setDivider(null);
+		xListView.setXListViewListener(ContactActivity.this);
+		xListView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+
+				Intent intent = new Intent();
+				// intent.p
+				intent.setClass(getActivity(), ChatActivity.class);
+				startActivity(intent);
 			}
 		});
 
@@ -334,7 +455,7 @@ public class ContactActivity extends Fragment {
 	private void setButton() {
 		int width0 = 4; // 边框宽度
 		int width1 = 20; // 外部边框距左右边界距离
-		int hight0 = 80; // 外部边框高度
+		int hight0 = 70; // 外部边框高度
 		int hight1 = hight0 - width0 * 2; // button高度
 		LinearLayout a_layout = (LinearLayout) rootView
 				.findViewById(R.id.a_layout);
@@ -381,8 +502,12 @@ public class ContactActivity extends Fragment {
 		public void onClick(View v) {
 			buttonNumber = 0;
 			setButtonColor(buttonNumber);
+			xListView.setVisibility(View.VISIBLE);
+			// List<ContactPojo> contactsList = fxApplication.getContactsList();
+			// Collections.sort(contactsList, pinyinComparator);
 			adapter = new ContactAdapter(getActivity(), contactsList, 1);
-			sortListView.setAdapter(adapter);
+			xListView.setAdapter(adapter);
+			sortListView.setVisibility(View.GONE);
 		}
 	};
 	// 最近
@@ -405,7 +530,8 @@ public class ContactActivity extends Fragment {
 			} else {
 				adapter = new ContactAdapter(getActivity(), contactsList1, 0);
 			}
-
+			sortListView.setVisibility(View.VISIBLE);
+			xListView.setVisibility(View.GONE);
 			sortListView.setAdapter(adapter);
 		}
 	};
@@ -425,6 +551,8 @@ public class ContactActivity extends Fragment {
 				}
 			}
 			adapter = new ContactAdapter(getActivity(), contactsList2, 0);
+			sortListView.setVisibility(View.VISIBLE);
+			xListView.setVisibility(View.GONE);
 			sortListView.setAdapter(adapter);
 		}
 	};
@@ -443,11 +571,23 @@ public class ContactActivity extends Fragment {
 				}
 			}
 			adapter = new ContactAdapter(getActivity(), contactsList3, 0);
+			sortListView.setVisibility(View.VISIBLE);
+			xListView.setVisibility(View.GONE);
 			sortListView.setAdapter(adapter);
 		}
 	};
 
 	private void setButtonColor(int buttonNumber) {
+		for (int i = 0; i < btnList.size(); i++) {
+			if (buttonNumber == i) {
+				btnList.get(i).setTextColor(
+						this.getResources().getColor(R.color.white));
+			} else {
+				btnList.get(i).setTextColor(
+						this.getResources().getColor(R.color.red_block));
+
+			}
+		}
 		btnList.get(0).setBackgroundResource(R.drawable.left_shape_white);
 		btnList.get(1).setBackgroundResource(R.drawable.middle_shape_white);
 		btnList.get(2).setBackgroundResource(R.drawable.middle_shape_white);
@@ -482,6 +622,20 @@ public class ContactActivity extends Fragment {
 			}
 		}
 		return -1;
+	}
+
+	private void onLoad() {
+		xListView.stopRefresh();
+	}
+
+	@Override
+	public void onRefresh() {
+		// TODO Auto-generated method stub
+
+		Thread thread = new Thread(new getContacts2());
+		thread.start();
+		Log.i("linshi", "1111111111111111111111111111");
+
 	}
 
 }

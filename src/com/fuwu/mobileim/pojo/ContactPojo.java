@@ -15,17 +15,18 @@ public class ContactPojo {
 	private int sex;  //  性别
 	private int source;  //  是否交易 是否订阅
 	private String lastContactTime; //最近联系时间
-	private Boolean isBlocked; //是否屏蔽
+	private boolean isBlocked; //是否屏蔽
+	private boolean isProvider; //是不是 福师
 	
-
+    private String lisence; // 认证
+    private String signature ; //  个性签名
 	public ContactPojo() {
 	}
-
-
-
+	
 	public ContactPojo(int contactId, String sortKey, String name,
 			String customName, String userface_url, int sex, int source,
-			String lastContactTime, Boolean isBlocked) {
+			String lastContactTime, boolean isBlocked, boolean isProvider,
+			String lisence, String signature) {
 		super();
 		this.contactId = contactId;
 		this.sortKey = sortKey;
@@ -36,101 +37,84 @@ public class ContactPojo {
 		this.source = source;
 		this.lastContactTime = lastContactTime;
 		this.isBlocked = isBlocked;
+		this.isProvider = isProvider;
+		this.lisence = lisence;
+		this.signature = signature;
 	}
-
-
-
-
-
-	public int getSex() {
-		return sex;
-	}
-
-
-	public void setSex(int sex) {
-		this.sex = sex;
-	}
-
-
-	public Boolean getIsBlocked() {
-		return isBlocked;
-	}
-
-
-	public void setIsBlocked(Boolean isBlocked) {
-		this.isBlocked = isBlocked;
-	}
-
 
 	public int getContactId() {
 		return contactId;
 	}
-
-
 	public void setContactId(int contactId) {
 		this.contactId = contactId;
 	}
-
-
 	public String getSortKey() {
 		return sortKey;
 	}
-
-
 	public void setSortKey(String sortKey) {
 		this.sortKey = sortKey;
 	}
-
-
 	public String getName() {
 		return name;
 	}
-
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
-
 	public String getCustomName() {
 		return customName;
 	}
-
-
-	public void setCustomName(String custom_name) {
-		this.customName = custom_name;
+	public void setCustomName(String customName) {
+		this.customName = customName;
 	}
-
-
 	public String getUserface_url() {
 		return userface_url;
 	}
-
-
 	public void setUserface_url(String userface_url) {
 		this.userface_url = userface_url;
 	}
-
-
+	public int getSex() {
+		return sex;
+	}
+	public void setSex(int sex) {
+		this.sex = sex;
+	}
 	public int getSource() {
 		return source;
 	}
-
-
 	public void setSource(int source) {
 		this.source = source;
 	}
-
-
 	public String getLastContactTime() {
 		return lastContactTime;
 	}
-
-
 	public void setLastContactTime(String lastContactTime) {
 		this.lastContactTime = lastContactTime;
 	}
+	public boolean getIsBlocked() {
+		return isBlocked;
+	}
+	public void setIsBlocked(boolean isBlocked) {
+		this.isBlocked = isBlocked;
+	}
+	public boolean getIsProvider() {
+		return isProvider;
+	}
+	public void setIsProvider(boolean isProvider) {
+		this.isProvider = isProvider;
+	}
+	public String getLisence() {
+		return lisence;
+	}
+	public void setLisence(String lisence) {
+		this.lisence = lisence;
+	}
+	public String getSignature() {
+		return signature;
+	}
+	public void setSignature(String signature) {
+		this.signature = signature;
+	}
 
 
-
+	
 }
