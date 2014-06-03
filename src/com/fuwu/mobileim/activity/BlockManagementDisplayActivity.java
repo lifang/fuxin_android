@@ -4,10 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -26,13 +24,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fuwu.mobileim.R;
+import com.fuwu.mobileim.model.Models.BlockContactRequest;
+import com.fuwu.mobileim.model.Models.BlockContactResponse;
 import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
+import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CircularImage;
 
 public class BlockManagementDisplayActivity extends Activity {
+	private ProgressDialog prodialog;
 	private ListView mListView;
 	private List<ContactPojo> list = new ArrayList<ContactPojo>();
 
@@ -45,13 +47,32 @@ public class BlockManagementDisplayActivity extends Activity {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 0:
-				// prodialog.dismiss();
+				prodialog.dismiss();
+				Toast.makeText(getApplicationContext(), "恢复成功",
+						Toast.LENGTH_SHORT).show();
+			
+				Intent intent2 = new Intent();
 
+				BlockManagementDisplayActivity.this.setResult(-11, intent2);
+				// 关闭当前activity
+				BlockManagementDisplayActivity.this.finish();
+				
+				break;
+			case 1:
+				 prodialog.dismiss();
+				Toast.makeText(getApplicationContext(), "恢复失败",
+						Toast.LENGTH_SHORT).show();
+				break;
+			case 6:
+				 prodialog.dismiss();
+				Toast.makeText(getApplicationContext(), "请求失败",
+						Toast.LENGTH_SHORT).show();
 				break;
 
 			case 7:
-				// Toast.makeText(getApplicationContext(),
-				// ExerciseBookParams.INTERNET, Toast.LENGTH_SHORT).show();
+				 prodialog.dismiss();
+				Toast.makeText(getApplicationContext(), "网络错误",
+						Toast.LENGTH_SHORT).show();
 				break;
 			}
 		}
@@ -131,7 +152,7 @@ public class BlockManagementDisplayActivity extends Activity {
 		int sex = contact.getSex();
 		if (sex == 1) { // 男
 			block_display_sex_item.setBackgroundResource(R.drawable.nan);
-		} else if (sex == 0) {
+		} else if (sex == 2) {
 			block_display_sex_item.setBackgroundResource(R.drawable.nv);
 		} else {
 			block_display_sex_item.setVisibility(View.GONE);
@@ -154,65 +175,58 @@ public class BlockManagementDisplayActivity extends Activity {
 		// 接收此人消息
 		block_display_restore.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				final Handler mHandler = new Handler() {
-					public void handleMessage(android.os.Message msg) {
-						switch (msg.what) {
-						case 0:
-							final String json8 = (String) msg.obj;
-							if (json8.length() != 0) {
-								JSONObject array;
-								try {
-									array = new JSONObject(json8);//
-									String status = array
-											.getString("status");
-									String notice = array
-											.getString("notice");
-									if ("success".equals(status)) {
-
-//										list.remove(arg0);
-										// 重新适配数据
-									}
-									Toast.makeText(getApplicationContext(),
-											notice, Toast.LENGTH_SHORT)
-											.show();
-								} catch (JSONException e) {
-									e.printStackTrace();
-								}
-							}
-							break;
-						default:
-							break;
-						}
-					}
-				};
-				final Thread thread = new Thread() {
-					public void run() {
-						try {
-							
-							
-							
-							// Message msg = new Message();// 创建Message 对象
-							// msg.what = 0;
-							// msg.obj = child_delete_json;
-							// mHandler.sendMessage(msg);
-						} catch (Exception e) {
-							handler.sendEmptyMessage(7);
-						}
-					}
-				};
-
-				// if (ExerciseBookTool.isConnect(HomepageAllActivity.this))
-				// {
-				// thread.start();
-				// } else {
-				// handler.sendEmptyMessage(7);
-				// }
-
-				Toast.makeText(getApplicationContext(), "恢复",
-						Toast.LENGTH_SHORT).show();
+				prodialog = new ProgressDialog(BlockManagementDisplayActivity.this);
+				prodialog.setMessage("正在恢复...");
+				prodialog.setCanceledOnTouchOutside(false);
+				prodialog.show();
+				Thread thread = new Thread(new BlockContact());
+				thread.start();
 
 			}
 		});
 
+	}
+	
+	/**
+	 * 
+	 * 恢复联系人到通讯录
+	 * 
+	 * 
+	 */
+
+	class BlockContact implements Runnable {
+		public void run() {
+			try {
+				Log.i("linshi", "-----------------");
+
+				BlockContactRequest.Builder builder = BlockContactRequest
+						.newBuilder();
+				builder.setUserId(1);
+				builder.setToken("MockToken");
+				builder.setContactId(contactId);
+				builder.setIsBlocked(false);
+
+				BlockContactRequest response = builder.build();
+
+				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
+						Urlinterface.BlockContact, "PUT");
+				if (by != null && by.length > 0) {
+
+					BlockContactResponse res = BlockContactResponse
+							.parseFrom(by);
+					if (res.getIsSucceed()) {
+						handler.sendEmptyMessage(0);
+					} else {
+						handler.sendEmptyMessage(1);
+					}
+				} else {
+					handler.sendEmptyMessage(6);
+				}
+				
+				//
+			} catch (Exception e) {
+				handler.sendEmptyMessage(7);
+			}
+		}
 	}
 }

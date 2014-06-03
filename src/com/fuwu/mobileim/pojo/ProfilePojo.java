@@ -13,6 +13,7 @@ public class ProfilePojo {
     private String mobile;//  手机号码
     private String email;//  邮箱
     private String birthday;//  生日
+    private String publishClassType;//  
 	
     
     public ProfilePojo() {
@@ -20,22 +21,40 @@ public class ProfilePojo {
 	}
 
 
+
+
 	public ProfilePojo(int userId, String name, String nickName, int gender,
-			String tileUrl, Boolean isProvider, String lisence,
-			 String mobile,
-			String email, String birthday) {
+			String tileUrl, Boolean isProvider, String lisence, String mobile,
+			String email, String birthday, String publishClassType) {
 		super();
 		this.userId = userId;
 		this.name = name;
 		this.nickName = nickName;
 		this.gender = gender;
 		this.tileUrl = tileUrl;
-		this.isProvider = isProvider;// 福师
+		this.isProvider = isProvider;
 		this.lisence = lisence;
 		this.mobile = mobile;
 		this.email = email;
 		this.birthday = birthday;
+		this.publishClassType = publishClassType;
 	}
+
+
+
+
+	public String getPublishClassType() {
+		return publishClassType;
+	}
+
+
+
+
+	public void setPublishClassType(String publishClassType) {
+		this.publishClassType = publishClassType;
+	}
+
+
 
 
 	public int getUserId() {

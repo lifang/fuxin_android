@@ -9,6 +9,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.pojo.MessagePojo;
 import com.fuwu.mobileim.pojo.TalkPojo;
 
@@ -66,6 +67,45 @@ public class DBManager {
 		}
 	}
 
+	// 联系人id，首字母,昵称，备注,头像,性别,交易订阅,最近联系时间,是否屏蔽，是不是 福师，认证，个人简介
+	public void addContact(ContactPojo cp) {
+		db.beginTransaction();
+		try {
+			db.execSQL(
+					"INSERT INTO contact VALUES(null,?,?,?,?,?,?,?,?,?,?,?,?)",
+					new Object[] { cp.getContactId(), cp.getSortKey(),
+							cp.getName(), cp.getCustomName(),
+							cp.getUserface_url(), cp.getSex(), cp.getSource(),
+							cp.getLastContactTime(), cp.isBlocked(),
+							cp.isProvider(), cp.getLisence(),
+							cp.getIndividualResume() });
+			db.setTransactionSuccessful();
+		} finally {
+			db.endTransaction();
+		}
+	}
+
+	public boolean modifyContact(List<ContactPojo> mps) {
+		boolean flag = true;
+		db = helper.getWritableDatabase();
+		try {
+			for (int i = 0; i < mps.size(); i++) {
+				ContactPojo mp = mps.get(i);
+				db.execSQL("DELETE FROM contact WHERE contactId = "
+						+ mp.getContactId());
+			}
+			for (int i = 0; i < mps.size(); i++) {
+				ContactPojo mp = mps.get(i);
+				addContact(mp);
+			}
+		} catch (SQLException e) {
+			Log.i("Max", "异常:" + e.toString());
+			flag = false;
+		}
+		db.close();
+		return flag;
+	}
+
 	public List<MessagePojo> queryMessageList(int user_id, int contact_id) {
 		ArrayList<MessagePojo> mpList = new ArrayList<MessagePojo>();
 		Cursor c = queryMessageCursor(user_id, contact_id);
@@ -94,6 +134,7 @@ public class DBManager {
 		Log.i("Max", user_id + "");
 		ArrayList<TalkPojo> talkList = new ArrayList<TalkPojo>();
 		Cursor c = queryTalkCursor(user_id);
+
 		while (c.moveToNext()) {
 			TalkPojo talk = new TalkPojo();
 			talk.setContact_id(c.getInt(c.getColumnIndex("contact_id")));

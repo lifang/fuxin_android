@@ -57,6 +57,7 @@ public class FragmengtActivity extends FragmentActivity {
 	private int cursorW = 0;
 	private List<TextView> btnList = new ArrayList<TextView>();
 	private TextView menu_talk, menu_address_book, menu_settings;
+
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
@@ -80,7 +81,7 @@ public class FragmengtActivity extends FragmentActivity {
 				} else {
 					contact_search.setVisibility(View.GONE);
 				}
-				
+
 			}
 		});
 		Intent i = new Intent();
@@ -96,7 +97,7 @@ public class FragmengtActivity extends FragmentActivity {
 		InitImageView();
 
 	}
-	
+
 	/**
 	 * 获得button 以及设置监听
 	 * 
@@ -104,23 +105,23 @@ public class FragmengtActivity extends FragmentActivity {
 	 */
 	private void getButton() {
 		menu_talk = (TextView) findViewById(R.id.menu_talk);
-		menu_address_book = (TextView)findViewById(R.id.menu_address_book);
+		menu_address_book = (TextView) findViewById(R.id.menu_address_book);
 		menu_settings = (TextView) findViewById(R.id.menu_settings);
 		btnList.add(menu_talk);
 		btnList.add(menu_address_book);
 		btnList.add(menu_settings);
 		menu_talk.setOnClickListener(new menuOnclick(0));
-		menu_address_book.setOnClickListener(
-				new menuOnclick(1));
+		menu_address_book.setOnClickListener(new menuOnclick(1));
 		menu_settings.setOnClickListener(new menuOnclick(2));
 	}
+
 	/**
 	 * 改变文本 的颜色
 	 * 
 	 * 
 	 */
 	private void changeColor(int buttonNumber) {
-		
+
 		for (int i = 0; i < btnList.size(); i++) {
 			if (buttonNumber == i) {
 				btnList.get(i).setTextColor(
@@ -132,7 +133,7 @@ public class FragmengtActivity extends FragmentActivity {
 			}
 		}
 	}
-	
+
 	/**
 	 * 初始化动画
 	 */
@@ -203,14 +204,14 @@ public class FragmengtActivity extends FragmentActivity {
 						// getApplication(),
 						// ((ContactPojo) adapter.getItem(position))
 						// .getName(), Toast.LENGTH_SHORT).show();
-//						Toast.makeText(getApplication(), "传参，，跳到对话界面，并清空搜索框",
-//								Toast.LENGTH_SHORT).show();
+						// Toast.makeText(getApplication(), "传参，，跳到对话界面，并清空搜索框",
+						// Toast.LENGTH_SHORT).show();
 						Intent intent = new Intent();
-//						intent.p
+						// intent.p
 						intent.setClass(FragmengtActivity.this,
 								ChatActivity.class);
 						startActivity(intent);
-						 contact_search_edittext.setText("");
+						contact_search_edittext.setText("");
 					}
 				});
 
@@ -221,6 +222,13 @@ public class FragmengtActivity extends FragmentActivity {
 		public void onClick(View v) {
 			main_search.setVisibility(View.VISIBLE);
 			contacts_search_linearLayout.setVisibility(View.VISIBLE);
+
+			final Animation translateAnimation = new TranslateAnimation(720, 0,
+					0, 0); // 移动动画效果
+			
+			translateAnimation.setDuration(400);               //设置动画持续时间  
+			main_search.setAnimation(translateAnimation);             //设置动画效果  
+            translateAnimation.startNow();                      //启动动画 
 			// 模拟
 			SourceDateList = fxApplication.getContactsList();
 			// adapter = new ContactAdapter(MainActivity.this,
@@ -277,7 +285,7 @@ public class FragmengtActivity extends FragmentActivity {
 
 		return findlist;
 	}
-	
+
 	class menuOnclick implements OnClickListener {
 		private int index = 0;
 

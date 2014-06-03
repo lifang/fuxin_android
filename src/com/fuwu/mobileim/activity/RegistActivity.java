@@ -172,7 +172,7 @@ public class RegistActivity extends Activity implements OnClickListener,
 			try {
 				RegisterRequest.Builder builder = RegisterRequest.newBuilder();
 				builder.setMobilePhoneNumber(phone_text.getText().toString());
-				builder.setName(name_text.getText().toString());
+//				builder.setName(name_text.getText().toString());
 				builder.setPassword(pwd_text.getText().toString());
 				builder.setPasswordConfirm(pwds_text.getText().toString());
 				builder.setValidateCode(yz_text.getText().toString());
