@@ -8,6 +8,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -18,7 +19,7 @@ import android.widget.TextView;
 
 import com.fuwu.mobileim.R;
 
-public class SystemPushActivity extends Activity {
+public class SystemPushActivity extends Activity implements OnClickListener {
 
 	private ListView mListView;
 	private myListViewAdapter clvAdapter;
@@ -27,6 +28,8 @@ public class SystemPushActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.system_push);
+		findViewById(R.id.exit).setOnClickListener(this);
+
 		for (int i = 0; i < 10; i++) {
 			list.add("马龙是狗,马龙大黑狗,black dog,马龙是狗,马龙大黑狗,black dog");
 		}
@@ -80,5 +83,9 @@ public class SystemPushActivity extends Activity {
 			}
 			return arg1;
 		}
+	}
+
+	public void onClick(View v) {
+		SystemPushActivity.this.finish();
 	}
 }

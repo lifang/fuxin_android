@@ -92,6 +92,10 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 					}
 				}
 				break;
+			case 4:
+				Toast.makeText(UpdatePwdActivity.this, "请求超时",
+						Toast.LENGTH_SHORT).show();
+				break;
 			}
 		}
 	};
@@ -163,7 +167,7 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 				}
 
 			} catch (InvalidProtocolBufferException e) {
-				e.printStackTrace();
+				handler.sendEmptyMessage(4);
 			}
 		}
 	}
@@ -192,7 +196,7 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 					handler.sendEmptyMessage(3);
 				}
 			} catch (InvalidProtocolBufferException e) {
-				e.printStackTrace();
+				handler.sendEmptyMessage(4);
 			}
 		}
 	}
@@ -220,9 +224,6 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 		if (phone_btn) {
 			return false;
 		}
-		// if (yz_text.getText().toString().equals("")) {
-		// return false;
-		// }
 		return true;
 	}
 

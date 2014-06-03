@@ -60,7 +60,7 @@ public class BlockManagementActivity extends Activity {
 		fxApplication = (FxApplication) getApplication();
 		// 获得被屏蔽的联系人
 		for (int i = 0; i < fxApplication.getContactsList().size(); i++) {
-			if (fxApplication.getContactsList().get(i).getIsBlocked()) {
+			if (fxApplication.getContactsList().get(i).isBlocked()) {
 				list.add(fxApplication.getContactsList().get(i));
 			}
 		}
@@ -187,7 +187,7 @@ public class BlockManagementActivity extends Activity {
 				public void onClick(View v) {
 					Intent intent = new Intent(BlockManagementActivity.this,
 							BlockManagementDisplayActivity.class);
-					intent.putExtra("contactId",contact.getContactId() );
+					intent.putExtra("contactId", contact.getContactId());
 					startActivity(intent);
 				}
 			});

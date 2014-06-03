@@ -92,6 +92,10 @@ public class RegistActivity extends Activity implements OnClickListener,
 				Toast.makeText(RegistActivity.this, "短信发送失败,请重试",
 						Toast.LENGTH_SHORT).show();
 				break;
+			case 4:
+				Toast.makeText(RegistActivity.this, "请求超时", Toast.LENGTH_SHORT)
+						.show();
+				break;
 			}
 		}
 	};
@@ -172,7 +176,7 @@ public class RegistActivity extends Activity implements OnClickListener,
 			try {
 				RegisterRequest.Builder builder = RegisterRequest.newBuilder();
 				builder.setMobilePhoneNumber(phone_text.getText().toString());
-				builder.setName(name_text.getText().toString());
+				// builder.setName(name_text.getText().toString());
 				builder.setPassword(pwd_text.getText().toString());
 				builder.setPasswordConfirm(pwds_text.getText().toString());
 				builder.setValidateCode(yz_text.getText().toString());
@@ -191,7 +195,7 @@ public class RegistActivity extends Activity implements OnClickListener,
 					handler.sendEmptyMessage(2);
 				}
 			} catch (InvalidProtocolBufferException e) {
-				e.printStackTrace();
+				handler.sendEmptyMessage(4);
 			}
 		}
 	}
@@ -225,7 +229,7 @@ public class RegistActivity extends Activity implements OnClickListener,
 					handler.sendEmptyMessage(3);
 				}
 			} catch (InvalidProtocolBufferException e) {
-				e.printStackTrace();
+				handler.sendEmptyMessage(4);
 			}
 		}
 	}

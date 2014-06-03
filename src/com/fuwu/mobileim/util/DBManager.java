@@ -139,7 +139,8 @@ public class DBManager {
 	}
 
 	public Cursor queryTalkCursor(int user_id) {
-		Cursor c = db.rawQuery("SELECT * FROM talk where user_id = ?",
+		Cursor c = db.rawQuery(
+				"SELECT * FROM talk where user_id = ? order by time desc",
 				new String[] { user_id + "" });
 		return c;
 	}
