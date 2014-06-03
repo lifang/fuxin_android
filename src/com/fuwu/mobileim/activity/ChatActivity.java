@@ -6,10 +6,22 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
-
+import com.fuwu.mobileim.R;
+import com.fuwu.mobileim.adapter.FaceAdapter;
+import com.fuwu.mobileim.adapter.FacePageAdapter;
+import com.fuwu.mobileim.adapter.MessageListViewAdapter;
+import com.fuwu.mobileim.model.Models.SendMessageRequest;
+import com.fuwu.mobileim.model.Models.SendMessageResponse;
+import com.fuwu.mobileim.pojo.MessagePojo;
+import com.fuwu.mobileim.util.DBManager;
+import com.fuwu.mobileim.util.FxApplication;
+import com.fuwu.mobileim.util.HttpUtil;
+import com.fuwu.mobileim.util.TimeUtil;
+import com.fuwu.mobileim.util.Urlinterface;
+import com.fuwu.mobileim.view.CirclePageIndicator;
+import com.google.protobuf.InvalidProtocolBufferException;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -47,21 +59,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
-
-import com.fuwu.mobileim.R;
-import com.fuwu.mobileim.adapter.FaceAdapter;
-import com.fuwu.mobileim.adapter.FacePageAdapter;
-import com.fuwu.mobileim.adapter.MessageListViewAdapter;
-import com.fuwu.mobileim.model.Models.SendMessageRequest;
-import com.fuwu.mobileim.model.Models.SendMessageResponse;
-import com.fuwu.mobileim.pojo.MessagePojo;
-import com.fuwu.mobileim.util.DBManager;
-import com.fuwu.mobileim.util.FxApplication;
-import com.fuwu.mobileim.util.HttpUtil;
-import com.fuwu.mobileim.util.TimeUtil;
-import com.fuwu.mobileim.view.CirclePageIndicator;
-import com.google.protobuf.InvalidProtocolBufferException;
 
 /**
  * @作者 马龙
@@ -90,7 +87,6 @@ public class ChatActivity extends Activity implements OnClickListener,
 	private List<String> keys;
 	private List<MessagePojo> list;
 	private MessageListViewAdapter mMessageAdapter;
-	private ProgressDialog pd;
 	private DBManager db;
 	private RequstReceiver mReuRequstReceiver;
 	private Handler handler = new Handler() {
@@ -101,12 +97,12 @@ public class ChatActivity extends Activity implements OnClickListener,
 			case 1:
 				break;
 			case 2:
-				Toast.makeText(getApplicationContext(), "更新记录", 0).show();
+				// Toast.makeText(getApplicationContext(), "更新记录",
+				// Toast.LENGTH_SHORT).show();
 				updateMessageData();
 				mMessageAdapter.updMessageList(list);
 				break;
 			}
-			// pd.dismiss();
 		}
 	};
 
@@ -118,18 +114,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 		initView();
 		initFacePage();
 		initPlusGridView();
-		// pd = new ProgressDialog(this);
-		// pd.setMessage("正在加载");
-		// pd.show();
 		mReuRequstReceiver = new RequstReceiver();
-
-	}
-
-	class chatMessage extends Thread {
-		public void run() {
-			super.run();
-			handler.sendEmptyMessage(1);
-		}
 	}
 
 	public void initData() {
@@ -165,6 +150,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 		mSendBtn.setOnClickListener(this);
 		msgEt.setOnClickListener(this);
 		msgEt.addTextChangedListener(this);
+		mBack.setOnClickListener(this);
 		mBack.setImageBitmap(getBitmapScale(BitmapFactory.decodeResource(
 				getResources(), R.drawable.back)));
 		mOther.setImageBitmap(getBitmapScale(BitmapFactory.decodeResource(
@@ -358,26 +344,17 @@ public class ChatActivity extends Activity implements OnClickListener,
 
 	public Bitmap getBitmapScale(Bitmap bmp) {
 		int bmpWidth = bmp.getWidth();
-
 		int bmpHeight = bmp.getHeight();
-
 		// 缩放图片的尺寸
-
 		float scale = (height / 1920f) * 100;
-
 		float scaleWidth = (float) scale / bmpWidth; // 按固定大小缩放 sWidth 写多大就多大
-
 		float scaleHeight = (float) scale / bmpHeight;
 
 		Matrix matrix = new Matrix();
-
 		matrix.postScale(scaleWidth, scaleHeight);// 产生缩放后的Bitmap对象
-
 		Bitmap resizeBitmap = Bitmap.createBitmap(bmp, 0, 0, bmpWidth,
 				bmpHeight, matrix, false);
-
 		bmp.recycle();
-
 		return resizeBitmap;
 	}
 
@@ -400,7 +377,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 				SendMessageRequest smr = builder.build();
 				SendMessageResponse response = SendMessageResponse
 						.parseFrom(HttpUtil.sendHttps(smr.toByteArray(),
-								"https://118.242.18.189/api/Message", "PUT"));
+								Urlinterface.Message, "PUT"));
 				Log.i("Ax",
 						response.getIsSucceed() + "--"
 								+ response.getErrorCode());
@@ -460,11 +437,13 @@ public class ChatActivity extends Activity implements OnClickListener,
 					db = new DBManager(this);
 				}
 				MessagePojo mp;
-				if (TimeUtil.isFiveMin(db.getLastTime(1, 2))) {
-					SimpleDateFormat format = new SimpleDateFormat(
-							"yy-MM-dd HH:mm");
+				SimpleDateFormat sdf = new SimpleDateFormat(
+						"yyyy-MM-dd HH:mm:ss");
+				if (TimeUtil.isFiveMin(db.getLastTime(1, 2), sdf
+						.format(new Date(
+								System.currentTimeMillis() - 11 * 60 * 1000)))) {
 					Date today = new Date(System.currentTimeMillis());
-					mp = new MessagePojo(1, 2, format.format(today), str, 1, 1);
+					mp = new MessagePojo(1, 2, sdf.format(today), str, 1, 1);
 				} else {
 					mp = new MessagePojo(1, 2, "", str, 1, 1);
 				}
@@ -484,6 +463,9 @@ public class ChatActivity extends Activity implements OnClickListener,
 				isPlusShow = false;
 				mPlusGridView.setVisibility(View.GONE);
 			}
+			break;
+		case R.id.chat_back:
+			this.finish();
 			break;
 		}
 	}

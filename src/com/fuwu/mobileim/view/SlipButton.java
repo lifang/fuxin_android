@@ -43,8 +43,7 @@ public class SlipButton extends View implements OnTouchListener {
 		bg_on = BitmapFactory.decodeResource(getResources(), R.drawable.hd_on);
 		bg_off = BitmapFactory
 				.decodeResource(getResources(), R.drawable.hd_off);
-		slip_btn = BitmapFactory.decodeResource(getResources(),
-				R.drawable.hd_btn);
+		slip_btn = BitmapFactory.decodeResource(getResources(), R.drawable.y3);
 		Btn_On = new Rect(0, 0, slip_btn.getWidth(), slip_btn.getHeight());
 		Btn_Off = new Rect(bg_off.getWidth() - slip_btn.getWidth(), 0,
 				bg_off.getWidth(), slip_btn.getHeight());

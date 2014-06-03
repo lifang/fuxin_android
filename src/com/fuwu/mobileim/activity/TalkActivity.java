@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.annotation.SuppressLint;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
@@ -41,7 +39,6 @@ public class TalkActivity extends Fragment {
 	public Intent intent = new Intent();
 	private DBManager db;
 	private View rootView;
-	private RequstReceiver mReuRequstReceiver;
 	private int contact_id;
 	private FxApplication fx;
 	@SuppressLint("HandlerLeak")
@@ -76,7 +73,6 @@ public class TalkActivity extends Fragment {
 		fx = (FxApplication) getActivity().getApplication();
 		initData();
 
-		mReuRequstReceiver = new RequstReceiver();
 		mListView = (ListView) rootView.findViewById(R.id.talk_listview);
 		mListView.setAdapter(clvAdapter);
 		mListView.setOnItemClickListener(new OnItemClickListener() {
@@ -101,7 +97,7 @@ public class TalkActivity extends Fragment {
 		if (file.exists()) {
 			Log.i("Max", "存在");
 		}
-		handler.sendEmptyMessage(2);
+		// handler.sendEmptyMessage(2);
 		return rootView;
 	}
 
@@ -113,7 +109,7 @@ public class TalkActivity extends Fragment {
 		final TextView del = (TextView) view.findViewById(R.id.del_talk);
 		// 设置对话框显示的View
 		// 点击确定是的监听
-		final MyDialog builder = new MyDialog(getActivity(), 0, 0, view,
+		final MyDialog builder = new MyDialog(getActivity(), 0, view,
 				R.style.mydialog);
 		del.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View arg0) {
@@ -155,20 +151,18 @@ public class TalkActivity extends Fragment {
 	}
 
 	public void onResume() {
-		handler.sendEmptyMessage(2);
-		// getActivity().registerReceiver(mReuRequstReceiver,
-		// new IntentFilter("com.comdosoft.fuxun.REQUEST_ACTION"));
 		super.onResume();
 	}
 
 	public void onPause() {
 		super.onPause();
-		// getActivity().unregisterReceiver(mReuRequstReceiver);
 	}
 
-	class RequstReceiver extends BroadcastReceiver {
-		public void onReceive(Context context, Intent intent) {
-			handler.sendEmptyMessage(4);
-		}
+	public void onStart() {
+		Log.i("Max", "onStart");
+		Log.i("Max", "刷新");
+		handler.sendEmptyMessage(2);
+		super.onStart();
 	}
+
 }

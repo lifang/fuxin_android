@@ -6,7 +6,6 @@ import java.util.List;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,8 +82,10 @@ public class TalkListViewAdapter extends BaseAdapter {
 		}
 		holder.content.setText(list.get(arg0).getContent());
 		holder.dath.setText(TimeUtil.getChatTime(list.get(arg0).getTime()));
-		imageLoader.displayImage(Environment.getExternalStorageDirectory()
-				+ "/test.jpg", holder.head, options, animateFirstListener);
+		imageLoader
+				.displayImage(
+						"http://b.hiphotos.baidu.com/image/pic/item/3bf33a87e950352acf3644875143fbf2b3118bed.jpg",
+						holder.head, options, animateFirstListener);
 		return arg1;
 
 	}

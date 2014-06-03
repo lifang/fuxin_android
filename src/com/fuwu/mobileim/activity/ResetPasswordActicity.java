@@ -312,7 +312,7 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 		del.setText("确定");
 		// 设置对话框显示的View
 		// 点击确定是的监听
-		final MyDialog builder = new MyDialog(ResetPasswordActicity.this, 0, 0,
+		final MyDialog builder = new MyDialog(ResetPasswordActicity.this, 0,
 				view, R.style.mydialog);
 		del.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View arg0) {

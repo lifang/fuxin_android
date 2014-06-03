@@ -92,6 +92,10 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 					}
 				}
 				break;
+			case 4:
+				Toast.makeText(UpdatePwdActivity.this, "请求超时",
+						Toast.LENGTH_SHORT).show();
+				break;
 			}
 		}
 	};
@@ -158,12 +162,12 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 					handler.sendEmptyMessage(0);
 				} else {
 					validate_boolean = true;
-					Log.i("Max", response.getErrorCode()+"");
+					Log.i("Max", response.getErrorCode() + "");
 					handler.sendEmptyMessage(2);
 				}
 
 			} catch (InvalidProtocolBufferException e) {
-				e.printStackTrace();
+				handler.sendEmptyMessage(4);
 			}
 		}
 	}
@@ -192,7 +196,7 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 					handler.sendEmptyMessage(3);
 				}
 			} catch (InvalidProtocolBufferException e) {
-				e.printStackTrace();
+				handler.sendEmptyMessage(4);
 			}
 		}
 	}
@@ -220,9 +224,6 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 		if (phone_btn) {
 			return false;
 		}
-		// if (yz_text.getText().toString().equals("")) {
-		// return false;
-		// }
 		return true;
 	}
 
@@ -335,8 +336,8 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 		del.setText("确定");
 		// 设置对话框显示的View
 		// 点击确定是的监听
-		final MyDialog builder = new MyDialog(UpdatePwdActivity.this, 0, 0,
-				view, R.style.mydialog);
+		final MyDialog builder = new MyDialog(UpdatePwdActivity.this, 0, view,
+				R.style.mydialog);
 		del.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View arg0) {
 				builder.dismiss();

@@ -57,6 +57,10 @@ public class LoginActivity extends Activity implements OnClickListener,
 					}
 				}
 				break;
+			case 2:
+				Toast.makeText(LoginActivity.this, "请求超时", Toast.LENGTH_SHORT)
+						.show();
+				break;
 			}
 		}
 	};
@@ -75,6 +79,7 @@ public class LoginActivity extends Activity implements OnClickListener,
 	public void initialize() {
 		user_text = (EditText) findViewById(R.id.user);
 		pwd_text = (EditText) findViewById(R.id.pwd);
+		// user_text.setText("MockUserName");
 		user_text.setText("15862373890");
 	}
 
@@ -121,8 +126,8 @@ public class LoginActivity extends Activity implements OnClickListener,
 						.parseFrom(HttpUtil.sendHttps(request.toByteArray(),
 								Urlinterface.LOGIN, "POST"));
 				if (response.getIsSucceed()) {
-					fx.setUser_id(response.getUserId());
-					fx.setToken(response.getToken());
+					fx.setUser_id(1);
+					fx.setToken("MockToken");
 					handler.sendEmptyMessage(0);
 
 				} else {
@@ -131,7 +136,7 @@ public class LoginActivity extends Activity implements OnClickListener,
 					handler.sendEmptyMessage(1);
 				}
 			} catch (InvalidProtocolBufferException e) {
-				e.printStackTrace();
+				handler.sendEmptyMessage(2);
 			}
 		}
 	}

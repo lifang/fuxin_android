@@ -2,8 +2,15 @@ package com.fuwu.mobileim.activity;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import com.fuwu.mobileim.R;
+import com.fuwu.mobileim.adapter.ContactAdapter;
+import com.fuwu.mobileim.adapter.FragmentViewPagerAdapter;
+import com.fuwu.mobileim.pojo.ContactPojo;
+import com.fuwu.mobileim.util.FxApplication;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Matrix;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -28,12 +35,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.fuwu.mobileim.R;
-import com.fuwu.mobileim.adapter.ContactAdapter;
-import com.fuwu.mobileim.adapter.FragmentViewPagerAdapter;
-import com.fuwu.mobileim.pojo.ContactPojo;
-import com.fuwu.mobileim.util.FxApplication;
-
 /**
  * @作者 马龙
  * @时间 创建时间：2014-5-27 下午6:36:44
@@ -52,6 +53,7 @@ public class FragmengtActivity extends FragmentActivity {
 	private List<ContactPojo> SourceDateList;
 	private ContactAdapter adapter;
 	private ImageView cursor;
+	private RequstReceiver mReuRequstReceiver;
 	private int offset = 0;
 	private int currIndex = 0;
 	private int cursorW = 0;
@@ -81,7 +83,6 @@ public class FragmengtActivity extends FragmentActivity {
 				} else {
 					contact_search.setVisibility(View.GONE);
 				}
-
 			}
 		});
 		Intent i = new Intent();
@@ -90,12 +91,13 @@ public class FragmengtActivity extends FragmentActivity {
 
 		contact_search = (ImageView) findViewById(R.id.contact_search);
 		fxApplication = (FxApplication) getApplication();
+		mReuRequstReceiver = new RequstReceiver();
+
 		searchMethod();
 
 		changeTitleStyle();
 		setEdittextListening();
 		InitImageView();
-
 	}
 
 	/**
@@ -173,7 +175,6 @@ public class FragmengtActivity extends FragmentActivity {
 		style2.setSpan(new AbsoluteSizeSpan(25), 3, tv_str.length(),
 				Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 		tv.setText(style2);
-
 	}
 
 	/**
@@ -300,7 +301,27 @@ public class FragmengtActivity extends FragmentActivity {
 				changeLocation(index);
 			}
 		}
+	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		registerReceiver(mReuRequstReceiver, new IntentFilter(
+				"com.comdosoft.fuxun.REQUEST_ACTION"));
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		unregisterReceiver(mReuRequstReceiver);
+
+	}
+
+	class RequstReceiver extends BroadcastReceiver {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			list.get(0).onStart();
+		}
 	}
 
 }
