@@ -93,10 +93,16 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			switch (msg.what) {
 			case 0:
 
+				if (!db.isOpen()) {
+					db = new DBManager(getActivity());
+				}
+				contactsList = db.queryContactList(fxApplication.getUser_id());
+				
 				// 根据a-z进行排序源数据
 				if (contactsList.size() > 1) { // 2个以上进行排序
 					Collections.sort(contactsList, pinyinComparator);
 				}
+				
 
 				fxApplication.setContactsList(contactsList);
 				fxApplication.setContactsMap(contactsMap);
@@ -105,7 +111,15 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 
 				break;
 			case 1:
-
+				if (!db.isOpen()) {
+					db = new DBManager(getActivity());
+				}
+				for (int i = 0; i < contactsList.size(); i++) {
+					db.modifyContact(contactsList.get(i).getContactId(),
+							contactsList.get(i));
+				}
+				contactsList = db.queryContactList(fxApplication.getUser_id());
+				
 				// 根据a-z进行排序源数据
 				if (contactsList.size() > 1) { // 2个以上进行排序
 					Collections.sort(contactsList, pinyinComparator);
@@ -142,6 +156,18 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		setButton();
 		return rootView;
 	}
+	
+	
+
+	@Override
+	public void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+		Log.i("11", "-----------");
+		handler.sendEmptyMessage(0);
+	}
+
+
 
 	/**
 	 * 
@@ -156,6 +182,8 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 				ContactRequest.Builder builder = ContactRequest.newBuilder();
 				builder.setUserId(fxApplication.getUser_id());
 				builder.setToken(fxApplication.getToken());
+//				builder.setUserId(1);
+//				builder.setToken("MockToken");
 				Log.i("1", "User_id:" + fxApplication.getUser_id() + "--Token"
 						+ fxApplication.getToken());
 				ContactRequest response = builder.build();
@@ -342,6 +370,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			} catch (Exception e) {
 				// prodialog.dismiss();
 				// handler.sendEmptyMessage(7);
+				onLoad();
 			}
 		}
 	}
@@ -355,8 +384,9 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		characterParser = CharacterParser.getInstance();
 
 		pinyinComparator = new PinyinComparator();
-		Thread thread = new Thread(new getContacts());
-		thread.start();
+//		Thread thread = new Thread(new getContacts());
+//		thread.start();
+		
 		sectionToastLayout = (RelativeLayout) rootView
 				.findViewById(R.id.section_toast_layout);
 		sectionToastText = (TextView) rootView
@@ -428,6 +458,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 				startActivity(intent);
 			}
 		});
+		
 
 	}
 
@@ -661,7 +692,8 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 	@Override
 	public void onRefresh() {
 		// TODO Auto-generated method stub
-
+		contactsList = new ArrayList<ContactPojo>();
+		contactsMap = new HashMap<Integer, ContactPojo>();
 		Thread thread = new Thread(new getContacts2());
 		thread.start();
 		Log.i("linshi", "1111111111111111111111111111");

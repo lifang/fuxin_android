@@ -9,7 +9,7 @@ public interface Urlinterface {
 	static final String SHARED = "FuXun";
 	static final double current_version = 0.0;// 应用版本号
 	static final String IP = "https://118.242.18.189/IMApi/";
-	// static final String IP = "https://118.242.18.189/IMApiMock/";
+//	 static final String IP = "https://118.242.18.189/IMApiMock/";
 	// 获得联系人
 	static final String getContacts = IP + "api/Contact";
 	// 注册

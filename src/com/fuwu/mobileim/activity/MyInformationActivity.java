@@ -1,7 +1,12 @@
 package com.fuwu.mobileim.activity;
 
+import java.io.File;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -93,7 +98,16 @@ public class MyInformationActivity extends Activity {
 		// 设置头像
 		String face_str = profilePojo.getTileUrl();
 		if (face_str.length() > 4) {
-			FuXunTools.setBackground(face_str, myinfo_userface);
+			face_str=Urlinterface.IP+face_str;
+			File f = new File(Urlinterface.head_pic, profilePojo.getUserId()+"");
+			if (f.exists()) {
+				Log.i("linshi------------", "加载本地图片");
+				Drawable dra = new BitmapDrawable(
+						BitmapFactory.decodeFile(Urlinterface.head_pic + profilePojo.getUserId()));
+				myinfo_userface.setImageDrawable(dra);
+			} else {
+				FuXunTools.set_bk(profilePojo.getUserId(),face_str, myinfo_userface);
+			}
 		} else {
 			myinfo_userface.setImageResource(R.drawable.moren);
 		}

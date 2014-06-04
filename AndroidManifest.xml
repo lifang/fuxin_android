@@ -49,7 +49,9 @@
 
         <service android:name="com.fuwu.mobileim.activity.RequstService" />
 
-        <activity android:name="com.fuwu.mobileim.activity.FragmengtActivity" />
+        <activity android:name="com.fuwu.mobileim.activity.FragmengtActivity" >
+            
+        </activity>
         <activity android:name="com.fuwu.mobileim.activity.ResetPasswordActicity" />
         <activity android:name="com.fuwu.mobileim.activity.PushSettingActivity" >
             
