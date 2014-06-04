@@ -19,7 +19,6 @@ import com.fuwu.mobileim.model.Models.AuthenticationResponse;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.Urlinterface;
-import com.google.protobuf.InvalidProtocolBufferException;
 
 /**
  * 作者: 张秀楠 时间：2014-5-23 下午4:34:03
@@ -113,7 +112,7 @@ public class LoginActivity extends Activity implements OnClickListener,
 		}
 	}
 
-	// 短信验证
+	// 登陆
 	class Login_Post implements Runnable {
 		public void run() {
 			try {
@@ -135,8 +134,9 @@ public class LoginActivity extends Activity implements OnClickListener,
 					error_code = response.getErrorCode().toString();
 					handler.sendEmptyMessage(1);
 				}
-			} catch (InvalidProtocolBufferException e) {
+			} catch (Exception e) {
 				handler.sendEmptyMessage(2);
+				Log.i("error", e.toString());
 			}
 		}
 	}

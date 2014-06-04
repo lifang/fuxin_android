@@ -30,7 +30,6 @@ import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.MyDialog;
-import com.google.protobuf.InvalidProtocolBufferException;
 
 /**
  * 作者: 张秀楠 时间：2014-5-27 下午3:23:31
@@ -166,8 +165,9 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 					handler.sendEmptyMessage(2);
 				}
 
-			} catch (InvalidProtocolBufferException e) {
+			} catch (Exception e) {
 				handler.sendEmptyMessage(4);
+				Log.i("error", e.toString());
 			}
 		}
 	}
@@ -195,8 +195,9 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 					error_code = response.getErrorCode().toString();
 					handler.sendEmptyMessage(3);
 				}
-			} catch (InvalidProtocolBufferException e) {
+			} catch (Exception e) {
 				handler.sendEmptyMessage(4);
+				Log.i("error", e.toString());
 			}
 		}
 	}

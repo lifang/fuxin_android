@@ -82,10 +82,9 @@ public class TalkListViewAdapter extends BaseAdapter {
 		}
 		holder.content.setText(list.get(arg0).getContent());
 		holder.dath.setText(TimeUtil.getChatTime(list.get(arg0).getTime()));
-		imageLoader
-				.displayImage(
-						"http://b.hiphotos.baidu.com/image/pic/item/3bf33a87e950352acf3644875143fbf2b3118bed.jpg",
-						holder.head, options, animateFirstListener);
+		imageLoader.displayImage(
+				"http://p4.gexing.com/touxiang/2012/6/8/201268195891134.jpg",
+				holder.head, options, animateFirstListener);
 		return arg1;
 
 	}

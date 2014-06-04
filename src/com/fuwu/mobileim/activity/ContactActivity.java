@@ -622,7 +622,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		xListView.stopRefresh();
 	}
 
-	@Override
+
 	public void onRefresh() {
 		// TODO Auto-generated method stub
 

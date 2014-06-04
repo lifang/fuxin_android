@@ -194,8 +194,9 @@ public class RegistActivity extends Activity implements OnClickListener,
 					error_code = response.getErrorCode().toString();
 					handler.sendEmptyMessage(2);
 				}
-			} catch (InvalidProtocolBufferException e) {
+			} catch (Exception e) {
 				handler.sendEmptyMessage(4);
+				Log.i("error", e.toString());
 			}
 		}
 	}
@@ -228,8 +229,9 @@ public class RegistActivity extends Activity implements OnClickListener,
 					validate_boolean = true;
 					handler.sendEmptyMessage(3);
 				}
-			} catch (InvalidProtocolBufferException e) {
+			} catch (Exception e) {
 				handler.sendEmptyMessage(4);
+				Log.i("error", e.toString());
 			}
 		}
 	}

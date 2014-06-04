@@ -21,7 +21,7 @@ public interface Urlinterface {
 	// 登陆
 	static final String LOGIN = IP + "api/Authentication";
 	// 修改密码
-	static final String PASSWORD = IP + "api/Password";
+	static final String PASSWORD = IP + "api/ChangePassword";
 	// 找回密码
 	static final String RESETPASSWORD = IP + "api/ResetPassword";
 	// 获取/发送 消息

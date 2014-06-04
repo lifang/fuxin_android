@@ -2,11 +2,7 @@ package com.fuwu.mobileim.activity;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.fuwu.mobileim.R;
-import com.fuwu.mobileim.adapter.ContactAdapter;
-import com.fuwu.mobileim.adapter.FragmentViewPagerAdapter;
-import com.fuwu.mobileim.pojo.ContactPojo;
-import com.fuwu.mobileim.util.FxApplication;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -35,6 +31,13 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.fuwu.mobileim.R;
+import com.fuwu.mobileim.adapter.ContactAdapter;
+import com.fuwu.mobileim.adapter.FragmentViewPagerAdapter;
+import com.fuwu.mobileim.pojo.ContactPojo;
+import com.fuwu.mobileim.util.FxApplication;
+import com.igexin.sdk.PushManager;
+
 /**
  * @作者 马龙
  * @时间 创建时间：2014-5-27 下午6:36:44
@@ -59,6 +62,7 @@ public class FragmengtActivity extends FragmentActivity {
 	private int cursorW = 0;
 	private List<TextView> btnList = new ArrayList<TextView>();
 	private TextView menu_talk, menu_address_book, menu_settings;
+
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
@@ -97,6 +101,8 @@ public class FragmengtActivity extends FragmentActivity {
 		changeTitleStyle();
 		setEdittextListening();
 		InitImageView();
+		// 个推SDK初始化
+		PushManager.getInstance().initialize(this.getApplicationContext());
 	}
 
 	/**
@@ -106,23 +112,23 @@ public class FragmengtActivity extends FragmentActivity {
 	 */
 	private void getButton() {
 		menu_talk = (TextView) findViewById(R.id.menu_talk);
-		menu_address_book = (TextView)findViewById(R.id.menu_address_book);
+		menu_address_book = (TextView) findViewById(R.id.menu_address_book);
 		menu_settings = (TextView) findViewById(R.id.menu_settings);
 		btnList.add(menu_talk);
 		btnList.add(menu_address_book);
 		btnList.add(menu_settings);
 		menu_talk.setOnClickListener(new menuOnclick(0));
-		menu_address_book.setOnClickListener(
-				new menuOnclick(1));
+		menu_address_book.setOnClickListener(new menuOnclick(1));
 		menu_settings.setOnClickListener(new menuOnclick(2));
 	}
+
 	/**
 	 * 改变文本 的颜色
 	 * 
 	 * 
 	 */
 	private void changeColor(int buttonNumber) {
-		
+
 		for (int i = 0; i < btnList.size(); i++) {
 			if (buttonNumber == i) {
 				btnList.get(i).setTextColor(
@@ -134,7 +140,7 @@ public class FragmengtActivity extends FragmentActivity {
 			}
 		}
 	}
-	
+
 	/**
 	 * 初始化动画
 	 */
@@ -204,14 +210,14 @@ public class FragmengtActivity extends FragmentActivity {
 						// getApplication(),
 						// ((ContactPojo) adapter.getItem(position))
 						// .getName(), Toast.LENGTH_SHORT).show();
-//						Toast.makeText(getApplication(), "传参，，跳到对话界面，并清空搜索框",
-//								Toast.LENGTH_SHORT).show();
+						// Toast.makeText(getApplication(), "传参，，跳到对话界面，并清空搜索框",
+						// Toast.LENGTH_SHORT).show();
 						Intent intent = new Intent();
-//						intent.p
+						// intent.p
 						intent.setClass(FragmengtActivity.this,
 								ChatActivity.class);
 						startActivity(intent);
-						 contact_search_edittext.setText("");
+						contact_search_edittext.setText("");
 					}
 				});
 
