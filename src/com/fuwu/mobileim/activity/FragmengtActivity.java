@@ -18,8 +18,6 @@ import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -54,7 +52,6 @@ import com.fuwu.mobileim.model.Models.ContactRequest;
 import com.fuwu.mobileim.model.Models.ContactResponse;
 import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.util.DBManager;
-import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.Urlinterface;
@@ -166,7 +163,7 @@ public class FragmengtActivity extends FragmentActivity {
 		});
 		Intent i = new Intent();
 		i.setClass(this, RequstService.class);
-		startService(i);
+//		startService(i);
 
 		contact_search = (ImageView) findViewById(R.id.contact_search);
 		fxApplication = (FxApplication) getApplication();
