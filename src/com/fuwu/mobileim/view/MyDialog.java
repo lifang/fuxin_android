@@ -38,6 +38,10 @@ public class MyDialog extends Dialog {
 		}
 		p.alpha = 1.0f; // 设置本 身透明度
 		p.dimAmount = 0.6f; // 设置黑暗度
+		if (type == 2) {
+			p.alpha = 0.8f; // 设置本 身透明度
+			p.dimAmount = 0f; // 设置黑暗度
+		}
 		window.setAttributes(p);
 	}
 

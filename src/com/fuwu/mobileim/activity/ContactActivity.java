@@ -168,7 +168,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 								.getName());
 						String customName = res.getContacts(i).getCustomName();
 						String userface_url = res.getContacts(i).getTileUrl();
-						int sex = res.getContacts(i).getGender();
+						int sex = res.getContacts(i).getGender().getNumber();
 						int source = res.getContacts(i).getSource();
 						String lastContactTime = res.getContacts(i)
 								.getLastContactTime();// 2014-05-27 11:42:18
@@ -176,8 +176,8 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 						Boolean isProvider = res.getContacts(i).getIsProvider();
 
 						String lisence = res.getContacts(i).getLisence();
-						String publishClassType = res.getContacts(i)
-								.getPublishClassType();
+//						String publishClassType = res.getContacts(i)
+//								.getPublishClassType();
 						String signature = null;
 						// String signature = res.getContacts(i).getSignature();
 						ContactPojo coPojo = new ContactPojo(contactId,
@@ -275,7 +275,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 								.getName());
 						String customName = res.getContacts(i).getCustomName();
 						String userface_url = res.getContacts(i).getTileUrl();
-						int sex = res.getContacts(i).getGender();
+						int sex = res.getContacts(i).getGender().getNumber();
 						int source = res.getContacts(i).getSource();
 						String lastContactTime = res.getContacts(i)
 								.getLastContactTime();// 2014-05-27 11:42:18
@@ -283,8 +283,8 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 						Boolean isProvider = res.getContacts(i).getIsProvider();
 
 						String lisence = res.getContacts(i).getLisence();
-						String publishClassType = res.getContacts(i)
-								.getPublishClassType();
+//						String publishClassType = res.getContacts(i)
+//								.getPublishClassType();
 						String signature = null;
 						// String signature = res.getContacts(i).getSignature();
 						ContactPojo coPojo = new ContactPojo(contactId,

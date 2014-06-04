@@ -2,13 +2,11 @@ package com.fuwu.mobileim.util;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-
 import com.fuwu.mobileim.pojo.MessagePojo;
 import com.fuwu.mobileim.pojo.TalkPojo;
 
@@ -66,9 +64,22 @@ public class DBManager {
 		}
 	}
 
-	public List<MessagePojo> queryMessageList(int user_id, int contact_id) {
+	public void delMessage(int user_id, int contact_id) {
+		db.beginTransaction();
+		try {
+			db.execSQL(
+					"Delete from message where user_id = ? and contact_id = ? ",
+					new Object[] { user_id + "", contact_id + "" });
+			db.setTransactionSuccessful();
+		} finally {
+			db.endTransaction();
+		}
+	}
+
+	public List<MessagePojo> queryMessageList(int user_id, int contact_id,
+			int num, int max) {
 		ArrayList<MessagePojo> mpList = new ArrayList<MessagePojo>();
-		Cursor c = queryMessageCursor(user_id, contact_id);
+		Cursor c = queryMessageCursor(user_id, contact_id, num, max);
 		while (c.moveToNext()) {
 			MessagePojo mp = new MessagePojo();
 			mp.setUserId(user_id);
@@ -88,6 +99,11 @@ public class DBManager {
 			return c.getString(c.getColumnIndex("time"));
 		}
 		return null;
+	}
+
+	public int getMesCount(int user_id, int contact_id) {
+		Cursor c = queryMessageCountCursor(user_id, contact_id);
+		return c.getCount();
 	}
 
 	public List<TalkPojo> queryTalkList(int user_id) {
@@ -123,10 +139,20 @@ public class DBManager {
 		return flag;
 	}
 
-	public Cursor queryMessageCursor(int user_id, int contact_id) {
+	public Cursor queryMessageCountCursor(int user_id, int contact_id) {
 		Cursor c = db.rawQuery(
 				"SELECT * FROM message where user_id = ? and contact_id = ?",
 				new String[] { user_id + "", contact_id + "" });
+		return c;
+	}
+
+	public Cursor queryMessageCursor(int user_id, int contact_id, int num,
+			int max) {
+		Cursor c = db
+				.rawQuery(
+						"SELECT * FROM message where user_id = ? and contact_id = ? limit ?,?",
+						new String[] { user_id + "", contact_id + "", num + "",
+								max + "" });
 		return c;
 	}
 

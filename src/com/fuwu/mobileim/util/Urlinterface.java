@@ -28,4 +28,6 @@ public interface Urlinterface {
 	static final String Message = IP + "api/Message";
 	// 获得个人详细信息
 	static final String getProfile = IP + "api/Profile";
+	// 是否屏蔽 联系人 put
+	static final String BlockContact = IP + "api/Contact";
 }

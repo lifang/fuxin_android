@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.annotation.SuppressLint;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
@@ -41,7 +39,6 @@ public class TalkActivity extends Fragment {
 	public Intent intent = new Intent();
 	private DBManager db;
 	private View rootView;
-	private RequstReceiver mReuRequstReceiver;
 	private int contact_id;
 	private FxApplication fx;
 	@SuppressLint("HandlerLeak")
@@ -76,7 +73,6 @@ public class TalkActivity extends Fragment {
 		fx = (FxApplication) getActivity().getApplication();
 		initData();
 
-		mReuRequstReceiver = new RequstReceiver();
 		mListView = (ListView) rootView.findViewById(R.id.talk_listview);
 		mListView.setAdapter(clvAdapter);
 		mListView.setOnItemClickListener(new OnItemClickListener() {
@@ -169,12 +165,7 @@ public class TalkActivity extends Fragment {
 
 	public void onStart() {
 		Log.i("Max", "onStart");
+		handler.sendEmptyMessage(2);
 		super.onStart();
-	}
-
-	class RequstReceiver extends BroadcastReceiver {
-		public void onReceive(Context context, Intent intent) {
-			handler.sendEmptyMessage(4);
-		}
 	}
 }

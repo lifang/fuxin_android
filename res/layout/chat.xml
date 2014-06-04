@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/chat_main"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#ebebeb"
@@ -43,7 +44,7 @@
         android:layout_height="0.0dip"
         android:layout_weight="1.0" >
 
-        <ListView
+        <com.fuwu.mobileim.view.XListView
             android:id="@+id/chat_listView"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"

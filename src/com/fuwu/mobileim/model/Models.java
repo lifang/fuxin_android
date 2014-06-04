@@ -14,14 +14,26 @@ public final class Models {
     // optional string userName = 1;
     /**
      * <code>optional string userName = 1;</code>
+     *
+     * <pre>
+     *用户账号
+     * </pre>
      */
     boolean hasUserName();
     /**
      * <code>optional string userName = 1;</code>
+     *
+     * <pre>
+     *用户账号
+     * </pre>
      */
     java.lang.String getUserName();
     /**
      * <code>optional string userName = 1;</code>
+     *
+     * <pre>
+     *用户账号
+     * </pre>
      */
     com.google.protobuf.ByteString
         getUserNameBytes();
@@ -29,14 +41,26 @@ public final class Models {
     // optional string password = 2;
     /**
      * <code>optional string password = 2;</code>
+     *
+     * <pre>
+     *登录密码
+     * </pre>
      */
     boolean hasPassword();
     /**
      * <code>optional string password = 2;</code>
+     *
+     * <pre>
+     *登录密码
+     * </pre>
      */
     java.lang.String getPassword();
     /**
      * <code>optional string password = 2;</code>
+     *
+     * <pre>
+     *登录密码
+     * </pre>
      */
     com.google.protobuf.ByteString
         getPasswordBytes();
@@ -147,12 +171,20 @@ public final class Models {
     private java.lang.Object userName_;
     /**
      * <code>optional string userName = 1;</code>
+     *
+     * <pre>
+     *用户账号
+     * </pre>
      */
     public boolean hasUserName() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
      * <code>optional string userName = 1;</code>
+     *
+     * <pre>
+     *用户账号
+     * </pre>
      */
     public java.lang.String getUserName() {
       java.lang.Object ref = userName_;
@@ -170,6 +202,10 @@ public final class Models {
     }
     /**
      * <code>optional string userName = 1;</code>
+     *
+     * <pre>
+     *用户账号
+     * </pre>
      */
     public com.google.protobuf.ByteString
         getUserNameBytes() {
@@ -190,12 +226,20 @@ public final class Models {
     private java.lang.Object password_;
     /**
      * <code>optional string password = 2;</code>
+     *
+     * <pre>
+     *登录密码
+     * </pre>
      */
     public boolean hasPassword() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
      * <code>optional string password = 2;</code>
+     *
+     * <pre>
+     *登录密码
+     * </pre>
      */
     public java.lang.String getPassword() {
       java.lang.Object ref = password_;
@@ -213,6 +257,10 @@ public final class Models {
     }
     /**
      * <code>optional string password = 2;</code>
+     *
+     * <pre>
+     *登录密码
+     * </pre>
      */
     public com.google.protobuf.ByteString
         getPasswordBytes() {
@@ -480,12 +528,20 @@ public final class Models {
       private java.lang.Object userName_ = "";
       /**
        * <code>optional string userName = 1;</code>
+       *
+       * <pre>
+       *用户账号
+       * </pre>
        */
       public boolean hasUserName() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
        * <code>optional string userName = 1;</code>
+       *
+       * <pre>
+       *用户账号
+       * </pre>
        */
       public java.lang.String getUserName() {
         java.lang.Object ref = userName_;
@@ -500,6 +556,10 @@ public final class Models {
       }
       /**
        * <code>optional string userName = 1;</code>
+       *
+       * <pre>
+       *用户账号
+       * </pre>
        */
       public com.google.protobuf.ByteString
           getUserNameBytes() {
@@ -516,6 +576,10 @@ public final class Models {
       }
       /**
        * <code>optional string userName = 1;</code>
+       *
+       * <pre>
+       *用户账号
+       * </pre>
        */
       public Builder setUserName(
           java.lang.String value) {
@@ -529,6 +593,10 @@ public final class Models {
       }
       /**
        * <code>optional string userName = 1;</code>
+       *
+       * <pre>
+       *用户账号
+       * </pre>
        */
       public Builder clearUserName() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -538,6 +606,10 @@ public final class Models {
       }
       /**
        * <code>optional string userName = 1;</code>
+       *
+       * <pre>
+       *用户账号
+       * </pre>
        */
       public Builder setUserNameBytes(
           com.google.protobuf.ByteString value) {
@@ -554,12 +626,20 @@ public final class Models {
       private java.lang.Object password_ = "";
       /**
        * <code>optional string password = 2;</code>
+       *
+       * <pre>
+       *登录密码
+       * </pre>
        */
       public boolean hasPassword() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
        * <code>optional string password = 2;</code>
+       *
+       * <pre>
+       *登录密码
+       * </pre>
        */
       public java.lang.String getPassword() {
         java.lang.Object ref = password_;
@@ -574,6 +654,10 @@ public final class Models {
       }
       /**
        * <code>optional string password = 2;</code>
+       *
+       * <pre>
+       *登录密码
+       * </pre>
        */
       public com.google.protobuf.ByteString
           getPasswordBytes() {
@@ -590,6 +674,10 @@ public final class Models {
       }
       /**
        * <code>optional string password = 2;</code>
+       *
+       * <pre>
+       *登录密码
+       * </pre>
        */
       public Builder setPassword(
           java.lang.String value) {
@@ -603,6 +691,10 @@ public final class Models {
       }
       /**
        * <code>optional string password = 2;</code>
+       *
+       * <pre>
+       *登录密码
+       * </pre>
        */
       public Builder clearPassword() {
         bitField0_ = (bitField0_ & ~0x00000002);
@@ -612,6 +704,10 @@ public final class Models {
       }
       /**
        * <code>optional string password = 2;</code>
+       *
+       * <pre>
+       *登录密码
+       * </pre>
        */
       public Builder setPasswordBytes(
           com.google.protobuf.ByteString value) {
@@ -651,24 +747,44 @@ public final class Models {
     // optional int32 userId = 2;
     /**
      * <code>optional int32 userId = 2;</code>
+     *
+     * <pre>
+     *用户ID
+     * </pre>
      */
     boolean hasUserId();
     /**
      * <code>optional int32 userId = 2;</code>
+     *
+     * <pre>
+     *用户ID
+     * </pre>
      */
     int getUserId();
 
     // optional string token = 3;
     /**
      * <code>optional string token = 3;</code>
+     *
+     * <pre>
+     *用户Token
+     * </pre>
      */
     boolean hasToken();
     /**
      * <code>optional string token = 3;</code>
+     *
+     * <pre>
+     *用户Token
+     * </pre>
      */
     java.lang.String getToken();
     /**
      * <code>optional string token = 3;</code>
+     *
+     * <pre>
+     *用户Token
+     * </pre>
      */
     com.google.protobuf.ByteString
         getTokenBytes();
@@ -676,20 +792,36 @@ public final class Models {
     // optional int32 passwordFailCount = 4;
     /**
      * <code>optional int32 passwordFailCount = 4;</code>
+     *
+     * <pre>
+     *密码错误次数
+     * </pre>
      */
     boolean hasPasswordFailCount();
     /**
      * <code>optional int32 passwordFailCount = 4;</code>
+     *
+     * <pre>
+     *密码错误次数
+     * </pre>
      */
     int getPasswordFailCount();
 
     // optional .Com.Fuwu.MobileIM.Model.AuthenticationResponse.ErrorCodeType errorCode = 5;
     /**
      * <code>optional .Com.Fuwu.MobileIM.Model.AuthenticationResponse.ErrorCodeType errorCode = 5;</code>
+     *
+     * <pre>
+     *错误类型（枚举）
+     * </pre>
      */
     boolean hasErrorCode();
     /**
      * <code>optional .Com.Fuwu.MobileIM.Model.AuthenticationResponse.ErrorCodeType errorCode = 5;</code>
+     *
+     * <pre>
+     *错误类型（枚举）
+     * </pre>
      */
     com.fuwu.mobileim.model.Models.AuthenticationResponse.ErrorCodeType getErrorCode();
   }
@@ -816,62 +948,106 @@ public final class Models {
 
     /**
      * Protobuf enum {@code Com.Fuwu.MobileIM.Model.AuthenticationResponse.ErrorCodeType}
+     *
+     * <pre>
+     *错误类型枚举类
+     * </pre>
      */
     public enum ErrorCodeType
         implements com.google.protobuf.ProtocolMessageEnum {
       /**
-       * <code>InvalidUserName = 1;</code>
+       * <code>BadRequest = 1;</code>
+       *
+       * <pre>
+       *序列化参数出错
+       * </pre>
        */
-      InvalidUserName(0, 1),
+      BadRequest(0, 1),
       /**
-       * <code>InvalidPassword = 2;</code>
+       * <code>InvalidUserName = 2;</code>
+       *
+       * <pre>
+       *用户账号有误
+       * </pre>
        */
-      InvalidPassword(1, 2),
+      InvalidUserName(1, 2),
       /**
-       * <code>InvalidPasswordExceedCount = 3;</code>
+       * <code>InvalidPassword = 3;</code>
+       *
+       * <pre>
+       *用户密码有误
+       * </pre>
        */
-      InvalidPasswordExceedCount(2, 3),
+      InvalidPassword(2, 3),
       /**
-       * <code>NotActivate = 4;</code>
+       * <code>InvalidPasswordExceedCount = 4;</code>
+       *
+       * <pre>
+       *密码错误次数超出限定次数
+       * </pre>
        */
-      NotActivate(3, 4),
+      InvalidPasswordExceedCount(3, 4),
       /**
-       * <code>Succeed = 5;</code>
+       * <code>NotActivate = 5;</code>
+       *
+       * <pre>
+       *用户未激活
+       * </pre>
        */
-      Succeed(4, 5),
+      NotActivate(4, 5),
       ;
 
       /**
-       * <code>InvalidUserName = 1;</code>
+       * <code>BadRequest = 1;</code>
+       *
+       * <pre>
+       *序列化参数出错
+       * </pre>
        */
-      public static final int InvalidUserName_VALUE = 1;
+      public static final int BadRequest_VALUE = 1;
       /**
-       * <code>InvalidPassword = 2;</code>
+       * <code>InvalidUserName = 2;</code>
+       *
+       * <pre>
+       *用户账号有误
+       * </pre>
        */
-      public static final int InvalidPassword_VALUE = 2;
+      public static final int InvalidUserName_VALUE = 2;
       /**
-       * <code>InvalidPasswordExceedCount = 3;</code>
+       * <code>InvalidPassword = 3;</code>
+       *
+       * <pre>
+       *用户密码有误
+       * </pre>
        */
-      public static final int InvalidPasswordExceedCount_VALUE = 3;
+      public static final int InvalidPassword_VALUE = 3;
       /**
-       * <code>NotActivate = 4;</code>
+       * <code>InvalidPasswordExceedCount = 4;</code>
+       *
+       * <pre>
+       *密码错误次数超出限定次数
+       * </pre>
        */
-      public static final int NotActivate_VALUE = 4;
+      public static final int InvalidPasswordExceedCount_VALUE = 4;
       /**
-       * <code>Succeed = 5;</code>
+       * <code>NotActivate = 5;</code>
+       *
+       * <pre>
+       *用户未激活
+       * </pre>
        */
-      public static final int Succeed_VALUE = 5;
+      public static final int NotActivate_VALUE = 5;
 
 
       public final int getNumber() { return value; }
 
       public static ErrorCodeType valueOf(int value) {
         switch (value) {
-          case 1: return InvalidUserName;
-          case 2: return InvalidPassword;
-          case 3: return InvalidPasswordExceedCount;
-          case 4: return NotActivate;
-          case 5: return Succeed;
+          case 1: return BadRequest;
+          case 2: return InvalidUserName;
+          case 3: return InvalidPassword;
+          case 4: return InvalidPasswordExceedCount;
+          case 5: return NotActivate;
           default: return null;
         }
       }
@@ -945,12 +1121,20 @@ public final class Models {
     private int userId_;
     /**
      * <code>optional int32 userId = 2;</code>
+     *
+     * <pre>
+     *用户ID
+     * </pre>
      */
     public boolean hasUserId() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
      * <code>optional int32 userId = 2;</code>
+     *
+     * <pre>
+     *用户ID
+     * </pre>
      */
     public int getUserId() {
       return userId_;
@@ -961,12 +1145,20 @@ public final class Models {
     private java.lang.Object token_;
     /**
      * <code>optional string token = 3;</code>
+     *
+     * <pre>
+     *用户Token
+     * </pre>
      */
     public boolean hasToken() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
      * <code>optional string token = 3;</code>
+     *
+     * <pre>
+     *用户Token
+     * </pre>
      */
     public java.lang.String getToken() {
       java.lang.Object ref = token_;
@@ -984,6 +1176,10 @@ public final class Models {
     }
     /**
      * <code>optional string token = 3;</code>
+     *
+     * <pre>
+     *用户Token
+     * </pre>
      */
     public com.google.protobuf.ByteString
         getTokenBytes() {
@@ -1004,12 +1200,20 @@ public final class Models {
     private int passwordFailCount_;
     /**
      * <code>optional int32 passwordFailCount = 4;</code>
+     *
+     * <pre>
+     *密码错误次数
+     * </pre>
      */
     public boolean hasPasswordFailCount() {
       return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
      * <code>optional int32 passwordFailCount = 4;</code>
+     *
+     * <pre>
+     *密码错误次数
+     * </pre>
      */
     public int getPasswordFailCount() {
       return passwordFailCount_;
@@ -1020,12 +1224,20 @@ public final class Models {
     private com.fuwu.mobileim.model.Models.AuthenticationResponse.ErrorCodeType errorCode_;
     /**
      * <code>optional .Com.Fuwu.MobileIM.Model.AuthenticationResponse.ErrorCodeType errorCode = 5;</code>
+     *
+     * <pre>
+     *错误类型（枚举）
+     * </pre>
      */
     public boolean hasErrorCode() {
       return ((bitField0_ & 0x00000010) == 0x00000010);
     }
     /**
      * <code>optional .Com.Fuwu.MobileIM.Model.AuthenticationResponse.ErrorCodeType errorCode = 5;</code>
+     *
+     * <pre>
+     *错误类型（枚举）
+     * </pre>
      */
     public com.fuwu.mobileim.model.Models.AuthenticationResponse.ErrorCodeType getErrorCode() {
       return errorCode_;
@@ -1036,7 +1248,7 @@ public final class Models {
       userId_ = 0;
       token_ = "";
       passwordFailCount_ = 0;
-      errorCode_ = com.fuwu.mobileim.model.Models.AuthenticationResponse.ErrorCodeType.InvalidUserName;
+      errorCode_ = com.fuwu.mobileim.model.Models.AuthenticationResponse.ErrorCodeType.BadRequest;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -1218,7 +1430,7 @@ public final class Models {
         bitField0_ = (bitField0_ & ~0x00000004);
         passwordFailCount_ = 0;
         bitField0_ = (bitField0_ & ~0x00000008);
-        errorCode_ = com.fuwu.mobileim.model.Models.AuthenticationResponse.ErrorCodeType.InvalidUserName;
+        errorCode_ = com.fuwu.mobileim.model.Models.AuthenticationResponse.ErrorCodeType.BadRequest;
         bitField0_ = (bitField0_ & ~0x00000010);
         return this;
       }
@@ -1365,18 +1577,30 @@ public final class Models {
       private int userId_ ;
       /**
        * <code>optional int32 userId = 2;</code>
+       *
+       * <pre>
+       *用户ID
+       * </pre>
        */
       public boolean hasUserId() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
        * <code>optional int32 userId = 2;</code>
+       *
+       * <pre>
+       *用户ID
+       * </pre>
        */
       public int getUserId() {
         return userId_;
       }
       /**
        * <code>optional int32 userId = 2;</code>
+       *
+       * <pre>
+       *用户ID
+       * </pre>
        */
       public Builder setUserId(int value) {
         bitField0_ |= 0x00000002;
@@ -1386,6 +1610,10 @@ public final class Models {
       }
       /**
        * <code>optional int32 userId = 2;</code>
+       *
+       * <pre>
+       *用户ID
+       * </pre>
        */
       public Builder clearUserId() {
         bitField0_ = (bitField0_ & ~0x00000002);
@@ -1398,12 +1626,20 @@ public final class Models {
       private java.lang.Object token_ = "";
       /**
        * <code>optional string token = 3;</code>
+       *
+       * <pre>
+       *用户Token
+       * </pre>
        */
       public boolean hasToken() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
        * <code>optional string token = 3;</code>
+       *
+       * <pre>
+       *用户Token
+       * </pre>
        */
       public java.lang.String getToken() {
         java.lang.Object ref = token_;
@@ -1418,6 +1654,10 @@ public final class Models {
       }
       /**
        * <code>optional string token = 3;</code>
+       *
+       * <pre>
+       *用户Token
+       * </pre>
        */
       public com.google.protobuf.ByteString
           getTokenBytes() {
@@ -1434,6 +1674,10 @@ public final class Models {
       }
       /**
        * <code>optional string token = 3;</code>
+       *
+       * <pre>
+       *用户Token
+       * </pre>
        */
       public Builder setToken(
           java.lang.String value) {
@@ -1447,6 +1691,10 @@ public final class Models {
       }
       /**
        * <code>optional string token = 3;</code>
+       *
+       * <pre>
+       *用户Token
+       * </pre>
        */
       public Builder clearToken() {
         bitField0_ = (bitField0_ & ~0x00000004);
@@ -1456,6 +1704,10 @@ public final class Models {
       }
       /**
        * <code>optional string token = 3;</code>
+       *
+       * <pre>
+       *用户Token
+       * </pre>
        */
       public Builder setTokenBytes(
           com.google.protobuf.ByteString value) {
@@ -1472,18 +1724,30 @@ public final class Models {
       private int passwordFailCount_ ;
       /**
        * <code>optional int32 passwordFailCount = 4;</code>
+       *
+       * <pre>
+       *密码错误次数
+       * </pre>
        */
       public boolean hasPasswordFailCount() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
        * <code>optional int32 passwordFailCount = 4;</code>
+       *
+       * <pre>
+       *密码错误次数
+       * </pre>
        */
       public int getPasswordFailCount() {
         return passwordFailCount_;
       }
       /**
        * <code>optional int32 passwordFailCount = 4;</code>
+       *
+       * <pre>
+       *密码错误次数
+       * </pre>
        */
       public Builder setPasswordFailCount(int value) {
         bitField0_ |= 0x00000008;
@@ -1493,6 +1757,10 @@ public final class Models {
       }
       /**
        * <code>optional int32 passwordFailCount = 4;</code>
+       *
+       * <pre>
+       *密码错误次数
+       * </pre>
        */
       public Builder clearPasswordFailCount() {
         bitField0_ = (bitField0_ & ~0x00000008);
@@ -1502,21 +1770,33 @@ public final class Models {
       }
 
       // optional .Com.Fuwu.MobileIM.Model.AuthenticationResponse.ErrorCodeType errorCode = 5;
-      private com.fuwu.mobileim.model.Models.AuthenticationResponse.ErrorCodeType errorCode_ = com.fuwu.mobileim.model.Models.AuthenticationResponse.ErrorCodeType.InvalidUserName;
+      private com.fuwu.mobileim.model.Models.AuthenticationResponse.ErrorCodeType errorCode_ = com.fuwu.mobileim.model.Models.AuthenticationResponse.ErrorCodeType.BadRequest;
       /**
        * <code>optional .Com.Fuwu.MobileIM.Model.AuthenticationResponse.ErrorCodeType errorCode = 5;</code>
+       *
+       * <pre>
+       *错误类型（枚举）
+       * </pre>
        */
       public boolean hasErrorCode() {
         return ((bitField0_ & 0x00000010) == 0x00000010);
       }
       /**
        * <code>optional .Com.Fuwu.MobileIM.Model.AuthenticationResponse.ErrorCodeType errorCode = 5;</code>
+       *
+       * <pre>
+       *错误类型（枚举）
+       * </pre>
        */
       public com.fuwu.mobileim.model.Models.AuthenticationResponse.ErrorCodeType getErrorCode() {
         return errorCode_;
       }
       /**
        * <code>optional .Com.Fuwu.MobileIM.Model.AuthenticationResponse.ErrorCodeType errorCode = 5;</code>
+       *
+       * <pre>
+       *错误类型（枚举）
+       * </pre>
        */
       public Builder setErrorCode(com.fuwu.mobileim.model.Models.AuthenticationResponse.ErrorCodeType value) {
         if (value == null) {
@@ -1529,10 +1809,14 @@ public final class Models {
       }
       /**
        * <code>optional .Com.Fuwu.MobileIM.Model.AuthenticationResponse.ErrorCodeType errorCode = 5;</code>
+       *
+       * <pre>
+       *错误类型（枚举）
+       * </pre>
        */
       public Builder clearErrorCode() {
         bitField0_ = (bitField0_ & ~0x00000010);
-        errorCode_ = com.fuwu.mobileim.model.Models.AuthenticationResponse.ErrorCodeType.InvalidUserName;
+        errorCode_ = com.fuwu.mobileim.model.Models.AuthenticationResponse.ErrorCodeType.BadRequest;
         onChanged();
         return this;
       }
@@ -1554,14 +1838,26 @@ public final class Models {
     // optional string token = 1;
     /**
      * <code>optional string token = 1;</code>
+     *
+     * <pre>
+     *用户token
+     * </pre>
      */
     boolean hasToken();
     /**
      * <code>optional string token = 1;</code>
+     *
+     * <pre>
+     *用户token
+     * </pre>
      */
     java.lang.String getToken();
     /**
      * <code>optional string token = 1;</code>
+     *
+     * <pre>
+     *用户token
+     * </pre>
      */
     com.google.protobuf.ByteString
         getTokenBytes();
@@ -1569,10 +1865,18 @@ public final class Models {
     // optional int32 userId = 2;
     /**
      * <code>optional int32 userId = 2;</code>
+     *
+     * <pre>
+     *用户ID
+     * </pre>
      */
     boolean hasUserId();
     /**
      * <code>optional int32 userId = 2;</code>
+     *
+     * <pre>
+     *用户ID
+     * </pre>
      */
     int getUserId();
   }
@@ -1682,12 +1986,20 @@ public final class Models {
     private java.lang.Object token_;
     /**
      * <code>optional string token = 1;</code>
+     *
+     * <pre>
+     *用户token
+     * </pre>
      */
     public boolean hasToken() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
      * <code>optional string token = 1;</code>
+     *
+     * <pre>
+     *用户token
+     * </pre>
      */
     public java.lang.String getToken() {
       java.lang.Object ref = token_;
@@ -1705,6 +2017,10 @@ public final class Models {
     }
     /**
      * <code>optional string token = 1;</code>
+     *
+     * <pre>
+     *用户token
+     * </pre>
      */
     public com.google.protobuf.ByteString
         getTokenBytes() {
@@ -1725,12 +2041,20 @@ public final class Models {
     private int userId_;
     /**
      * <code>optional int32 userId = 2;</code>
+     *
+     * <pre>
+     *用户ID
+     * </pre>
      */
     public boolean hasUserId() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
      * <code>optional int32 userId = 2;</code>
+     *
+     * <pre>
+     *用户ID
+     * </pre>
      */
     public int getUserId() {
       return userId_;
@@ -1986,12 +2310,20 @@ public final class Models {
       private java.lang.Object token_ = "";
       /**
        * <code>optional string token = 1;</code>
+       *
+       * <pre>
+       *用户token
+       * </pre>
        */
       public boolean hasToken() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
        * <code>optional string token = 1;</code>
+       *
+       * <pre>
+       *用户token
+       * </pre>
        */
       public java.lang.String getToken() {
         java.lang.Object ref = token_;
@@ -2006,6 +2338,10 @@ public final class Models {
       }
       /**
        * <code>optional string token = 1;</code>
+       *
+       * <pre>
+       *用户token
+       * </pre>
        */
       public com.google.protobuf.ByteString
           getTokenBytes() {
@@ -2022,6 +2358,10 @@ public final class Models {
       }
       /**
        * <code>optional string token = 1;</code>
+       *
+       * <pre>
+       *用户token
+       * </pre>
        */
       public Builder setToken(
           java.lang.String value) {
@@ -2035,6 +2375,10 @@ public final class Models {
       }
       /**
        * <code>optional string token = 1;</code>
+       *
+       * <pre>
+       *用户token
+       * </pre>
        */
       public Builder clearToken() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -2044,6 +2388,10 @@ public final class Models {
       }
       /**
        * <code>optional string token = 1;</code>
+       *
+       * <pre>
+       *用户token
+       * </pre>
        */
       public Builder setTokenBytes(
           com.google.protobuf.ByteString value) {
@@ -2060,18 +2408,30 @@ public final class Models {
       private int userId_ ;
       /**
        * <code>optional int32 userId = 2;</code>
+       *
+       * <pre>
+       *用户ID
+       * </pre>
        */
       public boolean hasUserId() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
        * <code>optional int32 userId = 2;</code>
+       *
+       * <pre>
+       *用户ID
+       * </pre>
        */
       public int getUserId() {
         return userId_;
       }
       /**
        * <code>optional int32 userId = 2;</code>
+       *
+       * <pre>
+       *用户ID
+       * </pre>
        */
       public Builder setUserId(int value) {
         bitField0_ |= 0x00000002;
@@ -2081,6 +2441,10 @@ public final class Models {
       }
       /**
        * <code>optional int32 userId = 2;</code>
+       *
+       * <pre>
+       *用户ID
+       * </pre>
        */
       public Builder clearUserId() {
         bitField0_ = (bitField0_ & ~0x00000002);
@@ -2122,6 +2486,24 @@ public final class Models {
      * <code>optional int32 userId = 2;</code>
      */
     int getUserId();
+
+    // optional .Com.Fuwu.MobileIM.Model.UnAuthenticationResponse.ErrorCodeType errorCode = 3;
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.UnAuthenticationResponse.ErrorCodeType errorCode = 3;</code>
+     *
+     * <pre>
+     *错误类型（枚举）
+     * </pre>
+     */
+    boolean hasErrorCode();
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.UnAuthenticationResponse.ErrorCodeType errorCode = 3;</code>
+     *
+     * <pre>
+     *错误类型（枚举）
+     * </pre>
+     */
+    com.fuwu.mobileim.model.Models.UnAuthenticationResponse.ErrorCodeType getErrorCode();
   }
   /**
    * Protobuf type {@code Com.Fuwu.MobileIM.Model.UnAuthenticationResponse}
@@ -2184,6 +2566,17 @@ public final class Models {
               userId_ = input.readInt32();
               break;
             }
+            case 24: {
+              int rawValue = input.readEnum();
+              com.fuwu.mobileim.model.Models.UnAuthenticationResponse.ErrorCodeType value = com.fuwu.mobileim.model.Models.UnAuthenticationResponse.ErrorCodeType.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(3, rawValue);
+              } else {
+                bitField0_ |= 0x00000004;
+                errorCode_ = value;
+              }
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -2223,6 +2616,159 @@ public final class Models {
       return PARSER;
     }
 
+    /**
+     * Protobuf enum {@code Com.Fuwu.MobileIM.Model.UnAuthenticationResponse.ErrorCodeType}
+     *
+     * <pre>
+     *错误类型枚举类
+     * </pre>
+     */
+    public enum ErrorCodeType
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>BadRequest = 1;</code>
+       *
+       * <pre>
+       *序列化参数出错
+       * </pre>
+       */
+      BadRequest(0, 1),
+      /**
+       * <code>InvalidUserId = 2;</code>
+       *
+       * <pre>
+       *UserId参数有误
+       * </pre>
+       */
+      InvalidUserId(1, 2),
+      /**
+       * <code>InvalidToken = 3;</code>
+       *
+       * <pre>
+       *Token参数有误
+       * </pre>
+       */
+      InvalidToken(2, 3),
+      /**
+       * <code>InvalidUser = 4;</code>
+       *
+       * <pre>
+       *身份验证失败
+       * </pre>
+       */
+      InvalidUser(3, 4),
+      /**
+       * <code>InvalidDatabase = 5;</code>
+       *
+       * <pre>
+       *数据库连接错误
+       * </pre>
+       */
+      InvalidDatabase(4, 5),
+      ;
+
+      /**
+       * <code>BadRequest = 1;</code>
+       *
+       * <pre>
+       *序列化参数出错
+       * </pre>
+       */
+      public static final int BadRequest_VALUE = 1;
+      /**
+       * <code>InvalidUserId = 2;</code>
+       *
+       * <pre>
+       *UserId参数有误
+       * </pre>
+       */
+      public static final int InvalidUserId_VALUE = 2;
+      /**
+       * <code>InvalidToken = 3;</code>
+       *
+       * <pre>
+       *Token参数有误
+       * </pre>
+       */
+      public static final int InvalidToken_VALUE = 3;
+      /**
+       * <code>InvalidUser = 4;</code>
+       *
+       * <pre>
+       *身份验证失败
+       * </pre>
+       */
+      public static final int InvalidUser_VALUE = 4;
+      /**
+       * <code>InvalidDatabase = 5;</code>
+       *
+       * <pre>
+       *数据库连接错误
+       * </pre>
+       */
+      public static final int InvalidDatabase_VALUE = 5;
+
+
+      public final int getNumber() { return value; }
+
+      public static ErrorCodeType valueOf(int value) {
+        switch (value) {
+          case 1: return BadRequest;
+          case 2: return InvalidUserId;
+          case 3: return InvalidToken;
+          case 4: return InvalidUser;
+          case 5: return InvalidDatabase;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<ErrorCodeType>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static com.google.protobuf.Internal.EnumLiteMap<ErrorCodeType>
+          internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<ErrorCodeType>() {
+              public ErrorCodeType findValueByNumber(int number) {
+                return ErrorCodeType.valueOf(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(index);
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return com.fuwu.mobileim.model.Models.UnAuthenticationResponse.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final ErrorCodeType[] VALUES = values();
+
+      public static ErrorCodeType valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int index;
+      private final int value;
+
+      private ErrorCodeType(int index, int value) {
+        this.index = index;
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:Com.Fuwu.MobileIM.Model.UnAuthenticationResponse.ErrorCodeType)
+    }
+
     private int bitField0_;
     // optional bool isSucceed = 1;
     public static final int ISSUCCEED_FIELD_NUMBER = 1;
@@ -2256,9 +2802,34 @@ public final class Models {
       return userId_;
     }
 
+    // optional .Com.Fuwu.MobileIM.Model.UnAuthenticationResponse.ErrorCodeType errorCode = 3;
+    public static final int ERRORCODE_FIELD_NUMBER = 3;
+    private com.fuwu.mobileim.model.Models.UnAuthenticationResponse.ErrorCodeType errorCode_;
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.UnAuthenticationResponse.ErrorCodeType errorCode = 3;</code>
+     *
+     * <pre>
+     *错误类型（枚举）
+     * </pre>
+     */
+    public boolean hasErrorCode() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.UnAuthenticationResponse.ErrorCodeType errorCode = 3;</code>
+     *
+     * <pre>
+     *错误类型（枚举）
+     * </pre>
+     */
+    public com.fuwu.mobileim.model.Models.UnAuthenticationResponse.ErrorCodeType getErrorCode() {
+      return errorCode_;
+    }
+
     private void initFields() {
       isSucceed_ = false;
       userId_ = 0;
+      errorCode_ = com.fuwu.mobileim.model.Models.UnAuthenticationResponse.ErrorCodeType.BadRequest;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -2278,6 +2849,9 @@ public final class Models {
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         output.writeInt32(2, userId_);
       }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeEnum(3, errorCode_.getNumber());
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -2294,6 +2868,10 @@ public final class Models {
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(2, userId_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(3, errorCode_.getNumber());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -2415,6 +2993,8 @@ public final class Models {
         bitField0_ = (bitField0_ & ~0x00000001);
         userId_ = 0;
         bitField0_ = (bitField0_ & ~0x00000002);
+        errorCode_ = com.fuwu.mobileim.model.Models.UnAuthenticationResponse.ErrorCodeType.BadRequest;
+        bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
 
@@ -2451,6 +3031,10 @@ public final class Models {
           to_bitField0_ |= 0x00000002;
         }
         result.userId_ = userId_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.errorCode_ = errorCode_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -2472,6 +3056,9 @@ public final class Models {
         }
         if (other.hasUserId()) {
           setUserId(other.getUserId());
+        }
+        if (other.hasErrorCode()) {
+          setErrorCode(other.getErrorCode());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -2562,6 +3149,58 @@ public final class Models {
       public Builder clearUserId() {
         bitField0_ = (bitField0_ & ~0x00000002);
         userId_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // optional .Com.Fuwu.MobileIM.Model.UnAuthenticationResponse.ErrorCodeType errorCode = 3;
+      private com.fuwu.mobileim.model.Models.UnAuthenticationResponse.ErrorCodeType errorCode_ = com.fuwu.mobileim.model.Models.UnAuthenticationResponse.ErrorCodeType.BadRequest;
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.UnAuthenticationResponse.ErrorCodeType errorCode = 3;</code>
+       *
+       * <pre>
+       *错误类型（枚举）
+       * </pre>
+       */
+      public boolean hasErrorCode() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.UnAuthenticationResponse.ErrorCodeType errorCode = 3;</code>
+       *
+       * <pre>
+       *错误类型（枚举）
+       * </pre>
+       */
+      public com.fuwu.mobileim.model.Models.UnAuthenticationResponse.ErrorCodeType getErrorCode() {
+        return errorCode_;
+      }
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.UnAuthenticationResponse.ErrorCodeType errorCode = 3;</code>
+       *
+       * <pre>
+       *错误类型（枚举）
+       * </pre>
+       */
+      public Builder setErrorCode(com.fuwu.mobileim.model.Models.UnAuthenticationResponse.ErrorCodeType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000004;
+        errorCode_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.UnAuthenticationResponse.ErrorCodeType errorCode = 3;</code>
+       *
+       * <pre>
+       *错误类型（枚举）
+       * </pre>
+       */
+      public Builder clearErrorCode() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        errorCode_ = com.fuwu.mobileim.model.Models.UnAuthenticationResponse.ErrorCodeType.BadRequest;
         onChanged();
         return this;
       }
@@ -2660,15 +3299,23 @@ public final class Models {
     com.google.protobuf.ByteString
         getLastContactTimeBytes();
 
-    // optional int32 gender = 7;
+    // optional .Com.Fuwu.MobileIM.Model.Contact.GenderType gender = 7;
     /**
-     * <code>optional int32 gender = 7;</code>
+     * <code>optional .Com.Fuwu.MobileIM.Model.Contact.GenderType gender = 7;</code>
+     *
+     * <pre>
+     * ContactSourceType的值的累加
+     * </pre>
      */
     boolean hasGender();
     /**
-     * <code>optional int32 gender = 7;</code>
+     * <code>optional .Com.Fuwu.MobileIM.Model.Contact.GenderType gender = 7;</code>
+     *
+     * <pre>
+     * ContactSourceType的值的累加
+     * </pre>
      */
-    int getGender();
+    com.fuwu.mobileim.model.Models.Contact.GenderType getGender();
 
     // optional int32 source = 8;
     /**
@@ -2720,20 +3367,20 @@ public final class Models {
     com.google.protobuf.ByteString
         getLisenceBytes();
 
-    // optional string publishClassType = 12;
+    // optional string individualResume = 12;
     /**
-     * <code>optional string publishClassType = 12;</code>
+     * <code>optional string individualResume = 12;</code>
      */
-    boolean hasPublishClassType();
+    boolean hasIndividualResume();
     /**
-     * <code>optional string publishClassType = 12;</code>
+     * <code>optional string individualResume = 12;</code>
      */
-    java.lang.String getPublishClassType();
+    java.lang.String getIndividualResume();
     /**
-     * <code>optional string publishClassType = 12;</code>
+     * <code>optional string individualResume = 12;</code>
      */
     com.google.protobuf.ByteString
-        getPublishClassTypeBytes();
+        getIndividualResumeBytes();
   }
   /**
    * Protobuf type {@code Com.Fuwu.MobileIM.Model.Contact}
@@ -2817,8 +3464,14 @@ public final class Models {
               break;
             }
             case 56: {
-              bitField0_ |= 0x00000040;
-              gender_ = input.readInt32();
+              int rawValue = input.readEnum();
+              com.fuwu.mobileim.model.Models.Contact.GenderType value = com.fuwu.mobileim.model.Models.Contact.GenderType.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(7, rawValue);
+              } else {
+                bitField0_ |= 0x00000040;
+                gender_ = value;
+              }
               break;
             }
             case 64: {
@@ -2843,7 +3496,7 @@ public final class Models {
             }
             case 98: {
               bitField0_ |= 0x00000800;
-              publishClassType_ = input.readBytes();
+              individualResume_ = input.readBytes();
               break;
             }
           }
@@ -2886,67 +3539,82 @@ public final class Models {
     }
 
     /**
-     * Protobuf enum {@code Com.Fuwu.MobileIM.Model.Contact.ContactSourceType}
+     * Protobuf enum {@code Com.Fuwu.MobileIM.Model.Contact.GenderType}
      */
-    public enum ContactSourceType
+    public enum GenderType
         implements com.google.protobuf.ProtocolMessageEnum {
       /**
-       * <code>OrderFrom = 1;</code>
+       * <code>Male = 1;</code>
+       *
+       * <pre>
+       *男
+       * </pre>
        */
-      OrderFrom(0, 1),
+      Male(0, 1),
       /**
-       * <code>OrderTo = 2;</code>
+       * <code>Female = 2;</code>
+       *
+       * <pre>
+       *女
+       * </pre>
        */
-      OrderTo(1, 2),
+      Female(1, 2),
       /**
-       * <code>SubscribeFrom = 4;</code>
+       * <code>Privacy = 3;</code>
+       *
+       * <pre>
+       *保密
+       * </pre>
        */
-      SubscribeFrom(2, 4),
-      /**
-       * <code>SubscribeTo = 8;</code>
-       */
-      SubscribeTo(3, 8),
+      Privacy(2, 3),
       ;
 
       /**
-       * <code>OrderFrom = 1;</code>
+       * <code>Male = 1;</code>
+       *
+       * <pre>
+       *男
+       * </pre>
        */
-      public static final int OrderFrom_VALUE = 1;
+      public static final int Male_VALUE = 1;
       /**
-       * <code>OrderTo = 2;</code>
+       * <code>Female = 2;</code>
+       *
+       * <pre>
+       *女
+       * </pre>
        */
-      public static final int OrderTo_VALUE = 2;
+      public static final int Female_VALUE = 2;
       /**
-       * <code>SubscribeFrom = 4;</code>
+       * <code>Privacy = 3;</code>
+       *
+       * <pre>
+       *保密
+       * </pre>
        */
-      public static final int SubscribeFrom_VALUE = 4;
-      /**
-       * <code>SubscribeTo = 8;</code>
-       */
-      public static final int SubscribeTo_VALUE = 8;
+      public static final int Privacy_VALUE = 3;
 
 
       public final int getNumber() { return value; }
 
-      public static ContactSourceType valueOf(int value) {
+      public static GenderType valueOf(int value) {
         switch (value) {
-          case 1: return OrderFrom;
-          case 2: return OrderTo;
-          case 4: return SubscribeFrom;
-          case 8: return SubscribeTo;
+          case 1: return Male;
+          case 2: return Female;
+          case 3: return Privacy;
           default: return null;
         }
       }
 
-      public static com.google.protobuf.Internal.EnumLiteMap<ContactSourceType>
+      public static com.google.protobuf.Internal.EnumLiteMap<GenderType>
           internalGetValueMap() {
         return internalValueMap;
       }
-      private static com.google.protobuf.Internal.EnumLiteMap<ContactSourceType>
+      private static com.google.protobuf.Internal.EnumLiteMap<GenderType>
           internalValueMap =
-            new com.google.protobuf.Internal.EnumLiteMap<ContactSourceType>() {
-              public ContactSourceType findValueByNumber(int number) {
-                return ContactSourceType.valueOf(number);
+            new com.google.protobuf.Internal.EnumLiteMap<GenderType>() {
+              public GenderType findValueByNumber(int number) {
+                return GenderType.valueOf(number);
               }
             };
 
@@ -2963,9 +3631,9 @@ public final class Models {
         return com.fuwu.mobileim.model.Models.Contact.getDescriptor().getEnumTypes().get(0);
       }
 
-      private static final ContactSourceType[] VALUES = values();
+      private static final GenderType[] VALUES = values();
 
-      public static ContactSourceType valueOf(
+      public static GenderType valueOf(
           com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
         if (desc.getType() != getDescriptor()) {
           throw new java.lang.IllegalArgumentException(
@@ -2977,12 +3645,12 @@ public final class Models {
       private final int index;
       private final int value;
 
-      private ContactSourceType(int index, int value) {
+      private GenderType(int index, int value) {
         this.index = index;
         this.value = value;
       }
 
-      // @@protoc_insertion_point(enum_scope:Com.Fuwu.MobileIM.Model.Contact.ContactSourceType)
+      // @@protoc_insertion_point(enum_scope:Com.Fuwu.MobileIM.Model.Contact.GenderType)
     }
 
     private int bitField0_;
@@ -3190,19 +3858,27 @@ public final class Models {
       }
     }
 
-    // optional int32 gender = 7;
+    // optional .Com.Fuwu.MobileIM.Model.Contact.GenderType gender = 7;
     public static final int GENDER_FIELD_NUMBER = 7;
-    private int gender_;
+    private com.fuwu.mobileim.model.Models.Contact.GenderType gender_;
     /**
-     * <code>optional int32 gender = 7;</code>
+     * <code>optional .Com.Fuwu.MobileIM.Model.Contact.GenderType gender = 7;</code>
+     *
+     * <pre>
+     * ContactSourceType的值的累加
+     * </pre>
      */
     public boolean hasGender() {
       return ((bitField0_ & 0x00000040) == 0x00000040);
     }
     /**
-     * <code>optional int32 gender = 7;</code>
+     * <code>optional .Com.Fuwu.MobileIM.Model.Contact.GenderType gender = 7;</code>
+     *
+     * <pre>
+     * ContactSourceType的值的累加
+     * </pre>
      */
-    public int getGender() {
+    public com.fuwu.mobileim.model.Models.Contact.GenderType getGender() {
       return gender_;
     }
 
@@ -3324,20 +4000,20 @@ public final class Models {
       }
     }
 
-    // optional string publishClassType = 12;
-    public static final int PUBLISHCLASSTYPE_FIELD_NUMBER = 12;
-    private java.lang.Object publishClassType_;
+    // optional string individualResume = 12;
+    public static final int INDIVIDUALRESUME_FIELD_NUMBER = 12;
+    private java.lang.Object individualResume_;
     /**
-     * <code>optional string publishClassType = 12;</code>
+     * <code>optional string individualResume = 12;</code>
      */
-    public boolean hasPublishClassType() {
+    public boolean hasIndividualResume() {
       return ((bitField0_ & 0x00000800) == 0x00000800);
     }
     /**
-     * <code>optional string publishClassType = 12;</code>
+     * <code>optional string individualResume = 12;</code>
      */
-    public java.lang.String getPublishClassType() {
-      java.lang.Object ref = publishClassType_;
+    public java.lang.String getIndividualResume() {
+      java.lang.Object ref = individualResume_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
@@ -3345,22 +4021,22 @@ public final class Models {
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
         if (bs.isValidUtf8()) {
-          publishClassType_ = s;
+          individualResume_ = s;
         }
         return s;
       }
     }
     /**
-     * <code>optional string publishClassType = 12;</code>
+     * <code>optional string individualResume = 12;</code>
      */
     public com.google.protobuf.ByteString
-        getPublishClassTypeBytes() {
-      java.lang.Object ref = publishClassType_;
+        getIndividualResumeBytes() {
+      java.lang.Object ref = individualResume_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        publishClassType_ = b;
+        individualResume_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -3374,12 +4050,12 @@ public final class Models {
       pinyin_ = "";
       isBlocked_ = false;
       lastContactTime_ = "";
-      gender_ = 0;
+      gender_ = com.fuwu.mobileim.model.Models.Contact.GenderType.Male;
       source_ = 0;
       tileUrl_ = "";
       isProvider_ = false;
       lisence_ = "";
-      publishClassType_ = "";
+      individualResume_ = "";
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -3412,7 +4088,7 @@ public final class Models {
         output.writeBytes(6, getLastContactTimeBytes());
       }
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
-        output.writeInt32(7, gender_);
+        output.writeEnum(7, gender_.getNumber());
       }
       if (((bitField0_ & 0x00000080) == 0x00000080)) {
         output.writeInt32(8, source_);
@@ -3427,7 +4103,7 @@ public final class Models {
         output.writeBytes(11, getLisenceBytes());
       }
       if (((bitField0_ & 0x00000800) == 0x00000800)) {
-        output.writeBytes(12, getPublishClassTypeBytes());
+        output.writeBytes(12, getIndividualResumeBytes());
       }
       getUnknownFields().writeTo(output);
     }
@@ -3464,7 +4140,7 @@ public final class Models {
       }
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(7, gender_);
+          .computeEnumSize(7, gender_.getNumber());
       }
       if (((bitField0_ & 0x00000080) == 0x00000080)) {
         size += com.google.protobuf.CodedOutputStream
@@ -3484,7 +4160,7 @@ public final class Models {
       }
       if (((bitField0_ & 0x00000800) == 0x00000800)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(12, getPublishClassTypeBytes());
+          .computeBytesSize(12, getIndividualResumeBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -3614,7 +4290,7 @@ public final class Models {
         bitField0_ = (bitField0_ & ~0x00000010);
         lastContactTime_ = "";
         bitField0_ = (bitField0_ & ~0x00000020);
-        gender_ = 0;
+        gender_ = com.fuwu.mobileim.model.Models.Contact.GenderType.Male;
         bitField0_ = (bitField0_ & ~0x00000040);
         source_ = 0;
         bitField0_ = (bitField0_ & ~0x00000080);
@@ -3624,7 +4300,7 @@ public final class Models {
         bitField0_ = (bitField0_ & ~0x00000200);
         lisence_ = "";
         bitField0_ = (bitField0_ & ~0x00000400);
-        publishClassType_ = "";
+        individualResume_ = "";
         bitField0_ = (bitField0_ & ~0x00000800);
         return this;
       }
@@ -3701,7 +4377,7 @@ public final class Models {
         if (((from_bitField0_ & 0x00000800) == 0x00000800)) {
           to_bitField0_ |= 0x00000800;
         }
-        result.publishClassType_ = publishClassType_;
+        result.individualResume_ = individualResume_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -3763,9 +4439,9 @@ public final class Models {
           lisence_ = other.lisence_;
           onChanged();
         }
-        if (other.hasPublishClassType()) {
+        if (other.hasIndividualResume()) {
           bitField0_ |= 0x00000800;
-          publishClassType_ = other.publishClassType_;
+          individualResume_ = other.individualResume_;
           onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
@@ -4157,35 +4833,54 @@ public final class Models {
         return this;
       }
 
-      // optional int32 gender = 7;
-      private int gender_ ;
+      // optional .Com.Fuwu.MobileIM.Model.Contact.GenderType gender = 7;
+      private com.fuwu.mobileim.model.Models.Contact.GenderType gender_ = com.fuwu.mobileim.model.Models.Contact.GenderType.Male;
       /**
-       * <code>optional int32 gender = 7;</code>
+       * <code>optional .Com.Fuwu.MobileIM.Model.Contact.GenderType gender = 7;</code>
+       *
+       * <pre>
+       * ContactSourceType的值的累加
+       * </pre>
        */
       public boolean hasGender() {
         return ((bitField0_ & 0x00000040) == 0x00000040);
       }
       /**
-       * <code>optional int32 gender = 7;</code>
+       * <code>optional .Com.Fuwu.MobileIM.Model.Contact.GenderType gender = 7;</code>
+       *
+       * <pre>
+       * ContactSourceType的值的累加
+       * </pre>
        */
-      public int getGender() {
+      public com.fuwu.mobileim.model.Models.Contact.GenderType getGender() {
         return gender_;
       }
       /**
-       * <code>optional int32 gender = 7;</code>
+       * <code>optional .Com.Fuwu.MobileIM.Model.Contact.GenderType gender = 7;</code>
+       *
+       * <pre>
+       * ContactSourceType的值的累加
+       * </pre>
        */
-      public Builder setGender(int value) {
+      public Builder setGender(com.fuwu.mobileim.model.Models.Contact.GenderType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
         bitField0_ |= 0x00000040;
         gender_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional int32 gender = 7;</code>
+       * <code>optional .Com.Fuwu.MobileIM.Model.Contact.GenderType gender = 7;</code>
+       *
+       * <pre>
+       * ContactSourceType的值的累加
+       * </pre>
        */
       public Builder clearGender() {
         bitField0_ = (bitField0_ & ~0x00000040);
-        gender_ = 0;
+        gender_ = com.fuwu.mobileim.model.Models.Contact.GenderType.Male;
         onChanged();
         return this;
       }
@@ -4404,76 +5099,76 @@ public final class Models {
         return this;
       }
 
-      // optional string publishClassType = 12;
-      private java.lang.Object publishClassType_ = "";
+      // optional string individualResume = 12;
+      private java.lang.Object individualResume_ = "";
       /**
-       * <code>optional string publishClassType = 12;</code>
+       * <code>optional string individualResume = 12;</code>
        */
-      public boolean hasPublishClassType() {
+      public boolean hasIndividualResume() {
         return ((bitField0_ & 0x00000800) == 0x00000800);
       }
       /**
-       * <code>optional string publishClassType = 12;</code>
+       * <code>optional string individualResume = 12;</code>
        */
-      public java.lang.String getPublishClassType() {
-        java.lang.Object ref = publishClassType_;
+      public java.lang.String getIndividualResume() {
+        java.lang.Object ref = individualResume_;
         if (!(ref instanceof java.lang.String)) {
           java.lang.String s = ((com.google.protobuf.ByteString) ref)
               .toStringUtf8();
-          publishClassType_ = s;
+          individualResume_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>optional string publishClassType = 12;</code>
+       * <code>optional string individualResume = 12;</code>
        */
       public com.google.protobuf.ByteString
-          getPublishClassTypeBytes() {
-        java.lang.Object ref = publishClassType_;
+          getIndividualResumeBytes() {
+        java.lang.Object ref = individualResume_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          publishClassType_ = b;
+          individualResume_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>optional string publishClassType = 12;</code>
+       * <code>optional string individualResume = 12;</code>
        */
-      public Builder setPublishClassType(
+      public Builder setIndividualResume(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   bitField0_ |= 0x00000800;
-        publishClassType_ = value;
+        individualResume_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string publishClassType = 12;</code>
+       * <code>optional string individualResume = 12;</code>
        */
-      public Builder clearPublishClassType() {
+      public Builder clearIndividualResume() {
         bitField0_ = (bitField0_ & ~0x00000800);
-        publishClassType_ = getDefaultInstance().getPublishClassType();
+        individualResume_ = getDefaultInstance().getIndividualResume();
         onChanged();
         return this;
       }
       /**
-       * <code>optional string publishClassType = 12;</code>
+       * <code>optional string individualResume = 12;</code>
        */
-      public Builder setPublishClassTypeBytes(
+      public Builder setIndividualResumeBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   bitField0_ |= 0x00000800;
-        publishClassType_ = value;
+        individualResume_ = value;
         onChanged();
         return this;
       }
@@ -18140,13 +18835,28 @@ public final class Models {
      */
     boolean getIsSucceed();
 
-    // optional int32 errorCode = 2;
+    // optional string sendTime = 2;
     /**
-     * <code>optional int32 errorCode = 2;</code>
+     * <code>optional string sendTime = 2;</code>
+     */
+    boolean hasSendTime();
+    /**
+     * <code>optional string sendTime = 2;</code>
+     */
+    java.lang.String getSendTime();
+    /**
+     * <code>optional string sendTime = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getSendTimeBytes();
+
+    // optional int32 errorCode = 3;
+    /**
+     * <code>optional int32 errorCode = 3;</code>
      */
     boolean hasErrorCode();
     /**
-     * <code>optional int32 errorCode = 2;</code>
+     * <code>optional int32 errorCode = 3;</code>
      */
     int getErrorCode();
   }
@@ -18206,8 +18916,13 @@ public final class Models {
               isSucceed_ = input.readBool();
               break;
             }
-            case 16: {
+            case 18: {
               bitField0_ |= 0x00000002;
+              sendTime_ = input.readBytes();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
               errorCode_ = input.readInt32();
               break;
             }
@@ -18267,17 +18982,60 @@ public final class Models {
       return isSucceed_;
     }
 
-    // optional int32 errorCode = 2;
-    public static final int ERRORCODE_FIELD_NUMBER = 2;
-    private int errorCode_;
+    // optional string sendTime = 2;
+    public static final int SENDTIME_FIELD_NUMBER = 2;
+    private java.lang.Object sendTime_;
     /**
-     * <code>optional int32 errorCode = 2;</code>
+     * <code>optional string sendTime = 2;</code>
      */
-    public boolean hasErrorCode() {
+    public boolean hasSendTime() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
-     * <code>optional int32 errorCode = 2;</code>
+     * <code>optional string sendTime = 2;</code>
+     */
+    public java.lang.String getSendTime() {
+      java.lang.Object ref = sendTime_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          sendTime_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string sendTime = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getSendTimeBytes() {
+      java.lang.Object ref = sendTime_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        sendTime_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    // optional int32 errorCode = 3;
+    public static final int ERRORCODE_FIELD_NUMBER = 3;
+    private int errorCode_;
+    /**
+     * <code>optional int32 errorCode = 3;</code>
+     */
+    public boolean hasErrorCode() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>optional int32 errorCode = 3;</code>
      */
     public int getErrorCode() {
       return errorCode_;
@@ -18285,6 +19043,7 @@ public final class Models {
 
     private void initFields() {
       isSucceed_ = false;
+      sendTime_ = "";
       errorCode_ = 0;
     }
     private byte memoizedIsInitialized = -1;
@@ -18303,7 +19062,10 @@ public final class Models {
         output.writeBool(1, isSucceed_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeInt32(2, errorCode_);
+        output.writeBytes(2, getSendTimeBytes());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeInt32(3, errorCode_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -18320,7 +19082,11 @@ public final class Models {
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(2, errorCode_);
+          .computeBytesSize(2, getSendTimeBytes());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, errorCode_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -18440,8 +19206,10 @@ public final class Models {
         super.clear();
         isSucceed_ = false;
         bitField0_ = (bitField0_ & ~0x00000001);
-        errorCode_ = 0;
+        sendTime_ = "";
         bitField0_ = (bitField0_ & ~0x00000002);
+        errorCode_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
 
@@ -18477,6 +19245,10 @@ public final class Models {
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
+        result.sendTime_ = sendTime_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
         result.errorCode_ = errorCode_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
@@ -18496,6 +19268,11 @@ public final class Models {
         if (other == com.fuwu.mobileim.model.Models.SendMessageResponse.getDefaultInstance()) return this;
         if (other.hasIsSucceed()) {
           setIsSucceed(other.getIsSucceed());
+        }
+        if (other.hasSendTime()) {
+          bitField0_ |= 0x00000002;
+          sendTime_ = other.sendTime_;
+          onChanged();
         }
         if (other.hasErrorCode()) {
           setErrorCode(other.getErrorCode());
@@ -18560,34 +19337,108 @@ public final class Models {
         return this;
       }
 
-      // optional int32 errorCode = 2;
-      private int errorCode_ ;
+      // optional string sendTime = 2;
+      private java.lang.Object sendTime_ = "";
       /**
-       * <code>optional int32 errorCode = 2;</code>
+       * <code>optional string sendTime = 2;</code>
        */
-      public boolean hasErrorCode() {
+      public boolean hasSendTime() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
-       * <code>optional int32 errorCode = 2;</code>
+       * <code>optional string sendTime = 2;</code>
+       */
+      public java.lang.String getSendTime() {
+        java.lang.Object ref = sendTime_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          sendTime_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string sendTime = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getSendTimeBytes() {
+        java.lang.Object ref = sendTime_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          sendTime_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string sendTime = 2;</code>
+       */
+      public Builder setSendTime(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        sendTime_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string sendTime = 2;</code>
+       */
+      public Builder clearSendTime() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        sendTime_ = getDefaultInstance().getSendTime();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string sendTime = 2;</code>
+       */
+      public Builder setSendTimeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        sendTime_ = value;
+        onChanged();
+        return this;
+      }
+
+      // optional int32 errorCode = 3;
+      private int errorCode_ ;
+      /**
+       * <code>optional int32 errorCode = 3;</code>
+       */
+      public boolean hasErrorCode() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>optional int32 errorCode = 3;</code>
        */
       public int getErrorCode() {
         return errorCode_;
       }
       /**
-       * <code>optional int32 errorCode = 2;</code>
+       * <code>optional int32 errorCode = 3;</code>
        */
       public Builder setErrorCode(int value) {
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000004;
         errorCode_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional int32 errorCode = 2;</code>
+       * <code>optional int32 errorCode = 3;</code>
        */
       public Builder clearErrorCode() {
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000004);
         errorCode_ = 0;
         onChanged();
         return this;
@@ -18610,74 +19461,107 @@ public final class Models {
     // optional string mobilePhoneNumber = 1;
     /**
      * <code>optional string mobilePhoneNumber = 1;</code>
+     *
+     * <pre>
+     *手机号码
+     * </pre>
      */
     boolean hasMobilePhoneNumber();
     /**
      * <code>optional string mobilePhoneNumber = 1;</code>
+     *
+     * <pre>
+     *手机号码
+     * </pre>
      */
     java.lang.String getMobilePhoneNumber();
     /**
      * <code>optional string mobilePhoneNumber = 1;</code>
+     *
+     * <pre>
+     *手机号码
+     * </pre>
      */
     com.google.protobuf.ByteString
         getMobilePhoneNumberBytes();
 
-    // optional string name = 2;
+    // optional string password = 2;
     /**
-     * <code>optional string name = 2;</code>
-     */
-    boolean hasName();
-    /**
-     * <code>optional string name = 2;</code>
-     */
-    java.lang.String getName();
-    /**
-     * <code>optional string name = 2;</code>
-     */
-    com.google.protobuf.ByteString
-        getNameBytes();
-
-    // optional string password = 3;
-    /**
-     * <code>optional string password = 3;</code>
+     * <code>optional string password = 2;</code>
+     *
+     * <pre>
+     *密码
+     * </pre>
      */
     boolean hasPassword();
     /**
-     * <code>optional string password = 3;</code>
+     * <code>optional string password = 2;</code>
+     *
+     * <pre>
+     *密码
+     * </pre>
      */
     java.lang.String getPassword();
     /**
-     * <code>optional string password = 3;</code>
+     * <code>optional string password = 2;</code>
+     *
+     * <pre>
+     *密码
+     * </pre>
      */
     com.google.protobuf.ByteString
         getPasswordBytes();
 
-    // optional string passwordConfirm = 4;
+    // optional string passwordConfirm = 3;
     /**
-     * <code>optional string passwordConfirm = 4;</code>
+     * <code>optional string passwordConfirm = 3;</code>
+     *
+     * <pre>
+     *确认密码
+     * </pre>
      */
     boolean hasPasswordConfirm();
     /**
-     * <code>optional string passwordConfirm = 4;</code>
+     * <code>optional string passwordConfirm = 3;</code>
+     *
+     * <pre>
+     *确认密码
+     * </pre>
      */
     java.lang.String getPasswordConfirm();
     /**
-     * <code>optional string passwordConfirm = 4;</code>
+     * <code>optional string passwordConfirm = 3;</code>
+     *
+     * <pre>
+     *确认密码
+     * </pre>
      */
     com.google.protobuf.ByteString
         getPasswordConfirmBytes();
 
-    // optional string validateCode = 5;
+    // optional string validateCode = 4;
     /**
-     * <code>optional string validateCode = 5;</code>
+     * <code>optional string validateCode = 4;</code>
+     *
+     * <pre>
+     *验证码
+     * </pre>
      */
     boolean hasValidateCode();
     /**
-     * <code>optional string validateCode = 5;</code>
+     * <code>optional string validateCode = 4;</code>
+     *
+     * <pre>
+     *验证码
+     * </pre>
      */
     java.lang.String getValidateCode();
     /**
-     * <code>optional string validateCode = 5;</code>
+     * <code>optional string validateCode = 4;</code>
+     *
+     * <pre>
+     *验证码
+     * </pre>
      */
     com.google.protobuf.ByteString
         getValidateCodeBytes();
@@ -18740,21 +19624,16 @@ public final class Models {
             }
             case 18: {
               bitField0_ |= 0x00000002;
-              name_ = input.readBytes();
+              password_ = input.readBytes();
               break;
             }
             case 26: {
               bitField0_ |= 0x00000004;
-              password_ = input.readBytes();
+              passwordConfirm_ = input.readBytes();
               break;
             }
             case 34: {
               bitField0_ |= 0x00000008;
-              passwordConfirm_ = input.readBytes();
-              break;
-            }
-            case 42: {
-              bitField0_ |= 0x00000010;
               validateCode_ = input.readBytes();
               break;
             }
@@ -18803,12 +19682,20 @@ public final class Models {
     private java.lang.Object mobilePhoneNumber_;
     /**
      * <code>optional string mobilePhoneNumber = 1;</code>
+     *
+     * <pre>
+     *手机号码
+     * </pre>
      */
     public boolean hasMobilePhoneNumber() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
      * <code>optional string mobilePhoneNumber = 1;</code>
+     *
+     * <pre>
+     *手机号码
+     * </pre>
      */
     public java.lang.String getMobilePhoneNumber() {
       java.lang.Object ref = mobilePhoneNumber_;
@@ -18826,6 +19713,10 @@ public final class Models {
     }
     /**
      * <code>optional string mobilePhoneNumber = 1;</code>
+     *
+     * <pre>
+     *手机号码
+     * </pre>
      */
     public com.google.protobuf.ByteString
         getMobilePhoneNumberBytes() {
@@ -18841,60 +19732,25 @@ public final class Models {
       }
     }
 
-    // optional string name = 2;
-    public static final int NAME_FIELD_NUMBER = 2;
-    private java.lang.Object name_;
+    // optional string password = 2;
+    public static final int PASSWORD_FIELD_NUMBER = 2;
+    private java.lang.Object password_;
     /**
-     * <code>optional string name = 2;</code>
+     * <code>optional string password = 2;</code>
+     *
+     * <pre>
+     *密码
+     * </pre>
      */
-    public boolean hasName() {
+    public boolean hasPassword() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
-     * <code>optional string name = 2;</code>
-     */
-    public java.lang.String getName() {
-      java.lang.Object ref = name_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          name_ = s;
-        }
-        return s;
-      }
-    }
-    /**
-     * <code>optional string name = 2;</code>
-     */
-    public com.google.protobuf.ByteString
-        getNameBytes() {
-      java.lang.Object ref = name_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        name_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    // optional string password = 3;
-    public static final int PASSWORD_FIELD_NUMBER = 3;
-    private java.lang.Object password_;
-    /**
-     * <code>optional string password = 3;</code>
-     */
-    public boolean hasPassword() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
-    }
-    /**
-     * <code>optional string password = 3;</code>
+     * <code>optional string password = 2;</code>
+     *
+     * <pre>
+     *密码
+     * </pre>
      */
     public java.lang.String getPassword() {
       java.lang.Object ref = password_;
@@ -18911,7 +19767,11 @@ public final class Models {
       }
     }
     /**
-     * <code>optional string password = 3;</code>
+     * <code>optional string password = 2;</code>
+     *
+     * <pre>
+     *密码
+     * </pre>
      */
     public com.google.protobuf.ByteString
         getPasswordBytes() {
@@ -18927,17 +19787,25 @@ public final class Models {
       }
     }
 
-    // optional string passwordConfirm = 4;
-    public static final int PASSWORDCONFIRM_FIELD_NUMBER = 4;
+    // optional string passwordConfirm = 3;
+    public static final int PASSWORDCONFIRM_FIELD_NUMBER = 3;
     private java.lang.Object passwordConfirm_;
     /**
-     * <code>optional string passwordConfirm = 4;</code>
+     * <code>optional string passwordConfirm = 3;</code>
+     *
+     * <pre>
+     *确认密码
+     * </pre>
      */
     public boolean hasPasswordConfirm() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
+      return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>optional string passwordConfirm = 4;</code>
+     * <code>optional string passwordConfirm = 3;</code>
+     *
+     * <pre>
+     *确认密码
+     * </pre>
      */
     public java.lang.String getPasswordConfirm() {
       java.lang.Object ref = passwordConfirm_;
@@ -18954,7 +19822,11 @@ public final class Models {
       }
     }
     /**
-     * <code>optional string passwordConfirm = 4;</code>
+     * <code>optional string passwordConfirm = 3;</code>
+     *
+     * <pre>
+     *确认密码
+     * </pre>
      */
     public com.google.protobuf.ByteString
         getPasswordConfirmBytes() {
@@ -18970,17 +19842,25 @@ public final class Models {
       }
     }
 
-    // optional string validateCode = 5;
-    public static final int VALIDATECODE_FIELD_NUMBER = 5;
+    // optional string validateCode = 4;
+    public static final int VALIDATECODE_FIELD_NUMBER = 4;
     private java.lang.Object validateCode_;
     /**
-     * <code>optional string validateCode = 5;</code>
+     * <code>optional string validateCode = 4;</code>
+     *
+     * <pre>
+     *验证码
+     * </pre>
      */
     public boolean hasValidateCode() {
-      return ((bitField0_ & 0x00000010) == 0x00000010);
+      return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
-     * <code>optional string validateCode = 5;</code>
+     * <code>optional string validateCode = 4;</code>
+     *
+     * <pre>
+     *验证码
+     * </pre>
      */
     public java.lang.String getValidateCode() {
       java.lang.Object ref = validateCode_;
@@ -18997,7 +19877,11 @@ public final class Models {
       }
     }
     /**
-     * <code>optional string validateCode = 5;</code>
+     * <code>optional string validateCode = 4;</code>
+     *
+     * <pre>
+     *验证码
+     * </pre>
      */
     public com.google.protobuf.ByteString
         getValidateCodeBytes() {
@@ -19015,7 +19899,6 @@ public final class Models {
 
     private void initFields() {
       mobilePhoneNumber_ = "";
-      name_ = "";
       password_ = "";
       passwordConfirm_ = "";
       validateCode_ = "";
@@ -19036,16 +19919,13 @@ public final class Models {
         output.writeBytes(1, getMobilePhoneNumberBytes());
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeBytes(2, getNameBytes());
+        output.writeBytes(2, getPasswordBytes());
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeBytes(3, getPasswordBytes());
+        output.writeBytes(3, getPasswordConfirmBytes());
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeBytes(4, getPasswordConfirmBytes());
-      }
-      if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        output.writeBytes(5, getValidateCodeBytes());
+        output.writeBytes(4, getValidateCodeBytes());
       }
       getUnknownFields().writeTo(output);
     }
@@ -19062,19 +19942,15 @@ public final class Models {
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(2, getNameBytes());
+          .computeBytesSize(2, getPasswordBytes());
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(3, getPasswordBytes());
+          .computeBytesSize(3, getPasswordConfirmBytes());
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(4, getPasswordConfirmBytes());
-      }
-      if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(5, getValidateCodeBytes());
+          .computeBytesSize(4, getValidateCodeBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -19194,14 +20070,12 @@ public final class Models {
         super.clear();
         mobilePhoneNumber_ = "";
         bitField0_ = (bitField0_ & ~0x00000001);
-        name_ = "";
-        bitField0_ = (bitField0_ & ~0x00000002);
         password_ = "";
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000002);
         passwordConfirm_ = "";
-        bitField0_ = (bitField0_ & ~0x00000008);
+        bitField0_ = (bitField0_ & ~0x00000004);
         validateCode_ = "";
-        bitField0_ = (bitField0_ & ~0x00000010);
+        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
 
@@ -19237,17 +20111,13 @@ public final class Models {
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
-        result.name_ = name_;
+        result.password_ = password_;
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
-        result.password_ = password_;
+        result.passwordConfirm_ = passwordConfirm_;
         if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
           to_bitField0_ |= 0x00000008;
-        }
-        result.passwordConfirm_ = passwordConfirm_;
-        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
-          to_bitField0_ |= 0x00000010;
         }
         result.validateCode_ = validateCode_;
         result.bitField0_ = to_bitField0_;
@@ -19271,23 +20141,18 @@ public final class Models {
           mobilePhoneNumber_ = other.mobilePhoneNumber_;
           onChanged();
         }
-        if (other.hasName()) {
-          bitField0_ |= 0x00000002;
-          name_ = other.name_;
-          onChanged();
-        }
         if (other.hasPassword()) {
-          bitField0_ |= 0x00000004;
+          bitField0_ |= 0x00000002;
           password_ = other.password_;
           onChanged();
         }
         if (other.hasPasswordConfirm()) {
-          bitField0_ |= 0x00000008;
+          bitField0_ |= 0x00000004;
           passwordConfirm_ = other.passwordConfirm_;
           onChanged();
         }
         if (other.hasValidateCode()) {
-          bitField0_ |= 0x00000010;
+          bitField0_ |= 0x00000008;
           validateCode_ = other.validateCode_;
           onChanged();
         }
@@ -19322,12 +20187,20 @@ public final class Models {
       private java.lang.Object mobilePhoneNumber_ = "";
       /**
        * <code>optional string mobilePhoneNumber = 1;</code>
+       *
+       * <pre>
+       *手机号码
+       * </pre>
        */
       public boolean hasMobilePhoneNumber() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
        * <code>optional string mobilePhoneNumber = 1;</code>
+       *
+       * <pre>
+       *手机号码
+       * </pre>
        */
       public java.lang.String getMobilePhoneNumber() {
         java.lang.Object ref = mobilePhoneNumber_;
@@ -19342,6 +20215,10 @@ public final class Models {
       }
       /**
        * <code>optional string mobilePhoneNumber = 1;</code>
+       *
+       * <pre>
+       *手机号码
+       * </pre>
        */
       public com.google.protobuf.ByteString
           getMobilePhoneNumberBytes() {
@@ -19358,6 +20235,10 @@ public final class Models {
       }
       /**
        * <code>optional string mobilePhoneNumber = 1;</code>
+       *
+       * <pre>
+       *手机号码
+       * </pre>
        */
       public Builder setMobilePhoneNumber(
           java.lang.String value) {
@@ -19371,6 +20252,10 @@ public final class Models {
       }
       /**
        * <code>optional string mobilePhoneNumber = 1;</code>
+       *
+       * <pre>
+       *手机号码
+       * </pre>
        */
       public Builder clearMobilePhoneNumber() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -19380,6 +20265,10 @@ public final class Models {
       }
       /**
        * <code>optional string mobilePhoneNumber = 1;</code>
+       *
+       * <pre>
+       *手机号码
+       * </pre>
        */
       public Builder setMobilePhoneNumberBytes(
           com.google.protobuf.ByteString value) {
@@ -19392,90 +20281,24 @@ public final class Models {
         return this;
       }
 
-      // optional string name = 2;
-      private java.lang.Object name_ = "";
+      // optional string password = 2;
+      private java.lang.Object password_ = "";
       /**
-       * <code>optional string name = 2;</code>
+       * <code>optional string password = 2;</code>
+       *
+       * <pre>
+       *密码
+       * </pre>
        */
-      public boolean hasName() {
+      public boolean hasPassword() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
-       * <code>optional string name = 2;</code>
-       */
-      public java.lang.String getName() {
-        java.lang.Object ref = name_;
-        if (!(ref instanceof java.lang.String)) {
-          java.lang.String s = ((com.google.protobuf.ByteString) ref)
-              .toStringUtf8();
-          name_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string name = 2;</code>
-       */
-      public com.google.protobuf.ByteString
-          getNameBytes() {
-        java.lang.Object ref = name_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          name_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string name = 2;</code>
-       */
-      public Builder setName(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
-        name_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string name = 2;</code>
-       */
-      public Builder clearName() {
-        bitField0_ = (bitField0_ & ~0x00000002);
-        name_ = getDefaultInstance().getName();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string name = 2;</code>
-       */
-      public Builder setNameBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
-        name_ = value;
-        onChanged();
-        return this;
-      }
-
-      // optional string password = 3;
-      private java.lang.Object password_ = "";
-      /**
-       * <code>optional string password = 3;</code>
-       */
-      public boolean hasPassword() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
-      }
-      /**
-       * <code>optional string password = 3;</code>
+       * <code>optional string password = 2;</code>
+       *
+       * <pre>
+       *密码
+       * </pre>
        */
       public java.lang.String getPassword() {
         java.lang.Object ref = password_;
@@ -19489,7 +20312,11 @@ public final class Models {
         }
       }
       /**
-       * <code>optional string password = 3;</code>
+       * <code>optional string password = 2;</code>
+       *
+       * <pre>
+       *密码
+       * </pre>
        */
       public com.google.protobuf.ByteString
           getPasswordBytes() {
@@ -19505,51 +20332,71 @@ public final class Models {
         }
       }
       /**
-       * <code>optional string password = 3;</code>
+       * <code>optional string password = 2;</code>
+       *
+       * <pre>
+       *密码
+       * </pre>
        */
       public Builder setPassword(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000004;
+  bitField0_ |= 0x00000002;
         password_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string password = 3;</code>
+       * <code>optional string password = 2;</code>
+       *
+       * <pre>
+       *密码
+       * </pre>
        */
       public Builder clearPassword() {
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000002);
         password_ = getDefaultInstance().getPassword();
         onChanged();
         return this;
       }
       /**
-       * <code>optional string password = 3;</code>
+       * <code>optional string password = 2;</code>
+       *
+       * <pre>
+       *密码
+       * </pre>
        */
       public Builder setPasswordBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000004;
+  bitField0_ |= 0x00000002;
         password_ = value;
         onChanged();
         return this;
       }
 
-      // optional string passwordConfirm = 4;
+      // optional string passwordConfirm = 3;
       private java.lang.Object passwordConfirm_ = "";
       /**
-       * <code>optional string passwordConfirm = 4;</code>
+       * <code>optional string passwordConfirm = 3;</code>
+       *
+       * <pre>
+       *确认密码
+       * </pre>
        */
       public boolean hasPasswordConfirm() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
+        return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
-       * <code>optional string passwordConfirm = 4;</code>
+       * <code>optional string passwordConfirm = 3;</code>
+       *
+       * <pre>
+       *确认密码
+       * </pre>
        */
       public java.lang.String getPasswordConfirm() {
         java.lang.Object ref = passwordConfirm_;
@@ -19563,7 +20410,11 @@ public final class Models {
         }
       }
       /**
-       * <code>optional string passwordConfirm = 4;</code>
+       * <code>optional string passwordConfirm = 3;</code>
+       *
+       * <pre>
+       *确认密码
+       * </pre>
        */
       public com.google.protobuf.ByteString
           getPasswordConfirmBytes() {
@@ -19579,51 +20430,71 @@ public final class Models {
         }
       }
       /**
-       * <code>optional string passwordConfirm = 4;</code>
+       * <code>optional string passwordConfirm = 3;</code>
+       *
+       * <pre>
+       *确认密码
+       * </pre>
        */
       public Builder setPasswordConfirm(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000008;
+  bitField0_ |= 0x00000004;
         passwordConfirm_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string passwordConfirm = 4;</code>
+       * <code>optional string passwordConfirm = 3;</code>
+       *
+       * <pre>
+       *确认密码
+       * </pre>
        */
       public Builder clearPasswordConfirm() {
-        bitField0_ = (bitField0_ & ~0x00000008);
+        bitField0_ = (bitField0_ & ~0x00000004);
         passwordConfirm_ = getDefaultInstance().getPasswordConfirm();
         onChanged();
         return this;
       }
       /**
-       * <code>optional string passwordConfirm = 4;</code>
+       * <code>optional string passwordConfirm = 3;</code>
+       *
+       * <pre>
+       *确认密码
+       * </pre>
        */
       public Builder setPasswordConfirmBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000008;
+  bitField0_ |= 0x00000004;
         passwordConfirm_ = value;
         onChanged();
         return this;
       }
 
-      // optional string validateCode = 5;
+      // optional string validateCode = 4;
       private java.lang.Object validateCode_ = "";
       /**
-       * <code>optional string validateCode = 5;</code>
+       * <code>optional string validateCode = 4;</code>
+       *
+       * <pre>
+       *验证码
+       * </pre>
        */
       public boolean hasValidateCode() {
-        return ((bitField0_ & 0x00000010) == 0x00000010);
+        return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
-       * <code>optional string validateCode = 5;</code>
+       * <code>optional string validateCode = 4;</code>
+       *
+       * <pre>
+       *验证码
+       * </pre>
        */
       public java.lang.String getValidateCode() {
         java.lang.Object ref = validateCode_;
@@ -19637,7 +20508,11 @@ public final class Models {
         }
       }
       /**
-       * <code>optional string validateCode = 5;</code>
+       * <code>optional string validateCode = 4;</code>
+       *
+       * <pre>
+       *验证码
+       * </pre>
        */
       public com.google.protobuf.ByteString
           getValidateCodeBytes() {
@@ -19653,36 +20528,48 @@ public final class Models {
         }
       }
       /**
-       * <code>optional string validateCode = 5;</code>
+       * <code>optional string validateCode = 4;</code>
+       *
+       * <pre>
+       *验证码
+       * </pre>
        */
       public Builder setValidateCode(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000010;
+  bitField0_ |= 0x00000008;
         validateCode_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string validateCode = 5;</code>
+       * <code>optional string validateCode = 4;</code>
+       *
+       * <pre>
+       *验证码
+       * </pre>
        */
       public Builder clearValidateCode() {
-        bitField0_ = (bitField0_ & ~0x00000010);
+        bitField0_ = (bitField0_ & ~0x00000008);
         validateCode_ = getDefaultInstance().getValidateCode();
         onChanged();
         return this;
       }
       /**
-       * <code>optional string validateCode = 5;</code>
+       * <code>optional string validateCode = 4;</code>
+       *
+       * <pre>
+       *验证码
+       * </pre>
        */
       public Builder setValidateCodeBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000010;
+  bitField0_ |= 0x00000008;
         validateCode_ = value;
         onChanged();
         return this;
@@ -19725,10 +20612,18 @@ public final class Models {
     // optional .Com.Fuwu.MobileIM.Model.RegisterResponse.ErrorCodeType errorCode = 3;
     /**
      * <code>optional .Com.Fuwu.MobileIM.Model.RegisterResponse.ErrorCodeType errorCode = 3;</code>
+     *
+     * <pre>
+     *错误类型（枚举）
+     * </pre>
      */
     boolean hasErrorCode();
     /**
      * <code>optional .Com.Fuwu.MobileIM.Model.RegisterResponse.ErrorCodeType errorCode = 3;</code>
+     *
+     * <pre>
+     *错误类型（枚举）
+     * </pre>
      */
     com.fuwu.mobileim.model.Models.RegisterResponse.ErrorCodeType getErrorCode();
   }
@@ -19845,80 +20740,157 @@ public final class Models {
 
     /**
      * Protobuf enum {@code Com.Fuwu.MobileIM.Model.RegisterResponse.ErrorCodeType}
+     *
+     * <pre>
+     *错误类型枚举类
+     * </pre>
      */
     public enum ErrorCodeType
         implements com.google.protobuf.ProtocolMessageEnum {
       /**
-       * <code>InvalidUserName = 1;</code>
+       * <code>BadRequest = 1;</code>
+       *
+       * <pre>
+       *序列化参数出错
+       * </pre>
        */
-      InvalidUserName(0, 1),
+      BadRequest(0, 1),
       /**
-       * <code>ExistingUserYes = 2;</code>
+       * <code>InvalidDatabase = 2;</code>
+       *
+       * <pre>
+       *数据库连接错误
+       * </pre>
        */
-      ExistingUserYes(1, 2),
+      InvalidDatabase(1, 2),
       /**
-       * <code>InvalidPassword = 3;</code>
+       * <code>InvalidMobilePhoneNumber = 3;</code>
+       *
+       * <pre>
+       *手机号码有误
+       * </pre>
        */
-      InvalidPassword(2, 3),
+      InvalidMobilePhoneNumber(2, 3),
       /**
-       * <code>InvalidConfirmPassword = 4;</code>
+       * <code>ExistingUserYes = 4;</code>
+       *
+       * <pre>
+       *用户已存在
+       * </pre>
        */
-      InvalidConfirmPassword(3, 4),
+      ExistingUserYes(3, 4),
       /**
-       * <code>InvalidMatchPassword = 5;</code>
+       * <code>InvalidPassword = 5;</code>
+       *
+       * <pre>
+       *密码有误
+       * </pre>
        */
-      InvalidMatchPassword(4, 5),
+      InvalidPassword(4, 5),
       /**
-       * <code>InvalidValidateCode = 6;</code>
+       * <code>InvalidConfirmPassword = 6;</code>
+       *
+       * <pre>
+       *确认密码有误
+       * </pre>
        */
-      InvalidValidateCode(5, 6),
+      InvalidConfirmPassword(5, 6),
       /**
-       * <code>InvalidDatabase = 7;</code>
+       * <code>InvalidMatchPassword = 7;</code>
+       *
+       * <pre>
+       *两次密码不一致
+       * </pre>
        */
-      InvalidDatabase(6, 7),
+      InvalidMatchPassword(6, 7),
+      /**
+       * <code>InvalidValidateCode = 8;</code>
+       *
+       * <pre>
+       *验证码有误
+       * </pre>
+       */
+      InvalidValidateCode(7, 8),
       ;
 
       /**
-       * <code>InvalidUserName = 1;</code>
+       * <code>BadRequest = 1;</code>
+       *
+       * <pre>
+       *序列化参数出错
+       * </pre>
        */
-      public static final int InvalidUserName_VALUE = 1;
+      public static final int BadRequest_VALUE = 1;
       /**
-       * <code>ExistingUserYes = 2;</code>
+       * <code>InvalidDatabase = 2;</code>
+       *
+       * <pre>
+       *数据库连接错误
+       * </pre>
        */
-      public static final int ExistingUserYes_VALUE = 2;
+      public static final int InvalidDatabase_VALUE = 2;
       /**
-       * <code>InvalidPassword = 3;</code>
+       * <code>InvalidMobilePhoneNumber = 3;</code>
+       *
+       * <pre>
+       *手机号码有误
+       * </pre>
        */
-      public static final int InvalidPassword_VALUE = 3;
+      public static final int InvalidMobilePhoneNumber_VALUE = 3;
       /**
-       * <code>InvalidConfirmPassword = 4;</code>
+       * <code>ExistingUserYes = 4;</code>
+       *
+       * <pre>
+       *用户已存在
+       * </pre>
        */
-      public static final int InvalidConfirmPassword_VALUE = 4;
+      public static final int ExistingUserYes_VALUE = 4;
       /**
-       * <code>InvalidMatchPassword = 5;</code>
+       * <code>InvalidPassword = 5;</code>
+       *
+       * <pre>
+       *密码有误
+       * </pre>
        */
-      public static final int InvalidMatchPassword_VALUE = 5;
+      public static final int InvalidPassword_VALUE = 5;
       /**
-       * <code>InvalidValidateCode = 6;</code>
+       * <code>InvalidConfirmPassword = 6;</code>
+       *
+       * <pre>
+       *确认密码有误
+       * </pre>
        */
-      public static final int InvalidValidateCode_VALUE = 6;
+      public static final int InvalidConfirmPassword_VALUE = 6;
       /**
-       * <code>InvalidDatabase = 7;</code>
+       * <code>InvalidMatchPassword = 7;</code>
+       *
+       * <pre>
+       *两次密码不一致
+       * </pre>
        */
-      public static final int InvalidDatabase_VALUE = 7;
+      public static final int InvalidMatchPassword_VALUE = 7;
+      /**
+       * <code>InvalidValidateCode = 8;</code>
+       *
+       * <pre>
+       *验证码有误
+       * </pre>
+       */
+      public static final int InvalidValidateCode_VALUE = 8;
 
 
       public final int getNumber() { return value; }
 
       public static ErrorCodeType valueOf(int value) {
         switch (value) {
-          case 1: return InvalidUserName;
-          case 2: return ExistingUserYes;
-          case 3: return InvalidPassword;
-          case 4: return InvalidConfirmPassword;
-          case 5: return InvalidMatchPassword;
-          case 6: return InvalidValidateCode;
-          case 7: return InvalidDatabase;
+          case 1: return BadRequest;
+          case 2: return InvalidDatabase;
+          case 3: return InvalidMobilePhoneNumber;
+          case 4: return ExistingUserYes;
+          case 5: return InvalidPassword;
+          case 6: return InvalidConfirmPassword;
+          case 7: return InvalidMatchPassword;
+          case 8: return InvalidValidateCode;
           default: return null;
         }
       }
@@ -20008,12 +20980,20 @@ public final class Models {
     private com.fuwu.mobileim.model.Models.RegisterResponse.ErrorCodeType errorCode_;
     /**
      * <code>optional .Com.Fuwu.MobileIM.Model.RegisterResponse.ErrorCodeType errorCode = 3;</code>
+     *
+     * <pre>
+     *错误类型（枚举）
+     * </pre>
      */
     public boolean hasErrorCode() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
      * <code>optional .Com.Fuwu.MobileIM.Model.RegisterResponse.ErrorCodeType errorCode = 3;</code>
+     *
+     * <pre>
+     *错误类型（枚举）
+     * </pre>
      */
     public com.fuwu.mobileim.model.Models.RegisterResponse.ErrorCodeType getErrorCode() {
       return errorCode_;
@@ -20022,7 +21002,7 @@ public final class Models {
     private void initFields() {
       isSucceed_ = false;
       userId_ = 0;
-      errorCode_ = com.fuwu.mobileim.model.Models.RegisterResponse.ErrorCodeType.InvalidUserName;
+      errorCode_ = com.fuwu.mobileim.model.Models.RegisterResponse.ErrorCodeType.BadRequest;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -20186,7 +21166,7 @@ public final class Models {
         bitField0_ = (bitField0_ & ~0x00000001);
         userId_ = 0;
         bitField0_ = (bitField0_ & ~0x00000002);
-        errorCode_ = com.fuwu.mobileim.model.Models.RegisterResponse.ErrorCodeType.InvalidUserName;
+        errorCode_ = com.fuwu.mobileim.model.Models.RegisterResponse.ErrorCodeType.BadRequest;
         bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
@@ -20347,21 +21327,33 @@ public final class Models {
       }
 
       // optional .Com.Fuwu.MobileIM.Model.RegisterResponse.ErrorCodeType errorCode = 3;
-      private com.fuwu.mobileim.model.Models.RegisterResponse.ErrorCodeType errorCode_ = com.fuwu.mobileim.model.Models.RegisterResponse.ErrorCodeType.InvalidUserName;
+      private com.fuwu.mobileim.model.Models.RegisterResponse.ErrorCodeType errorCode_ = com.fuwu.mobileim.model.Models.RegisterResponse.ErrorCodeType.BadRequest;
       /**
        * <code>optional .Com.Fuwu.MobileIM.Model.RegisterResponse.ErrorCodeType errorCode = 3;</code>
+       *
+       * <pre>
+       *错误类型（枚举）
+       * </pre>
        */
       public boolean hasErrorCode() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
        * <code>optional .Com.Fuwu.MobileIM.Model.RegisterResponse.ErrorCodeType errorCode = 3;</code>
+       *
+       * <pre>
+       *错误类型（枚举）
+       * </pre>
        */
       public com.fuwu.mobileim.model.Models.RegisterResponse.ErrorCodeType getErrorCode() {
         return errorCode_;
       }
       /**
        * <code>optional .Com.Fuwu.MobileIM.Model.RegisterResponse.ErrorCodeType errorCode = 3;</code>
+       *
+       * <pre>
+       *错误类型（枚举）
+       * </pre>
        */
       public Builder setErrorCode(com.fuwu.mobileim.model.Models.RegisterResponse.ErrorCodeType value) {
         if (value == null) {
@@ -20374,10 +21366,14 @@ public final class Models {
       }
       /**
        * <code>optional .Com.Fuwu.MobileIM.Model.RegisterResponse.ErrorCodeType errorCode = 3;</code>
+       *
+       * <pre>
+       *错误类型（枚举）
+       * </pre>
        */
       public Builder clearErrorCode() {
         bitField0_ = (bitField0_ & ~0x00000004);
-        errorCode_ = com.fuwu.mobileim.model.Models.RegisterResponse.ErrorCodeType.InvalidUserName;
+        errorCode_ = com.fuwu.mobileim.model.Models.RegisterResponse.ErrorCodeType.BadRequest;
         onChanged();
         return this;
       }
@@ -20399,14 +21395,26 @@ public final class Models {
     // optional string token = 1;
     /**
      * <code>optional string token = 1;</code>
+     *
+     * <pre>
+     *用户token
+     * </pre>
      */
     boolean hasToken();
     /**
      * <code>optional string token = 1;</code>
+     *
+     * <pre>
+     *用户token
+     * </pre>
      */
     java.lang.String getToken();
     /**
      * <code>optional string token = 1;</code>
+     *
+     * <pre>
+     *用户token
+     * </pre>
      */
     com.google.protobuf.ByteString
         getTokenBytes();
@@ -20414,24 +21422,44 @@ public final class Models {
     // optional int32 userId = 2;
     /**
      * <code>optional int32 userId = 2;</code>
+     *
+     * <pre>
+     *用户ID
+     * </pre>
      */
     boolean hasUserId();
     /**
      * <code>optional int32 userId = 2;</code>
+     *
+     * <pre>
+     *用户ID
+     * </pre>
      */
     int getUserId();
 
     // optional string validateCode = 3;
     /**
      * <code>optional string validateCode = 3;</code>
+     *
+     * <pre>
+     *验证码
+     * </pre>
      */
     boolean hasValidateCode();
     /**
      * <code>optional string validateCode = 3;</code>
+     *
+     * <pre>
+     *验证码
+     * </pre>
      */
     java.lang.String getValidateCode();
     /**
      * <code>optional string validateCode = 3;</code>
+     *
+     * <pre>
+     *验证码
+     * </pre>
      */
     com.google.protobuf.ByteString
         getValidateCodeBytes();
@@ -20439,14 +21467,26 @@ public final class Models {
     // optional string originalPassword = 4;
     /**
      * <code>optional string originalPassword = 4;</code>
+     *
+     * <pre>
+     *旧密码
+     * </pre>
      */
     boolean hasOriginalPassword();
     /**
      * <code>optional string originalPassword = 4;</code>
+     *
+     * <pre>
+     *旧密码
+     * </pre>
      */
     java.lang.String getOriginalPassword();
     /**
      * <code>optional string originalPassword = 4;</code>
+     *
+     * <pre>
+     *旧密码
+     * </pre>
      */
     com.google.protobuf.ByteString
         getOriginalPasswordBytes();
@@ -20454,14 +21494,26 @@ public final class Models {
     // optional string password = 5;
     /**
      * <code>optional string password = 5;</code>
+     *
+     * <pre>
+     *新密码
+     * </pre>
      */
     boolean hasPassword();
     /**
      * <code>optional string password = 5;</code>
+     *
+     * <pre>
+     *新密码
+     * </pre>
      */
     java.lang.String getPassword();
     /**
      * <code>optional string password = 5;</code>
+     *
+     * <pre>
+     *新密码
+     * </pre>
      */
     com.google.protobuf.ByteString
         getPasswordBytes();
@@ -20469,14 +21521,26 @@ public final class Models {
     // optional string passwordConfirm = 6;
     /**
      * <code>optional string passwordConfirm = 6;</code>
+     *
+     * <pre>
+     *确认新密码
+     * </pre>
      */
     boolean hasPasswordConfirm();
     /**
      * <code>optional string passwordConfirm = 6;</code>
+     *
+     * <pre>
+     *确认新密码
+     * </pre>
      */
     java.lang.String getPasswordConfirm();
     /**
      * <code>optional string passwordConfirm = 6;</code>
+     *
+     * <pre>
+     *确认新密码
+     * </pre>
      */
     com.google.protobuf.ByteString
         getPasswordConfirmBytes();
@@ -20607,12 +21671,20 @@ public final class Models {
     private java.lang.Object token_;
     /**
      * <code>optional string token = 1;</code>
+     *
+     * <pre>
+     *用户token
+     * </pre>
      */
     public boolean hasToken() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
      * <code>optional string token = 1;</code>
+     *
+     * <pre>
+     *用户token
+     * </pre>
      */
     public java.lang.String getToken() {
       java.lang.Object ref = token_;
@@ -20630,6 +21702,10 @@ public final class Models {
     }
     /**
      * <code>optional string token = 1;</code>
+     *
+     * <pre>
+     *用户token
+     * </pre>
      */
     public com.google.protobuf.ByteString
         getTokenBytes() {
@@ -20650,12 +21726,20 @@ public final class Models {
     private int userId_;
     /**
      * <code>optional int32 userId = 2;</code>
+     *
+     * <pre>
+     *用户ID
+     * </pre>
      */
     public boolean hasUserId() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
      * <code>optional int32 userId = 2;</code>
+     *
+     * <pre>
+     *用户ID
+     * </pre>
      */
     public int getUserId() {
       return userId_;
@@ -20666,12 +21750,20 @@ public final class Models {
     private java.lang.Object validateCode_;
     /**
      * <code>optional string validateCode = 3;</code>
+     *
+     * <pre>
+     *验证码
+     * </pre>
      */
     public boolean hasValidateCode() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
      * <code>optional string validateCode = 3;</code>
+     *
+     * <pre>
+     *验证码
+     * </pre>
      */
     public java.lang.String getValidateCode() {
       java.lang.Object ref = validateCode_;
@@ -20689,6 +21781,10 @@ public final class Models {
     }
     /**
      * <code>optional string validateCode = 3;</code>
+     *
+     * <pre>
+     *验证码
+     * </pre>
      */
     public com.google.protobuf.ByteString
         getValidateCodeBytes() {
@@ -20709,12 +21805,20 @@ public final class Models {
     private java.lang.Object originalPassword_;
     /**
      * <code>optional string originalPassword = 4;</code>
+     *
+     * <pre>
+     *旧密码
+     * </pre>
      */
     public boolean hasOriginalPassword() {
       return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
      * <code>optional string originalPassword = 4;</code>
+     *
+     * <pre>
+     *旧密码
+     * </pre>
      */
     public java.lang.String getOriginalPassword() {
       java.lang.Object ref = originalPassword_;
@@ -20732,6 +21836,10 @@ public final class Models {
     }
     /**
      * <code>optional string originalPassword = 4;</code>
+     *
+     * <pre>
+     *旧密码
+     * </pre>
      */
     public com.google.protobuf.ByteString
         getOriginalPasswordBytes() {
@@ -20752,12 +21860,20 @@ public final class Models {
     private java.lang.Object password_;
     /**
      * <code>optional string password = 5;</code>
+     *
+     * <pre>
+     *新密码
+     * </pre>
      */
     public boolean hasPassword() {
       return ((bitField0_ & 0x00000010) == 0x00000010);
     }
     /**
      * <code>optional string password = 5;</code>
+     *
+     * <pre>
+     *新密码
+     * </pre>
      */
     public java.lang.String getPassword() {
       java.lang.Object ref = password_;
@@ -20775,6 +21891,10 @@ public final class Models {
     }
     /**
      * <code>optional string password = 5;</code>
+     *
+     * <pre>
+     *新密码
+     * </pre>
      */
     public com.google.protobuf.ByteString
         getPasswordBytes() {
@@ -20795,12 +21915,20 @@ public final class Models {
     private java.lang.Object passwordConfirm_;
     /**
      * <code>optional string passwordConfirm = 6;</code>
+     *
+     * <pre>
+     *确认新密码
+     * </pre>
      */
     public boolean hasPasswordConfirm() {
       return ((bitField0_ & 0x00000020) == 0x00000020);
     }
     /**
      * <code>optional string passwordConfirm = 6;</code>
+     *
+     * <pre>
+     *确认新密码
+     * </pre>
      */
     public java.lang.String getPasswordConfirm() {
       java.lang.Object ref = passwordConfirm_;
@@ -20818,6 +21946,10 @@ public final class Models {
     }
     /**
      * <code>optional string passwordConfirm = 6;</code>
+     *
+     * <pre>
+     *确认新密码
+     * </pre>
      */
     public com.google.protobuf.ByteString
         getPasswordConfirmBytes() {
@@ -21159,12 +22291,20 @@ public final class Models {
       private java.lang.Object token_ = "";
       /**
        * <code>optional string token = 1;</code>
+       *
+       * <pre>
+       *用户token
+       * </pre>
        */
       public boolean hasToken() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
        * <code>optional string token = 1;</code>
+       *
+       * <pre>
+       *用户token
+       * </pre>
        */
       public java.lang.String getToken() {
         java.lang.Object ref = token_;
@@ -21179,6 +22319,10 @@ public final class Models {
       }
       /**
        * <code>optional string token = 1;</code>
+       *
+       * <pre>
+       *用户token
+       * </pre>
        */
       public com.google.protobuf.ByteString
           getTokenBytes() {
@@ -21195,6 +22339,10 @@ public final class Models {
       }
       /**
        * <code>optional string token = 1;</code>
+       *
+       * <pre>
+       *用户token
+       * </pre>
        */
       public Builder setToken(
           java.lang.String value) {
@@ -21208,6 +22356,10 @@ public final class Models {
       }
       /**
        * <code>optional string token = 1;</code>
+       *
+       * <pre>
+       *用户token
+       * </pre>
        */
       public Builder clearToken() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -21217,6 +22369,10 @@ public final class Models {
       }
       /**
        * <code>optional string token = 1;</code>
+       *
+       * <pre>
+       *用户token
+       * </pre>
        */
       public Builder setTokenBytes(
           com.google.protobuf.ByteString value) {
@@ -21233,18 +22389,30 @@ public final class Models {
       private int userId_ ;
       /**
        * <code>optional int32 userId = 2;</code>
+       *
+       * <pre>
+       *用户ID
+       * </pre>
        */
       public boolean hasUserId() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
        * <code>optional int32 userId = 2;</code>
+       *
+       * <pre>
+       *用户ID
+       * </pre>
        */
       public int getUserId() {
         return userId_;
       }
       /**
        * <code>optional int32 userId = 2;</code>
+       *
+       * <pre>
+       *用户ID
+       * </pre>
        */
       public Builder setUserId(int value) {
         bitField0_ |= 0x00000002;
@@ -21254,6 +22422,10 @@ public final class Models {
       }
       /**
        * <code>optional int32 userId = 2;</code>
+       *
+       * <pre>
+       *用户ID
+       * </pre>
        */
       public Builder clearUserId() {
         bitField0_ = (bitField0_ & ~0x00000002);
@@ -21266,12 +22438,20 @@ public final class Models {
       private java.lang.Object validateCode_ = "";
       /**
        * <code>optional string validateCode = 3;</code>
+       *
+       * <pre>
+       *验证码
+       * </pre>
        */
       public boolean hasValidateCode() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
        * <code>optional string validateCode = 3;</code>
+       *
+       * <pre>
+       *验证码
+       * </pre>
        */
       public java.lang.String getValidateCode() {
         java.lang.Object ref = validateCode_;
@@ -21286,6 +22466,10 @@ public final class Models {
       }
       /**
        * <code>optional string validateCode = 3;</code>
+       *
+       * <pre>
+       *验证码
+       * </pre>
        */
       public com.google.protobuf.ByteString
           getValidateCodeBytes() {
@@ -21302,6 +22486,10 @@ public final class Models {
       }
       /**
        * <code>optional string validateCode = 3;</code>
+       *
+       * <pre>
+       *验证码
+       * </pre>
        */
       public Builder setValidateCode(
           java.lang.String value) {
@@ -21315,6 +22503,10 @@ public final class Models {
       }
       /**
        * <code>optional string validateCode = 3;</code>
+       *
+       * <pre>
+       *验证码
+       * </pre>
        */
       public Builder clearValidateCode() {
         bitField0_ = (bitField0_ & ~0x00000004);
@@ -21324,6 +22516,10 @@ public final class Models {
       }
       /**
        * <code>optional string validateCode = 3;</code>
+       *
+       * <pre>
+       *验证码
+       * </pre>
        */
       public Builder setValidateCodeBytes(
           com.google.protobuf.ByteString value) {
@@ -21340,12 +22536,20 @@ public final class Models {
       private java.lang.Object originalPassword_ = "";
       /**
        * <code>optional string originalPassword = 4;</code>
+       *
+       * <pre>
+       *旧密码
+       * </pre>
        */
       public boolean hasOriginalPassword() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
        * <code>optional string originalPassword = 4;</code>
+       *
+       * <pre>
+       *旧密码
+       * </pre>
        */
       public java.lang.String getOriginalPassword() {
         java.lang.Object ref = originalPassword_;
@@ -21360,6 +22564,10 @@ public final class Models {
       }
       /**
        * <code>optional string originalPassword = 4;</code>
+       *
+       * <pre>
+       *旧密码
+       * </pre>
        */
       public com.google.protobuf.ByteString
           getOriginalPasswordBytes() {
@@ -21376,6 +22584,10 @@ public final class Models {
       }
       /**
        * <code>optional string originalPassword = 4;</code>
+       *
+       * <pre>
+       *旧密码
+       * </pre>
        */
       public Builder setOriginalPassword(
           java.lang.String value) {
@@ -21389,6 +22601,10 @@ public final class Models {
       }
       /**
        * <code>optional string originalPassword = 4;</code>
+       *
+       * <pre>
+       *旧密码
+       * </pre>
        */
       public Builder clearOriginalPassword() {
         bitField0_ = (bitField0_ & ~0x00000008);
@@ -21398,6 +22614,10 @@ public final class Models {
       }
       /**
        * <code>optional string originalPassword = 4;</code>
+       *
+       * <pre>
+       *旧密码
+       * </pre>
        */
       public Builder setOriginalPasswordBytes(
           com.google.protobuf.ByteString value) {
@@ -21414,12 +22634,20 @@ public final class Models {
       private java.lang.Object password_ = "";
       /**
        * <code>optional string password = 5;</code>
+       *
+       * <pre>
+       *新密码
+       * </pre>
        */
       public boolean hasPassword() {
         return ((bitField0_ & 0x00000010) == 0x00000010);
       }
       /**
        * <code>optional string password = 5;</code>
+       *
+       * <pre>
+       *新密码
+       * </pre>
        */
       public java.lang.String getPassword() {
         java.lang.Object ref = password_;
@@ -21434,6 +22662,10 @@ public final class Models {
       }
       /**
        * <code>optional string password = 5;</code>
+       *
+       * <pre>
+       *新密码
+       * </pre>
        */
       public com.google.protobuf.ByteString
           getPasswordBytes() {
@@ -21450,6 +22682,10 @@ public final class Models {
       }
       /**
        * <code>optional string password = 5;</code>
+       *
+       * <pre>
+       *新密码
+       * </pre>
        */
       public Builder setPassword(
           java.lang.String value) {
@@ -21463,6 +22699,10 @@ public final class Models {
       }
       /**
        * <code>optional string password = 5;</code>
+       *
+       * <pre>
+       *新密码
+       * </pre>
        */
       public Builder clearPassword() {
         bitField0_ = (bitField0_ & ~0x00000010);
@@ -21472,6 +22712,10 @@ public final class Models {
       }
       /**
        * <code>optional string password = 5;</code>
+       *
+       * <pre>
+       *新密码
+       * </pre>
        */
       public Builder setPasswordBytes(
           com.google.protobuf.ByteString value) {
@@ -21488,12 +22732,20 @@ public final class Models {
       private java.lang.Object passwordConfirm_ = "";
       /**
        * <code>optional string passwordConfirm = 6;</code>
+       *
+       * <pre>
+       *确认新密码
+       * </pre>
        */
       public boolean hasPasswordConfirm() {
         return ((bitField0_ & 0x00000020) == 0x00000020);
       }
       /**
        * <code>optional string passwordConfirm = 6;</code>
+       *
+       * <pre>
+       *确认新密码
+       * </pre>
        */
       public java.lang.String getPasswordConfirm() {
         java.lang.Object ref = passwordConfirm_;
@@ -21508,6 +22760,10 @@ public final class Models {
       }
       /**
        * <code>optional string passwordConfirm = 6;</code>
+       *
+       * <pre>
+       *确认新密码
+       * </pre>
        */
       public com.google.protobuf.ByteString
           getPasswordConfirmBytes() {
@@ -21524,6 +22780,10 @@ public final class Models {
       }
       /**
        * <code>optional string passwordConfirm = 6;</code>
+       *
+       * <pre>
+       *确认新密码
+       * </pre>
        */
       public Builder setPasswordConfirm(
           java.lang.String value) {
@@ -21537,6 +22797,10 @@ public final class Models {
       }
       /**
        * <code>optional string passwordConfirm = 6;</code>
+       *
+       * <pre>
+       *确认新密码
+       * </pre>
        */
       public Builder clearPasswordConfirm() {
         bitField0_ = (bitField0_ & ~0x00000020);
@@ -21546,6 +22810,10 @@ public final class Models {
       }
       /**
        * <code>optional string passwordConfirm = 6;</code>
+       *
+       * <pre>
+       *确认新密码
+       * </pre>
        */
       public Builder setPasswordConfirmBytes(
           com.google.protobuf.ByteString value) {
@@ -21585,10 +22853,18 @@ public final class Models {
     // optional .Com.Fuwu.MobileIM.Model.ChangePasswordResponse.ErrorCodeType errorCode = 2;
     /**
      * <code>optional .Com.Fuwu.MobileIM.Model.ChangePasswordResponse.ErrorCodeType errorCode = 2;</code>
+     *
+     * <pre>
+     *错误类型（枚举）
+     * </pre>
      */
     boolean hasErrorCode();
     /**
      * <code>optional .Com.Fuwu.MobileIM.Model.ChangePasswordResponse.ErrorCodeType errorCode = 2;</code>
+     *
+     * <pre>
+     *错误类型（枚举）
+     * </pre>
      */
     com.fuwu.mobileim.model.Models.ChangePasswordResponse.ErrorCodeType getErrorCode();
   }
@@ -21700,107 +22976,208 @@ public final class Models {
 
     /**
      * Protobuf enum {@code Com.Fuwu.MobileIM.Model.ChangePasswordResponse.ErrorCodeType}
+     *
+     * <pre>
+     *错误类型枚举类
+     * </pre>
      */
     public enum ErrorCodeType
         implements com.google.protobuf.ProtocolMessageEnum {
       /**
-       * <code>InvalidUserId = 1;</code>
+       * <code>BadRequest = 1;</code>
+       *
+       * <pre>
+       *序列化参数出错
+       * </pre>
        */
-      InvalidUserId(0, 1),
+      BadRequest(0, 1),
       /**
-       * <code>InvalidToken = 2;</code>
+       * <code>InvalidUserId = 2;</code>
+       *
+       * <pre>
+       *UserId参数有误
+       * </pre>
        */
-      InvalidToken(1, 2),
+      InvalidUserId(1, 2),
       /**
-       * <code>AuthError = 3;</code>
+       * <code>InvalidToken = 3;</code>
+       *
+       * <pre>
+       *Token参数有误
+       * </pre>
        */
-      AuthError(2, 3),
+      InvalidToken(2, 3),
       /**
-       * <code>ExistingUserNo = 4;</code>
+       * <code>InvalidUser = 4;</code>
+       *
+       * <pre>
+       *身份验证失败
+       * </pre>
        */
-      ExistingUserNo(3, 4),
+      InvalidUser(3, 4),
       /**
-       * <code>InvalidOriginalPassword = 5;</code>
+       * <code>InvalidDatabase = 5;</code>
+       *
+       * <pre>
+       *数据库连接错误
+       * </pre>
        */
-      InvalidOriginalPassword(4, 5),
+      InvalidDatabase(4, 5),
       /**
-       * <code>InvalidPassword = 6;</code>
+       * <code>ExistingUserNo = 6;</code>
+       *
+       * <pre>
+       *用户不存在
+       * </pre>
        */
-      InvalidPassword(5, 6),
+      ExistingUserNo(5, 6),
       /**
-       * <code>InvalidConfirmPassword = 7;</code>
+       * <code>InvalidOriginalPassword = 7;</code>
+       *
+       * <pre>
+       *旧密码有误
+       * </pre>
        */
-      InvalidConfirmPassword(6, 7),
+      InvalidOriginalPassword(6, 7),
       /**
-       * <code>InvalidMatchPassword = 8;</code>
+       * <code>InvalidPassword = 8;</code>
+       *
+       * <pre>
+       *新密码有误
+       * </pre>
        */
-      InvalidMatchPassword(7, 8),
+      InvalidPassword(7, 8),
       /**
-       * <code>InvalidValidateCode = 9;</code>
+       * <code>InvalidConfirmPassword = 9;</code>
+       *
+       * <pre>
+       *确认密码有误
+       * </pre>
        */
-      InvalidValidateCode(8, 9),
+      InvalidConfirmPassword(8, 9),
       /**
-       * <code>InvalidDatabase = 10;</code>
+       * <code>InvalidMatchPassword = 10;</code>
+       *
+       * <pre>
+       *两次新密码不一致
+       * </pre>
        */
-      InvalidDatabase(9, 10),
+      InvalidMatchPassword(9, 10),
+      /**
+       * <code>InvalidValidateCode = 11;</code>
+       *
+       * <pre>
+       *验证码有误
+       * </pre>
+       */
+      InvalidValidateCode(10, 11),
       ;
 
       /**
-       * <code>InvalidUserId = 1;</code>
+       * <code>BadRequest = 1;</code>
+       *
+       * <pre>
+       *序列化参数出错
+       * </pre>
        */
-      public static final int InvalidUserId_VALUE = 1;
+      public static final int BadRequest_VALUE = 1;
       /**
-       * <code>InvalidToken = 2;</code>
+       * <code>InvalidUserId = 2;</code>
+       *
+       * <pre>
+       *UserId参数有误
+       * </pre>
        */
-      public static final int InvalidToken_VALUE = 2;
+      public static final int InvalidUserId_VALUE = 2;
       /**
-       * <code>AuthError = 3;</code>
+       * <code>InvalidToken = 3;</code>
+       *
+       * <pre>
+       *Token参数有误
+       * </pre>
        */
-      public static final int AuthError_VALUE = 3;
+      public static final int InvalidToken_VALUE = 3;
       /**
-       * <code>ExistingUserNo = 4;</code>
+       * <code>InvalidUser = 4;</code>
+       *
+       * <pre>
+       *身份验证失败
+       * </pre>
        */
-      public static final int ExistingUserNo_VALUE = 4;
+      public static final int InvalidUser_VALUE = 4;
       /**
-       * <code>InvalidOriginalPassword = 5;</code>
+       * <code>InvalidDatabase = 5;</code>
+       *
+       * <pre>
+       *数据库连接错误
+       * </pre>
        */
-      public static final int InvalidOriginalPassword_VALUE = 5;
+      public static final int InvalidDatabase_VALUE = 5;
       /**
-       * <code>InvalidPassword = 6;</code>
+       * <code>ExistingUserNo = 6;</code>
+       *
+       * <pre>
+       *用户不存在
+       * </pre>
        */
-      public static final int InvalidPassword_VALUE = 6;
+      public static final int ExistingUserNo_VALUE = 6;
       /**
-       * <code>InvalidConfirmPassword = 7;</code>
+       * <code>InvalidOriginalPassword = 7;</code>
+       *
+       * <pre>
+       *旧密码有误
+       * </pre>
        */
-      public static final int InvalidConfirmPassword_VALUE = 7;
+      public static final int InvalidOriginalPassword_VALUE = 7;
       /**
-       * <code>InvalidMatchPassword = 8;</code>
+       * <code>InvalidPassword = 8;</code>
+       *
+       * <pre>
+       *新密码有误
+       * </pre>
        */
-      public static final int InvalidMatchPassword_VALUE = 8;
+      public static final int InvalidPassword_VALUE = 8;
       /**
-       * <code>InvalidValidateCode = 9;</code>
+       * <code>InvalidConfirmPassword = 9;</code>
+       *
+       * <pre>
+       *确认密码有误
+       * </pre>
        */
-      public static final int InvalidValidateCode_VALUE = 9;
+      public static final int InvalidConfirmPassword_VALUE = 9;
       /**
-       * <code>InvalidDatabase = 10;</code>
+       * <code>InvalidMatchPassword = 10;</code>
+       *
+       * <pre>
+       *两次新密码不一致
+       * </pre>
        */
-      public static final int InvalidDatabase_VALUE = 10;
+      public static final int InvalidMatchPassword_VALUE = 10;
+      /**
+       * <code>InvalidValidateCode = 11;</code>
+       *
+       * <pre>
+       *验证码有误
+       * </pre>
+       */
+      public static final int InvalidValidateCode_VALUE = 11;
 
 
       public final int getNumber() { return value; }
 
       public static ErrorCodeType valueOf(int value) {
         switch (value) {
-          case 1: return InvalidUserId;
-          case 2: return InvalidToken;
-          case 3: return AuthError;
-          case 4: return ExistingUserNo;
-          case 5: return InvalidOriginalPassword;
-          case 6: return InvalidPassword;
-          case 7: return InvalidConfirmPassword;
-          case 8: return InvalidMatchPassword;
-          case 9: return InvalidValidateCode;
-          case 10: return InvalidDatabase;
+          case 1: return BadRequest;
+          case 2: return InvalidUserId;
+          case 3: return InvalidToken;
+          case 4: return InvalidUser;
+          case 5: return InvalidDatabase;
+          case 6: return ExistingUserNo;
+          case 7: return InvalidOriginalPassword;
+          case 8: return InvalidPassword;
+          case 9: return InvalidConfirmPassword;
+          case 10: return InvalidMatchPassword;
+          case 11: return InvalidValidateCode;
           default: return null;
         }
       }
@@ -21874,12 +23251,20 @@ public final class Models {
     private com.fuwu.mobileim.model.Models.ChangePasswordResponse.ErrorCodeType errorCode_;
     /**
      * <code>optional .Com.Fuwu.MobileIM.Model.ChangePasswordResponse.ErrorCodeType errorCode = 2;</code>
+     *
+     * <pre>
+     *错误类型（枚举）
+     * </pre>
      */
     public boolean hasErrorCode() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
      * <code>optional .Com.Fuwu.MobileIM.Model.ChangePasswordResponse.ErrorCodeType errorCode = 2;</code>
+     *
+     * <pre>
+     *错误类型（枚举）
+     * </pre>
      */
     public com.fuwu.mobileim.model.Models.ChangePasswordResponse.ErrorCodeType getErrorCode() {
       return errorCode_;
@@ -21887,7 +23272,7 @@ public final class Models {
 
     private void initFields() {
       isSucceed_ = false;
-      errorCode_ = com.fuwu.mobileim.model.Models.ChangePasswordResponse.ErrorCodeType.InvalidUserId;
+      errorCode_ = com.fuwu.mobileim.model.Models.ChangePasswordResponse.ErrorCodeType.BadRequest;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -22042,7 +23427,7 @@ public final class Models {
         super.clear();
         isSucceed_ = false;
         bitField0_ = (bitField0_ & ~0x00000001);
-        errorCode_ = com.fuwu.mobileim.model.Models.ChangePasswordResponse.ErrorCodeType.InvalidUserId;
+        errorCode_ = com.fuwu.mobileim.model.Models.ChangePasswordResponse.ErrorCodeType.BadRequest;
         bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
@@ -22163,21 +23548,33 @@ public final class Models {
       }
 
       // optional .Com.Fuwu.MobileIM.Model.ChangePasswordResponse.ErrorCodeType errorCode = 2;
-      private com.fuwu.mobileim.model.Models.ChangePasswordResponse.ErrorCodeType errorCode_ = com.fuwu.mobileim.model.Models.ChangePasswordResponse.ErrorCodeType.InvalidUserId;
+      private com.fuwu.mobileim.model.Models.ChangePasswordResponse.ErrorCodeType errorCode_ = com.fuwu.mobileim.model.Models.ChangePasswordResponse.ErrorCodeType.BadRequest;
       /**
        * <code>optional .Com.Fuwu.MobileIM.Model.ChangePasswordResponse.ErrorCodeType errorCode = 2;</code>
+       *
+       * <pre>
+       *错误类型（枚举）
+       * </pre>
        */
       public boolean hasErrorCode() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
        * <code>optional .Com.Fuwu.MobileIM.Model.ChangePasswordResponse.ErrorCodeType errorCode = 2;</code>
+       *
+       * <pre>
+       *错误类型（枚举）
+       * </pre>
        */
       public com.fuwu.mobileim.model.Models.ChangePasswordResponse.ErrorCodeType getErrorCode() {
         return errorCode_;
       }
       /**
        * <code>optional .Com.Fuwu.MobileIM.Model.ChangePasswordResponse.ErrorCodeType errorCode = 2;</code>
+       *
+       * <pre>
+       *错误类型（枚举）
+       * </pre>
        */
       public Builder setErrorCode(com.fuwu.mobileim.model.Models.ChangePasswordResponse.ErrorCodeType value) {
         if (value == null) {
@@ -22190,10 +23587,14 @@ public final class Models {
       }
       /**
        * <code>optional .Com.Fuwu.MobileIM.Model.ChangePasswordResponse.ErrorCodeType errorCode = 2;</code>
+       *
+       * <pre>
+       *错误类型（枚举）
+       * </pre>
        */
       public Builder clearErrorCode() {
         bitField0_ = (bitField0_ & ~0x00000002);
-        errorCode_ = com.fuwu.mobileim.model.Models.ChangePasswordResponse.ErrorCodeType.InvalidUserId;
+        errorCode_ = com.fuwu.mobileim.model.Models.ChangePasswordResponse.ErrorCodeType.BadRequest;
         onChanged();
         return this;
       }
@@ -22215,14 +23616,26 @@ public final class Models {
     // optional string phoneNumber = 1;
     /**
      * <code>optional string phoneNumber = 1;</code>
+     *
+     * <pre>
+     *手机号码
+     * </pre>
      */
     boolean hasPhoneNumber();
     /**
      * <code>optional string phoneNumber = 1;</code>
+     *
+     * <pre>
+     *手机号码
+     * </pre>
      */
     java.lang.String getPhoneNumber();
     /**
      * <code>optional string phoneNumber = 1;</code>
+     *
+     * <pre>
+     *手机号码
+     * </pre>
      */
     com.google.protobuf.ByteString
         getPhoneNumberBytes();
@@ -22230,14 +23643,26 @@ public final class Models {
     // optional string validateCode = 2;
     /**
      * <code>optional string validateCode = 2;</code>
+     *
+     * <pre>
+     *验证码
+     * </pre>
      */
     boolean hasValidateCode();
     /**
      * <code>optional string validateCode = 2;</code>
+     *
+     * <pre>
+     *验证码
+     * </pre>
      */
     java.lang.String getValidateCode();
     /**
      * <code>optional string validateCode = 2;</code>
+     *
+     * <pre>
+     *验证码
+     * </pre>
      */
     com.google.protobuf.ByteString
         getValidateCodeBytes();
@@ -22245,14 +23670,26 @@ public final class Models {
     // optional string password = 3;
     /**
      * <code>optional string password = 3;</code>
+     *
+     * <pre>
+     *密码
+     * </pre>
      */
     boolean hasPassword();
     /**
      * <code>optional string password = 3;</code>
+     *
+     * <pre>
+     *密码
+     * </pre>
      */
     java.lang.String getPassword();
     /**
      * <code>optional string password = 3;</code>
+     *
+     * <pre>
+     *密码
+     * </pre>
      */
     com.google.protobuf.ByteString
         getPasswordBytes();
@@ -22260,14 +23697,26 @@ public final class Models {
     // optional string passwordConfirm = 4;
     /**
      * <code>optional string passwordConfirm = 4;</code>
+     *
+     * <pre>
+     *确认密码
+     * </pre>
      */
     boolean hasPasswordConfirm();
     /**
      * <code>optional string passwordConfirm = 4;</code>
+     *
+     * <pre>
+     *确认密码
+     * </pre>
      */
     java.lang.String getPasswordConfirm();
     /**
      * <code>optional string passwordConfirm = 4;</code>
+     *
+     * <pre>
+     *确认密码
+     * </pre>
      */
     com.google.protobuf.ByteString
         getPasswordConfirmBytes();
@@ -22388,12 +23837,20 @@ public final class Models {
     private java.lang.Object phoneNumber_;
     /**
      * <code>optional string phoneNumber = 1;</code>
+     *
+     * <pre>
+     *手机号码
+     * </pre>
      */
     public boolean hasPhoneNumber() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
      * <code>optional string phoneNumber = 1;</code>
+     *
+     * <pre>
+     *手机号码
+     * </pre>
      */
     public java.lang.String getPhoneNumber() {
       java.lang.Object ref = phoneNumber_;
@@ -22411,6 +23868,10 @@ public final class Models {
     }
     /**
      * <code>optional string phoneNumber = 1;</code>
+     *
+     * <pre>
+     *手机号码
+     * </pre>
      */
     public com.google.protobuf.ByteString
         getPhoneNumberBytes() {
@@ -22431,12 +23892,20 @@ public final class Models {
     private java.lang.Object validateCode_;
     /**
      * <code>optional string validateCode = 2;</code>
+     *
+     * <pre>
+     *验证码
+     * </pre>
      */
     public boolean hasValidateCode() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
      * <code>optional string validateCode = 2;</code>
+     *
+     * <pre>
+     *验证码
+     * </pre>
      */
     public java.lang.String getValidateCode() {
       java.lang.Object ref = validateCode_;
@@ -22454,6 +23923,10 @@ public final class Models {
     }
     /**
      * <code>optional string validateCode = 2;</code>
+     *
+     * <pre>
+     *验证码
+     * </pre>
      */
     public com.google.protobuf.ByteString
         getValidateCodeBytes() {
@@ -22474,12 +23947,20 @@ public final class Models {
     private java.lang.Object password_;
     /**
      * <code>optional string password = 3;</code>
+     *
+     * <pre>
+     *密码
+     * </pre>
      */
     public boolean hasPassword() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
      * <code>optional string password = 3;</code>
+     *
+     * <pre>
+     *密码
+     * </pre>
      */
     public java.lang.String getPassword() {
       java.lang.Object ref = password_;
@@ -22497,6 +23978,10 @@ public final class Models {
     }
     /**
      * <code>optional string password = 3;</code>
+     *
+     * <pre>
+     *密码
+     * </pre>
      */
     public com.google.protobuf.ByteString
         getPasswordBytes() {
@@ -22517,12 +24002,20 @@ public final class Models {
     private java.lang.Object passwordConfirm_;
     /**
      * <code>optional string passwordConfirm = 4;</code>
+     *
+     * <pre>
+     *确认密码
+     * </pre>
      */
     public boolean hasPasswordConfirm() {
       return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
      * <code>optional string passwordConfirm = 4;</code>
+     *
+     * <pre>
+     *确认密码
+     * </pre>
      */
     public java.lang.String getPasswordConfirm() {
       java.lang.Object ref = passwordConfirm_;
@@ -22540,6 +24033,10 @@ public final class Models {
     }
     /**
      * <code>optional string passwordConfirm = 4;</code>
+     *
+     * <pre>
+     *确认密码
+     * </pre>
      */
     public com.google.protobuf.ByteString
         getPasswordConfirmBytes() {
@@ -22845,12 +24342,20 @@ public final class Models {
       private java.lang.Object phoneNumber_ = "";
       /**
        * <code>optional string phoneNumber = 1;</code>
+       *
+       * <pre>
+       *手机号码
+       * </pre>
        */
       public boolean hasPhoneNumber() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
        * <code>optional string phoneNumber = 1;</code>
+       *
+       * <pre>
+       *手机号码
+       * </pre>
        */
       public java.lang.String getPhoneNumber() {
         java.lang.Object ref = phoneNumber_;
@@ -22865,6 +24370,10 @@ public final class Models {
       }
       /**
        * <code>optional string phoneNumber = 1;</code>
+       *
+       * <pre>
+       *手机号码
+       * </pre>
        */
       public com.google.protobuf.ByteString
           getPhoneNumberBytes() {
@@ -22881,6 +24390,10 @@ public final class Models {
       }
       /**
        * <code>optional string phoneNumber = 1;</code>
+       *
+       * <pre>
+       *手机号码
+       * </pre>
        */
       public Builder setPhoneNumber(
           java.lang.String value) {
@@ -22894,6 +24407,10 @@ public final class Models {
       }
       /**
        * <code>optional string phoneNumber = 1;</code>
+       *
+       * <pre>
+       *手机号码
+       * </pre>
        */
       public Builder clearPhoneNumber() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -22903,6 +24420,10 @@ public final class Models {
       }
       /**
        * <code>optional string phoneNumber = 1;</code>
+       *
+       * <pre>
+       *手机号码
+       * </pre>
        */
       public Builder setPhoneNumberBytes(
           com.google.protobuf.ByteString value) {
@@ -22919,12 +24440,20 @@ public final class Models {
       private java.lang.Object validateCode_ = "";
       /**
        * <code>optional string validateCode = 2;</code>
+       *
+       * <pre>
+       *验证码
+       * </pre>
        */
       public boolean hasValidateCode() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
        * <code>optional string validateCode = 2;</code>
+       *
+       * <pre>
+       *验证码
+       * </pre>
        */
       public java.lang.String getValidateCode() {
         java.lang.Object ref = validateCode_;
@@ -22939,6 +24468,10 @@ public final class Models {
       }
       /**
        * <code>optional string validateCode = 2;</code>
+       *
+       * <pre>
+       *验证码
+       * </pre>
        */
       public com.google.protobuf.ByteString
           getValidateCodeBytes() {
@@ -22955,6 +24488,10 @@ public final class Models {
       }
       /**
        * <code>optional string validateCode = 2;</code>
+       *
+       * <pre>
+       *验证码
+       * </pre>
        */
       public Builder setValidateCode(
           java.lang.String value) {
@@ -22968,6 +24505,10 @@ public final class Models {
       }
       /**
        * <code>optional string validateCode = 2;</code>
+       *
+       * <pre>
+       *验证码
+       * </pre>
        */
       public Builder clearValidateCode() {
         bitField0_ = (bitField0_ & ~0x00000002);
@@ -22977,6 +24518,10 @@ public final class Models {
       }
       /**
        * <code>optional string validateCode = 2;</code>
+       *
+       * <pre>
+       *验证码
+       * </pre>
        */
       public Builder setValidateCodeBytes(
           com.google.protobuf.ByteString value) {
@@ -22993,12 +24538,20 @@ public final class Models {
       private java.lang.Object password_ = "";
       /**
        * <code>optional string password = 3;</code>
+       *
+       * <pre>
+       *密码
+       * </pre>
        */
       public boolean hasPassword() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
        * <code>optional string password = 3;</code>
+       *
+       * <pre>
+       *密码
+       * </pre>
        */
       public java.lang.String getPassword() {
         java.lang.Object ref = password_;
@@ -23013,6 +24566,10 @@ public final class Models {
       }
       /**
        * <code>optional string password = 3;</code>
+       *
+       * <pre>
+       *密码
+       * </pre>
        */
       public com.google.protobuf.ByteString
           getPasswordBytes() {
@@ -23029,6 +24586,10 @@ public final class Models {
       }
       /**
        * <code>optional string password = 3;</code>
+       *
+       * <pre>
+       *密码
+       * </pre>
        */
       public Builder setPassword(
           java.lang.String value) {
@@ -23042,6 +24603,10 @@ public final class Models {
       }
       /**
        * <code>optional string password = 3;</code>
+       *
+       * <pre>
+       *密码
+       * </pre>
        */
       public Builder clearPassword() {
         bitField0_ = (bitField0_ & ~0x00000004);
@@ -23051,6 +24616,10 @@ public final class Models {
       }
       /**
        * <code>optional string password = 3;</code>
+       *
+       * <pre>
+       *密码
+       * </pre>
        */
       public Builder setPasswordBytes(
           com.google.protobuf.ByteString value) {
@@ -23067,12 +24636,20 @@ public final class Models {
       private java.lang.Object passwordConfirm_ = "";
       /**
        * <code>optional string passwordConfirm = 4;</code>
+       *
+       * <pre>
+       *确认密码
+       * </pre>
        */
       public boolean hasPasswordConfirm() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
        * <code>optional string passwordConfirm = 4;</code>
+       *
+       * <pre>
+       *确认密码
+       * </pre>
        */
       public java.lang.String getPasswordConfirm() {
         java.lang.Object ref = passwordConfirm_;
@@ -23087,6 +24664,10 @@ public final class Models {
       }
       /**
        * <code>optional string passwordConfirm = 4;</code>
+       *
+       * <pre>
+       *确认密码
+       * </pre>
        */
       public com.google.protobuf.ByteString
           getPasswordConfirmBytes() {
@@ -23103,6 +24684,10 @@ public final class Models {
       }
       /**
        * <code>optional string passwordConfirm = 4;</code>
+       *
+       * <pre>
+       *确认密码
+       * </pre>
        */
       public Builder setPasswordConfirm(
           java.lang.String value) {
@@ -23116,6 +24701,10 @@ public final class Models {
       }
       /**
        * <code>optional string passwordConfirm = 4;</code>
+       *
+       * <pre>
+       *确认密码
+       * </pre>
        */
       public Builder clearPasswordConfirm() {
         bitField0_ = (bitField0_ & ~0x00000008);
@@ -23125,6 +24714,10 @@ public final class Models {
       }
       /**
        * <code>optional string passwordConfirm = 4;</code>
+       *
+       * <pre>
+       *确认密码
+       * </pre>
        */
       public Builder setPasswordConfirmBytes(
           com.google.protobuf.ByteString value) {
@@ -23164,10 +24757,18 @@ public final class Models {
     // optional .Com.Fuwu.MobileIM.Model.ResetPasswordResponse.ErrorCodeType errorCode = 2;
     /**
      * <code>optional .Com.Fuwu.MobileIM.Model.ResetPasswordResponse.ErrorCodeType errorCode = 2;</code>
+     *
+     * <pre>
+     *错误类型（枚举）
+     * </pre>
      */
     boolean hasErrorCode();
     /**
      * <code>optional .Com.Fuwu.MobileIM.Model.ResetPasswordResponse.ErrorCodeType errorCode = 2;</code>
+     *
+     * <pre>
+     *错误类型（枚举）
+     * </pre>
      */
     com.fuwu.mobileim.model.Models.ResetPasswordResponse.ErrorCodeType getErrorCode();
   }
@@ -23279,80 +24880,157 @@ public final class Models {
 
     /**
      * Protobuf enum {@code Com.Fuwu.MobileIM.Model.ResetPasswordResponse.ErrorCodeType}
+     *
+     * <pre>
+     *错误类型枚举类
+     * </pre>
      */
     public enum ErrorCodeType
         implements com.google.protobuf.ProtocolMessageEnum {
       /**
-       * <code>InvalidPhoneNumber = 1;</code>
+       * <code>BadRequest = 1;</code>
+       *
+       * <pre>
+       *序列化参数出错
+       * </pre>
        */
-      InvalidPhoneNumber(0, 1),
+      BadRequest(0, 1),
       /**
-       * <code>InvalidPassword = 2;</code>
+       * <code>InvalidDatabase = 2;</code>
+       *
+       * <pre>
+       *数据库连接错误
+       * </pre>
        */
-      InvalidPassword(1, 2),
+      InvalidDatabase(1, 2),
       /**
-       * <code>InvalidPasswordConfirm = 3;</code>
+       * <code>InvalidPhoneNumber = 3;</code>
+       *
+       * <pre>
+       *手机号码有误
+       * </pre>
        */
-      InvalidPasswordConfirm(2, 3),
+      InvalidPhoneNumber(2, 3),
       /**
-       * <code>InvalidMatchPassword = 4;</code>
+       * <code>InvalidPassword = 4;</code>
+       *
+       * <pre>
+       *密码有误
+       * </pre>
        */
-      InvalidMatchPassword(3, 4),
+      InvalidPassword(3, 4),
       /**
-       * <code>InvalidValidateCode = 5;</code>
+       * <code>InvalidPasswordConfirm = 5;</code>
+       *
+       * <pre>
+       *确认密码有误
+       * </pre>
        */
-      InvalidValidateCode(4, 5),
+      InvalidPasswordConfirm(4, 5),
       /**
-       * <code>ExistingUserNo = 6;</code>
+       * <code>InvalidMatchPassword = 6;</code>
+       *
+       * <pre>
+       *两次密码不一致
+       * </pre>
        */
-      ExistingUserNo(5, 6),
+      InvalidMatchPassword(5, 6),
       /**
-       * <code>InvalidDatabase = 7;</code>
+       * <code>InvalidValidateCode = 7;</code>
+       *
+       * <pre>
+       *验证码有误
+       * </pre>
        */
-      InvalidDatabase(6, 7),
+      InvalidValidateCode(6, 7),
+      /**
+       * <code>ExistingUserNo = 8;</code>
+       *
+       * <pre>
+       *用户不存在
+       * </pre>
+       */
+      ExistingUserNo(7, 8),
       ;
 
       /**
-       * <code>InvalidPhoneNumber = 1;</code>
+       * <code>BadRequest = 1;</code>
+       *
+       * <pre>
+       *序列化参数出错
+       * </pre>
        */
-      public static final int InvalidPhoneNumber_VALUE = 1;
+      public static final int BadRequest_VALUE = 1;
       /**
-       * <code>InvalidPassword = 2;</code>
+       * <code>InvalidDatabase = 2;</code>
+       *
+       * <pre>
+       *数据库连接错误
+       * </pre>
        */
-      public static final int InvalidPassword_VALUE = 2;
+      public static final int InvalidDatabase_VALUE = 2;
       /**
-       * <code>InvalidPasswordConfirm = 3;</code>
+       * <code>InvalidPhoneNumber = 3;</code>
+       *
+       * <pre>
+       *手机号码有误
+       * </pre>
        */
-      public static final int InvalidPasswordConfirm_VALUE = 3;
+      public static final int InvalidPhoneNumber_VALUE = 3;
       /**
-       * <code>InvalidMatchPassword = 4;</code>
+       * <code>InvalidPassword = 4;</code>
+       *
+       * <pre>
+       *密码有误
+       * </pre>
        */
-      public static final int InvalidMatchPassword_VALUE = 4;
+      public static final int InvalidPassword_VALUE = 4;
       /**
-       * <code>InvalidValidateCode = 5;</code>
+       * <code>InvalidPasswordConfirm = 5;</code>
+       *
+       * <pre>
+       *确认密码有误
+       * </pre>
        */
-      public static final int InvalidValidateCode_VALUE = 5;
+      public static final int InvalidPasswordConfirm_VALUE = 5;
       /**
-       * <code>ExistingUserNo = 6;</code>
+       * <code>InvalidMatchPassword = 6;</code>
+       *
+       * <pre>
+       *两次密码不一致
+       * </pre>
        */
-      public static final int ExistingUserNo_VALUE = 6;
+      public static final int InvalidMatchPassword_VALUE = 6;
       /**
-       * <code>InvalidDatabase = 7;</code>
+       * <code>InvalidValidateCode = 7;</code>
+       *
+       * <pre>
+       *验证码有误
+       * </pre>
        */
-      public static final int InvalidDatabase_VALUE = 7;
+      public static final int InvalidValidateCode_VALUE = 7;
+      /**
+       * <code>ExistingUserNo = 8;</code>
+       *
+       * <pre>
+       *用户不存在
+       * </pre>
+       */
+      public static final int ExistingUserNo_VALUE = 8;
 
 
       public final int getNumber() { return value; }
 
       public static ErrorCodeType valueOf(int value) {
         switch (value) {
-          case 1: return InvalidPhoneNumber;
-          case 2: return InvalidPassword;
-          case 3: return InvalidPasswordConfirm;
-          case 4: return InvalidMatchPassword;
-          case 5: return InvalidValidateCode;
-          case 6: return ExistingUserNo;
-          case 7: return InvalidDatabase;
+          case 1: return BadRequest;
+          case 2: return InvalidDatabase;
+          case 3: return InvalidPhoneNumber;
+          case 4: return InvalidPassword;
+          case 5: return InvalidPasswordConfirm;
+          case 6: return InvalidMatchPassword;
+          case 7: return InvalidValidateCode;
+          case 8: return ExistingUserNo;
           default: return null;
         }
       }
@@ -23426,12 +25104,20 @@ public final class Models {
     private com.fuwu.mobileim.model.Models.ResetPasswordResponse.ErrorCodeType errorCode_;
     /**
      * <code>optional .Com.Fuwu.MobileIM.Model.ResetPasswordResponse.ErrorCodeType errorCode = 2;</code>
+     *
+     * <pre>
+     *错误类型（枚举）
+     * </pre>
      */
     public boolean hasErrorCode() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
      * <code>optional .Com.Fuwu.MobileIM.Model.ResetPasswordResponse.ErrorCodeType errorCode = 2;</code>
+     *
+     * <pre>
+     *错误类型（枚举）
+     * </pre>
      */
     public com.fuwu.mobileim.model.Models.ResetPasswordResponse.ErrorCodeType getErrorCode() {
       return errorCode_;
@@ -23439,7 +25125,7 @@ public final class Models {
 
     private void initFields() {
       isSucceed_ = false;
-      errorCode_ = com.fuwu.mobileim.model.Models.ResetPasswordResponse.ErrorCodeType.InvalidPhoneNumber;
+      errorCode_ = com.fuwu.mobileim.model.Models.ResetPasswordResponse.ErrorCodeType.BadRequest;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -23594,7 +25280,7 @@ public final class Models {
         super.clear();
         isSucceed_ = false;
         bitField0_ = (bitField0_ & ~0x00000001);
-        errorCode_ = com.fuwu.mobileim.model.Models.ResetPasswordResponse.ErrorCodeType.InvalidPhoneNumber;
+        errorCode_ = com.fuwu.mobileim.model.Models.ResetPasswordResponse.ErrorCodeType.BadRequest;
         bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
@@ -23715,21 +25401,33 @@ public final class Models {
       }
 
       // optional .Com.Fuwu.MobileIM.Model.ResetPasswordResponse.ErrorCodeType errorCode = 2;
-      private com.fuwu.mobileim.model.Models.ResetPasswordResponse.ErrorCodeType errorCode_ = com.fuwu.mobileim.model.Models.ResetPasswordResponse.ErrorCodeType.InvalidPhoneNumber;
+      private com.fuwu.mobileim.model.Models.ResetPasswordResponse.ErrorCodeType errorCode_ = com.fuwu.mobileim.model.Models.ResetPasswordResponse.ErrorCodeType.BadRequest;
       /**
        * <code>optional .Com.Fuwu.MobileIM.Model.ResetPasswordResponse.ErrorCodeType errorCode = 2;</code>
+       *
+       * <pre>
+       *错误类型（枚举）
+       * </pre>
        */
       public boolean hasErrorCode() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
        * <code>optional .Com.Fuwu.MobileIM.Model.ResetPasswordResponse.ErrorCodeType errorCode = 2;</code>
+       *
+       * <pre>
+       *错误类型（枚举）
+       * </pre>
        */
       public com.fuwu.mobileim.model.Models.ResetPasswordResponse.ErrorCodeType getErrorCode() {
         return errorCode_;
       }
       /**
        * <code>optional .Com.Fuwu.MobileIM.Model.ResetPasswordResponse.ErrorCodeType errorCode = 2;</code>
+       *
+       * <pre>
+       *错误类型（枚举）
+       * </pre>
        */
       public Builder setErrorCode(com.fuwu.mobileim.model.Models.ResetPasswordResponse.ErrorCodeType value) {
         if (value == null) {
@@ -23742,10 +25440,14 @@ public final class Models {
       }
       /**
        * <code>optional .Com.Fuwu.MobileIM.Model.ResetPasswordResponse.ErrorCodeType errorCode = 2;</code>
+       *
+       * <pre>
+       *错误类型（枚举）
+       * </pre>
        */
       public Builder clearErrorCode() {
         bitField0_ = (bitField0_ & ~0x00000002);
-        errorCode_ = com.fuwu.mobileim.model.Models.ResetPasswordResponse.ErrorCodeType.InvalidPhoneNumber;
+        errorCode_ = com.fuwu.mobileim.model.Models.ResetPasswordResponse.ErrorCodeType.BadRequest;
         onChanged();
         return this;
       }
@@ -23767,14 +25469,26 @@ public final class Models {
     // optional string phoneNumber = 1;
     /**
      * <code>optional string phoneNumber = 1;</code>
+     *
+     * <pre>
+     *手机号码
+     * </pre>
      */
     boolean hasPhoneNumber();
     /**
      * <code>optional string phoneNumber = 1;</code>
+     *
+     * <pre>
+     *手机号码
+     * </pre>
      */
     java.lang.String getPhoneNumber();
     /**
      * <code>optional string phoneNumber = 1;</code>
+     *
+     * <pre>
+     *手机号码
+     * </pre>
      */
     com.google.protobuf.ByteString
         getPhoneNumberBytes();
@@ -23782,10 +25496,18 @@ public final class Models {
     // optional .Com.Fuwu.MobileIM.Model.ValidateCodeRequest.ValidateType type = 2;
     /**
      * <code>optional .Com.Fuwu.MobileIM.Model.ValidateCodeRequest.ValidateType type = 2;</code>
+     *
+     * <pre>
+     *发送类别
+     * </pre>
      */
     boolean hasType();
     /**
      * <code>optional .Com.Fuwu.MobileIM.Model.ValidateCodeRequest.ValidateType type = 2;</code>
+     *
+     * <pre>
+     *发送类别
+     * </pre>
      */
     com.fuwu.mobileim.model.Models.ValidateCodeRequest.ValidateType getType();
   }
@@ -23897,33 +25619,61 @@ public final class Models {
 
     /**
      * Protobuf enum {@code Com.Fuwu.MobileIM.Model.ValidateCodeRequest.ValidateType}
+     *
+     * <pre>
+     *发送类别枚举类
+     * </pre>
      */
     public enum ValidateType
         implements com.google.protobuf.ProtocolMessageEnum {
       /**
        * <code>Register = 1;</code>
+       *
+       * <pre>
+       *注册
+       * </pre>
        */
       Register(0, 1),
       /**
        * <code>ChangePassword = 2;</code>
+       *
+       * <pre>
+       *修改密码
+       * </pre>
        */
       ChangePassword(1, 2),
       /**
        * <code>ResetPassword = 3;</code>
+       *
+       * <pre>
+       *找回密码
+       * </pre>
        */
       ResetPassword(2, 3),
       ;
 
       /**
        * <code>Register = 1;</code>
+       *
+       * <pre>
+       *注册
+       * </pre>
        */
       public static final int Register_VALUE = 1;
       /**
        * <code>ChangePassword = 2;</code>
+       *
+       * <pre>
+       *修改密码
+       * </pre>
        */
       public static final int ChangePassword_VALUE = 2;
       /**
        * <code>ResetPassword = 3;</code>
+       *
+       * <pre>
+       *找回密码
+       * </pre>
        */
       public static final int ResetPassword_VALUE = 3;
 
@@ -23992,12 +25742,20 @@ public final class Models {
     private java.lang.Object phoneNumber_;
     /**
      * <code>optional string phoneNumber = 1;</code>
+     *
+     * <pre>
+     *手机号码
+     * </pre>
      */
     public boolean hasPhoneNumber() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
      * <code>optional string phoneNumber = 1;</code>
+     *
+     * <pre>
+     *手机号码
+     * </pre>
      */
     public java.lang.String getPhoneNumber() {
       java.lang.Object ref = phoneNumber_;
@@ -24015,6 +25773,10 @@ public final class Models {
     }
     /**
      * <code>optional string phoneNumber = 1;</code>
+     *
+     * <pre>
+     *手机号码
+     * </pre>
      */
     public com.google.protobuf.ByteString
         getPhoneNumberBytes() {
@@ -24035,12 +25797,20 @@ public final class Models {
     private com.fuwu.mobileim.model.Models.ValidateCodeRequest.ValidateType type_;
     /**
      * <code>optional .Com.Fuwu.MobileIM.Model.ValidateCodeRequest.ValidateType type = 2;</code>
+     *
+     * <pre>
+     *发送类别
+     * </pre>
      */
     public boolean hasType() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
      * <code>optional .Com.Fuwu.MobileIM.Model.ValidateCodeRequest.ValidateType type = 2;</code>
+     *
+     * <pre>
+     *发送类别
+     * </pre>
      */
     public com.fuwu.mobileim.model.Models.ValidateCodeRequest.ValidateType getType() {
       return type_;
@@ -24296,12 +26066,20 @@ public final class Models {
       private java.lang.Object phoneNumber_ = "";
       /**
        * <code>optional string phoneNumber = 1;</code>
+       *
+       * <pre>
+       *手机号码
+       * </pre>
        */
       public boolean hasPhoneNumber() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
        * <code>optional string phoneNumber = 1;</code>
+       *
+       * <pre>
+       *手机号码
+       * </pre>
        */
       public java.lang.String getPhoneNumber() {
         java.lang.Object ref = phoneNumber_;
@@ -24316,6 +26094,10 @@ public final class Models {
       }
       /**
        * <code>optional string phoneNumber = 1;</code>
+       *
+       * <pre>
+       *手机号码
+       * </pre>
        */
       public com.google.protobuf.ByteString
           getPhoneNumberBytes() {
@@ -24332,6 +26114,10 @@ public final class Models {
       }
       /**
        * <code>optional string phoneNumber = 1;</code>
+       *
+       * <pre>
+       *手机号码
+       * </pre>
        */
       public Builder setPhoneNumber(
           java.lang.String value) {
@@ -24345,6 +26131,10 @@ public final class Models {
       }
       /**
        * <code>optional string phoneNumber = 1;</code>
+       *
+       * <pre>
+       *手机号码
+       * </pre>
        */
       public Builder clearPhoneNumber() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -24354,6 +26144,10 @@ public final class Models {
       }
       /**
        * <code>optional string phoneNumber = 1;</code>
+       *
+       * <pre>
+       *手机号码
+       * </pre>
        */
       public Builder setPhoneNumberBytes(
           com.google.protobuf.ByteString value) {
@@ -24370,18 +26164,30 @@ public final class Models {
       private com.fuwu.mobileim.model.Models.ValidateCodeRequest.ValidateType type_ = com.fuwu.mobileim.model.Models.ValidateCodeRequest.ValidateType.Register;
       /**
        * <code>optional .Com.Fuwu.MobileIM.Model.ValidateCodeRequest.ValidateType type = 2;</code>
+       *
+       * <pre>
+       *发送类别
+       * </pre>
        */
       public boolean hasType() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
        * <code>optional .Com.Fuwu.MobileIM.Model.ValidateCodeRequest.ValidateType type = 2;</code>
+       *
+       * <pre>
+       *发送类别
+       * </pre>
        */
       public com.fuwu.mobileim.model.Models.ValidateCodeRequest.ValidateType getType() {
         return type_;
       }
       /**
        * <code>optional .Com.Fuwu.MobileIM.Model.ValidateCodeRequest.ValidateType type = 2;</code>
+       *
+       * <pre>
+       *发送类别
+       * </pre>
        */
       public Builder setType(com.fuwu.mobileim.model.Models.ValidateCodeRequest.ValidateType value) {
         if (value == null) {
@@ -24394,6 +26200,10 @@ public final class Models {
       }
       /**
        * <code>optional .Com.Fuwu.MobileIM.Model.ValidateCodeRequest.ValidateType type = 2;</code>
+       *
+       * <pre>
+       *发送类别
+       * </pre>
        */
       public Builder clearType() {
         bitField0_ = (bitField0_ & ~0x00000002);
@@ -24548,67 +26358,132 @@ public final class Models {
     public enum ErrorCodeType
         implements com.google.protobuf.ProtocolMessageEnum {
       /**
-       * <code>InvalidPhoneNumber = 1;</code>
+       * <code>BadRequest = 1;</code>
+       *
+       * <pre>
+       *序列化参数出错
+       * </pre>
        */
-      InvalidPhoneNumber(0, 1),
+      BadRequest(0, 1),
       /**
-       * <code>InvalidType = 2;</code>
+       * <code>InvalidPhoneNumber = 2;</code>
+       *
+       * <pre>
+       *手机号码有误
+       * </pre>
        */
-      InvalidType(1, 2),
+      InvalidPhoneNumber(1, 2),
       /**
-       * <code>ExistingUserYes = 3;</code>
+       * <code>InvalidType = 3;</code>
+       *
+       * <pre>
+       *发送类型有误
+       * </pre>
        */
-      ExistingUserYes(2, 3),
+      InvalidType(2, 3),
       /**
-       * <code>ExistingUserNo = 4;</code>
+       * <code>ExistingUserYes = 4;</code>
+       *
+       * <pre>
+       *用户已存在
+       * </pre>
        */
-      ExistingUserNo(3, 4),
+      ExistingUserYes(3, 4),
       /**
-       * <code>LockTime = 5;</code>
+       * <code>ExistingUserNo = 5;</code>
+       *
+       * <pre>
+       *用户不存在
+       * </pre>
        */
-      LockTime(4, 5),
+      ExistingUserNo(4, 5),
       /**
-       * <code>SendError = 6;</code>
+       * <code>LockTime = 6;</code>
+       *
+       * <pre>
+       *限定的时间内不能重复发送
+       * </pre>
        */
-      SendError(5, 6),
+      LockTime(5, 6),
+      /**
+       * <code>SendError = 7;</code>
+       *
+       * <pre>
+       *短信服务出错，发送失败
+       * </pre>
+       */
+      SendError(6, 7),
       ;
 
       /**
-       * <code>InvalidPhoneNumber = 1;</code>
+       * <code>BadRequest = 1;</code>
+       *
+       * <pre>
+       *序列化参数出错
+       * </pre>
        */
-      public static final int InvalidPhoneNumber_VALUE = 1;
+      public static final int BadRequest_VALUE = 1;
       /**
-       * <code>InvalidType = 2;</code>
+       * <code>InvalidPhoneNumber = 2;</code>
+       *
+       * <pre>
+       *手机号码有误
+       * </pre>
        */
-      public static final int InvalidType_VALUE = 2;
+      public static final int InvalidPhoneNumber_VALUE = 2;
       /**
-       * <code>ExistingUserYes = 3;</code>
+       * <code>InvalidType = 3;</code>
+       *
+       * <pre>
+       *发送类型有误
+       * </pre>
        */
-      public static final int ExistingUserYes_VALUE = 3;
+      public static final int InvalidType_VALUE = 3;
       /**
-       * <code>ExistingUserNo = 4;</code>
+       * <code>ExistingUserYes = 4;</code>
+       *
+       * <pre>
+       *用户已存在
+       * </pre>
        */
-      public static final int ExistingUserNo_VALUE = 4;
+      public static final int ExistingUserYes_VALUE = 4;
       /**
-       * <code>LockTime = 5;</code>
+       * <code>ExistingUserNo = 5;</code>
+       *
+       * <pre>
+       *用户不存在
+       * </pre>
        */
-      public static final int LockTime_VALUE = 5;
+      public static final int ExistingUserNo_VALUE = 5;
       /**
-       * <code>SendError = 6;</code>
+       * <code>LockTime = 6;</code>
+       *
+       * <pre>
+       *限定的时间内不能重复发送
+       * </pre>
        */
-      public static final int SendError_VALUE = 6;
+      public static final int LockTime_VALUE = 6;
+      /**
+       * <code>SendError = 7;</code>
+       *
+       * <pre>
+       *短信服务出错，发送失败
+       * </pre>
+       */
+      public static final int SendError_VALUE = 7;
 
 
       public final int getNumber() { return value; }
 
       public static ErrorCodeType valueOf(int value) {
         switch (value) {
-          case 1: return InvalidPhoneNumber;
-          case 2: return InvalidType;
-          case 3: return ExistingUserYes;
-          case 4: return ExistingUserNo;
-          case 5: return LockTime;
-          case 6: return SendError;
+          case 1: return BadRequest;
+          case 2: return InvalidPhoneNumber;
+          case 3: return InvalidType;
+          case 4: return ExistingUserYes;
+          case 5: return ExistingUserNo;
+          case 6: return LockTime;
+          case 7: return SendError;
           default: return null;
         }
       }
@@ -24695,7 +26570,7 @@ public final class Models {
 
     private void initFields() {
       isSucceed_ = false;
-      errorCode_ = com.fuwu.mobileim.model.Models.ValidateCodeResponse.ErrorCodeType.InvalidPhoneNumber;
+      errorCode_ = com.fuwu.mobileim.model.Models.ValidateCodeResponse.ErrorCodeType.BadRequest;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -24850,7 +26725,7 @@ public final class Models {
         super.clear();
         isSucceed_ = false;
         bitField0_ = (bitField0_ & ~0x00000001);
-        errorCode_ = com.fuwu.mobileim.model.Models.ValidateCodeResponse.ErrorCodeType.InvalidPhoneNumber;
+        errorCode_ = com.fuwu.mobileim.model.Models.ValidateCodeResponse.ErrorCodeType.BadRequest;
         bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
@@ -24971,7 +26846,7 @@ public final class Models {
       }
 
       // optional .Com.Fuwu.MobileIM.Model.ValidateCodeResponse.ErrorCodeType errorCode = 2;
-      private com.fuwu.mobileim.model.Models.ValidateCodeResponse.ErrorCodeType errorCode_ = com.fuwu.mobileim.model.Models.ValidateCodeResponse.ErrorCodeType.InvalidPhoneNumber;
+      private com.fuwu.mobileim.model.Models.ValidateCodeResponse.ErrorCodeType errorCode_ = com.fuwu.mobileim.model.Models.ValidateCodeResponse.ErrorCodeType.BadRequest;
       /**
        * <code>optional .Com.Fuwu.MobileIM.Model.ValidateCodeResponse.ErrorCodeType errorCode = 2;</code>
        */
@@ -25001,7 +26876,7 @@ public final class Models {
        */
       public Builder clearErrorCode() {
         bitField0_ = (bitField0_ & ~0x00000002);
-        errorCode_ = com.fuwu.mobileim.model.Models.ValidateCodeResponse.ErrorCodeType.InvalidPhoneNumber;
+        errorCode_ = com.fuwu.mobileim.model.Models.ValidateCodeResponse.ErrorCodeType.BadRequest;
         onChanged();
         return this;
       }
@@ -27329,128 +29204,135 @@ public final class Models {
     java.lang.String[] descriptorData = {
       "\n\014models.proto\022\027Com.Fuwu.MobileIM.Model\"" +
       ";\n\025AuthenticationRequest\022\020\n\010userName\030\001 \001" +
-      "(\t\022\020\n\010password\030\002 \001(\t\"\260\002\n\026AuthenticationR" +
+      "(\t\022\020\n\010password\030\002 \001(\t\"\263\002\n\026AuthenticationR" +
       "esponse\022\021\n\tisSucceed\030\001 \001(\010\022\016\n\006userId\030\002 \001" +
       "(\005\022\r\n\005token\030\003 \001(\t\022\031\n\021passwordFailCount\030\004" +
       " \001(\005\022P\n\terrorCode\030\005 \001(\0162=.Com.Fuwu.Mobil" +
       "eIM.Model.AuthenticationResponse.ErrorCo" +
-      "deType\"w\n\rErrorCodeType\022\023\n\017InvalidUserNa" +
-      "me\020\001\022\023\n\017InvalidPassword\020\002\022\036\n\032InvalidPass" +
-      "wordExceedCount\020\003\022\017\n\013NotActivate\020\004\022\013\n\007Su",
-      "cceed\020\005\"8\n\027UnAuthenticationRequest\022\r\n\005to" +
-      "ken\030\001 \001(\t\022\016\n\006userId\030\002 \001(\005\"=\n\030UnAuthentic" +
-      "ationResponse\022\021\n\tisSucceed\030\001 \001(\010\022\016\n\006user" +
-      "Id\030\002 \001(\005\"\277\002\n\007Contact\022\021\n\tcontactId\030\001 \001(\005\022" +
-      "\014\n\004name\030\002 \001(\t\022\022\n\ncustomName\030\003 \001(\t\022\016\n\006pin" +
-      "yin\030\004 \001(\t\022\021\n\tisBlocked\030\005 \001(\010\022\027\n\017lastCont" +
-      "actTime\030\006 \001(\t\022\016\n\006gender\030\007 \001(\005\022\016\n\006source\030" +
-      "\010 \001(\005\022\017\n\007tileUrl\030\t \001(\t\022\022\n\nisProvider\030\n \001" +
-      "(\010\022\017\n\007lisence\030\013 \001(\t\022\030\n\020publishClassType\030" +
-      "\014 \001(\t\"S\n\021ContactSourceType\022\r\n\tOrderFrom\020",
-      "\001\022\013\n\007OrderTo\020\002\022\021\n\rSubscribeFrom\020\004\022\017\n\013Sub" +
-      "scribeTo\020\010\"B\n\016ContactRequest\022\r\n\005token\030\001 " +
-      "\001(\t\022\016\n\006userId\030\002 \001(\005\022\021\n\ttimeStamp\030\003 \001(\t\"k" +
-      "\n\017ContactResponse\022\021\n\tisSucceed\030\001 \001(\010\0222\n\010" +
-      "contacts\030\002 \003(\0132 .Com.Fuwu.MobileIM.Model" +
-      ".Contact\022\021\n\ttimeStamp\030\003 \001(\t\"Z\n\023BlockCont" +
-      "actRequest\022\r\n\005token\030\001 \001(\t\022\016\n\006userId\030\002 \001(" +
-      "\005\022\021\n\tcontactId\030\003 \001(\005\022\021\n\tisBlocked\030\004 \001(\010\"" +
-      "O\n\024BlockContactResponse\022\021\n\tisSucceed\030\001 \001" +
-      "(\010\022\021\n\tcontactId\030\002 \001(\005\022\021\n\tisBlocked\030\003 \001(\010",
-      "\"H\n\024ContactDetailRequest\022\r\n\005token\030\001 \001(\t\022" +
-      "\016\n\006userId\030\002 \001(\005\022\021\n\tcontactId\030\003 \001(\005\"]\n\025Co" +
-      "ntactDetailResponse\022\021\n\tisSucceed\030\001 \001(\010\0221" +
-      "\n\007contact\030\002 \001(\0132 .Com.Fuwu.MobileIM.Mode" +
-      "l.Contact\"n\n\032ChangeContactDetailRequest\022" +
-      "\r\n\005token\030\001 \001(\t\022\016\n\006userId\030\002 \001(\005\0221\n\007contac" +
-      "t\030\003 \001(\0132 .Com.Fuwu.MobileIM.Model.Contac" +
-      "t\"c\n\033ChangeContactDetailResponse\022\021\n\tisSu" +
-      "cceed\030\001 \001(\010\0221\n\007contact\030\002 \001(\0132 .Com.Fuwu." +
-      "MobileIM.Model.Contact\"\322\001\n\007Profile\022\016\n\006us",
-      "erId\030\001 \001(\005\022\014\n\004name\030\002 \001(\t\022\020\n\010nickName\030\003 \001" +
-      "(\t\022\016\n\006gender\030\004 \001(\005\022\026\n\016mobilePhoneNum\030\005 \001" +
-      "(\t\022\r\n\005email\030\006 \001(\t\022\020\n\010birthday\030\007 \001(\t\022\017\n\007t" +
-      "ileUrl\030\010 \001(\t\022\022\n\nisProvider\030\t \001(\010\022\017\n\007lise" +
-      "nce\030\n \001(\t\022\030\n\020publishClassType\030\013 \001(\t\"/\n\016P" +
-      "rofileRequest\022\r\n\005token\030\001 \001(\t\022\016\n\006userId\030\002" +
-      " \001(\005\"W\n\017ProfileResponse\022\021\n\tisSucceed\030\001 \001" +
-      "(\010\0221\n\007profile\030\002 \001(\0132 .Com.Fuwu.MobileIM." +
-      "Model.Profile\"h\n\024ChangeProfileRequest\022\r\n" +
-      "\005token\030\001 \001(\t\022\016\n\006userId\030\002 \001(\005\0221\n\007profile\030",
-      "\003 \001(\0132 .Com.Fuwu.MobileIM.Model.Profile\"" +
-      "]\n\025ChangeProfileResponse\022\021\n\tisSucceed\030\001 " +
-      "\001(\010\0221\n\007profile\030\002 \001(\0132 .Com.Fuwu.MobileIM" +
-      ".Model.Profile\"O\n\007Message\022\016\n\006userId\030\001 \001(" +
-      "\005\022\021\n\tcontactId\030\002 \001(\005\022\017\n\007content\030\003 \001(\t\022\020\n" +
-      "\010sendTime\030\004 \001(\t\"T\n\013MessageList\022\021\n\tcontac" +
-      "tId\030\001 \001(\005\0222\n\010messages\030\002 \003(\0132 .Com.Fuwu.M" +
-      "obileIM.Model.Message\"B\n\016MessageRequest\022" +
-      "\r\n\005token\030\001 \001(\t\022\016\n\006userId\030\002 \001(\005\022\021\n\ttimeSt" +
-      "amp\030\003 \001(\t\"s\n\017MessageResponse\022\021\n\tisSuccee",
-      "d\030\001 \001(\010\022:\n\014messageLists\030\002 \003(\0132$.Com.Fuwu" +
-      ".MobileIM.Model.MessageList\022\021\n\ttimeStamp" +
-      "\030\003 \001(\t\"f\n\022SendMessageRequest\022\r\n\005token\030\001 " +
-      "\001(\t\022\016\n\006userId\030\002 \001(\005\0221\n\007message\030\003 \001(\0132 .C" +
-      "om.Fuwu.MobileIM.Model.Message\";\n\023SendMe" +
-      "ssageResponse\022\021\n\tisSucceed\030\001 \001(\010\022\021\n\terro" +
-      "rCode\030\002 \001(\005\"{\n\017RegisterRequest\022\031\n\021mobile" +
-      "PhoneNumber\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022\020\n\010passw" +
-      "ord\030\003 \001(\t\022\027\n\017passwordConfirm\030\004 \001(\t\022\024\n\014va" +
-      "lidateCode\030\005 \001(\t\"\266\002\n\020RegisterResponse\022\021\n",
-      "\tisSucceed\030\001 \001(\010\022\016\n\006userId\030\002 \001(\005\022J\n\terro" +
-      "rCode\030\003 \001(\01627.Com.Fuwu.MobileIM.Model.Re" +
-      "gisterResponse.ErrorCodeType\"\262\001\n\rErrorCo" +
-      "deType\022\023\n\017InvalidUserName\020\001\022\023\n\017ExistingU" +
-      "serYes\020\002\022\023\n\017InvalidPassword\020\003\022\032\n\026Invalid" +
-      "ConfirmPassword\020\004\022\030\n\024InvalidMatchPasswor" +
-      "d\020\005\022\027\n\023InvalidValidateCode\020\006\022\023\n\017InvalidD" +
-      "atabase\020\007\"\221\001\n\025ChangePasswordRequest\022\r\n\005t" +
-      "oken\030\001 \001(\t\022\016\n\006userId\030\002 \001(\005\022\024\n\014validateCo" +
-      "de\030\003 \001(\t\022\030\n\020originalPassword\030\004 \001(\t\022\020\n\010pa",
-      "ssword\030\005 \001(\t\022\027\n\017passwordConfirm\030\006 \001(\t\"\355\002" +
-      "\n\026ChangePasswordResponse\022\021\n\tisSucceed\030\001 " +
-      "\001(\010\022P\n\terrorCode\030\002 \001(\0162=.Com.Fuwu.Mobile" +
-      "IM.Model.ChangePasswordResponse.ErrorCod" +
-      "eType\"\355\001\n\rErrorCodeType\022\021\n\rInvalidUserId" +
-      "\020\001\022\020\n\014InvalidToken\020\002\022\r\n\tAuthError\020\003\022\022\n\016E" +
-      "xistingUserNo\020\004\022\033\n\027InvalidOriginalPasswo" +
-      "rd\020\005\022\023\n\017InvalidPassword\020\006\022\032\n\026InvalidConf" +
-      "irmPassword\020\007\022\030\n\024InvalidMatchPassword\020\010\022" +
-      "\027\n\023InvalidValidateCode\020\t\022\023\n\017InvalidDatab",
-      "ase\020\n\"l\n\024ResetPasswordRequest\022\023\n\013phoneNu" +
-      "mber\030\001 \001(\t\022\024\n\014validateCode\030\002 \001(\t\022\020\n\010pass" +
-      "word\030\003 \001(\t\022\027\n\017passwordConfirm\030\004 \001(\t\"\262\002\n\025" +
-      "ResetPasswordResponse\022\021\n\tisSucceed\030\001 \001(\010" +
-      "\022O\n\terrorCode\030\002 \001(\0162<.Com.Fuwu.MobileIM." +
-      "Model.ResetPasswordResponse.ErrorCodeTyp" +
-      "e\"\264\001\n\rErrorCodeType\022\026\n\022InvalidPhoneNumbe" +
-      "r\020\001\022\023\n\017InvalidPassword\020\002\022\032\n\026InvalidPassw" +
-      "ordConfirm\020\003\022\030\n\024InvalidMatchPassword\020\004\022\027" +
-      "\n\023InvalidValidateCode\020\005\022\022\n\016ExistingUserN",
-      "o\020\006\022\023\n\017InvalidDatabase\020\007\"\270\001\n\023ValidateCod" +
-      "eRequest\022\023\n\013phoneNumber\030\001 \001(\t\022G\n\004type\030\002 " +
-      "\001(\01629.Com.Fuwu.MobileIM.Model.ValidateCo" +
-      "deRequest.ValidateType\"C\n\014ValidateType\022\014" +
-      "\n\010Register\020\001\022\022\n\016ChangePassword\020\002\022\021\n\rRese" +
-      "tPassword\020\003\"\371\001\n\024ValidateCodeResponse\022\021\n\t" +
-      "isSucceed\030\001 \001(\010\022N\n\terrorCode\030\002 \001(\0162;.Com" +
-      ".Fuwu.MobileIM.Model.ValidateCodeRespons" +
-      "e.ErrorCodeType\"~\n\rErrorCodeType\022\026\n\022Inva" +
-      "lidPhoneNumber\020\001\022\017\n\013InvalidType\020\002\022\023\n\017Exi",
-      "stingUserYes\020\003\022\022\n\016ExistingUserNo\020\004\022\014\n\010Lo" +
-      "ckTime\020\005\022\r\n\tSendError\020\006\"\240\001\n\nClientInfo\022\020" +
-      "\n\010deviceId\030\001 \001(\t\022:\n\006osType\030\002 \001(\0162*.Com.F" +
-      "uwu.MobileIM.Model.ClientInfo.OSType\022\016\n\006" +
-      "userId\030\003 \001(\005\022\024\n\014isPushEnable\030\004 \001(\010\"\036\n\006OS" +
-      "Type\022\007\n\003IOS\020\001\022\013\n\007Android\020\002\"k\n\021ClientInfo" +
-      "Request\022\016\n\006userId\030\001 \001(\005\022\r\n\005token\030\002 \001(\t\0227" +
-      "\n\nclientInfo\030\003 \001(\0132#.Com.Fuwu.MobileIM.M" +
-      "odel.ClientInfo\"\272\001\n\022ClientInfoResponse\022\021" +
-      "\n\tisSucceed\030\001 \001(\010\022L\n\terrorCode\030\002 \001(\01629.C",
-      "om.Fuwu.MobileIM.Model.ClientInfoRespons" +
-      "e.ErrorCodeType\"C\n\rErrorCodeType\022\021\n\rInva" +
-      "lidUserId\020\001\022\020\n\014InvalidToken\020\002\022\r\n\tAuthErr" +
-      "or\020\003B\031\n\027com.fuwu.mobileim.model"
+      "deType\"z\n\rErrorCodeType\022\016\n\nBadRequest\020\001\022" +
+      "\023\n\017InvalidUserName\020\002\022\023\n\017InvalidPassword\020" +
+      "\003\022\036\n\032InvalidPasswordExceedCount\020\004\022\017\n\013Not",
+      "Activate\020\005\"8\n\027UnAuthenticationRequest\022\r\n" +
+      "\005token\030\001 \001(\t\022\016\n\006userId\030\002 \001(\005\"\375\001\n\030UnAuthe" +
+      "nticationResponse\022\021\n\tisSucceed\030\001 \001(\010\022\016\n\006" +
+      "userId\030\002 \001(\005\022R\n\terrorCode\030\003 \001(\0162?.Com.Fu" +
+      "wu.MobileIM.Model.UnAuthenticationRespon" +
+      "se.ErrorCodeType\"j\n\rErrorCodeType\022\016\n\nBad" +
+      "Request\020\001\022\021\n\rInvalidUserId\020\002\022\020\n\014InvalidT" +
+      "oken\020\003\022\017\n\013InvalidUser\020\004\022\023\n\017InvalidDataba" +
+      "se\020\005\"\310\002\n\007Contact\022\021\n\tcontactId\030\001 \001(\005\022\014\n\004n" +
+      "ame\030\002 \001(\t\022\022\n\ncustomName\030\003 \001(\t\022\016\n\006pinyin\030",
+      "\004 \001(\t\022\021\n\tisBlocked\030\005 \001(\010\022\027\n\017lastContactT" +
+      "ime\030\006 \001(\t\022;\n\006gender\030\007 \001(\0162+.Com.Fuwu.Mob" +
+      "ileIM.Model.Contact.GenderType\022\016\n\006source" +
+      "\030\010 \001(\005\022\017\n\007tileUrl\030\t \001(\t\022\022\n\nisProvider\030\n " +
+      "\001(\010\022\017\n\007lisence\030\013 \001(\t\022\030\n\020individualResume" +
+      "\030\014 \001(\t\"/\n\nGenderType\022\010\n\004Male\020\001\022\n\n\006Female" +
+      "\020\002\022\013\n\007Privacy\020\003\"B\n\016ContactRequest\022\r\n\005tok" +
+      "en\030\001 \001(\t\022\016\n\006userId\030\002 \001(\005\022\021\n\ttimeStamp\030\003 " +
+      "\001(\t\"k\n\017ContactResponse\022\021\n\tisSucceed\030\001 \001(" +
+      "\010\0222\n\010contacts\030\002 \003(\0132 .Com.Fuwu.MobileIM.",
+      "Model.Contact\022\021\n\ttimeStamp\030\003 \001(\t\"Z\n\023Bloc" +
+      "kContactRequest\022\r\n\005token\030\001 \001(\t\022\016\n\006userId" +
+      "\030\002 \001(\005\022\021\n\tcontactId\030\003 \001(\005\022\021\n\tisBlocked\030\004" +
+      " \001(\010\"O\n\024BlockContactResponse\022\021\n\tisSuccee" +
+      "d\030\001 \001(\010\022\021\n\tcontactId\030\002 \001(\005\022\021\n\tisBlocked\030" +
+      "\003 \001(\010\"H\n\024ContactDetailRequest\022\r\n\005token\030\001" +
+      " \001(\t\022\016\n\006userId\030\002 \001(\005\022\021\n\tcontactId\030\003 \001(\005\"" +
+      "]\n\025ContactDetailResponse\022\021\n\tisSucceed\030\001 " +
+      "\001(\010\0221\n\007contact\030\002 \001(\0132 .Com.Fuwu.MobileIM" +
+      ".Model.Contact\"n\n\032ChangeContactDetailReq",
+      "uest\022\r\n\005token\030\001 \001(\t\022\016\n\006userId\030\002 \001(\005\0221\n\007c" +
+      "ontact\030\003 \001(\0132 .Com.Fuwu.MobileIM.Model.C" +
+      "ontact\"c\n\033ChangeContactDetailResponse\022\021\n" +
+      "\tisSucceed\030\001 \001(\010\0221\n\007contact\030\002 \001(\0132 .Com." +
+      "Fuwu.MobileIM.Model.Contact\"\322\001\n\007Profile\022" +
+      "\016\n\006userId\030\001 \001(\005\022\014\n\004name\030\002 \001(\t\022\020\n\010nickNam" +
+      "e\030\003 \001(\t\022\016\n\006gender\030\004 \001(\005\022\026\n\016mobilePhoneNu" +
+      "m\030\005 \001(\t\022\r\n\005email\030\006 \001(\t\022\020\n\010birthday\030\007 \001(\t" +
+      "\022\017\n\007tileUrl\030\010 \001(\t\022\022\n\nisProvider\030\t \001(\010\022\017\n" +
+      "\007lisence\030\n \001(\t\022\030\n\020publishClassType\030\013 \001(\t",
+      "\"/\n\016ProfileRequest\022\r\n\005token\030\001 \001(\t\022\016\n\006use" +
+      "rId\030\002 \001(\005\"W\n\017ProfileResponse\022\021\n\tisSuccee" +
+      "d\030\001 \001(\010\0221\n\007profile\030\002 \001(\0132 .Com.Fuwu.Mobi" +
+      "leIM.Model.Profile\"h\n\024ChangeProfileReque" +
+      "st\022\r\n\005token\030\001 \001(\t\022\016\n\006userId\030\002 \001(\005\0221\n\007pro" +
+      "file\030\003 \001(\0132 .Com.Fuwu.MobileIM.Model.Pro" +
+      "file\"]\n\025ChangeProfileResponse\022\021\n\tisSucce" +
+      "ed\030\001 \001(\010\0221\n\007profile\030\002 \001(\0132 .Com.Fuwu.Mob" +
+      "ileIM.Model.Profile\"O\n\007Message\022\016\n\006userId" +
+      "\030\001 \001(\005\022\021\n\tcontactId\030\002 \001(\005\022\017\n\007content\030\003 \001",
+      "(\t\022\020\n\010sendTime\030\004 \001(\t\"T\n\013MessageList\022\021\n\tc" +
+      "ontactId\030\001 \001(\005\0222\n\010messages\030\002 \003(\0132 .Com.F" +
+      "uwu.MobileIM.Model.Message\"B\n\016MessageReq" +
+      "uest\022\r\n\005token\030\001 \001(\t\022\016\n\006userId\030\002 \001(\005\022\021\n\tt" +
+      "imeStamp\030\003 \001(\t\"s\n\017MessageResponse\022\021\n\tisS" +
+      "ucceed\030\001 \001(\010\022:\n\014messageLists\030\002 \003(\0132$.Com" +
+      ".Fuwu.MobileIM.Model.MessageList\022\021\n\ttime" +
+      "Stamp\030\003 \001(\t\"f\n\022SendMessageRequest\022\r\n\005tok" +
+      "en\030\001 \001(\t\022\016\n\006userId\030\002 \001(\005\0221\n\007message\030\003 \001(" +
+      "\0132 .Com.Fuwu.MobileIM.Model.Message\"M\n\023S",
+      "endMessageResponse\022\021\n\tisSucceed\030\001 \001(\010\022\020\n" +
+      "\010sendTime\030\002 \001(\t\022\021\n\terrorCode\030\003 \001(\005\"m\n\017Re" +
+      "gisterRequest\022\031\n\021mobilePhoneNumber\030\001 \001(\t" +
+      "\022\020\n\010password\030\002 \001(\t\022\027\n\017passwordConfirm\030\003 " +
+      "\001(\t\022\024\n\014validateCode\030\004 \001(\t\"\317\002\n\020RegisterRe" +
+      "sponse\022\021\n\tisSucceed\030\001 \001(\010\022\016\n\006userId\030\002 \001(" +
+      "\005\022J\n\terrorCode\030\003 \001(\01627.Com.Fuwu.MobileIM" +
+      ".Model.RegisterResponse.ErrorCodeType\"\313\001" +
+      "\n\rErrorCodeType\022\016\n\nBadRequest\020\001\022\023\n\017Inval" +
+      "idDatabase\020\002\022\034\n\030InvalidMobilePhoneNumber",
+      "\020\003\022\023\n\017ExistingUserYes\020\004\022\023\n\017InvalidPasswo" +
+      "rd\020\005\022\032\n\026InvalidConfirmPassword\020\006\022\030\n\024Inva" +
+      "lidMatchPassword\020\007\022\027\n\023InvalidValidateCod" +
+      "e\020\010\"\221\001\n\025ChangePasswordRequest\022\r\n\005token\030\001" +
+      " \001(\t\022\016\n\006userId\030\002 \001(\005\022\024\n\014validateCode\030\003 \001" +
+      "(\t\022\030\n\020originalPassword\030\004 \001(\t\022\020\n\010password" +
+      "\030\005 \001(\t\022\027\n\017passwordConfirm\030\006 \001(\t\"\377\002\n\026Chan" +
+      "gePasswordResponse\022\021\n\tisSucceed\030\001 \001(\010\022P\n" +
+      "\terrorCode\030\002 \001(\0162=.Com.Fuwu.MobileIM.Mod" +
+      "el.ChangePasswordResponse.ErrorCodeType\"",
+      "\377\001\n\rErrorCodeType\022\016\n\nBadRequest\020\001\022\021\n\rInv" +
+      "alidUserId\020\002\022\020\n\014InvalidToken\020\003\022\017\n\013Invali" +
+      "dUser\020\004\022\023\n\017InvalidDatabase\020\005\022\022\n\016Existing" +
+      "UserNo\020\006\022\033\n\027InvalidOriginalPassword\020\007\022\023\n" +
+      "\017InvalidPassword\020\010\022\032\n\026InvalidConfirmPass" +
+      "word\020\t\022\030\n\024InvalidMatchPassword\020\n\022\027\n\023Inva" +
+      "lidValidateCode\020\013\"l\n\024ResetPasswordReques" +
+      "t\022\023\n\013phoneNumber\030\001 \001(\t\022\024\n\014validateCode\030\002" +
+      " \001(\t\022\020\n\010password\030\003 \001(\t\022\027\n\017passwordConfir" +
+      "m\030\004 \001(\t\"\302\002\n\025ResetPasswordResponse\022\021\n\tisS",
+      "ucceed\030\001 \001(\010\022O\n\terrorCode\030\002 \001(\0162<.Com.Fu" +
+      "wu.MobileIM.Model.ResetPasswordResponse." +
+      "ErrorCodeType\"\304\001\n\rErrorCodeType\022\016\n\nBadRe" +
+      "quest\020\001\022\023\n\017InvalidDatabase\020\002\022\026\n\022InvalidP" +
+      "honeNumber\020\003\022\023\n\017InvalidPassword\020\004\022\032\n\026Inv" +
+      "alidPasswordConfirm\020\005\022\030\n\024InvalidMatchPas" +
+      "sword\020\006\022\027\n\023InvalidValidateCode\020\007\022\022\n\016Exis" +
+      "tingUserNo\020\010\"\270\001\n\023ValidateCodeRequest\022\023\n\013" +
+      "phoneNumber\030\001 \001(\t\022G\n\004type\030\002 \001(\01629.Com.Fu" +
+      "wu.MobileIM.Model.ValidateCodeRequest.Va",
+      "lidateType\"C\n\014ValidateType\022\014\n\010Register\020\001" +
+      "\022\022\n\016ChangePassword\020\002\022\021\n\rResetPassword\020\003\"" +
+      "\212\002\n\024ValidateCodeResponse\022\021\n\tisSucceed\030\001 " +
+      "\001(\010\022N\n\terrorCode\030\002 \001(\0162;.Com.Fuwu.Mobile" +
+      "IM.Model.ValidateCodeResponse.ErrorCodeT" +
+      "ype\"\216\001\n\rErrorCodeType\022\016\n\nBadRequest\020\001\022\026\n" +
+      "\022InvalidPhoneNumber\020\002\022\017\n\013InvalidType\020\003\022\023" +
+      "\n\017ExistingUserYes\020\004\022\022\n\016ExistingUserNo\020\005\022" +
+      "\014\n\010LockTime\020\006\022\r\n\tSendError\020\007\"\240\001\n\nClientI" +
+      "nfo\022\020\n\010deviceId\030\001 \001(\t\022:\n\006osType\030\002 \001(\0162*.",
+      "Com.Fuwu.MobileIM.Model.ClientInfo.OSTyp" +
+      "e\022\016\n\006userId\030\003 \001(\005\022\024\n\014isPushEnable\030\004 \001(\010\"" +
+      "\036\n\006OSType\022\007\n\003IOS\020\001\022\013\n\007Android\020\002\"k\n\021Clien" +
+      "tInfoRequest\022\016\n\006userId\030\001 \001(\005\022\r\n\005token\030\002 " +
+      "\001(\t\0227\n\nclientInfo\030\003 \001(\0132#.Com.Fuwu.Mobil" +
+      "eIM.Model.ClientInfo\"\272\001\n\022ClientInfoRespo" +
+      "nse\022\021\n\tisSucceed\030\001 \001(\010\022L\n\terrorCode\030\002 \001(" +
+      "\01629.Com.Fuwu.MobileIM.Model.ClientInfoRe" +
+      "sponse.ErrorCodeType\"C\n\rErrorCodeType\022\021\n" +
+      "\rInvalidUserId\020\001\022\020\n\014InvalidToken\020\002\022\r\n\tAu",
+      "thError\020\003B\031\n\027com.fuwu.mobileim.model"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -27480,13 +29362,13 @@ public final class Models {
           internal_static_Com_Fuwu_MobileIM_Model_UnAuthenticationResponse_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_Com_Fuwu_MobileIM_Model_UnAuthenticationResponse_descriptor,
-              new java.lang.String[] { "IsSucceed", "UserId", });
+              new java.lang.String[] { "IsSucceed", "UserId", "ErrorCode", });
           internal_static_Com_Fuwu_MobileIM_Model_Contact_descriptor =
             getDescriptor().getMessageTypes().get(4);
           internal_static_Com_Fuwu_MobileIM_Model_Contact_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_Com_Fuwu_MobileIM_Model_Contact_descriptor,
-              new java.lang.String[] { "ContactId", "Name", "CustomName", "Pinyin", "IsBlocked", "LastContactTime", "Gender", "Source", "TileUrl", "IsProvider", "Lisence", "PublishClassType", });
+              new java.lang.String[] { "ContactId", "Name", "CustomName", "Pinyin", "IsBlocked", "LastContactTime", "Gender", "Source", "TileUrl", "IsProvider", "Lisence", "IndividualResume", });
           internal_static_Com_Fuwu_MobileIM_Model_ContactRequest_descriptor =
             getDescriptor().getMessageTypes().get(5);
           internal_static_Com_Fuwu_MobileIM_Model_ContactRequest_fieldAccessorTable = new
@@ -27600,13 +29482,13 @@ public final class Models {
           internal_static_Com_Fuwu_MobileIM_Model_SendMessageResponse_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_Com_Fuwu_MobileIM_Model_SendMessageResponse_descriptor,
-              new java.lang.String[] { "IsSucceed", "ErrorCode", });
+              new java.lang.String[] { "IsSucceed", "SendTime", "ErrorCode", });
           internal_static_Com_Fuwu_MobileIM_Model_RegisterRequest_descriptor =
             getDescriptor().getMessageTypes().get(24);
           internal_static_Com_Fuwu_MobileIM_Model_RegisterRequest_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_Com_Fuwu_MobileIM_Model_RegisterRequest_descriptor,
-              new java.lang.String[] { "MobilePhoneNumber", "Name", "Password", "PasswordConfirm", "ValidateCode", });
+              new java.lang.String[] { "MobilePhoneNumber", "Password", "PasswordConfirm", "ValidateCode", });
           internal_static_Com_Fuwu_MobileIM_Model_RegisterResponse_descriptor =
             getDescriptor().getMessageTypes().get(25);
           internal_static_Com_Fuwu_MobileIM_Model_RegisterResponse_fieldAccessorTable = new

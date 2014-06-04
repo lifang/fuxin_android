@@ -10,6 +10,8 @@ import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.adapter.FaceAdapter;
 import com.fuwu.mobileim.adapter.FacePageAdapter;
 import com.fuwu.mobileim.adapter.MessageListViewAdapter;
+import com.fuwu.mobileim.model.Models.BlockContactRequest;
+import com.fuwu.mobileim.model.Models.BlockContactResponse;
 import com.fuwu.mobileim.model.Models.SendMessageRequest;
 import com.fuwu.mobileim.model.Models.SendMessageResponse;
 import com.fuwu.mobileim.pojo.MessagePojo;
@@ -19,6 +21,8 @@ import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.TimeUtil;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CirclePageIndicator;
+import com.fuwu.mobileim.view.XListView;
+import com.fuwu.mobileim.view.XListView.IXListViewListener;
 import com.google.protobuf.InvalidProtocolBufferException;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -30,6 +34,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -57,8 +62,9 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 /**
  * @作者 马龙
@@ -66,15 +72,17 @@ import android.widget.SimpleAdapter;
  */
 @SuppressLint("NewApi")
 public class ChatActivity extends Activity implements OnClickListener,
-		OnTouchListener, TextWatcher {
+		OnTouchListener, TextWatcher, IXListViewListener {
 
 	private String[] itemName = new String[] { "图片", "拍摄" };
 	private int[] itemImg = new int[] { R.drawable.pic, R.drawable.camera };
+	private int mMesPageNum = 1;
+	private int mMesCount = 0;
 	private float height = 0;
 	private int currentPage = 0;
 	private boolean isFaceShow = false;;
 	private boolean isPlusShow = false;;
-	private ListView mListView;
+	private XListView mListView;
 	private ViewPager faceViewPager;
 	private LinearLayout faceLinearLayout;
 	private GridView mPlusGridView;
@@ -86,6 +94,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 	private EditText msgEt;
 	private List<String> keys;
 	private List<MessagePojo> list;
+	private PopupWindow menuWindow;
 	private MessageListViewAdapter mMessageAdapter;
 	private DBManager db;
 	private RequstReceiver mReuRequstReceiver;
@@ -97,10 +106,18 @@ public class ChatActivity extends Activity implements OnClickListener,
 			case 1:
 				break;
 			case 2:
-				// Toast.makeText(getApplicationContext(), "更新记录",
-				// Toast.LENGTH_SHORT).show();
 				updateMessageData();
 				mMessageAdapter.updMessageList(list);
+				mListView.stopRefresh();
+				break;
+			case 3:
+				Toast.makeText(getApplicationContext(), "屏蔽联系人成功!", 0).show();
+				break;
+			case 4:
+				Toast.makeText(getApplicationContext(), "屏蔽联系人失败!", 0).show();
+				break;
+			case 0:
+				Toast.makeText(getApplicationContext(), "请求失败!", 0).show();
 				break;
 			}
 		}
@@ -131,11 +148,14 @@ public class ChatActivity extends Activity implements OnClickListener,
 		if (!db.isOpen()) {
 			db = new DBManager(this);
 		}
-		list = db.queryMessageList(1, 2);
+		mMesCount = db.getMesCount(1, 2);
+		list = db.queryMessageList(1, 2, (mMesCount - mMesPageNum * 15),
+				mMesCount);
+		mMesPageNum++;
 	}
 
 	public void initView() {
-		mListView = (ListView) findViewById(R.id.chat_listView);
+		mListView = (XListView) findViewById(R.id.chat_listView);
 		faceLinearLayout = (LinearLayout) findViewById(R.id.face_ll);
 		mPlusGridView = (GridView) findViewById(R.id.chat_plus_panel);
 		mFaceBtn = (ImageView) findViewById(R.id.face_btn);
@@ -151,6 +171,8 @@ public class ChatActivity extends Activity implements OnClickListener,
 		msgEt.setOnClickListener(this);
 		msgEt.addTextChangedListener(this);
 		mBack.setOnClickListener(this);
+		mOther.setOnClickListener(this);
+		mListView.setXListViewListener(this);
 		mBack.setImageBitmap(getBitmapScale(BitmapFactory.decodeResource(
 				getResources(), R.drawable.back)));
 		mOther.setImageBitmap(getBitmapScale(BitmapFactory.decodeResource(
@@ -274,12 +296,6 @@ public class ChatActivity extends Activity implements OnClickListener,
 						// 新建立矩阵
 						Matrix matrix = new Matrix();
 						matrix.postScale(heightScale, widthScale);
-						// 设置图片的旋转角度
-						// matrix.postRotate(-30);
-						// 设置图片的倾斜
-						// matrix.postSkew(0.1f, 0.1f);
-						// 将图片大小压缩
-						// 压缩后图片的宽和高以及kB大小均会变化
 						Bitmap newBitmap = Bitmap.createBitmap(bitmap, 0, 0,
 								rawWidth, rawHeigh, matrix, true);
 						ImageSpan imageSpan = new ImageSpan(ChatActivity.this,
@@ -358,6 +374,51 @@ public class ChatActivity extends Activity implements OnClickListener,
 		return resizeBitmap;
 	}
 
+	@SuppressWarnings("deprecation")
+	public void menu_press() {
+		View view = getLayoutInflater().inflate(R.layout.chat_other, null);
+		view.findViewById(R.id.chatset_clear).setOnClickListener(this);
+		view.findViewById(R.id.chatset_block).setOnClickListener(this);
+		menuWindow = new PopupWindow(view, LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT);
+		menuWindow.setFocusable(true);
+		menuWindow.setOutsideTouchable(true);
+		menuWindow.update();
+		menuWindow.setBackgroundDrawable(new BitmapDrawable());
+		// 设置layout在PopupWindow中显示的位置
+		menuWindow.showAtLocation(this.findViewById(R.id.chat_main),
+				Gravity.TOP | Gravity.RIGHT, 0, 140);
+	}
+
+	class BlockContact extends Thread {
+		public void run() {
+			try {
+				Log.i("linshi", "-----------------");
+				BlockContactRequest.Builder builder = BlockContactRequest
+						.newBuilder();
+				builder.setUserId(1);
+				builder.setToken("MockToken");
+				builder.setContactId(2);
+				builder.setIsBlocked(true);
+				BlockContactRequest response = builder.build();
+				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
+						Urlinterface.BlockContact, "PUT");
+				if (by != null && by.length > 0) {
+					BlockContactResponse res = BlockContactResponse
+							.parseFrom(by);
+					if (res.getIsSucceed()) {
+						handler.sendEmptyMessage(3);
+					} else {
+						handler.sendEmptyMessage(4);
+					}
+				} else {
+					handler.sendEmptyMessage(6);
+				}
+			} catch (Exception e) {
+			}
+		}
+	}
+
 	class SendMessageThread extends Thread {
 		@Override
 		public void run() {
@@ -380,7 +441,8 @@ public class ChatActivity extends Activity implements OnClickListener,
 								Urlinterface.Message, "PUT"));
 				Log.i("Ax",
 						response.getIsSucceed() + "--"
-								+ response.getErrorCode());
+								+ response.getErrorCode() + "--"
+								+ response.getSendTime());
 			} catch (InvalidProtocolBufferException e) {
 				e.printStackTrace();
 			}
@@ -439,10 +501,9 @@ public class ChatActivity extends Activity implements OnClickListener,
 				MessagePojo mp;
 				SimpleDateFormat sdf = new SimpleDateFormat(
 						"yyyy-MM-dd HH:mm:ss");
-				if (TimeUtil.isFiveMin(db.getLastTime(1, 2), sdf
-						.format(new Date(
-								System.currentTimeMillis() - 11 * 60 * 1000)))) {
-					Date today = new Date(System.currentTimeMillis());
+				Date today = new Date(System.currentTimeMillis());
+				Log.i("Ax", db.getLastTime(1, 2) + "----" + sdf.format(today));
+				if (TimeUtil.isFiveMin(db.getLastTime(1, 2), sdf.format(today))) {
 					mp = new MessagePojo(1, 2, sdf.format(today), str, 1, 1);
 				} else {
 					mp = new MessagePojo(1, 2, "", str, 1, 1);
@@ -464,8 +525,24 @@ public class ChatActivity extends Activity implements OnClickListener,
 				mPlusGridView.setVisibility(View.GONE);
 			}
 			break;
+		case R.id.chatset_clear:
+			db.delMessage(1, 2);
+			handler.sendEmptyMessage(2);
+			if (menuWindow.isShowing()) {
+				menuWindow.dismiss();
+			}
+			break;
+		case R.id.chatset_block:
+			new BlockContact().start();
+			if (menuWindow.isShowing()) {
+				menuWindow.dismiss();
+			}
+			break;
 		case R.id.chat_back:
 			this.finish();
+			break;
+		case R.id.chat_other:
+			menu_press();
 			break;
 		}
 	}
@@ -506,6 +583,9 @@ public class ChatActivity extends Activity implements OnClickListener,
 	@Override
 	protected void onResume() {
 		super.onResume();
+		if (!db.isOpen()) {
+			db = new DBManager(this);
+		}
 		registerReceiver(mReuRequstReceiver, new IntentFilter(
 				"com.comdosoft.fuxun.REQUEST_ACTION"));
 	}
@@ -514,7 +594,6 @@ public class ChatActivity extends Activity implements OnClickListener,
 	protected void onPause() {
 		super.onPause();
 		unregisterReceiver(mReuRequstReceiver);
-
 	}
 
 	class RequstReceiver extends BroadcastReceiver {
@@ -522,5 +601,10 @@ public class ChatActivity extends Activity implements OnClickListener,
 		public void onReceive(Context context, Intent intent) {
 			handler.sendEmptyMessage(2);
 		}
+	}
+
+	@Override
+	public void onRefresh() {
+		handler.sendEmptyMessage(2);
 	}
 }

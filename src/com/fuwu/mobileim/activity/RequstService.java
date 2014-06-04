@@ -97,9 +97,7 @@ public class RequstService extends Service {
 							List<MessagePojo> list = new ArrayList<MessagePojo>();
 							for (int j = 0; j < mesCount; j++) {
 								Message m = mes.getMessages(j);
-
 								MessagePojo mp;
-								Log.i("Ax", m.getSendTime());
 								// 14-05-30 14:38
 								if (TimeUtil.isFiveMin(db.getLastTime(1, 2),
 										m.getSendTime())) {
