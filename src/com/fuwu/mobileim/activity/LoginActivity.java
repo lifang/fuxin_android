@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.model.Models.AuthenticationRequest;
 import com.fuwu.mobileim.model.Models.AuthenticationResponse;
+import com.fuwu.mobileim.model.Models.ContactResponse;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.Urlinterface;
@@ -124,9 +125,13 @@ public class LoginActivity extends Activity implements OnClickListener,
 				builder.setUserName(user);
 				builder.setPassword(pwd);
 				AuthenticationRequest request = builder.build();
-				AuthenticationResponse response = AuthenticationResponse
-						.parseFrom(HttpUtil.sendHttps(request.toByteArray(),
-								Urlinterface.LOGIN, "POST"));
+//				AuthenticationResponse response = AuthenticationResponse
+//						.parseFrom(HttpUtil.sendHttps(request.toByteArray(),
+//								Urlinterface.LOGIN, "POST"));
+				byte[] by = HttpUtil.sendHttps(request.toByteArray(),
+						Urlinterface.LOGIN, "POST");
+				if (by != null && by.length > 0) {
+					AuthenticationResponse response = AuthenticationResponse.parseFrom(by);
 				if (response.getIsSucceed()) {
 					fx.setUser_id(response.getUserId());
 					fx.setToken(response.getToken());
@@ -136,6 +141,10 @@ public class LoginActivity extends Activity implements OnClickListener,
 					Log.i("Max", "errorCode:" + response.getErrorCode());
 					error_code = response.getErrorCode().toString();
 					handler.sendEmptyMessage(1);
+				}
+				}else {
+					Toast.makeText(LoginActivity.this, "登陆失败",
+							Toast.LENGTH_SHORT).show();
 				}
 			} catch (Exception e) {
 				handler.sendEmptyMessage(2);

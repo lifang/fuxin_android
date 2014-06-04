@@ -34,6 +34,8 @@
     <permission
         android:name="getui.permission.GetuiService"
         android:protectionLevel="normal" />
+    <!-- 判断应用运行状态 -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
 
     <application
         android:name="com.fuwu.mobileim.util.FxApplication"

@@ -114,6 +114,26 @@ public class FxApplication extends Application {
 
 	private void initFaceMap() {
 		// TODO Auto-generated method stub
+		mFaceMap.put("[#1]", R.drawable.b1);
+		mFaceMap.put("[#2]", R.drawable.b2);
+		mFaceMap.put("[#3]", R.drawable.b3);
+		mFaceMap.put("[#4]", R.drawable.b4);
+		mFaceMap.put("[#5]", R.drawable.b5);
+		mFaceMap.put("[#6]", R.drawable.b6);
+		mFaceMap.put("[#7]", R.drawable.b7);
+		mFaceMap.put("[#8]", R.drawable.b8);
+		mFaceMap.put("[#9]", R.drawable.b9);
+		mFaceMap.put("[#10]", R.drawable.b10);
+		mFaceMap.put("[#11]", R.drawable.b11);
+		mFaceMap.put("[#12]", R.drawable.b12);
+		mFaceMap.put("[#13]", R.drawable.b13);
+		mFaceMap.put("[#14]", R.drawable.b14);
+		mFaceMap.put("[#15]", R.drawable.b15);
+		mFaceMap.put("[#16]", R.drawable.b16);
+		mFaceMap.put("[#17]", R.drawable.b17);
+		mFaceMap.put("[#18]", R.drawable.b18);
+		mFaceMap.put("[#19]", R.drawable.b19);
+		mFaceMap.put("[#20]", R.drawable.b20);
 		mFaceMap.put("[呲牙]", R.drawable.emoji_1f60a);
 		mFaceMap.put("[调皮]", R.drawable.emoji_1f60b);
 		mFaceMap.put("[流汗]", R.drawable.emoji_1f60c);

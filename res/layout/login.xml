@@ -91,6 +91,7 @@
                 android:src="@drawable/login_pwd" />
 
             <EditText
+                android:text="111111"
                 android:id="@+id/pwd"
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"

@@ -215,14 +215,15 @@ public class BlockManagementActivity extends Activity {
 			// 设置头像
 				String face_str = contact.getUserface_url();
 				if (face_str.length() > 4) {
-					File f = new File(Urlinterface.head_pic, "bbb");
+					face_str=Urlinterface.IP+face_str;
+					File f = new File(Urlinterface.head_pic, contact.getContactId()+"");
 					if (f.exists()) {
 						Log.i("linshi------------", "加载本地图片");
 						Drawable dra = new BitmapDrawable(
-								BitmapFactory.decodeFile(Urlinterface.head_pic + "bbb"));
+								BitmapFactory.decodeFile(Urlinterface.head_pic + contact.getContactId()));
 						head.setImageDrawable(dra);
 					} else {
-						FuXunTools.set_bk(face_str, head);
+						FuXunTools.set_bk(contact.getContactId(),face_str, head);
 					}
 				}
 			TextView name = (TextView) layout.findViewById(R.id.block_name);

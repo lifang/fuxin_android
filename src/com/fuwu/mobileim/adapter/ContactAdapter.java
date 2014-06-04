@@ -1,7 +1,12 @@
 package com.fuwu.mobileim.adapter;
 
+import java.io.File;
 import java.util.List;
 import android.content.Context;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +17,7 @@ import android.widget.TextView;
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.util.FuXunTools;
+import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CircularImage;
 
 /**
@@ -79,10 +85,17 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 		// 设置头像
 		String face_str = contact.getUserface_url();
 		if (face_str.length() > 4) {
-
-			FuXunTools.setBackground(face_str, viewHolder.contact_user_face);
-		} else {
-
+			face_str=Urlinterface.IP+face_str;
+			File f = new File(Urlinterface.head_pic, contact.getContactId()+"");
+			if (f.exists()) {
+				Log.i("linshi------------", "加载本地图片");
+				Drawable dra = new BitmapDrawable(
+						BitmapFactory.decodeFile(Urlinterface.head_pic + contact.getContactId()));
+				viewHolder.contact_user_face.setImageDrawable(dra);
+			} else {
+				FuXunTools.set_bk(contact.getContactId(),face_str, viewHolder.contact_user_face);
+			}
+		}else {
 			viewHolder.contact_user_face.setImageResource(R.drawable.moren);
 		}
 
