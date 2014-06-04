@@ -165,7 +165,14 @@
             android:process=":pushservice" />
         <!-- android:authorities="downloads.第三方包名" -->
         <!-- ====================================================== -->
-
+        <!-- 配置第三方Receiver -->
+        <receiver
+            android:name="com.fuwu.mobileim.util.PushReceiver"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.igexin.sdk.action.MGxQXR8hjI9HtfSmrp7fi1" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
