@@ -161,7 +161,7 @@ public class TalkActivity extends Fragment {
 	public void onStart() {
 		Log.i("Max", "onStart");
 		Log.i("Max", "刷新");
-		handler.sendEmptyMessage(2);
+//		handler.sendEmptyMessage(2);
 		super.onStart();
 	}
 

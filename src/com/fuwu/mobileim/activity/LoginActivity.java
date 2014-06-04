@@ -19,6 +19,7 @@ import com.fuwu.mobileim.model.Models.AuthenticationResponse;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.Urlinterface;
+import com.igexin.sdk.PushManager;
 
 /**
  * 作者: 张秀楠 时间：2014-5-23 下午4:34:03
@@ -72,6 +73,8 @@ public class LoginActivity extends Activity implements OnClickListener,
 		findViewById(R.id.forgetpwd).setOnClickListener(this);
 		findViewById(R.id.login_btn).setOnClickListener(this);
 		initialize();// 初始化
+		// 个推SDK初始化
+		PushManager.getInstance().initialize(this.getApplicationContext());
 	}
 
 	// 初始化

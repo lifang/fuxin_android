@@ -36,7 +36,6 @@ import com.fuwu.mobileim.adapter.ContactAdapter;
 import com.fuwu.mobileim.adapter.FragmentViewPagerAdapter;
 import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.util.FxApplication;
-import com.igexin.sdk.PushManager;
 
 /**
  * @作者 马龙
@@ -90,7 +89,7 @@ public class FragmengtActivity extends FragmentActivity {
 		});
 		Intent i = new Intent();
 		i.setClass(this, RequstService.class);
-		startService(i);
+//		startService(i);
 
 		contact_search = (ImageView) findViewById(R.id.contact_search);
 		fxApplication = (FxApplication) getApplication();
@@ -101,8 +100,7 @@ public class FragmengtActivity extends FragmentActivity {
 		changeTitleStyle();
 		setEdittextListening();
 		InitImageView();
-		// 个推SDK初始化
-		PushManager.getInstance().initialize(this.getApplicationContext());
+
 	}
 
 	/**
