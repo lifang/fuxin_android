@@ -201,8 +201,8 @@ public class BlockManagementDisplayActivity extends Activity {
 
 				BlockContactRequest.Builder builder = BlockContactRequest
 						.newBuilder();
-				builder.setUserId(1);
-				builder.setToken("MockToken");
+				builder.setUserId(fxApplication.getUser_id());
+				builder.setToken(fxApplication.getToken());
 				builder.setContactId(contactId);
 				builder.setIsBlocked(false);
 

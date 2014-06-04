@@ -60,7 +60,7 @@ public class BlockManagementActivity extends Activity {
 					if (fxApplication.getContactsList().get(i).getContactId() == list
 							.get(index).getContactId()) {
 						fxApplication.getContactsList().get(i)
-								.setBlocked(false);
+								.setIsBlocked(0);
 					}
 					break;
 				}
@@ -81,7 +81,7 @@ public class BlockManagementActivity extends Activity {
 					if (fxApplication.getContactsList().get(i).getContactId() == list
 							.get(index).getContactId()) {
 						fxApplication.getContactsList().get(i)
-								.setBlocked(false);
+								.setIsBlocked(0);
 					}
 					break;
 				}
@@ -113,7 +113,7 @@ public class BlockManagementActivity extends Activity {
 		fxApplication = (FxApplication) getApplication();
 		// 获得被屏蔽的联系人
 		for (int i = 0; i < fxApplication.getContactsList().size(); i++) {
-			if (fxApplication.getContactsList().get(i).isBlocked()) {
+			if (fxApplication.getContactsList().get(i).getIsBlocked()==1) {
 				list.add(fxApplication.getContactsList().get(i));
 			}
 		}
@@ -144,8 +144,8 @@ public class BlockManagementActivity extends Activity {
 
 				BlockContactRequest.Builder builder = BlockContactRequest
 						.newBuilder();
-				builder.setUserId(1);
-				builder.setToken("MockToken");
+				builder.setUserId(fxApplication.getUser_id());
+				builder.setToken(fxApplication.getToken());
 				builder.setContactId(list.get(index).getContactId());
 				builder.setIsBlocked(false);
 

@@ -56,7 +56,7 @@ public class SettingsActivity extends Fragment {
 			switch (msg.what) {
 			case 0:
 				fxApplication.setProfilePojo(profilePojo);
-//				setData();
+				setData();
 				break;
 			case 6:
 				Toast.makeText(getActivity(), "请求失败", Toast.LENGTH_SHORT)
@@ -108,8 +108,8 @@ public class SettingsActivity extends Fragment {
 		public void run() {
 			try {
 				ProfileRequest.Builder builder = ProfileRequest.newBuilder();
-				builder.setUserId(1);
-				builder.setToken("MockToken");
+				builder.setUserId(fxApplication.getUser_id());
+				builder.setToken(fxApplication.getToken());
 				ProfileRequest response = builder.build();
 
 				byte[] by = HttpUtil.sendHttps(response.toByteArray(),

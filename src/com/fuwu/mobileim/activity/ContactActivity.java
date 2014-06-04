@@ -32,6 +32,7 @@ import com.fuwu.mobileim.model.Models.Contact.GenderType;
 import com.fuwu.mobileim.model.Models.ContactRequest;
 import com.fuwu.mobileim.model.Models.ContactResponse;
 import com.fuwu.mobileim.pojo.ContactPojo;
+import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
@@ -46,6 +47,7 @@ import com.fuwu.mobileim.view.XListView.IXListViewListener;
 
 public class ContactActivity extends Fragment implements IXListViewListener {
 
+	private DBManager db;
 	private FxApplication fxApplication;
 	private ListView sortListView;// 普通的 listview，最近，订阅，交易 这三个部分使用
 	private XListView xListView;// 可上拉刷新 的 listview ，全部 部分使用
@@ -133,6 +135,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		rootView = inflater
 				.inflate(R.layout.contact_activity, container, false);
 		fxApplication = (FxApplication) getActivity().getApplication();
+		db = new DBManager(getActivity());
 		initViews();
 		Display display = getActivity().getWindowManager().getDefaultDisplay();
 		width = display.getWidth();
@@ -151,13 +154,15 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		public void run() {
 			try {
 				ContactRequest.Builder builder = ContactRequest.newBuilder();
-				builder.setUserId(1);
-				builder.setToken("MockToken");
+				builder.setUserId(fxApplication.getUser_id());
+				builder.setToken(fxApplication.getToken());
+				Log.i("1", "User_id:" + fxApplication.getUser_id() + "--Token"
+						+ fxApplication.getToken());
 				ContactRequest response = builder.build();
 
 				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
 						Urlinterface.getContacts, "POST");
-				if (by!= null  && by.length> 0) {
+				if (by != null && by.length > 0) {
 
 					ContactResponse res = ContactResponse.parseFrom(by);
 					if (res.getIsSucceed()) {
@@ -165,28 +170,42 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 						for (int i = 0; i < res.getContactsCount(); i++) {
 							int contactId = res.getContacts(i).getContactId();
 							String name = res.getContacts(i).getName();
-//							String sortKey = findSortKey(res.getContacts(i)
-//									.getName());
+							// String sortKey = findSortKey(res.getContacts(i)
+							// .getName());
 							String sortKey = findSortKey(res.getContacts(i)
 									.getPinyin());
 							String customName = res.getContacts(i)
 									.getCustomName();
 							String userface_url = res.getContacts(i)
 									.getTileUrl();
-							int sex = res.getContacts(i).getGender().getNumber();
+							int sex = res.getContacts(i).getGender()
+									.getNumber();
 							int source = res.getContacts(i).getSource();
 							String lastContactTime = res.getContacts(i)
 									.getLastContactTime();// 2014-05-27 11:42:18
-							Boolean isBlocked = res.getContacts(i).getIsBlocked();
-							Boolean isProvider = res.getContacts(i).getIsProvider();
+							Boolean isblocked = res.getContacts(i)
+									.getIsBlocked();
+							Boolean isprovider = res.getContacts(i)
+									.getIsProvider();
+							int isBlocked = -1, isProvider = -1;
+							if (isblocked == true) {
+								isBlocked = 1;
+							} else if (isblocked == false) {
+								isBlocked = 0;
+							}
+							if (isprovider == true) {
+								isProvider = 1;
+							} else if (isprovider == false) {
+								isProvider = 0;
+							}
 
 							String lisence = res.getContacts(i).getLisence();
 							String individualResume = res.getContacts(i)
 									.getIndividualResume();
-							 ContactPojo coPojo = new ContactPojo(contactId,
-							 sortKey, name, customName, userface_url, sex,
-							 source, lastContactTime, isBlocked, isProvider,
-							 lisence, individualResume);
+							ContactPojo coPojo = new ContactPojo(contactId,
+									sortKey, name, customName, userface_url,
+									sex, source, lastContactTime, isBlocked,
+									isProvider, lisence, individualResume);
 							contactsList.add(coPojo);
 							if (i < 5) {
 
@@ -262,21 +281,24 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		public void run() {
 			try {
 				ContactRequest.Builder builder = ContactRequest.newBuilder();
-				builder.setUserId(1);
-				builder.setToken("MockToken");
+				builder.setUserId(fxApplication.getUser_id());
+				builder.setToken(fxApplication.getToken());
+				Log.i("1", "User_id:" + fxApplication.getUser_id() + "--Token"
+						+ fxApplication.getToken());
+
 				ContactRequest response = builder.build();
 
 				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
 						Urlinterface.getContacts, "POST");
-				if (by!= null  && by.length> 0) {
+				if (by != null && by.length > 0) {
 					contactsList = new ArrayList<ContactPojo>();
 					contactsMap = new HashMap<Integer, ContactPojo>();
 					ContactResponse res = ContactResponse.parseFrom(by);
 					for (int i = 0; i < res.getContactsCount(); i++) {
 						int contactId = res.getContacts(i).getContactId();
 						String name = res.getContacts(i).getName();
-//						String sortKey = findSortKey(res.getContacts(i)
-//								.getName());
+						// String sortKey = findSortKey(res.getContacts(i)
+						// .getName());
 						String sortKey = findSortKey(res.getContacts(i)
 								.getPinyin());
 						String customName = res.getContacts(i).getCustomName();
@@ -285,19 +307,31 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 						int source = res.getContacts(i).getSource();
 						String lastContactTime = res.getContacts(i)
 								.getLastContactTime();// 2014-05-27 11:42:18
-						Boolean isBlocked = res.getContacts(i).getIsBlocked();
-						Boolean isProvider = res.getContacts(i).getIsProvider();
-
+						Boolean isblocked = res.getContacts(i)
+								.getIsBlocked();
+						Boolean isprovider = res.getContacts(i)
+								.getIsProvider();
+						int isBlocked = -1, isProvider = -1;
+						if (isblocked == true) {
+							isBlocked = 1;
+						} else if (isblocked == false) {
+							isBlocked = 0;
+						}
+						if (isprovider == true) {
+							isProvider = 1;
+						} else if (isprovider == false) {
+							isProvider = 0;
+						}
 						String lisence = res.getContacts(i).getLisence();
 						String individualResume = res.getContacts(i)
 								.getIndividualResume();
-						 ContactPojo coPojo = new ContactPojo(contactId,
-						 sortKey, name, customName, userface_url, sex,
-						 source, lastContactTime, isBlocked, isProvider,
-						 lisence, individualResume);
-						 contactsList.add(coPojo);
-						
-						 contactsMap.put(contactId, coPojo);
+						ContactPojo coPojo = new ContactPojo(contactId,
+								sortKey, name, customName, userface_url, sex,
+								source, lastContactTime, isBlocked, isProvider,
+								lisence, individualResume);
+						contactsList.add(coPojo);
+
+						contactsMap.put(contactId, coPojo);
 					}
 				}
 				Message msg = new Message();// 创建Message 对象
@@ -316,8 +350,6 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		contactsList = new ArrayList<ContactPojo>();
 		contactsMap = new HashMap<Integer, ContactPojo>();
 
-		// contactsList =
-		// filledData(getResources().getStringArray(R.array.date));
 
 		// 实例化汉字转拼音类
 		characterParser = CharacterParser.getInstance();

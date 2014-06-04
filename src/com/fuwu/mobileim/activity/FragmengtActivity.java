@@ -218,18 +218,22 @@ public class FragmengtActivity extends FragmentActivity {
 
 	}
 
+	/*
+	 * 搜索按妞
+	 */
 	private View.OnClickListener listener1 = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
+			vp.setVisibility(View.GONE);
 			main_search.setVisibility(View.VISIBLE);
 			contacts_search_linearLayout.setVisibility(View.VISIBLE);
 
 			final Animation translateAnimation = new TranslateAnimation(720, 0,
 					0, 0); // 移动动画效果
-			
-			translateAnimation.setDuration(400);               //设置动画持续时间  
-			main_search.setAnimation(translateAnimation);             //设置动画效果  
-            translateAnimation.startNow();                      //启动动画 
+
+			translateAnimation.setDuration(400); // 设置动画持续时间
+			main_search.setAnimation(translateAnimation); // 设置动画效果
+			translateAnimation.startNow(); // 启动动画
 			// 模拟
 			SourceDateList = fxApplication.getContactsList();
 			// adapter = new ContactAdapter(MainActivity.this,
@@ -237,15 +241,22 @@ public class FragmengtActivity extends FragmentActivity {
 			// contacts_search_listview.setAdapter(adapter);
 		}
 	};
+	/*
+	 * 清空搜索框
+	 */
 	private View.OnClickListener listener2 = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
 			contact_search_edittext.setText("");
 		}
 	};
+	/*
+	 * 取消
+	 */
 	private View.OnClickListener listener3 = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
+			vp.setVisibility(View.VISIBLE);
 			main_search.setVisibility(View.GONE);
 			contacts_search_linearLayout.setVisibility(View.GONE);
 			contact_search_edittext.setText("");

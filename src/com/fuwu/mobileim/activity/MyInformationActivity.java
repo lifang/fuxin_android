@@ -17,6 +17,7 @@ import com.fuwu.mobileim.model.Models.ChangeProfileRequest;
 import com.fuwu.mobileim.model.Models.ChangeProfileResponse;
 import com.fuwu.mobileim.model.Models.Profile;
 import com.fuwu.mobileim.pojo.ProfilePojo;
+import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.Urlinterface;
@@ -89,37 +90,38 @@ public class MyInformationActivity extends Activity {
 		myinfo_birthday = (TextView) findViewById(R.id.myinfo_birthday);
 		myinfo_sex = (TextView) findViewById(R.id.myinfo_sex);
 
-//		// 设置头像
-//		String face_str = profilePojo.getTileUrl();
-//		if (face_str.length() > 4) {
-//			FuXunTools.setBackground(face_str, myinfo_userface);
-//		} else {
-//			myinfo_userface.setImageResource(R.drawable.moren);
-//		}
-//		// 设置昵称
-//		myinfo_nickname.setText(profilePojo.getNickName()+"111");
-//
-//		// 设置认证行业
-//		String str1 = profilePojo.getLisence();
-//		myinfo_certification.setText(str1);
-//
-//		// 手机
-//		String str3 = profilePojo.getMobile();
-//		myinfo_mobile.setText(str3);
-//		// 邮箱
-//		String str2 = profilePojo.getEmail();
-//		myinfo_email.setText(str2);
-//		// 生日
-//		myinfo_birthday.setText(profilePojo.getBirthday());
-//		// 设置性别
-//		int sex = profilePojo.getGender();
-//		if (sex == 1) {// 男
-//			myinfo_sex.setText("男");
-//		} else if (sex == 2) {// 女
-//			myinfo_sex.setText("女");
-//		}else{
-//		myinfo_sex.setText("保密");
-//	}
+		// 设置头像
+		String face_str = profilePojo.getTileUrl();
+		if (face_str.length() > 4) {
+			FuXunTools.setBackground(face_str, myinfo_userface);
+		} else {
+			myinfo_userface.setImageResource(R.drawable.moren);
+		}
+		// 设置昵称
+		myinfo_nickname.setText(profilePojo.getNickName());
+
+		// 设置认证行业
+		String str1 = profilePojo.getLisence();
+		myinfo_certification.setText(str1);
+
+		// 手机
+		String str3 = profilePojo.getMobile();
+		myinfo_mobile.setText(str3);
+		// 邮箱
+		String str2 = profilePojo.getEmail();
+		myinfo_email.setText(str2);
+		// 生日
+		myinfo_birthday.setText(profilePojo.getBirthday());
+		// 设置性别
+		myinfo_sex.setText("");
+		int sex = profilePojo.getGender();
+		if (sex == 1) {// 男
+			myinfo_sex.setText("男");
+		} else if (sex == 2) {// 女
+			myinfo_sex.setText("女");
+		}else if (sex == 3){
+		myinfo_sex.setText("保密");
+	}
 
 	}
 
