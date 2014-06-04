@@ -9,6 +9,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.pojo.MessagePojo;
 import com.fuwu.mobileim.pojo.TalkPojo;
 
@@ -66,6 +67,67 @@ public class DBManager {
 		}
 	}
 
+	// 联系人id，首字母,昵称，备注,头像,性别,交易订阅,最近联系时间,是否屏蔽，是不是 福师，认证，个人简介
+	public void addContact(int userId,ContactPojo cp) {
+		db.beginTransaction();
+		try {
+			db.execSQL(
+					"INSERT INTO contact VALUES(null,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+					new Object[] { cp.getContactId(), cp.getSortKey(),
+							cp.getName(), cp.getCustomName(),
+							cp.getUserface_url(), cp.getSex(), cp.getSource(),
+							cp.getLastContactTime(), cp.getIsBlocked(),
+							cp.getIsProvider(), cp.getLisence(),
+							cp.getIndividualResume(),userId });
+			db.setTransactionSuccessful();
+		} finally {
+			db.endTransaction();
+		}
+	}
+
+	public boolean modifyContact(int userId,ContactPojo mp) {
+		boolean flag = true;
+		db = helper.getWritableDatabase();
+		try {
+				db.execSQL("DELETE FROM contact WHERE contactId = "
+						+ mp.getContactId()+" and userId = " + userId);
+				addContact(userId,mp);
+		} catch (SQLException e) {
+			Log.i("Max", "异常:" + e.toString());
+			flag = false;
+		}
+		db.close();
+		return flag;
+	}
+
+	/**
+	 * 获得联系人列表
+	 * 
+	 * */
+	public List<ContactPojo> queryContactList(int user_id) {
+		ArrayList<ContactPojo> cpList = new ArrayList<ContactPojo>();
+		Cursor c = queryContactCursor(user_id);
+		while (c.moveToNext()) {
+			ContactPojo mp = new ContactPojo();
+			mp.setContactId(c.getInt(c.getColumnIndex("contactId")));
+			mp.setCustomName(c.getString(c.getColumnIndex("customName")));
+			mp.setIndividualResume(c.getString(c.getColumnIndex("individualResume")));
+			mp.setIsBlocked(c.getInt(c.getColumnIndex("isBlocked")));
+			mp.setIsProvider(c.getInt(c.getColumnIndex("isProvider")));
+			mp.setLastContactTime(c.getString(c.getColumnIndex("lastContactTime")));
+			mp.setLisence(c.getString(c.getColumnIndex("lisence")));
+			mp.setName(c.getString(c.getColumnIndex("name")));
+			mp.setSex(c.getInt(c.getColumnIndex("sex")));
+			mp.setSortKey(c.getString(c.getColumnIndex("sortKey")));
+			mp.setSource(c.getInt(c.getColumnIndex("source")));
+			mp.setUserface_url(c.getString(c.getColumnIndex("userface_url")));
+			cpList.add(mp);
+
+		}
+		c.close();
+		return cpList;
+	}
+	
 	public List<MessagePojo> queryMessageList(int user_id, int contact_id) {
 		ArrayList<MessagePojo> mpList = new ArrayList<MessagePojo>();
 		Cursor c = queryMessageCursor(user_id, contact_id);
@@ -94,6 +156,7 @@ public class DBManager {
 		Log.i("Max", user_id + "");
 		ArrayList<TalkPojo> talkList = new ArrayList<TalkPojo>();
 		Cursor c = queryTalkCursor(user_id);
+
 		while (c.moveToNext()) {
 			TalkPojo talk = new TalkPojo();
 			talk.setContact_id(c.getInt(c.getColumnIndex("contact_id")));
@@ -127,6 +190,12 @@ public class DBManager {
 		Cursor c = db.rawQuery(
 				"SELECT * FROM message where user_id = ? and contact_id = ?",
 				new String[] { user_id + "", contact_id + "" });
+		return c;
+	}
+	public Cursor queryContactCursor(int userid) {
+		Cursor c = db.rawQuery(
+				"SELECT * FROM contact where userId = ?",
+				new String[] { userid+""});
 		return c;
 	}
 

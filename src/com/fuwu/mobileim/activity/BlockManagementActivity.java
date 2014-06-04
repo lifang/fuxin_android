@@ -1,17 +1,20 @@
 package com.fuwu.mobileim.activity;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,10 +27,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fuwu.mobileim.R;
+import com.fuwu.mobileim.model.Models.BlockContactRequest;
+import com.fuwu.mobileim.model.Models.BlockContactResponse;
 import com.fuwu.mobileim.pojo.ContactPojo;
+import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
+import com.fuwu.mobileim.util.HttpUtil;
+import com.fuwu.mobileim.util.Urlinterface;
+import com.fuwu.mobileim.view.CircularImage;
 
 public class BlockManagementActivity extends Activity {
+	private ProgressDialog prodialog;
+	private int index = -1;
 	private ListView mListView;
 	private myListViewAdapter clvAdapter;
 	private ImageButton block_management_back;// 返回按钮
@@ -41,13 +52,55 @@ public class BlockManagementActivity extends Activity {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 0:
-				// prodialog.dismiss();
-
+				prodialog.dismiss();
+				Toast.makeText(getApplicationContext(), "恢复成功",
+						Toast.LENGTH_SHORT).show();
+				list.remove(index);
+				for (int i = 0; i < fxApplication.getContactsList().size(); i++) {
+					if (fxApplication.getContactsList().get(i).getContactId() == list
+							.get(index).getContactId()) {
+						fxApplication.getContactsList().get(i)
+								.setIsBlocked(0);
+					}
+					break;
+				}
+				/*
+				 * 
+				 * 更新到数据库！！！！！！
+				 */
+				clvAdapter.notifyDataSetChanged();
+				break;
+			case 1:
+				 prodialog.dismiss();
+				Toast.makeText(getApplicationContext(), "恢复失败",
+						Toast.LENGTH_SHORT).show();
+				break;
+			case 2:
+				list.remove(index);
+				for (int i = 0; i < fxApplication.getContactsList().size(); i++) {
+					if (fxApplication.getContactsList().get(i).getContactId() == list
+							.get(index).getContactId()) {
+						fxApplication.getContactsList().get(i)
+								.setIsBlocked(0);
+					}
+					break;
+				}
+				/*
+				 * 
+				 * 更新到数据库！！！！！！
+				 */
+				clvAdapter.notifyDataSetChanged();
+				break;
+			case 6:
+				 prodialog.dismiss();
+				Toast.makeText(getApplicationContext(), "请求失败",
+						Toast.LENGTH_SHORT).show();
 				break;
 
 			case 7:
-				// Toast.makeText(getApplicationContext(),
-				// ExerciseBookParams.INTERNET, Toast.LENGTH_SHORT).show();
+				 prodialog.dismiss();
+				Toast.makeText(getApplicationContext(), "网络错误",
+						Toast.LENGTH_SHORT).show();
 				break;
 			}
 		}
@@ -60,7 +113,7 @@ public class BlockManagementActivity extends Activity {
 		fxApplication = (FxApplication) getApplication();
 		// 获得被屏蔽的联系人
 		for (int i = 0; i < fxApplication.getContactsList().size(); i++) {
-			if (fxApplication.getContactsList().get(i).isBlocked()) {
+			if (fxApplication.getContactsList().get(i).getIsBlocked()==1) {
 				list.add(fxApplication.getContactsList().get(i));
 			}
 		}
@@ -70,6 +123,53 @@ public class BlockManagementActivity extends Activity {
 		clvAdapter = new myListViewAdapter(this);
 		mListView.setAdapter(clvAdapter);
 		block_management_back.setOnClickListener(listener1);// 给返回按钮设置监听
+	}
+
+	/**
+	 * 
+	 * 恢复联系人到通讯录
+	 * 
+	 * 
+	 */
+
+	class BlockContact implements Runnable {
+		public void run() {
+			try {
+
+				// optional string token = 1;
+				// optional int32 userId = 2;
+				// optional int32 contactId = 3;
+				// optional bool isBlocked = 4;
+				Log.i("linshi", "-----------------");
+
+				BlockContactRequest.Builder builder = BlockContactRequest
+						.newBuilder();
+				builder.setUserId(fxApplication.getUser_id());
+				builder.setToken(fxApplication.getToken());
+				builder.setContactId(list.get(index).getContactId());
+				builder.setIsBlocked(false);
+
+				BlockContactRequest response = builder.build();
+
+				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
+						Urlinterface.BlockContact, "PUT");
+				if (by != null && by.length > 0) {
+
+					BlockContactResponse res = BlockContactResponse
+							.parseFrom(by);
+					if (res.getIsSucceed()) {
+						handler.sendEmptyMessage(0);
+					} else {
+						handler.sendEmptyMessage(1);
+					}
+				} else {
+					handler.sendEmptyMessage(6);
+				}
+				//
+			} catch (Exception e) {
+				handler.sendEmptyMessage(7);
+			}
+		}
 	}
 
 	private View.OnClickListener listener1 = new View.OnClickListener() {
@@ -110,73 +210,41 @@ public class BlockManagementActivity extends Activity {
 			} else {
 				layout = (RelativeLayout) arg1;
 			}
-			// CircularImage head = (CircularImage)
-			// layout.findViewById(R.id.block_face);
+			 CircularImage head = (CircularImage)
+			 layout.findViewById(R.id.block_face);
+			// 设置头像
+				String face_str = contact.getUserface_url();
+				if (face_str.length() > 4) {
+					File f = new File(Urlinterface.head_pic, "bbb");
+					if (f.exists()) {
+						Log.i("linshi------------", "加载本地图片");
+						Drawable dra = new BitmapDrawable(
+								BitmapFactory.decodeFile(Urlinterface.head_pic + "bbb"));
+						head.setImageDrawable(dra);
+					} else {
+						FuXunTools.set_bk(face_str, head);
+					}
+				}
 			TextView name = (TextView) layout.findViewById(R.id.block_name);
 			name.setText(contact.getName());
 			Button restore = (Button) layout.findViewById(R.id.block_restore);
 			restore.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
-					final Handler mHandler = new Handler() {
-						public void handleMessage(android.os.Message msg) {
-							switch (msg.what) {
-							case 0:
-								final String json8 = (String) msg.obj;
-								if (json8.length() != 0) {
-									JSONObject array;
-									try {
-										array = new JSONObject(json8);//
-										String status = array
-												.getString("status");
-										String notice = array
-												.getString("notice");
-										if ("success".equals(status)) {
-
-											list.remove(arg0);
-											// 重新适配数据
-										}
-										Toast.makeText(getApplicationContext(),
-												notice, Toast.LENGTH_SHORT)
-												.show();
-									} catch (JSONException e) {
-										e.printStackTrace();
-									}
-								}
-								break;
-							default:
-								break;
-							}
-						}
-					};
-					final Thread thread = new Thread() {
-						public void run() {
-							try {
-								// Map<String, String> map = new HashMap<String,
-								// String>();
-								// map.put("reply_micropost_id",
-								// child_Micropost.getId());
-								// String child_delete_json = ExerciseBookTool
-								// .doPost(Urlinterface.DELETE_REPLY_POSTS,
-								// map);
-								// Message msg = new Message();// 创建Message 对象
-								// msg.what = 0;
-								// msg.obj = child_delete_json;
-								// mHandler.sendMessage(msg);
-							} catch (Exception e) {
-								handler.sendEmptyMessage(7);
-							}
-						}
-					};
-
+					index = arg0;
 					// if (ExerciseBookTool.isConnect(HomepageAllActivity.this))
 					// {
-					// thread.start();
+					prodialog = new ProgressDialog(BlockManagementActivity.this);
+					prodialog.setMessage("正在恢复...");
+					prodialog.setCanceledOnTouchOutside(false);
+					prodialog.show();
+					Thread thread = new Thread(new BlockContact());
+					thread.start();
 					// } else {
 					// handler.sendEmptyMessage(7);
 					// }
 
-					Toast.makeText(getApplicationContext(), "恢复",
-							Toast.LENGTH_SHORT).show();
+					// Toast.makeText(getApplicationContext(), "恢复",
+					// Toast.LENGTH_SHORT).show();
 
 				}
 			});
@@ -185,14 +253,31 @@ public class BlockManagementActivity extends Activity {
 
 				@Override
 				public void onClick(View v) {
+					index = arg0;
 					Intent intent = new Intent(BlockManagementActivity.this,
 							BlockManagementDisplayActivity.class);
 					intent.putExtra("contactId", contact.getContactId());
-					startActivity(intent);
+					startActivityForResult(intent, 0);
 				}
 			});
 			return layout;
 		}
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+		switch (resultCode) {
+		case -11:
+			handler.sendEmptyMessage(2);
+			
+			break;
+		default:
+			break;
+
+		}
+		super.onActivityResult(requestCode, resultCode, data);
+
 	}
 
 }

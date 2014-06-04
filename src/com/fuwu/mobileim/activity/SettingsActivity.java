@@ -90,6 +90,8 @@ public class SettingsActivity extends Fragment {
 			}
 		});
 		init();
+		
+		
 		Thread thread = new Thread(new getProfile());
 		thread.start();
 		return rootView;
@@ -106,13 +108,13 @@ public class SettingsActivity extends Fragment {
 		public void run() {
 			try {
 				ProfileRequest.Builder builder = ProfileRequest.newBuilder();
-				builder.setUserId(1);
-				builder.setToken("MockToken");
+				builder.setUserId(fxApplication.getUser_id());
+				builder.setToken(fxApplication.getToken());
 				ProfileRequest response = builder.build();
 
 				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
-						Urlinterface.getProfile, "POST");
-				if (by.length > 0 && by != null) {
+						Urlinterface.PROFILE, "POST");
+				if (by!= null  && by.length> 0) {
 
 					ProfileResponse res = ProfileResponse.parseFrom(by);
 					if (res.getIsSucceed()) {
@@ -126,10 +128,11 @@ public class SettingsActivity extends Fragment {
 						String mobile = res.getProfile().getMobilePhoneNum();// 手机号码
 						String email = res.getProfile().getEmail();// 邮箱
 						String birthday = res.getProfile().getBirthday();// 生日
-
+						String publishClassType = res.getProfile().getPublishClassType();// 课程类型
+						
 						profilePojo = new ProfilePojo(userId, name, nickName,
 								gender, tileUrl, isProvider, lisence, mobile,
-								email, birthday);
+								email, birthday,publishClassType);
 						Log.i("linshi", "  --nickName"+nickName+"  --gender"+gender+"  --tileUrl"+tileUrl+"  --lisence"+lisence+"  --mobile"+mobile+"  --email"+email+"  birthday--"+birthday);
 
 						Message msg = new Message();// 创建Message 对象
@@ -204,8 +207,10 @@ public class SettingsActivity extends Fragment {
 		int sex = profilePojo.getGender();
 		if (sex == 1) {// 男
 			setting_sex_item.setImageResource(R.drawable.nan);
-		} else if (sex == 0) {// 女
+		} else if (sex == 2) {// 女
 			setting_sex_item.setImageResource(R.drawable.nv);
+		}else {
+			setting_sex_item.setVisibility(View.GONE);
 		}
 		// 设置行业认证
 		String str1 = profilePojo.getLisence();

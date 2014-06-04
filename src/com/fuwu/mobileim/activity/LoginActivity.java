@@ -125,8 +125,8 @@ public class LoginActivity extends Activity implements OnClickListener,
 						.parseFrom(HttpUtil.sendHttps(request.toByteArray(),
 								Urlinterface.LOGIN, "POST"));
 				if (response.getIsSucceed()) {
-					fx.setUser_id(1);
-					fx.setToken("MockToken");
+					fx.setUser_id(response.getUserId());
+					fx.setToken(response.getToken());
 					handler.sendEmptyMessage(0);
 
 				} else {

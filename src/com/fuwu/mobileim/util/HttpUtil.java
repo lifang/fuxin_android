@@ -55,13 +55,15 @@ public class HttpUtil {
 			out.write(b);
 			out.flush();
 			out.close();
-
+			Log.i("Ax", "conn2");
 			BufferedReader br = new BufferedReader(new InputStreamReader(
 					conn.getInputStream()));
+			Log.i("Ax", "conn3");
 			StringBuffer sb = new StringBuffer();
 			String line;
 			while ((line = br.readLine()) != null)
 				sb.append(line);
+			Log.i("Ax", "conn4");
 			String result = sb.toString().substring(1, sb.length() - 1);
 			bArr = Base64.decode(result, Base64.DEFAULT);
 			Log.i("Ax", "result:" + sb.toString());
