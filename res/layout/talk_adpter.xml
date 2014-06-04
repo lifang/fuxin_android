@@ -39,8 +39,9 @@
                     android:id="@+id/size"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:textSize="12sp"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
             </LinearLayout>
         </RelativeLayout>
 

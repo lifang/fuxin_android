@@ -29,6 +29,7 @@ public class HttpUtil {
 			String base = "\"" + Base64.encodeToString(data, Base64.DEFAULT)
 					+ "\"";
 			Log.i("Ax", method + ":" + base);
+			Log.i("Ax", "Url:" + url);
 			byte[] b = base.getBytes("UTF-8");
 			SSLContext sc = SSLContext.getInstance("TLS");
 
@@ -55,7 +56,6 @@ public class HttpUtil {
 			out.write(b);
 			out.flush();
 			out.close();
-
 			BufferedReader br = new BufferedReader(new InputStreamReader(
 					conn.getInputStream()));
 			StringBuffer sb = new StringBuffer();
@@ -67,6 +67,7 @@ public class HttpUtil {
 			Log.i("Ax", "result:" + sb.toString());
 		} catch (Exception e) {
 			Log.i("Ax", "error:" + e.toString());
+			e.printStackTrace();
 		}
 		return bArr;
 	}

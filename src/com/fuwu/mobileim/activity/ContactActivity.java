@@ -28,9 +28,11 @@ import android.widget.Toast;
 
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.adapter.ContactAdapter;
+import com.fuwu.mobileim.model.Models.Contact.GenderType;
 import com.fuwu.mobileim.model.Models.ContactRequest;
 import com.fuwu.mobileim.model.Models.ContactResponse;
 import com.fuwu.mobileim.pojo.ContactPojo;
+import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
@@ -45,6 +47,7 @@ import com.fuwu.mobileim.view.XListView.IXListViewListener;
 
 public class ContactActivity extends Fragment implements IXListViewListener {
 
+	private DBManager db;
 	private FxApplication fxApplication;
 	private ListView sortListView;// 普通的 listview，最近，订阅，交易 这三个部分使用
 	private XListView xListView;// 可上拉刷新 的 listview ，全部 部分使用
@@ -90,10 +93,16 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			switch (msg.what) {
 			case 0:
 
+				if (!db.isOpen()) {
+					db = new DBManager(getActivity());
+				}
+				contactsList = db.queryContactList(fxApplication.getUser_id());
+				
 				// 根据a-z进行排序源数据
 				if (contactsList.size() > 1) { // 2个以上进行排序
 					Collections.sort(contactsList, pinyinComparator);
 				}
+				
 
 				fxApplication.setContactsList(contactsList);
 				fxApplication.setContactsMap(contactsMap);
@@ -102,7 +111,15 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 
 				break;
 			case 1:
-
+				if (!db.isOpen()) {
+					db = new DBManager(getActivity());
+				}
+				for (int i = 0; i < contactsList.size(); i++) {
+					db.modifyContact(contactsList.get(i).getContactId(),
+							contactsList.get(i));
+				}
+				contactsList = db.queryContactList(fxApplication.getUser_id());
+				
 				// 根据a-z进行排序源数据
 				if (contactsList.size() > 1) { // 2个以上进行排序
 					Collections.sort(contactsList, pinyinComparator);
@@ -115,12 +132,12 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 				onLoad();
 				break;
 			case 6:
-				 Toast.makeText(getActivity(),
-						 "请求失败", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getActivity(), "请求失败", Toast.LENGTH_SHORT)
+						.show();
 				break;
 			case 7:
-				 Toast.makeText(getActivity(),
-				 "网络错误", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT)
+						.show();
 				break;
 			}
 		}
@@ -132,12 +149,25 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		rootView = inflater
 				.inflate(R.layout.contact_activity, container, false);
 		fxApplication = (FxApplication) getActivity().getApplication();
+		db = new DBManager(getActivity());
 		initViews();
 		Display display = getActivity().getWindowManager().getDefaultDisplay();
 		width = display.getWidth();
 		setButton();
 		return rootView;
 	}
+	
+	
+
+	@Override
+	public void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+		Log.i("11", "-----------");
+		handler.sendEmptyMessage(0);
+	}
+
+
 
 	/**
 	 * 
@@ -150,94 +180,115 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		public void run() {
 			try {
 				ContactRequest.Builder builder = ContactRequest.newBuilder();
-				builder.setUserId(1);
-				builder.setToken("MockToken");
+				builder.setUserId(fxApplication.getUser_id());
+				builder.setToken(fxApplication.getToken());
+//				builder.setUserId(1);
+//				builder.setToken("MockToken");
+				Log.i("1", "User_id:" + fxApplication.getUser_id() + "--Token"
+						+ fxApplication.getToken());
 				ContactRequest response = builder.build();
 
 				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
 						Urlinterface.getContacts, "POST");
-				if (by.length > 0) {
+				if (by != null && by.length > 0) {
 
 					ContactResponse res = ContactResponse.parseFrom(by);
 					if (res.getIsSucceed()) {
-						
-					for (int i = 0; i < res.getContactsCount(); i++) {
-						int contactId = res.getContacts(i).getContactId();
-						String name = res.getContacts(i).getName();
-						String sortKey = findSortKey(res.getContacts(i)
-								.getName());
-						String customName = res.getContacts(i).getCustomName();
-						String userface_url = res.getContacts(i).getTileUrl();
-						int sex = res.getContacts(i).getGender().getNumber();
-						int source = res.getContacts(i).getSource();
-						String lastContactTime = res.getContacts(i)
-								.getLastContactTime();// 2014-05-27 11:42:18
-						Boolean isBlocked = res.getContacts(i).getIsBlocked();
-						Boolean isProvider = res.getContacts(i).getIsProvider();
 
-						String lisence = res.getContacts(i).getLisence();
-//						String publishClassType = res.getContacts(i)
-//								.getPublishClassType();
-						String signature = null;
-						// String signature = res.getContacts(i).getSignature();
-						ContactPojo coPojo = new ContactPojo(contactId,
-								sortKey, name, customName, userface_url, sex,
-								source, lastContactTime, isBlocked, isProvider,
-								lisence, signature);
-						contactsList.add(coPojo);
-						if (i < 5) {
+						for (int i = 0; i < res.getContactsCount(); i++) {
+							int contactId = res.getContacts(i).getContactId();
+							String name = res.getContacts(i).getName();
+							// String sortKey = findSortKey(res.getContacts(i)
+							// .getName());
+							String sortKey = findSortKey(res.getContacts(i)
+									.getPinyin());
+							String customName = res.getContacts(i)
+									.getCustomName();
+							String userface_url = res.getContacts(i)
+									.getTileUrl();
+							int sex = res.getContacts(i).getGender()
+									.getNumber();
+							int source = res.getContacts(i).getSource();
+							String lastContactTime = res.getContacts(i)
+									.getLastContactTime();// 2014-05-27 11:42:18
+							Boolean isblocked = res.getContacts(i)
+									.getIsBlocked();
+							Boolean isprovider = res.getContacts(i)
+									.getIsProvider();
+							int isBlocked = -1, isProvider = -1;
+							if (isblocked == true) {
+								isBlocked = 1;
+							} else if (isblocked == false) {
+								isBlocked = 0;
+							}
+							if (isprovider == true) {
+								isProvider = 1;
+							} else if (isprovider == false) {
+								isProvider = 0;
+							}
 
-							ContactPojo coPojo2 = new ContactPojo(
-									contactId + 1000,
-									"S",
-									"斯蒂芬森",
-									customName,
-									"http://www.sinaimg.cn/dy/slidenews/9_img/2012_28/32172_1081661_673195.jpg",
-									sex, 3, "2013-05-27 11:42:18", isBlocked,
-									isProvider, lisence, signature);
-							contactsList.add(coPojo2);
+							String lisence = res.getContacts(i).getLisence();
+							String individualResume = res.getContacts(i)
+									.getIndividualResume();
+							ContactPojo coPojo = new ContactPojo(contactId,
+									sortKey, name, customName, userface_url,
+									sex, source, lastContactTime, isBlocked,
+									isProvider, lisence, individualResume);
+							contactsList.add(coPojo);
+							if (i < 5) {
 
-						}
-						if (i > 5 && i < 15) {
-							ContactPojo coPojo3 = new ContactPojo(
-									contactId + 1000,
-									"R",
-									"2014-05-27 11:42:18",
-									customName,
-									"http://www.sinaimg.cn/dy/slidenews/9_img/2012_28/32172_1081661_673195.jpg",
-									sex, 8, "2014-05-27 11:42:18", isBlocked,
-									isProvider, lisence, signature);
-							contactsList.add(coPojo3);
+								ContactPojo coPojo2 = new ContactPojo(
+										contactId + 1000,
+										"S",
+										"斯蒂芬森",
+										customName,
+										"http://www.sinaimg.cn/dy/slidenews/9_img/2012_28/32172_1081661_673195.jpg",
+										sex, 3, "2013-05-27 11:42:18",
+										isBlocked, isProvider, lisence,
+										individualResume);
+								contactsList.add(coPojo2);
 
+							}
+							if (i > 5 && i < 15) {
+								ContactPojo coPojo3 = new ContactPojo(
+										contactId + 1000,
+										"R",
+										"2014-05-27 11:42:18",
+										customName,
+										"http://www.sinaimg.cn/dy/slidenews/9_img/2012_28/32172_1081661_673195.jpg",
+										sex, 8, "2014-05-27 11:42:18",
+										isBlocked, isProvider, lisence,
+										individualResume);
+								contactsList.add(coPojo3);
+
+							}
+							if (i > 15 && i < 25) {
+								ContactPojo coPojo4 = new ContactPojo(
+										contactId + 1000, "O",
+										"2014-04-27 11:42:18", customName,
+										userface_url, sex, 11,
+										"2014-04-27 11:42:18", isBlocked,
+										isProvider, lisence, individualResume);
+								contactsList.add(coPojo4);
+							}
+							if (i == 1) {
+								Log.i("Ax", "contactId:" + contactId
+										+ "userface_url:" + userface_url
+										+ "---source:" + source
+										+ "---lastContactTime:"
+										+ lastContactTime + "----sex:"
+										+ res.getContacts(i).getGender());
+							}
+							contactsMap.put(contactId, coPojo);
 						}
-						if (i > 15 && i < 25) {
-							ContactPojo coPojo4 = new ContactPojo(
-									contactId + 1000, "O",
-									"2014-04-27 11:42:18", customName,
-									userface_url, sex, 11,
-									"2014-04-27 11:42:18", isBlocked,
-									isProvider, lisence, signature);
-							contactsList.add(coPojo4);
-						}
-						if (i == 1) {
-							Log.i("Ax", "contactId:" + contactId
-									+ "userface_url:" + userface_url
-									+ "---source:" + source
-									+ "---lastContactTime:" + lastContactTime
-									+ "----sex:"
-									+ res.getContacts(i).getGender());
-						}
-						contactsMap.put(contactId, coPojo);
-					}
 						Message msg = new Message();// 创建Message 对象
 						msg.what = 0;
 						handler.sendMessage(msg);
-					}else {
+					} else {
 						handler.sendEmptyMessage(6);
 					}
-					
+
 				}
-				
 
 				// handler.sendEmptyMessage(0);
 			} catch (Exception e) {
@@ -258,39 +309,54 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		public void run() {
 			try {
 				ContactRequest.Builder builder = ContactRequest.newBuilder();
-				builder.setUserId(1);
-				builder.setToken("MockToken");
+				builder.setUserId(fxApplication.getUser_id());
+				builder.setToken(fxApplication.getToken());
+				Log.i("1", "User_id:" + fxApplication.getUser_id() + "--Token"
+						+ fxApplication.getToken());
+
 				ContactRequest response = builder.build();
 
 				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
 						Urlinterface.getContacts, "POST");
-				if (by.length > 0&&by!=null) {
+				if (by != null && by.length > 0) {
 					contactsList = new ArrayList<ContactPojo>();
 					contactsMap = new HashMap<Integer, ContactPojo>();
 					ContactResponse res = ContactResponse.parseFrom(by);
 					for (int i = 0; i < res.getContactsCount(); i++) {
 						int contactId = res.getContacts(i).getContactId();
 						String name = res.getContacts(i).getName();
+						// String sortKey = findSortKey(res.getContacts(i)
+						// .getName());
 						String sortKey = findSortKey(res.getContacts(i)
-								.getName());
+								.getPinyin());
 						String customName = res.getContacts(i).getCustomName();
 						String userface_url = res.getContacts(i).getTileUrl();
 						int sex = res.getContacts(i).getGender().getNumber();
 						int source = res.getContacts(i).getSource();
 						String lastContactTime = res.getContacts(i)
 								.getLastContactTime();// 2014-05-27 11:42:18
-						Boolean isBlocked = res.getContacts(i).getIsBlocked();
-						Boolean isProvider = res.getContacts(i).getIsProvider();
-
+						Boolean isblocked = res.getContacts(i)
+								.getIsBlocked();
+						Boolean isprovider = res.getContacts(i)
+								.getIsProvider();
+						int isBlocked = -1, isProvider = -1;
+						if (isblocked == true) {
+							isBlocked = 1;
+						} else if (isblocked == false) {
+							isBlocked = 0;
+						}
+						if (isprovider == true) {
+							isProvider = 1;
+						} else if (isprovider == false) {
+							isProvider = 0;
+						}
 						String lisence = res.getContacts(i).getLisence();
-//						String publishClassType = res.getContacts(i)
-//								.getPublishClassType();
-						String signature = null;
-						// String signature = res.getContacts(i).getSignature();
+						String individualResume = res.getContacts(i)
+								.getIndividualResume();
 						ContactPojo coPojo = new ContactPojo(contactId,
 								sortKey, name, customName, userface_url, sex,
 								source, lastContactTime, isBlocked, isProvider,
-								lisence, signature);
+								lisence, individualResume);
 						contactsList.add(coPojo);
 
 						contactsMap.put(contactId, coPojo);
@@ -304,6 +370,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			} catch (Exception e) {
 				// prodialog.dismiss();
 				// handler.sendEmptyMessage(7);
+				onLoad();
 			}
 		}
 	}
@@ -312,24 +379,18 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		contactsList = new ArrayList<ContactPojo>();
 		contactsMap = new HashMap<Integer, ContactPojo>();
 
-		// contactsList =
-		// filledData(getResources().getStringArray(R.array.date));
 
 		// 实例化汉字转拼音类
 		characterParser = CharacterParser.getInstance();
 
 		pinyinComparator = new PinyinComparator();
-
-//		Thread thread = new Thread(new getContacts());
-//		thread.start();
-
 		Thread thread = new Thread(new getContacts());
 		thread.start();
+		
 		sectionToastLayout = (RelativeLayout) rootView
 				.findViewById(R.id.section_toast_layout);
 		sectionToastText = (TextView) rootView
 				.findViewById(R.id.section_toast_text);
-
 		sideBar = (SideBar) rootView.findViewById(R.id.sidrbar);
 		// 设置右侧触摸监听
 		sideBar.setOnTouchingLetterChangedListener(new OnTouchingLetterChangedListener() {
@@ -397,6 +458,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 				startActivity(intent);
 			}
 		});
+		
 
 	}
 
@@ -627,10 +689,11 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		xListView.stopRefresh();
 	}
 
-	@Override
+
 	public void onRefresh() {
 		// TODO Auto-generated method stub
-
+		contactsList = new ArrayList<ContactPojo>();
+		contactsMap = new HashMap<Integer, ContactPojo>();
 		Thread thread = new Thread(new getContacts2());
 		thread.start();
 		Log.i("linshi", "1111111111111111111111111111");

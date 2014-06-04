@@ -1,18 +1,26 @@
 package com.fuwu.mobileim.activity;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import com.fuwu.mobileim.R;
-import com.fuwu.mobileim.adapter.ContactAdapter;
-import com.fuwu.mobileim.adapter.FragmentViewPagerAdapter;
-import com.fuwu.mobileim.pojo.ContactPojo;
-import com.fuwu.mobileim.util.FxApplication;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -22,6 +30,7 @@ import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
 import android.text.style.AbsoluteSizeSpan;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
@@ -34,6 +43,19 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.fuwu.mobileim.R;
+import com.fuwu.mobileim.adapter.ContactAdapter;
+import com.fuwu.mobileim.adapter.FragmentViewPagerAdapter;
+import com.fuwu.mobileim.model.Models.ContactRequest;
+import com.fuwu.mobileim.model.Models.ContactResponse;
+import com.fuwu.mobileim.pojo.ContactPojo;
+import com.fuwu.mobileim.util.DBManager;
+import com.fuwu.mobileim.util.FxApplication;
+import com.fuwu.mobileim.util.HttpUtil;
+import com.fuwu.mobileim.util.Urlinterface;
+import com.fuwu.mobileim.view.CharacterParser;
 
 /**
  * @作者 马龙
@@ -59,6 +81,61 @@ public class FragmengtActivity extends FragmentActivity {
 	private int cursorW = 0;
 	private List<TextView> btnList = new ArrayList<TextView>();
 	private TextView menu_talk, menu_address_book, menu_settings;
+	private CharacterParser characterParser;
+	private DBManager db;
+	private List<ContactPojo> contactsList = new ArrayList<ContactPojo>();; // 联系人arraylist数组
+	private ProgressDialog prodialog;
+	private static Bitmap bm = null;
+	private int user_number1 = 0;
+	private int user_number2 = 0;
+	private Handler handler = new Handler() {
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see android.os.Handler#handleMessage(android.os.Message)
+		 */
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case 0:// 调用加载头像的方法
+					// prodialog.dismiss();
+
+				for (int i = 0; i < contactsList.size(); i++) {
+					String face_str = contactsList.get(i).getUserface_url();
+					db.addContact(contactsList.get(i).getContactId(),
+							contactsList.get(i));
+					if (face_str.length() > 4) {
+						user_number2 = user_number2 + 1;
+					}
+				}
+				if (user_number2 > 0) {
+					getUserBitmap();
+				} else {
+					prodialog.dismiss();
+				}
+				list.get(1).onStart();
+
+				break;
+			case 1:
+				user_number1 = user_number1 + 1;
+				if (user_number1 == user_number2) {
+					prodialog.dismiss();
+				}
+				list.get(1).onStart();
+				break;
+			case 6:
+				prodialog.dismiss();
+				Toast.makeText(getApplicationContext(), "请求失败",
+						Toast.LENGTH_SHORT).show();
+				break;
+			case 7:
+				prodialog.dismiss();
+				Toast.makeText(getApplicationContext(), "网络错误",
+						Toast.LENGTH_SHORT).show();
+				break;
+			}
+		}
+	};
+
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
@@ -97,6 +174,195 @@ public class FragmengtActivity extends FragmentActivity {
 		changeTitleStyle();
 		setEdittextListening();
 		InitImageView();
+
+//		contactInformation();
+		
+		
+
+	}
+
+	/**
+	 * 查询本地联系人信息，没有的话，则请求服务器并保存到本地
+	 * 
+	 * 
+	 */
+	private void contactInformation() {
+		// 实例化汉字转拼音类
+		characterParser = CharacterParser.getInstance();
+		db = new DBManager(this);
+		contactsList = db.queryContactList(fxApplication.getUser_id());
+		if (contactsList.size() == 0) {
+			prodialog = new ProgressDialog(FragmengtActivity.this);
+			prodialog.setMessage("正在加载数据，请稍后...");
+			prodialog.setCanceledOnTouchOutside(false);
+			prodialog.show();
+			Thread thread = new Thread(new getContacts());
+			thread.start();
+		}
+	}
+
+	/**
+	 * 加载联系人头像，并保存到本地
+	 * 
+	 * 
+	 */
+	private void getUserBitmap() {
+		ExecutorService singleThreadExecutor = Executors
+				.newSingleThreadExecutor();
+		for (int i = 0; i < contactsList.size(); i++) {
+			final int index = i;
+			final int contactId = contactsList.get(i).getContactId();
+			final String url =Urlinterface.IP+ contactsList.get(i).getUserface_url();
+			singleThreadExecutor.execute(new Runnable() {
+
+				@Override
+				public void run() {
+					try {
+						URL myurl = new URL(url);
+						// 获得连接
+						HttpURLConnection conn = (HttpURLConnection) myurl
+								.openConnection();
+						conn.setConnectTimeout(6000);// 设置超时
+						conn.setDoInput(true);
+						conn.setUseCaches(false);// 不缓存
+						conn.connect();
+						InputStream is = conn.getInputStream();// 获得图片的数据流
+
+						BitmapFactory.Options options = new BitmapFactory.Options();
+						options.inJustDecodeBounds = false;
+						options.inSampleSize = 1;
+						bm = BitmapFactory.decodeStream(is, null, options);
+						Log.i("linshi", bm.getWidth() + "---" + bm.getHeight());
+						is.close();
+						if (bm != null) {
+							Log.i("linshi",
+									bm.getWidth() + "---2---" + bm.getHeight());
+							File f = new File(Urlinterface.head_pic, contactId
+									+ "");
+
+							if (f.exists()) {
+								f.delete();
+							}
+							if (!f.getParentFile().exists()) {
+								f.getParentFile().mkdirs();
+							}
+							Log.i("linshi", "----1");
+							FileOutputStream out = new FileOutputStream(f);
+							Log.i("linshi", "----6");
+							bm.compress(Bitmap.CompressFormat.PNG, 60, out);
+							out.flush();
+							out.close();
+							Log.i("linshi", "已经保存");
+							handler.sendEmptyMessage(1);
+
+						}
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			});
+		}
+	}
+
+	/**
+	 * 
+	 * 第一次 获得所有联系人
+	 * 
+	 * 
+	 */
+
+	class getContacts implements Runnable {
+		public void run() {
+			try {
+				ContactRequest.Builder builder = ContactRequest.newBuilder();
+				builder.setUserId(fxApplication.getUser_id());
+				builder.setToken(fxApplication.getToken());
+				Log.i("1", "User_id:" + fxApplication.getUser_id() + "--Token"
+						+ fxApplication.getToken());
+				ContactRequest response = builder.build();
+
+				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
+						Urlinterface.getContacts, "POST");
+				if (by != null && by.length > 0) {
+
+					ContactResponse res = ContactResponse.parseFrom(by);
+					if (res.getIsSucceed()) {
+
+						for (int i = 0; i < res.getContactsCount(); i++) {
+							int contactId = res.getContacts(i).getContactId();
+							String name = res.getContacts(i).getName();
+							// String sortKey = findSortKey(res.getContacts(i)
+							// .getName());
+							String sortKey = findSortKey(res.getContacts(i)
+									.getPinyin());
+							String customName = res.getContacts(i)
+									.getCustomName();
+							String userface_url = res.getContacts(i)
+									.getTileUrl();
+							int sex = res.getContacts(i).getGender()
+									.getNumber();
+							int source = res.getContacts(i).getSource();
+							String lastContactTime = res.getContacts(i)
+									.getLastContactTime();// 2014-05-27 11:42:18
+							Boolean isblocked = res.getContacts(i)
+									.getIsBlocked();
+							Boolean isprovider = res.getContacts(i)
+									.getIsProvider();
+							int isBlocked = -1, isProvider = -1;
+							if (isblocked == true) {
+								isBlocked = 1;
+							} else if (isblocked == false) {
+								isBlocked = 0;
+							}
+							if (isprovider == true) {
+								isProvider = 1;
+							} else if (isprovider == false) {
+								isProvider = 0;
+							}
+
+							String lisence = res.getContacts(i).getLisence();
+							String individualResume = res.getContacts(i)
+									.getIndividualResume();
+							ContactPojo coPojo = new ContactPojo(contactId,
+									sortKey, name, customName, userface_url,
+									sex, source, lastContactTime, isBlocked,
+									isProvider, lisence, individualResume);
+							contactsList.add(coPojo);
+
+						}
+						Message msg = new Message();// 创建Message 对象
+						msg.what = 0;
+						handler.sendMessage(msg);
+					} else {
+						handler.sendEmptyMessage(6);
+					}
+
+				}
+
+				// handler.sendEmptyMessage(0);
+			} catch (Exception e) {
+				// prodialog.dismiss();
+				handler.sendEmptyMessage(7);
+			}
+		}
+	}
+
+	/**
+	 * 获得首字母
+	 */
+	private String findSortKey(String str) {
+
+		String pinyin = characterParser.getSelling(str);
+		String sortString = pinyin.substring(0, 1).toUpperCase();
+
+		// 正则表达式，判断首字母是否是英文字母
+		if (sortString.matches("[A-Z]")) {
+			return sortString.toUpperCase();
+		} else {
+			return "#";
+		}
+
 	}
 
 	/**
@@ -106,23 +372,23 @@ public class FragmengtActivity extends FragmentActivity {
 	 */
 	private void getButton() {
 		menu_talk = (TextView) findViewById(R.id.menu_talk);
-		menu_address_book = (TextView)findViewById(R.id.menu_address_book);
+		menu_address_book = (TextView) findViewById(R.id.menu_address_book);
 		menu_settings = (TextView) findViewById(R.id.menu_settings);
 		btnList.add(menu_talk);
 		btnList.add(menu_address_book);
 		btnList.add(menu_settings);
 		menu_talk.setOnClickListener(new menuOnclick(0));
-		menu_address_book.setOnClickListener(
-				new menuOnclick(1));
+		menu_address_book.setOnClickListener(new menuOnclick(1));
 		menu_settings.setOnClickListener(new menuOnclick(2));
 	}
+
 	/**
 	 * 改变文本 的颜色
 	 * 
 	 * 
 	 */
 	private void changeColor(int buttonNumber) {
-		
+
 		for (int i = 0; i < btnList.size(); i++) {
 			if (buttonNumber == i) {
 				btnList.get(i).setTextColor(
@@ -134,7 +400,7 @@ public class FragmengtActivity extends FragmentActivity {
 			}
 		}
 	}
-	
+
 	/**
 	 * 初始化动画
 	 */
@@ -204,24 +470,35 @@ public class FragmengtActivity extends FragmentActivity {
 						// getApplication(),
 						// ((ContactPojo) adapter.getItem(position))
 						// .getName(), Toast.LENGTH_SHORT).show();
-//						Toast.makeText(getApplication(), "传参，，跳到对话界面，并清空搜索框",
-//								Toast.LENGTH_SHORT).show();
+						// Toast.makeText(getApplication(), "传参，，跳到对话界面，并清空搜索框",
+						// Toast.LENGTH_SHORT).show();
 						Intent intent = new Intent();
-//						intent.p
+						// intent.p
 						intent.setClass(FragmengtActivity.this,
 								ChatActivity.class);
 						startActivity(intent);
-						 contact_search_edittext.setText("");
+						contact_search_edittext.setText("");
 					}
 				});
 
 	}
 
+	/*
+	 * 搜索按妞
+	 */
 	private View.OnClickListener listener1 = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
+			vp.setVisibility(View.GONE);
 			main_search.setVisibility(View.VISIBLE);
 			contacts_search_linearLayout.setVisibility(View.VISIBLE);
+
+			final Animation translateAnimation = new TranslateAnimation(720, 0,
+					0, 0); // 移动动画效果
+
+			translateAnimation.setDuration(400); // 设置动画持续时间
+			main_search.setAnimation(translateAnimation); // 设置动画效果
+			translateAnimation.startNow(); // 启动动画
 			// 模拟
 			SourceDateList = fxApplication.getContactsList();
 			// adapter = new ContactAdapter(MainActivity.this,
@@ -229,15 +506,22 @@ public class FragmengtActivity extends FragmentActivity {
 			// contacts_search_listview.setAdapter(adapter);
 		}
 	};
+	/*
+	 * 清空搜索框
+	 */
 	private View.OnClickListener listener2 = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
 			contact_search_edittext.setText("");
 		}
 	};
+	/*
+	 * 取消
+	 */
 	private View.OnClickListener listener3 = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
+			vp.setVisibility(View.VISIBLE);
 			main_search.setVisibility(View.GONE);
 			contacts_search_linearLayout.setVisibility(View.GONE);
 			contact_search_edittext.setText("");

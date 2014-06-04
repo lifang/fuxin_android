@@ -1,7 +1,12 @@
 package com.fuwu.mobileim.adapter;
 
+import java.io.File;
 import java.util.List;
 import android.content.Context;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +17,7 @@ import android.widget.TextView;
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.util.FuXunTools;
+import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CircularImage;
 
 /**
@@ -24,6 +30,7 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 	private List<ContactPojo> list = null;
 	private Context mContext;
 	private int num = -1;
+
 	public ContactAdapter(Context mContext, List<ContactPojo> list, int num) {
 		this.mContext = mContext;
 		this.list = list;
@@ -59,27 +66,36 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 			viewHolder = new ViewHolder();
 			view = LayoutInflater.from(mContext).inflate(
 					R.layout.contact_adapter_item, null);
-			viewHolder.contact_name = (TextView) view.findViewById(R.id.contact_name);
+			viewHolder.contact_name = (TextView) view
+					.findViewById(R.id.contact_name);
 			viewHolder.contact_sort_key = (TextView) view
 					.findViewById(R.id.contact_sort_key);
 			viewHolder.contact_user_face = (CircularImage) view
 					.findViewById(R.id.contact_user_face);
-			viewHolder.contact_gou = (ImageView) view.findViewById(R.id.contact_gou);
-			viewHolder.contact_yue = (ImageView) view.findViewById(R.id.contact_yue);
+			viewHolder.contact_gou = (ImageView) view
+					.findViewById(R.id.contact_gou);
+			viewHolder.contact_yue = (ImageView) view
+					.findViewById(R.id.contact_yue);
 
 			view.setTag(viewHolder);
-		}else {
+		} else {
 			viewHolder = (ViewHolder) view.getTag();
 		}
 
 		// 设置头像
 		String face_str = contact.getUserface_url();
 		if (face_str.length() > 4) {
-
-			FuXunTools.setBackground(face_str,
-					viewHolder.contact_user_face);
-		} else {
-
+			face_str=Urlinterface.IP+face_str;
+			File f = new File(Urlinterface.head_pic, contact.getContactId()+"");
+			if (f.exists()) {
+				Log.i("linshi------------", "加载本地图片");
+				Drawable dra = new BitmapDrawable(
+						BitmapFactory.decodeFile(Urlinterface.head_pic + contact.getContactId()));
+				viewHolder.contact_user_face.setImageDrawable(dra);
+			} else {
+				FuXunTools.set_bk(contact.getContactId(),face_str, viewHolder.contact_user_face);
+			}
+		}else {
 			viewHolder.contact_user_face.setImageResource(R.drawable.moren);
 		}
 
@@ -90,8 +106,8 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 			// 如果当前位置等于该分类首字母的Char的位置 ，则认为是第一次出现
 			if (position == getPositionForSection(section)) {
 				viewHolder.contact_sort_key.setVisibility(View.VISIBLE);
-				viewHolder.contact_sort_key.setText(contact.getSortKey() + "  ["
-						+ getNumber(contact.getSortKey()) + "人]");
+				viewHolder.contact_sort_key.setText(contact.getSortKey()
+						+ "  [" + getNumber(contact.getSortKey()) + "人]");
 			} else {
 				viewHolder.contact_sort_key.setVisibility(View.GONE);
 			}
@@ -117,8 +133,13 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 			viewHolder.contact_gou.setVisibility(View.GONE);
 			viewHolder.contact_yue.setVisibility(View.GONE);
 		}
-
-		viewHolder.contact_name.setText(contact.getName());
+		String customname = contact.getCustomName();
+		if (customname!=null&&customname.length()>0) {
+			viewHolder.contact_name.setText(customname);
+		}else {
+			viewHolder.contact_name.setText(contact.getName());
+		}
+		
 
 		return view;
 
@@ -189,7 +210,5 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 	public Object[] getSections() {
 		return null;
 	}
-	
-
 
 }

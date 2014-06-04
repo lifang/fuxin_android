@@ -2,13 +2,11 @@ package com.fuwu.mobileim.activity;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
-
 import com.fuwu.mobileim.model.Models.Message;
 import com.fuwu.mobileim.model.Models.MessageList;
 import com.fuwu.mobileim.model.Models.MessageRequest;
@@ -81,9 +79,13 @@ public class RequstService extends Service {
 				while (true) {
 					MessageRequest.Builder builder = MessageRequest
 							.newBuilder();
-					builder.setUserId(1);
-					builder.setToken("MockToken");
-					Log.i("Ax", "user_id:" + fx.getUser_id());
+					// builder.setUserId(1);
+					// builder.setToken("MockToken");
+					builder.setUserId(fx.getUser_id());
+					builder.setToken(fx.getToken());
+					Log.i("Ax",
+							"user_id:" + fx.getUser_id() + "--token:"
+									+ fx.getToken());
 					MessageRequest response = builder.build();
 					byte[] b = HttpUtil.sendHttps(response.toByteArray(),
 							Urlinterface.Message, "POST");
@@ -98,23 +100,23 @@ public class RequstService extends Service {
 							for (int j = 0; j < mesCount; j++) {
 								Message m = mes.getMessages(j);
 								MessagePojo mp;
-								// 14-05-30 14:38
-								if (TimeUtil.isFiveMin(db.getLastTime(1, 2),
+								int user_id = m.getUserId();
+								int contact_id = m.getContactId();
+								if (TimeUtil.isFiveMin(
+										db.getLastTime(user_id, contact_id),
 										m.getSendTime())) {
-									mp = new MessagePojo(i, j, m.getSendTime(),
-											m.getContent(), 0, 1);
+									mp = new MessagePojo(user_id, contact_id,
+											m.getSendTime(), m.getContent(), 0,
+											1);
 								} else {
-									mp = new MessagePojo(i, j, "",
-											m.getContent(), 0, 1);
+									mp = new MessagePojo(user_id, contact_id,
+											"", m.getContent(), 0, 1);
 								}
-								// MessagePojo mp = new MessagePojo(i, j,
-								// m.getSendTime(), m.getContent(), 0, 1);
-								// Log.i("Ax", "Message:" + mp.toString());
 								list.add(mp);
 								if (j == mesCount - 1) {
-									TalkPojo tp = new TalkPojo(1, j, "", "",
-											m.getContent(), m.getSendTime(),
-											mesCount);
+									TalkPojo tp = new TalkPojo(user_id,
+											contact_id, "", "", m.getContent(),
+											m.getSendTime(), mesCount);
 									db.addTalk(tp);
 								}
 								db.addMessageList(list);

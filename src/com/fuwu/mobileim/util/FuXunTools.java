@@ -104,7 +104,8 @@ public class FuXunTools {
 		return boo;
 	}
 
-	public static void set_bk(final String url, final ImageView imageView) {
+	public static void set_bk(final int contactId, final String url,
+			final ImageView imageView) {
 
 		final Handler mHandler = new Handler() {
 			public void handleMessage(android.os.Message msg) {
@@ -146,7 +147,7 @@ public class FuXunTools {
 					if (bm != null) {
 						Log.i("linshi",
 								bm.getWidth() + "---2---" + bm.getHeight());
-						File f = new File(Urlinterface.head_pic, "bbb");
+						File f = new File(Urlinterface.head_pic, contactId + "");
 
 						if (f.exists()) {
 							f.delete();
@@ -170,60 +171,6 @@ public class FuXunTools {
 						msg.obj = face_drawable;
 						mHandler.sendMessage(msg);
 
-					}
-
-				} catch (Exception e) {
-					Log.i("linshi", "发生异常");
-					// Log.i("linshi", url);
-				}
-
-			}
-		};
-
-		thread.start();
-
-	}
-	public static void getBitmap(final String url) {
-
-
-		Thread thread = new Thread() {
-			public void run() {
-				HttpClient hc = new DefaultHttpClient();
-				try {
-					Log.i("linshi------------", url);
-					URL myurl = new URL(url);
-					// 获得连接
-					HttpURLConnection conn = (HttpURLConnection) myurl
-							.openConnection();
-					conn.setConnectTimeout(6000);// 设置超时
-					conn.setDoInput(true);
-					conn.setUseCaches(false);// 不缓存
-					conn.connect();
-					InputStream is = conn.getInputStream();// 获得图片的数据流
-					// bm =decodeSampledBitmapFromStream(is,150,150);
-					BitmapFactory.Options options = new BitmapFactory.Options();
-					options.inJustDecodeBounds = false;
-					// options.outWidth = 159;
-					// options.outHeight = 159;
-					options.inSampleSize = 1;
-					bm = BitmapFactory.decodeStream(is, null, options);
-					Log.i("linshi", bm.getWidth() + "---" + bm.getHeight());
-					is.close();
-					if (bm != null) {
-						File f = new File(Urlinterface.head_pic, "bbb");
-						if (f.exists()) {
-							f.delete();
-						}
-						if (!f.getParentFile().exists()) {
-							f.getParentFile().mkdirs();
-						}
-						Log.i("linshi", "----1");
-						FileOutputStream out = new FileOutputStream(f);
-						Log.i("linshi", "----6");
-						bm.compress(Bitmap.CompressFormat.PNG, 60, out);
-						out.flush();
-						out.close();
-						Log.i("linshi", "已经保存");
 					}
 
 				} catch (Exception e) {
@@ -303,6 +250,62 @@ public class FuXunTools {
 	public static void setBackground(final String url, final ImageView imageView) {
 		imageLoader.displayImage(url, imageView, options, animateFirstListener);
 	}
-	
-	
+
+	/*
+	 * 获得头像并以个人的id 作为文件名，保存到 /fuXun/head_pic/ 中
+	 */
+	public static void getBitmap(final int contactId, final String url) {
+
+		Thread thread = new Thread() {
+			public void run() {
+				Drawable face_drawable;
+				try {
+					Log.i("linshi------------", url);
+					URL myurl = new URL(url);
+					// 获得连接
+					HttpURLConnection conn = (HttpURLConnection) myurl
+							.openConnection();
+					conn.setConnectTimeout(6000);// 设置超时
+					conn.setDoInput(true);
+					conn.setUseCaches(false);// 不缓存
+					conn.connect();
+					InputStream is = conn.getInputStream();// 获得图片的数据流
+					// bm =decodeSampledBitmapFromStream(is,150,150);
+
+					BitmapFactory.Options options = new BitmapFactory.Options();
+					options.inJustDecodeBounds = false;
+					// options.outWidth = 159;
+					// options.outHeight = 159;
+					options.inSampleSize = 1;
+					bm = BitmapFactory.decodeStream(is, null, options);
+					Log.i("linshi", bm.getWidth() + "---" + bm.getHeight());
+					is.close();
+					if (bm != null) {
+						Log.i("linshi",
+								bm.getWidth() + "---2---" + bm.getHeight());
+						File f = new File(Urlinterface.head_pic, contactId + "");
+
+						if (f.exists()) {
+							f.delete();
+						}
+						if (!f.getParentFile().exists()) {
+							f.getParentFile().mkdirs();
+						}
+						Log.i("linshi", "----1");
+						FileOutputStream out = new FileOutputStream(f);
+						Log.i("linshi", "----6");
+						bm.compress(Bitmap.CompressFormat.PNG, 60, out);
+						out.flush();
+						out.close();
+						Log.i("linshi", "已经保存");
+					}
+
+				} catch (Exception e) {
+					Log.i("linshi", "发生异常");
+					// Log.i("linshi", url);
+				}
+			}
+		};
+		thread.start();
+	}
 }

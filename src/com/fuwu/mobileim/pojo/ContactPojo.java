@@ -1,5 +1,7 @@
 package com.fuwu.mobileim.pojo;
 
+import com.fuwu.mobileim.model.Models.Contact.GenderType;
+
 
 /**
  * @作者 丁作强
@@ -15,18 +17,19 @@ public class ContactPojo {
 	private int sex;  //  性别
 	private int source;  //  是否交易 是否订阅
 	private String lastContactTime; //最近联系时间
-	private boolean isBlocked; //是否屏蔽
-	private boolean isProvider; //是不是 福师
+	private int isBlocked; //是否屏蔽   1 --屏蔽    2--没屏蔽
+	private int isProvider; //是不是 福师   1 --是    2--不是
 	
     private String lisence; // 认证
-    private String signature ; //  个性签名
+    private String individualResume ; //  个人简介
 	public ContactPojo() {
 	}
 	
+	
 	public ContactPojo(int contactId, String sortKey, String name,
 			String customName, String userface_url, int sex, int source,
-			String lastContactTime, boolean isBlocked, boolean isProvider,
-			String lisence, String signature) {
+			String lastContactTime, int isBlocked, int isProvider,
+			String lisence, String individualResume) {
 		super();
 		this.contactId = contactId;
 		this.sortKey = sortKey;
@@ -39,8 +42,9 @@ public class ContactPojo {
 		this.isBlocked = isBlocked;
 		this.isProvider = isProvider;
 		this.lisence = lisence;
-		this.signature = signature;
+		this.individualResume = individualResume;
 	}
+
 
 	public int getContactId() {
 		return contactId;
@@ -90,16 +94,16 @@ public class ContactPojo {
 	public void setLastContactTime(String lastContactTime) {
 		this.lastContactTime = lastContactTime;
 	}
-	public boolean getIsBlocked() {
+	public int getIsBlocked() {
 		return isBlocked;
 	}
-	public void setIsBlocked(boolean isBlocked) {
+	public void setIsBlocked(int isBlocked) {
 		this.isBlocked = isBlocked;
 	}
-	public boolean getIsProvider() {
+	public int getIsProvider() {
 		return isProvider;
 	}
-	public void setIsProvider(boolean isProvider) {
+	public void setIsProvider(int isProvider) {
 		this.isProvider = isProvider;
 	}
 	public String getLisence() {
@@ -108,13 +112,13 @@ public class ContactPojo {
 	public void setLisence(String lisence) {
 		this.lisence = lisence;
 	}
-	public String getSignature() {
-		return signature;
+	public String getIndividualResume() {
+		return individualResume;
 	}
-	public void setSignature(String signature) {
-		this.signature = signature;
+	public void setIndividualResume(String individualResume) {
+		this.individualResume = individualResume;
 	}
-
-
+	
+	
 	
 }

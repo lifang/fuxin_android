@@ -16,10 +16,11 @@ import android.widget.Toast;
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.model.Models.AuthenticationRequest;
 import com.fuwu.mobileim.model.Models.AuthenticationResponse;
+import com.fuwu.mobileim.model.Models.ContactResponse;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.Urlinterface;
-import com.google.protobuf.InvalidProtocolBufferException;
+import com.igexin.sdk.PushManager;
 
 /**
  * 作者: 张秀楠 时间：2014-5-23 下午4:34:03
@@ -57,6 +58,10 @@ public class LoginActivity extends Activity implements OnClickListener,
 					}
 				}
 				break;
+			case 2:
+				Toast.makeText(LoginActivity.this, "请求超时", Toast.LENGTH_SHORT)
+						.show();
+				break;
 			}
 		}
 	};
@@ -69,14 +74,16 @@ public class LoginActivity extends Activity implements OnClickListener,
 		findViewById(R.id.forgetpwd).setOnClickListener(this);
 		findViewById(R.id.login_btn).setOnClickListener(this);
 		initialize();// 初始化
+		// 个推SDK初始化
+		PushManager.getInstance().initialize(this.getApplicationContext());
 	}
 
 	// 初始化
 	public void initialize() {
 		user_text = (EditText) findViewById(R.id.user);
 		pwd_text = (EditText) findViewById(R.id.pwd);
-		user_text.setText("MockUserName");
-		// pwd_text.setText("111111");
+		// user_text.setText("MockUserName");
+		user_text.setText("15862373890");
 	}
 
 	public void onClick(View v) {
@@ -109,7 +116,7 @@ public class LoginActivity extends Activity implements OnClickListener,
 		}
 	}
 
-	// 短信验证
+	// 登陆
 	class Login_Post implements Runnable {
 		public void run() {
 			try {
@@ -118,12 +125,16 @@ public class LoginActivity extends Activity implements OnClickListener,
 				builder.setUserName(user);
 				builder.setPassword(pwd);
 				AuthenticationRequest request = builder.build();
-				AuthenticationResponse response = AuthenticationResponse
-						.parseFrom(HttpUtil.sendHttps(request.toByteArray(),
-								Urlinterface.LOGIN, "POST"));
+//				AuthenticationResponse response = AuthenticationResponse
+//						.parseFrom(HttpUtil.sendHttps(request.toByteArray(),
+//								Urlinterface.LOGIN, "POST"));
+				byte[] by = HttpUtil.sendHttps(request.toByteArray(),
+						Urlinterface.LOGIN, "POST");
+				if (by != null && by.length > 0) {
+					AuthenticationResponse response = AuthenticationResponse.parseFrom(by);
 				if (response.getIsSucceed()) {
-					fx.setUser_id(1);
-					fx.setToken("MockToken");
+					fx.setUser_id(response.getUserId());
+					fx.setToken(response.getToken());
 					handler.sendEmptyMessage(0);
 
 				} else {
@@ -131,8 +142,13 @@ public class LoginActivity extends Activity implements OnClickListener,
 					error_code = response.getErrorCode().toString();
 					handler.sendEmptyMessage(1);
 				}
-			} catch (InvalidProtocolBufferException e) {
-				e.printStackTrace();
+				}else {
+					Toast.makeText(LoginActivity.this, "登陆失败",
+							Toast.LENGTH_SHORT).show();
+				}
+			} catch (Exception e) {
+				handler.sendEmptyMessage(2);
+				Log.i("error", e.toString());
 			}
 		}
 	}

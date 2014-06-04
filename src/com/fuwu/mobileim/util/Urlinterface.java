@@ -8,12 +8,10 @@ public interface Urlinterface {
 	static final String tag = "FuXun";
 	static final String SHARED = "FuXun";
 	static final double current_version = 0.0;// 应用版本号
-	// static final String IP = "https://118.242.18.189/IMApi";
-	static final String IP = "https://118.242.18.189/IMApiMock/";
+	static final String IP = "https://118.242.18.189/IMApi/";
+	// static final String IP = "https://118.242.18.189/IMApiMock/";
 	// 获得联系人
 	static final String getContacts = IP + "api/Contact";
-	// static final String IP = "https://118.242.18.189/IMApiMock";
-
 	// 注册
 	static final String REGIST = IP + "api/Register";
 	// 短信验证
@@ -21,9 +19,13 @@ public interface Urlinterface {
 	// 登陆
 	static final String LOGIN = IP + "api/Authentication";
 	// 修改密码
-	static final String PASSWORD = IP + "api/Password";
+	static final String PASSWORD = IP + "api/ChangePassword";
 	// 找回密码
 	static final String RESETPASSWORD = IP + "api/ResetPassword";
+	// 获得 个人详细信息
+	String PROFILE = IP + "api/Profile";
+	// 修改个人详细信息
+	static final String ChangeProfile = IP + "api/Profile";
 	// 获取/发送 消息
 	static final String Message = IP + "api/Message";
 	// 获得个人详细信息

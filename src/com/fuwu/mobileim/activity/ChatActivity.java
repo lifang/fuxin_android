@@ -78,6 +78,8 @@ public class ChatActivity extends Activity implements OnClickListener,
 	private int[] itemImg = new int[] { R.drawable.pic, R.drawable.camera };
 	private int mMesPageNum = 1;
 	private int mMesCount = 0;
+	private int user_id = 1;
+	private int contact_id = 1;
 	private float height = 0;
 	private int currentPage = 0;
 	private boolean isFaceShow = false;;
@@ -94,6 +96,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 	private EditText msgEt;
 	private List<String> keys;
 	private List<MessagePojo> list;
+	private FxApplication fx;
 	private PopupWindow menuWindow;
 	private MessageListViewAdapter mMessageAdapter;
 	private DBManager db;
@@ -131,16 +134,20 @@ public class ChatActivity extends Activity implements OnClickListener,
 		initView();
 		initFacePage();
 		initPlusGridView();
-		mReuRequstReceiver = new RequstReceiver();
 	}
 
 	public void initData() {
 		db = new DBManager(this);
+		fx = (FxApplication) getApplication();
+		mReuRequstReceiver = new RequstReceiver();
 		DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
 		height = displayMetrics.heightPixels;
 		Set<String> keySet = FxApplication.getInstance().getFaceMap().keySet();
 		keys = new ArrayList<String>();
 		keys.addAll(keySet);
+		user_id = fx.getUser_id();
+		contact_id = user_id;
+		mMesCount = db.getMesCount(user_id, contact_id);
 		updateMessageData();
 	}
 
@@ -148,9 +155,8 @@ public class ChatActivity extends Activity implements OnClickListener,
 		if (!db.isOpen()) {
 			db = new DBManager(this);
 		}
-		mMesCount = db.getMesCount(1, 2);
-		list = db.queryMessageList(1, 2, (mMesCount - mMesPageNum * 15),
-				mMesCount);
+		list = db.queryMessageList(user_id, contact_id,
+				(mMesCount - mMesPageNum * 15), mMesCount);
 		mMesPageNum++;
 	}
 
@@ -396,9 +402,9 @@ public class ChatActivity extends Activity implements OnClickListener,
 				Log.i("linshi", "-----------------");
 				BlockContactRequest.Builder builder = BlockContactRequest
 						.newBuilder();
-				builder.setUserId(1);
-				builder.setToken("MockToken");
-				builder.setContactId(2);
+				builder.setUserId(user_id);
+				builder.setToken(fx.getToken());
+				builder.setContactId(contact_id);
 				builder.setIsBlocked(true);
 				BlockContactRequest response = builder.build();
 				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
@@ -420,20 +426,29 @@ public class ChatActivity extends Activity implements OnClickListener,
 	}
 
 	class SendMessageThread extends Thread {
+		private String message;
+
+		public SendMessageThread(String mes) {
+			super();
+			this.message = mes;
+		}
+
+		public SendMessageThread() {
+		}
+
 		@Override
 		public void run() {
 			super.run();
 			try {
 				SendMessageRequest.Builder builder = SendMessageRequest
 						.newBuilder();
-				builder.setToken("MockToken");
-				builder.setUserId(1);
+				builder.setToken(fx.getToken());
+				builder.setUserId(user_id);
 				com.fuwu.mobileim.model.Models.Message.Builder mes = com.fuwu.mobileim.model.Models.Message
 						.newBuilder();
-				mes.setContactId(2);
-				mes.setUserId(1);
-				// mes.setSendTime("2014-05-27 14:07:30");
-				mes.setContent("你好");
+				mes.setContactId(contact_id);
+				mes.setUserId(user_id);
+				mes.setContent(message);
 				builder.setMessage(mes);
 				SendMessageRequest smr = builder.build();
 				SendMessageResponse response = SendMessageResponse
@@ -502,13 +517,17 @@ public class ChatActivity extends Activity implements OnClickListener,
 				SimpleDateFormat sdf = new SimpleDateFormat(
 						"yyyy-MM-dd HH:mm:ss");
 				Date today = new Date(System.currentTimeMillis());
-				Log.i("Ax", db.getLastTime(1, 2) + "----" + sdf.format(today));
-				if (TimeUtil.isFiveMin(db.getLastTime(1, 2), sdf.format(today))) {
-					mp = new MessagePojo(1, 2, sdf.format(today), str, 1, 1);
+				Log.i("Ax",
+						db.getLastTime(user_id, contact_id) + "----"
+								+ sdf.format(today));
+				if (TimeUtil.isFiveMin(db.getLastTime(user_id, contact_id),
+						sdf.format(today))) {
+					mp = new MessagePojo(user_id, contact_id,
+							sdf.format(today), str, 1, 1);
 				} else {
-					mp = new MessagePojo(1, 2, "", str, 1, 1);
+					mp = new MessagePojo(user_id, contact_id, "", str, 1, 1);
 				}
-				new SendMessageThread().start();
+				new SendMessageThread(str).start();
 				mMessageAdapter.updMessage(mp);
 				mListView.setSelection(list.size() - 1);
 				msgEt.setText("");
@@ -526,7 +545,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 			}
 			break;
 		case R.id.chatset_clear:
-			db.delMessage(1, 2);
+			db.delMessage(user_id, contact_id);
 			handler.sendEmptyMessage(2);
 			if (menuWindow.isShowing()) {
 				menuWindow.dismiss();

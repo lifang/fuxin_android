@@ -24,6 +24,11 @@ public class DBHelper extends SQLiteOpenHelper {
 		// 对面列表表: 联系人id,昵称,头像,最后一条消息内容,发送时间,消息数量,时间标记
 		db.execSQL("CREATE TABLE IF NOT EXISTS talk"
 				+ "(id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER,contact_id INTEGER,nick_name VARCHAR, head_pic VARCHAR, content VARCHAR,time VARCHAR,mes_count INTEGER)");
+
+		// 联系人表: 联系人id，首字母,昵称，备注,头像,性别,交易订阅,最近联系时间,是否屏蔽，是不是 福师，认证，个人简介
+		db.execSQL("CREATE TABLE IF NOT EXISTS contact"
+				+ "(id INTEGER PRIMARY KEY AUTOINCREMENT,contactId INTEGER,sortKey VARCHAR, name VARCHAR, customName VARCHAR,userface_url VARCHAR,sex INTEGER,source INTEGER,lastContactTime VARCHAR,isBlocked INTEGER,isProvider INTEGER,lisence VARCHAR,individualResume VARCHAR,userId INTEGER)");
+
 	}
 
 	// 如果DATABASE_VERSION值被改为2,系统发现现有数据库版本不同,即会调用onUpgrade

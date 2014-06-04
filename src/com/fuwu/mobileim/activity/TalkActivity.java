@@ -97,7 +97,7 @@ public class TalkActivity extends Fragment {
 		if (file.exists()) {
 			Log.i("Max", "存在");
 		}
-		handler.sendEmptyMessage(2);
+		// handler.sendEmptyMessage(2);
 		return rootView;
 	}
 
@@ -151,15 +151,10 @@ public class TalkActivity extends Fragment {
 	}
 
 	public void onResume() {
-		// handler.sendEmptyMessage(4);
-		// getActivity().registerReceiver(mReuRequstReceiver,
-		// new IntentFilter("com.comdosoft.fuxun.REQUEST_ACTION"));
-		Log.i("Max", "onResume");
 		super.onResume();
 	}
 
 	public void onPause() {
-		Log.i("Max", "onPause");
 		super.onPause();
 	}
 
@@ -168,4 +163,5 @@ public class TalkActivity extends Fragment {
 		handler.sendEmptyMessage(2);
 		super.onStart();
 	}
+
 }
