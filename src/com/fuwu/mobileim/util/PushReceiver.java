@@ -21,6 +21,9 @@ public class PushReceiver extends BroadcastReceiver {
 			if (payload != null) {
 				String data = new String(payload);
 				Log.i("Max", data);
+				boolean status = FuXunTools
+						.isApplicationBroughtToBackground(context);
+				Log.i("Max", "status:" + status);
 				// TODO:接收处理透传（payload）数据
 			}
 			break;
