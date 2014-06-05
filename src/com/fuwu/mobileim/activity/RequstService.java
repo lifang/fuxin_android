@@ -2,13 +2,17 @@ package com.fuwu.mobileim.activity;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
-
 import com.fuwu.mobileim.model.Models.Message;
 import com.fuwu.mobileim.model.Models.MessageList;
 import com.fuwu.mobileim.model.Models.MessageRequest;
@@ -24,8 +28,11 @@ import com.google.protobuf.InvalidProtocolBufferException;
 
 public class RequstService extends Service {
 
-	private static final String TAG = "Ax";
+	// private static final String TAG = "Ax";
+	private SharedPreferences sp;
 	private IBinder binder = new RequstService.RequstBinder();
+	private ScheduledExecutorService scheduledThreadPool = Executors
+			.newScheduledThreadPool(2);
 	private DBManager db;
 	private FxApplication fx;
 
@@ -36,33 +43,20 @@ public class RequstService extends Service {
 
 	@Override
 	public void onCreate() {
-		Log.i(TAG, "onCreate");
 		super.onCreate();
-	}
-
-	@SuppressWarnings("deprecation")
-	@Override
-	public void onStart(Intent intent, int startId) {
-		Log.i(TAG, "onStart");
-		super.onStart(intent, startId);
 	}
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		Log.i(TAG, "onStartCommand");
 		// 防止intent为null时异常
 		fx = (FxApplication) getApplication();
 		if (intent != null) {
+			sp = getSharedPreferences("FuXin", Context.MODE_PRIVATE);
 			db = new DBManager(this);
-			new RequstThread().start();
+			scheduledThreadPool.scheduleAtFixedRate(new RequstThread(), 0, 10,
+					TimeUnit.SECONDS);
 		}
 		return START_STICKY;
-	}
-
-	@Override
-	public void onDestroy() {
-		Log.i(TAG, "onDestroy");
-		super.onDestroy();
 	}
 
 	// 定义内容类继承Binder
@@ -73,65 +67,79 @@ public class RequstService extends Service {
 		}
 	}
 
+	public void setTimeStamp(String time) {
+		if (time != null && !time.equals("")) {
+			Editor editor = sp.edit();
+			editor.putString("sendTime", time);
+			editor.commit();
+		}
+	}
+
+	public String getTimeStamp() {
+		String time = sp.getString("sendTime", "");
+		if (time != null && !time.equals("")) {
+			return time;
+		}
+		return "";
+	}
+
 	class RequstThread extends Thread {
 		@Override
 		public void run() {
 			super.run();
 			try {
-				while (true) {
-					MessageRequest.Builder builder = MessageRequest
-							.newBuilder();
-					builder.setUserId(1);
-					builder.setToken("MockToken");
-					Log.i("Ax", "user_id:" + fx.getUser_id());
-					MessageRequest response = builder.build();
-					byte[] b = HttpUtil.sendHttps(response.toByteArray(),
-							Urlinterface.Message, "POST");
-					if (b != null && b.length > 0) {
-						MessageResponse mr = MessageResponse.parseFrom(b);
-						int contactCount = mr.getMessageListsCount();
-						Log.i("Ax", "messageCount:" + contactCount);
-						for (int i = 0; i < contactCount; i++) {
-							MessageList mes = mr.getMessageLists(i);
-							int mesCount = mes.getMessagesCount();
-							List<MessagePojo> list = new ArrayList<MessagePojo>();
-							for (int j = 0; j < mesCount; j++) {
-								Message m = mes.getMessages(j);
-
-								MessagePojo mp;
-								Log.i("Ax", m.getSendTime());
-								// 14-05-30 14:38
-								if (TimeUtil.isFiveMin(db.getLastTime(1, 2),
-										m.getSendTime())) {
-									mp = new MessagePojo(i, j, m.getSendTime(),
-											m.getContent(), 0, 1);
-								} else {
-									mp = new MessagePojo(i, j, "",
-											m.getContent(), 0, 1);
-								}
-								// MessagePojo mp = new MessagePojo(i, j,
-								// m.getSendTime(), m.getContent(), 0, 1);
-								// Log.i("Ax", "Message:" + mp.toString());
-								list.add(mp);
-								if (j == mesCount - 1) {
-									TalkPojo tp = new TalkPojo(1, j, "", "",
-											m.getContent(), m.getSendTime(),
-											mesCount);
-									db.addTalk(tp);
-								}
-								db.addMessageList(list);
+				MessageRequest.Builder builder = MessageRequest.newBuilder();
+				// builder.setUserId(1);
+				// builder.setToken("MockToken");
+				Log.i("Ax", "timeStamp:" + getTimeStamp());
+				builder.setUserId(fx.getUser_id());
+				builder.setToken(fx.getToken());
+				builder.setTimeStamp(getTimeStamp());
+				Log.i("Ax",
+						"user_id:" + fx.getUser_id() + "--token:"
+								+ fx.getToken());
+				MessageRequest response = builder.build();
+				byte[] b = HttpUtil.sendHttps(response.toByteArray(),
+						Urlinterface.Message, "POST");
+				if (b != null && b.length > 0) {
+					MessageResponse mr = MessageResponse.parseFrom(b);
+					setTimeStamp(mr.getTimeStamp());
+					int contactCount = mr.getMessageListsCount();
+					for (int i = 0; i < contactCount; i++) {
+						MessageList mes = mr.getMessageLists(i);
+						int mesCount = mes.getMessagesCount();
+						List<MessagePojo> list = new ArrayList<MessagePojo>();
+						Log.i("Ax", "messageCount:" + mesCount);
+						for (int j = 0; j < mesCount; j++) {
+							Message m = mes.getMessages(j);
+							MessagePojo mp;
+							int user_id = m.getUserId();
+							int contact_id = m.getContactId();
+							String time = "";
+							Log.i("FuWu", "time:" + m.getSendTime());
+							if (TimeUtil.isFiveMin(
+									db.getLastTime(user_id, contact_id),
+									m.getSendTime())) {
+								time = m.getSendTime();
 							}
-							Intent intnet = new Intent(
-									"com.comdosoft.fuxun.REQUEST_ACTION");
-							sendBroadcast(intnet);
-							Thread.sleep(60 * 1000);
+							mp = new MessagePojo(user_id, contact_id, time,
+									m.getContent(), 0, 1);
+							list.add(mp);
+							if (j == mesCount - 1) {
+								TalkPojo tp = new TalkPojo(user_id, contact_id,
+										"", "", m.getContent(),
+										m.getSendTime(), mesCount);
+								db.addTalk(tp);
+							}
 						}
+						db.addMessageList(list);
 					}
+					Intent intnet = new Intent(
+							"com.comdosoft.fuxun.REQUEST_ACTION");
+					sendBroadcast(intnet);
 				}
-			} catch (InterruptedException e) {
-				e.printStackTrace();
 			} catch (InvalidProtocolBufferException e) {
-				e.printStackTrace();
+				Log.i("Ax", e.toString());
 			}
 		}
 	}

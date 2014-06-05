@@ -20,7 +20,6 @@
         android:gravity="center_vertical"
         android:paddingLeft="8.0dip"
         android:paddingRight="8.0dip"
-        android:text="11:11"
         android:textColor="@color/chat_time"
         android:textSize="10.0sp"
         android:visibility="gone" />
@@ -38,6 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
+            android:layout_marginLeft="45dp"
             android:layout_marginRight="5dip"
             android:background="@drawable/balloon_r_selector"
             android:clickable="true"
@@ -50,6 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:focusable="true"
+                android:text="哈哈哈哈哈哈哈jgfhasdgfrf哈哈哈嘿嘿嘿嘿嘿哈哈哈嘿嘿嘿嘿"
                 android:textColor="@color/color_hei"
                 android:textSize="16.0sp" />
         </RelativeLayout>

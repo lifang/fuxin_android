@@ -170,7 +170,7 @@ public class FragmengtActivity extends FragmentActivity {
 		});
 		Intent i = new Intent();
 		i.setClass(this, RequstService.class);
-//		startService(i);
+		startService(i);
 
 		contact_search = (ImageView) findViewById(R.id.contact_search);
 		fxApplication = (FxApplication) getApplication();
@@ -182,7 +182,7 @@ public class FragmengtActivity extends FragmentActivity {
 		setEdittextListening();
 		InitImageView();
 
-		contactInformation();
+//		contactInformation();
 		
 		
 

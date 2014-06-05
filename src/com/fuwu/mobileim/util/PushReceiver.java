@@ -21,6 +21,9 @@ public class PushReceiver extends BroadcastReceiver {
 			if (payload != null) {
 				String data = new String(payload);
 				Log.i("Max", data);
+				boolean status = FuXunTools
+						.isApplicationBroughtToBackground(context);
+				Log.i("Max", "status:" + status);
 				// TODO:接收处理透传（payload）数据
 			}
 			break;
@@ -31,7 +34,6 @@ public class PushReceiver extends BroadcastReceiver {
 				Log.i("Max", "-----" + cid);
 			}
 			// Log.d("GetuiSdkDemo", "Got ClientID:" + cid);
-			// TODO:
 			/*
 			 * 第三方应用需要将ClientID上传到第三方服务器，并且将当前用户帐号和ClientID进行关联，
 			 * 以便以后通过用户帐号查找ClientID进行消息推送

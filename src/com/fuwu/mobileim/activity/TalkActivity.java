@@ -54,6 +54,7 @@ public class TalkActivity extends Fragment {
 						fx.options);
 				Log.i("Max", list.size() + "-");
 				mListView.setAdapter(clvAdapter);
+				Log.i("FuWu", list.get(0).toString());
 				break;
 			case 3:
 				Toast.makeText(getActivity(), "删除失败", Toast.LENGTH_SHORT)
@@ -78,6 +79,7 @@ public class TalkActivity extends Fragment {
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
+				intent.putExtra("contact_id", list.get(arg2).getContact_id());
 				intent.setClass(getActivity(), ChatActivity.class);
 				startActivity(intent);
 			}
@@ -161,7 +163,7 @@ public class TalkActivity extends Fragment {
 	public void onStart() {
 		Log.i("Max", "onStart");
 		Log.i("Max", "刷新");
-//		handler.sendEmptyMessage(2);
+		handler.sendEmptyMessage(2);
 		super.onStart();
 	}
 

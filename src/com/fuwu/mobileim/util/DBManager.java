@@ -2,13 +2,11 @@ package com.fuwu.mobileim.util;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-
 import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.pojo.MessagePojo;
 import com.fuwu.mobileim.pojo.TalkPojo;
@@ -56,6 +54,12 @@ public class DBManager {
 	public void addTalk(TalkPojo tp) {
 		db.beginTransaction();
 		try {
+			Cursor c = queryTalkCursor(tp.getUser_id(), tp.getContact_id());
+			if (c.getCount() > 0) {
+				db.execSQL(
+						"DELETE from talk where user_id = ? and contact_id = ?",
+						new Object[] { tp.getUser_id(), tp.getContact_id(), });
+			}
 			db.execSQL(
 					"INSERT INTO talk VALUES(null,?,?,?,?,?,?,?)",
 					new Object[] { tp.getUser_id(), tp.getContact_id(),
@@ -67,8 +71,19 @@ public class DBManager {
 		}
 	}
 
+	public void delMessage(int user_id, int contact_id) {
+		db.beginTransaction();
+		try {
+			db.execSQL(
+					"Delete from message where user_id = ? and contact_id = ? ",
+					new Object[] { user_id + "", contact_id + "" });
+		} finally {
+			db.endTransaction();
+		}
+	}
+
 	// 联系人id，首字母,昵称，备注,头像,性别,交易订阅,最近联系时间,是否屏蔽，是不是 福师，认证，个人简介
-	public void addContact(int userId,ContactPojo cp) {
+	public void addContact(int userId, ContactPojo cp) {
 		db.beginTransaction();
 		try {
 			db.execSQL(
@@ -78,14 +93,14 @@ public class DBManager {
 							cp.getUserface_url(), cp.getSex(), cp.getSource(),
 							cp.getLastContactTime(), cp.getIsBlocked(),
 							cp.getIsProvider(), cp.getLisence(),
-							cp.getIndividualResume(),userId });
+							cp.getIndividualResume(), userId });
 			db.setTransactionSuccessful();
 		} finally {
 			db.endTransaction();
 		}
 	}
 
-	public boolean modifyContact(int userId,ContactPojo mp) {
+	public boolean modifyContact(int userId, ContactPojo mp) {
 		boolean flag = true;
 		db.beginTransaction();
 		try {
@@ -110,10 +125,12 @@ public class DBManager {
 			ContactPojo mp = new ContactPojo();
 			mp.setContactId(c.getInt(c.getColumnIndex("contactId")));
 			mp.setCustomName(c.getString(c.getColumnIndex("customName")));
-			mp.setIndividualResume(c.getString(c.getColumnIndex("individualResume")));
+			mp.setIndividualResume(c.getString(c
+					.getColumnIndex("individualResume")));
 			mp.setIsBlocked(c.getInt(c.getColumnIndex("isBlocked")));
 			mp.setIsProvider(c.getInt(c.getColumnIndex("isProvider")));
-			mp.setLastContactTime(c.getString(c.getColumnIndex("lastContactTime")));
+			mp.setLastContactTime(c.getString(c
+					.getColumnIndex("lastContactTime")));
 			mp.setLisence(c.getString(c.getColumnIndex("lisence")));
 			mp.setName(c.getString(c.getColumnIndex("name")));
 			mp.setSex(c.getInt(c.getColumnIndex("sex")));
@@ -126,10 +143,11 @@ public class DBManager {
 		c.close();
 		return cpList;
 	}
-	
-	public List<MessagePojo> queryMessageList(int user_id, int contact_id) {
+
+	public List<MessagePojo> queryMessageList(int user_id, int contact_id,
+			int num, int max) {
 		ArrayList<MessagePojo> mpList = new ArrayList<MessagePojo>();
-		Cursor c = queryMessageCursor(user_id, contact_id);
+		Cursor c = queryMessageCursor(user_id, contact_id, num, max);
 		while (c.moveToNext()) {
 			MessagePojo mp = new MessagePojo();
 			mp.setUserId(user_id);
@@ -151,20 +169,24 @@ public class DBManager {
 		return null;
 	}
 
+	public int getMesCount(int user_id, int contact_id) {
+		Cursor c = queryMessageCountCursor(user_id, contact_id);
+		return c.getCount();
+	}
+
 	public List<TalkPojo> queryTalkList(int user_id) {
 		Log.i("Max", user_id + "");
 		ArrayList<TalkPojo> talkList = new ArrayList<TalkPojo>();
 		Cursor c = queryTalkCursor(user_id);
-
 		while (c.moveToNext()) {
 			TalkPojo talk = new TalkPojo();
+			talk.setUser_id(c.getInt(c.getColumnIndex("user_id")));
 			talk.setContact_id(c.getInt(c.getColumnIndex("contact_id")));
 			talk.setNick_name(c.getString(c.getColumnIndex("nick_name")));
 			talk.setHead_pic(c.getString(c.getColumnIndex("head_pic")));
 			talk.setContent(c.getString(c.getColumnIndex("content")));
 			talk.setTime(c.getString(c.getColumnIndex("time")));
-			talk.setMes_count(c.getInt(c.getColumnIndex("time")));
-
+			talk.setMes_count(c.getInt(c.getColumnIndex("mes_count")));
 			talkList.add(talk);
 		}
 		c.close();
@@ -185,17 +207,26 @@ public class DBManager {
 		return flag;
 	}
 
-	public Cursor queryMessageCursor(int user_id, int contact_id) {
+	public Cursor queryMessageCountCursor(int user_id, int contact_id) {
 		Cursor c = db.rawQuery(
 				"SELECT * FROM message where user_id = ? and contact_id = ?",
 				new String[] { user_id + "", contact_id + "" });
 		return c;
 	}
+
 	public Cursor queryContactCursor(int userid) {
-		Cursor c = db.rawQuery(
-				"SELECT * FROM contact where userId =?",
-				new String[] { userid+""});
-		int  a=1;
+		Cursor c = db.rawQuery("SELECT * FROM contact where userId = ?",
+				new String[] { userid + "" });
+		return c;
+	}
+
+	public Cursor queryMessageCursor(int user_id, int contact_id, int num,
+			int max) {
+		Cursor c = db
+				.rawQuery(
+						"SELECT * FROM message where user_id = ? and contact_id = ? limit ?,?",
+						new String[] { user_id + "", contact_id + "", num + "",
+								max + "" });
 		return c;
 	}
 
@@ -211,6 +242,13 @@ public class DBManager {
 		Cursor c = db.rawQuery(
 				"SELECT * FROM talk where user_id = ? order by time desc",
 				new String[] { user_id + "" });
+		return c;
+	}
+
+	public Cursor queryTalkCursor(int user_id, int contact_id) {
+		Cursor c = db.rawQuery(
+				"SELECT * FROM talk where user_id = ? and contact_id = ?",
+				new String[] { user_id + "", contact_id + "" });
 		return c;
 	}
 
