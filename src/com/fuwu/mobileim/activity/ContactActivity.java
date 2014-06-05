@@ -93,11 +93,11 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			switch (msg.what) {
 			case 0:
 
-				if (!db.isOpen()) {
-					db = new DBManager(getActivity());
-				}
-				contactsList = db.queryContactList(fxApplication.getUser_id());
-				
+//				if (!db.isOpen()) {
+//					db = new DBManager(getActivity());
+//				}
+//				contactsList = db.queryContactList(fxApplication.getUser_id());
+//				
 				// 根据a-z进行排序源数据
 				if (contactsList.size() > 1) { // 2个以上进行排序
 					Collections.sort(contactsList, pinyinComparator);
@@ -108,7 +108,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 				fxApplication.setContactsMap(contactsMap);
 				adapter = new ContactAdapter(getActivity(), contactsList, 1);
 				xListView.setAdapter(adapter);
-
+				onLoad();
 				break;
 			case 1:
 				if (!db.isOpen()) {
@@ -235,42 +235,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 									sex, source, lastContactTime, isBlocked,
 									isProvider, lisence, individualResume);
 							contactsList.add(coPojo);
-							if (i < 5) {
-
-								ContactPojo coPojo2 = new ContactPojo(
-										contactId + 1000,
-										"S",
-										"斯蒂芬森",
-										customName,
-										"http://www.sinaimg.cn/dy/slidenews/9_img/2012_28/32172_1081661_673195.jpg",
-										sex, 3, "2013-05-27 11:42:18",
-										isBlocked, isProvider, lisence,
-										individualResume);
-								contactsList.add(coPojo2);
-
-							}
-							if (i > 5 && i < 15) {
-								ContactPojo coPojo3 = new ContactPojo(
-										contactId + 1000,
-										"R",
-										"2014-05-27 11:42:18",
-										customName,
-										"http://www.sinaimg.cn/dy/slidenews/9_img/2012_28/32172_1081661_673195.jpg",
-										sex, 8, "2014-05-27 11:42:18",
-										isBlocked, isProvider, lisence,
-										individualResume);
-								contactsList.add(coPojo3);
-
-							}
-							if (i > 15 && i < 25) {
-								ContactPojo coPojo4 = new ContactPojo(
-										contactId + 1000, "O",
-										"2014-04-27 11:42:18", customName,
-										userface_url, sex, 11,
-										"2014-04-27 11:42:18", isBlocked,
-										isProvider, lisence, individualResume);
-								contactsList.add(coPojo4);
-							}
+							
 							if (i == 1) {
 								Log.i("Ax", "contactId:" + contactId
 										+ "userface_url:" + userface_url
@@ -437,7 +402,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 					int position, long id) {
 
 				Intent intent = new Intent();
-				// intent.p
+				 intent.putExtra("contact_id", contactsList.get(position).getContactId());
 				intent.setClass(getActivity(), ChatActivity.class);
 				startActivity(intent);
 			}
@@ -453,9 +418,11 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 					int position, long id) {
 
 				Intent intent = new Intent();
-				// intent.p
+				 intent.putExtra("contact_id", contactsList.get(position-1).getContactId());
 				intent.setClass(getActivity(), ChatActivity.class);
 				startActivity(intent);
+//				Toast.makeText(getActivity(), position+"", Toast.LENGTH_SHORT)
+//				.show();
 			}
 		});
 		
@@ -694,7 +661,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		// TODO Auto-generated method stub
 		contactsList = new ArrayList<ContactPojo>();
 		contactsMap = new HashMap<Integer, ContactPojo>();
-		Thread thread = new Thread(new getContacts2());
+		Thread thread = new Thread(new getContacts());
 		thread.start();
 		Log.i("linshi", "1111111111111111111111111111");
 
