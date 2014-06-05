@@ -84,6 +84,7 @@ public class LoginActivity extends Activity implements OnClickListener,
 		pwd_text = (EditText) findViewById(R.id.pwd);
 		// user_text.setText("MockUserName");
 		user_text.setText("15862373890");
+//		user_text.setText("18913536561");
 	}
 
 	public void onClick(View v) {

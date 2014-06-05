@@ -191,12 +191,11 @@ public class MyInformationActivity extends Activity {
 				pb.setTileUrl(profilePojo.getTileUrl());
 				pb.setIsProvider(profilePojo.getIsProvider());
 				pb.setLisence(profilePojo.getLisence());
-				pb.setPublishClassType(profilePojo.getPublishClassType());
 				Log.i("linshi", "-----------------");
 
 				ChangeProfileRequest.Builder builder = ChangeProfileRequest.newBuilder();
-				builder.setUserId(1);
-				builder.setToken("MockToken");
+				builder.setUserId(fxApplication.getUser_id());
+				builder.setToken(fxApplication.getToken());
 				builder.setProfile(pb);
 				ChangeProfileRequest response = builder.build();
 

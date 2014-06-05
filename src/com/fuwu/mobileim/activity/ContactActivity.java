@@ -6,7 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -28,7 +31,6 @@ import android.widget.Toast;
 
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.adapter.ContactAdapter;
-import com.fuwu.mobileim.model.Models.Contact.GenderType;
 import com.fuwu.mobileim.model.Models.ContactRequest;
 import com.fuwu.mobileim.model.Models.ContactResponse;
 import com.fuwu.mobileim.pojo.ContactPojo;
@@ -92,34 +94,38 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 0:
-
+				db = new DBManager(getActivity());
 				if (!db.isOpen()) {
 					db = new DBManager(getActivity());
 				}
 				contactsList = db.queryContactList(fxApplication.getUser_id());
-				
+				//
 				// 根据a-z进行排序源数据
 				if (contactsList.size() > 1) { // 2个以上进行排序
 					Collections.sort(contactsList, pinyinComparator);
 				}
-				
 
 				fxApplication.setContactsList(contactsList);
 				fxApplication.setContactsMap(contactsMap);
 				adapter = new ContactAdapter(getActivity(), contactsList, 1);
 				xListView.setAdapter(adapter);
-
+				onLoad();
 				break;
 			case 1:
+				db = new DBManager(getActivity());
 				if (!db.isOpen()) {
 					db = new DBManager(getActivity());
 				}
 				for (int i = 0; i < contactsList.size(); i++) {
-					db.modifyContact(contactsList.get(i).getContactId(),
+					db.modifyContact(fxApplication.getUser_id(),
 							contactsList.get(i));
+					String url = Urlinterface.IP
+							+ contactsList.get(i).getUserface_url();
+					FuXunTools.getBitmap(contactsList.get(i).getContactId(),
+							url);
 				}
 				contactsList = db.queryContactList(fxApplication.getUser_id());
-				
+
 				// 根据a-z进行排序源数据
 				if (contactsList.size() > 1) { // 2个以上进行排序
 					Collections.sort(contactsList, pinyinComparator);
@@ -156,8 +162,6 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		setButton();
 		return rootView;
 	}
-	
-	
 
 	@Override
 	public void onStart() {
@@ -165,137 +169,6 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		super.onStart();
 		Log.i("11", "-----------");
 		handler.sendEmptyMessage(0);
-	}
-
-
-
-	/**
-	 * 
-	 * 第一次 获得所有联系人
-	 * 
-	 * 
-	 */
-
-	class getContacts implements Runnable {
-		public void run() {
-			try {
-				ContactRequest.Builder builder = ContactRequest.newBuilder();
-				builder.setUserId(fxApplication.getUser_id());
-				builder.setToken(fxApplication.getToken());
-//				builder.setUserId(1);
-//				builder.setToken("MockToken");
-				Log.i("1", "User_id:" + fxApplication.getUser_id() + "--Token"
-						+ fxApplication.getToken());
-				ContactRequest response = builder.build();
-
-				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
-						Urlinterface.getContacts, "POST");
-				if (by != null && by.length > 0) {
-
-					ContactResponse res = ContactResponse.parseFrom(by);
-					if (res.getIsSucceed()) {
-
-						for (int i = 0; i < res.getContactsCount(); i++) {
-							int contactId = res.getContacts(i).getContactId();
-							String name = res.getContacts(i).getName();
-							// String sortKey = findSortKey(res.getContacts(i)
-							// .getName());
-							String sortKey = findSortKey(res.getContacts(i)
-									.getPinyin());
-							String customName = res.getContacts(i)
-									.getCustomName();
-							String userface_url = res.getContacts(i)
-									.getTileUrl();
-							int sex = res.getContacts(i).getGender()
-									.getNumber();
-							int source = res.getContacts(i).getSource();
-							String lastContactTime = res.getContacts(i)
-									.getLastContactTime();// 2014-05-27 11:42:18
-							Boolean isblocked = res.getContacts(i)
-									.getIsBlocked();
-							Boolean isprovider = res.getContacts(i)
-									.getIsProvider();
-							int isBlocked = -1, isProvider = -1;
-							if (isblocked == true) {
-								isBlocked = 1;
-							} else if (isblocked == false) {
-								isBlocked = 0;
-							}
-							if (isprovider == true) {
-								isProvider = 1;
-							} else if (isprovider == false) {
-								isProvider = 0;
-							}
-
-							String lisence = res.getContacts(i).getLisence();
-							String individualResume = res.getContacts(i)
-									.getIndividualResume();
-							ContactPojo coPojo = new ContactPojo(contactId,
-									sortKey, name, customName, userface_url,
-									sex, source, lastContactTime, isBlocked,
-									isProvider, lisence, individualResume);
-							contactsList.add(coPojo);
-							if (i < 5) {
-
-								ContactPojo coPojo2 = new ContactPojo(
-										contactId + 1000,
-										"S",
-										"斯蒂芬森",
-										customName,
-										"http://www.sinaimg.cn/dy/slidenews/9_img/2012_28/32172_1081661_673195.jpg",
-										sex, 3, "2013-05-27 11:42:18",
-										isBlocked, isProvider, lisence,
-										individualResume);
-								contactsList.add(coPojo2);
-
-							}
-							if (i > 5 && i < 15) {
-								ContactPojo coPojo3 = new ContactPojo(
-										contactId + 1000,
-										"R",
-										"2014-05-27 11:42:18",
-										customName,
-										"http://www.sinaimg.cn/dy/slidenews/9_img/2012_28/32172_1081661_673195.jpg",
-										sex, 8, "2014-05-27 11:42:18",
-										isBlocked, isProvider, lisence,
-										individualResume);
-								contactsList.add(coPojo3);
-
-							}
-							if (i > 15 && i < 25) {
-								ContactPojo coPojo4 = new ContactPojo(
-										contactId + 1000, "O",
-										"2014-04-27 11:42:18", customName,
-										userface_url, sex, 11,
-										"2014-04-27 11:42:18", isBlocked,
-										isProvider, lisence, individualResume);
-								contactsList.add(coPojo4);
-							}
-							if (i == 1) {
-								Log.i("Ax", "contactId:" + contactId
-										+ "userface_url:" + userface_url
-										+ "---source:" + source
-										+ "---lastContactTime:"
-										+ lastContactTime + "----sex:"
-										+ res.getContacts(i).getGender());
-							}
-							contactsMap.put(contactId, coPojo);
-						}
-						Message msg = new Message();// 创建Message 对象
-						msg.what = 0;
-						handler.sendMessage(msg);
-					} else {
-						handler.sendEmptyMessage(6);
-					}
-
-				}
-
-				// handler.sendEmptyMessage(0);
-			} catch (Exception e) {
-				// prodialog.dismiss();
-				// handler.sendEmptyMessage(7);
-			}
-		}
 	}
 
 	/**
@@ -308,9 +181,16 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 	class getContacts2 implements Runnable {
 		public void run() {
 			try {
+				SharedPreferences preferences = getActivity()
+						.getSharedPreferences(Urlinterface.SHARED,
+								Context.MODE_PRIVATE);
+
+				String timeStamp = preferences
+						.getString("contactTimeStamp", "");
 				ContactRequest.Builder builder = ContactRequest.newBuilder();
 				builder.setUserId(fxApplication.getUser_id());
 				builder.setToken(fxApplication.getToken());
+				builder.setTimeStamp(timeStamp);
 				Log.i("1", "User_id:" + fxApplication.getUser_id() + "--Token"
 						+ fxApplication.getToken());
 
@@ -335,10 +215,8 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 						int source = res.getContacts(i).getSource();
 						String lastContactTime = res.getContacts(i)
 								.getLastContactTime();// 2014-05-27 11:42:18
-						Boolean isblocked = res.getContacts(i)
-								.getIsBlocked();
-						Boolean isprovider = res.getContacts(i)
-								.getIsProvider();
+						Boolean isblocked = res.getContacts(i).getIsBlocked();
+						Boolean isprovider = res.getContacts(i).getIsProvider();
 						int isBlocked = -1, isProvider = -1;
 						if (isblocked == true) {
 							isBlocked = 1;
@@ -361,6 +239,14 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 
 						contactsMap.put(contactId, coPojo);
 					}
+
+					SharedPreferences preferences2 = getActivity()
+							.getSharedPreferences(Urlinterface.SHARED,
+									Context.MODE_PRIVATE);
+					Editor editor = preferences2.edit();
+					editor.putString("contactTimeStamp", res.getTimeStamp());
+
+					editor.commit();
 				}
 				Message msg = new Message();// 创建Message 对象
 				msg.what = 1;
@@ -379,14 +265,13 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		contactsList = new ArrayList<ContactPojo>();
 		contactsMap = new HashMap<Integer, ContactPojo>();
 
-
 		// 实例化汉字转拼音类
 		characterParser = CharacterParser.getInstance();
 
 		pinyinComparator = new PinyinComparator();
-//		Thread thread = new Thread(new getContacts());
-//		thread.start();
-		
+		// Thread thread = new Thread(new getContacts());
+		// thread.start();
+
 		sectionToastLayout = (RelativeLayout) rootView
 				.findViewById(R.id.section_toast_layout);
 		sectionToastText = (TextView) rootView
@@ -437,7 +322,8 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 					int position, long id) {
 
 				Intent intent = new Intent();
-				// intent.p
+				intent.putExtra("contact_id", contactsList.get(position)
+						.getContactId());
 				intent.setClass(getActivity(), ChatActivity.class);
 				startActivity(intent);
 			}
@@ -453,12 +339,16 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 					int position, long id) {
 
 				Intent intent = new Intent();
-				// intent.p
+				intent.putExtra("contact_id", contactsList.get(position - 1)
+						.getContactId());
 				intent.setClass(getActivity(), ChatActivity.class);
 				startActivity(intent);
+				// Toast.makeText(getActivity(), position+"",
+				// Toast.LENGTH_SHORT)
+				// .show();
 			}
 		});
-		
+		handler.sendEmptyMessage(0);
 
 	}
 
@@ -688,7 +578,6 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 	private void onLoad() {
 		xListView.stopRefresh();
 	}
-
 
 	public void onRefresh() {
 		// TODO Auto-generated method stub

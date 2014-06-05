@@ -87,16 +87,15 @@ public class DBManager {
 
 	public boolean modifyContact(int userId,ContactPojo mp) {
 		boolean flag = true;
-		db = helper.getWritableDatabase();
+		db.beginTransaction();
 		try {
 				db.execSQL("DELETE FROM contact WHERE contactId = "
 						+ mp.getContactId()+" and userId = " + userId);
 				addContact(userId,mp);
-		} catch (SQLException e) {
-			Log.i("Max", "异常:" + e.toString());
-			flag = false;
+				db.setTransactionSuccessful();
+		} finally {
+			db.endTransaction();
 		}
-		db.close();
 		return flag;
 	}
 
@@ -194,8 +193,9 @@ public class DBManager {
 	}
 	public Cursor queryContactCursor(int userid) {
 		Cursor c = db.rawQuery(
-				"SELECT * FROM contact where userId = ?",
+				"SELECT * FROM contact where userId =?",
 				new String[] { userid+""});
+		int  a=1;
 		return c;
 	}
 

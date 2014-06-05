@@ -15,6 +15,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -101,7 +103,7 @@ public class FragmengtActivity extends FragmentActivity {
 
 				for (int i = 0; i < contactsList.size(); i++) {
 					String face_str = contactsList.get(i).getUserface_url();
-					db.addContact(contactsList.get(i).getContactId(),
+					db.addContact(fxApplication.getUser_id(),
 							contactsList.get(i));
 					if (face_str.length() > 4) {
 						user_number2 = user_number2 + 1;
@@ -117,10 +119,15 @@ public class FragmengtActivity extends FragmentActivity {
 				break;
 			case 1:
 				user_number1 = user_number1 + 1;
-				if (user_number1 == user_number2) {
+				if (user_number1 == contactsList.size()) {
 					prodialog.dismiss();
 				}
 				list.get(1).onStart();
+				break;
+			case 5:
+				prodialog.dismiss();
+				Toast.makeText(getApplicationContext(), "当前用户没有联系人",
+						Toast.LENGTH_SHORT).show();
 				break;
 			case 6:
 				prodialog.dismiss();
@@ -168,7 +175,7 @@ public class FragmengtActivity extends FragmentActivity {
 		contact_search = (ImageView) findViewById(R.id.contact_search);
 		fxApplication = (FxApplication) getApplication();
 		mReuRequstReceiver = new RequstReceiver();
-
+		fxApplication.getActivityList().add(this);
 		searchMethod();
 
 		changeTitleStyle();
@@ -191,6 +198,7 @@ public class FragmengtActivity extends FragmentActivity {
 		characterParser = CharacterParser.getInstance();
 		db = new DBManager(this);
 		contactsList = db.queryContactList(fxApplication.getUser_id());
+		Log.i("11", contactsList.size()+"-----------1");
 		if (contactsList.size() == 0) {
 			prodialog = new ProgressDialog(FragmengtActivity.this);
 			prodialog.setMessage("正在加载数据，请稍后...");
@@ -198,6 +206,9 @@ public class FragmengtActivity extends FragmentActivity {
 			prodialog.show();
 			Thread thread = new Thread(new getContacts());
 			thread.start();
+		}else {
+//			list.get(1).onStart();
+			Log.i("Ax", "加载本地联系人");
 		}
 	}
 
@@ -253,12 +264,12 @@ public class FragmengtActivity extends FragmentActivity {
 							out.flush();
 							out.close();
 							Log.i("linshi", "已经保存");
-							handler.sendEmptyMessage(1);
+							
 
-						}
+						}handler.sendEmptyMessage(1);
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
-						e.printStackTrace();
+						handler.sendEmptyMessage(1);
 					}
 				}
 			});
@@ -278,8 +289,9 @@ public class FragmengtActivity extends FragmentActivity {
 				ContactRequest.Builder builder = ContactRequest.newBuilder();
 				builder.setUserId(fxApplication.getUser_id());
 				builder.setToken(fxApplication.getToken());
-				Log.i("1", "User_id:" + fxApplication.getUser_id() + "--Token"
+				Log.i("Ax", "User_id:" + fxApplication.getUser_id() + "--Token"
 						+ fxApplication.getToken());
+				Log.i("Ax", "加载网络联系人---");
 				ContactRequest response = builder.build();
 
 				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
@@ -331,16 +343,25 @@ public class FragmengtActivity extends FragmentActivity {
 							contactsList.add(coPojo);
 
 						}
+						
+						SharedPreferences preferences = getSharedPreferences(Urlinterface.SHARED,
+								Context.MODE_PRIVATE);
+						Editor editor = preferences.edit();
+						editor.putString("contactTimeStamp", res.getTimeStamp());
+						
+						editor.commit();
+						
 						Message msg = new Message();// 创建Message 对象
 						msg.what = 0;
 						handler.sendMessage(msg);
 					} else {
-						handler.sendEmptyMessage(6);
+						handler.sendEmptyMessage(5);
 					}
 
+				} else {
+					handler.sendEmptyMessage(6);
 				}
 
-				// handler.sendEmptyMessage(0);
 			} catch (Exception e) {
 				// prodialog.dismiss();
 				handler.sendEmptyMessage(7);

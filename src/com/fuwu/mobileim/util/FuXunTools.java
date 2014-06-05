@@ -308,4 +308,7 @@ public class FuXunTools {
 		};
 		thread.start();
 	}
+	
+	
+	
 }

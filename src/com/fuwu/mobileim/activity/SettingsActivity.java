@@ -1,7 +1,9 @@
 ﻿package com.fuwu.mobileim.activity;
 
 import java.io.File;
+import java.util.List;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
@@ -133,11 +135,10 @@ public class SettingsActivity extends Fragment {
 						String mobile = res.getProfile().getMobilePhoneNum();// 手机号码
 						String email = res.getProfile().getEmail();// 邮箱
 						String birthday = res.getProfile().getBirthday();// 生日
-						String publishClassType = res.getProfile().getPublishClassType();// 课程类型
 						
 						profilePojo = new ProfilePojo(userId, name, nickName,
 								gender, tileUrl, isProvider, lisence, mobile,
-								email, birthday,publishClassType);
+								email, birthday);
 						Log.i("linshi", "  --nickName"+nickName+"  --gender"+gender+"  --tileUrl"+tileUrl+"  --lisence"+lisence+"  --mobile"+mobile+"  --email"+email+"  birthday--"+birthday);
 
 						Message msg = new Message();// 创建Message 对象
@@ -299,6 +300,7 @@ public class SettingsActivity extends Fragment {
 		case 6:// 退出登录
 			intent.setClass(getActivity(), LoginActivity.class);
 			startActivity(intent);
+			 clearActivity();
 			break;
 		default:
 			break;
@@ -360,6 +362,14 @@ public class SettingsActivity extends Fragment {
 			}
 			return layout;
 		}
+	}
+	// 关闭界面
+	public void clearActivity() {
+		List<Activity> activityList = fxApplication.getActivityList();
+		for (int i = 0; i < activityList.size(); i++) {
+			activityList.get(i).finish();
+		}
+		fxApplication.setActivityList();
 	}
 
 }
