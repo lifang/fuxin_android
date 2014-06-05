@@ -54,6 +54,7 @@ public class TalkActivity extends Fragment {
 						fx.options);
 				Log.i("Max", list.size() + "-");
 				mListView.setAdapter(clvAdapter);
+				Log.i("FuWu", list.get(0).toString());
 				break;
 			case 3:
 				Toast.makeText(getActivity(), "删除失败", Toast.LENGTH_SHORT)

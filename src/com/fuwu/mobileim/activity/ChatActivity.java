@@ -30,6 +30,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -140,6 +142,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 		db = new DBManager(this);
 		fx = (FxApplication) getApplication();
 		mReuRequstReceiver = new RequstReceiver();
+		Intent intent = getIntent();
 		DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
 		height = displayMetrics.heightPixels;
 		Set<String> keySet = FxApplication.getInstance().getFaceMap().keySet();
@@ -147,7 +150,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 		keys.addAll(keySet);
 		user_id = fx.getUser_id();
 		contact_id = user_id;
-		mMesCount = db.getMesCount(user_id, contact_id);
+		Log.i("Ax", "contact_id:" + intent.getIntExtra("contact_id", 0));
 		updateMessageData();
 	}
 
@@ -155,6 +158,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 		if (!db.isOpen()) {
 			db = new DBManager(this);
 		}
+		mMesCount = db.getMesCount(user_id, contact_id);
 		list = db.queryMessageList(user_id, contact_id,
 				(mMesCount - mMesPageNum * 15), mMesCount);
 		mMesPageNum++;

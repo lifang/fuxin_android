@@ -85,4 +85,12 @@ public class TalkPojo {
 		this.mes_count = mes_count;
 	}
 
+	@Override
+	public String toString() {
+		return "TalkPojo [user_id=" + user_id + ", contact_id=" + contact_id
+				+ ", nick_name=" + nick_name + ", head_pic=" + head_pic
+				+ ", content=" + content + ", time=" + time + ", mes_count="
+				+ mes_count + "]";
+	}
+
 }

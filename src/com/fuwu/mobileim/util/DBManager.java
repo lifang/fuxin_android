@@ -54,6 +54,12 @@ public class DBManager {
 	public void addTalk(TalkPojo tp) {
 		db.beginTransaction();
 		try {
+			Cursor c = queryTalkCursor(tp.getUser_id(), tp.getContact_id());
+			if (c.getCount() > 0) {
+				db.execSQL(
+						"DELETE from talk where user_id = ? and contact_id = ?",
+						new Object[] { tp.getUser_id(), tp.getContact_id(), });
+			}
 			db.execSQL(
 					"INSERT INTO talk VALUES(null,?,?,?,?,?,?,?)",
 					new Object[] { tp.getUser_id(), tp.getContact_id(),
@@ -173,16 +179,15 @@ public class DBManager {
 		Log.i("Max", user_id + "");
 		ArrayList<TalkPojo> talkList = new ArrayList<TalkPojo>();
 		Cursor c = queryTalkCursor(user_id);
-
 		while (c.moveToNext()) {
 			TalkPojo talk = new TalkPojo();
+			talk.setUser_id(c.getInt(c.getColumnIndex("user_id")));
 			talk.setContact_id(c.getInt(c.getColumnIndex("contact_id")));
 			talk.setNick_name(c.getString(c.getColumnIndex("nick_name")));
 			talk.setHead_pic(c.getString(c.getColumnIndex("head_pic")));
 			talk.setContent(c.getString(c.getColumnIndex("content")));
 			talk.setTime(c.getString(c.getColumnIndex("time")));
-			talk.setMes_count(c.getInt(c.getColumnIndex("time")));
-
+			talk.setMes_count(c.getInt(c.getColumnIndex("mes_count")));
 			talkList.add(talk);
 		}
 		c.close();
@@ -238,6 +243,13 @@ public class DBManager {
 		Cursor c = db.rawQuery(
 				"SELECT * FROM talk where user_id = ? order by time desc",
 				new String[] { user_id + "" });
+		return c;
+	}
+
+	public Cursor queryTalkCursor(int user_id, int contact_id) {
+		Cursor c = db.rawQuery(
+				"SELECT * FROM talk where user_id = ? and contact_id = ?",
+				new String[] { user_id + "", contact_id + "" });
 		return c;
 	}
 
