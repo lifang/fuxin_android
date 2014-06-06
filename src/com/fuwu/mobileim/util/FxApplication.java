@@ -3,10 +3,12 @@ package com.fuwu.mobileim.util;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 
@@ -37,13 +39,18 @@ public class FxApplication extends Application {
 	private ProfilePojo profilePojo = new ProfilePojo();
 	public DisplayImageOptions options;
 	public Map<String, String> error_map;
-
+	private List<Activity> activityList = new LinkedList<Activity>();
 	public synchronized static FxApplication getInstance() {
 		return mApplication;
 	}
 
+	public void initData() {
+		contactsList = new ArrayList<ContactPojo>();
+		contactsMap = new HashMap<Integer, ContactPojo>();
+		profilePojo= new ProfilePojo();
+	}
 	public FxApplication() {
-		this.setToken("MockToken");
+		this.setToken("NULL");
 	}
 
 	public void onCreate() {
@@ -73,6 +80,13 @@ public class FxApplication extends Application {
 
 	}
 
+	public List<Activity> getActivityList() {
+		return activityList;
+	}
+
+	public void setActivityList() {
+		this.activityList = new LinkedList<Activity>();
+	}
 	public static void initImageLoader(Context context) {
 		// This configuration tuning is custom. You can tune every option, you
 		// may tune some of them,

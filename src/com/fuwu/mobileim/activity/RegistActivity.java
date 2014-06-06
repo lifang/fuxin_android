@@ -32,7 +32,6 @@ import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.Urlinterface;
-import com.google.protobuf.InvalidProtocolBufferException;
 
 /**
  * 作者: 张秀楠 时间：2014-5-24 下午3:21:40
@@ -176,7 +175,6 @@ public class RegistActivity extends Activity implements OnClickListener,
 			try {
 				RegisterRequest.Builder builder = RegisterRequest.newBuilder();
 				builder.setMobilePhoneNumber(phone_text.getText().toString());
-//				builder.setName(name_text.getText().toString());
 				builder.setPassword(pwd_text.getText().toString());
 				builder.setPasswordConfirm(pwds_text.getText().toString());
 				builder.setValidateCode(yz_text.getText().toString());
@@ -190,6 +188,8 @@ public class RegistActivity extends Activity implements OnClickListener,
 						+ yz_text.getText().toString());
 				if (response.getIsSucceed()) {
 					handler.sendEmptyMessage(1);
+					fx.setToken(response.getToken());
+					fx.setUser_id(response.getUserId());
 				} else {
 					error_code = response.getErrorCode().toString();
 					handler.sendEmptyMessage(2);

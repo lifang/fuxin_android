@@ -25,6 +25,7 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -325,4 +326,15 @@ public class FuXunTools {
 		};
 		thread.start();
 	}
+	// 判断sd卡是否可用
+	public static boolean isHasSdcard() {
+		String status = Environment.getExternalStorageState();
+		if (status.equals(Environment.MEDIA_MOUNTED)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	
 }

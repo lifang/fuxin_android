@@ -14,7 +14,6 @@ public class ProfilePojo {
 	private String birthday;// 生日
 
 	public ProfilePojo() {
-		super();
 	}
 
 	public ProfilePojo(int userId, String name, String nickName, int gender,

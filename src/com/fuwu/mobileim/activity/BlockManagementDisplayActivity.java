@@ -151,9 +151,9 @@ public class BlockManagementDisplayActivity extends Activity {
 
 		// 设置性别
 		int sex = contact.getSex();
-		if (sex == 1) { // 男
+		if (sex == 0) { // 男
 			block_display_sex_item.setBackgroundResource(R.drawable.nan);
-		} else if (sex == 2) {
+		} else if (sex == 1) {
 			block_display_sex_item.setBackgroundResource(R.drawable.nv);
 		} else {
 			block_display_sex_item.setVisibility(View.GONE);
