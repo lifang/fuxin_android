@@ -4,6 +4,7 @@ import java.io.File;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -20,7 +21,6 @@ import android.widget.Toast;
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.model.Models.ChangeProfileRequest;
 import com.fuwu.mobileim.model.Models.ChangeProfileResponse;
-import com.fuwu.mobileim.model.Models.Profile;
 import com.fuwu.mobileim.pojo.ProfilePojo;
 import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
@@ -94,50 +94,52 @@ public class MyInformationActivity extends Activity {
 		myinfo_email = (TextView) findViewById(R.id.myinfo_email);
 		myinfo_birthday = (TextView) findViewById(R.id.myinfo_birthday);
 		myinfo_sex = (TextView) findViewById(R.id.myinfo_sex);
-
+		myinfo_userface.setOnClickListener(listener);
 		// 设置头像
 		String face_str = profilePojo.getTileUrl();
-		if (face_str.length() > 4) {
-			face_str = Urlinterface.IP + face_str;
-			File f = new File(Urlinterface.head_pic, profilePojo.getUserId()
-					+ "");
-			if (f.exists()) {
-				Log.i("linshi------------", "加载本地图片");
-				Drawable dra = new BitmapDrawable(
-						BitmapFactory.decodeFile(Urlinterface.head_pic
-								+ profilePojo.getUserId()));
-				myinfo_userface.setImageDrawable(dra);
+		if (face_str != null) {
+
+			if (face_str.length() > 4) {
+				File f = new File(Urlinterface.head_pic,
+						profilePojo.getUserId() + "");
+				if (f.exists()) {
+					Log.i("linshi------------", "加载本地图片");
+					Drawable dra = new BitmapDrawable(
+							BitmapFactory.decodeFile(Urlinterface.head_pic
+									+ profilePojo.getUserId()));
+					myinfo_userface.setImageDrawable(dra);
+				} else {
+					FuXunTools.set_bk(profilePojo.getUserId(), face_str,
+							myinfo_userface);
+				}
 			} else {
-				FuXunTools.set_bk(profilePojo.getUserId(), face_str,
-						myinfo_userface);
+				myinfo_userface.setImageResource(R.drawable.moren);
 			}
-		} else {
-			myinfo_userface.setImageResource(R.drawable.moren);
-		}
-		// 设置昵称
-		myinfo_nickname.setText(profilePojo.getNickName());
+			// 设置昵称
+			myinfo_nickname.setText(profilePojo.getNickName());
 
-		// 设置认证行业
-		String str1 = profilePojo.getLisence();
-		myinfo_certification.setText(str1);
+			// 设置认证行业
+			String str1 = profilePojo.getLisence();
+			myinfo_certification.setText(str1);
 
-		// 手机
-		String str3 = profilePojo.getMobile();
-		myinfo_mobile.setText(str3);
-		// 邮箱
-		String str2 = profilePojo.getEmail();
-		myinfo_email.setText(str2);
-		// 生日
-		myinfo_birthday.setText(profilePojo.getBirthday());
-		// 设置性别
-		myinfo_sex.setText("");
-		int sex = profilePojo.getGender();
-		if (sex == 1) {// 男
-			myinfo_sex.setText("男");
-		} else if (sex == 2) {// 女
-			myinfo_sex.setText("女");
-		} else if (sex == 3) {
-			myinfo_sex.setText("保密");
+			// 手机
+			String str3 = profilePojo.getMobile();
+			myinfo_mobile.setText(str3);
+			// 邮箱
+			String str2 = profilePojo.getEmail();
+			myinfo_email.setText(str2);
+			// 生日
+			myinfo_birthday.setText(profilePojo.getBirthday());
+			// 设置性别
+			myinfo_sex.setText("");
+			int sex = profilePojo.getGender();
+			if (sex == 0) {// 男
+				myinfo_sex.setText("男");
+			} else if (sex == 1) {// 女
+				myinfo_sex.setText("女");
+			} else if (sex == 2) {
+				myinfo_sex.setText("保密");
+			}
 		}
 
 	}
@@ -181,13 +183,16 @@ public class MyInformationActivity extends Activity {
 	class modifyProfile implements Runnable {
 		public void run() {
 			try {
+				
 				String nickname_str = myinfo_nickname.getText().toString();
+
+				
 
 				ChangeProfileRequest.Builder builder = ChangeProfileRequest
 						.newBuilder();
-				builder.setUserId(1);
-				builder.setToken("MockToken");
-
+				builder.setUserId(fxApplication.getUser_id());
+				builder.setToken(fxApplication.getToken());
+			
 				ChangeProfileRequest response = builder.build();
 
 				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
@@ -209,6 +214,36 @@ public class MyInformationActivity extends Activity {
 				handler.sendEmptyMessage(7);
 			}
 		}
+	}
+
+	private View.OnClickListener listener = new View.OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+
+			Intent intentp = new Intent();
+			intentp.setClass(MyInformationActivity.this, SettingPhoto.class);//
+			startActivityForResult(intentp, 0);
+		}
+	};
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+		switch (resultCode) {
+		case -11:
+
+			Bundle bundle = data.getExtras();
+//			uri = bundle.getString("uri");
+
+
+			break;
+		default:
+			break;
+
+		}
+		super.onActivityResult(requestCode, resultCode, data);
+
 	}
 
 }

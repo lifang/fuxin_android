@@ -103,16 +103,15 @@ public class DBManager {
 
 	public boolean modifyContact(int userId, ContactPojo mp) {
 		boolean flag = true;
-		db = helper.getWritableDatabase();
+		db.beginTransaction();
 		try {
-			db.execSQL("DELETE FROM contact WHERE contactId = "
-					+ mp.getContactId() + " and userId = " + userId);
-			addContact(userId, mp);
-		} catch (SQLException e) {
-			Log.i("Max", "异常:" + e.toString());
-			flag = false;
+				db.execSQL("DELETE FROM contact WHERE contactId = "
+						+ mp.getContactId()+" and userId = " + userId);
+				addContact(userId,mp);
+				db.setTransactionSuccessful();
+		} finally {
+			db.endTransaction();
 		}
-		db.close();
 		return flag;
 	}
 

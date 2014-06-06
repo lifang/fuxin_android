@@ -57,11 +57,6 @@ public class SettingsActivity extends Fragment {
 	private ImageView setting_sex_item, certification_one, certification_two,
 			certification_three;
 	private Handler handler = new Handler() {
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see android.os.Handler#handleMessage(android.os.Message)
-		 */
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 0:

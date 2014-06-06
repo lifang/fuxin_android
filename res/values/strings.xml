@@ -56,5 +56,7 @@
     <string name="xlistview_header_hint_ready">松开刷新数据</string>
     <string name="xlistview_header_hint_loading">正在加载...</string>
     <string name="edit_null">昵称不能为空！</string>
+    <string name="takephoto">拍照上传</string>
+    <string name="fromphotostore">从相册选择</string>
 
 </resources>
