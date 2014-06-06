@@ -43,7 +43,6 @@ public class PushReceiver extends BroadcastReceiver {
 					MyNotification("福务网", data, context, intent);
 				} else {
 					Log.i("MyReceiver", "前台运行");
-
 				}
 			}
 			break;
@@ -78,9 +77,8 @@ public class PushReceiver extends BroadcastReceiver {
 
 		// notification.defaults = Notification.DEFAULT_LIGHTS;
 		notification.defaults |= Notification.DEFAULT_SOUND;// 声音
-		notification.defaults |= Notification.DEFAULT_VIBRATE;
-		notification.defaults |= Notification.DEFAULT_LIGHTS;
 		notification.defaults |= Notification.DEFAULT_VIBRATE;// 震动
+		// notification.defaults |= Notification.DEFAULT_LIGHTS;
 		notification.flags |= Notification.FLAG_AUTO_CANCEL;// 点击后删除通知
 		// CharSequence contentTitle = title; // 通知栏标题
 		// CharSequence contentText = content; // 通知栏内容

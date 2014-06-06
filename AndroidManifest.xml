@@ -78,7 +78,8 @@
             android:theme="@style/Dialog" />
         <activity
             android:name="com.fuwu.mobileim.activity.RegistActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop" >
+        </activity>
         <activity
             android:name="com.fuwu.mobileim.activity.BackPwdActicity"
             android:launchMode="singleTop" />
@@ -215,5 +216,4 @@
             android:theme="@android:style/Theme.Translucent" >
         </activity>
     </application>
-
-</manifest>
+</manifest>

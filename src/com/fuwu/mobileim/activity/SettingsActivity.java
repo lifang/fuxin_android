@@ -279,8 +279,8 @@ public class SettingsActivity extends Fragment {
 					Toast.LENGTH_LONG).show();
 			break;
 		case 1:// 清除全部聊天记录
-			// Toast.makeText(getActivity().getApplication(), "清除全部聊天记录",
-			// Toast.LENGTH_LONG).show();
+				// Toast.makeText(getActivity().getApplication(), "清除全部聊天记录",
+				// Toast.LENGTH_LONG).show();
 			deleteAllChatRecords();
 			break;
 		case 2:// 消息推送
@@ -298,8 +298,8 @@ public class SettingsActivity extends Fragment {
 			startActivity(intent);
 			break;
 		case 5:// 系统公告管理
-			// intent.setClass(getActivity(), SystemPushActivity.class);
-			// startActivity(intent);
+				// intent.setClass(getActivity(), SystemPushActivity.class);
+				// startActivity(intent);
 			Toast.makeText(getActivity().getApplication(), "该功能暂不实现",
 					Toast.LENGTH_LONG).show();
 			break;
