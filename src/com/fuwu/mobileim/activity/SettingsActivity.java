@@ -6,8 +6,11 @@ import java.util.List;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -17,6 +20,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.ContactsContract.Profile;
 import android.support.v4.app.Fragment;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +36,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fuwu.mobileim.R;
+import com.fuwu.mobileim.model.Models.ClientInfo;
+import com.fuwu.mobileim.model.Models.ClientInfoRequest;
+import com.fuwu.mobileim.model.Models.ClientInfoResponse;
+import com.fuwu.mobileim.model.Models.OSType;
 import com.fuwu.mobileim.model.Models.ProfileRequest;
 import com.fuwu.mobileim.model.Models.ProfileResponse;
 import com.fuwu.mobileim.pojo.ProfilePojo;
@@ -100,10 +108,35 @@ public class SettingsActivity extends Fragment {
 			}
 		});
 		init();
-		
-		
-		Thread thread = new Thread(new getProfile());
-		thread.start();
+
+		SharedPreferences preferences = getActivity().getSharedPreferences(
+				Urlinterface.SHARED, Context.MODE_PRIVATE);
+
+		int profile_userid = preferences.getInt("profile_userid", -1);
+		if (profile_userid != -1) {
+			Log.i("linshi------------", "profileprofileprofileprofile本地shuju");
+			String name = preferences.getString("profile_name", "");// 名称
+			String nickName = preferences.getString("profile_nickName", "");// 昵称
+			int gender = preferences.getInt("profile_gender", -1);
+			;// 性别
+			String tileUrl = preferences.getString("profile_tileUrl", "");// 头像
+			Boolean isProvider = preferences.getBoolean("profile_isProvider",
+					false);//
+			String lisence = preferences.getString("profile_lisence", "");// 行业认证
+			String mobile = preferences.getString("profile_mobile", "");// 手机号码
+			String email = preferences.getString("profile_email", "");// 邮箱
+			String birthday = preferences.getString("profile_birthday", "");// 生日
+
+			profilePojo = new ProfilePojo(profile_userid, name, nickName,
+					gender, tileUrl, isProvider, lisence, mobile, email,
+					birthday);
+			handler.sendEmptyMessage(0);
+
+		} else {
+			Thread thread = new Thread(new getProfile());
+			thread.start();
+		}
+
 		return rootView;
 	}
 
@@ -124,7 +157,7 @@ public class SettingsActivity extends Fragment {
 
 				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
 						Urlinterface.PROFILE, "POST");
-				if (by!= null  && by.length> 0) {
+				if (by != null && by.length > 0) {
 
 					ProfileResponse res = ProfileResponse.parseFrom(by);
 					if (res.getIsSucceed()) {
@@ -138,12 +171,18 @@ public class SettingsActivity extends Fragment {
 						String mobile = res.getProfile().getMobilePhoneNum();// 手机号码
 						String email = res.getProfile().getEmail();// 邮箱
 						String birthday = res.getProfile().getBirthday();// 生日
-						
+
 						profilePojo = new ProfilePojo(userId, name, nickName,
 								gender, tileUrl, isProvider, lisence, mobile,
 								email, birthday);
-						Log.i("linshi", "  --nickName"+nickName+"  --gender"+gender+"  --tileUrl"+tileUrl+"  --lisence"+lisence+"  --mobile"+mobile+"  --email"+email+"  birthday--"+birthday);
-
+						putProfile(profilePojo);
+						Log.i("linshi", "  --nickName" + nickName
+								+ "  --gender" + gender + "  --tileUrl"
+								+ tileUrl + "  --lisence" + lisence
+								+ "  --mobile" + mobile + "  --email" + email
+								+ "  birthday--" + birthday);
+						Log.i("linshi------------",
+								"profileprofileprofileprofile网络shuju");
 						Message msg = new Message();// 创建Message 对象
 						msg.what = 0;
 						handler.sendMessage(msg);
@@ -158,6 +197,24 @@ public class SettingsActivity extends Fragment {
 				handler.sendEmptyMessage(7);
 			}
 		}
+	}
+
+	private void putProfile(ProfilePojo pro) {
+		SharedPreferences preferences = getActivity().getSharedPreferences(
+				Urlinterface.SHARED, Context.MODE_PRIVATE);
+		Editor editor = preferences.edit();
+		editor.putInt("profile_userid", pro.getUserId());
+		editor.putString("profile_name", pro.getName());
+		editor.putString("profile_nickName", pro.getNickName());
+		editor.putInt("profile_gender", pro.getGender());
+		editor.putString("profile_tileUrl", pro.getTileUrl());
+		editor.putBoolean("profile_isProvider", pro.getIsProvider());
+		editor.putString("profile_lisence", pro.getLisence());
+		editor.putString("profile_mobile", pro.getMobile());
+		editor.putString("profile_email", pro.getEmail());
+		editor.putString("profile_birthday", pro.getBirthday());
+		editor.commit();
+
 	}
 
 	/**
@@ -207,14 +264,17 @@ public class SettingsActivity extends Fragment {
 		String face_str = profilePojo.getTileUrl();
 		if (face_str.length() > 4) {
 			FuXunTools.setBackground(face_str, setting_userface);
-			File f = new File(Urlinterface.head_pic, profilePojo.getUserId()+"");
+			File f = new File(Urlinterface.head_pic, profilePojo.getUserId()
+					+ "");
 			if (f.exists()) {
 				Log.i("linshi------------", "加载本地图片");
 				Drawable dra = new BitmapDrawable(
-						BitmapFactory.decodeFile(Urlinterface.head_pic +  profilePojo.getUserId()));
+						BitmapFactory.decodeFile(Urlinterface.head_pic
+								+ profilePojo.getUserId()));
 				setting_userface.setImageDrawable(dra);
 			} else {
-				FuXunTools.set_bk( profilePojo.getUserId(),face_str, setting_userface);
+				FuXunTools.set_bk(profilePojo.getUserId(), face_str,
+						setting_userface);
 			}
 		} else {
 			setting_userface.setImageResource(R.drawable.moren);
@@ -227,12 +287,12 @@ public class SettingsActivity extends Fragment {
 			setting_sex_item.setImageResource(R.drawable.nan);
 		} else if (sex == 1) {// 女
 			setting_sex_item.setImageResource(R.drawable.nv);
-		}else {
+		} else {
 			setting_sex_item.setVisibility(View.GONE);
 		}
 		// 设置行业认证
 		String str1 = profilePojo.getLisence();
-		if (str1 != null&&!("").equals(str1)) {
+		if (str1 != null && !("").equals(str1)) {
 			certification_one.setVisibility(View.VISIBLE);
 		} else {
 			certification_one.setVisibility(View.GONE);
@@ -240,14 +300,14 @@ public class SettingsActivity extends Fragment {
 
 		// 设置邮箱认证
 		String str2 = profilePojo.getEmail();
-		if (str2 != null&&!("").equals(str2)) {
+		if (str2 != null && !("").equals(str2)) {
 			certification_two.setVisibility(View.VISIBLE);
 		} else {
 			certification_two.setVisibility(View.GONE);
 		}
 		// 设置手机验证
 		String str3 = profilePojo.getMobile();
-		if (str2 != null&&!("").equals(str3)) {
+		if (str2 != null && !("").equals(str3)) {
 			certification_three.setVisibility(View.VISIBLE);
 		} else {
 			certification_three.setVisibility(View.GONE);
@@ -274,12 +334,19 @@ public class SettingsActivity extends Fragment {
 		Intent intent = new Intent();
 		switch (num) {
 		case 0:// 新版本检测
-			Toast.makeText(getActivity().getApplication(), "新版本检测",
+			TelephonyManager tm = (TelephonyManager) getActivity()
+					.getSystemService(Context.TELEPHONY_SERVICE);
+			StringBuilder sb = new StringBuilder();
+			sb.append("\nDeviceId(IMEI) = " + tm.getDeviceId());
+			String release = android.os.Build.VERSION.RELEASE; // android系统版本号
+			sb.append("\nAndroid： = " + release);
+			Log.e("info", sb.toString());
+			Toast.makeText(getActivity().getApplication(), "新版本检测" + sb,
 					Toast.LENGTH_LONG).show();
 			break;
 		case 1:// 清除全部聊天记录
-//			Toast.makeText(getActivity().getApplication(), "清除全部聊天记录",
-//					Toast.LENGTH_LONG).show();
+				// Toast.makeText(getActivity().getApplication(), "清除全部聊天记录",
+				// Toast.LENGTH_LONG).show();
 			deleteAllChatRecords();
 			break;
 		case 2:// 消息推送
@@ -297,16 +364,21 @@ public class SettingsActivity extends Fragment {
 			startActivity(intent);
 			break;
 		case 5:// 系统公告管理
-//			intent.setClass(getActivity(), SystemPushActivity.class);
-//			startActivity(intent);
-			Toast.makeText(getActivity().getApplication(), "该功能暂不实现" ,
-					 Toast.LENGTH_LONG).show();
+				// intent.setClass(getActivity(), SystemPushActivity.class);
+				// startActivity(intent);
+			Toast.makeText(getActivity().getApplication(), "该功能暂不实现",
+					Toast.LENGTH_LONG).show();
 			break;
 		case 6:// 退出登录
 			intent.setClass(getActivity(), LoginActivity.class);
 			startActivity(intent);
-			 clearActivity();
-			 fxApplication.initData();
+			clearActivity();
+			fxApplication.initData();
+			SharedPreferences preferences = getActivity().getSharedPreferences(
+					Urlinterface.SHARED, Context.MODE_PRIVATE);
+			Editor editor = preferences.edit();
+			editor.putInt("profile_userid", -1);
+			editor.commit();
 			break;
 		default:
 			break;
@@ -369,6 +441,7 @@ public class SettingsActivity extends Fragment {
 			return layout;
 		}
 	}
+
 	// 关闭界面
 	public void clearActivity() {
 		List<Activity> activityList = fxApplication.getActivityList();
@@ -377,34 +450,83 @@ public class SettingsActivity extends Fragment {
 		}
 		fxApplication.setActivityList();
 	}
-	
+
 	/*
-	 * 
-	 * */
-public void deleteAllChatRecords(){
-Dialog dialog = new AlertDialog.Builder(
-		getActivity())
-		.setTitle("提示")
-		.setMessage("您确认要删除全部聊天记录么?")
-		.setPositiveButton("确认",
-				new DialogInterface.OnClickListener() {
+	 * 删除所有记录
+	 */
+	public void deleteAllChatRecords() {
+		Dialog dialog = new AlertDialog.Builder(getActivity())
+				.setTitle("提示")
+				.setMessage("您确认要删除全部聊天记录么?")
+				.setPositiveButton("确认", new DialogInterface.OnClickListener() {
 					@Override
-					public void onClick(DialogInterface dialog,
-							int which) {
-						Toast.makeText(getActivity().getApplication(), "清除全部聊天记录",
-								Toast.LENGTH_LONG).show();
+					public void onClick(DialogInterface dialog, int which) {
+						Toast.makeText(getActivity().getApplication(),
+								"清除全部聊天记录", Toast.LENGTH_LONG).show();
 					}
 				})
-		.setNegativeButton("取消",
-				new DialogInterface.OnClickListener() {
+				.setNegativeButton("取消", new DialogInterface.OnClickListener() {
 
 					@Override
-					public void onClick(DialogInterface dialog,
-							int which) {
+					public void onClick(DialogInterface dialog, int which) {
 						dialog.dismiss();
 					}
 				}).create();
-dialog.show();
+		dialog.show();
 
-}
+	}
+
+	/**
+	 * 
+	 * 版本检测
+	 * 
+	 * 
+	 */
+
+	class VersionChecking implements Runnable {
+		public void run() {
+			try {
+				TelephonyManager tm = (TelephonyManager) getActivity()
+						.getSystemService(Context.TELEPHONY_SERVICE);
+				StringBuilder sb = new StringBuilder();
+				sb.append("\nDeviceId(IMEI) = " + tm.getDeviceId());
+				String release = android.os.Build.VERSION.RELEASE; // android系统版本号
+
+				ClientInfo.Builder pb = ClientInfo.newBuilder();
+				pb.setDeviceId(tm.getDeviceId());
+				OSType ot = null;
+				pb.setOsType(ot);
+				pb.setOSVersion(release);
+				pb.setUserId(profilePojo.getUserId());
+				pb.setChannel(0);
+				pb.setClientVersion(Urlinterface.current_version + "");
+				pb.setIsPushEnable(true);
+
+				Log.i("linshi", "-----------------");
+
+				ClientInfoRequest.Builder builder = ClientInfoRequest
+						.newBuilder();
+				builder.setUserId(fxApplication.getUser_id());
+				builder.setToken(fxApplication.getToken());
+				ClientInfoRequest response = builder.build();
+
+				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
+						Urlinterface.ChangeProfile, "PUT");
+				if (by != null && by.length > 0) {
+
+					ClientInfoResponse res = ClientInfoResponse.parseFrom(by);
+					if (res.getIsSucceed()) {
+						handler.sendEmptyMessage(0);
+					} else {
+						handler.sendEmptyMessage(1);
+					}
+				} else {
+					handler.sendEmptyMessage(6);
+				}
+				//
+			} catch (Exception e) {
+				handler.sendEmptyMessage(7);
+			}
+		}
+	}
 }
