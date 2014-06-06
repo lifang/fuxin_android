@@ -95,8 +95,7 @@ public class SettingsActivity extends Fragment {
 			}
 		});
 		init();
-		
-		
+
 		Thread thread = new Thread(new getProfile());
 		thread.start();
 		return rootView;
@@ -119,26 +118,31 @@ public class SettingsActivity extends Fragment {
 
 				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
 						Urlinterface.PROFILE, "POST");
-				if (by!= null  && by.length> 0) {
+				if (by != null && by.length > 0) {
 
 					ProfileResponse res = ProfileResponse.parseFrom(by);
 					if (res.getIsSucceed()) {
 						int userId = res.getProfile().getUserId();// 用户id
 						String name = res.getProfile().getName();// 名称
 						String nickName = res.getProfile().getNickName();// 昵称
-						int gender = res.getProfile().getGender();// 性别
+						int gender = res.getProfile().getGender().getNumber();// 性别
 						String tileUrl = res.getProfile().getTileUrl();// 头像
 						Boolean isProvider = res.getProfile().getIsProvider();//
 						String lisence = res.getProfile().getLisence();// 行业认证
 						String mobile = res.getProfile().getMobilePhoneNum();// 手机号码
 						String email = res.getProfile().getEmail();// 邮箱
 						String birthday = res.getProfile().getBirthday();// 生日
-						String publishClassType = res.getProfile().getPublishClassType();// 课程类型
-						
+						// String publishClassType =
+						// res.getProfile().getPublishClassType();// 课程类型
+
 						profilePojo = new ProfilePojo(userId, name, nickName,
 								gender, tileUrl, isProvider, lisence, mobile,
-								email, birthday,publishClassType);
-						Log.i("linshi", "  --nickName"+nickName+"  --gender"+gender+"  --tileUrl"+tileUrl+"  --lisence"+lisence+"  --mobile"+mobile+"  --email"+email+"  birthday--"+birthday);
+								email, birthday);
+						Log.i("linshi", "  --nickName" + nickName
+								+ "  --gender" + gender + "  --tileUrl"
+								+ tileUrl + "  --lisence" + lisence
+								+ "  --mobile" + mobile + "  --email" + email
+								+ "  birthday--" + birthday);
 
 						Message msg = new Message();// 创建Message 对象
 						msg.what = 0;
@@ -202,16 +206,19 @@ public class SettingsActivity extends Fragment {
 		// 设置头像
 		String face_str = profilePojo.getTileUrl();
 		if (face_str.length() > 4) {
-			face_str=Urlinterface.IP+face_str;
+			face_str = Urlinterface.IP + face_str;
 			FuXunTools.setBackground(face_str, setting_userface);
-			File f = new File(Urlinterface.head_pic, profilePojo.getUserId()+"");
+			File f = new File(Urlinterface.head_pic, profilePojo.getUserId()
+					+ "");
 			if (f.exists()) {
 				Log.i("linshi------------", "加载本地图片");
 				Drawable dra = new BitmapDrawable(
-						BitmapFactory.decodeFile(Urlinterface.head_pic +  profilePojo.getUserId()));
+						BitmapFactory.decodeFile(Urlinterface.head_pic
+								+ profilePojo.getUserId()));
 				setting_userface.setImageDrawable(dra);
 			} else {
-				FuXunTools.set_bk( profilePojo.getUserId(),face_str, setting_userface);
+				FuXunTools.set_bk(profilePojo.getUserId(), face_str,
+						setting_userface);
 			}
 		} else {
 			setting_userface.setImageResource(R.drawable.moren);
@@ -224,12 +231,12 @@ public class SettingsActivity extends Fragment {
 			setting_sex_item.setImageResource(R.drawable.nan);
 		} else if (sex == 2) {// 女
 			setting_sex_item.setImageResource(R.drawable.nv);
-		}else {
+		} else {
 			setting_sex_item.setVisibility(View.GONE);
 		}
 		// 设置行业认证
 		String str1 = profilePojo.getLisence();
-		if (str1 != null&&!("").equals(str1)) {
+		if (str1 != null && !("").equals(str1)) {
 			certification_one.setVisibility(View.VISIBLE);
 		} else {
 			certification_one.setVisibility(View.GONE);
@@ -237,14 +244,14 @@ public class SettingsActivity extends Fragment {
 
 		// 设置邮箱认证
 		String str2 = profilePojo.getEmail();
-		if (str2 != null&&!("").equals(str2)) {
+		if (str2 != null && !("").equals(str2)) {
 			certification_two.setVisibility(View.VISIBLE);
 		} else {
 			certification_two.setVisibility(View.GONE);
 		}
 		// 设置手机验证
 		String str3 = profilePojo.getMobile();
-		if (str2 != null&&!("").equals(str3)) {
+		if (str2 != null && !("").equals(str3)) {
 			certification_three.setVisibility(View.VISIBLE);
 		} else {
 			certification_three.setVisibility(View.GONE);

@@ -10,7 +10,7 @@
         android:background="@drawable/t"
         android:gravity="center"
         android:orientation="vertical"
-        android:paddingTop="5dp" >
+        android:paddingTop="7dp" >
 
         <TextView
             android:id="@+id/chatset_clear"
@@ -26,14 +26,14 @@
             android:layout_height="1dp"
             android:layout_marginLeft="3dp"
             android:layout_marginRight="3dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="4dp"
             android:background="#000000" />
 
         <TextView
             android:id="@+id/chatset_block"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="4dp"
             android:gravity="center_horizontal"
             android:text="屏蔽此人"
             android:textColor="#ffffff"

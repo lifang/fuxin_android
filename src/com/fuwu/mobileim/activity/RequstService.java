@@ -110,7 +110,7 @@ public class RequstService extends Service {
 						int mesCount = mes.getMessagesCount();
 						List<MessagePojo> list = new ArrayList<MessagePojo>();
 						Log.i("Ax", "messageCount:" + mesCount);
-						for (int j = 0; j < mesCount; j++) {
+						for (int j = mesCount - 1; j >= 0; j--) {
 							Message m = mes.getMessages(j);
 							MessagePojo mp;
 							int user_id = m.getUserId();
