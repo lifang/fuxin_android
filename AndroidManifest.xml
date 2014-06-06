@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.fuwu.mobileim"
     android:versionCode="1"
@@ -7,7 +7,7 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="18" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>  
+     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>  
     <!-- 网络权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_CONTACTS" >
@@ -37,6 +37,8 @@
         android:protectionLevel="normal" />
     <!-- 判断应用运行状态 -->
     <uses-permission android:name="android.permission.GET_TASKS" />
+    <!-- 手机震动 -->
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:name="com.fuwu.mobileim.util.FxApplication"
@@ -77,7 +79,8 @@
             android:theme="@style/Dialog" />
         <activity
             android:name="com.fuwu.mobileim.activity.RegistActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop" >
+        </activity>
         <activity
             android:name="com.fuwu.mobileim.activity.BackPwdActicity"
             android:launchMode="singleTop" />
@@ -200,12 +203,18 @@
             android:process=":pushservice" />
         <!-- android:authorities="downloads.第三方包名" -->
         <!-- ====================================================== -->
+        <receiver
+            android:name="com.fuwu.mobileim.util.PushReceiver"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.igexin.sdk.action.MGxQXR8hjI9HtfSmrp7fi1" />
+            </intent-filter>
+        </receiver>
+
         <activity
             android:name="com.fuwu.mobileim.activity.SettingPhoto"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent"
-            >
+            android:theme="@android:style/Theme.Translucent" >
         </activity>
     </application>
-
-</manifest>
+</manifest>

@@ -182,9 +182,10 @@ public class FragmengtActivity extends FragmentActivity {
 		setEdittextListening();
 		InitImageView();
 
+		Log.i("Max",
+				fxApplication.getToken() + "/" + fxApplication.getUser_id());
+		// contactInformation();
 		contactInformation();
-		
-		
 
 	}
 
@@ -198,7 +199,7 @@ public class FragmengtActivity extends FragmentActivity {
 		characterParser = CharacterParser.getInstance();
 		db = new DBManager(this);
 		contactsList = db.queryContactList(fxApplication.getUser_id());
-		Log.i("11", contactsList.size()+"-----------1");
+		Log.i("11", contactsList.size() + "-----------1");
 		if (contactsList.size() == 0) {
 			prodialog = new ProgressDialog(FragmengtActivity.this);
 			prodialog.setMessage("正在加载数据，请稍后...");
@@ -206,8 +207,8 @@ public class FragmengtActivity extends FragmentActivity {
 			prodialog.show();
 			Thread thread = new Thread(new getContacts());
 			thread.start();
-		}else {
-//			list.get(1).onStart();
+		} else {
+			// list.get(1).onStart();
 			Log.i("Ax", "加载本地联系人");
 		}
 	}
@@ -223,7 +224,7 @@ public class FragmengtActivity extends FragmentActivity {
 		for (int i = 0; i < contactsList.size(); i++) {
 			final int index = i;
 			final int contactId = contactsList.get(i).getContactId();
-			final String url =contactsList.get(i).getUserface_url();
+			final String url = contactsList.get(i).getUserface_url();
 			singleThreadExecutor.execute(new Runnable() {
 
 				@Override
@@ -264,9 +265,9 @@ public class FragmengtActivity extends FragmentActivity {
 							out.flush();
 							out.close();
 							Log.i("linshi", "已经保存");
-							
 
-						}handler.sendEmptyMessage(1);
+						}
+						handler.sendEmptyMessage(1);
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						handler.sendEmptyMessage(1);
@@ -343,14 +344,14 @@ public class FragmengtActivity extends FragmentActivity {
 							contactsList.add(coPojo);
 
 						}
-						
-						SharedPreferences preferences = getSharedPreferences(Urlinterface.SHARED,
-								Context.MODE_PRIVATE);
+
+						SharedPreferences preferences = getSharedPreferences(
+								Urlinterface.SHARED, Context.MODE_PRIVATE);
 						Editor editor = preferences.edit();
 						editor.putString("contactTimeStamp", res.getTimeStamp());
-						
+
 						editor.commit();
-						
+
 						Message msg = new Message();// 创建Message 对象
 						msg.what = 0;
 						handler.sendMessage(msg);
