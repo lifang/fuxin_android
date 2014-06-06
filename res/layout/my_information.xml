@@ -95,7 +95,6 @@
             android:layout_marginRight="17dp"
             android:maxLength="32"
             android:singleLine="true"
-            android:text="坏孩子"
             android:layout_toRightOf="@+id/myinfo_nick"
             android:background="@null"
             android:gravity="right"
@@ -136,7 +135,6 @@
             android:layout_marginRight="17dp"
             android:layout_toRightOf="@+id/hangye"
             android:singleLine="true"
-            android:text="教育、医疗"
             android:textColor="#999999"
             android:textSize="19dp" />
 
@@ -172,7 +170,6 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="17dp"
-            android:text="18656639875"
             android:textColor="#999999"
             android:textSize="19dp" />
 
@@ -207,7 +204,6 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="17dp"
-            android:text="530858106@qq.com"
             android:layout_toRightOf="@+id/myinfo_e"
             android:gravity="right"
             android:textColor="#999999"
@@ -243,7 +239,6 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="17dp"
-            android:text="1990-11-11"
             android:textColor="#999999"
             android:textSize="19dp" />
 
@@ -277,7 +272,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="17dp"
-            android:text="男"
+            android:text=""
             android:textColor="#999999"
             android:textSize="20dp" />
 

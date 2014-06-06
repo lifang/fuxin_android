@@ -4,6 +4,9 @@ import java.io.File;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
@@ -203,7 +206,6 @@ public class SettingsActivity extends Fragment {
 		// 设置头像
 		String face_str = profilePojo.getTileUrl();
 		if (face_str.length() > 4) {
-			face_str=Urlinterface.IP+face_str;
 			FuXunTools.setBackground(face_str, setting_userface);
 			File f = new File(Urlinterface.head_pic, profilePojo.getUserId()+"");
 			if (f.exists()) {
@@ -221,9 +223,9 @@ public class SettingsActivity extends Fragment {
 		nickName.setText(profilePojo.getNickName());
 		// 设置性别
 		int sex = profilePojo.getGender();
-		if (sex == 1) {// 男
+		if (sex == 0) {// 男
 			setting_sex_item.setImageResource(R.drawable.nan);
-		} else if (sex == 2) {// 女
+		} else if (sex == 1) {// 女
 			setting_sex_item.setImageResource(R.drawable.nv);
 		}else {
 			setting_sex_item.setVisibility(View.GONE);
@@ -276,8 +278,9 @@ public class SettingsActivity extends Fragment {
 					Toast.LENGTH_LONG).show();
 			break;
 		case 1:// 清除全部聊天记录
-			Toast.makeText(getActivity().getApplication(), "清除全部聊天记录",
-					Toast.LENGTH_LONG).show();
+//			Toast.makeText(getActivity().getApplication(), "清除全部聊天记录",
+//					Toast.LENGTH_LONG).show();
+			deleteAllChatRecords();
 			break;
 		case 2:// 消息推送
 			intent.setClass(getActivity(), PushSettingActivity.class);
@@ -301,6 +304,7 @@ public class SettingsActivity extends Fragment {
 			intent.setClass(getActivity(), LoginActivity.class);
 			startActivity(intent);
 			 clearActivity();
+			 fxApplication.initData();
 			break;
 		default:
 			break;
@@ -351,7 +355,7 @@ public class SettingsActivity extends Fragment {
 			if (position == 5) {
 				// 如果有通知，则显示通知数目
 				if (true) {
-					te.setText("4");
+					te.setText("3");
 				} else {
 					re.setVisibility(View.GONE);
 				}
@@ -371,5 +375,34 @@ public class SettingsActivity extends Fragment {
 		}
 		fxApplication.setActivityList();
 	}
+	
+	/*
+	 * 
+	 * */
+public void deleteAllChatRecords(){
+Dialog dialog = new AlertDialog.Builder(
+		getActivity())
+		.setTitle("提示")
+		.setMessage("您确认要删除全部聊天记录么?")
+		.setPositiveButton("确认",
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog,
+							int which) {
+						Toast.makeText(getActivity().getApplication(), "清除全部聊天记录",
+								Toast.LENGTH_LONG).show();
+					}
+				})
+		.setNegativeButton("取消",
+				new DialogInterface.OnClickListener() {
 
+					@Override
+					public void onClick(DialogInterface dialog,
+							int which) {
+						dialog.dismiss();
+					}
+				}).create();
+dialog.show();
+
+}
 }

@@ -182,7 +182,7 @@ public class FragmengtActivity extends FragmentActivity {
 		setEdittextListening();
 		InitImageView();
 
-//		contactInformation();
+		contactInformation();
 		
 		
 
@@ -223,7 +223,7 @@ public class FragmengtActivity extends FragmentActivity {
 		for (int i = 0; i < contactsList.size(); i++) {
 			final int index = i;
 			final int contactId = contactsList.get(i).getContactId();
-			final String url =Urlinterface.IP+ contactsList.get(i).getUserface_url();
+			final String url =contactsList.get(i).getUserface_url();
 			singleThreadExecutor.execute(new Runnable() {
 
 				@Override

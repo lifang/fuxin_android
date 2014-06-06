@@ -44,6 +44,11 @@ public class FxApplication extends Application {
 		return mApplication;
 	}
 
+	public void initData() {
+		contactsList = new ArrayList<ContactPojo>();
+		contactsMap = new HashMap<Integer, ContactPojo>();
+		profilePojo= new ProfilePojo();
+	}
 	public FxApplication() {
 		this.setToken("MockToken");
 	}

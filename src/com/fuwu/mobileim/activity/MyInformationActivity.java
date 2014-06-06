@@ -4,6 +4,7 @@ import java.io.File;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -36,31 +37,31 @@ public class MyInformationActivity extends Activity {
 	private ProfilePojo profilePojo;
 	private CircularImage myinfo_userface;
 	private EditText myinfo_nickname;
-	private TextView  myinfo_certification, myinfo_mobile,
-			myinfo_email, myinfo_birthday, myinfo_sex;
+	private TextView myinfo_certification, myinfo_mobile, myinfo_email,
+			myinfo_birthday, myinfo_sex;
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 0:
-				 prodialog.dismiss();
-				 Toast.makeText(getApplicationContext(),
-							 "修改成功", Toast.LENGTH_SHORT).show();
+				prodialog.dismiss();
+				Toast.makeText(getApplicationContext(), "修改成功",
+						Toast.LENGTH_SHORT).show();
 				break;
 			case 1:
-				 prodialog.dismiss();
-				 Toast.makeText(getApplicationContext(),
-							 "修改失败", Toast.LENGTH_SHORT).show();
+				prodialog.dismiss();
+				Toast.makeText(getApplicationContext(), "修改失败",
+						Toast.LENGTH_SHORT).show();
 				break;
 			case 6:
 				prodialog.dismiss();
-				Toast.makeText(getApplicationContext(), "请求失败", Toast.LENGTH_SHORT)
-						.show();
+				Toast.makeText(getApplicationContext(), "请求失败",
+						Toast.LENGTH_SHORT).show();
 				break;
 
 			case 7:
 				prodialog.dismiss();
-				Toast.makeText(getApplicationContext(), "网络错误", Toast.LENGTH_SHORT)
-				.show();
+				Toast.makeText(getApplicationContext(), "网络错误",
+						Toast.LENGTH_SHORT).show();
 				break;
 			}
 		}
@@ -94,48 +95,53 @@ public class MyInformationActivity extends Activity {
 		myinfo_email = (TextView) findViewById(R.id.myinfo_email);
 		myinfo_birthday = (TextView) findViewById(R.id.myinfo_birthday);
 		myinfo_sex = (TextView) findViewById(R.id.myinfo_sex);
-
+		myinfo_userface.setOnClickListener(listener);
 		// 设置头像
 		String face_str = profilePojo.getTileUrl();
-		if (face_str.length() > 4) {
-			face_str=Urlinterface.IP+face_str;
-			File f = new File(Urlinterface.head_pic, profilePojo.getUserId()+"");
-			if (f.exists()) {
-				Log.i("linshi------------", "加载本地图片");
-				Drawable dra = new BitmapDrawable(
-						BitmapFactory.decodeFile(Urlinterface.head_pic + profilePojo.getUserId()));
-				myinfo_userface.setImageDrawable(dra);
+		if (face_str != null) {
+
+			if (face_str.length() > 4) {
+				File f = new File(Urlinterface.head_pic,
+						profilePojo.getUserId() + "");
+				if (f.exists()) {
+					Log.i("linshi------------", "加载本地图片");
+					Drawable dra = new BitmapDrawable(
+							BitmapFactory.decodeFile(Urlinterface.head_pic
+									+ profilePojo.getUserId()));
+					myinfo_userface.setImageDrawable(dra);
+				} else {
+					FuXunTools.set_bk(profilePojo.getUserId(), face_str,
+							myinfo_userface);
+				}
 			} else {
-				FuXunTools.set_bk(profilePojo.getUserId(),face_str, myinfo_userface);
+				myinfo_userface.setImageResource(R.drawable.moren);
 			}
-		} else {
-			myinfo_userface.setImageResource(R.drawable.moren);
+			// 设置昵称
+			myinfo_nickname.setText(profilePojo.getNickName());
+
+			// 设置认证行业
+			String str1 = profilePojo.getLisence();
+			myinfo_certification.setText(str1);
+
+			// 手机
+			String str3 = profilePojo.getMobile();
+			myinfo_mobile.setText(str3);
+			// 邮箱
+			String str2 = profilePojo.getEmail();
+			myinfo_email.setText(str2);
+			// 生日
+			myinfo_birthday.setText(profilePojo.getBirthday());
+			// 设置性别
+			myinfo_sex.setText("");
+			int sex = profilePojo.getGender();
+			if (sex == 0) {// 男
+				myinfo_sex.setText("男");
+			} else if (sex == 1) {// 女
+				myinfo_sex.setText("女");
+			} else if (sex == 2) {
+				myinfo_sex.setText("保密");
+			}
 		}
-		// 设置昵称
-		myinfo_nickname.setText(profilePojo.getNickName());
-
-		// 设置认证行业
-		String str1 = profilePojo.getLisence();
-		myinfo_certification.setText(str1);
-
-		// 手机
-		String str3 = profilePojo.getMobile();
-		myinfo_mobile.setText(str3);
-		// 邮箱
-		String str2 = profilePojo.getEmail();
-		myinfo_email.setText(str2);
-		// 生日
-		myinfo_birthday.setText(profilePojo.getBirthday());
-		// 设置性别
-		myinfo_sex.setText("");
-		int sex = profilePojo.getGender();
-		if (sex == 1) {// 男
-			myinfo_sex.setText("男");
-		} else if (sex == 2) {// 女
-			myinfo_sex.setText("女");
-		}else if (sex == 3){
-		myinfo_sex.setText("保密");
-	}
 
 	}
 
@@ -149,7 +155,7 @@ public class MyInformationActivity extends Activity {
 	private View.OnClickListener listener2 = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			
+
 			String nickname_str = myinfo_nickname.getText().toString();
 
 			String kongge = nickname_str.replaceAll(" ", "");
@@ -163,11 +169,11 @@ public class MyInformationActivity extends Activity {
 				prodialog.show();
 				Thread thread = new Thread(new modifyProfile());
 				thread.start();
-			
+
 			}
 		}
 	};
-	
+
 	/**
 	 * 
 	 * 修改个人详细信息
@@ -179,7 +185,7 @@ public class MyInformationActivity extends Activity {
 		public void run() {
 			try {
 				String nickname_str = myinfo_nickname.getText().toString();
-				
+
 				Profile.Builder pb = Profile.newBuilder();
 				pb.setUserId(profilePojo.getUserId());
 				pb.setName(profilePojo.getName());
@@ -193,7 +199,8 @@ public class MyInformationActivity extends Activity {
 				pb.setLisence(profilePojo.getLisence());
 				Log.i("linshi", "-----------------");
 
-				ChangeProfileRequest.Builder builder = ChangeProfileRequest.newBuilder();
+				ChangeProfileRequest.Builder builder = ChangeProfileRequest
+						.newBuilder();
 				builder.setUserId(fxApplication.getUser_id());
 				builder.setToken(fxApplication.getToken());
 				builder.setProfile(pb);
@@ -201,22 +208,34 @@ public class MyInformationActivity extends Activity {
 
 				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
 						Urlinterface.ChangeProfile, "PUT");
-				if (by!= null  && by.length> 0) {
+				if (by != null && by.length > 0) {
 
-					ChangeProfileResponse res = ChangeProfileResponse.parseFrom(by);
+					ChangeProfileResponse res = ChangeProfileResponse
+							.parseFrom(by);
 					if (res.getIsSucceed()) {
 						handler.sendEmptyMessage(0);
 					} else {
 						handler.sendEmptyMessage(1);
 					}
-				}else {
+				} else {
 					handler.sendEmptyMessage(6);
 				}
-				// 
+				//
 			} catch (Exception e) {
 				handler.sendEmptyMessage(7);
 			}
 		}
 	}
+
+	private View.OnClickListener listener = new View.OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+
+			Intent intentp = new Intent();
+			intentp.setClass(MyInformationActivity.this, SettingPhoto.class);//
+			startActivityForResult(intentp, 0);
+		}
+	};
 
 }

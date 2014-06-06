@@ -199,7 +199,12 @@
             android:process=":pushservice" />
         <!-- android:authorities="downloads.第三方包名" -->
         <!-- ====================================================== -->
-
+        <activity
+            android:name="com.fuwu.mobileim.activity.SettingPhoto"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent"
+            >
+        </activity>
     </application>
 
 </manifest>
