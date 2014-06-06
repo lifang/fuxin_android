@@ -184,26 +184,16 @@ public class MyInformationActivity extends Activity {
 	class modifyProfile implements Runnable {
 		public void run() {
 			try {
+				
 				String nickname_str = myinfo_nickname.getText().toString();
 
-				Profile.Builder pb = Profile.newBuilder();
-				pb.setUserId(profilePojo.getUserId());
-				pb.setName(profilePojo.getName());
-				pb.setNickName(nickname_str);
-				pb.setGender(profilePojo.getGender());
-				pb.setMobilePhoneNum(profilePojo.getMobile());
-				pb.setEmail(profilePojo.getEmail());
-				pb.setBirthday(profilePojo.getBirthday());
-				pb.setTileUrl(profilePojo.getTileUrl());
-				pb.setIsProvider(profilePojo.getIsProvider());
-				pb.setLisence(profilePojo.getLisence());
-				Log.i("linshi", "-----------------");
+				
 
 				ChangeProfileRequest.Builder builder = ChangeProfileRequest
 						.newBuilder();
 				builder.setUserId(fxApplication.getUser_id());
 				builder.setToken(fxApplication.getToken());
-				builder.setProfile(pb);
+			
 				ChangeProfileRequest response = builder.build();
 
 				byte[] by = HttpUtil.sendHttps(response.toByteArray(),

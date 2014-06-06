@@ -131,7 +131,7 @@ public class SettingsActivity extends Fragment {
 						int userId = res.getProfile().getUserId();// 用户id
 						String name = res.getProfile().getName();// 名称
 						String nickName = res.getProfile().getNickName();// 昵称
-						int gender = res.getProfile().getGender();// 性别
+						int gender = res.getProfile().getGender().getNumber();// 性别
 						String tileUrl = res.getProfile().getTileUrl();// 头像
 						Boolean isProvider = res.getProfile().getIsProvider();//
 						String lisence = res.getProfile().getLisence();// 行业认证
@@ -297,8 +297,10 @@ public class SettingsActivity extends Fragment {
 			startActivity(intent);
 			break;
 		case 5:// 系统公告管理
-			intent.setClass(getActivity(), SystemPushActivity.class);
-			startActivity(intent);
+//			intent.setClass(getActivity(), SystemPushActivity.class);
+//			startActivity(intent);
+			Toast.makeText(getActivity().getApplication(), "该功能暂不实现" ,
+					 Toast.LENGTH_LONG).show();
 			break;
 		case 6:// 退出登录
 			intent.setClass(getActivity(), LoginActivity.class);
