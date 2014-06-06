@@ -59,7 +59,7 @@ public class LoginActivity extends Activity implements OnClickListener,
 				}
 				break;
 			case 2:
-				Toast.makeText(LoginActivity.this, "请求超时", Toast.LENGTH_SHORT)
+				Toast.makeText(LoginActivity.this, "网络连接异常", Toast.LENGTH_SHORT)
 						.show();
 				break;
 			}
@@ -126,24 +126,25 @@ public class LoginActivity extends Activity implements OnClickListener,
 				builder.setUserName(user);
 				builder.setPassword(pwd);
 				AuthenticationRequest request = builder.build();
-//				AuthenticationResponse response = AuthenticationResponse
-//						.parseFrom(HttpUtil.sendHttps(request.toByteArray(),
-//								Urlinterface.LOGIN, "POST"));
+				// AuthenticationResponse response = AuthenticationResponse
+				// .parseFrom(HttpUtil.sendHttps(request.toByteArray(),
+				// Urlinterface.LOGIN, "POST"));
 				byte[] by = HttpUtil.sendHttps(request.toByteArray(),
 						Urlinterface.LOGIN, "POST");
 				if (by != null && by.length > 0) {
-					AuthenticationResponse response = AuthenticationResponse.parseFrom(by);
-				if (response.getIsSucceed()) {
-					fx.setUser_id(response.getUserId());
-					fx.setToken(response.getToken());
-					handler.sendEmptyMessage(0);
+					AuthenticationResponse response = AuthenticationResponse
+							.parseFrom(by);
+					if (response.getIsSucceed()) {
+						fx.setUser_id(response.getUserId());
+						fx.setToken(response.getToken());
+						handler.sendEmptyMessage(0);
 
+					} else {
+						Log.i("Max", "errorCode:" + response.getErrorCode());
+						error_code = response.getErrorCode().toString();
+						handler.sendEmptyMessage(1);
+					}
 				} else {
-					Log.i("Max", "errorCode:" + response.getErrorCode());
-					error_code = response.getErrorCode().toString();
-					handler.sendEmptyMessage(1);
-				}
-				}else {
 					Toast.makeText(LoginActivity.this, "登陆失败",
 							Toast.LENGTH_SHORT).show();
 				}

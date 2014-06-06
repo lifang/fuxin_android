@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fuwu.mobileim.R;
+import com.fuwu.mobileim.pojo.MessagePojo;
 import com.fuwu.mobileim.pojo.TalkPojo;
 import com.fuwu.mobileim.util.TimeUtil;
 import com.fuwu.mobileim.view.CircularImage;
@@ -38,6 +39,11 @@ public class TalkListViewAdapter extends BaseAdapter {
 		this.mInflater = LayoutInflater.from(mcontext);
 		this.list = list;
 		this.options = options;
+	}
+
+	public void updateList(List<TalkPojo> list) {
+		this.list = list;
+		notifyDataSetChanged();
 	}
 
 	public int getCount() {

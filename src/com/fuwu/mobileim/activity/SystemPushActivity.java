@@ -6,6 +6,7 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,21 +19,23 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.fuwu.mobileim.R;
+import com.fuwu.mobileim.pojo.PushPojo;
+import com.fuwu.mobileim.util.DBManager;
+import com.fuwu.mobileim.util.FxApplication;
 
 public class SystemPushActivity extends Activity implements OnClickListener {
 
 	private ListView mListView;
 	private myListViewAdapter clvAdapter;
-	private List<String> list = new ArrayList<String>();
+	private List<PushPojo> list = new ArrayList<PushPojo>();
+	private DBManager db;
+	public FxApplication fx;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.system_push);
+		fx = (FxApplication) getApplication();
 		findViewById(R.id.exit).setOnClickListener(this);
-
-		for (int i = 0; i < 10; i++) {
-			list.add("马龙是狗,马龙大黑狗,black dog,马龙是狗,马龙大黑狗,black dog");
-		}
 		mListView = (ListView) findViewById(R.id.list);
 		clvAdapter = new myListViewAdapter(this);
 		mListView.setAdapter(clvAdapter);
@@ -42,6 +45,7 @@ public class SystemPushActivity extends Activity implements OnClickListener {
 
 			}
 		});
+		initData();
 	}
 
 	public class myListViewAdapter extends BaseAdapter {
@@ -71,7 +75,7 @@ public class SystemPushActivity extends Activity implements OnClickListener {
 			}
 			TextView content = (TextView) arg1.findViewById(R.id.content);
 			ImageView news = (ImageView) arg1.findViewById(R.id.news);
-			content.setText(list.get(arg0));
+			content.setText("马龙是狗");
 			if (arg0 < 2) {
 				news.setVisibility(View.VISIBLE);
 				content.setTextColor(getResources().getColor(
@@ -83,6 +87,19 @@ public class SystemPushActivity extends Activity implements OnClickListener {
 			}
 			return arg1;
 		}
+	}
+
+	public void initData() {
+		// db = new DBManager(SystemPushActivity.this);
+		// getPushData();
+	}
+
+	public void getPushData() {
+		if (!db.isOpen()) {
+			db = new DBManager(SystemPushActivity.this);
+		}
+		list = db.queryPushList(fx.getUser_id());
+		Log.i("Max", "list:" + list.size());
 	}
 
 	public void onClick(View v) {

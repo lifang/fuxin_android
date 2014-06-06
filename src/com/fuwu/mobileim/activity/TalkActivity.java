@@ -49,12 +49,8 @@ public class TalkActivity extends Fragment {
 			case 1:
 				break;
 			case 2:
-				updateMessageData();
-				clvAdapter = new TalkListViewAdapter(getActivity(), list,
-						fx.options);
-				Log.i("Max", list.size() + "-");
-				mListView.setAdapter(clvAdapter);
-				Log.i("FuWu", list.get(0).toString());
+				updateTalkData();
+				clvAdapter.updateList(list);
 				break;
 			case 3:
 				Toast.makeText(getActivity(), "删除失败", Toast.LENGTH_SHORT)
@@ -79,6 +75,7 @@ public class TalkActivity extends Fragment {
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
+				updateTalkNumberData();
 				intent.putExtra("contact_id", list.get(arg2).getContact_id());
 				intent.setClass(getActivity(), ChatActivity.class);
 				startActivity(intent);
@@ -99,7 +96,8 @@ public class TalkActivity extends Fragment {
 		if (file.exists()) {
 			Log.i("Max", "存在");
 		}
-		// handler.sendEmptyMessage(2);
+		clvAdapter = new TalkListViewAdapter(getActivity(), list, fx.options);
+		mListView.setAdapter(clvAdapter);
 		return rootView;
 	}
 
@@ -128,28 +126,38 @@ public class TalkActivity extends Fragment {
 			if (delTalkData()) {
 				handler.sendEmptyMessage(2);
 			} else {
-				Log.i("Max", "删除失败");
+				handler.sendEmptyMessage(3);
 			}
 		}
 	}
 
-	public void updateMessageData() {
+	public void updateTalkData() {
 		if (!db.isOpen()) {
 			db = new DBManager(getActivity());
 		}
 		list = db.queryTalkList(fx.getUser_id());
+		Log.i("Max", "list:" + list.size());
 	}
 
 	public boolean delTalkData() {
 		if (!db.isOpen()) {
 			db = new DBManager(getActivity());
 		}
+		Log.i("suanfa", "uid:" + fx.getUser_id() + "/contactid:" + contact_id);
 		return db.delTalk(fx.getUser_id(), contact_id);
+	}
+
+	public void updateTalkNumberData() {
+		if (!db.isOpen()) {
+			db = new DBManager(getActivity());
+		}
+		// db.updateTalkNumber(fx.getUser_id(), contact_id);
+		handler.sendEmptyMessage(2);
 	}
 
 	public void initData() {
 		db = new DBManager(getActivity());
-		updateMessageData();
+		updateTalkData();
 	}
 
 	public void onResume() {

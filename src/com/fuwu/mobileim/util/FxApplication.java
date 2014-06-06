@@ -34,7 +34,7 @@ public class FxApplication extends Application {
 	private Map<Integer, ContactPojo> contactsMap = new HashMap<Integer, ContactPojo>();
 	private int user_id;
 	private String token;
-	private ProfilePojo profilePojo= new ProfilePojo();
+	private ProfilePojo profilePojo = new ProfilePojo();
 	public DisplayImageOptions options;
 	public Map<String, String> error_map;
 
@@ -43,7 +43,7 @@ public class FxApplication extends Application {
 	}
 
 	public FxApplication() {
-		this.setToken("MockToken");
+		this.setToken("NULL");
 	}
 
 	public void onCreate() {
@@ -271,6 +271,5 @@ public class FxApplication extends Application {
 	public void setProfilePojo(ProfilePojo profilePojo) {
 		this.profilePojo = profilePojo;
 	}
-	
 
 }

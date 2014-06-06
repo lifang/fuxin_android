@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.pojo.MessagePojo;
+import com.fuwu.mobileim.pojo.PushPojo;
 import com.fuwu.mobileim.pojo.TalkPojo;
 
 public class DBManager {
@@ -194,17 +195,38 @@ public class DBManager {
 		return talkList;
 	}
 
+	public List<PushPojo> queryPushList(int user_id) {
+		Log.i("Max", user_id + "");
+		ArrayList<PushPojo> pushList = new ArrayList<PushPojo>();
+		Cursor c = querySystemPush(user_id);
+		while (c.moveToNext()) {
+			PushPojo push = new PushPojo();
+			push.setId(c.getInt(c.getColumnIndex("id")));
+			push.setContent(c.getString(c.getColumnIndex("content")));
+			push.setUrl(c.getString(c.getColumnIndex("url")));
+			push.setTime(c.getString(c.getColumnIndex("time")));
+			push.setStatus(c.getInt(c.getColumnIndex("status")));
+			push.setUserId(c.getInt(c.getColumnIndex("userId")));
+			pushList.add(push);
+		}
+		c.close();
+		return pushList;
+	}
+
 	public boolean delTalk(int user_id, int contact_id) {
 		boolean flag = true;
-		db = helper.getWritableDatabase();
+		db.beginTransaction();
 		try {
-			db.execSQL("DELETE FROM talk WHERE user_id = " + user_id
-					+ " and contact_id = " + contact_id);
+			db.execSQL("Delete FROM talk where user_id = ? and contact_id = ?",
+					new String[] { user_id + "", contact_id + "" });
+			db.setTransactionSuccessful();
 		} catch (SQLException e) {
 			Log.i("Max", "删除异常:" + e.toString());
 			flag = false;
+		} finally {
+			db.endTransaction();
 		}
-		db.close();
+		Log.i("Max", flag + "");
 		return flag;
 	}
 
@@ -250,6 +272,12 @@ public class DBManager {
 		Cursor c = db.rawQuery(
 				"SELECT * FROM talk where user_id = ? and contact_id = ?",
 				new String[] { user_id + "", contact_id + "" });
+		return c;
+	}
+
+	public Cursor querySystemPush(int user_id) {
+		Cursor c = db.rawQuery("SELECT * FROM push where user_id = ?",
+				new String[] { user_id + "" });
 		return c;
 	}
 

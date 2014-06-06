@@ -36,6 +36,8 @@
         android:protectionLevel="normal" />
     <!-- 判断应用运行状态 -->
     <uses-permission android:name="android.permission.GET_TASKS" />
+    <!-- 手机震动 -->
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:name="com.fuwu.mobileim.util.FxApplication"
@@ -199,7 +201,13 @@
             android:process=":pushservice" />
         <!-- android:authorities="downloads.第三方包名" -->
         <!-- ====================================================== -->
-
+        <receiver
+            android:name="com.fuwu.mobileim.util.PushReceiver"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.igexin.sdk.action.MGxQXR8hjI9HtfSmrp7fi1" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
