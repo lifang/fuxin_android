@@ -40,7 +40,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/chat_datetime"
         android:layout_marginLeft="5dip"
-        android:layout_marginRight="45dp"
         android:layout_toRightOf="@id/chat_icon"
         android:background="@drawable/balloon_l_selector"
         android:clickable="true"

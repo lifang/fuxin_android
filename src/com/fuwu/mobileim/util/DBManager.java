@@ -57,15 +57,22 @@ public class DBManager {
 		try {
 			Cursor c = queryTalkCursor(tp.getUser_id(), tp.getContact_id());
 			if (c.getCount() > 0) {
+				c.moveToFirst();
+				int count = c.getInt(c.getColumnIndex("mes_count"));
 				db.execSQL(
-						"DELETE from talk where user_id = ? and contact_id = ?",
-						new Object[] { tp.getUser_id(), tp.getContact_id(), });
+						"update from talk set content = ? , time = ? , mes_count = ? where user_id = ? and contact_id = ?",
+						new Object[] { tp.getContent(), tp.getTime(),
+								tp.getMes_count() + count, tp.getUser_id(),
+								tp.getContact_id(), });
+			} else {
+				db.execSQL(
+						"INSERT INTO talk VALUES(null,?,?,?,?,?,?,?)",
+						new Object[] { tp.getUser_id(), tp.getContact_id(),
+								tp.getNick_name(), tp.getHead_pic(),
+								tp.getContent(), tp.getTime(),
+								tp.getMes_count() });
 			}
-			db.execSQL(
-					"INSERT INTO talk VALUES(null,?,?,?,?,?,?,?)",
-					new Object[] { tp.getUser_id(), tp.getContact_id(),
-							tp.getNick_name(), tp.getHead_pic(),
-							tp.getContent(), tp.getTime(), tp.getMes_count() });
+			c.close();
 			db.setTransactionSuccessful();
 		} finally {
 			db.endTransaction();
@@ -78,6 +85,16 @@ public class DBManager {
 			db.execSQL(
 					"Delete from message where user_id = ? and contact_id = ? ",
 					new Object[] { user_id + "", contact_id + "" });
+		} finally {
+			db.endTransaction();
+		}
+	}
+
+	public void delMessage(int user_id) {
+		db.beginTransaction();
+		try {
+			db.execSQL("Delete from message where user_id = ?",
+					new Object[] { user_id + "" });
 		} finally {
 			db.endTransaction();
 		}
@@ -115,10 +132,6 @@ public class DBManager {
 		return flag;
 	}
 
-	/**
-	 * 获得联系人列表
-	 * 
-	 * */
 	public List<ContactPojo> queryContactList(int user_id) {
 		ArrayList<ContactPojo> cpList = new ArrayList<ContactPojo>();
 		Cursor c = queryContactCursor(user_id);
@@ -147,6 +160,7 @@ public class DBManager {
 
 	public List<MessagePojo> queryMessageList(int user_id, int contact_id,
 			int num, int max) {
+		clearTalkMesCount(user_id, contact_id);
 		ArrayList<MessagePojo> mpList = new ArrayList<MessagePojo>();
 		Cursor c = queryMessageCursor(user_id, contact_id, num, max);
 		while (c.moveToNext()) {
@@ -164,15 +178,19 @@ public class DBManager {
 
 	public String getLastTime(int user_id, int contact_id) {
 		Cursor c = queryMessageLastTimeCursor(user_id, contact_id);
+		String time = "";
 		if (c.moveToLast()) {
-			return c.getString(c.getColumnIndex("time"));
+			time = c.getString(c.getColumnIndex("time"));
 		}
-		return null;
+		c.close();
+		return time;
 	}
 
 	public int getMesCount(int user_id, int contact_id) {
 		Cursor c = queryMessageCountCursor(user_id, contact_id);
-		return c.getCount();
+		int count = c.getCount();
+		c.close();
+		return count;
 	}
 
 	public List<TalkPojo> queryTalkList(int user_id) {
@@ -227,6 +245,18 @@ public class DBManager {
 		}
 		Log.i("Max", flag + "");
 		return flag;
+	}
+
+	public void clearTalkMesCount(int user_id, int contact_id) {
+		db.beginTransaction();
+		try {
+			db.execSQL(
+					"UPDATE talk set mes_count = 0 where user_id = ? and contact_id = ? ",
+					new Object[] { user_id + "", contact_id + "" });
+			db.setTransactionSuccessful();
+		} finally {
+			db.endTransaction();
+		}
 	}
 
 	public Cursor queryMessageCountCursor(int user_id, int contact_id) {

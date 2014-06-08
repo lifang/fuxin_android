@@ -122,15 +122,13 @@
         android:layout_height="wrap_content"
         android:background="#fff0f0f0"
         android:orientation="vertical"
-        android:paddingBottom="5dip"
-        android:paddingTop="5dip"
         android:visibility="gone" >
 
         <android.support.v4.view.ViewPager
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/face_pager"
             android:layout_width="fill_parent"
-            android:layout_height="120.0dip"
+            android:layout_height="140.0dip"
             android:layout_marginLeft="5dip"
             android:layout_marginRight="5dip"
             android:background="#0000"
@@ -138,6 +136,7 @@
             android:persistentDrawingCache="animation" />
 
         <com.fuwu.mobileim.view.CirclePageIndicator
+            android:background="#FAFAFA"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/indicator"
             android:layout_width="fill_parent"

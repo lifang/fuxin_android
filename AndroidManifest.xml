@@ -7,7 +7,14 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="18" />
-     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>  
+
+    <uses-feature android:name="android.hardware.camera" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!-- 网络权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_CONTACTS" >
@@ -217,4 +224,5 @@
             android:theme="@android:style/Theme.Translucent" >
         </activity>
     </application>
-</manifest>
+
+</manifest>
