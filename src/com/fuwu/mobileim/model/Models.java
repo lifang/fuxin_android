@@ -8,115 +8,6 @@ public final class Models {
   public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistry registry) {
   }
-  /**
-   * Protobuf enum {@code Com.Fuwu.MobileIM.Model.OSType}
-   */
-  public enum OSType
-      implements com.google.protobuf.ProtocolMessageEnum {
-    /**
-     * <code>Others = 0;</code>
-     */
-    Others(0, 0),
-    /**
-     * <code>IOS = 1;</code>
-     */
-    IOS(1, 1),
-    /**
-     * <code>Android = 2;</code>
-     */
-    Android(2, 2),
-    /**
-     * <code>WindowsPhone = 3;</code>
-     */
-    WindowsPhone(3, 3),
-    /**
-     * <code>Symbian = 4;</code>
-     */
-    Symbian(4, 4),
-    ;
-
-    /**
-     * <code>Others = 0;</code>
-     */
-    public static final int Others_VALUE = 0;
-    /**
-     * <code>IOS = 1;</code>
-     */
-    public static final int IOS_VALUE = 1;
-    /**
-     * <code>Android = 2;</code>
-     */
-    public static final int Android_VALUE = 2;
-    /**
-     * <code>WindowsPhone = 3;</code>
-     */
-    public static final int WindowsPhone_VALUE = 3;
-    /**
-     * <code>Symbian = 4;</code>
-     */
-    public static final int Symbian_VALUE = 4;
-
-
-    public final int getNumber() { return value; }
-
-    public static OSType valueOf(int value) {
-      switch (value) {
-        case 0: return Others;
-        case 1: return IOS;
-        case 2: return Android;
-        case 3: return WindowsPhone;
-        case 4: return Symbian;
-        default: return null;
-      }
-    }
-
-    public static com.google.protobuf.Internal.EnumLiteMap<OSType>
-        internalGetValueMap() {
-      return internalValueMap;
-    }
-    private static com.google.protobuf.Internal.EnumLiteMap<OSType>
-        internalValueMap =
-          new com.google.protobuf.Internal.EnumLiteMap<OSType>() {
-            public OSType findValueByNumber(int number) {
-              return OSType.valueOf(number);
-            }
-          };
-
-    public final com.google.protobuf.Descriptors.EnumValueDescriptor
-        getValueDescriptor() {
-      return getDescriptor().getValues().get(index);
-    }
-    public final com.google.protobuf.Descriptors.EnumDescriptor
-        getDescriptorForType() {
-      return getDescriptor();
-    }
-    public static final com.google.protobuf.Descriptors.EnumDescriptor
-        getDescriptor() {
-      return com.fuwu.mobileim.model.Models.getDescriptor().getEnumTypes().get(0);
-    }
-
-    private static final OSType[] VALUES = values();
-
-    public static OSType valueOf(
-        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
-      if (desc.getType() != getDescriptor()) {
-        throw new java.lang.IllegalArgumentException(
-          "EnumValueDescriptor is not for this type.");
-      }
-      return VALUES[desc.getIndex()];
-    }
-
-    private final int index;
-    private final int value;
-
-    private OSType(int index, int value) {
-      this.index = index;
-      this.value = value;
-    }
-
-    // @@protoc_insertion_point(enum_scope:Com.Fuwu.MobileIM.Model.OSType)
-  }
-
   public interface AuthenticationRequestOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
 
@@ -13685,14 +13576,26 @@ public final class Models {
     // optional string signature = 3;
     /**
      * <code>optional string signature = 3;</code>
+     *
+     * <pre>
+     *个性签名
+     * </pre>
      */
     boolean hasSignature();
     /**
      * <code>optional string signature = 3;</code>
+     *
+     * <pre>
+     *个性签名
+     * </pre>
      */
     java.lang.String getSignature();
     /**
      * <code>optional string signature = 3;</code>
+     *
+     * <pre>
+     *个性签名
+     * </pre>
      */
     com.google.protobuf.ByteString
         getSignatureBytes();
@@ -13700,10 +13603,18 @@ public final class Models {
     // optional bytes tiles = 4;
     /**
      * <code>optional bytes tiles = 4;</code>
+     *
+     * <pre>
+     *头像
+     * </pre>
      */
     boolean hasTiles();
     /**
      * <code>optional bytes tiles = 4;</code>
+     *
+     * <pre>
+     *头像
+     * </pre>
      */
     com.google.protobuf.ByteString getTiles();
 
@@ -13733,6 +13644,33 @@ public final class Models {
      */
     com.google.protobuf.ByteString
         getContentTypeBytes();
+
+    // optional string nickName = 6;
+    /**
+     * <code>optional string nickName = 6;</code>
+     *
+     * <pre>
+     *昵称
+     * </pre>
+     */
+    boolean hasNickName();
+    /**
+     * <code>optional string nickName = 6;</code>
+     *
+     * <pre>
+     *昵称
+     * </pre>
+     */
+    java.lang.String getNickName();
+    /**
+     * <code>optional string nickName = 6;</code>
+     *
+     * <pre>
+     *昵称
+     * </pre>
+     */
+    com.google.protobuf.ByteString
+        getNickNameBytes();
   }
   /**
    * Protobuf type {@code Com.Fuwu.MobileIM.Model.ChangeProfileRequest}
@@ -13808,6 +13746,11 @@ public final class Models {
             case 42: {
               bitField0_ |= 0x00000010;
               contentType_ = input.readBytes();
+              break;
+            }
+            case 50: {
+              bitField0_ |= 0x00000020;
+              nickName_ = input.readBytes();
               break;
             }
           }
@@ -13914,12 +13857,20 @@ public final class Models {
     private java.lang.Object signature_;
     /**
      * <code>optional string signature = 3;</code>
+     *
+     * <pre>
+     *个性签名
+     * </pre>
      */
     public boolean hasSignature() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
      * <code>optional string signature = 3;</code>
+     *
+     * <pre>
+     *个性签名
+     * </pre>
      */
     public java.lang.String getSignature() {
       java.lang.Object ref = signature_;
@@ -13937,6 +13888,10 @@ public final class Models {
     }
     /**
      * <code>optional string signature = 3;</code>
+     *
+     * <pre>
+     *个性签名
+     * </pre>
      */
     public com.google.protobuf.ByteString
         getSignatureBytes() {
@@ -13957,12 +13912,20 @@ public final class Models {
     private com.google.protobuf.ByteString tiles_;
     /**
      * <code>optional bytes tiles = 4;</code>
+     *
+     * <pre>
+     *头像
+     * </pre>
      */
     public boolean hasTiles() {
       return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
      * <code>optional bytes tiles = 4;</code>
+     *
+     * <pre>
+     *头像
+     * </pre>
      */
     public com.google.protobuf.ByteString getTiles() {
       return tiles_;
@@ -14023,12 +13986,68 @@ public final class Models {
       }
     }
 
+    // optional string nickName = 6;
+    public static final int NICKNAME_FIELD_NUMBER = 6;
+    private java.lang.Object nickName_;
+    /**
+     * <code>optional string nickName = 6;</code>
+     *
+     * <pre>
+     *昵称
+     * </pre>
+     */
+    public boolean hasNickName() {
+      return ((bitField0_ & 0x00000020) == 0x00000020);
+    }
+    /**
+     * <code>optional string nickName = 6;</code>
+     *
+     * <pre>
+     *昵称
+     * </pre>
+     */
+    public java.lang.String getNickName() {
+      java.lang.Object ref = nickName_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          nickName_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string nickName = 6;</code>
+     *
+     * <pre>
+     *昵称
+     * </pre>
+     */
+    public com.google.protobuf.ByteString
+        getNickNameBytes() {
+      java.lang.Object ref = nickName_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        nickName_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private void initFields() {
       token_ = "";
       userId_ = 0;
       signature_ = "";
       tiles_ = com.google.protobuf.ByteString.EMPTY;
       contentType_ = "";
+      nickName_ = "";
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -14056,6 +14075,9 @@ public final class Models {
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         output.writeBytes(5, getContentTypeBytes());
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        output.writeBytes(6, getNickNameBytes());
       }
       getUnknownFields().writeTo(output);
     }
@@ -14085,6 +14107,10 @@ public final class Models {
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(5, getContentTypeBytes());
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(6, getNickNameBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -14212,6 +14238,8 @@ public final class Models {
         bitField0_ = (bitField0_ & ~0x00000008);
         contentType_ = "";
         bitField0_ = (bitField0_ & ~0x00000010);
+        nickName_ = "";
+        bitField0_ = (bitField0_ & ~0x00000020);
         return this;
       }
 
@@ -14260,6 +14288,10 @@ public final class Models {
           to_bitField0_ |= 0x00000010;
         }
         result.contentType_ = contentType_;
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000020;
+        }
+        result.nickName_ = nickName_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -14295,6 +14327,11 @@ public final class Models {
         if (other.hasContentType()) {
           bitField0_ |= 0x00000010;
           contentType_ = other.contentType_;
+          onChanged();
+        }
+        if (other.hasNickName()) {
+          bitField0_ |= 0x00000020;
+          nickName_ = other.nickName_;
           onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
@@ -14435,12 +14472,20 @@ public final class Models {
       private java.lang.Object signature_ = "";
       /**
        * <code>optional string signature = 3;</code>
+       *
+       * <pre>
+       *个性签名
+       * </pre>
        */
       public boolean hasSignature() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
        * <code>optional string signature = 3;</code>
+       *
+       * <pre>
+       *个性签名
+       * </pre>
        */
       public java.lang.String getSignature() {
         java.lang.Object ref = signature_;
@@ -14455,6 +14500,10 @@ public final class Models {
       }
       /**
        * <code>optional string signature = 3;</code>
+       *
+       * <pre>
+       *个性签名
+       * </pre>
        */
       public com.google.protobuf.ByteString
           getSignatureBytes() {
@@ -14471,6 +14520,10 @@ public final class Models {
       }
       /**
        * <code>optional string signature = 3;</code>
+       *
+       * <pre>
+       *个性签名
+       * </pre>
        */
       public Builder setSignature(
           java.lang.String value) {
@@ -14484,6 +14537,10 @@ public final class Models {
       }
       /**
        * <code>optional string signature = 3;</code>
+       *
+       * <pre>
+       *个性签名
+       * </pre>
        */
       public Builder clearSignature() {
         bitField0_ = (bitField0_ & ~0x00000004);
@@ -14493,6 +14550,10 @@ public final class Models {
       }
       /**
        * <code>optional string signature = 3;</code>
+       *
+       * <pre>
+       *个性签名
+       * </pre>
        */
       public Builder setSignatureBytes(
           com.google.protobuf.ByteString value) {
@@ -14509,18 +14570,30 @@ public final class Models {
       private com.google.protobuf.ByteString tiles_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>optional bytes tiles = 4;</code>
+       *
+       * <pre>
+       *头像
+       * </pre>
        */
       public boolean hasTiles() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
        * <code>optional bytes tiles = 4;</code>
+       *
+       * <pre>
+       *头像
+       * </pre>
        */
       public com.google.protobuf.ByteString getTiles() {
         return tiles_;
       }
       /**
        * <code>optional bytes tiles = 4;</code>
+       *
+       * <pre>
+       *头像
+       * </pre>
        */
       public Builder setTiles(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -14533,6 +14606,10 @@ public final class Models {
       }
       /**
        * <code>optional bytes tiles = 4;</code>
+       *
+       * <pre>
+       *头像
+       * </pre>
        */
       public Builder clearTiles() {
         bitField0_ = (bitField0_ & ~0x00000008);
@@ -14635,6 +14712,104 @@ public final class Models {
   }
   bitField0_ |= 0x00000010;
         contentType_ = value;
+        onChanged();
+        return this;
+      }
+
+      // optional string nickName = 6;
+      private java.lang.Object nickName_ = "";
+      /**
+       * <code>optional string nickName = 6;</code>
+       *
+       * <pre>
+       *昵称
+       * </pre>
+       */
+      public boolean hasNickName() {
+        return ((bitField0_ & 0x00000020) == 0x00000020);
+      }
+      /**
+       * <code>optional string nickName = 6;</code>
+       *
+       * <pre>
+       *昵称
+       * </pre>
+       */
+      public java.lang.String getNickName() {
+        java.lang.Object ref = nickName_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          nickName_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string nickName = 6;</code>
+       *
+       * <pre>
+       *昵称
+       * </pre>
+       */
+      public com.google.protobuf.ByteString
+          getNickNameBytes() {
+        java.lang.Object ref = nickName_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          nickName_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string nickName = 6;</code>
+       *
+       * <pre>
+       *昵称
+       * </pre>
+       */
+      public Builder setNickName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000020;
+        nickName_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string nickName = 6;</code>
+       *
+       * <pre>
+       *昵称
+       * </pre>
+       */
+      public Builder clearNickName() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        nickName_ = getDefaultInstance().getNickName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string nickName = 6;</code>
+       *
+       * <pre>
+       *昵称
+       * </pre>
+       */
+      public Builder setNickNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000020;
+        nickName_ = value;
         onChanged();
         return this;
       }
@@ -15301,13 +15476,23 @@ public final class Models {
     com.google.protobuf.ByteString
         getSendTimeBytes();
 
-    // optional bytes binaryContent = 6;
+    // optional .Com.Fuwu.MobileIM.Model.Message.ImageType imageType = 6;
     /**
-     * <code>optional bytes binaryContent = 6;</code>
+     * <code>optional .Com.Fuwu.MobileIM.Model.Message.ImageType imageType = 6;</code>
+     */
+    boolean hasImageType();
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.Message.ImageType imageType = 6;</code>
+     */
+    com.fuwu.mobileim.model.Models.Message.ImageType getImageType();
+
+    // optional bytes binaryContent = 7;
+    /**
+     * <code>optional bytes binaryContent = 7;</code>
      */
     boolean hasBinaryContent();
     /**
-     * <code>optional bytes binaryContent = 6;</code>
+     * <code>optional bytes binaryContent = 7;</code>
      */
     com.google.protobuf.ByteString getBinaryContent();
   }
@@ -15393,8 +15578,19 @@ public final class Models {
               sendTime_ = input.readBytes();
               break;
             }
-            case 50: {
-              bitField0_ |= 0x00000020;
+            case 48: {
+              int rawValue = input.readEnum();
+              com.fuwu.mobileim.model.Models.Message.ImageType value = com.fuwu.mobileim.model.Models.Message.ImageType.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(6, rawValue);
+              } else {
+                bitField0_ |= 0x00000020;
+                imageType_ = value;
+              }
+              break;
+            }
+            case 58: {
+              bitField0_ |= 0x00000040;
               binaryContent_ = input.readBytes();
               break;
             }
@@ -15517,6 +15713,97 @@ public final class Models {
       }
 
       // @@protoc_insertion_point(enum_scope:Com.Fuwu.MobileIM.Model.Message.ContentType)
+    }
+
+    /**
+     * Protobuf enum {@code Com.Fuwu.MobileIM.Model.Message.ImageType}
+     */
+    public enum ImageType
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>JPG = 0;</code>
+       */
+      JPG(0, 0),
+      /**
+       * <code>PNG = 1;</code>
+       */
+      PNG(1, 1),
+      /**
+       * <code>GIF = 2;</code>
+       */
+      GIF(2, 2),
+      ;
+
+      /**
+       * <code>JPG = 0;</code>
+       */
+      public static final int JPG_VALUE = 0;
+      /**
+       * <code>PNG = 1;</code>
+       */
+      public static final int PNG_VALUE = 1;
+      /**
+       * <code>GIF = 2;</code>
+       */
+      public static final int GIF_VALUE = 2;
+
+
+      public final int getNumber() { return value; }
+
+      public static ImageType valueOf(int value) {
+        switch (value) {
+          case 0: return JPG;
+          case 1: return PNG;
+          case 2: return GIF;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<ImageType>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static com.google.protobuf.Internal.EnumLiteMap<ImageType>
+          internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<ImageType>() {
+              public ImageType findValueByNumber(int number) {
+                return ImageType.valueOf(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(index);
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return com.fuwu.mobileim.model.Models.Message.getDescriptor().getEnumTypes().get(1);
+      }
+
+      private static final ImageType[] VALUES = values();
+
+      public static ImageType valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int index;
+      private final int value;
+
+      private ImageType(int index, int value) {
+        this.index = index;
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:Com.Fuwu.MobileIM.Model.Message.ImageType)
     }
 
     private int bitField0_;
@@ -15654,17 +15941,33 @@ public final class Models {
       }
     }
 
-    // optional bytes binaryContent = 6;
-    public static final int BINARYCONTENT_FIELD_NUMBER = 6;
-    private com.google.protobuf.ByteString binaryContent_;
+    // optional .Com.Fuwu.MobileIM.Model.Message.ImageType imageType = 6;
+    public static final int IMAGETYPE_FIELD_NUMBER = 6;
+    private com.fuwu.mobileim.model.Models.Message.ImageType imageType_;
     /**
-     * <code>optional bytes binaryContent = 6;</code>
+     * <code>optional .Com.Fuwu.MobileIM.Model.Message.ImageType imageType = 6;</code>
      */
-    public boolean hasBinaryContent() {
+    public boolean hasImageType() {
       return ((bitField0_ & 0x00000020) == 0x00000020);
     }
     /**
-     * <code>optional bytes binaryContent = 6;</code>
+     * <code>optional .Com.Fuwu.MobileIM.Model.Message.ImageType imageType = 6;</code>
+     */
+    public com.fuwu.mobileim.model.Models.Message.ImageType getImageType() {
+      return imageType_;
+    }
+
+    // optional bytes binaryContent = 7;
+    public static final int BINARYCONTENT_FIELD_NUMBER = 7;
+    private com.google.protobuf.ByteString binaryContent_;
+    /**
+     * <code>optional bytes binaryContent = 7;</code>
+     */
+    public boolean hasBinaryContent() {
+      return ((bitField0_ & 0x00000040) == 0x00000040);
+    }
+    /**
+     * <code>optional bytes binaryContent = 7;</code>
      */
     public com.google.protobuf.ByteString getBinaryContent() {
       return binaryContent_;
@@ -15676,6 +15979,7 @@ public final class Models {
       contentType_ = com.fuwu.mobileim.model.Models.Message.ContentType.Text;
       content_ = "";
       sendTime_ = "";
+      imageType_ = com.fuwu.mobileim.model.Models.Message.ImageType.JPG;
       binaryContent_ = com.google.protobuf.ByteString.EMPTY;
     }
     private byte memoizedIsInitialized = -1;
@@ -15706,7 +16010,10 @@ public final class Models {
         output.writeBytes(5, getSendTimeBytes());
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
-        output.writeBytes(6, binaryContent_);
+        output.writeEnum(6, imageType_.getNumber());
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        output.writeBytes(7, binaryContent_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -15739,7 +16046,11 @@ public final class Models {
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(6, binaryContent_);
+          .computeEnumSize(6, imageType_.getNumber());
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(7, binaryContent_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -15867,8 +16178,10 @@ public final class Models {
         bitField0_ = (bitField0_ & ~0x00000008);
         sendTime_ = "";
         bitField0_ = (bitField0_ & ~0x00000010);
-        binaryContent_ = com.google.protobuf.ByteString.EMPTY;
+        imageType_ = com.fuwu.mobileim.model.Models.Message.ImageType.JPG;
         bitField0_ = (bitField0_ & ~0x00000020);
+        binaryContent_ = com.google.protobuf.ByteString.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000040);
         return this;
       }
 
@@ -15920,6 +16233,10 @@ public final class Models {
         if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
           to_bitField0_ |= 0x00000020;
         }
+        result.imageType_ = imageType_;
+        if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
+          to_bitField0_ |= 0x00000040;
+        }
         result.binaryContent_ = binaryContent_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
@@ -15955,6 +16272,9 @@ public final class Models {
           bitField0_ |= 0x00000010;
           sendTime_ = other.sendTime_;
           onChanged();
+        }
+        if (other.hasImageType()) {
+          setImageType(other.getImageType());
         }
         if (other.hasBinaryContent()) {
           setBinaryContent(other.getBinaryContent());
@@ -16236,37 +16556,73 @@ public final class Models {
         return this;
       }
 
-      // optional bytes binaryContent = 6;
-      private com.google.protobuf.ByteString binaryContent_ = com.google.protobuf.ByteString.EMPTY;
+      // optional .Com.Fuwu.MobileIM.Model.Message.ImageType imageType = 6;
+      private com.fuwu.mobileim.model.Models.Message.ImageType imageType_ = com.fuwu.mobileim.model.Models.Message.ImageType.JPG;
       /**
-       * <code>optional bytes binaryContent = 6;</code>
+       * <code>optional .Com.Fuwu.MobileIM.Model.Message.ImageType imageType = 6;</code>
        */
-      public boolean hasBinaryContent() {
+      public boolean hasImageType() {
         return ((bitField0_ & 0x00000020) == 0x00000020);
       }
       /**
-       * <code>optional bytes binaryContent = 6;</code>
+       * <code>optional .Com.Fuwu.MobileIM.Model.Message.ImageType imageType = 6;</code>
+       */
+      public com.fuwu.mobileim.model.Models.Message.ImageType getImageType() {
+        return imageType_;
+      }
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.Message.ImageType imageType = 6;</code>
+       */
+      public Builder setImageType(com.fuwu.mobileim.model.Models.Message.ImageType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000020;
+        imageType_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.Message.ImageType imageType = 6;</code>
+       */
+      public Builder clearImageType() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        imageType_ = com.fuwu.mobileim.model.Models.Message.ImageType.JPG;
+        onChanged();
+        return this;
+      }
+
+      // optional bytes binaryContent = 7;
+      private com.google.protobuf.ByteString binaryContent_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <code>optional bytes binaryContent = 7;</code>
+       */
+      public boolean hasBinaryContent() {
+        return ((bitField0_ & 0x00000040) == 0x00000040);
+      }
+      /**
+       * <code>optional bytes binaryContent = 7;</code>
        */
       public com.google.protobuf.ByteString getBinaryContent() {
         return binaryContent_;
       }
       /**
-       * <code>optional bytes binaryContent = 6;</code>
+       * <code>optional bytes binaryContent = 7;</code>
        */
       public Builder setBinaryContent(com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000020;
+  bitField0_ |= 0x00000040;
         binaryContent_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional bytes binaryContent = 6;</code>
+       * <code>optional bytes binaryContent = 7;</code>
        */
       public Builder clearBinaryContent() {
-        bitField0_ = (bitField0_ & ~0x00000020);
+        bitField0_ = (bitField0_ & ~0x00000040);
         binaryContent_ = getDefaultInstance().getBinaryContent();
         onChanged();
         return this;
@@ -27651,15 +28007,15 @@ public final class Models {
     com.google.protobuf.ByteString
         getDeviceIdBytes();
 
-    // optional .Com.Fuwu.MobileIM.Model.OSType osType = 2;
+    // optional .Com.Fuwu.MobileIM.Model.ClientInfo.OSType osType = 2;
     /**
-     * <code>optional .Com.Fuwu.MobileIM.Model.OSType osType = 2;</code>
+     * <code>optional .Com.Fuwu.MobileIM.Model.ClientInfo.OSType osType = 2;</code>
      */
     boolean hasOsType();
     /**
-     * <code>optional .Com.Fuwu.MobileIM.Model.OSType osType = 2;</code>
+     * <code>optional .Com.Fuwu.MobileIM.Model.ClientInfo.OSType osType = 2;</code>
      */
-    com.fuwu.mobileim.model.Models.OSType getOsType();
+    com.fuwu.mobileim.model.Models.ClientInfo.OSType getOsType();
 
     // optional string OSVersion = 3;
     /**
@@ -27779,7 +28135,7 @@ public final class Models {
             }
             case 16: {
               int rawValue = input.readEnum();
-              com.fuwu.mobileim.model.Models.OSType value = com.fuwu.mobileim.model.Models.OSType.valueOf(rawValue);
+              com.fuwu.mobileim.model.Models.ClientInfo.OSType value = com.fuwu.mobileim.model.Models.ClientInfo.OSType.valueOf(rawValue);
               if (value == null) {
                 unknownFields.mergeVarintField(2, rawValue);
               } else {
@@ -27852,6 +28208,115 @@ public final class Models {
       return PARSER;
     }
 
+    /**
+     * Protobuf enum {@code Com.Fuwu.MobileIM.Model.ClientInfo.OSType}
+     */
+    public enum OSType
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>Others = 0;</code>
+       */
+      Others(0, 0),
+      /**
+       * <code>IOS = 1;</code>
+       */
+      IOS(1, 1),
+      /**
+       * <code>Android = 2;</code>
+       */
+      Android(2, 2),
+      /**
+       * <code>WindowsPhone = 3;</code>
+       */
+      WindowsPhone(3, 3),
+      /**
+       * <code>Symbian = 4;</code>
+       */
+      Symbian(4, 4),
+      ;
+
+      /**
+       * <code>Others = 0;</code>
+       */
+      public static final int Others_VALUE = 0;
+      /**
+       * <code>IOS = 1;</code>
+       */
+      public static final int IOS_VALUE = 1;
+      /**
+       * <code>Android = 2;</code>
+       */
+      public static final int Android_VALUE = 2;
+      /**
+       * <code>WindowsPhone = 3;</code>
+       */
+      public static final int WindowsPhone_VALUE = 3;
+      /**
+       * <code>Symbian = 4;</code>
+       */
+      public static final int Symbian_VALUE = 4;
+
+
+      public final int getNumber() { return value; }
+
+      public static OSType valueOf(int value) {
+        switch (value) {
+          case 0: return Others;
+          case 1: return IOS;
+          case 2: return Android;
+          case 3: return WindowsPhone;
+          case 4: return Symbian;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<OSType>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static com.google.protobuf.Internal.EnumLiteMap<OSType>
+          internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<OSType>() {
+              public OSType findValueByNumber(int number) {
+                return OSType.valueOf(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(index);
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return com.fuwu.mobileim.model.Models.ClientInfo.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final OSType[] VALUES = values();
+
+      public static OSType valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int index;
+      private final int value;
+
+      private OSType(int index, int value) {
+        this.index = index;
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:Com.Fuwu.MobileIM.Model.ClientInfo.OSType)
+    }
+
     private int bitField0_;
     // optional string deviceId = 1;
     public static final int DEVICEID_FIELD_NUMBER = 1;
@@ -27896,19 +28361,19 @@ public final class Models {
       }
     }
 
-    // optional .Com.Fuwu.MobileIM.Model.OSType osType = 2;
+    // optional .Com.Fuwu.MobileIM.Model.ClientInfo.OSType osType = 2;
     public static final int OSTYPE_FIELD_NUMBER = 2;
-    private com.fuwu.mobileim.model.Models.OSType osType_;
+    private com.fuwu.mobileim.model.Models.ClientInfo.OSType osType_;
     /**
-     * <code>optional .Com.Fuwu.MobileIM.Model.OSType osType = 2;</code>
+     * <code>optional .Com.Fuwu.MobileIM.Model.ClientInfo.OSType osType = 2;</code>
      */
     public boolean hasOsType() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
-     * <code>optional .Com.Fuwu.MobileIM.Model.OSType osType = 2;</code>
+     * <code>optional .Com.Fuwu.MobileIM.Model.ClientInfo.OSType osType = 2;</code>
      */
-    public com.fuwu.mobileim.model.Models.OSType getOsType() {
+    public com.fuwu.mobileim.model.Models.ClientInfo.OSType getOsType() {
       return osType_;
     }
 
@@ -28048,7 +28513,7 @@ public final class Models {
 
     private void initFields() {
       deviceId_ = "";
-      osType_ = com.fuwu.mobileim.model.Models.OSType.Others;
+      osType_ = com.fuwu.mobileim.model.Models.ClientInfo.OSType.Others;
       oSVersion_ = "";
       userId_ = 0;
       channel_ = 0;
@@ -28243,7 +28708,7 @@ public final class Models {
         super.clear();
         deviceId_ = "";
         bitField0_ = (bitField0_ & ~0x00000001);
-        osType_ = com.fuwu.mobileim.model.Models.OSType.Others;
+        osType_ = com.fuwu.mobileim.model.Models.ClientInfo.OSType.Others;
         bitField0_ = (bitField0_ & ~0x00000002);
         oSVersion_ = "";
         bitField0_ = (bitField0_ & ~0x00000004);
@@ -28455,24 +28920,24 @@ public final class Models {
         return this;
       }
 
-      // optional .Com.Fuwu.MobileIM.Model.OSType osType = 2;
-      private com.fuwu.mobileim.model.Models.OSType osType_ = com.fuwu.mobileim.model.Models.OSType.Others;
+      // optional .Com.Fuwu.MobileIM.Model.ClientInfo.OSType osType = 2;
+      private com.fuwu.mobileim.model.Models.ClientInfo.OSType osType_ = com.fuwu.mobileim.model.Models.ClientInfo.OSType.Others;
       /**
-       * <code>optional .Com.Fuwu.MobileIM.Model.OSType osType = 2;</code>
+       * <code>optional .Com.Fuwu.MobileIM.Model.ClientInfo.OSType osType = 2;</code>
        */
       public boolean hasOsType() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
-       * <code>optional .Com.Fuwu.MobileIM.Model.OSType osType = 2;</code>
+       * <code>optional .Com.Fuwu.MobileIM.Model.ClientInfo.OSType osType = 2;</code>
        */
-      public com.fuwu.mobileim.model.Models.OSType getOsType() {
+      public com.fuwu.mobileim.model.Models.ClientInfo.OSType getOsType() {
         return osType_;
       }
       /**
-       * <code>optional .Com.Fuwu.MobileIM.Model.OSType osType = 2;</code>
+       * <code>optional .Com.Fuwu.MobileIM.Model.ClientInfo.OSType osType = 2;</code>
        */
-      public Builder setOsType(com.fuwu.mobileim.model.Models.OSType value) {
+      public Builder setOsType(com.fuwu.mobileim.model.Models.ClientInfo.OSType value) {
         if (value == null) {
           throw new NullPointerException();
         }
@@ -28482,11 +28947,11 @@ public final class Models {
         return this;
       }
       /**
-       * <code>optional .Com.Fuwu.MobileIM.Model.OSType osType = 2;</code>
+       * <code>optional .Com.Fuwu.MobileIM.Model.ClientInfo.OSType osType = 2;</code>
        */
       public Builder clearOsType() {
         bitField0_ = (bitField0_ & ~0x00000002);
-        osType_ = com.fuwu.mobileim.model.Models.OSType.Others;
+        osType_ = com.fuwu.mobileim.model.Models.ClientInfo.OSType.Others;
         onChanged();
         return this;
       }
@@ -29555,6 +30020,16 @@ public final class Models {
      */
     com.google.protobuf.ByteString
         getClientUrlBytes();
+
+    // optional bool hasNewVersion = 6;
+    /**
+     * <code>optional bool hasNewVersion = 6;</code>
+     */
+    boolean hasHasNewVersion();
+    /**
+     * <code>optional bool hasNewVersion = 6;</code>
+     */
+    boolean getHasNewVersion();
   }
   /**
    * Protobuf type {@code Com.Fuwu.MobileIM.Model.ClientInfoResponse}
@@ -29636,6 +30111,11 @@ public final class Models {
             case 42: {
               bitField0_ |= 0x00000010;
               clientUrl_ = input.readBytes();
+              break;
+            }
+            case 48: {
+              bitField0_ |= 0x00000020;
+              hasNewVersion_ = input.readBool();
               break;
             }
           }
@@ -29903,12 +30383,29 @@ public final class Models {
       }
     }
 
+    // optional bool hasNewVersion = 6;
+    public static final int HASNEWVERSION_FIELD_NUMBER = 6;
+    private boolean hasNewVersion_;
+    /**
+     * <code>optional bool hasNewVersion = 6;</code>
+     */
+    public boolean hasHasNewVersion() {
+      return ((bitField0_ & 0x00000020) == 0x00000020);
+    }
+    /**
+     * <code>optional bool hasNewVersion = 6;</code>
+     */
+    public boolean getHasNewVersion() {
+      return hasNewVersion_;
+    }
+
     private void initFields() {
       isSucceed_ = false;
       errorCode_ = com.fuwu.mobileim.model.Models.ClientInfoResponse.ErrorCodeType.InvalidUserId;
       isNewVersionRequired_ = false;
       newClientVersion_ = "";
       clientUrl_ = "";
+      hasNewVersion_ = false;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -29936,6 +30433,9 @@ public final class Models {
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         output.writeBytes(5, getClientUrlBytes());
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        output.writeBool(6, hasNewVersion_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -29965,6 +30465,10 @@ public final class Models {
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(5, getClientUrlBytes());
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(6, hasNewVersion_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -30092,6 +30596,8 @@ public final class Models {
         bitField0_ = (bitField0_ & ~0x00000008);
         clientUrl_ = "";
         bitField0_ = (bitField0_ & ~0x00000010);
+        hasNewVersion_ = false;
+        bitField0_ = (bitField0_ & ~0x00000020);
         return this;
       }
 
@@ -30140,6 +30646,10 @@ public final class Models {
           to_bitField0_ |= 0x00000010;
         }
         result.clientUrl_ = clientUrl_;
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000020;
+        }
+        result.hasNewVersion_ = hasNewVersion_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -30174,6 +30684,9 @@ public final class Models {
           bitField0_ |= 0x00000010;
           clientUrl_ = other.clientUrl_;
           onChanged();
+        }
+        if (other.hasHasNewVersion()) {
+          setHasNewVersion(other.getHasNewVersion());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -30452,6 +30965,39 @@ public final class Models {
         return this;
       }
 
+      // optional bool hasNewVersion = 6;
+      private boolean hasNewVersion_ ;
+      /**
+       * <code>optional bool hasNewVersion = 6;</code>
+       */
+      public boolean hasHasNewVersion() {
+        return ((bitField0_ & 0x00000020) == 0x00000020);
+      }
+      /**
+       * <code>optional bool hasNewVersion = 6;</code>
+       */
+      public boolean getHasNewVersion() {
+        return hasNewVersion_;
+      }
+      /**
+       * <code>optional bool hasNewVersion = 6;</code>
+       */
+      public Builder setHasNewVersion(boolean value) {
+        bitField0_ |= 0x00000020;
+        hasNewVersion_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional bool hasNewVersion = 6;</code>
+       */
+      public Builder clearHasNewVersion() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        hasNewVersion_ = false;
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:Com.Fuwu.MobileIM.Model.ClientInfoResponse)
     }
 
@@ -30702,92 +31248,96 @@ public final class Models {
       "equest\022\r\n\005token\030\001 \001(\t\022\016\n\006userId\030\002 \001(\005\"W\n" +
       "\017ProfileResponse\022\021\n\tisSucceed\030\001 \001(\010\0221\n\007p" +
       "rofile\030\002 \001(\0132 .Com.Fuwu.MobileIM.Model.P" +
-      "rofile\"l\n\024ChangeProfileRequest\022\r\n\005token\030" +
+      "rofile\"~\n\024ChangeProfileRequest\022\r\n\005token\030" +
       "\001 \001(\t\022\016\n\006userId\030\002 \001(\005\022\021\n\tsignature\030\003 \001(\t" +
-      "\022\r\n\005tiles\030\004 \001(\014\022\023\n\013contentType\030\005 \001(\t\"]\n\025" +
-      "ChangeProfileResponse\022\021\n\tisSucceed\030\001 \001(\010" +
-      "\0221\n\007profile\030\002 \001(\0132 .Com.Fuwu.MobileIM.Mo",
-      "del.Profile\"\315\001\n\007Message\022\016\n\006userId\030\001 \001(\005\022" +
-      "\021\n\tcontactId\030\002 \001(\005\022A\n\013contentType\030\003 \001(\0162" +
-      ",.Com.Fuwu.MobileIM.Model.Message.Conten" +
-      "tType\022\017\n\007content\030\004 \001(\t\022\020\n\010sendTime\030\005 \001(\t" +
-      "\022\025\n\rbinaryContent\030\006 \001(\014\"\"\n\013ContentType\022\010" +
-      "\n\004Text\020\000\022\t\n\005Image\020\001\"T\n\013MessageList\022\021\n\tco" +
-      "ntactId\030\001 \001(\005\0222\n\010messages\030\002 \003(\0132 .Com.Fu" +
-      "wu.MobileIM.Model.Message\"B\n\016MessageRequ" +
-      "est\022\r\n\005token\030\001 \001(\t\022\016\n\006userId\030\002 \001(\005\022\021\n\tti" +
-      "meStamp\030\003 \001(\t\"s\n\017MessageResponse\022\021\n\tisSu",
-      "cceed\030\001 \001(\010\022:\n\014messageLists\030\002 \003(\0132$.Com." +
-      "Fuwu.MobileIM.Model.MessageList\022\021\n\ttimeS" +
-      "tamp\030\003 \001(\t\"f\n\022SendMessageRequest\022\r\n\005toke" +
-      "n\030\001 \001(\t\022\016\n\006userId\030\002 \001(\005\0221\n\007message\030\003 \001(\013" +
-      "2 .Com.Fuwu.MobileIM.Model.Message\"M\n\023Se" +
-      "ndMessageResponse\022\021\n\tisSucceed\030\001 \001(\010\022\020\n\010" +
-      "sendTime\030\002 \001(\t\022\021\n\terrorCode\030\003 \001(\005\"m\n\017Reg" +
-      "isterRequest\022\031\n\021mobilePhoneNumber\030\001 \001(\t\022" +
-      "\020\n\010password\030\002 \001(\t\022\027\n\017passwordConfirm\030\003 \001" +
-      "(\t\022\024\n\014validateCode\030\004 \001(\t\"\336\002\n\020RegisterRes",
-      "ponse\022\021\n\tisSucceed\030\001 \001(\010\022\016\n\006userId\030\002 \001(\005" +
-      "\022\r\n\005token\030\003 \001(\t\022J\n\terrorCode\030\004 \001(\01627.Com" +
-      ".Fuwu.MobileIM.Model.RegisterResponse.Er" +
-      "rorCodeType\"\313\001\n\rErrorCodeType\022\016\n\nBadRequ" +
-      "est\020\001\022\023\n\017InvalidDatabase\020\002\022\034\n\030InvalidMob" +
-      "ilePhoneNumber\020\003\022\023\n\017ExistingUserYes\020\004\022\023\n" +
-      "\017InvalidPassword\020\005\022\032\n\026InvalidConfirmPass" +
-      "word\020\006\022\030\n\024InvalidMatchPassword\020\007\022\027\n\023Inva" +
-      "lidValidateCode\020\010\"\221\001\n\025ChangePasswordRequ" +
-      "est\022\r\n\005token\030\001 \001(\t\022\016\n\006userId\030\002 \001(\005\022\024\n\014va",
-      "lidateCode\030\003 \001(\t\022\030\n\020originalPassword\030\004 \001" +
-      "(\t\022\020\n\010password\030\005 \001(\t\022\027\n\017passwordConfirm\030" +
-      "\006 \001(\t\"\377\002\n\026ChangePasswordResponse\022\021\n\tisSu" +
-      "cceed\030\001 \001(\010\022P\n\terrorCode\030\002 \001(\0162=.Com.Fuw" +
-      "u.MobileIM.Model.ChangePasswordResponse." +
-      "ErrorCodeType\"\377\001\n\rErrorCodeType\022\016\n\nBadRe" +
-      "quest\020\001\022\021\n\rInvalidUserId\020\002\022\020\n\014InvalidTok" +
-      "en\020\003\022\017\n\013InvalidUser\020\004\022\023\n\017InvalidDatabase" +
-      "\020\005\022\022\n\016ExistingUserNo\020\006\022\033\n\027InvalidOrigina" +
-      "lPassword\020\007\022\023\n\017InvalidPassword\020\010\022\032\n\026Inva",
-      "lidConfirmPassword\020\t\022\030\n\024InvalidMatchPass" +
-      "word\020\n\022\027\n\023InvalidValidateCode\020\013\"l\n\024Reset" +
-      "PasswordRequest\022\023\n\013phoneNumber\030\001 \001(\t\022\024\n\014" +
-      "validateCode\030\002 \001(\t\022\020\n\010password\030\003 \001(\t\022\027\n\017" +
-      "passwordConfirm\030\004 \001(\t\"\302\002\n\025ResetPasswordR" +
-      "esponse\022\021\n\tisSucceed\030\001 \001(\010\022O\n\terrorCode\030" +
-      "\002 \001(\0162<.Com.Fuwu.MobileIM.Model.ResetPas" +
-      "swordResponse.ErrorCodeType\"\304\001\n\rErrorCod" +
-      "eType\022\016\n\nBadRequest\020\001\022\023\n\017InvalidDatabase" +
-      "\020\002\022\026\n\022InvalidPhoneNumber\020\003\022\023\n\017InvalidPas",
-      "sword\020\004\022\032\n\026InvalidPasswordConfirm\020\005\022\030\n\024I" +
-      "nvalidMatchPassword\020\006\022\027\n\023InvalidValidate" +
-      "Code\020\007\022\022\n\016ExistingUserNo\020\010\"\270\001\n\023ValidateC" +
-      "odeRequest\022\023\n\013phoneNumber\030\001 \001(\t\022G\n\004type\030" +
-      "\002 \001(\01629.Com.Fuwu.MobileIM.Model.Validate" +
-      "CodeRequest.ValidateType\"C\n\014ValidateType" +
-      "\022\014\n\010Register\020\001\022\022\n\016ChangePassword\020\002\022\021\n\rRe" +
-      "setPassword\020\003\"\212\002\n\024ValidateCodeResponse\022\021" +
-      "\n\tisSucceed\030\001 \001(\010\022N\n\terrorCode\030\002 \001(\0162;.C" +
-      "om.Fuwu.MobileIM.Model.ValidateCodeRespo",
-      "nse.ErrorCodeType\"\216\001\n\rErrorCodeType\022\016\n\nB" +
-      "adRequest\020\001\022\026\n\022InvalidPhoneNumber\020\002\022\017\n\013I" +
-      "nvalidType\020\003\022\023\n\017ExistingUserYes\020\004\022\022\n\016Exi" +
-      "stingUserNo\020\005\022\014\n\010LockTime\020\006\022\r\n\tSendError" +
-      "\020\007\"\260\001\n\nClientInfo\022\020\n\010deviceId\030\001 \001(\t\022/\n\006o" +
-      "sType\030\002 \001(\0162\037.Com.Fuwu.MobileIM.Model.OS" +
-      "Type\022\021\n\tOSVersion\030\003 \001(\t\022\016\n\006userId\030\004 \001(\005\022" +
-      "\017\n\007channel\030\005 \001(\005\022\025\n\rclientVersion\030\006 \001(\t\022" +
-      "\024\n\014isPushEnable\030\007 \001(\010\"k\n\021ClientInfoReque" +
-      "st\022\016\n\006userId\030\001 \001(\005\022\r\n\005token\030\002 \001(\t\0227\n\ncli",
-      "entInfo\030\003 \001(\0132#.Com.Fuwu.MobileIM.Model." +
-      "ClientInfo\"\205\002\n\022ClientInfoResponse\022\021\n\tisS" +
-      "ucceed\030\001 \001(\010\022L\n\terrorCode\030\002 \001(\01629.Com.Fu" +
-      "wu.MobileIM.Model.ClientInfoResponse.Err" +
-      "orCodeType\022\034\n\024isNewVersionRequired\030\003 \001(\010" +
-      "\022\030\n\020newClientVersion\030\004 \001(\t\022\021\n\tclientUrl\030" +
-      "\005 \001(\t\"C\n\rErrorCodeType\022\021\n\rInvalidUserId\020" +
-      "\001\022\020\n\014InvalidToken\020\002\022\r\n\tAuthError\020\003*I\n\006OS" +
-      "Type\022\n\n\006Others\020\000\022\007\n\003IOS\020\001\022\013\n\007Android\020\002\022\020" +
-      "\n\014WindowsPhone\020\003\022\013\n\007Symbian\020\004B\031\n\027com.fuw",
-      "u.mobileim.model"
+      "\022\r\n\005tiles\030\004 \001(\014\022\023\n\013contentType\030\005 \001(\t\022\020\n\010" +
+      "nickName\030\006 \001(\t\"]\n\025ChangeProfileResponse\022" +
+      "\021\n\tisSucceed\030\001 \001(\010\0221\n\007profile\030\002 \001(\0132 .Co",
+      "m.Fuwu.MobileIM.Model.Profile\"\264\002\n\007Messag" +
+      "e\022\016\n\006userId\030\001 \001(\005\022\021\n\tcontactId\030\002 \001(\005\022A\n\013" +
+      "contentType\030\003 \001(\0162,.Com.Fuwu.MobileIM.Mo" +
+      "del.Message.ContentType\022\017\n\007content\030\004 \001(\t" +
+      "\022\020\n\010sendTime\030\005 \001(\t\022=\n\timageType\030\006 \001(\0162*." +
+      "Com.Fuwu.MobileIM.Model.Message.ImageTyp" +
+      "e\022\025\n\rbinaryContent\030\007 \001(\014\"\"\n\013ContentType\022" +
+      "\010\n\004Text\020\000\022\t\n\005Image\020\001\"&\n\tImageType\022\007\n\003JPG" +
+      "\020\000\022\007\n\003PNG\020\001\022\007\n\003GIF\020\002\"T\n\013MessageList\022\021\n\tc" +
+      "ontactId\030\001 \001(\005\0222\n\010messages\030\002 \003(\0132 .Com.F",
+      "uwu.MobileIM.Model.Message\"B\n\016MessageReq" +
+      "uest\022\r\n\005token\030\001 \001(\t\022\016\n\006userId\030\002 \001(\005\022\021\n\tt" +
+      "imeStamp\030\003 \001(\t\"s\n\017MessageResponse\022\021\n\tisS" +
+      "ucceed\030\001 \001(\010\022:\n\014messageLists\030\002 \003(\0132$.Com" +
+      ".Fuwu.MobileIM.Model.MessageList\022\021\n\ttime" +
+      "Stamp\030\003 \001(\t\"f\n\022SendMessageRequest\022\r\n\005tok" +
+      "en\030\001 \001(\t\022\016\n\006userId\030\002 \001(\005\0221\n\007message\030\003 \001(" +
+      "\0132 .Com.Fuwu.MobileIM.Model.Message\"M\n\023S" +
+      "endMessageResponse\022\021\n\tisSucceed\030\001 \001(\010\022\020\n" +
+      "\010sendTime\030\002 \001(\t\022\021\n\terrorCode\030\003 \001(\005\"m\n\017Re",
+      "gisterRequest\022\031\n\021mobilePhoneNumber\030\001 \001(\t" +
+      "\022\020\n\010password\030\002 \001(\t\022\027\n\017passwordConfirm\030\003 " +
+      "\001(\t\022\024\n\014validateCode\030\004 \001(\t\"\336\002\n\020RegisterRe" +
+      "sponse\022\021\n\tisSucceed\030\001 \001(\010\022\016\n\006userId\030\002 \001(" +
+      "\005\022\r\n\005token\030\003 \001(\t\022J\n\terrorCode\030\004 \001(\01627.Co" +
+      "m.Fuwu.MobileIM.Model.RegisterResponse.E" +
+      "rrorCodeType\"\313\001\n\rErrorCodeType\022\016\n\nBadReq" +
+      "uest\020\001\022\023\n\017InvalidDatabase\020\002\022\034\n\030InvalidMo" +
+      "bilePhoneNumber\020\003\022\023\n\017ExistingUserYes\020\004\022\023" +
+      "\n\017InvalidPassword\020\005\022\032\n\026InvalidConfirmPas",
+      "sword\020\006\022\030\n\024InvalidMatchPassword\020\007\022\027\n\023Inv" +
+      "alidValidateCode\020\010\"\221\001\n\025ChangePasswordReq" +
+      "uest\022\r\n\005token\030\001 \001(\t\022\016\n\006userId\030\002 \001(\005\022\024\n\014v" +
+      "alidateCode\030\003 \001(\t\022\030\n\020originalPassword\030\004 " +
+      "\001(\t\022\020\n\010password\030\005 \001(\t\022\027\n\017passwordConfirm" +
+      "\030\006 \001(\t\"\377\002\n\026ChangePasswordResponse\022\021\n\tisS" +
+      "ucceed\030\001 \001(\010\022P\n\terrorCode\030\002 \001(\0162=.Com.Fu" +
+      "wu.MobileIM.Model.ChangePasswordResponse" +
+      ".ErrorCodeType\"\377\001\n\rErrorCodeType\022\016\n\nBadR" +
+      "equest\020\001\022\021\n\rInvalidUserId\020\002\022\020\n\014InvalidTo",
+      "ken\020\003\022\017\n\013InvalidUser\020\004\022\023\n\017InvalidDatabas" +
+      "e\020\005\022\022\n\016ExistingUserNo\020\006\022\033\n\027InvalidOrigin" +
+      "alPassword\020\007\022\023\n\017InvalidPassword\020\010\022\032\n\026Inv" +
+      "alidConfirmPassword\020\t\022\030\n\024InvalidMatchPas" +
+      "sword\020\n\022\027\n\023InvalidValidateCode\020\013\"l\n\024Rese" +
+      "tPasswordRequest\022\023\n\013phoneNumber\030\001 \001(\t\022\024\n" +
+      "\014validateCode\030\002 \001(\t\022\020\n\010password\030\003 \001(\t\022\027\n" +
+      "\017passwordConfirm\030\004 \001(\t\"\302\002\n\025ResetPassword" +
+      "Response\022\021\n\tisSucceed\030\001 \001(\010\022O\n\terrorCode" +
+      "\030\002 \001(\0162<.Com.Fuwu.MobileIM.Model.ResetPa",
+      "sswordResponse.ErrorCodeType\"\304\001\n\rErrorCo" +
+      "deType\022\016\n\nBadRequest\020\001\022\023\n\017InvalidDatabas" +
+      "e\020\002\022\026\n\022InvalidPhoneNumber\020\003\022\023\n\017InvalidPa" +
+      "ssword\020\004\022\032\n\026InvalidPasswordConfirm\020\005\022\030\n\024" +
+      "InvalidMatchPassword\020\006\022\027\n\023InvalidValidat" +
+      "eCode\020\007\022\022\n\016ExistingUserNo\020\010\"\270\001\n\023Validate" +
+      "CodeRequest\022\023\n\013phoneNumber\030\001 \001(\t\022G\n\004type" +
+      "\030\002 \001(\01629.Com.Fuwu.MobileIM.Model.Validat" +
+      "eCodeRequest.ValidateType\"C\n\014ValidateTyp" +
+      "e\022\014\n\010Register\020\001\022\022\n\016ChangePassword\020\002\022\021\n\rR",
+      "esetPassword\020\003\"\212\002\n\024ValidateCodeResponse\022" +
+      "\021\n\tisSucceed\030\001 \001(\010\022N\n\terrorCode\030\002 \001(\0162;." +
+      "Com.Fuwu.MobileIM.Model.ValidateCodeResp" +
+      "onse.ErrorCodeType\"\216\001\n\rErrorCodeType\022\016\n\n" +
+      "BadRequest\020\001\022\026\n\022InvalidPhoneNumber\020\002\022\017\n\013" +
+      "InvalidType\020\003\022\023\n\017ExistingUserYes\020\004\022\022\n\016Ex" +
+      "istingUserNo\020\005\022\014\n\010LockTime\020\006\022\r\n\tSendErro" +
+      "r\020\007\"\206\002\n\nClientInfo\022\020\n\010deviceId\030\001 \001(\t\022:\n\006" +
+      "osType\030\002 \001(\0162*.Com.Fuwu.MobileIM.Model.C" +
+      "lientInfo.OSType\022\021\n\tOSVersion\030\003 \001(\t\022\016\n\006u",
+      "serId\030\004 \001(\005\022\017\n\007channel\030\005 \001(\005\022\025\n\rclientVe" +
+      "rsion\030\006 \001(\t\022\024\n\014isPushEnable\030\007 \001(\010\"I\n\006OST" +
+      "ype\022\n\n\006Others\020\000\022\007\n\003IOS\020\001\022\013\n\007Android\020\002\022\020\n" +
+      "\014WindowsPhone\020\003\022\013\n\007Symbian\020\004\"k\n\021ClientIn" +
+      "foRequest\022\016\n\006userId\030\001 \001(\005\022\r\n\005token\030\002 \001(\t" +
+      "\0227\n\nclientInfo\030\003 \001(\0132#.Com.Fuwu.MobileIM" +
+      ".Model.ClientInfo\"\234\002\n\022ClientInfoResponse" +
+      "\022\021\n\tisSucceed\030\001 \001(\010\022L\n\terrorCode\030\002 \001(\01629" +
+      ".Com.Fuwu.MobileIM.Model.ClientInfoRespo" +
+      "nse.ErrorCodeType\022\034\n\024isNewVersionRequire",
+      "d\030\003 \001(\010\022\030\n\020newClientVersion\030\004 \001(\t\022\021\n\tcli" +
+      "entUrl\030\005 \001(\t\022\025\n\rhasNewVersion\030\006 \001(\010\"C\n\rE" +
+      "rrorCodeType\022\021\n\rInvalidUserId\020\001\022\020\n\014Inval" +
+      "idToken\020\002\022\r\n\tAuthError\020\003B\031\n\027com.fuwu.mob" +
+      "ileim.model"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -30895,7 +31445,7 @@ public final class Models {
           internal_static_Com_Fuwu_MobileIM_Model_ChangeProfileRequest_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_Com_Fuwu_MobileIM_Model_ChangeProfileRequest_descriptor,
-              new java.lang.String[] { "Token", "UserId", "Signature", "Tiles", "ContentType", });
+              new java.lang.String[] { "Token", "UserId", "Signature", "Tiles", "ContentType", "NickName", });
           internal_static_Com_Fuwu_MobileIM_Model_ChangeProfileResponse_descriptor =
             getDescriptor().getMessageTypes().get(17);
           internal_static_Com_Fuwu_MobileIM_Model_ChangeProfileResponse_fieldAccessorTable = new
@@ -30907,7 +31457,7 @@ public final class Models {
           internal_static_Com_Fuwu_MobileIM_Model_Message_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_Com_Fuwu_MobileIM_Model_Message_descriptor,
-              new java.lang.String[] { "UserId", "ContactId", "ContentType", "Content", "SendTime", "BinaryContent", });
+              new java.lang.String[] { "UserId", "ContactId", "ContentType", "Content", "SendTime", "ImageType", "BinaryContent", });
           internal_static_Com_Fuwu_MobileIM_Model_MessageList_descriptor =
             getDescriptor().getMessageTypes().get(19);
           internal_static_Com_Fuwu_MobileIM_Model_MessageList_fieldAccessorTable = new
@@ -31003,7 +31553,7 @@ public final class Models {
           internal_static_Com_Fuwu_MobileIM_Model_ClientInfoResponse_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_Com_Fuwu_MobileIM_Model_ClientInfoResponse_descriptor,
-              new java.lang.String[] { "IsSucceed", "ErrorCode", "IsNewVersionRequired", "NewClientVersion", "ClientUrl", });
+              new java.lang.String[] { "IsSucceed", "ErrorCode", "IsNewVersionRequired", "NewClientVersion", "ClientUrl", "HasNewVersion", });
           return null;
         }
       };

@@ -454,8 +454,8 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			buttonNumber = 0;
 			setButtonColor(buttonNumber);
 			xListView.setVisibility(View.VISIBLE);
-			// List<ContactPojo> contactsList = fxApplication.getContactsList();
-			// Collections.sort(contactsList, pinyinComparator);
+			 List<ContactPojo> contactsList = fxApplication.getContactsList();
+			 Collections.sort(contactsList, pinyinComparator);
 			adapter = new ContactAdapter(getActivity(), contactsList, 1);
 			xListView.setAdapter(adapter);
 			sortListView.setVisibility(View.GONE);
