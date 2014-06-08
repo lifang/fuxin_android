@@ -33,7 +33,6 @@ public class FxApplication extends Application {
 	private static FxApplication mApplication;
 	private List<ContactPojo> contactsList = new ArrayList<ContactPojo>();
 	@SuppressLint("UseSparseArrays")
-	private Map<Integer, ContactPojo> contactsMap = new HashMap<Integer, ContactPojo>();
 	private int user_id;
 	private String token;
 	private ProfilePojo profilePojo = new ProfilePojo();
@@ -46,7 +45,6 @@ public class FxApplication extends Application {
 
 	public void initData() {
 		contactsList = new ArrayList<ContactPojo>();
-		contactsMap = new HashMap<Integer, ContactPojo>();
 		profilePojo= new ProfilePojo();
 	}
 	public FxApplication() {
@@ -112,13 +110,6 @@ public class FxApplication extends Application {
 		this.contactsList = contactsList;
 	}
 
-	public Map<Integer, ContactPojo> getContactsMap() {
-		return contactsMap;
-	}
-
-	public void setContactsMap(Map<Integer, ContactPojo> contactsMap) {
-		this.contactsMap = contactsMap;
-	}
 
 	public Map<String, Integer> getFaceMap() {
 		if (!mFaceMap.isEmpty())

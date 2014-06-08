@@ -122,10 +122,24 @@ public class DBManager {
 		boolean flag = true;
 		db.beginTransaction();
 		try {
-				db.execSQL("DELETE FROM contact WHERE contactId = "
-						+ mp.getContactId()+" and userId = " + userId);
-				addContact(userId,mp);
-				db.setTransactionSuccessful();
+			db.execSQL("DELETE FROM contact WHERE contactId = "
+					+ mp.getContactId() + " and userId = " + userId);
+			addContact(userId, mp);
+			db.setTransactionSuccessful();
+		} finally {
+			db.endTransaction();
+		}
+		return flag;
+	}
+
+	public boolean modifyContactBlock(int isblocked,int userId, int contactId) {
+		boolean flag = true;
+		db.beginTransaction();
+		try {
+			db.execSQL(
+					"update from  contact set  isBlocked = ?  WHERE userId = ? and contactId = ?",
+					new Object[] { isblocked,userId, contactId });
+			db.setTransactionSuccessful();
 		} finally {
 			db.endTransaction();
 		}

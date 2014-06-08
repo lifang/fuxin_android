@@ -30,6 +30,7 @@ import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.model.Models.BlockContactRequest;
 import com.fuwu.mobileim.model.Models.BlockContactResponse;
 import com.fuwu.mobileim.pojo.ContactPojo;
+import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
@@ -37,6 +38,7 @@ import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CircularImage;
 
 public class BlockManagementActivity extends Activity {
+	private DBManager db;
 	private ProgressDialog prodialog;
 	private int index = -1;
 	private ListView mListView;
@@ -53,6 +55,10 @@ public class BlockManagementActivity extends Activity {
 			switch (msg.what) {
 			case 0:
 				prodialog.dismiss();
+				db = new DBManager(BlockManagementActivity.this);
+				if (!db.isOpen()) {
+					db = new DBManager(BlockManagementActivity.this);
+				}
 				Toast.makeText(getApplicationContext(), "恢复成功",
 						Toast.LENGTH_SHORT).show();
 				list.remove(index);
@@ -61,13 +67,11 @@ public class BlockManagementActivity extends Activity {
 							.get(index).getContactId()) {
 						fxApplication.getContactsList().get(i)
 								.setIsBlocked(0);
+						db.modifyContactBlock(0,fxApplication.getUser_id(),
+								fxApplication.getContactsList().get(i).getContactId());
 					}
 					break;
 				}
-				/*
-				 * 
-				 * 更新到数据库！！！！！！
-				 */
 				clvAdapter.notifyDataSetChanged();
 				break;
 			case 1:
@@ -76,19 +80,21 @@ public class BlockManagementActivity extends Activity {
 						Toast.LENGTH_SHORT).show();
 				break;
 			case 2:
+				db = new DBManager(BlockManagementActivity.this);
+				if (!db.isOpen()) {
+					db = new DBManager(BlockManagementActivity.this);
+				}
 				list.remove(index);
 				for (int i = 0; i < fxApplication.getContactsList().size(); i++) {
 					if (fxApplication.getContactsList().get(i).getContactId() == list
 							.get(index).getContactId()) {
 						fxApplication.getContactsList().get(i)
 								.setIsBlocked(0);
+						db.modifyContactBlock(0,fxApplication.getUser_id(),
+								fxApplication.getContactsList().get(i).getContactId());
 					}
 					break;
 				}
-				/*
-				 * 
-				 * 更新到数据库！！！！！！
-				 */
 				clvAdapter.notifyDataSetChanged();
 				break;
 			case 6:
@@ -111,12 +117,16 @@ public class BlockManagementActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.block_management);
 		fxApplication = (FxApplication) getApplication();
+		db = new DBManager(this);
 		// 获得被屏蔽的联系人
-		for (int i = 0; i < fxApplication.getContactsList().size(); i++) {
-			if (fxApplication.getContactsList().get(i).getIsBlocked()==1) {
-				list.add(fxApplication.getContactsList().get(i));
+		List<ContactPojo> contactsList = db.queryContactList(fxApplication.getUser_id());
+		fxApplication.setContactsList(contactsList);
+		for (int i = 0; i <contactsList.size(); i++) {
+			if (contactsList.get(i).getIsBlocked()==1) {
+				list.add(contactsList.get(i));
 			}
 		}
+		
 		block_management_back = (ImageButton) findViewById(R.id.block_management_back);
 		mListView = (ListView) findViewById(R.id.block_management_listView);
 		mListView.setDivider(null);

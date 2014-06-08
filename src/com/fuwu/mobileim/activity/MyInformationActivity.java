@@ -226,7 +226,7 @@ public class MyInformationActivity extends Activity {
 				if (buf != null) {
 					// optional bytes tiles = 4; //头像
 					// optional string contentType = 5; //图片类型
-					builder.setContentType("JPEG");
+					builder.setContentType("jpg");
 					builder.setTiles(ByteString.copyFrom(buf));
 				}
 				ChangeProfileRequest response = builder.build();
