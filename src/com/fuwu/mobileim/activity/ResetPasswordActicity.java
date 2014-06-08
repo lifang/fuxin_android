@@ -1,8 +1,5 @@
 package com.fuwu.mobileim.activity;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -49,10 +46,7 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 	private RelativeLayout view;
 	private Button over;
 	public Intent intent = new Intent();
-	private Timer timer;
-	public int time = 180;
 	private RelativeLayout validate_time;
-	private boolean validate_boolean = false;
 	private FxApplication fx;
 	@SuppressLint("HandlerLeak")
 	private String error_code;
@@ -68,8 +62,16 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 				showLoginDialog();
 				break;
 			case 3:
-				Toast.makeText(ResetPasswordActicity.this, "短信发送失败,请重试",
-						Toast.LENGTH_SHORT).show();
+				if (!error_code.equals("")) {
+					String errorString = fx.ValidateCode.get(error_code);
+					if (errorString == null) {
+						Toast.makeText(ResetPasswordActicity.this,
+								"短信发送失败,请重试", Toast.LENGTH_SHORT).show();
+					} else {
+						Toast.makeText(ResetPasswordActicity.this, errorString,
+								Toast.LENGTH_SHORT).show();
+					}
+				}
 				break;
 			case 4:
 				if (!error_code.equals("")) {
@@ -100,7 +102,6 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 
 	// 初始化
 	public void initialize() {
-		timer = new Timer();
 		findViewById(R.id.exit).setOnClickListener(this);
 		pwd_text = (EditText) findViewById(R.id.pwd);
 		pwds_text = (EditText) findViewById(R.id.pwds);
@@ -145,6 +146,7 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 	class ValidateCode_Post implements Runnable {
 		public void run() {
 			try {
+				handler.sendEmptyMessage(0);
 				ValidateCodeRequest.Builder builder = ValidateCodeRequest
 						.newBuilder();
 				builder.setPhoneNumber(phone_text.getText().toString());
@@ -153,17 +155,8 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 				ValidateCodeResponse response = ValidateCodeResponse
 						.parseFrom(HttpUtil.sendHttps(request.toByteArray(),
 								Urlinterface.ValidateCode, "POST"));
-				if (response.getIsSucceed()) {
-					validate_boolean = false;
-					if (time != 180) {
-						time = 180;
-					} else {
-						timer.schedule(timerTask, 1000, 1000);
-					}
-					handler.sendEmptyMessage(0);
-				} else {
-					validate_boolean = true;
-					Log.i("Max", response.getErrorCode() + "");
+				if (!response.getIsSucceed()) {
+					error_code = response.getErrorCode().toString();
 					handler.sendEmptyMessage(3);
 				}
 			} catch (InvalidProtocolBufferException e) {
@@ -197,19 +190,6 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 			}
 		}
 	}
-
-	// TimerTask是个抽象类,实现了Runnable接口，所以TimerTask就是一个子线程
-	TimerTask timerTask = new TimerTask() {
-		// 倒数10秒
-		public void run() {
-			// 定义一个消息传过去
-			time--;
-			if (time < 0) {
-				validate_boolean = true;
-				timer.cancel();
-			}
-		}
-	};
 
 	public void regist_btnOver() {
 		if (judge()) {
@@ -267,12 +247,7 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 				Toast.makeText(ResetPasswordActicity.this, "请先填写手机号码",
 						Toast.LENGTH_SHORT).show();
 			} else {
-				if (validate_boolean) {
-					new Thread(new ValidateCode_Post()).start();
-				} else {
-					Toast.makeText(ResetPasswordActicity.this,
-							"请等180秒后再次发送验证码", Toast.LENGTH_SHORT).show();
-				}
+				new Thread(new ValidateCode_Post()).start();
 			}
 			break;
 		}
@@ -317,8 +292,7 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 		del.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View arg0) {
 				builder.dismiss();
-				intent.setClass(ResetPasswordActicity.this,
-						FragmengtActivity.class);
+				intent.setClass(ResetPasswordActicity.this, LoginActivity.class);
 				startActivity(intent);
 				ResetPasswordActicity.this.finish();
 			}

@@ -54,7 +54,7 @@
                 android:textSize="18sp" />
 
             <com.fuwu.mobileim.view.SlipButton
-                android:id="@+id/pushsetting_ing"
+                android:id="@+id/pushsetting_sound"
                 android:layout_width="80dp"
                 android:layout_height="50dp"
                 android:layout_alignParentRight="true" />
@@ -82,7 +82,7 @@
                 android:textSize="18sp" />
 
             <com.fuwu.mobileim.view.SlipButton
-                android:id="@+id/pushsetting_sound"
+                android:id="@+id/pushsetting_music"
                 android:layout_width="80dp"
                 android:layout_height="50dp"
                 android:layout_alignParentRight="true" />

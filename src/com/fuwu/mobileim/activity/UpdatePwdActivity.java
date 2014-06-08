@@ -1,8 +1,5 @@
 package com.fuwu.mobileim.activity;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -51,9 +48,6 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 	private Button over;
 	public Intent intent = new Intent();
 	public RelativeLayout validate_time;
-	private Timer timer;
-	public int time = 180;
-	private boolean validate_boolean = false;
 	private TextView old_pwd_tag;
 	private TextView new_pwd_tag;
 	private TextView new_pwds_tag;
@@ -72,8 +66,16 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 				showLoginDialog();
 				break;
 			case 2:
-				Toast.makeText(UpdatePwdActivity.this, "获取短信验证码失败!",
-						Toast.LENGTH_SHORT).show();
+				if (!error_code.equals("")) {
+					String errorString = fx.ValidateCode.get(error_code);
+					if (errorString == null) {
+						Toast.makeText(UpdatePwdActivity.this, "短信发送失败,请重试",
+								Toast.LENGTH_SHORT).show();
+					} else {
+						Toast.makeText(UpdatePwdActivity.this, errorString,
+								Toast.LENGTH_SHORT).show();
+					}
+				}
 				break;
 			case 3:
 				if (!error_code.equals("")) {
@@ -108,7 +110,6 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 
 	// 初始化
 	public void initialize() {
-		timer = new Timer();
 		findViewById(R.id.exit).setOnClickListener(this);
 		old_pwd = (EditText) findViewById(R.id.old_pwd);
 		new_pwd = (EditText) findViewById(R.id.new_pwd);
@@ -140,6 +141,7 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 		public void run() {
 			try {
 				Log.i("Max", "--" + phone_text.getText().toString());
+				handler.sendEmptyMessage(0);
 				ValidateCodeRequest.Builder builder = ValidateCodeRequest
 						.newBuilder();
 				builder.setPhoneNumber(phone_text.getText().toString());
@@ -150,18 +152,8 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 
 				ValidateCodeResponse response = ValidateCodeResponse
 						.parseFrom(httpReturn);
-				if (response.getIsSucceed()) {
-					validate_boolean = false;
-
-					if (time != 180) {
-						time = 180;
-					} else {
-						timer.schedule(timerTask, 1000, 1000);
-					}
-					handler.sendEmptyMessage(0);
-				} else {
-					validate_boolean = true;
-					Log.i("Max", response.getErrorCode() + "");
+				if (!response.getIsSucceed()) {
+					error_code = response.getErrorCode().toString();
 					handler.sendEmptyMessage(2);
 				}
 
@@ -228,19 +220,6 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 		return true;
 	}
 
-	// TimerTask是个抽象类,实现了Runnable接口，所以TimerTask就是一个子线程
-	TimerTask timerTask = new TimerTask() {
-		// 倒数10秒
-		public void run() {
-			// 定义一个消息传过去
-			time--;
-			if (time < 0) {
-				validate_boolean = true;
-				timer.cancel();
-			}
-		}
-	};
-
 	public void onClick(View arg0) {
 		switch (arg0.getId()) {
 		case R.id.exit:
@@ -284,12 +263,7 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 				Toast.makeText(UpdatePwdActivity.this, "请先填写手机号码",
 						Toast.LENGTH_SHORT).show();
 			} else {
-				if (validate_boolean) {
-					new Thread(new ValidateCode_Post()).start();
-				} else {
-					Toast.makeText(UpdatePwdActivity.this, "请等180秒后再次发送验证码",
-							Toast.LENGTH_SHORT).show();
-				}
+				new Thread(new ValidateCode_Post()).start();
 			}
 			break;
 		}

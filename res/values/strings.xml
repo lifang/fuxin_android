@@ -58,6 +58,7 @@
     <string name="edit_null">昵称不能为空！</string>
     <string name="takephoto">拍照上传</string>
     <string name="fromphotostore">从相册选择</string>
+    <string name="agreement_title">服务网用户注册协议</string>
     <string name="no_change">个人信息没有任何变化！</string>
 
 </resources>
