@@ -151,6 +151,20 @@ public class DBManager {
 		return flag;
 	}
 
+	public boolean modifyContactBlock(int isblocked, int userId, int contactId) {
+		boolean flag = true;
+		db.beginTransaction();
+		try {
+			db.execSQL(
+					"update  contact set  isBlocked = ?  WHERE userId = ? and contactId = ?",
+					new Object[] { isblocked, userId, contactId });
+			db.setTransactionSuccessful();
+		} finally {
+			db.endTransaction();
+		}
+		return flag;
+	}
+
 	public List<ContactPojo> queryContactList(int user_id) {
 		ArrayList<ContactPojo> cpList = new ArrayList<ContactPojo>();
 		Cursor c = queryContactCursor(user_id);

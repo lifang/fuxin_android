@@ -1,10 +1,17 @@
 ﻿package com.fuwu.mobileim.activity;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -15,7 +22,9 @@ import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.ContactsContract.Profile;
@@ -30,6 +39,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
@@ -37,6 +47,7 @@ import android.widget.Toast;
 
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.model.Models.ClientInfo;
+import com.fuwu.mobileim.model.Models.ClientInfo.OSType;
 import com.fuwu.mobileim.model.Models.ClientInfoRequest;
 import com.fuwu.mobileim.model.Models.ClientInfoResponse;
 import com.fuwu.mobileim.model.Models.ProfileRequest;
@@ -52,7 +63,7 @@ import com.fuwu.mobileim.view.CircularImage;
  * @作者 丁作强
  * @时间 2014-6-6 下午4:48:35
  */
-public class SettingsActivity extends Fragment {
+public class SettingsActivity extends Fragment implements Urlinterface{
 	private FxApplication fxApplication;
 	private ListView listview;
 	SettingBottomAdapter adapter;
@@ -63,6 +74,14 @@ public class SettingsActivity extends Fragment {
 	private TextView nickName;
 	private ImageView setting_sex_item, certification_one, certification_two,
 			certification_three;
+	/* 更新进度条 */
+	private ProgressBar mProgress;
+	private Dialog DownloadDialog;
+	private boolean cancelUpdate = false;
+	/* 下载保存路径 */
+	private String SavePath;
+	/* 记录进度条数量 */
+	private int progress;
 	private Handler handler = new Handler() {
 		/*
 		 * (non-Javadoc)
@@ -82,6 +101,36 @@ public class SettingsActivity extends Fragment {
 			case 7:
 				Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT)
 						.show();
+				break;
+			case 8:
+
+				Builder builder = new Builder(getActivity());
+				builder.setTitle("提示");
+				builder.setMessage("检测到新版本,您需要更新吗？");
+				builder.setPositiveButton("确定",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int which) {
+								showDownloadDialog_table();
+							}
+						});
+				builder.setNegativeButton("下次再说",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int which) {
+							}
+						}).show();
+				break;
+			case 9:
+				// 设置进度条位置
+				mProgress.setProgress(progress);
+				break;
+			case 10:
+				// 安装文件
+				installApk();
+			case 11:
+				Toast.makeText(getActivity(), "当前已是最新版本", Toast.LENGTH_SHORT)
+				.show();
 				break;
 			}
 		}
@@ -112,23 +161,11 @@ public class SettingsActivity extends Fragment {
 				Urlinterface.SHARED, Context.MODE_PRIVATE);
 
 		int profile_userid = preferences.getInt("profile_userid", -1);
-		if (profile_userid != -1) {
+		if (profile_userid != -1&&profile_userid==fxApplication.getUser_id()) {
 			Log.i("linshi------------", "profileprofileprofileprofile本地shuju");
-			String name = preferences.getString("profile_name", "");// 名称
-			String nickName = preferences.getString("profile_nickName", "");// 昵称
-			int gender = preferences.getInt("profile_gender", -1);
-			;// 性别
-			String tileUrl = preferences.getString("profile_tileUrl", "");// 头像
-			Boolean isProvider = preferences.getBoolean("profile_isProvider",
-					false);//
-			String lisence = preferences.getString("profile_lisence", "");// 行业认证
-			String mobile = preferences.getString("profile_mobile", "");// 手机号码
-			String email = preferences.getString("profile_email", "");// 邮箱
-			String birthday = preferences.getString("profile_birthday", "");// 生日
+			
 
-			profilePojo = new ProfilePojo(profile_userid, name, nickName,
-					gender, tileUrl, isProvider, lisence, mobile, email,
-					birthday);
+			profilePojo = getProfilePojo();
 			handler.sendEmptyMessage(0);
 
 		} else {
@@ -139,6 +176,42 @@ public class SettingsActivity extends Fragment {
 		return rootView;
 	}
 
+	
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		profilePojo = getProfilePojo();
+		handler.sendEmptyMessage(0);
+	}
+
+
+	/**
+	 * 获得本地存储的 个人信息
+	 */
+	private ProfilePojo getProfilePojo() {
+
+		SharedPreferences preferences = getActivity().getSharedPreferences(
+				Urlinterface.SHARED, Context.MODE_PRIVATE);
+
+		int profile_userid = preferences.getInt("profile_userid", -1);
+		String name = preferences.getString("profile_name", "");// 名称
+		String nickName = preferences.getString("profile_nickName", "");// 昵称
+		int gender = preferences.getInt("profile_gender", -1);// 性别
+		String tileUrl = preferences.getString("profile_tileUrl", "");// 头像
+		Boolean isProvider = preferences
+				.getBoolean("profile_isProvider", false);//
+		String lisence = preferences.getString("profile_lisence", "");// 行业认证
+		String mobile = preferences.getString("profile_mobile", "");// 手机号码
+		String email = preferences.getString("profile_email", "");// 邮箱
+		String birthday = preferences.getString("profile_birthday", "");// 生日
+
+		profilePojo = new ProfilePojo(profile_userid, name, nickName, gender,
+				tileUrl, isProvider, lisence, mobile, email, birthday);
+
+		return profilePojo;
+	}
+	
 	/**
 	 * 
 	 * 获得个人详细信息
@@ -261,8 +334,8 @@ public class SettingsActivity extends Fragment {
 
 		// 设置头像
 		String face_str = profilePojo.getTileUrl();
+		Log.i("Ax", "profilePojo.getTileUrl()"+profilePojo.getTileUrl());
 		if (face_str.length() > 4) {
-			FuXunTools.setBackground(face_str, setting_userface);
 			File f = new File(Urlinterface.head_pic, profilePojo.getUserId()
 					+ "");
 			if (f.exists()) {
@@ -333,15 +406,9 @@ public class SettingsActivity extends Fragment {
 		Intent intent = new Intent();
 		switch (num) {
 		case 0:// 新版本检测
-			TelephonyManager tm = (TelephonyManager) getActivity()
-					.getSystemService(Context.TELEPHONY_SERVICE);
-			StringBuilder sb = new StringBuilder();
-			sb.append("\nDeviceId(IMEI) = " + tm.getDeviceId());
-			String release = android.os.Build.VERSION.RELEASE; // android系统版本号
-			sb.append("\nAndroid： = " + release);
-			Log.e("info", sb.toString());
-			Toast.makeText(getActivity().getApplication(), "新版本检测" + sb,
-					Toast.LENGTH_LONG).show();
+			new VersionChecking().start();
+//			Toast.makeText(getActivity().getApplication(), "新版本检测",
+//					Toast.LENGTH_LONG).show();
 			break;
 		case 1:// 清除全部聊天记录
 				// Toast.makeText(getActivity().getApplication(), "清除全部聊天记录",
@@ -428,7 +495,8 @@ public class SettingsActivity extends Fragment {
 			if (position == 5) {
 				// 如果有通知，则显示通知数目
 				if (true) {
-					te.setText("3");
+//					te.setText("3");
+					re.setVisibility(View.GONE);
 				} else {
 					re.setVisibility(View.GONE);
 				}
@@ -478,11 +546,10 @@ public class SettingsActivity extends Fragment {
 	/**
 	 * 
 	 * 版本检测
-	 * 
-	 * 
+	 *  
 	 */
 
-	class VersionChecking implements Runnable {
+	class VersionChecking extends Thread {
 		public void run() {
 			try {
 				TelephonyManager tm = (TelephonyManager) getActivity()
@@ -507,14 +574,20 @@ public class SettingsActivity extends Fragment {
 				ClientInfoRequest response = builder.build();
 
 				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
-						Urlinterface.ChangeProfile, "PUT");
+						Urlinterface.Client, "PUT");
 				if (by != null && by.length > 0) {
 
 					ClientInfoResponse res = ClientInfoResponse.parseFrom(by);
 					if (res.getIsSucceed()) {
-						handler.sendEmptyMessage(0);
+						if (res.getHasNewVersion()) {
+							// 新版本提示
+							 handler.sendEmptyMessage(8);
+						}else {
+							handler.sendEmptyMessage(11);
+						}
+
 					} else {
-						handler.sendEmptyMessage(1);
+						handler.sendEmptyMessage(6);
 					}
 				} else {
 					handler.sendEmptyMessage(6);
@@ -525,4 +598,119 @@ public class SettingsActivity extends Fragment {
 			}
 		}
 	}
+	public void showDownloadDialog_table() {
+		// 构造软件下载对话框
+		AlertDialog.Builder builder = new Builder(getActivity());
+		builder.setTitle("正在更新");
+		// 给下载对话框增加进度条
+		final LayoutInflater inflater = LayoutInflater.from(getActivity());
+		View v = inflater.inflate(R.layout.softupdate_progress, null);
+		mProgress = (ProgressBar) v.findViewById(R.id.update_progress);
+		builder.setView(v);
+		// 取消更新
+		builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+				// 设置取消状态
+				cancelUpdate = true;
+			}
+		});
+		DownloadDialog = builder.create();
+		DownloadDialog.setCanceledOnTouchOutside(false);
+		DownloadDialog.show();
+		// 现在文件
+		downloadApk_table();
+	}
+
+	/**
+	 * 下载文件线程
+	 * 
+	 * @author coolszy
+	 * @date 2012-4-26
+	 * @blog http://blog.92coding.com
+	 */
+	public class downloadApkThread_table extends Thread {
+		@Override
+		public void run() {
+			try {
+				// 判断SD卡是否存在，并且是否具有读写权限
+				if (Environment.getExternalStorageState().equals(
+						Environment.MEDIA_MOUNTED)) {
+					// 获得存储卡的路径
+					String sdpath = Environment.getExternalStorageDirectory()
+							+ "/";
+					Log.i("suanfa", sdpath);
+					SavePath = sdpath + "download";
+					URL url = new URL(fileurl);
+					// 创建连接
+					HttpURLConnection conn = (HttpURLConnection) url
+							.openConnection();
+					conn.connect();
+					// 获取文件大小
+					int length = conn.getContentLength();
+					// 创建输入流
+					InputStream is = conn.getInputStream();
+
+					File file = new File(SavePath);
+					// 判断文件目录是否存在
+					if (!file.exists()) {
+						file.mkdir();
+					}
+					File apkFile = new File(SavePath, filename);
+					FileOutputStream fos = new FileOutputStream(apkFile);
+					int count = 0;
+					// 缓存
+					byte buf[] = new byte[1024];
+					// 写入到文件中
+					do {
+						int numread = is.read(buf);
+						count += numread;
+						// 计算进度条位置
+						progress = (int) (((float) count / length) * 100);
+						// 更新进度
+						handler.sendEmptyMessage(9);
+						if (numread <= 0) {
+							// 下载完成
+							handler.sendEmptyMessage(10);
+							break;
+						}
+						// 写入文件
+						fos.write(buf, 0, numread);
+					} while (!cancelUpdate);// 点击取消就停止下载.
+					fos.close();
+					is.close();
+				}
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			// 取消下载对话框显示
+			DownloadDialog.dismiss();
+		}
+	};
+
+	/**
+	 * 下载apk文件
+	 */
+	public void downloadApk_table() {
+		// 启动新线程下载软件
+		new downloadApkThread_table().start();
+	}
+
+	/**
+	 * 安装APK文件
+	 */
+	private void installApk() {
+		File apkfile = new File(SavePath, filename);
+		if (!apkfile.exists()) {
+			return;
+		}
+		// 通过Intent安装APK文件
+		Intent i = new Intent(Intent.ACTION_VIEW);
+		i.setDataAndType(Uri.parse("file://" + apkfile.toString()),
+				"application/vnd.android.package-archive");
+		startActivity(i);
+	}
+
 }

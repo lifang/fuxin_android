@@ -67,7 +67,6 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 	 */
 	private CharacterParser characterParser;
 	private List<ContactPojo> contactsList; // 联系人arraylist数组
-	public Map<Integer, ContactPojo> contactsMap; // 联系人Map数组
 
 	/**
 	 * 根据拼音来排列ListView里面的数据类
@@ -105,8 +104,6 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 					Collections.sort(contactsList, pinyinComparator);
 				}
 
-				fxApplication.setContactsList(contactsList);
-				fxApplication.setContactsMap(contactsMap);
 				adapter = new ContactAdapter(getActivity(), contactsList, 1);
 				xListView.setAdapter(adapter);
 				onLoad();
@@ -131,8 +128,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 					Collections.sort(contactsList, pinyinComparator);
 				}
 
-				fxApplication.setContactsList(contactsList);
-				fxApplication.setContactsMap(contactsMap);
+//				fxApplication.setContactsList(contactsList);
 				adapter = new ContactAdapter(getActivity(), contactsList, 1);
 				xListView.setAdapter(adapter);
 				onLoad();
@@ -200,7 +196,6 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 						Urlinterface.getContacts, "POST");
 				if (by != null && by.length > 0) {
 					contactsList = new ArrayList<ContactPojo>();
-					contactsMap = new HashMap<Integer, ContactPojo>();
 					ContactResponse res = ContactResponse.parseFrom(by);
 					for (int i = 0; i < res.getContactsCount(); i++) {
 						int contactId = res.getContacts(i).getContactId();
@@ -237,7 +232,6 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 								lisence, individualResume);
 						contactsList.add(coPojo);
 
-						contactsMap.put(contactId, coPojo);
 					}
 
 					SharedPreferences preferences2 = getActivity()
@@ -263,7 +257,6 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 
 	private void initViews() {
 		contactsList = new ArrayList<ContactPojo>();
-		contactsMap = new HashMap<Integer, ContactPojo>();
 
 		// 实例化汉字转拼音类
 		characterParser = CharacterParser.getInstance();
@@ -356,17 +349,20 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 	 * 获得首字母
 	 */
 	private String findSortKey(String str) {
+		if (str.length() > 0) {
 
-		String pinyin = characterParser.getSelling(str);
-		String sortString = pinyin.substring(0, 1).toUpperCase();
+			String pinyin = characterParser.getSelling(str);
+			String sortString = pinyin.substring(0, 1).toUpperCase();
 
-		// 正则表达式，判断首字母是否是英文字母
-		if (sortString.matches("[A-Z]")) {
-			return sortString.toUpperCase();
+			// 正则表达式，判断首字母是否是英文字母
+			if (sortString.matches("[A-Z]")) {
+				return sortString.toUpperCase();
+			} else {
+				return "#";
+			}
 		} else {
 			return "#";
 		}
-
 	}
 
 	/**
@@ -454,8 +450,8 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			buttonNumber = 0;
 			setButtonColor(buttonNumber);
 			xListView.setVisibility(View.VISIBLE);
-			// List<ContactPojo> contactsList = fxApplication.getContactsList();
-			// Collections.sort(contactsList, pinyinComparator);
+			 List<ContactPojo> contactsList = db.queryContactList(fxApplication.getUser_id());
+			 Collections.sort(contactsList, pinyinComparator);
 			adapter = new ContactAdapter(getActivity(), contactsList, 1);
 			xListView.setAdapter(adapter);
 			sortListView.setVisibility(View.GONE);
@@ -469,7 +465,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			setButtonColor(buttonNumber);
 			longDataComparator = new LongDataComparator();
 
-			List<ContactPojo> contactsList1 = fxApplication.getContactsList();
+			List<ContactPojo> contactsList1 = db.queryContactList(fxApplication.getUser_id());
 			if (contactsList1.size() > 20) { // 20个以上进行排序
 				Collections.sort(contactsList1, longDataComparator);
 				List<ContactPojo> list1 = new ArrayList<ContactPojo>();
@@ -582,7 +578,6 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 	public void onRefresh() {
 		// TODO Auto-generated method stub
 		contactsList = new ArrayList<ContactPojo>();
-		contactsMap = new HashMap<Integer, ContactPojo>();
 		Thread thread = new Thread(new getContacts2());
 		thread.start();
 		Log.i("linshi", "1111111111111111111111111111");

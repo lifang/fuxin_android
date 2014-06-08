@@ -85,7 +85,6 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 		// 设置头像
 		String face_str = contact.getUserface_url();
 		if (face_str.length() > 4) {
-			face_str=Urlinterface.IP+face_str;
 			File f = new File(Urlinterface.head_pic, contact.getContactId()+"");
 			if (f.exists()) {
 				Log.i("linshi------------", "加载本地图片");
