@@ -47,6 +47,7 @@ public class MyInformationActivity extends Activity {
 	private EditText myinfo_nickname;
 	private TextView myinfo_certification, myinfo_mobile, myinfo_email,
 			myinfo_birthday, myinfo_sex;
+	String uri;
 	Bitmap bm = null;
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
@@ -61,11 +62,15 @@ public class MyInformationActivity extends Activity {
 					if (file.exists()) {
 						file.delete();
 					}
+					if (!file.getParentFile().exists()) {
+						file.getParentFile().mkdirs();
+					}
 					try {
 						file.createNewFile();
 						FileOutputStream stream = new FileOutputStream(file);
 						ByteArrayOutputStream stream1 = new ByteArrayOutputStream();
-						bm.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+						Bitmap b = BitmapFactory.decodeByteArray(buf, 0, buf.length);
+						b.compress(Bitmap.CompressFormat.JPEG, 100, stream);
 						byte[] buf2 = stream1.toByteArray(); // 将图片流以字符串形式存储下来
 						stream.write(buf2);
 						stream.close();
@@ -105,10 +110,16 @@ public class MyInformationActivity extends Activity {
 		my_info_confirm = (ImageButton) findViewById(R.id.my_info_confirm);
 		my_info_confirm.setOnClickListener(listener2);// 给保存按钮设置监听
 
-		profilePojo = getProfilePojo();// 获得本地存储的个人信息
+		SharedPreferences preferences = getSharedPreferences(
+				Urlinterface.SHARED, Context.MODE_PRIVATE);
 
-		init();
+		int profile_userid = preferences.getInt("profile_userid", -1);
+		if (profile_userid != -1
+				&& profile_userid == fxApplication.getUser_id()) {
+			profilePojo = getProfilePojo();// 获得本地存储的个人信息
 
+			init();
+		}
 	}
 
 	/**
@@ -125,49 +136,46 @@ public class MyInformationActivity extends Activity {
 		myinfo_userface.setOnClickListener(listener);
 		// 设置头像
 		String face_str = profilePojo.getTileUrl();
-		if (face_str != null) {
+		Log.i("linshi1", "修改前----" + face_str);
+		 if (face_str != null&&face_str.length() > 4) {
+		File f = new File(Urlinterface.head_pic, profilePojo.getUserId() + "");
+		if (f.exists()) {
+			Log.i("linshi------------", "加载本地图片");
+			Drawable dra = new BitmapDrawable(
+					BitmapFactory.decodeFile(Urlinterface.head_pic
+							+ profilePojo.getUserId()));
+			myinfo_userface.setImageDrawable(dra);
+		} else {
+			FuXunTools.set_bk(profilePojo.getUserId(), face_str,
+					myinfo_userface);
+		}
+		 } else {
+		 myinfo_userface.setImageResource(R.drawable.moren);
+		 }
+		// 设置昵称
+		myinfo_nickname.setText(profilePojo.getNickName());
 
-			if (face_str.length() > 4) {
-				File f = new File(Urlinterface.head_pic,
-						profilePojo.getUserId() + "");
-				if (f.exists()) {
-					Log.i("linshi------------", "加载本地图片");
-					Drawable dra = new BitmapDrawable(
-							BitmapFactory.decodeFile(Urlinterface.head_pic
-									+ profilePojo.getUserId()));
-					myinfo_userface.setImageDrawable(dra);
-				} else {
-					FuXunTools.set_bk(profilePojo.getUserId(), face_str,
-							myinfo_userface);
-				}
-			} else {
-				myinfo_userface.setImageResource(R.drawable.moren);
-			}
-			// 设置昵称
-			myinfo_nickname.setText(profilePojo.getNickName());
+		// 设置认证行业
+		String str1 = profilePojo.getLisence();
+		myinfo_certification.setText(str1);
 
-			// 设置认证行业
-			String str1 = profilePojo.getLisence();
-			myinfo_certification.setText(str1);
-
-			// 手机
-			String str3 = profilePojo.getMobile();
-			myinfo_mobile.setText(str3);
-			// 邮箱
-			String str2 = profilePojo.getEmail();
-			myinfo_email.setText(str2);
-			// 生日
-			myinfo_birthday.setText(profilePojo.getBirthday());
-			// 设置性别
-			myinfo_sex.setText("");
-			int sex = profilePojo.getGender();
-			if (sex == 0) {// 男
-				myinfo_sex.setText("男");
-			} else if (sex == 1) {// 女
-				myinfo_sex.setText("女");
-			} else if (sex == 2) {
-				myinfo_sex.setText("保密");
-			}
+		// 手机
+		String str3 = profilePojo.getMobile();
+		myinfo_mobile.setText(str3);
+		// 邮箱
+		String str2 = profilePojo.getEmail();
+		myinfo_email.setText(str2);
+		// 生日
+		myinfo_birthday.setText(profilePojo.getBirthday());
+		// 设置性别
+		myinfo_sex.setText("");
+		int sex = profilePojo.getGender();
+		if (sex == 0) {// 男
+			myinfo_sex.setText("男");
+		} else if (sex == 1) {// 女
+			myinfo_sex.setText("女");
+		} else if (sex == 2) {
+			myinfo_sex.setText("保密");
 		}
 
 	}
@@ -224,10 +232,9 @@ public class MyInformationActivity extends Activity {
 					builder.setNickName(nickname_str);
 				}
 				if (buf != null) {
-					// optional bytes tiles = 4; //头像
-					// optional string contentType = 5; //图片类型
 					builder.setContentType("jpg");
 					builder.setTiles(ByteString.copyFrom(buf));
+
 				}
 				ChangeProfileRequest response = builder.build();
 
@@ -238,6 +245,7 @@ public class MyInformationActivity extends Activity {
 					ChangeProfileResponse res = ChangeProfileResponse
 							.parseFrom(by);
 					if (res.getIsSucceed()) {
+						Log.i("linshi1", "修改后---" + res.getProfile().getTileUrl());
 						profilePojo.setTileUrl(res.getProfile().getTileUrl());
 						profilePojo.setNickName(res.getProfile().getNickName());
 						putProfile(profilePojo);
@@ -320,13 +328,16 @@ public class MyInformationActivity extends Activity {
 		case -11:
 
 			Bundle bundle = data.getExtras();
-			String uri = bundle.getString("uri");
+			uri = bundle.getString("uri");
 			buf = bundle.getByteArray("buf");
+			Log.i("linshi", buf.length+"--size");
+			Bitmap b = BitmapFactory.decodeByteArray(buf, 0, buf.length);
 
-			BitmapFactory.Options options = new BitmapFactory.Options();
-			options.inSampleSize = 1;// 7就代表容量变为以前容量的1/7
-			bm = BitmapFactory.decodeFile(uri, options);
-			myinfo_userface.setImageDrawable(new BitmapDrawable(bm));
+//			BitmapFactory.Options options = new BitmapFactory.Options();
+//			options.inSampleSize = 1;// 7就代表容量变为以前容量的1/7
+//			bm = BitmapFactory.decodeFile(uri, options);
+			myinfo_userface.setImageDrawable(new BitmapDrawable(b));
+
 			break;
 		default:
 			break;

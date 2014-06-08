@@ -1,9 +1,8 @@
 package com.fuwu.mobileim.activity;
 
-
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -16,6 +15,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Toast;
@@ -32,10 +32,10 @@ public class SettingPhoto extends Activity implements Urlinterface {
 
 	// 设置 界面
 	String delUri = "";
-	String photo = Environment.getExternalStorageDirectory()
-	+ "/" + IMAGE_FILE_NAME;
-	String photoStr = Environment.getExternalStorageDirectory()
-	+ "/1" + IMAGE_FILE_NAME;
+	String photo = Environment.getExternalStorageDirectory() + "/"
+			+ IMAGE_FILE_NAME;
+	String photoStr = Environment.getExternalStorageDirectory() + "/1"
+			+ IMAGE_FILE_NAME;
 	/* 头像名称 */
 	private static final String IMAGE_FILE_NAME = "faceImage.jpg";
 
@@ -54,6 +54,7 @@ public class SettingPhoto extends Activity implements Urlinterface {
 			file2.delete();
 		}
 	}
+
 	/**
 	 * 拍照上传
 	 */
@@ -81,8 +82,7 @@ public class SettingPhoto extends Activity implements Urlinterface {
 			startActivityForResult(intentFromCapture, 2);
 		} catch (Exception e) {
 
-			Toast.makeText(getApplicationContext(),
-					"调用相机失败", 0).show();
+			Toast.makeText(getApplicationContext(), "调用相机失败", 0).show();
 		}
 
 	}
@@ -104,11 +104,11 @@ public class SettingPhoto extends Activity implements Urlinterface {
 		intentFromGallery.setDataAndType(
 				MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
 		startActivityForResult(intentFromGallery, 1);
-//		Intent intentFromGallery = new Intent();
-//		intentFromGallery.setType("image/*"); // 设置文件类型
-//		intentFromGallery
-//				.setAction(Intent.ACTION_GET_CONTENT);
-//		startActivityForResult(intentFromGallery,1);
+		// Intent intentFromGallery = new Intent();
+		// intentFromGallery.setType("image/*"); // 设置文件类型
+		// intentFromGallery
+		// .setAction(Intent.ACTION_GET_CONTENT);
+		// startActivityForResult(intentFromGallery,1);
 
 	}
 
@@ -178,7 +178,7 @@ public class SettingPhoto extends Activity implements Urlinterface {
 	 * @param picdata
 	 */
 	private void getImageToView(Intent data) {
-	
+
 		Bundle extras = data.getExtras();
 		if (extras != null) {
 			Bitmap photo = extras.getParcelable("data");
@@ -196,13 +196,20 @@ public class SettingPhoto extends Activity implements Urlinterface {
 				byte[] buf = stream1.toByteArray(); // 将图片流以字符串形式存储下来
 				// byte[] buf = s.getBytes();
 				stream.write(buf);
-				stream.close();
+
+				FileInputStream fin = new FileInputStream(photoStr);
+				int length = fin.available();
+				byte[] buffer = new byte[length];
+				fin.read(buffer);
 				
 				Intent intent2 = new Intent();
-				intent2.putExtra("buf", buf);
-				intent2.putExtra("uri",photoStr);
+				intent2.putExtra("buf", buffer);
+				intent2.putExtra("uri", photoStr);
+				Log.i("linshi", "size:" + buf.length);
 				// 通过调用setResult方法返回结果给前一个activity。
 				SettingPhoto.this.setResult(-11, intent2);
+				fin.close();     
+				stream.close();
 				// 关闭当前activity
 				SettingPhoto.this.finish();
 			} catch (IOException e) {

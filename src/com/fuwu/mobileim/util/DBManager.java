@@ -137,7 +137,7 @@ public class DBManager {
 		db.beginTransaction();
 		try {
 			db.execSQL(
-					"update from  contact set  isBlocked = ?  WHERE userId = ? and contactId = ?",
+					"update  contact set  isBlocked = ?  WHERE userId = ? and contactId = ?",
 					new Object[] { isblocked,userId, contactId });
 			db.setTransactionSuccessful();
 		} finally {

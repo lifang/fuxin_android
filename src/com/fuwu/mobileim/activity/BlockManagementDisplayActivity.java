@@ -27,6 +27,7 @@ import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.model.Models.BlockContactRequest;
 import com.fuwu.mobileim.model.Models.BlockContactResponse;
 import com.fuwu.mobileim.pojo.ContactPojo;
+import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
@@ -36,6 +37,7 @@ import com.fuwu.mobileim.view.CircularImage;
 public class BlockManagementDisplayActivity extends Activity {
 	private ProgressDialog prodialog;
 	private ListView mListView;
+	private DBManager db;
 	private List<ContactPojo> list = new ArrayList<ContactPojo>();
 
 	private Handler handler = new Handler() {
@@ -89,11 +91,12 @@ public class BlockManagementDisplayActivity extends Activity {
 		setContentView(R.layout.block_management_display);
 		fxApplication = (FxApplication) getApplication();
 		Setwindow(0.19f);// 设置窗口化
+		db = new DBManager(this);
 		Intent intent = getIntent();//
 		contactId = intent.getIntExtra("contactId", -1);
-		for (int i = 0; i < fxApplication.getContactsList().size(); i++) {
-			if (fxApplication.getContactsList().get(i).getContactId() == contactId) {
-				contact = fxApplication.getContactsList().get(i);
+		for (int i = 0; i < db.queryContactList(fxApplication.getUser_id()).size(); i++) {
+			if (db.queryContactList(fxApplication.getUser_id()).get(i).getContactId() == contactId) {
+				contact = db.queryContactList(fxApplication.getUser_id()).get(i);
 				break;
 			}
 		}

@@ -104,7 +104,6 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 					Collections.sort(contactsList, pinyinComparator);
 				}
 
-				fxApplication.setContactsList(contactsList);
 				adapter = new ContactAdapter(getActivity(), contactsList, 1);
 				xListView.setAdapter(adapter);
 				onLoad();
@@ -129,7 +128,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 					Collections.sort(contactsList, pinyinComparator);
 				}
 
-				fxApplication.setContactsList(contactsList);
+//				fxApplication.setContactsList(contactsList);
 				adapter = new ContactAdapter(getActivity(), contactsList, 1);
 				xListView.setAdapter(adapter);
 				onLoad();
@@ -350,17 +349,20 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 	 * 获得首字母
 	 */
 	private String findSortKey(String str) {
+		if (str.length() > 0) {
 
-		String pinyin = characterParser.getSelling(str);
-		String sortString = pinyin.substring(0, 1).toUpperCase();
+			String pinyin = characterParser.getSelling(str);
+			String sortString = pinyin.substring(0, 1).toUpperCase();
 
-		// 正则表达式，判断首字母是否是英文字母
-		if (sortString.matches("[A-Z]")) {
-			return sortString.toUpperCase();
+			// 正则表达式，判断首字母是否是英文字母
+			if (sortString.matches("[A-Z]")) {
+				return sortString.toUpperCase();
+			} else {
+				return "#";
+			}
 		} else {
 			return "#";
 		}
-
 	}
 
 	/**
@@ -448,7 +450,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			buttonNumber = 0;
 			setButtonColor(buttonNumber);
 			xListView.setVisibility(View.VISIBLE);
-			 List<ContactPojo> contactsList = fxApplication.getContactsList();
+			 List<ContactPojo> contactsList = db.queryContactList(fxApplication.getUser_id());
 			 Collections.sort(contactsList, pinyinComparator);
 			adapter = new ContactAdapter(getActivity(), contactsList, 1);
 			xListView.setAdapter(adapter);
@@ -463,7 +465,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			setButtonColor(buttonNumber);
 			longDataComparator = new LongDataComparator();
 
-			List<ContactPojo> contactsList1 = fxApplication.getContactsList();
+			List<ContactPojo> contactsList1 = db.queryContactList(fxApplication.getUser_id());
 			if (contactsList1.size() > 20) { // 20个以上进行排序
 				Collections.sort(contactsList1, longDataComparator);
 				List<ContactPojo> list1 = new ArrayList<ContactPojo>();

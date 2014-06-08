@@ -161,23 +161,11 @@ public class SettingsActivity extends Fragment implements Urlinterface{
 				Urlinterface.SHARED, Context.MODE_PRIVATE);
 
 		int profile_userid = preferences.getInt("profile_userid", -1);
-		if (profile_userid != -1) {
+		if (profile_userid != -1&&profile_userid==fxApplication.getUser_id()) {
 			Log.i("linshi------------", "profileprofileprofileprofile本地shuju");
-			String name = preferences.getString("profile_name", "");// 名称
-			String nickName = preferences.getString("profile_nickName", "");// 昵称
-			int gender = preferences.getInt("profile_gender", -1);
-			;// 性别
-			String tileUrl = preferences.getString("profile_tileUrl", "");// 头像
-			Boolean isProvider = preferences.getBoolean("profile_isProvider",
-					false);//
-			String lisence = preferences.getString("profile_lisence", "");// 行业认证
-			String mobile = preferences.getString("profile_mobile", "");// 手机号码
-			String email = preferences.getString("profile_email", "");// 邮箱
-			String birthday = preferences.getString("profile_birthday", "");// 生日
+			
 
-			profilePojo = new ProfilePojo(profile_userid, name, nickName,
-					gender, tileUrl, isProvider, lisence, mobile, email,
-					birthday);
+			profilePojo = getProfilePojo();
 			handler.sendEmptyMessage(0);
 
 		} else {
@@ -188,6 +176,42 @@ public class SettingsActivity extends Fragment implements Urlinterface{
 		return rootView;
 	}
 
+	
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		profilePojo = getProfilePojo();
+		handler.sendEmptyMessage(0);
+	}
+
+
+	/**
+	 * 获得本地存储的 个人信息
+	 */
+	private ProfilePojo getProfilePojo() {
+
+		SharedPreferences preferences = getActivity().getSharedPreferences(
+				Urlinterface.SHARED, Context.MODE_PRIVATE);
+
+		int profile_userid = preferences.getInt("profile_userid", -1);
+		String name = preferences.getString("profile_name", "");// 名称
+		String nickName = preferences.getString("profile_nickName", "");// 昵称
+		int gender = preferences.getInt("profile_gender", -1);// 性别
+		String tileUrl = preferences.getString("profile_tileUrl", "");// 头像
+		Boolean isProvider = preferences
+				.getBoolean("profile_isProvider", false);//
+		String lisence = preferences.getString("profile_lisence", "");// 行业认证
+		String mobile = preferences.getString("profile_mobile", "");// 手机号码
+		String email = preferences.getString("profile_email", "");// 邮箱
+		String birthday = preferences.getString("profile_birthday", "");// 生日
+
+		profilePojo = new ProfilePojo(profile_userid, name, nickName, gender,
+				tileUrl, isProvider, lisence, mobile, email, birthday);
+
+		return profilePojo;
+	}
+	
 	/**
 	 * 
 	 * 获得个人详细信息
@@ -310,8 +334,8 @@ public class SettingsActivity extends Fragment implements Urlinterface{
 
 		// 设置头像
 		String face_str = profilePojo.getTileUrl();
+		Log.i("Ax", "profilePojo.getTileUrl()"+profilePojo.getTileUrl());
 		if (face_str.length() > 4) {
-			FuXunTools.setBackground(face_str, setting_userface);
 			File f = new File(Urlinterface.head_pic, profilePojo.getUserId()
 					+ "");
 			if (f.exists()) {
@@ -471,7 +495,8 @@ public class SettingsActivity extends Fragment implements Urlinterface{
 			if (position == 5) {
 				// 如果有通知，则显示通知数目
 				if (true) {
-					te.setText("3");
+//					te.setText("3");
+					re.setVisibility(View.GONE);
 				} else {
 					re.setVisibility(View.GONE);
 				}

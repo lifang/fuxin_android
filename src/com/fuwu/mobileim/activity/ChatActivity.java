@@ -171,7 +171,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 		keys = new ArrayList<String>();
 		keys.addAll(keySet);
 		user_id = fx.getUser_id();
-		contact_id = user_id;
+		contact_id = intent.getIntExtra("contact_id", 0);
 		Log.i("Ax", "contact_id:" + intent.getIntExtra("contact_id", 0));
 		updateMessageData();
 	}
@@ -454,6 +454,10 @@ public class ChatActivity extends Activity implements OnClickListener,
 					BlockContactResponse res = BlockContactResponse
 							.parseFrom(by);
 					if (res.getIsSucceed()) {
+						if (!db.isOpen()) {
+							db = new DBManager(ChatActivity.this);
+						}
+						db.modifyContactBlock(1,fx.getUser_id(),contact_id);
 						handler.sendEmptyMessage(3);
 					} else {
 						handler.sendEmptyMessage(4);
