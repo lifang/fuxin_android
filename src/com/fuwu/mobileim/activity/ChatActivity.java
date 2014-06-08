@@ -1,46 +1,35 @@
 package com.fuwu.mobileim.activity;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
-import com.fuwu.mobileim.R;
-import com.fuwu.mobileim.adapter.FaceAdapter;
-import com.fuwu.mobileim.adapter.FacePageAdapter;
-import com.fuwu.mobileim.adapter.MessageListViewAdapter;
-import com.fuwu.mobileim.model.Models.BlockContactRequest;
-import com.fuwu.mobileim.model.Models.BlockContactResponse;
-import com.fuwu.mobileim.model.Models.SendMessageRequest;
-import com.fuwu.mobileim.model.Models.SendMessageResponse;
-import com.fuwu.mobileim.pojo.MessagePojo;
-import com.fuwu.mobileim.util.DBManager;
-import com.fuwu.mobileim.util.FxApplication;
-import com.fuwu.mobileim.util.HttpUtil;
-import com.fuwu.mobileim.util.TimeUtil;
-import com.fuwu.mobileim.util.Urlinterface;
-import com.fuwu.mobileim.view.CirclePageIndicator;
-import com.fuwu.mobileim.view.XListView;
-import com.fuwu.mobileim.view.XListView.IXListViewListener;
-import com.google.protobuf.InvalidProtocolBufferException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.Editable;
@@ -68,6 +57,27 @@ import android.widget.PopupWindow;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+import com.fuwu.mobileim.R;
+import com.fuwu.mobileim.adapter.FaceAdapter;
+import com.fuwu.mobileim.adapter.FacePageAdapter;
+import com.fuwu.mobileim.adapter.MessageListViewAdapter;
+import com.fuwu.mobileim.model.Models.BlockContactRequest;
+import com.fuwu.mobileim.model.Models.BlockContactResponse;
+import com.fuwu.mobileim.model.Models.Message.ContentType;
+import com.fuwu.mobileim.model.Models.SendMessageRequest;
+import com.fuwu.mobileim.model.Models.SendMessageResponse;
+import com.fuwu.mobileim.pojo.MessagePojo;
+import com.fuwu.mobileim.util.DBManager;
+import com.fuwu.mobileim.util.FxApplication;
+import com.fuwu.mobileim.util.HttpUtil;
+import com.fuwu.mobileim.util.ImageUtil;
+import com.fuwu.mobileim.util.TimeUtil;
+import com.fuwu.mobileim.util.Urlinterface;
+import com.fuwu.mobileim.view.CirclePageIndicator;
+import com.fuwu.mobileim.view.XListView;
+import com.fuwu.mobileim.view.XListView.IXListViewListener;
+import com.google.protobuf.InvalidProtocolBufferException;
+
 /**
  * @作者 马龙
  * @时间 创建时间：2014-5-15 下午4:41:29
@@ -86,6 +96,8 @@ public class ChatActivity extends Activity implements OnClickListener,
 	private int currentPage = 0;
 	private boolean isFaceShow = false;;
 	private boolean isPlusShow = false;;
+	private List<String> keys;
+	private List<MessagePojo> list;
 	private XListView mListView;
 	private ViewPager faceViewPager;
 	private LinearLayout faceLinearLayout;
@@ -96,19 +108,24 @@ public class ChatActivity extends Activity implements OnClickListener,
 	private ImageView mFaceBtn;
 	private ImageView mPlusBtn;
 	private EditText msgEt;
-	private List<String> keys;
-	private List<MessagePojo> list;
+	private MessagePojo mp;
 	private FxApplication fx;
 	private PopupWindow menuWindow;
 	private MessageListViewAdapter mMessageAdapter;
 	private DBManager db;
 	private RequstReceiver mReuRequstReceiver;
+	private ExecutorService singleThreadExecutor = Executors
+			.newSingleThreadExecutor();
 	private Handler handler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
 			switch (msg.what) {
+			case 0:
+				Toast.makeText(getApplicationContext(), "请求失败!", 0).show();
+				break;
 			case 1:
+				msgEt.setText("");
 				break;
 			case 2:
 				updateMessageData();
@@ -121,8 +138,13 @@ public class ChatActivity extends Activity implements OnClickListener,
 			case 4:
 				Toast.makeText(getApplicationContext(), "屏蔽联系人失败!", 0).show();
 				break;
-			case 0:
-				Toast.makeText(getApplicationContext(), "请求失败!", 0).show();
+			case 5:
+				Toast.makeText(getApplicationContext(), "发送失败!", 0).show();
+				break;
+			case 6:
+				mMessageAdapter.updMessage(mp);
+				mListView.setSelection(list.size() - 1);
+				db.addMessage(mp);
 				break;
 			}
 		}
@@ -359,6 +381,15 @@ public class ChatActivity extends Activity implements OnClickListener,
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
+				if (position == 0) {
+					Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+					intent.setType("image/*");
+					startActivityForResult(intent, 1);
+				} else {
+					Intent takephoto = new Intent(
+							MediaStore.ACTION_IMAGE_CAPTURE);
+					startActivityForResult(takephoto, 2);
+				}
 			}
 		});
 	}
@@ -366,6 +397,12 @@ public class ChatActivity extends Activity implements OnClickListener,
 	public void HideKeyboard() {
 		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		imm.hideSoftInputFromWindow(msgEt.getWindowToken(), 0); // 强制隐藏键盘
+	}
+
+	private byte[] Bitmap2Bytes(Bitmap bm) {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		bm.compress(Bitmap.CompressFormat.PNG, 100, baos);
+		return baos.toByteArray();
 	}
 
 	public Bitmap getBitmapScale(Bitmap bmp) {
@@ -444,6 +481,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 		public void run() {
 			super.run();
 			try {
+				handler.sendEmptyMessage(1);
 				SendMessageRequest.Builder builder = SendMessageRequest
 						.newBuilder();
 				builder.setToken(fx.getToken());
@@ -453,15 +491,26 @@ public class ChatActivity extends Activity implements OnClickListener,
 				mes.setContactId(contact_id);
 				mes.setUserId(user_id);
 				mes.setContent(message);
+				mes.setContentType(ContentType.Text);
 				builder.setMessage(mes);
 				SendMessageRequest smr = builder.build();
-				SendMessageResponse response = SendMessageResponse
-						.parseFrom(HttpUtil.sendHttps(smr.toByteArray(),
-								Urlinterface.Message, "PUT"));
-				Log.i("Ax",
-						response.getIsSucceed() + "--"
-								+ response.getErrorCode() + "--"
-								+ response.getSendTime());
+				byte[] b = HttpUtil.sendHttps(smr.toByteArray(),
+						Urlinterface.Message, "PUT");
+				if (b != null && b.length > 0) {
+					SendMessageResponse response = SendMessageResponse
+							.parseFrom(b);
+					if (response.getIsSucceed()) {
+						handler.sendEmptyMessage(6);
+					} else {
+						handler.sendEmptyMessage(5);
+					}
+					Log.i("Ax",
+							response.getIsSucceed() + "--"
+									+ response.getErrorCode() + "--"
+									+ response.getSendTime());
+				} else {
+					handler.sendEmptyMessage(5);
+				}
 			} catch (InvalidProtocolBufferException e) {
 				e.printStackTrace();
 			}
@@ -517,25 +566,16 @@ public class ChatActivity extends Activity implements OnClickListener,
 				if (!db.isOpen()) {
 					db = new DBManager(this);
 				}
-				MessagePojo mp;
 				SimpleDateFormat sdf = new SimpleDateFormat(
 						"yyyy-MM-dd HH:mm:ss");
 				Date today = new Date(System.currentTimeMillis());
-				Log.i("Ax",
-						db.getLastTime(user_id, contact_id) + "----"
-								+ sdf.format(today));
+				String time = "";
 				if (TimeUtil.isFiveMin(db.getLastTime(user_id, contact_id),
 						sdf.format(today))) {
-					mp = new MessagePojo(user_id, contact_id,
-							sdf.format(today), str, 1, 1);
-				} else {
-					mp = new MessagePojo(user_id, contact_id, "", str, 1, 1);
+					time = sdf.format(today);
 				}
-				new SendMessageThread(str).start();
-				mMessageAdapter.updMessage(mp);
-				mListView.setSelection(list.size() - 1);
-				msgEt.setText("");
-				db.addMessage(mp);
+				singleThreadExecutor.execute(new SendMessageThread(str));
+				mp = new MessagePojo(user_id, contact_id, time, str, 1, 1);
 			}
 			break;
 		case R.id.msg_et:
@@ -619,15 +659,52 @@ public class ChatActivity extends Activity implements OnClickListener,
 		unregisterReceiver(mReuRequstReceiver);
 	}
 
-	class RequstReceiver extends BroadcastReceiver {
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			handler.sendEmptyMessage(2);
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (resultCode == RESULT_OK) {
+			switch (requestCode) {
+			case 1:
+				try {
+					ContentResolver resolver = getContentResolver();
+					Uri imgUri = data.getData();
+					Bitmap photo = MediaStore.Images.Media.getBitmap(resolver,
+							imgUri);
+					ImageUtil
+							.saveBitmap(System.currentTimeMillis() + "", photo);
+					Toast.makeText(getApplicationContext(),
+							photo.getWidth() + "--" + photo.getHeight(), 0)
+							.show();
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				break;
+			case 2:
+				Bundle bundle = data.getExtras();
+				if (bundle != null) {
+					Bitmap bitmap = (Bitmap) bundle.get("data");
+					ImageUtil.saveBitmap(System.currentTimeMillis() + "",
+							bitmap);
+					Toast.makeText(getApplicationContext(),
+							bitmap.getWidth() + "--" + bitmap.getHeight(), 0)
+							.show();
+				}
+				break;
+			}
 		}
 	}
 
 	@Override
 	public void onRefresh() {
 		handler.sendEmptyMessage(2);
+	}
+
+	class RequstReceiver extends BroadcastReceiver {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			handler.sendEmptyMessage(2);
+		}
 	}
 }

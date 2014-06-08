@@ -49,6 +49,11 @@ public class TalkActivity extends Fragment {
 			case 1:
 				break;
 			case 2:
+				clvAdapter = new TalkListViewAdapter(getActivity(), list,
+						fx.options);
+				Log.i("Max", list.size() + "-");
+				mListView.setAdapter(clvAdapter);
+//				Log.i("FuWu", list.get(0).toString());
 				updateTalkData();
 				clvAdapter.updateList(list);
 				break;
@@ -75,6 +80,7 @@ public class TalkActivity extends Fragment {
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
+				db.clearTalkMesCount(fx.getUser_id(), fx.getUser_id());
 				updateTalkNumberData();
 				intent.putExtra("contact_id", list.get(arg2).getContact_id());
 				intent.setClass(getActivity(), ChatActivity.class);

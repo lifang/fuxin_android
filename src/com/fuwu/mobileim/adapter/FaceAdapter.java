@@ -69,7 +69,7 @@ public class FaceAdapter extends BaseAdapter {
 			viewHolder.faceIV.setBackgroundDrawable(null);
 		} else {
 			int count = FxApplication.NUM * currentPage + position;
-			if (count < 107) {
+			if (count < 40) {
 				viewHolder.faceIV.setImageResource(faceList.get(count));
 			} else {
 				viewHolder.faceIV.setImageDrawable(null);

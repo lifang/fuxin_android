@@ -305,10 +305,10 @@ public class FragmengtActivity extends FragmentActivity {
 						for (int i = 0; i < res.getContactsCount(); i++) {
 							int contactId = res.getContacts(i).getContactId();
 							String name = res.getContacts(i).getName();
-							// String sortKey = findSortKey(res.getContacts(i)
-							// .getName());
-							String sortKey = findSortKey(res.getContacts(i)
-									.getPinyin());
+							 String sortKey = findSortKey(res.getContacts(i)
+							 .getName());
+//							String sortKey = findSortKey(res.getContacts(i)
+//									.getPinyin());
 							String customName = res.getContacts(i)
 									.getCustomName();
 							String userface_url = res.getContacts(i)
@@ -495,7 +495,8 @@ public class FragmengtActivity extends FragmentActivity {
 						// Toast.makeText(getApplication(), "传参，，跳到对话界面，并清空搜索框",
 						// Toast.LENGTH_SHORT).show();
 						Intent intent = new Intent();
-						// intent.p
+						intent.putExtra("contact_id", contactsList.get(position)
+								.getContactId());
 						intent.setClass(FragmengtActivity.this,
 								ChatActivity.class);
 						startActivity(intent);
@@ -518,7 +519,7 @@ public class FragmengtActivity extends FragmentActivity {
 			final Animation translateAnimation = new TranslateAnimation(720, 0,
 					0, 0); // 移动动画效果
 
-			translateAnimation.setDuration(400); // 设置动画持续时间
+			translateAnimation.setDuration(200); // 设置动画持续时间
 			main_search.setAnimation(translateAnimation); // 设置动画效果
 			translateAnimation.startNow(); // 启动动画
 			// 模拟

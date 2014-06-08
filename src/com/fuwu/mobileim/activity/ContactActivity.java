@@ -67,7 +67,6 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 	 */
 	private CharacterParser characterParser;
 	private List<ContactPojo> contactsList; // 联系人arraylist数组
-	public Map<Integer, ContactPojo> contactsMap; // 联系人Map数组
 
 	/**
 	 * 根据拼音来排列ListView里面的数据类
@@ -106,7 +105,6 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 				}
 
 				fxApplication.setContactsList(contactsList);
-				fxApplication.setContactsMap(contactsMap);
 				adapter = new ContactAdapter(getActivity(), contactsList, 1);
 				xListView.setAdapter(adapter);
 				onLoad();
@@ -132,7 +130,6 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 				}
 
 				fxApplication.setContactsList(contactsList);
-				fxApplication.setContactsMap(contactsMap);
 				adapter = new ContactAdapter(getActivity(), contactsList, 1);
 				xListView.setAdapter(adapter);
 				onLoad();
@@ -200,7 +197,6 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 						Urlinterface.getContacts, "POST");
 				if (by != null && by.length > 0) {
 					contactsList = new ArrayList<ContactPojo>();
-					contactsMap = new HashMap<Integer, ContactPojo>();
 					ContactResponse res = ContactResponse.parseFrom(by);
 					for (int i = 0; i < res.getContactsCount(); i++) {
 						int contactId = res.getContacts(i).getContactId();
@@ -237,7 +233,6 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 								lisence, individualResume);
 						contactsList.add(coPojo);
 
-						contactsMap.put(contactId, coPojo);
 					}
 
 					SharedPreferences preferences2 = getActivity()
@@ -263,7 +258,6 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 
 	private void initViews() {
 		contactsList = new ArrayList<ContactPojo>();
-		contactsMap = new HashMap<Integer, ContactPojo>();
 
 		// 实例化汉字转拼音类
 		characterParser = CharacterParser.getInstance();
@@ -454,8 +448,8 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			buttonNumber = 0;
 			setButtonColor(buttonNumber);
 			xListView.setVisibility(View.VISIBLE);
-			// List<ContactPojo> contactsList = fxApplication.getContactsList();
-			// Collections.sort(contactsList, pinyinComparator);
+			 List<ContactPojo> contactsList = fxApplication.getContactsList();
+			 Collections.sort(contactsList, pinyinComparator);
 			adapter = new ContactAdapter(getActivity(), contactsList, 1);
 			xListView.setAdapter(adapter);
 			sortListView.setVisibility(View.GONE);
@@ -582,7 +576,6 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 	public void onRefresh() {
 		// TODO Auto-generated method stub
 		contactsList = new ArrayList<ContactPojo>();
-		contactsMap = new HashMap<Integer, ContactPojo>();
 		Thread thread = new Thread(new getContacts2());
 		thread.start();
 		Log.i("linshi", "1111111111111111111111111111");

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.fuwu.mobileim"
     android:versionCode="1"
@@ -64,11 +64,6 @@
         <activity
             android:name="com.fuwu.mobileim.activity.LoginActivity"
             android:launchMode="singleTop" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.fuwu.mobileim.activity.BlockManagementActivity"
@@ -111,11 +106,13 @@
         <activity
             android:name="com.fuwu.mobileim.activity.WelcomeActivity"
             android:launchMode="singleTop" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-        <activity
-            android:name="com.fuwu.mobileim.activity.AgreementActivity"
-            android:launchMode="singleTop" >
-        </activity>
+
         <!-- 个推SDK配置开始 -->
         <!-- 配置的第三方参数属性 -->
         <meta-data

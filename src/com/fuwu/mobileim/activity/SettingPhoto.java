@@ -200,7 +200,7 @@ public class SettingPhoto extends Activity implements Urlinterface {
 				
 				Intent intent2 = new Intent();
 				intent2.putExtra("buf", buf);
-//				intent2.putExtra("uri",photoStr);
+				intent2.putExtra("uri",photoStr);
 				// 通过调用setResult方法返回结果给前一个activity。
 				SettingPhoto.this.setResult(-11, intent2);
 				// 关闭当前activity
