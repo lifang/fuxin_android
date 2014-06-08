@@ -10,7 +10,7 @@ public interface Urlinterface {
 	static final double current_version = 0.0;// 应用版本号
 	static final String IP = "https://118.242.18.189/IMApi/";
 	
-	static String fileurl = IP + "/cjzyb.apk";
+	static String fileurl = IP + "cjzyb.apk";
 	static String filename = "cjzyb.apk";
 	// static final String IP = "https://118.242.18.189/IMApiMock/";
 	// 获得联系人
