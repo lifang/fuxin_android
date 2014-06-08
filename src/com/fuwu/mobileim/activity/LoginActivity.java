@@ -16,7 +16,6 @@ import android.widget.Toast;
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.model.Models.AuthenticationRequest;
 import com.fuwu.mobileim.model.Models.AuthenticationResponse;
-import com.fuwu.mobileim.model.Models.ContactResponse;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.Urlinterface;
@@ -83,9 +82,8 @@ public class LoginActivity extends Activity implements OnClickListener,
 		user_text = (EditText) findViewById(R.id.user);
 		pwd_text = (EditText) findViewById(R.id.pwd);
 		// user_text.setText("MockUserName");
-//		user_text.setText("15862373890");
-//		user_text.setText("18913536561");
-		user_text.setText("18913536561");
+		user_text.setText("15862373890");
+		// user_text.setText("18913536561");
 		pwd_text.setText("123456");
 	}
 
@@ -128,9 +126,6 @@ public class LoginActivity extends Activity implements OnClickListener,
 				builder.setUserName(user);
 				builder.setPassword(pwd);
 				AuthenticationRequest request = builder.build();
-				// AuthenticationResponse response = AuthenticationResponse
-				// .parseFrom(HttpUtil.sendHttps(request.toByteArray(),
-				// Urlinterface.LOGIN, "POST"));
 				byte[] by = HttpUtil.sendHttps(request.toByteArray(),
 						Urlinterface.LOGIN, "POST");
 				if (by != null && by.length > 0) {

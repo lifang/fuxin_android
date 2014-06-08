@@ -1,10 +1,8 @@
 package com.fuwu.mobileim.activity;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -56,26 +54,27 @@ public class RegistActivity extends Activity implements OnClickListener,
 	private Button over;
 	public Intent intent = new Intent();
 	public RelativeLayout validate_time;
-	private Timer timer;
-	public int time = 180;
-	private boolean validate_boolean = false;
 	private String error_code;
 	private FxApplication fx;
+	private ProgressDialog prodialog;
 	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
+
 			switch (msg.what) {
 			case 0:
 				Toast.makeText(RegistActivity.this, "短信已发出请注意查看",
 						Toast.LENGTH_SHORT).show();
 				break;
 			case 1:
+				prodialog.dismiss();
 				intent.setClass(RegistActivity.this, FragmengtActivity.class);
 				startActivity(intent);
 				RegistActivity.this.finish();
 				break;
 			case 2:
+				prodialog.dismiss();
 				if (!error_code.equals("")) {
 					String errorString = fx.error_map.get(error_code);
 					if (errorString == null) {
@@ -88,8 +87,17 @@ public class RegistActivity extends Activity implements OnClickListener,
 				}
 				break;
 			case 3:
-				Toast.makeText(RegistActivity.this, "短信发送失败,请重试",
-						Toast.LENGTH_SHORT).show();
+				if (!error_code.equals("")) {
+					String errorString = fx.ValidateCode.get(error_code);
+					if (errorString == null) {
+						Toast.makeText(RegistActivity.this, "短信发送失败,请重试",
+								Toast.LENGTH_SHORT).show();
+					} else {
+						Toast.makeText(RegistActivity.this, errorString,
+								Toast.LENGTH_SHORT).show();
+					}
+				}
+
 				break;
 			case 4:
 				Toast.makeText(RegistActivity.this, "请求超时", Toast.LENGTH_SHORT)
@@ -108,7 +116,6 @@ public class RegistActivity extends Activity implements OnClickListener,
 
 	// 初始化
 	public void initialize() {
-		timer = new Timer();
 		findViewById(R.id.exit).setOnClickListener(this);
 		name_text = (EditText) findViewById(R.id.name);
 		pwd_text = (EditText) findViewById(R.id.pwd);
@@ -206,6 +213,7 @@ public class RegistActivity extends Activity implements OnClickListener,
 		public void run() {
 			try {
 				Log.i("Max", "--" + phone_text.getText().toString());
+				handler.sendEmptyMessage(0);
 				ValidateCodeRequest.Builder builder = ValidateCodeRequest
 						.newBuilder();
 				builder.setPhoneNumber(phone_text.getText().toString());
@@ -217,16 +225,8 @@ public class RegistActivity extends Activity implements OnClickListener,
 				Log.i("Max",
 						response.getIsSucceed() + "??"
 								+ response.getErrorCode());
-				if (response.getIsSucceed()) {
-					validate_boolean = false;
-					if (time != 180) {
-						time = 180;
-					} else {
-						timer.schedule(timerTask, 1000, 1000);
-					}
-					handler.sendEmptyMessage(0);
-				} else {
-					validate_boolean = true;
+				if (!response.getIsSucceed()) {
+					error_code = response.getErrorCode().toString();
 					handler.sendEmptyMessage(3);
 				}
 			} catch (Exception e) {
@@ -244,7 +244,10 @@ public class RegistActivity extends Activity implements OnClickListener,
 			this.finish();
 			break;
 		case R.id.regist_over:
-			Log.i("Max", judge() + "");
+			prodialog = new ProgressDialog(RegistActivity.this);
+			prodialog.setMessage("努力登陆中..");
+			prodialog.setCanceledOnTouchOutside(false);
+			prodialog.show();
 			new Thread(new Regist_Post()).start();
 			break;
 		case R.id.phone_ok:
@@ -272,7 +275,6 @@ public class RegistActivity extends Activity implements OnClickListener,
 				phone_text.setText("");
 				phone_ok.setText("确定");
 				phone_text.requestFocus();// 获取焦点
-				timer.cancel();
 				view.setBackgroundColor(getResources().getColor(R.color.white));
 			}
 			regist_btnOver();
@@ -282,29 +284,11 @@ public class RegistActivity extends Activity implements OnClickListener,
 				Toast.makeText(RegistActivity.this, "请先填写手机号码",
 						Toast.LENGTH_SHORT).show();
 			} else {
-				if (validate_boolean) {
-					new Thread(new ValidateCode_Post()).start();
-				} else {
-					Toast.makeText(RegistActivity.this, "请等180秒后再次发送验证码",
-							Toast.LENGTH_SHORT).show();
-				}
+				new Thread(new ValidateCode_Post()).start();
 			}
 			break;
 		}
 	}
-
-	// TimerTask是个抽象类,实现了Runnable接口，所以TimerTask就是一个子线程
-	TimerTask timerTask = new TimerTask() {
-		// 倒数10秒
-		public void run() {
-			// 定义一个消息传过去
-			time--;
-			if (time < 0) {
-				validate_boolean = true;
-				timer.cancel();
-			}
-		}
-	};
 
 	// EditText失去焦点时的处理
 	public void onFocusChange(View arg0, boolean arg1) {

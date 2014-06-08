@@ -39,7 +39,9 @@ public class FxApplication extends Application {
 	private ProfilePojo profilePojo = new ProfilePojo();
 	public DisplayImageOptions options;
 	public Map<String, String> error_map;
+	public Map<String, String> ValidateCode;
 	private List<Activity> activityList = new LinkedList<Activity>();
+
 	public synchronized static FxApplication getInstance() {
 		return mApplication;
 	}
@@ -47,8 +49,9 @@ public class FxApplication extends Application {
 	public void initData() {
 		contactsList = new ArrayList<ContactPojo>();
 		contactsMap = new HashMap<Integer, ContactPojo>();
-		profilePojo= new ProfilePojo();
+		profilePojo = new ProfilePojo();
 	}
+
 	public FxApplication() {
 		this.setToken("NULL");
 	}
@@ -68,6 +71,16 @@ public class FxApplication extends Application {
 		error_map.put("InvalidPasswordConfirm", "两次密码不一致");
 		error_map.put("InvalidPhoneNumber", "手机号码错误");
 		error_map.put("InvalidOriginalPassword", "原密码错误");
+
+		ValidateCode = new HashMap<String, String>();
+		ValidateCode.put("BadRequest", "序列化参数出错");
+		ValidateCode.put("InvalidPhoneNumber", "手机号码有误");
+		ValidateCode.put("InvalidType", "发送类型有误");
+		ValidateCode.put("ExistingUserYes", "用户已存在");
+		ValidateCode.put("ExistingUserNo", "用户不存在");
+		ValidateCode.put("LockTime", "限定的时间内不能重复发送");
+		ValidateCode.put("SendError", "短信服务出错，发送失败");
+
 		options = new DisplayImageOptions.Builder()
 				.showImageOnLoading(R.drawable.test)
 				.showImageForEmptyUri(R.drawable.test)
@@ -87,6 +100,7 @@ public class FxApplication extends Application {
 	public void setActivityList() {
 		this.activityList = new LinkedList<Activity>();
 	}
+
 	public static void initImageLoader(Context context) {
 		// This configuration tuning is custom. You can tune every option, you
 		// may tune some of them,

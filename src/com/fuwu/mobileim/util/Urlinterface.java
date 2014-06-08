@@ -5,6 +5,7 @@ import android.os.Environment;
 public interface Urlinterface {
 	static final String head_pic = Environment.getExternalStorageDirectory()
 			.getPath() + "/fuXun/head_pic/";
+	static final String WebViewUrl = "https://118.242.18.189/resource/static/public/doc/app%20agreement.html";
 	static final String tag = "FuXun";
 	static final String SHARED = "FuXun";
 	static final double current_version = 0.0;// 应用版本号
