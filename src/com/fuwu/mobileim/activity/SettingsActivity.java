@@ -39,7 +39,6 @@ import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.model.Models.ClientInfo;
 import com.fuwu.mobileim.model.Models.ClientInfoRequest;
 import com.fuwu.mobileim.model.Models.ClientInfoResponse;
-import com.fuwu.mobileim.model.Models.OSType;
 import com.fuwu.mobileim.model.Models.ProfileRequest;
 import com.fuwu.mobileim.model.Models.ProfileResponse;
 import com.fuwu.mobileim.pojo.ProfilePojo;
@@ -494,7 +493,6 @@ public class SettingsActivity extends Fragment {
 
 				ClientInfo.Builder pb = ClientInfo.newBuilder();
 				pb.setDeviceId(tm.getDeviceId());
-				pb.setOsType(OSType.Android);
 				pb.setOSVersion(release);
 				pb.setUserId(profilePojo.getUserId());
 				pb.setChannel(0);

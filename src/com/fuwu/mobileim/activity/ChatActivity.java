@@ -55,6 +55,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fuwu.mobileim.R;
@@ -64,8 +65,10 @@ import com.fuwu.mobileim.adapter.MessageListViewAdapter;
 import com.fuwu.mobileim.model.Models.BlockContactRequest;
 import com.fuwu.mobileim.model.Models.BlockContactResponse;
 import com.fuwu.mobileim.model.Models.Message.ContentType;
+import com.fuwu.mobileim.model.Models.Message.ImageType;
 import com.fuwu.mobileim.model.Models.SendMessageRequest;
 import com.fuwu.mobileim.model.Models.SendMessageResponse;
+import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.pojo.MessagePojo;
 import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FxApplication;
@@ -76,6 +79,7 @@ import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CirclePageIndicator;
 import com.fuwu.mobileim.view.XListView;
 import com.fuwu.mobileim.view.XListView.IXListViewListener;
+import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
 
 /**
@@ -103,6 +107,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 	private LinearLayout faceLinearLayout;
 	private GridView mPlusGridView;
 	private Button mSendBtn;
+	private TextView mName;
 	private ImageView mBack;
 	private ImageView mOther;
 	private ImageView mFaceBtn;
@@ -113,6 +118,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 	private PopupWindow menuWindow;
 	private MessageListViewAdapter mMessageAdapter;
 	private DBManager db;
+	private ContactPojo cp;
 	private RequstReceiver mReuRequstReceiver;
 	private ExecutorService singleThreadExecutor = Executors
 			.newSingleThreadExecutor();
@@ -146,6 +152,9 @@ public class ChatActivity extends Activity implements OnClickListener,
 				mListView.setSelection(list.size() - 1);
 				db.addMessage(mp);
 				break;
+			case 7:
+				Toast.makeText(getApplicationContext(), "发送图片成功!", 0).show();
+				break;
 			}
 		}
 	};
@@ -172,6 +181,8 @@ public class ChatActivity extends Activity implements OnClickListener,
 		keys.addAll(keySet);
 		user_id = fx.getUser_id();
 		contact_id = user_id;
+		// contact_id = intent.getIntExtra("contact_id", 0);
+		cp = db.queryContact(user_id, contact_id);
 		Log.i("Ax", "contact_id:" + intent.getIntExtra("contact_id", 0));
 		updateMessageData();
 	}
@@ -190,6 +201,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 		mListView = (XListView) findViewById(R.id.chat_listView);
 		faceLinearLayout = (LinearLayout) findViewById(R.id.face_ll);
 		mPlusGridView = (GridView) findViewById(R.id.chat_plus_panel);
+		mName = (TextView) findViewById(R.id.chat_name);
 		mFaceBtn = (ImageView) findViewById(R.id.face_btn);
 		mSendBtn = (Button) findViewById(R.id.send_btn);
 		mBack = (ImageView) findViewById(R.id.chat_back);
@@ -243,8 +255,10 @@ public class ChatActivity extends Activity implements OnClickListener,
 				return false;
 			}
 		});
+		mName.setText(cp.getName());
 
-		mMessageAdapter = new MessageListViewAdapter(getResources(), this, list);
+		mMessageAdapter = new MessageListViewAdapter(getResources(), this,
+				list, cp, user_id, fx.getToken());
 		mListView.setAdapter(mMessageAdapter);
 		mListView.setOnTouchListener(this);
 		mListView.setSelection(list.size() - 1);
@@ -468,10 +482,14 @@ public class ChatActivity extends Activity implements OnClickListener,
 
 	class SendMessageThread extends Thread {
 		private String message;
+		private int type;
+		private byte[] bArr;
 
-		public SendMessageThread(String mes) {
+		public SendMessageThread(byte[] b, String message, int type) {
 			super();
-			this.message = mes;
+			this.bArr = b;
+			this.message = message;
+			this.type = type;
 		}
 
 		public SendMessageThread() {
@@ -488,11 +506,19 @@ public class ChatActivity extends Activity implements OnClickListener,
 				builder.setUserId(user_id);
 				com.fuwu.mobileim.model.Models.Message.Builder mes = com.fuwu.mobileim.model.Models.Message
 						.newBuilder();
+				mes.setSendTime("");
 				mes.setContactId(contact_id);
 				mes.setUserId(user_id);
-				mes.setContent(message);
-				mes.setContentType(ContentType.Text);
+				if (type == 1) {
+					mes.setContent(message);
+					mes.setContentType(ContentType.Text);
+				} else {
+					mes.setBinaryContent(ByteString.copyFrom(bArr));
+					mes.setContentType(ContentType.Image);
+					mes.setImageType(ImageType.JPG);
+				}
 				builder.setMessage(mes);
+				Log.i("FuWu", user_id + "--id--" + contact_id);
 				SendMessageRequest smr = builder.build();
 				byte[] b = HttpUtil.sendHttps(smr.toByteArray(),
 						Urlinterface.Message, "PUT");
@@ -500,7 +526,11 @@ public class ChatActivity extends Activity implements OnClickListener,
 					SendMessageResponse response = SendMessageResponse
 							.parseFrom(b);
 					if (response.getIsSucceed()) {
-						handler.sendEmptyMessage(6);
+						if (type == 1) {
+							handler.sendEmptyMessage(6);
+						} else {
+							handler.sendEmptyMessage(7);
+						}
 					} else {
 						handler.sendEmptyMessage(5);
 					}
@@ -574,7 +604,8 @@ public class ChatActivity extends Activity implements OnClickListener,
 						sdf.format(today))) {
 					time = sdf.format(today);
 				}
-				singleThreadExecutor.execute(new SendMessageThread(str));
+				singleThreadExecutor
+						.execute(new SendMessageThread(null, str, 1));
 				mp = new MessagePojo(user_id, contact_id, time, str, 1, 1);
 			}
 			break;
@@ -670,11 +701,10 @@ public class ChatActivity extends Activity implements OnClickListener,
 					Uri imgUri = data.getData();
 					Bitmap photo = MediaStore.Images.Media.getBitmap(resolver,
 							imgUri);
-					ImageUtil
-							.saveBitmap(System.currentTimeMillis() + "", photo);
-					Toast.makeText(getApplicationContext(),
-							photo.getWidth() + "--" + photo.getHeight(), 0)
-							.show();
+					// ImageUtil.saveBitmap(System.currentTimeMillis() + "",
+					// "JPG", photo);
+					singleThreadExecutor.execute(new SendMessageThread(
+							Bitmap2Bytes(photo), null, 2));
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				} catch (IOException e) {
@@ -686,7 +716,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 				if (bundle != null) {
 					Bitmap bitmap = (Bitmap) bundle.get("data");
 					ImageUtil.saveBitmap(System.currentTimeMillis() + "",
-							bitmap);
+							"JPG", bitmap);
 					Toast.makeText(getApplicationContext(),
 							bitmap.getWidth() + "--" + bitmap.getHeight(), 0)
 							.show();

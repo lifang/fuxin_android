@@ -1,6 +1,8 @@
 package com.fuwu.mobileim.util;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -76,17 +78,32 @@ public class ImageUtil {
 		}
 	}
 
-	public static void saveBitmap(String bitName, Bitmap mBitmap) {
+	public static void saveBitmap(String bitName, String jpgType, Bitmap mBitmap) {
 		try {
-			File f = new File("/sdcard/fuxin/" + bitName + ".png");
+			File f = new File("/sdcard/fuxin/" + bitName + "." + jpgType);
 			f.createNewFile();
 			FileOutputStream fOut = null;
 			fOut = new FileOutputStream(f);
-			mBitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
+			if (jpgType.equals("JPG")) {
+				mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
+			} else {
+				mBitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
+			}
 			fOut.flush();
 			fOut.close();
 		} catch (IOException e) {
 
+		}
+	}
+
+	public static Bitmap getLoacalBitmap(String url) {
+		try {
+			FileInputStream fis = new FileInputStream(url);
+			return BitmapFactory.decodeStream(fis);
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 }

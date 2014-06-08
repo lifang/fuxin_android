@@ -45,8 +45,11 @@ public class DBManager {
 						new Object[] { mp.getUserId(), mp.getContactId(),
 								mp.getContent(), mp.getSendTime(),
 								mp.getMsgType(), mp.getIsComMeg() });
+				Log.i("FuWu", mp.toString());
 			}
 			db.setTransactionSuccessful();
+		} catch (Exception e) {
+			Log.i("FuWu", e.getMessage());
 		} finally {
 			db.endTransaction();
 		}
@@ -60,7 +63,7 @@ public class DBManager {
 				c.moveToFirst();
 				int count = c.getInt(c.getColumnIndex("mes_count"));
 				db.execSQL(
-						"update from talk set content = ? , time = ? , mes_count = ? where user_id = ? and contact_id = ?",
+						"update talk set content = ? , time = ? , mes_count = ? where user_id = ? and contact_id = ?",
 						new Object[] { tp.getContent(), tp.getTime(),
 								tp.getMes_count() + count, tp.getUser_id(),
 								tp.getContact_id(), });
@@ -74,6 +77,20 @@ public class DBManager {
 			}
 			c.close();
 			db.setTransactionSuccessful();
+		} catch (Exception e) {
+			Log.i("FuWu", e.getMessage());
+		} finally {
+			db.endTransaction();
+		}
+	}
+
+	public void updateContactRem(int user_id, int contact_id, String rem) {
+		db.beginTransaction();
+		try {
+			db.execSQL(
+					"update contact set customName = ? where userId = ? and contactId = ?",
+					new Object[] { rem, user_id + "", contact_id + "" });
+			db.setTransactionSuccessful();
 		} finally {
 			db.endTransaction();
 		}
@@ -85,6 +102,7 @@ public class DBManager {
 			db.execSQL(
 					"Delete from message where user_id = ? and contact_id = ? ",
 					new Object[] { user_id + "", contact_id + "" });
+			db.setTransactionSuccessful();
 		} finally {
 			db.endTransaction();
 		}
@@ -95,6 +113,7 @@ public class DBManager {
 		try {
 			db.execSQL("Delete from message where user_id = ?",
 					new Object[] { user_id + "" });
+			db.setTransactionSuccessful();
 		} finally {
 			db.endTransaction();
 		}
@@ -122,10 +141,10 @@ public class DBManager {
 		boolean flag = true;
 		db.beginTransaction();
 		try {
-				db.execSQL("DELETE FROM contact WHERE contactId = "
-						+ mp.getContactId()+" and userId = " + userId);
-				addContact(userId,mp);
-				db.setTransactionSuccessful();
+			db.execSQL("DELETE FROM contact WHERE contactId = "
+					+ mp.getContactId() + " and userId = " + userId);
+			addContact(userId, mp);
+			db.setTransactionSuccessful();
 		} finally {
 			db.endTransaction();
 		}
@@ -158,6 +177,29 @@ public class DBManager {
 		return cpList;
 	}
 
+	public ContactPojo queryContact(int user_id, int contact_id) {
+		Cursor c = queryContactCursor(user_id, contact_id);
+		ContactPojo mp = new ContactPojo();
+		if (c.moveToNext()) {
+			mp.setContactId(c.getInt(c.getColumnIndex("contactId")));
+			mp.setCustomName(c.getString(c.getColumnIndex("customName")));
+			mp.setIndividualResume(c.getString(c
+					.getColumnIndex("individualResume")));
+			mp.setIsBlocked(c.getInt(c.getColumnIndex("isBlocked")));
+			mp.setIsProvider(c.getInt(c.getColumnIndex("isProvider")));
+			mp.setLastContactTime(c.getString(c
+					.getColumnIndex("lastContactTime")));
+			mp.setLisence(c.getString(c.getColumnIndex("lisence")));
+			mp.setName(c.getString(c.getColumnIndex("name")));
+			mp.setSex(c.getInt(c.getColumnIndex("sex")));
+			mp.setSortKey(c.getString(c.getColumnIndex("sortKey")));
+			mp.setSource(c.getInt(c.getColumnIndex("source")));
+			mp.setUserface_url(c.getString(c.getColumnIndex("userface_url")));
+		}
+		c.close();
+		return mp;
+	}
+
 	public List<MessagePojo> queryMessageList(int user_id, int contact_id,
 			int num, int max) {
 		clearTalkMesCount(user_id, contact_id);
@@ -166,6 +208,7 @@ public class DBManager {
 		while (c.moveToNext()) {
 			MessagePojo mp = new MessagePojo();
 			mp.setUserId(user_id);
+			mp.setContactId(contact_id);
 			mp.setContent(c.getString(c.getColumnIndex("content")));
 			mp.setIsComMeg(c.getInt(c.getColumnIndex("is_com")));
 			mp.setMsgType(c.getInt(c.getColumnIndex("type")));
@@ -269,6 +312,13 @@ public class DBManager {
 	public Cursor queryContactCursor(int userid) {
 		Cursor c = db.rawQuery("SELECT * FROM contact where userId = ?",
 				new String[] { userid + "" });
+		return c;
+	}
+
+	public Cursor queryContactCursor(int userid, int contact_id) {
+		Cursor c = db.rawQuery(
+				"SELECT * FROM contact where userId = ? and contactId = ?",
+				new String[] { userid + "", contact_id + "" });
 		return c;
 	}
 

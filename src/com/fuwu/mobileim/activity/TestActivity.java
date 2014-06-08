@@ -22,7 +22,7 @@ public class TestActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.chat_item_right);
-		img = (ImageView) findViewById(R.id.right_img);
+//		img = (ImageView) findViewById(R.id.right_img);
 		DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
 		width = displayMetrics.widthPixels;
 		long t = System.currentTimeMillis();

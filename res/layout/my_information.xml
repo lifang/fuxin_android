@@ -93,11 +93,11 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="17dp"
-            android:maxLength="32"
-            android:singleLine="true"
             android:layout_toRightOf="@+id/myinfo_nick"
             android:background="@null"
             android:gravity="right"
+            android:maxLength="32"
+            android:singleLine="true"
             android:textColor="#333333"
             android:textSize="19dp" />
 
@@ -130,10 +130,10 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:gravity="right"
             android:layout_centerVertical="true"
             android:layout_marginRight="17dp"
             android:layout_toRightOf="@+id/hangye"
+            android:gravity="right"
             android:singleLine="true"
             android:textColor="#999999"
             android:textSize="19dp" />
@@ -146,8 +146,6 @@
             android:layout_marginRight="15dp"
             android:background="#E1E1E1" />
     </RelativeLayout>
-
-
 
     <RelativeLayout
         android:layout_width="fill_parent"

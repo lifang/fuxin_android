@@ -32,4 +32,6 @@ public interface Urlinterface {
 	static final String getProfile = IP + "api/Profile";
 	// 是否屏蔽 联系人 put
 	static final String BlockContact = IP + "api/Contact";
+	// 修改联系人备注
+	static final String ContactDetail = IP + "api/ContactDetail";
 }
