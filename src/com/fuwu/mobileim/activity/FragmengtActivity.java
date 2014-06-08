@@ -524,7 +524,7 @@ public class FragmengtActivity extends FragmentActivity {
 			final Animation translateAnimation = new TranslateAnimation(720, 0,
 					0, 0); // 移动动画效果
 
-			translateAnimation.setDuration(200); // 设置动画持续时间
+			translateAnimation.setDuration(100); // 设置动画持续时间
 			main_search.setAnimation(translateAnimation); // 设置动画效果
 			translateAnimation.startNow(); // 启动动画
 			// 模拟
