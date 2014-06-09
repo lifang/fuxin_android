@@ -590,7 +590,7 @@ public class SettingsActivity extends Fragment implements Urlinterface{
 				SharedPreferences preferences = getActivity().getSharedPreferences(
 						Urlinterface.SHARED, Context.MODE_PRIVATE);
 				String deviceId = preferences.getString("clientid", "");
-				pb.setDeviceId(tm.getDeviceId());
+				pb.setDeviceId(deviceId);
 				int profile_userid = preferences.getInt("profile_userid", -1);
 				String name = preferences.getString("profile_name", "");// 名称
 				pb.setOSVersion(release);
