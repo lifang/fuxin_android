@@ -43,13 +43,7 @@
             android:clickable="true"
             android:minHeight="44.0dip" >
 
-            <ImageView
-                android:id="@+id/right_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <!--
-                 <TextView
+            <TextView
                 android:id="@+id/chat_textView2"
                 style="@style/B5_Font"
                 android:layout_width="wrap_content"
@@ -58,10 +52,9 @@
                 android:focusable="true"
                 android:textColor="@color/color_hei"
                 android:textSize="16.0sp" />
-            -->
         </RelativeLayout>
 
-        <ImageView
+        <com.fuwu.mobileim.view.CircularImage
             android:id="@+id/chat_icon"
             android:layout_width="40.0dip"
             android:layout_height="40.0dip"

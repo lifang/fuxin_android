@@ -1,10 +1,10 @@
 package com.fuwu.mobileim.adapter;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -15,22 +15,37 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.Handler;
+import android.os.Message;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import android.widget.Toast;
 import com.fuwu.mobileim.R;
+import com.fuwu.mobileim.model.Models.ChangeContactDetailRequest;
+import com.fuwu.mobileim.model.Models.ChangeContactDetailResponse;
+import com.fuwu.mobileim.model.Models.Contact;
+import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.pojo.MessagePojo;
+import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
+import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.TimeUtil;
+import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.MyDialog;
 
 /**
@@ -39,19 +54,53 @@ import com.fuwu.mobileim.view.MyDialog;
  */
 public class MessageListViewAdapter extends BaseAdapter {
 
+	private int user_id;
+	private String token;
 	public static final Pattern EMOTION_URL = Pattern.compile("\\[(\\S+?)\\]");
 	private Context mContext;
 	private Resources res;
 	private LayoutInflater mInflater;
 	private List<MessagePojo> list = new ArrayList<MessagePojo>();
+	private ContactPojo cp;
+	private DBManager db;
+	private TextView rem;
+	private EditText remInfo;
+	private Button ok;
+	private Handler handler = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			switch (msg.what) {
+			case 1:
+				if (!db.isOpen()) {
+					db = new DBManager(mContext);
+				}
+				String str = remInfo.getText().toString();
+				cp.setCustomName(str);
+				db.updateContactRem(user_id, cp.getContactId(), str);
+				remInfo.setText(str);
+				rem.setText("备注:" + str);
+				ok.setText("编辑");
+				Toast.makeText(mContext, "修改备注成功!", 0).show();
+				break;
+			case 2:
+				Toast.makeText(mContext, "修改备注失败!", 0).show();
+				break;
+			}
+		}
+	};
 
-	public MessageListViewAdapter(Resources res, Context context,
-			List<MessagePojo> list) {
+	public MessageListViewAdapter(Resources res, Context mContext,
+			List<MessagePojo> list, ContactPojo cp, int user_id, String token) {
 		super();
-		this.mContext = context;
+		this.mContext = mContext;
 		this.res = res;
-		this.mInflater = LayoutInflater.from(context);
+		this.mInflater = LayoutInflater.from(mContext);
 		this.list = list;
+		this.cp = cp;
+		this.user_id = user_id;
+		this.token = token;
+		db = new DBManager(mContext);
 	}
 
 	public void updMessage(MessagePojo cp) {
@@ -110,17 +159,26 @@ public class MessageListViewAdapter extends BaseAdapter {
 			holder.time.setVisibility(View.VISIBLE);
 		}
 		if (mp.getIsComMeg() == 0) {
+			// 设置头像
+			FuXunTools.set_img(cp.getContactId(),holder.img);
 			holder.img.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					showLoginDialog();
 				}
 			});
-
+		} else {
+			// 设置头像
+			FuXunTools.set_img(user_id,holder.img);
+		}
+		if (mp.getMsgType() == 1) {
+			holder.mes.setText(convertNormalStringToSpannableString(mp
+					.getContent()));
+		} else {
+			holder.mes.setBackground(BitmapDrawable.createFromPath(mp
+					.getContent()));
 		}
 
-		holder.mes
-				.setText(convertNormalStringToSpannableString(mp.getContent()));
 		return convertView;
 	}
 
@@ -133,21 +191,84 @@ public class MessageListViewAdapter extends BaseAdapter {
 
 	private void showLoginDialog() {
 		View view = mInflater.inflate(R.layout.chat_info, null);
-		final ImageView img = (ImageView) view.findViewById(R.id.info_img);
-		img.setImageBitmap(FuXunTools.toRoundBitmap(BitmapFactory
-				.decodeResource(mContext.getResources(), R.drawable.headpic)));
+		TextView name = (TextView) view.findViewById(R.id.info_name);
+		rem = (TextView) view.findViewById(R.id.info_rem);
+		remInfo = (EditText) view.findViewById(R.id.info_remInfo);
+		TextView lisence = (TextView) view.findViewById(R.id.info_lisence);
+		TextView sign = (TextView) view.findViewById(R.id.info_sign);
+		ImageView img = (ImageView) view.findViewById(R.id.info_img);
+		ImageView img_gou = (ImageView) view.findViewById(R.id.info_gouIcon);
+		ImageView img_yue = (ImageView) view.findViewById(R.id.info_yueIcon);
+		ok = (Button) view.findViewById(R.id.info_ok);
+		// img.setImageBitmap(FuXunTools.toRoundBitmap(BitmapFactory
+		// .decodeResource(mContext.getResources(), R.drawable.headpic)));
+		// 设置头像
+		FuXunTools.set_img(cp.getContactId(),img);
+		String str = FuXunTools.toNumber(cp.getSource());
+		if (FuXunTools.isExist(str, 0, 1)) {
+			img_gou.setVisibility(View.VISIBLE);
+		} else {
+			img_gou.setVisibility(View.GONE);
+		}
+		if (FuXunTools.isExist(str, 2, 3)) {
+			img_yue.setVisibility(View.VISIBLE);
+		} else {
+			img_yue.setVisibility(View.GONE);
+		}
+		name.setText("" + cp.getName());
+		rem.setText("备注:" + cp.getCustomName());
+		remInfo.setText("" + cp.getCustomName());
+		lisence.setText("" + cp.getLisence());
+		sign.setText("" + cp.getIndividualResume());
+		remInfo.setOnFocusChangeListener(new OnFocusChangeListener() {
+			public void onFocusChange(View v, boolean hasFocus) {
+				ok.setText("确定");
+			}
+		});
+		ok.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				String str = remInfo.getText().toString();
+				if (str != null && !str.equals("")) {
+					new UpdateContactRem().start();
+				}
+			}
+		});
 		final MyDialog builder = new MyDialog(mContext, 1, view,
 				R.style.mydialog);
 		builder.show();
 	}
 
-	/**
-	 * 转换图片成圆形
-	 * 
-	 * @param bitmap
-	 *            传入Bitmap对象
-	 * @return
-	 */
+	class UpdateContactRem extends Thread {
+		public void run() {
+			try {
+				ChangeContactDetailRequest.Builder builder = ChangeContactDetailRequest
+						.newBuilder();
+				builder.setUserId(user_id);
+				builder.setToken(token);
+				Contact.Builder cb = Contact.newBuilder();
+				cb.setContactId(cp.getContactId());
+				cb.setCustomName(cp.getCustomName());
+				builder.setContact(cb);
+				ChangeContactDetailRequest response = builder.build();
+				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
+						Urlinterface.ContactDetail, "PUT");
+				if (by != null && by.length > 0) {
+					ChangeContactDetailResponse res = ChangeContactDetailResponse
+							.parseFrom(by);
+					if (res.getIsSucceed()) {
+						handler.sendEmptyMessage(1);
+					} else {
+						handler.sendEmptyMessage(2);
+					}
+				} else {
+					handler.sendEmptyMessage(2);
+				}
+			} catch (Exception e) {
+			}
+		}
+	}
+
 	public Bitmap toRoundBitmap(Bitmap bitmap) {
 		int width = bitmap.getWidth();
 		int height = bitmap.getHeight();
@@ -192,19 +313,14 @@ public class MessageListViewAdapter extends BaseAdapter {
 		canvas.drawARGB(0, 0, 0, 0); // 填充整个Canvas
 		paint.setColor(color);
 
-		// 以下有两种方法画圆,drawRounRect和drawCircle
-		// canvas.drawRoundRect(rectF, roundPx, roundPx, paint);//
-		// 画圆角矩形，第一个参数为图形显示区域，第二个参数和第三个参数分别是水平圆角半径和垂直圆角半径。
 		canvas.drawCircle(roundPx, roundPx, roundPx, paint);
 
-		paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));// 设置两张图片相交时的模式,参考http://trylovecatch.iteye.com/blog/1189452
-		canvas.drawBitmap(bitmap, src, dst, paint); // 以Mode.SRC_IN模式合并bitmap和已经draw了的Circle
-
+		paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
+		canvas.drawBitmap(bitmap, src, dst, paint);
 		return output;
 	}
 
 	private CharSequence convertNormalStringToSpannableString(String message) {
-		// TODO Auto-generated method stub
 		String hackTxt;
 		if (message.startsWith("[") && message.endsWith("]")) {
 			hackTxt = message + " ";
@@ -218,9 +334,6 @@ public class MessageListViewAdapter extends BaseAdapter {
 			String str2 = localMatcher.group(0);
 			int k = localMatcher.start();
 			int m = localMatcher.end();
-			// k = str2.lastIndexOf("[");
-			// Log.i("way", "str2.length = "+str2.length()+", k = " + k);
-			// str2 = str2.substring(k, m);
 			if (m - k < 8) {
 				if (FxApplication.getInstance().getFaceMap().containsKey(str2)) {
 					int face = FxApplication.getInstance().getFaceMap()

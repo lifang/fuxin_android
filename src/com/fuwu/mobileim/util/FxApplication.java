@@ -31,7 +31,6 @@ public class FxApplication extends Application {
 	public static int NUM = 20;// 每页20个表情,还有最后一个删除button
 	private Map<String, Integer> mFaceMap = new LinkedHashMap<String, Integer>();
 	private static FxApplication mApplication;
-	private List<ContactPojo> contactsList = new ArrayList<ContactPojo>();
 	@SuppressLint("UseSparseArrays")
 	private int user_id;
 	private String token;
@@ -46,8 +45,7 @@ public class FxApplication extends Application {
 	}
 
 	public void initData() {
-		contactsList = new ArrayList<ContactPojo>();
-		profilePojo = new ProfilePojo();
+		profilePojo= new ProfilePojo();
 	}
 
 	public FxApplication() {
@@ -116,13 +114,6 @@ public class FxApplication extends Application {
 		ImageLoader.getInstance().init(config);
 	}
 
-	public List<ContactPojo> getContactsList() {
-		return contactsList;
-	}
-
-	public void setContactsList(List<ContactPojo> contactsList) {
-		this.contactsList = contactsList;
-	}
 
 	public Map<String, Integer> getFaceMap() {
 		if (!mFaceMap.isEmpty())

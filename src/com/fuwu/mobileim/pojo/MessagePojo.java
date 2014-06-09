@@ -40,7 +40,7 @@ public class MessagePojo {
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
-	
+
 	public int getContactId() {
 		return contactId;
 	}
@@ -83,9 +83,9 @@ public class MessagePojo {
 
 	@Override
 	public String toString() {
-		return "MessagePojo [userId=" + userId + ", sendTime=" + sendTime
-				+ ", content=" + content + ", isComMeg=" + isComMeg
-				+ ", msgType=" + msgType + "]";
+		return "MessagePojo [userId=" + userId + ", contactId=" + contactId
+				+ ", sendTime=" + sendTime + ", content=" + content
+				+ ", isComMeg=" + isComMeg + ", msgType=" + msgType + "]";
 	}
 
 }

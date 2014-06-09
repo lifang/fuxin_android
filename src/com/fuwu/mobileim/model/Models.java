@@ -10768,6 +10768,24 @@ public final class Models {
      */
     com.google.protobuf.ByteString
         getLisenceBytes();
+
+    // optional bool IsAuthentication = 11;
+    /**
+     * <code>optional bool IsAuthentication = 11;</code>
+     *
+     * <pre>
+     *用户是否通过实名认证
+     * </pre>
+     */
+    boolean hasIsAuthentication();
+    /**
+     * <code>optional bool IsAuthentication = 11;</code>
+     *
+     * <pre>
+     *用户是否通过实名认证
+     * </pre>
+     */
+    boolean getIsAuthentication();
   }
   /**
    * Protobuf type {@code Com.Fuwu.MobileIM.Model.Profile}
@@ -10874,6 +10892,11 @@ public final class Models {
             case 82: {
               bitField0_ |= 0x00000200;
               lisence_ = input.readBytes();
+              break;
+            }
+            case 88: {
+              bitField0_ |= 0x00000400;
+              isAuthentication_ = input.readBool();
               break;
             }
           }
@@ -11380,6 +11403,30 @@ public final class Models {
       }
     }
 
+    // optional bool IsAuthentication = 11;
+    public static final int ISAUTHENTICATION_FIELD_NUMBER = 11;
+    private boolean isAuthentication_;
+    /**
+     * <code>optional bool IsAuthentication = 11;</code>
+     *
+     * <pre>
+     *用户是否通过实名认证
+     * </pre>
+     */
+    public boolean hasIsAuthentication() {
+      return ((bitField0_ & 0x00000400) == 0x00000400);
+    }
+    /**
+     * <code>optional bool IsAuthentication = 11;</code>
+     *
+     * <pre>
+     *用户是否通过实名认证
+     * </pre>
+     */
+    public boolean getIsAuthentication() {
+      return isAuthentication_;
+    }
+
     private void initFields() {
       userId_ = 0;
       name_ = "";
@@ -11391,6 +11438,7 @@ public final class Models {
       tileUrl_ = "";
       isProvider_ = false;
       lisence_ = "";
+      isAuthentication_ = false;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -11433,6 +11481,9 @@ public final class Models {
       }
       if (((bitField0_ & 0x00000200) == 0x00000200)) {
         output.writeBytes(10, getLisenceBytes());
+      }
+      if (((bitField0_ & 0x00000400) == 0x00000400)) {
+        output.writeBool(11, isAuthentication_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -11482,6 +11533,10 @@ public final class Models {
       if (((bitField0_ & 0x00000200) == 0x00000200)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(10, getLisenceBytes());
+      }
+      if (((bitField0_ & 0x00000400) == 0x00000400)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(11, isAuthentication_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -11619,6 +11674,8 @@ public final class Models {
         bitField0_ = (bitField0_ & ~0x00000100);
         lisence_ = "";
         bitField0_ = (bitField0_ & ~0x00000200);
+        isAuthentication_ = false;
+        bitField0_ = (bitField0_ & ~0x00000400);
         return this;
       }
 
@@ -11687,6 +11744,10 @@ public final class Models {
           to_bitField0_ |= 0x00000200;
         }
         result.lisence_ = lisence_;
+        if (((from_bitField0_ & 0x00000400) == 0x00000400)) {
+          to_bitField0_ |= 0x00000400;
+        }
+        result.isAuthentication_ = isAuthentication_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -11746,6 +11807,9 @@ public final class Models {
           bitField0_ |= 0x00000200;
           lisence_ = other.lisence_;
           onChanged();
+        }
+        if (other.hasIsAuthentication()) {
+          setIsAuthentication(other.getIsAuthentication());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -12390,6 +12454,55 @@ public final class Models {
   }
   bitField0_ |= 0x00000200;
         lisence_ = value;
+        onChanged();
+        return this;
+      }
+
+      // optional bool IsAuthentication = 11;
+      private boolean isAuthentication_ ;
+      /**
+       * <code>optional bool IsAuthentication = 11;</code>
+       *
+       * <pre>
+       *用户是否通过实名认证
+       * </pre>
+       */
+      public boolean hasIsAuthentication() {
+        return ((bitField0_ & 0x00000400) == 0x00000400);
+      }
+      /**
+       * <code>optional bool IsAuthentication = 11;</code>
+       *
+       * <pre>
+       *用户是否通过实名认证
+       * </pre>
+       */
+      public boolean getIsAuthentication() {
+        return isAuthentication_;
+      }
+      /**
+       * <code>optional bool IsAuthentication = 11;</code>
+       *
+       * <pre>
+       *用户是否通过实名认证
+       * </pre>
+       */
+      public Builder setIsAuthentication(boolean value) {
+        bitField0_ |= 0x00000400;
+        isAuthentication_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional bool IsAuthentication = 11;</code>
+       *
+       * <pre>
+       *用户是否通过实名认证
+       * </pre>
+       */
+      public Builder clearIsAuthentication() {
+        bitField0_ = (bitField0_ & ~0x00000400);
+        isAuthentication_ = false;
         onChanged();
         return this;
       }
@@ -33460,116 +33573,116 @@ public final class Models {
       "ontact\030\003 \001(\0132 .Com.Fuwu.MobileIM.Model.C" +
       "ontact\"c\n\033ChangeContactDetailResponse\022\021\n" +
       "\tisSucceed\030\001 \001(\010\0221\n\007contact\030\002 \001(\0132 .Com." +
-      "Fuwu.MobileIM.Model.Contact\"\226\002\n\007Profile\022" +
+      "Fuwu.MobileIM.Model.Contact\"\260\002\n\007Profile\022" +
       "\016\n\006userId\030\001 \001(\005\022\014\n\004name\030\002 \001(\t\022\020\n\010nickNam" +
       "e\030\003 \001(\t\022;\n\006gender\030\004 \001(\0162+.Com.Fuwu.Mobil" +
       "eIM.Model.Profile.GenderType\022\026\n\016mobilePh" +
       "oneNum\030\005 \001(\t\022\r\n\005email\030\006 \001(\t\022\020\n\010birthday\030" +
       "\007 \001(\t\022\017\n\007tileUrl\030\010 \001(\t\022\022\n\nisProvider\030\t \001",
-      "(\010\022\017\n\007lisence\030\n \001(\t\"/\n\nGenderType\022\010\n\004Mal" +
-      "e\020\000\022\n\n\006Female\020\001\022\013\n\007Privacy\020\002\"/\n\016ProfileR" +
-      "equest\022\r\n\005token\030\001 \001(\t\022\016\n\006userId\030\002 \001(\005\"W\n" +
-      "\017ProfileResponse\022\021\n\tisSucceed\030\001 \001(\010\0221\n\007p" +
-      "rofile\030\002 \001(\0132 .Com.Fuwu.MobileIM.Model.P" +
-      "rofile\"~\n\024ChangeProfileRequest\022\r\n\005token\030" +
-      "\001 \001(\t\022\016\n\006userId\030\002 \001(\005\022\021\n\tsignature\030\003 \001(\t" +
-      "\022\r\n\005tiles\030\004 \001(\014\022\023\n\013contentType\030\005 \001(\t\022\020\n\010" +
-      "nickName\030\006 \001(\t\"]\n\025ChangeProfileResponse\022" +
-      "\021\n\tisSucceed\030\001 \001(\010\0221\n\007profile\030\002 \001(\0132 .Co",
-      "m.Fuwu.MobileIM.Model.Profile\"\264\002\n\007Messag" +
-      "e\022\016\n\006userId\030\001 \001(\005\022\021\n\tcontactId\030\002 \001(\005\022A\n\013" +
-      "contentType\030\003 \001(\0162,.Com.Fuwu.MobileIM.Mo" +
-      "del.Message.ContentType\022\017\n\007content\030\004 \001(\t" +
-      "\022\020\n\010sendTime\030\005 \001(\t\022=\n\timageType\030\006 \001(\0162*." +
-      "Com.Fuwu.MobileIM.Model.Message.ImageTyp" +
-      "e\022\025\n\rbinaryContent\030\007 \001(\014\"\"\n\013ContentType\022" +
-      "\010\n\004Text\020\000\022\t\n\005Image\020\001\"&\n\tImageType\022\007\n\003JPG" +
-      "\020\000\022\007\n\003PNG\020\001\022\007\n\003GIF\020\002\"T\n\013MessageList\022\021\n\tc" +
-      "ontactId\030\001 \001(\005\0222\n\010messages\030\002 \003(\0132 .Com.F",
-      "uwu.MobileIM.Model.Message\"B\n\016MessageReq" +
-      "uest\022\r\n\005token\030\001 \001(\t\022\016\n\006userId\030\002 \001(\005\022\021\n\tt" +
-      "imeStamp\030\003 \001(\t\"s\n\017MessageResponse\022\021\n\tisS" +
-      "ucceed\030\001 \001(\010\022:\n\014messageLists\030\002 \003(\0132$.Com" +
-      ".Fuwu.MobileIM.Model.MessageList\022\021\n\ttime" +
-      "Stamp\030\003 \001(\t\"f\n\022SendMessageRequest\022\r\n\005tok" +
-      "en\030\001 \001(\t\022\016\n\006userId\030\002 \001(\005\0221\n\007message\030\003 \001(" +
-      "\0132 .Com.Fuwu.MobileIM.Model.Message\"M\n\023S" +
-      "endMessageResponse\022\021\n\tisSucceed\030\001 \001(\010\022\020\n" +
-      "\010sendTime\030\002 \001(\t\022\021\n\terrorCode\030\003 \001(\005\"m\n\017Re",
-      "gisterRequest\022\031\n\021mobilePhoneNumber\030\001 \001(\t" +
-      "\022\020\n\010password\030\002 \001(\t\022\027\n\017passwordConfirm\030\003 " +
-      "\001(\t\022\024\n\014validateCode\030\004 \001(\t\"\336\002\n\020RegisterRe" +
-      "sponse\022\021\n\tisSucceed\030\001 \001(\010\022\016\n\006userId\030\002 \001(" +
-      "\005\022\r\n\005token\030\003 \001(\t\022J\n\terrorCode\030\004 \001(\01627.Co" +
-      "m.Fuwu.MobileIM.Model.RegisterResponse.E" +
-      "rrorCodeType\"\313\001\n\rErrorCodeType\022\016\n\nBadReq" +
-      "uest\020\001\022\023\n\017InvalidDatabase\020\002\022\034\n\030InvalidMo" +
-      "bilePhoneNumber\020\003\022\023\n\017ExistingUserYes\020\004\022\023" +
-      "\n\017InvalidPassword\020\005\022\032\n\026InvalidConfirmPas",
-      "sword\020\006\022\030\n\024InvalidMatchPassword\020\007\022\027\n\023Inv" +
-      "alidValidateCode\020\010\"\221\001\n\025ChangePasswordReq" +
-      "uest\022\r\n\005token\030\001 \001(\t\022\016\n\006userId\030\002 \001(\005\022\024\n\014v" +
-      "alidateCode\030\003 \001(\t\022\030\n\020originalPassword\030\004 " +
-      "\001(\t\022\020\n\010password\030\005 \001(\t\022\027\n\017passwordConfirm" +
-      "\030\006 \001(\t\"\377\002\n\026ChangePasswordResponse\022\021\n\tisS" +
-      "ucceed\030\001 \001(\010\022P\n\terrorCode\030\002 \001(\0162=.Com.Fu" +
-      "wu.MobileIM.Model.ChangePasswordResponse" +
-      ".ErrorCodeType\"\377\001\n\rErrorCodeType\022\016\n\nBadR" +
-      "equest\020\001\022\021\n\rInvalidUserId\020\002\022\020\n\014InvalidTo",
-      "ken\020\003\022\017\n\013InvalidUser\020\004\022\023\n\017InvalidDatabas" +
-      "e\020\005\022\022\n\016ExistingUserNo\020\006\022\033\n\027InvalidOrigin" +
-      "alPassword\020\007\022\023\n\017InvalidPassword\020\010\022\032\n\026Inv" +
-      "alidConfirmPassword\020\t\022\030\n\024InvalidMatchPas" +
-      "sword\020\n\022\027\n\023InvalidValidateCode\020\013\"l\n\024Rese" +
-      "tPasswordRequest\022\023\n\013phoneNumber\030\001 \001(\t\022\024\n" +
-      "\014validateCode\030\002 \001(\t\022\020\n\010password\030\003 \001(\t\022\027\n" +
-      "\017passwordConfirm\030\004 \001(\t\"\302\002\n\025ResetPassword" +
-      "Response\022\021\n\tisSucceed\030\001 \001(\010\022O\n\terrorCode" +
-      "\030\002 \001(\0162<.Com.Fuwu.MobileIM.Model.ResetPa",
-      "sswordResponse.ErrorCodeType\"\304\001\n\rErrorCo" +
-      "deType\022\016\n\nBadRequest\020\001\022\023\n\017InvalidDatabas" +
-      "e\020\002\022\026\n\022InvalidPhoneNumber\020\003\022\023\n\017InvalidPa" +
-      "ssword\020\004\022\032\n\026InvalidPasswordConfirm\020\005\022\030\n\024" +
-      "InvalidMatchPassword\020\006\022\027\n\023InvalidValidat" +
-      "eCode\020\007\022\022\n\016ExistingUserNo\020\010\"\270\001\n\023Validate" +
-      "CodeRequest\022\023\n\013phoneNumber\030\001 \001(\t\022G\n\004type" +
-      "\030\002 \001(\01629.Com.Fuwu.MobileIM.Model.Validat" +
-      "eCodeRequest.ValidateType\"C\n\014ValidateTyp" +
-      "e\022\014\n\010Register\020\001\022\022\n\016ChangePassword\020\002\022\021\n\rR",
-      "esetPassword\020\003\"\212\002\n\024ValidateCodeResponse\022" +
-      "\021\n\tisSucceed\030\001 \001(\010\022N\n\terrorCode\030\002 \001(\0162;." +
-      "Com.Fuwu.MobileIM.Model.ValidateCodeResp" +
-      "onse.ErrorCodeType\"\216\001\n\rErrorCodeType\022\016\n\n" +
-      "BadRequest\020\001\022\026\n\022InvalidPhoneNumber\020\002\022\017\n\013" +
-      "InvalidType\020\003\022\023\n\017ExistingUserYes\020\004\022\022\n\016Ex" +
-      "istingUserNo\020\005\022\014\n\010LockTime\020\006\022\r\n\tSendErro" +
-      "r\020\007\"\206\002\n\nClientInfo\022\020\n\010deviceId\030\001 \001(\t\022:\n\006" +
-      "osType\030\002 \001(\0162*.Com.Fuwu.MobileIM.Model.C" +
-      "lientInfo.OSType\022\021\n\tOSVersion\030\003 \001(\t\022\016\n\006u",
-      "serId\030\004 \001(\005\022\017\n\007channel\030\005 \001(\005\022\025\n\rclientVe" +
-      "rsion\030\006 \001(\t\022\024\n\014isPushEnable\030\007 \001(\010\"I\n\006OST" +
-      "ype\022\n\n\006Others\020\000\022\007\n\003IOS\020\001\022\013\n\007Android\020\002\022\020\n" +
-      "\014WindowsPhone\020\003\022\013\n\007Symbian\020\004\"k\n\021ClientIn" +
-      "foRequest\022\016\n\006userId\030\001 \001(\005\022\r\n\005token\030\002 \001(\t" +
-      "\0227\n\nclientInfo\030\003 \001(\0132#.Com.Fuwu.MobileIM" +
-      ".Model.ClientInfo\"\234\002\n\022ClientInfoResponse" +
-      "\022\021\n\tisSucceed\030\001 \001(\010\022L\n\terrorCode\030\002 \001(\01629" +
-      ".Com.Fuwu.MobileIM.Model.ClientInfoRespo" +
-      "nse.ErrorCodeType\022\034\n\024isNewVersionRequire",
-      "d\030\003 \001(\010\022\030\n\020newClientVersion\030\004 \001(\t\022\021\n\tcli" +
-      "entUrl\030\005 \001(\t\022\025\n\rhasNewVersion\030\006 \001(\010\"C\n\rE" +
-      "rrorCodeType\022\021\n\rInvalidUserId\020\001\022\020\n\014Inval" +
-      "idToken\020\002\022\r\n\tAuthError\020\003\"k\n\013MessagePush\022" +
-      "\020\n\010senderId\030\001 \001(\005\022\022\n\nsenderName\030\002 \001(\t\022\017\n" +
-      "\007content\030\003 \001(\t\022\023\n\013contentType\030\004 \001(\t\022\020\n\010s" +
-      "endTime\030\005 \001(\t\"\014\n\nNoticePush\"\347\001\n\013PushRequ" +
-      "est\022?\n\010pushType\030\001 \001(\0162-.Com.Fuwu.MobileI" +
-      "M.Model.PushRequest.PushType\0229\n\013messageP" +
-      "ush\030\002 \001(\0132$.Com.Fuwu.MobileIM.Model.Mess",
-      "agePush\0227\n\nnoticePush\030\003 \001(\0132#.Com.Fuwu.M" +
-      "obileIM.Model.NoticePush\"#\n\010PushType\022\013\n\007" +
-      "Message\020\000\022\n\n\006Notice\020\001B\031\n\027com.fuwu.mobile" +
-      "im.model"
+      "(\010\022\017\n\007lisence\030\n \001(\t\022\030\n\020IsAuthentication\030" +
+      "\013 \001(\010\"/\n\nGenderType\022\010\n\004Male\020\000\022\n\n\006Female\020" +
+      "\001\022\013\n\007Privacy\020\002\"/\n\016ProfileRequest\022\r\n\005toke" +
+      "n\030\001 \001(\t\022\016\n\006userId\030\002 \001(\005\"W\n\017ProfileRespon" +
+      "se\022\021\n\tisSucceed\030\001 \001(\010\0221\n\007profile\030\002 \001(\0132 " +
+      ".Com.Fuwu.MobileIM.Model.Profile\"~\n\024Chan" +
+      "geProfileRequest\022\r\n\005token\030\001 \001(\t\022\016\n\006userI" +
+      "d\030\002 \001(\005\022\021\n\tsignature\030\003 \001(\t\022\r\n\005tiles\030\004 \001(" +
+      "\014\022\023\n\013contentType\030\005 \001(\t\022\020\n\010nickName\030\006 \001(\t" +
+      "\"]\n\025ChangeProfileResponse\022\021\n\tisSucceed\030\001",
+      " \001(\010\0221\n\007profile\030\002 \001(\0132 .Com.Fuwu.MobileI" +
+      "M.Model.Profile\"\264\002\n\007Message\022\016\n\006userId\030\001 " +
+      "\001(\005\022\021\n\tcontactId\030\002 \001(\005\022A\n\013contentType\030\003 " +
+      "\001(\0162,.Com.Fuwu.MobileIM.Model.Message.Co" +
+      "ntentType\022\017\n\007content\030\004 \001(\t\022\020\n\010sendTime\030\005" +
+      " \001(\t\022=\n\timageType\030\006 \001(\0162*.Com.Fuwu.Mobil" +
+      "eIM.Model.Message.ImageType\022\025\n\rbinaryCon" +
+      "tent\030\007 \001(\014\"\"\n\013ContentType\022\010\n\004Text\020\000\022\t\n\005I" +
+      "mage\020\001\"&\n\tImageType\022\007\n\003JPG\020\000\022\007\n\003PNG\020\001\022\007\n" +
+      "\003GIF\020\002\"T\n\013MessageList\022\021\n\tcontactId\030\001 \001(\005",
+      "\0222\n\010messages\030\002 \003(\0132 .Com.Fuwu.MobileIM.M" +
+      "odel.Message\"B\n\016MessageRequest\022\r\n\005token\030" +
+      "\001 \001(\t\022\016\n\006userId\030\002 \001(\005\022\021\n\ttimeStamp\030\003 \001(\t" +
+      "\"s\n\017MessageResponse\022\021\n\tisSucceed\030\001 \001(\010\022:" +
+      "\n\014messageLists\030\002 \003(\0132$.Com.Fuwu.MobileIM" +
+      ".Model.MessageList\022\021\n\ttimeStamp\030\003 \001(\t\"f\n" +
+      "\022SendMessageRequest\022\r\n\005token\030\001 \001(\t\022\016\n\006us" +
+      "erId\030\002 \001(\005\0221\n\007message\030\003 \001(\0132 .Com.Fuwu.M" +
+      "obileIM.Model.Message\"M\n\023SendMessageResp" +
+      "onse\022\021\n\tisSucceed\030\001 \001(\010\022\020\n\010sendTime\030\002 \001(",
+      "\t\022\021\n\terrorCode\030\003 \001(\005\"m\n\017RegisterRequest\022" +
+      "\031\n\021mobilePhoneNumber\030\001 \001(\t\022\020\n\010password\030\002" +
+      " \001(\t\022\027\n\017passwordConfirm\030\003 \001(\t\022\024\n\014validat" +
+      "eCode\030\004 \001(\t\"\336\002\n\020RegisterResponse\022\021\n\tisSu" +
+      "cceed\030\001 \001(\010\022\016\n\006userId\030\002 \001(\005\022\r\n\005token\030\003 \001" +
+      "(\t\022J\n\terrorCode\030\004 \001(\01627.Com.Fuwu.MobileI" +
+      "M.Model.RegisterResponse.ErrorCodeType\"\313" +
+      "\001\n\rErrorCodeType\022\016\n\nBadRequest\020\001\022\023\n\017Inva" +
+      "lidDatabase\020\002\022\034\n\030InvalidMobilePhoneNumbe" +
+      "r\020\003\022\023\n\017ExistingUserYes\020\004\022\023\n\017InvalidPassw",
+      "ord\020\005\022\032\n\026InvalidConfirmPassword\020\006\022\030\n\024Inv" +
+      "alidMatchPassword\020\007\022\027\n\023InvalidValidateCo" +
+      "de\020\010\"\221\001\n\025ChangePasswordRequest\022\r\n\005token\030" +
+      "\001 \001(\t\022\016\n\006userId\030\002 \001(\005\022\024\n\014validateCode\030\003 " +
+      "\001(\t\022\030\n\020originalPassword\030\004 \001(\t\022\020\n\010passwor" +
+      "d\030\005 \001(\t\022\027\n\017passwordConfirm\030\006 \001(\t\"\377\002\n\026Cha" +
+      "ngePasswordResponse\022\021\n\tisSucceed\030\001 \001(\010\022P" +
+      "\n\terrorCode\030\002 \001(\0162=.Com.Fuwu.MobileIM.Mo" +
+      "del.ChangePasswordResponse.ErrorCodeType" +
+      "\"\377\001\n\rErrorCodeType\022\016\n\nBadRequest\020\001\022\021\n\rIn",
+      "validUserId\020\002\022\020\n\014InvalidToken\020\003\022\017\n\013Inval" +
+      "idUser\020\004\022\023\n\017InvalidDatabase\020\005\022\022\n\016Existin" +
+      "gUserNo\020\006\022\033\n\027InvalidOriginalPassword\020\007\022\023" +
+      "\n\017InvalidPassword\020\010\022\032\n\026InvalidConfirmPas" +
+      "sword\020\t\022\030\n\024InvalidMatchPassword\020\n\022\027\n\023Inv" +
+      "alidValidateCode\020\013\"l\n\024ResetPasswordReque" +
+      "st\022\023\n\013phoneNumber\030\001 \001(\t\022\024\n\014validateCode\030" +
+      "\002 \001(\t\022\020\n\010password\030\003 \001(\t\022\027\n\017passwordConfi" +
+      "rm\030\004 \001(\t\"\302\002\n\025ResetPasswordResponse\022\021\n\tis" +
+      "Succeed\030\001 \001(\010\022O\n\terrorCode\030\002 \001(\0162<.Com.F",
+      "uwu.MobileIM.Model.ResetPasswordResponse" +
+      ".ErrorCodeType\"\304\001\n\rErrorCodeType\022\016\n\nBadR" +
+      "equest\020\001\022\023\n\017InvalidDatabase\020\002\022\026\n\022Invalid" +
+      "PhoneNumber\020\003\022\023\n\017InvalidPassword\020\004\022\032\n\026In" +
+      "validPasswordConfirm\020\005\022\030\n\024InvalidMatchPa" +
+      "ssword\020\006\022\027\n\023InvalidValidateCode\020\007\022\022\n\016Exi" +
+      "stingUserNo\020\010\"\270\001\n\023ValidateCodeRequest\022\023\n" +
+      "\013phoneNumber\030\001 \001(\t\022G\n\004type\030\002 \001(\01629.Com.F" +
+      "uwu.MobileIM.Model.ValidateCodeRequest.V" +
+      "alidateType\"C\n\014ValidateType\022\014\n\010Register\020",
+      "\001\022\022\n\016ChangePassword\020\002\022\021\n\rResetPassword\020\003" +
+      "\"\212\002\n\024ValidateCodeResponse\022\021\n\tisSucceed\030\001" +
+      " \001(\010\022N\n\terrorCode\030\002 \001(\0162;.Com.Fuwu.Mobil" +
+      "eIM.Model.ValidateCodeResponse.ErrorCode" +
+      "Type\"\216\001\n\rErrorCodeType\022\016\n\nBadRequest\020\001\022\026" +
+      "\n\022InvalidPhoneNumber\020\002\022\017\n\013InvalidType\020\003\022" +
+      "\023\n\017ExistingUserYes\020\004\022\022\n\016ExistingUserNo\020\005" +
+      "\022\014\n\010LockTime\020\006\022\r\n\tSendError\020\007\"\206\002\n\nClient" +
+      "Info\022\020\n\010deviceId\030\001 \001(\t\022:\n\006osType\030\002 \001(\0162*" +
+      ".Com.Fuwu.MobileIM.Model.ClientInfo.OSTy",
+      "pe\022\021\n\tOSVersion\030\003 \001(\t\022\016\n\006userId\030\004 \001(\005\022\017\n" +
+      "\007channel\030\005 \001(\005\022\025\n\rclientVersion\030\006 \001(\t\022\024\n" +
+      "\014isPushEnable\030\007 \001(\010\"I\n\006OSType\022\n\n\006Others\020" +
+      "\000\022\007\n\003IOS\020\001\022\013\n\007Android\020\002\022\020\n\014WindowsPhone\020" +
+      "\003\022\013\n\007Symbian\020\004\"k\n\021ClientInfoRequest\022\016\n\006u" +
+      "serId\030\001 \001(\005\022\r\n\005token\030\002 \001(\t\0227\n\nclientInfo" +
+      "\030\003 \001(\0132#.Com.Fuwu.MobileIM.Model.ClientI" +
+      "nfo\"\234\002\n\022ClientInfoResponse\022\021\n\tisSucceed\030" +
+      "\001 \001(\010\022L\n\terrorCode\030\002 \001(\01629.Com.Fuwu.Mobi" +
+      "leIM.Model.ClientInfoResponse.ErrorCodeT",
+      "ype\022\034\n\024isNewVersionRequired\030\003 \001(\010\022\030\n\020new" +
+      "ClientVersion\030\004 \001(\t\022\021\n\tclientUrl\030\005 \001(\t\022\025" +
+      "\n\rhasNewVersion\030\006 \001(\010\"C\n\rErrorCodeType\022\021" +
+      "\n\rInvalidUserId\020\001\022\020\n\014InvalidToken\020\002\022\r\n\tA" +
+      "uthError\020\003\"k\n\013MessagePush\022\020\n\010senderId\030\001 " +
+      "\001(\005\022\022\n\nsenderName\030\002 \001(\t\022\017\n\007content\030\003 \001(\t" +
+      "\022\023\n\013contentType\030\004 \001(\t\022\020\n\010sendTime\030\005 \001(\t\"" +
+      "\014\n\nNoticePush\"\347\001\n\013PushRequest\022?\n\010pushTyp" +
+      "e\030\001 \001(\0162-.Com.Fuwu.MobileIM.Model.PushRe" +
+      "quest.PushType\0229\n\013messagePush\030\002 \001(\0132$.Co",
+      "m.Fuwu.MobileIM.Model.MessagePush\0227\n\nnot" +
+      "icePush\030\003 \001(\0132#.Com.Fuwu.MobileIM.Model." +
+      "NoticePush\"#\n\010PushType\022\013\n\007Message\020\000\022\n\n\006N" +
+      "otice\020\001B\031\n\027com.fuwu.mobileim.model"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -33659,7 +33772,7 @@ public final class Models {
           internal_static_Com_Fuwu_MobileIM_Model_Profile_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_Com_Fuwu_MobileIM_Model_Profile_descriptor,
-              new java.lang.String[] { "UserId", "Name", "NickName", "Gender", "MobilePhoneNum", "Email", "Birthday", "TileUrl", "IsProvider", "Lisence", });
+              new java.lang.String[] { "UserId", "Name", "NickName", "Gender", "MobilePhoneNum", "Email", "Birthday", "TileUrl", "IsProvider", "Lisence", "IsAuthentication", });
           internal_static_Com_Fuwu_MobileIM_Model_ProfileRequest_descriptor =
             getDescriptor().getMessageTypes().get(14);
           internal_static_Com_Fuwu_MobileIM_Model_ProfileRequest_fieldAccessorTable = new

@@ -1,7 +1,5 @@
 package com.fuwu.mobileim.pojo;
 
-import com.fuwu.mobileim.model.Models.Contact.GenderType;
-
 
 /**
  * @作者 丁作强

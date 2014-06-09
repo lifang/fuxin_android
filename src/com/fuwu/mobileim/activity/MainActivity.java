@@ -161,7 +161,7 @@ public class MainActivity extends Activity implements OnPageChangeListener {
 			main_search.setVisibility(View.VISIBLE);
 			contacts_search_linearLayout.setVisibility(View.VISIBLE);
 			// 模拟
-			SourceDateList = fxApplication.getContactsList();
+//			SourceDateList = fxApplication.getContactsList();
 			// adapter = new ContactAdapter(MainActivity.this,
 			// SourceDateList,-1);
 			// contacts_search_listview.setAdapter(adapter);

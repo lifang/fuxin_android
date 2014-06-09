@@ -10,10 +10,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 import com.fuwu.mobileim.model.Models.Message;
+import com.fuwu.mobileim.model.Models.Message.ContentType;
 import com.fuwu.mobileim.model.Models.MessageList;
 import com.fuwu.mobileim.model.Models.MessageRequest;
 import com.fuwu.mobileim.model.Models.MessageResponse;
@@ -22,6 +25,7 @@ import com.fuwu.mobileim.pojo.TalkPojo;
 import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
+import com.fuwu.mobileim.util.ImageUtil;
 import com.fuwu.mobileim.util.TimeUtil;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.google.protobuf.InvalidProtocolBufferException;
@@ -89,8 +93,6 @@ public class RequstService extends Service {
 			super.run();
 			try {
 				MessageRequest.Builder builder = MessageRequest.newBuilder();
-				// builder.setUserId(1);
-				// builder.setToken("MockToken");
 				Log.i("Ax", "timeStamp:" + getTimeStamp());
 				builder.setUserId(fx.getUser_id());
 				builder.setToken(fx.getToken());
@@ -112,23 +114,41 @@ public class RequstService extends Service {
 						Log.i("Ax", "messageCount:" + mesCount);
 						for (int j = mesCount - 1; j >= 0; j--) {
 							Message m = mes.getMessages(j);
-							MessagePojo mp;
+							MessagePojo mp = null;
 							int user_id = m.getUserId();
 							int contact_id = m.getContactId();
 							String time = "";
-							Log.i("FuWu", "time:" + m.getSendTime());
+							Log.i("Ax", "sendTime:" + m.getSendTime());
 							if (TimeUtil.isFiveMin(
-									db.getLastTime(user_id, contact_id),
+									db.getLastTime(contact_id, user_id),
 									m.getSendTime())) {
 								time = m.getSendTime();
 							}
-							mp = new MessagePojo(user_id, contact_id, time,
-									m.getContent(), 0, 1);
+							if (m.getContentType() == ContentType.Text) {
+								mp = new MessagePojo(contact_id, user_id, time,
+										m.getContent(), 0, 1);
+							} else {
+								byte[] data = m.getBinaryContent()
+										.toByteArray();
+								Log.i("FuWu", "size:" + data.length);
+								Bitmap bitmap = BitmapFactory.decodeByteArray(
+										data, 0, data.length);
+								String content = System.currentTimeMillis()
+										+ "";
+								ImageUtil.saveBitmap(content, m.getImageType()
+										.name(), bitmap);
+								mp = new MessagePojo(contact_id, user_id, time,
+										"/sdcard/fuxin/" + content + "."
+												+ m.getImageType().name(), 0, 2);
+							}
 							list.add(mp);
-							if (j == mesCount - 1) {
-								TalkPojo tp = new TalkPojo(user_id, contact_id,
-										"", "", m.getContent(),
-										m.getSendTime(), mesCount);
+							if (j == 0) {
+								String str = m.getContent();
+								if (m.getContentType() == ContentType.Image) {
+									str = "[图片]";
+								}
+								TalkPojo tp = new TalkPojo(contact_id, user_id,
+										"", "", str, m.getSendTime(), mesCount);
 								db.addTalk(tp);
 							}
 						}

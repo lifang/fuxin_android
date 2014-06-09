@@ -20,6 +20,7 @@
             android:src="@drawable/back" />
 
         <TextView
+            android:id="@+id/chat_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -136,11 +137,11 @@
             android:persistentDrawingCache="animation" />
 
         <com.fuwu.mobileim.view.CirclePageIndicator
-            android:background="#FAFAFA"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/indicator"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:background="#FAFAFA"
             android:padding="10dip" />
     </LinearLayout>
 

@@ -61,17 +61,21 @@ public class BlockManagementActivity extends Activity {
 				}
 				Toast.makeText(getApplicationContext(), "恢复成功",
 						Toast.LENGTH_SHORT).show();
+				
+//				for (int i = 0; i < fxApplication.getContactsList().size(); i++) {
+//					if (fxApplication.getContactsList().get(i).getContactId() == list
+//							.get(index).getContactId()) {
+//						fxApplication.getContactsList().get(i)
+//								.setIsBlocked(0);
+//						
+//						db.modifyContactBlock(0,fxApplication.getUser_id(),
+//								fxApplication.getContactsList().get(i).getContactId());
+//					}
+//					break;
+//				}
+				db.modifyContactBlock(0,fxApplication.getUser_id(),
+						list.get(index).getContactId());
 				list.remove(index);
-				for (int i = 0; i < fxApplication.getContactsList().size(); i++) {
-					if (fxApplication.getContactsList().get(i).getContactId() == list
-							.get(index).getContactId()) {
-						fxApplication.getContactsList().get(i)
-								.setIsBlocked(0);
-						db.modifyContactBlock(0,fxApplication.getUser_id(),
-								fxApplication.getContactsList().get(i).getContactId());
-					}
-					break;
-				}
 				clvAdapter.notifyDataSetChanged();
 				break;
 			case 1:
@@ -84,17 +88,20 @@ public class BlockManagementActivity extends Activity {
 				if (!db.isOpen()) {
 					db = new DBManager(BlockManagementActivity.this);
 				}
+				
+//				for (int i = 0; i < fxApplication.getContactsList().size(); i++) {
+//					if (fxApplication.getContactsList().get(i).getContactId() == list
+//							.get(index).getContactId()) {
+//						fxApplication.getContactsList().get(i)
+//								.setIsBlocked(0);
+//						db.modifyContactBlock(0,fxApplication.getUser_id(),
+//								fxApplication.getContactsList().get(i).getContactId());
+//					}
+//					break;
+//				}
+				db.modifyContactBlock(0,fxApplication.getUser_id(),
+						list.get(index).getContactId());
 				list.remove(index);
-				for (int i = 0; i < fxApplication.getContactsList().size(); i++) {
-					if (fxApplication.getContactsList().get(i).getContactId() == list
-							.get(index).getContactId()) {
-						fxApplication.getContactsList().get(i)
-								.setIsBlocked(0);
-						db.modifyContactBlock(0,fxApplication.getUser_id(),
-								fxApplication.getContactsList().get(i).getContactId());
-					}
-					break;
-				}
 				clvAdapter.notifyDataSetChanged();
 				break;
 			case 6:
@@ -120,7 +127,7 @@ public class BlockManagementActivity extends Activity {
 		db = new DBManager(this);
 		// 获得被屏蔽的联系人
 		List<ContactPojo> contactsList = db.queryContactList(fxApplication.getUser_id());
-		fxApplication.setContactsList(contactsList);
+//		fxApplication.setContactsList(contactsList);
 		for (int i = 0; i <contactsList.size(); i++) {
 			if (contactsList.get(i).getIsBlocked()==1) {
 				list.add(contactsList.get(i));

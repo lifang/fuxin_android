@@ -100,7 +100,7 @@ public class FragmengtActivity extends FragmentActivity {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 0:// 调用加载头像的方法
-					// prodialog.dismiss();
+				prodialog.dismiss();
 
 				for (int i = 0; i < contactsList.size(); i++) {
 					String face_str = contactsList.get(i).getUserface_url();
@@ -306,14 +306,23 @@ public class FragmengtActivity extends FragmentActivity {
 					if (res.getIsSucceed()) {
 
 						for (int i = 0; i < res.getContactsCount(); i++) {
+							Log.i("linshi", res.getContactsCount() + "---" + i
+									+ "---" + res.getContacts(i).getName());
 							int contactId = res.getContacts(i).getContactId();
 							String name = res.getContacts(i).getName();
-							String sortKey = findSortKey(res.getContacts(i)
-									.getName());
+							// String sortKey = findSortKey(res.getContacts(i)
+							// .getName());
 							// String sortKey = findSortKey(res.getContacts(i)
 							// .getPinyin());
+
 							String customName = res.getContacts(i)
 									.getCustomName();
+							String sortKey = null;
+							if (customName != null && customName.length() > 0) {
+								sortKey = findSortKey(customName);
+							} else {
+								sortKey = findSortKey(name);
+							}
 							String userface_url = res.getContacts(i)
 									.getTileUrl();
 							int sex = res.getContacts(i).getGender()
@@ -376,18 +385,21 @@ public class FragmengtActivity extends FragmentActivity {
 	/**
 	 * 获得首字母
 	 */
-	private String findSortKey(String str) {
+	public String findSortKey(String str) {
+		if (str.length() > 0) {
 
-		String pinyin = characterParser.getSelling(str);
-		String sortString = pinyin.substring(0, 1).toUpperCase();
+			String pinyin = characterParser.getSelling(str);
+			String sortString = pinyin.substring(0, 1).toUpperCase();
 
-		// 正则表达式，判断首字母是否是英文字母
-		if (sortString.matches("[A-Z]")) {
-			return sortString.toUpperCase();
+			// 正则表达式，判断首字母是否是英文字母
+			if (sortString.matches("[A-Z]")) {
+				return sortString.toUpperCase();
+			} else {
+				return "#";
+			}
 		} else {
 			return "#";
 		}
-
 	}
 
 	/**
@@ -522,14 +534,11 @@ public class FragmengtActivity extends FragmentActivity {
 			final Animation translateAnimation = new TranslateAnimation(720, 0,
 					0, 0); // 移动动画效果
 
-			translateAnimation.setDuration(200); // 设置动画持续时间
+			translateAnimation.setDuration(100); // 设置动画持续时间
 			main_search.setAnimation(translateAnimation); // 设置动画效果
 			translateAnimation.startNow(); // 启动动画
 			// 模拟
-			SourceDateList = fxApplication.getContactsList();
-			// adapter = new ContactAdapter(MainActivity.this,
-			// SourceDateList,-1);
-			// contacts_search_listview.setAdapter(adapter);
+			SourceDateList = db.queryContactList(fxApplication.getUser_id());
 		}
 	};
 	/*

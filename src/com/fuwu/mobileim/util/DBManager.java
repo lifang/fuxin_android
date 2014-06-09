@@ -7,18 +7,23 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+
+import com.fuwu.mobileim.activity.FragmengtActivity;
 import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.pojo.MessagePojo;
 import com.fuwu.mobileim.pojo.PushPojo;
 import com.fuwu.mobileim.pojo.TalkPojo;
+import com.fuwu.mobileim.view.CharacterParser;
 
 public class DBManager {
 	private DBHelper helper;
 	private SQLiteDatabase db;
+	private CharacterParser characterParser;
 
 	public DBManager(Context context) {
 		helper = new DBHelper(context);
 		db = helper.getWritableDatabase();
+		characterParser = CharacterParser.getInstance();
 	}
 
 	public void addMessage(MessagePojo mp) {
@@ -45,8 +50,11 @@ public class DBManager {
 						new Object[] { mp.getUserId(), mp.getContactId(),
 								mp.getContent(), mp.getSendTime(),
 								mp.getMsgType(), mp.getIsComMeg() });
+				Log.i("FuWu", mp.toString());
 			}
 			db.setTransactionSuccessful();
+		} catch (Exception e) {
+			Log.i("FuWu", e.getMessage());
 		} finally {
 			db.endTransaction();
 		}
@@ -60,7 +68,7 @@ public class DBManager {
 				c.moveToFirst();
 				int count = c.getInt(c.getColumnIndex("mes_count"));
 				db.execSQL(
-						"update from talk set content = ? , time = ? , mes_count = ? where user_id = ? and contact_id = ?",
+						"update talk set content = ? , time = ? , mes_count = ? where user_id = ? and contact_id = ?",
 						new Object[] { tp.getContent(), tp.getTime(),
 								tp.getMes_count() + count, tp.getUser_id(),
 								tp.getContact_id(), });
@@ -74,6 +82,20 @@ public class DBManager {
 			}
 			c.close();
 			db.setTransactionSuccessful();
+		} catch (Exception e) {
+			Log.i("FuWu", e.getMessage());
+		} finally {
+			db.endTransaction();
+		}
+	}
+
+	public void updateContactRem(int user_id, int contact_id, String rem) {
+		db.beginTransaction();
+		try {
+			db.execSQL(
+					"update contact set customName = ? where userId = ? and contactId = ?",
+					new Object[] { rem, user_id + "", contact_id + "" });
+			db.setTransactionSuccessful();
 		} finally {
 			db.endTransaction();
 		}
@@ -85,6 +107,7 @@ public class DBManager {
 			db.execSQL(
 					"Delete from message where user_id = ? and contact_id = ? ",
 					new Object[] { user_id + "", contact_id + "" });
+			db.setTransactionSuccessful();
 		} finally {
 			db.endTransaction();
 		}
@@ -95,6 +118,7 @@ public class DBManager {
 		try {
 			db.execSQL("Delete from message where user_id = ?",
 					new Object[] { user_id + "" });
+			db.setTransactionSuccessful();
 		} finally {
 			db.endTransaction();
 		}
@@ -132,13 +156,13 @@ public class DBManager {
 		return flag;
 	}
 
-	public boolean modifyContactBlock(int isblocked,int userId, int contactId) {
+	public boolean modifyContactBlock(int isblocked, int userId, int contactId) {
 		boolean flag = true;
 		db.beginTransaction();
 		try {
 			db.execSQL(
-					"update from  contact set  isBlocked = ?  WHERE userId = ? and contactId = ?",
-					new Object[] { isblocked,userId, contactId });
+					"update  contact set  isBlocked = ?  WHERE userId = ? and contactId = ?",
+					new Object[] { isblocked, userId, contactId });
 			db.setTransactionSuccessful();
 		} finally {
 			db.endTransaction();
@@ -150,7 +174,40 @@ public class DBManager {
 		ArrayList<ContactPojo> cpList = new ArrayList<ContactPojo>();
 		Cursor c = queryContactCursor(user_id);
 		while (c.moveToNext()) {
+			
 			ContactPojo mp = new ContactPojo();
+			mp.setContactId(c.getInt(c.getColumnIndex("contactId")));
+			mp.setCustomName(c.getString(c.getColumnIndex("customName")));
+			mp.setIndividualResume(c.getString(c
+					.getColumnIndex("individualResume")));
+			mp.setIsBlocked(c.getInt(c.getColumnIndex("isBlocked")));
+			mp.setIsProvider(c.getInt(c.getColumnIndex("isProvider")));
+			mp.setLastContactTime(c.getString(c
+					.getColumnIndex("lastContactTime")));
+			mp.setLisence(c.getString(c.getColumnIndex("lisence")));
+			mp.setName(c.getString(c.getColumnIndex("name")));
+			mp.setSex(c.getInt(c.getColumnIndex("sex")));
+			String sortKey=null;
+			if (c.getString(c.getColumnIndex("customName"))!=null&&c.getString(c.getColumnIndex("customName")).length()>0) {
+				 sortKey = findSortKey(c.getString(c.getColumnIndex("customName")));
+			}else {
+				 sortKey = findSortKey(c.getString(c.getColumnIndex("name")));
+			}
+			mp.setSortKey(sortKey);
+//			mp.setSortKey(c.getString(c.getColumnIndex("sortKey")));
+			mp.setSource(c.getInt(c.getColumnIndex("source")));
+			mp.setUserface_url(c.getString(c.getColumnIndex("userface_url")));
+			cpList.add(mp);
+
+		}
+		c.close();
+		return cpList;
+	}
+
+	public ContactPojo queryContact(int user_id, int contact_id) {
+		Cursor c = queryContactCursor(user_id, contact_id);
+		ContactPojo mp = new ContactPojo();
+		if (c.moveToNext()) {
 			mp.setContactId(c.getInt(c.getColumnIndex("contactId")));
 			mp.setCustomName(c.getString(c.getColumnIndex("customName")));
 			mp.setIndividualResume(c.getString(c
@@ -165,11 +222,9 @@ public class DBManager {
 			mp.setSortKey(c.getString(c.getColumnIndex("sortKey")));
 			mp.setSource(c.getInt(c.getColumnIndex("source")));
 			mp.setUserface_url(c.getString(c.getColumnIndex("userface_url")));
-			cpList.add(mp);
-
 		}
 		c.close();
-		return cpList;
+		return mp;
 	}
 
 	public List<MessagePojo> queryMessageList(int user_id, int contact_id,
@@ -180,6 +235,7 @@ public class DBManager {
 		while (c.moveToNext()) {
 			MessagePojo mp = new MessagePojo();
 			mp.setUserId(user_id);
+			mp.setContactId(contact_id);
 			mp.setContent(c.getString(c.getColumnIndex("content")));
 			mp.setIsComMeg(c.getInt(c.getColumnIndex("is_com")));
 			mp.setMsgType(c.getInt(c.getColumnIndex("type")));
@@ -286,6 +342,13 @@ public class DBManager {
 		return c;
 	}
 
+	public Cursor queryContactCursor(int userid, int contact_id) {
+		Cursor c = db.rawQuery(
+				"SELECT * FROM contact where userId = ? and contactId = ?",
+				new String[] { userid + "", contact_id + "" });
+		return c;
+	}
+
 	public Cursor queryMessageCursor(int user_id, int contact_id, int num,
 			int max) {
 		Cursor c = db
@@ -331,4 +394,24 @@ public class DBManager {
 	public boolean isOpen() {
 		return db.isOpen();
 	}
+	/**
+	 * 获得首字母
+	 */
+	public  String findSortKey(String str) {
+		if (str.length() > 0) {
+
+			String pinyin = characterParser.getSelling(str);
+			String sortString = pinyin.substring(0, 1).toUpperCase();
+
+			// 正则表达式，判断首字母是否是英文字母
+			if (sortString.matches("[A-Z]")) {
+				return sortString.toUpperCase();
+			} else {
+				return "#";
+			}
+		} else {
+			return "#";
+		}
+	}
+	
 }
