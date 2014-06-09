@@ -1,5 +1,6 @@
 package com.fuwu.mobileim.adapter;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -15,11 +16,13 @@ import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -156,12 +159,17 @@ public class MessageListViewAdapter extends BaseAdapter {
 			holder.time.setVisibility(View.VISIBLE);
 		}
 		if (mp.getIsComMeg() == 0) {
+			// 设置头像
+			FuXunTools.set_img(cp.getContactId(),holder.img);
 			holder.img.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					showLoginDialog();
 				}
 			});
+		} else {
+			// 设置头像
+			FuXunTools.set_img(user_id,holder.img);
 		}
 		if (mp.getMsgType() == 1) {
 			holder.mes.setText(convertNormalStringToSpannableString(mp
@@ -189,9 +197,24 @@ public class MessageListViewAdapter extends BaseAdapter {
 		TextView lisence = (TextView) view.findViewById(R.id.info_lisence);
 		TextView sign = (TextView) view.findViewById(R.id.info_sign);
 		ImageView img = (ImageView) view.findViewById(R.id.info_img);
+		ImageView img_gou = (ImageView) view.findViewById(R.id.info_gouIcon);
+		ImageView img_yue = (ImageView) view.findViewById(R.id.info_yueIcon);
 		ok = (Button) view.findViewById(R.id.info_ok);
-		img.setImageBitmap(FuXunTools.toRoundBitmap(BitmapFactory
-				.decodeResource(mContext.getResources(), R.drawable.headpic)));
+		// img.setImageBitmap(FuXunTools.toRoundBitmap(BitmapFactory
+		// .decodeResource(mContext.getResources(), R.drawable.headpic)));
+		// 设置头像
+		FuXunTools.set_img(cp.getContactId(),img);
+		String str = FuXunTools.toNumber(cp.getSource());
+		if (FuXunTools.isExist(str, 0, 1)) {
+			img_gou.setVisibility(View.VISIBLE);
+		} else {
+			img_gou.setVisibility(View.GONE);
+		}
+		if (FuXunTools.isExist(str, 2, 3)) {
+			img_yue.setVisibility(View.VISIBLE);
+		} else {
+			img_yue.setVisibility(View.GONE);
+		}
 		name.setText("" + cp.getName());
 		rem.setText("备注:" + cp.getCustomName());
 		remInfo.setText("" + cp.getCustomName());

@@ -293,9 +293,11 @@ public class MyInformationActivity extends Activity {
 		String mobile = preferences.getString("profile_mobile", "");// 手机号码
 		String email = preferences.getString("profile_email", "");// 邮箱
 		String birthday = preferences.getString("profile_birthday", "");// 生日
-
+		Boolean isAuthentication = preferences
+				.getBoolean("profile_isAuthentication", false);//
 		profilePojo = new ProfilePojo(profile_userid, name, nickName, gender,
-				tileUrl, isProvider, lisence, mobile, email, birthday);
+				tileUrl, isProvider, lisence, mobile, email, birthday,isAuthentication);
+		
 
 		return profilePojo;
 	}
@@ -317,6 +319,8 @@ public class MyInformationActivity extends Activity {
 		editor.putString("profile_mobile", pro.getMobile());
 		editor.putString("profile_email", pro.getEmail());
 		editor.putString("profile_birthday", pro.getBirthday());
+		editor.putBoolean("profile_isAuthentication", pro.getIsAuthentication());
+		
 		editor.commit();
 
 	}

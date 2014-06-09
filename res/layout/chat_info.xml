@@ -9,7 +9,7 @@
     android:orientation="vertical"
     android:padding="10dp" >
 
-    <ImageView
+    <com.fuwu.mobileim.view.CircularImage
         android:id="@+id/info_img"
         android:layout_width="40dp"
         android:layout_height="40dp"
@@ -45,6 +45,7 @@
         android:src="@drawable/yue" />
 
     <ImageView
+        android:id="@+id/info_gouIcon"
         android:layout_width="30dp"
         android:layout_height="17dp"
         android:layout_alignTop="@id/info_yueIcon"

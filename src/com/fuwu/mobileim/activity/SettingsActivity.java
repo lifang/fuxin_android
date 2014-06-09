@@ -205,9 +205,10 @@ public class SettingsActivity extends Fragment implements Urlinterface{
 		String mobile = preferences.getString("profile_mobile", "");// 手机号码
 		String email = preferences.getString("profile_email", "");// 邮箱
 		String birthday = preferences.getString("profile_birthday", "");// 生日
-
+		Boolean isAuthentication = preferences
+				.getBoolean("profile_isAuthentication", false);//
 		profilePojo = new ProfilePojo(profile_userid, name, nickName, gender,
-				tileUrl, isProvider, lisence, mobile, email, birthday);
+				tileUrl, isProvider, lisence, mobile, email, birthday,isAuthentication);
 
 		return profilePojo;
 	}
@@ -243,10 +244,10 @@ public class SettingsActivity extends Fragment implements Urlinterface{
 						String mobile = res.getProfile().getMobilePhoneNum();// 手机号码
 						String email = res.getProfile().getEmail();// 邮箱
 						String birthday = res.getProfile().getBirthday();// 生日
-
+						Boolean isAuthentication =res.getProfile().getIsAuthentication();//
 						profilePojo = new ProfilePojo(userId, name, nickName,
 								gender, tileUrl, isProvider, lisence, mobile,
-								email, birthday);
+								email, birthday,isAuthentication);
 						putProfile(profilePojo);
 						Log.i("linshi", "  --nickName" + nickName
 								+ "  --gender" + gender + "  --tileUrl"
@@ -285,6 +286,8 @@ public class SettingsActivity extends Fragment implements Urlinterface{
 		editor.putString("profile_mobile", pro.getMobile());
 		editor.putString("profile_email", pro.getEmail());
 		editor.putString("profile_birthday", pro.getBirthday());
+		editor.putBoolean("profile_isAuthentication", pro.getIsAuthentication());
+		
 		editor.commit();
 
 	}
@@ -363,8 +366,8 @@ public class SettingsActivity extends Fragment implements Urlinterface{
 			setting_sex_item.setVisibility(View.GONE);
 		}
 		// 设置行业认证
-		String str1 = profilePojo.getLisence();
-		if (str1 != null && !("").equals(str1)) {
+		Boolean str1 = profilePojo.getIsAuthentication();
+		if (str1) {
 			certification_one.setVisibility(View.VISIBLE);
 		} else {
 			certification_one.setVisibility(View.GONE);

@@ -7,18 +7,19 @@ public class ProfilePojo {
 	private String nickName;// 昵称
 	private int gender;// 性别
 	private String tileUrl;// 头像
-	private Boolean isProvider;// 福师
+	private boolean isProvider;// 福师
 	private String lisence;// 行业认证
 	private String mobile;// 手机号码
 	private String email;// 邮箱
 	private String birthday;// 生日
-
+	private boolean isAuthentication;// 福师
+	
 	public ProfilePojo() {
 	}
 
 	public ProfilePojo(int userId, String name, String nickName, int gender,
-			String tileUrl, Boolean isProvider, String lisence, String mobile,
-			String email, String birthday) {
+			String tileUrl, boolean isProvider, String lisence, String mobile,
+			String email, String birthday, boolean isAuthentication) {
 		super();
 		this.userId = userId;
 		this.name = name;
@@ -30,6 +31,7 @@ public class ProfilePojo {
 		this.mobile = mobile;
 		this.email = email;
 		this.birthday = birthday;
+		this.isAuthentication = isAuthentication;
 	}
 
 	public int getUserId() {
@@ -72,11 +74,11 @@ public class ProfilePojo {
 		this.tileUrl = tileUrl;
 	}
 
-	public Boolean getIsProvider() {
+	public boolean getIsProvider() {
 		return isProvider;
 	}
 
-	public void setIsProvider(Boolean isProvider) {
+	public void setIsProvider(boolean isProvider) {
 		this.isProvider = isProvider;
 	}
 
@@ -112,4 +114,18 @@ public class ProfilePojo {
 		this.birthday = birthday;
 	}
 
+	public boolean getIsAuthentication() {
+		return isAuthentication;
+	}
+
+	public void setIsAuthentication(boolean isAuthentication) {
+		this.isAuthentication = isAuthentication;
+	}
+
+
+
+	
+
+	
+	
 }

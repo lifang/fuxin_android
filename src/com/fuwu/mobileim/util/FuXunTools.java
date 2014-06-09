@@ -326,6 +326,7 @@ public class FuXunTools {
 		};
 		thread.start();
 	}
+
 	// 判断sd卡是否可用
 	public static boolean isHasSdcard() {
 		String status = Environment.getExternalStorageState();
@@ -335,6 +336,20 @@ public class FuXunTools {
 			return false;
 		}
 	}
-	
-	
+
+	//
+	public static  void set_img(int id, ImageView iv) {
+
+		File f = new File(Urlinterface.head_pic, id + "");
+		if (f.exists()) {
+			Log.i("linshi------------", "加载本地图片");
+			Drawable dra = new BitmapDrawable(
+					BitmapFactory.decodeFile(Urlinterface.head_pic + id));
+			iv.setImageDrawable(dra);
+		} else {
+			iv.setImageResource(R.drawable.moren);
+		}
+
+	}
+
 }
