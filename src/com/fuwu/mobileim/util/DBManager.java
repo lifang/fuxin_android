@@ -7,18 +7,23 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+
+import com.fuwu.mobileim.activity.FragmengtActivity;
 import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.pojo.MessagePojo;
 import com.fuwu.mobileim.pojo.PushPojo;
 import com.fuwu.mobileim.pojo.TalkPojo;
+import com.fuwu.mobileim.view.CharacterParser;
 
 public class DBManager {
 	private DBHelper helper;
 	private SQLiteDatabase db;
+	private CharacterParser characterParser;
 
 	public DBManager(Context context) {
 		helper = new DBHelper(context);
 		db = helper.getWritableDatabase();
+		characterParser = CharacterParser.getInstance();
 	}
 
 	public void addMessage(MessagePojo mp) {
@@ -169,6 +174,7 @@ public class DBManager {
 		ArrayList<ContactPojo> cpList = new ArrayList<ContactPojo>();
 		Cursor c = queryContactCursor(user_id);
 		while (c.moveToNext()) {
+			
 			ContactPojo mp = new ContactPojo();
 			mp.setContactId(c.getInt(c.getColumnIndex("contactId")));
 			mp.setCustomName(c.getString(c.getColumnIndex("customName")));
@@ -181,7 +187,14 @@ public class DBManager {
 			mp.setLisence(c.getString(c.getColumnIndex("lisence")));
 			mp.setName(c.getString(c.getColumnIndex("name")));
 			mp.setSex(c.getInt(c.getColumnIndex("sex")));
-			mp.setSortKey(c.getString(c.getColumnIndex("sortKey")));
+			String sortKey=null;
+			if (c.getString(c.getColumnIndex("customName"))!=null&&c.getString(c.getColumnIndex("customName")).length()>0) {
+				 sortKey = findSortKey(c.getString(c.getColumnIndex("customName")));
+			}else {
+				 sortKey = findSortKey(c.getString(c.getColumnIndex("name")));
+			}
+			mp.setSortKey(sortKey);
+//			mp.setSortKey(c.getString(c.getColumnIndex("sortKey")));
 			mp.setSource(c.getInt(c.getColumnIndex("source")));
 			mp.setUserface_url(c.getString(c.getColumnIndex("userface_url")));
 			cpList.add(mp);
@@ -381,4 +394,24 @@ public class DBManager {
 	public boolean isOpen() {
 		return db.isOpen();
 	}
+	/**
+	 * 获得首字母
+	 */
+	public  String findSortKey(String str) {
+		if (str.length() > 0) {
+
+			String pinyin = characterParser.getSelling(str);
+			String sortString = pinyin.substring(0, 1).toUpperCase();
+
+			// 正则表达式，判断首字母是否是英文字母
+			if (sortString.matches("[A-Z]")) {
+				return sortString.toUpperCase();
+			} else {
+				return "#";
+			}
+		} else {
+			return "#";
+		}
+	}
+	
 }

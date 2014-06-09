@@ -382,7 +382,7 @@ public class FragmengtActivity extends FragmentActivity {
 	/**
 	 * 获得首字母
 	 */
-	private String findSortKey(String str) {
+	public  String findSortKey(String str) {
 		if (str.length() > 0) {
 
 			String pinyin = characterParser.getSelling(str);
