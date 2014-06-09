@@ -17,7 +17,9 @@ import android.widget.TextView;
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.pojo.MessagePojo;
 import com.fuwu.mobileim.pojo.TalkPojo;
+import com.fuwu.mobileim.util.ImageCacheUtil;
 import com.fuwu.mobileim.util.TimeUtil;
+import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CircularImage;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -88,6 +90,7 @@ public class TalkListViewAdapter extends BaseAdapter {
 		}
 		holder.content.setText(list.get(arg0).getContent());
 		holder.dath.setText(TimeUtil.getChatTime(list.get(arg0).getTime()));
+		// ImageCacheUtil.IMAGE_CACHE.get("/sdcard/fuxin/1.jpg", holder.head);
 		imageLoader.displayImage(
 				"http://p4.gexing.com/touxiang/2012/6/8/201268195891134.jpg",
 				holder.head, options, animateFirstListener);

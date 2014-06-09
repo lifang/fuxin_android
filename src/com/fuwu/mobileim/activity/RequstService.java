@@ -10,8 +10,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
@@ -25,7 +23,6 @@ import com.fuwu.mobileim.pojo.TalkPojo;
 import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
-import com.fuwu.mobileim.util.ImageUtil;
 import com.fuwu.mobileim.util.TimeUtil;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.google.protobuf.InvalidProtocolBufferException;
@@ -57,7 +54,7 @@ public class RequstService extends Service {
 		if (intent != null) {
 			sp = getSharedPreferences("FuXin", Context.MODE_PRIVATE);
 			db = new DBManager(this);
-			scheduledThreadPool.scheduleAtFixedRate(new RequstThread(), 0, 10,
+			scheduledThreadPool.scheduleAtFixedRate(new RequstThread(), 0, 60,
 					TimeUnit.SECONDS);
 		}
 		return START_STICKY;
@@ -119,27 +116,32 @@ public class RequstService extends Service {
 							int contact_id = m.getContactId();
 							String time = "";
 							Log.i("Ax", "sendTime:" + m.getSendTime());
+							Log.i("FuWu", "content:" + m.getContent());
 							if (TimeUtil.isFiveMin(
-									db.getLastTime(contact_id, user_id),
+									db.getLastTime(user_id, contact_id),
 									m.getSendTime())) {
 								time = m.getSendTime();
 							}
 							if (m.getContentType() == ContentType.Text) {
-								mp = new MessagePojo(contact_id, user_id, time,
+								mp = new MessagePojo(user_id, contact_id, time,
 										m.getContent(), 0, 1);
 							} else {
-								byte[] data = m.getBinaryContent()
-										.toByteArray();
-								Log.i("FuWu", "size:" + data.length);
-								Bitmap bitmap = BitmapFactory.decodeByteArray(
-										data, 0, data.length);
-								String content = System.currentTimeMillis()
-										+ "";
-								ImageUtil.saveBitmap(content, m.getImageType()
-										.name(), bitmap);
-								mp = new MessagePojo(contact_id, user_id, time,
-										"/sdcard/fuxin/" + content + "."
-												+ m.getImageType().name(), 0, 2);
+								Log.i("FuWu", "content:" + m.getContent());
+								// byte[] data = m.getBinaryContent()
+								// .toByteArray();
+								// Log.i("FuWu", "size:" + data.length);
+								// Bitmap bitmap =
+								// BitmapFactory.decodeByteArray(
+								// data, 0, data.length);
+								// String content = System.currentTimeMillis()
+								// + "";
+								// ImageUtil.saveBitmap(content,
+								// m.getImageType()
+								// .name(), bitmap);
+								// mp = new MessagePojo(user_id, contact_id,
+								// time,
+								// "/sdcard/fuxin/" + content + "."
+								// + m.getImageType().name(), 0, 2);
 							}
 							list.add(mp);
 							if (j == 0) {
@@ -147,7 +149,7 @@ public class RequstService extends Service {
 								if (m.getContentType() == ContentType.Image) {
 									str = "[图片]";
 								}
-								TalkPojo tp = new TalkPojo(contact_id, user_id,
+								TalkPojo tp = new TalkPojo(user_id, contact_id,
 										"", "", str, m.getSendTime(), mesCount);
 								db.addTalk(tp);
 							}

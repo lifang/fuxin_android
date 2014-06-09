@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.util.FuXunTools;
+import com.fuwu.mobileim.util.ImageCacheUtil;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CircularImage;
 
@@ -82,19 +83,24 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 			viewHolder = (ViewHolder) view.getTag();
 		}
 
+//		ImageCacheUtil.IMAGE_CACHE.get("/sdcard/fuxin/1.jpg",
+//				viewHolder.contact_user_face);
+
 		// 设置头像
 		String face_str = contact.getUserface_url();
 		if (face_str.length() > 4) {
-			File f = new File(Urlinterface.head_pic, contact.getContactId()+"");
+			File f = new File(Urlinterface.head_pic, contact.getContactId()
+					+ "");
 			if (f.exists()) {
 				Log.i("linshi------------", "加载本地图片");
-				Drawable dra = new BitmapDrawable(
-						BitmapFactory.decodeFile(Urlinterface.head_pic + contact.getContactId()));
-				viewHolder.contact_user_face.setImageDrawable(dra);
+				ImageCacheUtil.IMAGE_CACHE.get(
+						Urlinterface.head_pic + contact.getContactId(),
+						viewHolder.contact_user_face);
 			} else {
-				FuXunTools.set_bk(contact.getContactId(),face_str, viewHolder.contact_user_face);
+				FuXunTools.set_bk(contact.getContactId(), face_str,
+						viewHolder.contact_user_face);
 			}
-		}else {
+		} else {
 			viewHolder.contact_user_face.setImageResource(R.drawable.moren);
 		}
 
@@ -133,12 +139,11 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 			viewHolder.contact_yue.setVisibility(View.GONE);
 		}
 		String customname = contact.getCustomName();
-		if (customname!=null&&customname.length()>0) {
+		if (customname != null && customname.length() > 0) {
 			viewHolder.contact_name.setText(customname);
-		}else {
+		} else {
 			viewHolder.contact_name.setText(contact.getName());
 		}
-		
 
 		return view;
 

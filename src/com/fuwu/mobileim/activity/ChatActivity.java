@@ -180,10 +180,9 @@ public class ChatActivity extends Activity implements OnClickListener,
 		keys = new ArrayList<String>();
 		keys.addAll(keySet);
 		user_id = fx.getUser_id();
-		// contact_id = user_id;
-		contact_id = intent.getIntExtra("contact_id", 0);
+		contact_id = user_id;
+		// contact_id = intent.getIntExtra("contact_id", 0);
 		cp = db.queryContact(user_id, contact_id);
-		contact_id = intent.getIntExtra("contact_id", 0);
 		Log.i("Ax", "contact_id:" + intent.getIntExtra("contact_id", 0));
 		updateMessageData();
 	}
@@ -193,6 +192,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 			db = new DBManager(this);
 		}
 		mMesCount = db.getMesCount(user_id, contact_id);
+		db.clearTalkMesCount(user_id, contact_id);
 		list = db.queryMessageList(user_id, contact_id,
 				(mMesCount - mMesPageNum * 15), mMesCount);
 		mMesPageNum++;
