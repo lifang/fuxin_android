@@ -47,12 +47,12 @@ import android.widget.Toast;
 
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.model.Models.ClientInfo;
-import com.fuwu.mobileim.model.Models.ClientInfo.OSType;
 import com.fuwu.mobileim.model.Models.ClientInfoRequest;
 import com.fuwu.mobileim.model.Models.ClientInfoResponse;
 import com.fuwu.mobileim.model.Models.ProfileRequest;
 import com.fuwu.mobileim.model.Models.ProfileResponse;
 import com.fuwu.mobileim.pojo.ProfilePojo;
+import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
@@ -82,6 +82,8 @@ public class SettingsActivity extends Fragment implements Urlinterface{
 	private String SavePath;
 	/* 记录进度条数量 */
 	private int progress;
+	private String fileurl = "";
+	private DBManager db;
 	private Handler handler = new Handler() {
 		/*
 		 * (non-Javadoc)
@@ -141,6 +143,7 @@ public class SettingsActivity extends Fragment implements Urlinterface{
 			Bundle savedInstanceState) {
 		rootView = inflater.inflate(R.layout.settings, container, false);
 		fxApplication = (FxApplication) getActivity().getApplication();
+		db = new DBManager(getActivity());
 		adapter = new SettingBottomAdapter();
 
 		listview = (ListView) rootView.findViewById(R.id.setting_listview);
@@ -477,38 +480,60 @@ public class SettingsActivity extends Fragment implements Urlinterface{
 		}
 
 		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
+		public View getView(int position, View view, ViewGroup parent) {
 			RelativeLayout layout = null;
-			if (convertView == null) {
-				layout = (RelativeLayout) LayoutInflater.from(getActivity())
-						.inflate(R.layout.setting_adapter_item, null);
+//			if (convertView == null) {
+//				layout = (RelativeLayout) LayoutInflater.from(getActivity())
+//						.inflate(R.layout.setting_adapter_item, null);
+//			} else {
+//				layout = (RelativeLayout) convertView;
+//			}
+			
+			ViewHolder viewHolder = null;
+			if (view == null) {
+				viewHolder = new ViewHolder();
+				view = LayoutInflater.from(getActivity()).inflate(
+						R.layout.setting_adapter_item, null);
+				viewHolder.titleStr = (TextView) view
+						.findViewById(R.id.titleStr);
+				viewHolder.te = (TextView) view
+						.findViewById(R.id.notice_number);
+				viewHolder.re = (RelativeLayout) view
+						.findViewById(R.id.notice_sign);
+				viewHolder.im = (ImageView) view
+						.findViewById(R.id.setting_adapter_item_iv);
+				viewHolder.view = (View) view
+						.findViewById(R.id.item_thicklines);
+
+				view.setTag(viewHolder);
 			} else {
-				layout = (RelativeLayout) convertView;
+				viewHolder = (ViewHolder) view.getTag();
 			}
-			ImageView im = (ImageView) layout
-					.findViewById(R.id.setting_adapter_item_iv);
-			TextView titleStr = (TextView) layout.findViewById(R.id.titleStr);
 			Resources resources = getResources();
-			im.setImageResource(icon[position]);
-			titleStr.setText(titleArr[position]);
-			RelativeLayout re = (RelativeLayout) layout
-					.findViewById(R.id.notice_sign);
-			TextView te = (TextView) layout.findViewById(R.id.notice_number);
+			viewHolder.im.setImageResource(icon[position]);
+			viewHolder.titleStr.setText(titleArr[position]);
 
 			if (position == 5) {
 				// 如果有通知，则显示通知数目
 				if (true) {
 //					te.setText("3");
-					re.setVisibility(View.GONE);
+					viewHolder.re.setVisibility(View.GONE);
 				} else {
-					re.setVisibility(View.GONE);
+					viewHolder.re.setVisibility(View.GONE);
 				}
 			} else { // 当前postion 不为5时，隐藏黑色线条和圆形红色块
-				View view = (View) layout.findViewById(R.id.item_thicklines);
-				view.setVisibility(View.GONE);
-				re.setVisibility(View.GONE);
+				viewHolder.view.setVisibility(View.GONE);
+				viewHolder.re.setVisibility(View.GONE);
 			}
-			return layout;
+			return view;
+		}
+		
+		final  class ViewHolder {
+			TextView titleStr; // 功能标题
+			TextView te; //  公告数量
+			RelativeLayout re; //  
+			ImageView im; //  功能图标
+			View view;  // 底部黑色线
 		}
 	}
 
@@ -531,8 +556,9 @@ public class SettingsActivity extends Fragment implements Urlinterface{
 				.setPositiveButton("确认", new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						Toast.makeText(getActivity().getApplication(),
-								"清除全部聊天记录", Toast.LENGTH_LONG).show();
+//						Toast.makeText(getActivity().getApplication(),
+//								"清除全部聊天记录", Toast.LENGTH_LONG).show();
+						db.delMessage(fxApplication.getUser_id());
 					}
 				})
 				.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -555,14 +581,18 @@ public class SettingsActivity extends Fragment implements Urlinterface{
 	class VersionChecking extends Thread {
 		public void run() {
 			try {
-				TelephonyManager tm = (TelephonyManager) getActivity()
-						.getSystemService(Context.TELEPHONY_SERVICE);
-				StringBuilder sb = new StringBuilder();
-				sb.append("\nDeviceId(IMEI) = " + tm.getDeviceId());
+//				TelephonyManager tm = (TelephonyManager) getActivity()
+//						.getSystemService(Context.TELEPHONY_SERVICE);
 				String release = android.os.Build.VERSION.RELEASE; // android系统版本号
 
 				ClientInfo.Builder pb = ClientInfo.newBuilder();
+//				pb.setDeviceId(tm.getDeviceId());
+				SharedPreferences preferences = getActivity().getSharedPreferences(
+						Urlinterface.SHARED, Context.MODE_PRIVATE);
+				String deviceId = preferences.getString("clientid", "");
 				pb.setDeviceId(tm.getDeviceId());
+				int profile_userid = preferences.getInt("profile_userid", -1);
+				String name = preferences.getString("profile_name", "");// 名称
 				pb.setOSVersion(release);
 				pb.setUserId(profilePojo.getUserId());
 				pb.setChannel(0);
@@ -584,6 +614,7 @@ public class SettingsActivity extends Fragment implements Urlinterface{
 					if (res.getIsSucceed()) {
 						if (res.getHasNewVersion()) {
 							// 新版本提示
+							fileurl = res.getClientUrl();
 							 handler.sendEmptyMessage(8);
 						}else {
 							handler.sendEmptyMessage(11);
