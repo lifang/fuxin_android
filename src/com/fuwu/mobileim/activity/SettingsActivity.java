@@ -52,6 +52,7 @@ import com.fuwu.mobileim.model.Models.ClientInfoResponse;
 import com.fuwu.mobileim.model.Models.ProfileRequest;
 import com.fuwu.mobileim.model.Models.ProfileResponse;
 import com.fuwu.mobileim.pojo.ProfilePojo;
+import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
@@ -82,6 +83,7 @@ public class SettingsActivity extends Fragment implements Urlinterface{
 	/* 记录进度条数量 */
 	private int progress;
 	private String fileurl = "";
+	private DBManager db;
 	private Handler handler = new Handler() {
 		/*
 		 * (non-Javadoc)
@@ -141,6 +143,7 @@ public class SettingsActivity extends Fragment implements Urlinterface{
 			Bundle savedInstanceState) {
 		rootView = inflater.inflate(R.layout.settings, container, false);
 		fxApplication = (FxApplication) getActivity().getApplication();
+		db = new DBManager(getActivity());
 		adapter = new SettingBottomAdapter();
 
 		listview = (ListView) rootView.findViewById(R.id.setting_listview);
@@ -553,8 +556,9 @@ public class SettingsActivity extends Fragment implements Urlinterface{
 				.setPositiveButton("确认", new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						Toast.makeText(getActivity().getApplication(),
-								"清除全部聊天记录", Toast.LENGTH_LONG).show();
+//						Toast.makeText(getActivity().getApplication(),
+//								"清除全部聊天记录", Toast.LENGTH_LONG).show();
+						db.delMessage(fxApplication.getUser_id());
 					}
 				})
 				.setNegativeButton("取消", new DialogInterface.OnClickListener() {
