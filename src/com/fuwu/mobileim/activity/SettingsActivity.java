@@ -82,6 +82,7 @@ public class SettingsActivity extends Fragment implements Urlinterface{
 	private String SavePath;
 	/* 记录进度条数量 */
 	private int progress;
+	private String fileurl = "";
 	private Handler handler = new Handler() {
 		/*
 		 * (non-Javadoc)
@@ -584,6 +585,7 @@ public class SettingsActivity extends Fragment implements Urlinterface{
 					if (res.getIsSucceed()) {
 						if (res.getHasNewVersion()) {
 							// 新版本提示
+							fileurl = res.getClientUrl();
 							 handler.sendEmptyMessage(8);
 						}else {
 							handler.sendEmptyMessage(11);
