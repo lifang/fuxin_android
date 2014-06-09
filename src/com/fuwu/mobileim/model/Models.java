@@ -31009,6 +31009,2214 @@ public final class Models {
     // @@protoc_insertion_point(class_scope:Com.Fuwu.MobileIM.Model.ClientInfoResponse)
   }
 
+  public interface MessagePushOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+
+    // optional int32 senderId = 1;
+    /**
+     * <code>optional int32 senderId = 1;</code>
+     */
+    boolean hasSenderId();
+    /**
+     * <code>optional int32 senderId = 1;</code>
+     */
+    int getSenderId();
+
+    // optional string senderName = 2;
+    /**
+     * <code>optional string senderName = 2;</code>
+     */
+    boolean hasSenderName();
+    /**
+     * <code>optional string senderName = 2;</code>
+     */
+    java.lang.String getSenderName();
+    /**
+     * <code>optional string senderName = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getSenderNameBytes();
+
+    // optional string content = 3;
+    /**
+     * <code>optional string content = 3;</code>
+     */
+    boolean hasContent();
+    /**
+     * <code>optional string content = 3;</code>
+     */
+    java.lang.String getContent();
+    /**
+     * <code>optional string content = 3;</code>
+     */
+    com.google.protobuf.ByteString
+        getContentBytes();
+
+    // optional string contentType = 4;
+    /**
+     * <code>optional string contentType = 4;</code>
+     */
+    boolean hasContentType();
+    /**
+     * <code>optional string contentType = 4;</code>
+     */
+    java.lang.String getContentType();
+    /**
+     * <code>optional string contentType = 4;</code>
+     */
+    com.google.protobuf.ByteString
+        getContentTypeBytes();
+
+    // optional string sendTime = 5;
+    /**
+     * <code>optional string sendTime = 5;</code>
+     */
+    boolean hasSendTime();
+    /**
+     * <code>optional string sendTime = 5;</code>
+     */
+    java.lang.String getSendTime();
+    /**
+     * <code>optional string sendTime = 5;</code>
+     */
+    com.google.protobuf.ByteString
+        getSendTimeBytes();
+  }
+  /**
+   * Protobuf type {@code Com.Fuwu.MobileIM.Model.MessagePush}
+   */
+  public static final class MessagePush extends
+      com.google.protobuf.GeneratedMessage
+      implements MessagePushOrBuilder {
+    // Use MessagePush.newBuilder() to construct.
+    private MessagePush(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private MessagePush(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final MessagePush defaultInstance;
+    public static MessagePush getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public MessagePush getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MessagePush(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              senderId_ = input.readInt32();
+              break;
+            }
+            case 18: {
+              bitField0_ |= 0x00000002;
+              senderName_ = input.readBytes();
+              break;
+            }
+            case 26: {
+              bitField0_ |= 0x00000004;
+              content_ = input.readBytes();
+              break;
+            }
+            case 34: {
+              bitField0_ |= 0x00000008;
+              contentType_ = input.readBytes();
+              break;
+            }
+            case 42: {
+              bitField0_ |= 0x00000010;
+              sendTime_ = input.readBytes();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.fuwu.mobileim.model.Models.internal_static_Com_Fuwu_MobileIM_Model_MessagePush_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.fuwu.mobileim.model.Models.internal_static_Com_Fuwu_MobileIM_Model_MessagePush_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.fuwu.mobileim.model.Models.MessagePush.class, com.fuwu.mobileim.model.Models.MessagePush.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<MessagePush> PARSER =
+        new com.google.protobuf.AbstractParser<MessagePush>() {
+      public MessagePush parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MessagePush(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MessagePush> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    // optional int32 senderId = 1;
+    public static final int SENDERID_FIELD_NUMBER = 1;
+    private int senderId_;
+    /**
+     * <code>optional int32 senderId = 1;</code>
+     */
+    public boolean hasSenderId() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>optional int32 senderId = 1;</code>
+     */
+    public int getSenderId() {
+      return senderId_;
+    }
+
+    // optional string senderName = 2;
+    public static final int SENDERNAME_FIELD_NUMBER = 2;
+    private java.lang.Object senderName_;
+    /**
+     * <code>optional string senderName = 2;</code>
+     */
+    public boolean hasSenderName() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional string senderName = 2;</code>
+     */
+    public java.lang.String getSenderName() {
+      java.lang.Object ref = senderName_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          senderName_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string senderName = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getSenderNameBytes() {
+      java.lang.Object ref = senderName_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        senderName_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    // optional string content = 3;
+    public static final int CONTENT_FIELD_NUMBER = 3;
+    private java.lang.Object content_;
+    /**
+     * <code>optional string content = 3;</code>
+     */
+    public boolean hasContent() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>optional string content = 3;</code>
+     */
+    public java.lang.String getContent() {
+      java.lang.Object ref = content_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          content_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string content = 3;</code>
+     */
+    public com.google.protobuf.ByteString
+        getContentBytes() {
+      java.lang.Object ref = content_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        content_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    // optional string contentType = 4;
+    public static final int CONTENTTYPE_FIELD_NUMBER = 4;
+    private java.lang.Object contentType_;
+    /**
+     * <code>optional string contentType = 4;</code>
+     */
+    public boolean hasContentType() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    /**
+     * <code>optional string contentType = 4;</code>
+     */
+    public java.lang.String getContentType() {
+      java.lang.Object ref = contentType_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          contentType_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string contentType = 4;</code>
+     */
+    public com.google.protobuf.ByteString
+        getContentTypeBytes() {
+      java.lang.Object ref = contentType_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        contentType_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    // optional string sendTime = 5;
+    public static final int SENDTIME_FIELD_NUMBER = 5;
+    private java.lang.Object sendTime_;
+    /**
+     * <code>optional string sendTime = 5;</code>
+     */
+    public boolean hasSendTime() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    /**
+     * <code>optional string sendTime = 5;</code>
+     */
+    public java.lang.String getSendTime() {
+      java.lang.Object ref = sendTime_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          sendTime_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string sendTime = 5;</code>
+     */
+    public com.google.protobuf.ByteString
+        getSendTimeBytes() {
+      java.lang.Object ref = sendTime_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        sendTime_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private void initFields() {
+      senderId_ = 0;
+      senderName_ = "";
+      content_ = "";
+      contentType_ = "";
+      sendTime_ = "";
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, senderId_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeBytes(2, getSenderNameBytes());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeBytes(3, getContentBytes());
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeBytes(4, getContentTypeBytes());
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeBytes(5, getSendTimeBytes());
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, senderId_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, getSenderNameBytes());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(3, getContentBytes());
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(4, getContentTypeBytes());
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(5, getSendTimeBytes());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static com.fuwu.mobileim.model.Models.MessagePush parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.fuwu.mobileim.model.Models.MessagePush parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.fuwu.mobileim.model.Models.MessagePush parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.fuwu.mobileim.model.Models.MessagePush parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.fuwu.mobileim.model.Models.MessagePush parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.fuwu.mobileim.model.Models.MessagePush parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.fuwu.mobileim.model.Models.MessagePush parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.fuwu.mobileim.model.Models.MessagePush parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.fuwu.mobileim.model.Models.MessagePush parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.fuwu.mobileim.model.Models.MessagePush parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.fuwu.mobileim.model.Models.MessagePush prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code Com.Fuwu.MobileIM.Model.MessagePush}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.fuwu.mobileim.model.Models.MessagePushOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.fuwu.mobileim.model.Models.internal_static_Com_Fuwu_MobileIM_Model_MessagePush_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.fuwu.mobileim.model.Models.internal_static_Com_Fuwu_MobileIM_Model_MessagePush_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.fuwu.mobileim.model.Models.MessagePush.class, com.fuwu.mobileim.model.Models.MessagePush.Builder.class);
+      }
+
+      // Construct using com.fuwu.mobileim.model.Models.MessagePush.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        senderId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        senderName_ = "";
+        bitField0_ = (bitField0_ & ~0x00000002);
+        content_ = "";
+        bitField0_ = (bitField0_ & ~0x00000004);
+        contentType_ = "";
+        bitField0_ = (bitField0_ & ~0x00000008);
+        sendTime_ = "";
+        bitField0_ = (bitField0_ & ~0x00000010);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.fuwu.mobileim.model.Models.internal_static_Com_Fuwu_MobileIM_Model_MessagePush_descriptor;
+      }
+
+      public com.fuwu.mobileim.model.Models.MessagePush getDefaultInstanceForType() {
+        return com.fuwu.mobileim.model.Models.MessagePush.getDefaultInstance();
+      }
+
+      public com.fuwu.mobileim.model.Models.MessagePush build() {
+        com.fuwu.mobileim.model.Models.MessagePush result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.fuwu.mobileim.model.Models.MessagePush buildPartial() {
+        com.fuwu.mobileim.model.Models.MessagePush result = new com.fuwu.mobileim.model.Models.MessagePush(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.senderId_ = senderId_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.senderName_ = senderName_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.content_ = content_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.contentType_ = contentType_;
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.sendTime_ = sendTime_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.fuwu.mobileim.model.Models.MessagePush) {
+          return mergeFrom((com.fuwu.mobileim.model.Models.MessagePush)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.fuwu.mobileim.model.Models.MessagePush other) {
+        if (other == com.fuwu.mobileim.model.Models.MessagePush.getDefaultInstance()) return this;
+        if (other.hasSenderId()) {
+          setSenderId(other.getSenderId());
+        }
+        if (other.hasSenderName()) {
+          bitField0_ |= 0x00000002;
+          senderName_ = other.senderName_;
+          onChanged();
+        }
+        if (other.hasContent()) {
+          bitField0_ |= 0x00000004;
+          content_ = other.content_;
+          onChanged();
+        }
+        if (other.hasContentType()) {
+          bitField0_ |= 0x00000008;
+          contentType_ = other.contentType_;
+          onChanged();
+        }
+        if (other.hasSendTime()) {
+          bitField0_ |= 0x00000010;
+          sendTime_ = other.sendTime_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.fuwu.mobileim.model.Models.MessagePush parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.fuwu.mobileim.model.Models.MessagePush) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      // optional int32 senderId = 1;
+      private int senderId_ ;
+      /**
+       * <code>optional int32 senderId = 1;</code>
+       */
+      public boolean hasSenderId() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>optional int32 senderId = 1;</code>
+       */
+      public int getSenderId() {
+        return senderId_;
+      }
+      /**
+       * <code>optional int32 senderId = 1;</code>
+       */
+      public Builder setSenderId(int value) {
+        bitField0_ |= 0x00000001;
+        senderId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 senderId = 1;</code>
+       */
+      public Builder clearSenderId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        senderId_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // optional string senderName = 2;
+      private java.lang.Object senderName_ = "";
+      /**
+       * <code>optional string senderName = 2;</code>
+       */
+      public boolean hasSenderName() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional string senderName = 2;</code>
+       */
+      public java.lang.String getSenderName() {
+        java.lang.Object ref = senderName_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          senderName_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string senderName = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getSenderNameBytes() {
+        java.lang.Object ref = senderName_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          senderName_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string senderName = 2;</code>
+       */
+      public Builder setSenderName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        senderName_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string senderName = 2;</code>
+       */
+      public Builder clearSenderName() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        senderName_ = getDefaultInstance().getSenderName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string senderName = 2;</code>
+       */
+      public Builder setSenderNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        senderName_ = value;
+        onChanged();
+        return this;
+      }
+
+      // optional string content = 3;
+      private java.lang.Object content_ = "";
+      /**
+       * <code>optional string content = 3;</code>
+       */
+      public boolean hasContent() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>optional string content = 3;</code>
+       */
+      public java.lang.String getContent() {
+        java.lang.Object ref = content_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          content_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string content = 3;</code>
+       */
+      public com.google.protobuf.ByteString
+          getContentBytes() {
+        java.lang.Object ref = content_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          content_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string content = 3;</code>
+       */
+      public Builder setContent(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        content_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string content = 3;</code>
+       */
+      public Builder clearContent() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        content_ = getDefaultInstance().getContent();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string content = 3;</code>
+       */
+      public Builder setContentBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        content_ = value;
+        onChanged();
+        return this;
+      }
+
+      // optional string contentType = 4;
+      private java.lang.Object contentType_ = "";
+      /**
+       * <code>optional string contentType = 4;</code>
+       */
+      public boolean hasContentType() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <code>optional string contentType = 4;</code>
+       */
+      public java.lang.String getContentType() {
+        java.lang.Object ref = contentType_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          contentType_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string contentType = 4;</code>
+       */
+      public com.google.protobuf.ByteString
+          getContentTypeBytes() {
+        java.lang.Object ref = contentType_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          contentType_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string contentType = 4;</code>
+       */
+      public Builder setContentType(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000008;
+        contentType_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string contentType = 4;</code>
+       */
+      public Builder clearContentType() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        contentType_ = getDefaultInstance().getContentType();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string contentType = 4;</code>
+       */
+      public Builder setContentTypeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000008;
+        contentType_ = value;
+        onChanged();
+        return this;
+      }
+
+      // optional string sendTime = 5;
+      private java.lang.Object sendTime_ = "";
+      /**
+       * <code>optional string sendTime = 5;</code>
+       */
+      public boolean hasSendTime() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      /**
+       * <code>optional string sendTime = 5;</code>
+       */
+      public java.lang.String getSendTime() {
+        java.lang.Object ref = sendTime_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          sendTime_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string sendTime = 5;</code>
+       */
+      public com.google.protobuf.ByteString
+          getSendTimeBytes() {
+        java.lang.Object ref = sendTime_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          sendTime_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string sendTime = 5;</code>
+       */
+      public Builder setSendTime(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000010;
+        sendTime_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string sendTime = 5;</code>
+       */
+      public Builder clearSendTime() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        sendTime_ = getDefaultInstance().getSendTime();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string sendTime = 5;</code>
+       */
+      public Builder setSendTimeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000010;
+        sendTime_ = value;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:Com.Fuwu.MobileIM.Model.MessagePush)
+    }
+
+    static {
+      defaultInstance = new MessagePush(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:Com.Fuwu.MobileIM.Model.MessagePush)
+  }
+
+  public interface NoticePushOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * Protobuf type {@code Com.Fuwu.MobileIM.Model.NoticePush}
+   *
+   * <pre>
+   * 暂不支持
+   * </pre>
+   */
+  public static final class NoticePush extends
+      com.google.protobuf.GeneratedMessage
+      implements NoticePushOrBuilder {
+    // Use NoticePush.newBuilder() to construct.
+    private NoticePush(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private NoticePush(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final NoticePush defaultInstance;
+    public static NoticePush getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public NoticePush getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private NoticePush(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.fuwu.mobileim.model.Models.internal_static_Com_Fuwu_MobileIM_Model_NoticePush_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.fuwu.mobileim.model.Models.internal_static_Com_Fuwu_MobileIM_Model_NoticePush_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.fuwu.mobileim.model.Models.NoticePush.class, com.fuwu.mobileim.model.Models.NoticePush.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<NoticePush> PARSER =
+        new com.google.protobuf.AbstractParser<NoticePush>() {
+      public NoticePush parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new NoticePush(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<NoticePush> getParserForType() {
+      return PARSER;
+    }
+
+    private void initFields() {
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static com.fuwu.mobileim.model.Models.NoticePush parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.fuwu.mobileim.model.Models.NoticePush parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.fuwu.mobileim.model.Models.NoticePush parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.fuwu.mobileim.model.Models.NoticePush parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.fuwu.mobileim.model.Models.NoticePush parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.fuwu.mobileim.model.Models.NoticePush parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.fuwu.mobileim.model.Models.NoticePush parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.fuwu.mobileim.model.Models.NoticePush parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.fuwu.mobileim.model.Models.NoticePush parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.fuwu.mobileim.model.Models.NoticePush parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.fuwu.mobileim.model.Models.NoticePush prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code Com.Fuwu.MobileIM.Model.NoticePush}
+     *
+     * <pre>
+     * 暂不支持
+     * </pre>
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.fuwu.mobileim.model.Models.NoticePushOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.fuwu.mobileim.model.Models.internal_static_Com_Fuwu_MobileIM_Model_NoticePush_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.fuwu.mobileim.model.Models.internal_static_Com_Fuwu_MobileIM_Model_NoticePush_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.fuwu.mobileim.model.Models.NoticePush.class, com.fuwu.mobileim.model.Models.NoticePush.Builder.class);
+      }
+
+      // Construct using com.fuwu.mobileim.model.Models.NoticePush.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.fuwu.mobileim.model.Models.internal_static_Com_Fuwu_MobileIM_Model_NoticePush_descriptor;
+      }
+
+      public com.fuwu.mobileim.model.Models.NoticePush getDefaultInstanceForType() {
+        return com.fuwu.mobileim.model.Models.NoticePush.getDefaultInstance();
+      }
+
+      public com.fuwu.mobileim.model.Models.NoticePush build() {
+        com.fuwu.mobileim.model.Models.NoticePush result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.fuwu.mobileim.model.Models.NoticePush buildPartial() {
+        com.fuwu.mobileim.model.Models.NoticePush result = new com.fuwu.mobileim.model.Models.NoticePush(this);
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.fuwu.mobileim.model.Models.NoticePush) {
+          return mergeFrom((com.fuwu.mobileim.model.Models.NoticePush)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.fuwu.mobileim.model.Models.NoticePush other) {
+        if (other == com.fuwu.mobileim.model.Models.NoticePush.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.fuwu.mobileim.model.Models.NoticePush parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.fuwu.mobileim.model.Models.NoticePush) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:Com.Fuwu.MobileIM.Model.NoticePush)
+    }
+
+    static {
+      defaultInstance = new NoticePush(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:Com.Fuwu.MobileIM.Model.NoticePush)
+  }
+
+  public interface PushRequestOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+
+    // optional .Com.Fuwu.MobileIM.Model.PushRequest.PushType pushType = 1;
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.PushRequest.PushType pushType = 1;</code>
+     */
+    boolean hasPushType();
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.PushRequest.PushType pushType = 1;</code>
+     */
+    com.fuwu.mobileim.model.Models.PushRequest.PushType getPushType();
+
+    // optional .Com.Fuwu.MobileIM.Model.MessagePush messagePush = 2;
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.MessagePush messagePush = 2;</code>
+     */
+    boolean hasMessagePush();
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.MessagePush messagePush = 2;</code>
+     */
+    com.fuwu.mobileim.model.Models.MessagePush getMessagePush();
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.MessagePush messagePush = 2;</code>
+     */
+    com.fuwu.mobileim.model.Models.MessagePushOrBuilder getMessagePushOrBuilder();
+
+    // optional .Com.Fuwu.MobileIM.Model.NoticePush noticePush = 3;
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.NoticePush noticePush = 3;</code>
+     */
+    boolean hasNoticePush();
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.NoticePush noticePush = 3;</code>
+     */
+    com.fuwu.mobileim.model.Models.NoticePush getNoticePush();
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.NoticePush noticePush = 3;</code>
+     */
+    com.fuwu.mobileim.model.Models.NoticePushOrBuilder getNoticePushOrBuilder();
+  }
+  /**
+   * Protobuf type {@code Com.Fuwu.MobileIM.Model.PushRequest}
+   */
+  public static final class PushRequest extends
+      com.google.protobuf.GeneratedMessage
+      implements PushRequestOrBuilder {
+    // Use PushRequest.newBuilder() to construct.
+    private PushRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private PushRequest(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final PushRequest defaultInstance;
+    public static PushRequest getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public PushRequest getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private PushRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              int rawValue = input.readEnum();
+              com.fuwu.mobileim.model.Models.PushRequest.PushType value = com.fuwu.mobileim.model.Models.PushRequest.PushType.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(1, rawValue);
+              } else {
+                bitField0_ |= 0x00000001;
+                pushType_ = value;
+              }
+              break;
+            }
+            case 18: {
+              com.fuwu.mobileim.model.Models.MessagePush.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000002) == 0x00000002)) {
+                subBuilder = messagePush_.toBuilder();
+              }
+              messagePush_ = input.readMessage(com.fuwu.mobileim.model.Models.MessagePush.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(messagePush_);
+                messagePush_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000002;
+              break;
+            }
+            case 26: {
+              com.fuwu.mobileim.model.Models.NoticePush.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000004) == 0x00000004)) {
+                subBuilder = noticePush_.toBuilder();
+              }
+              noticePush_ = input.readMessage(com.fuwu.mobileim.model.Models.NoticePush.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(noticePush_);
+                noticePush_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000004;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.fuwu.mobileim.model.Models.internal_static_Com_Fuwu_MobileIM_Model_PushRequest_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.fuwu.mobileim.model.Models.internal_static_Com_Fuwu_MobileIM_Model_PushRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.fuwu.mobileim.model.Models.PushRequest.class, com.fuwu.mobileim.model.Models.PushRequest.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<PushRequest> PARSER =
+        new com.google.protobuf.AbstractParser<PushRequest>() {
+      public PushRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new PushRequest(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<PushRequest> getParserForType() {
+      return PARSER;
+    }
+
+    /**
+     * Protobuf enum {@code Com.Fuwu.MobileIM.Model.PushRequest.PushType}
+     */
+    public enum PushType
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>Message = 0;</code>
+       */
+      Message(0, 0),
+      /**
+       * <code>Notice = 1;</code>
+       */
+      Notice(1, 1),
+      ;
+
+      /**
+       * <code>Message = 0;</code>
+       */
+      public static final int Message_VALUE = 0;
+      /**
+       * <code>Notice = 1;</code>
+       */
+      public static final int Notice_VALUE = 1;
+
+
+      public final int getNumber() { return value; }
+
+      public static PushType valueOf(int value) {
+        switch (value) {
+          case 0: return Message;
+          case 1: return Notice;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<PushType>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static com.google.protobuf.Internal.EnumLiteMap<PushType>
+          internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<PushType>() {
+              public PushType findValueByNumber(int number) {
+                return PushType.valueOf(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(index);
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return com.fuwu.mobileim.model.Models.PushRequest.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final PushType[] VALUES = values();
+
+      public static PushType valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int index;
+      private final int value;
+
+      private PushType(int index, int value) {
+        this.index = index;
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:Com.Fuwu.MobileIM.Model.PushRequest.PushType)
+    }
+
+    private int bitField0_;
+    // optional .Com.Fuwu.MobileIM.Model.PushRequest.PushType pushType = 1;
+    public static final int PUSHTYPE_FIELD_NUMBER = 1;
+    private com.fuwu.mobileim.model.Models.PushRequest.PushType pushType_;
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.PushRequest.PushType pushType = 1;</code>
+     */
+    public boolean hasPushType() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.PushRequest.PushType pushType = 1;</code>
+     */
+    public com.fuwu.mobileim.model.Models.PushRequest.PushType getPushType() {
+      return pushType_;
+    }
+
+    // optional .Com.Fuwu.MobileIM.Model.MessagePush messagePush = 2;
+    public static final int MESSAGEPUSH_FIELD_NUMBER = 2;
+    private com.fuwu.mobileim.model.Models.MessagePush messagePush_;
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.MessagePush messagePush = 2;</code>
+     */
+    public boolean hasMessagePush() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.MessagePush messagePush = 2;</code>
+     */
+    public com.fuwu.mobileim.model.Models.MessagePush getMessagePush() {
+      return messagePush_;
+    }
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.MessagePush messagePush = 2;</code>
+     */
+    public com.fuwu.mobileim.model.Models.MessagePushOrBuilder getMessagePushOrBuilder() {
+      return messagePush_;
+    }
+
+    // optional .Com.Fuwu.MobileIM.Model.NoticePush noticePush = 3;
+    public static final int NOTICEPUSH_FIELD_NUMBER = 3;
+    private com.fuwu.mobileim.model.Models.NoticePush noticePush_;
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.NoticePush noticePush = 3;</code>
+     */
+    public boolean hasNoticePush() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.NoticePush noticePush = 3;</code>
+     */
+    public com.fuwu.mobileim.model.Models.NoticePush getNoticePush() {
+      return noticePush_;
+    }
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.NoticePush noticePush = 3;</code>
+     */
+    public com.fuwu.mobileim.model.Models.NoticePushOrBuilder getNoticePushOrBuilder() {
+      return noticePush_;
+    }
+
+    private void initFields() {
+      pushType_ = com.fuwu.mobileim.model.Models.PushRequest.PushType.Message;
+      messagePush_ = com.fuwu.mobileim.model.Models.MessagePush.getDefaultInstance();
+      noticePush_ = com.fuwu.mobileim.model.Models.NoticePush.getDefaultInstance();
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeEnum(1, pushType_.getNumber());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeMessage(2, messagePush_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeMessage(3, noticePush_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(1, pushType_.getNumber());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, messagePush_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, noticePush_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static com.fuwu.mobileim.model.Models.PushRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.fuwu.mobileim.model.Models.PushRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.fuwu.mobileim.model.Models.PushRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.fuwu.mobileim.model.Models.PushRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.fuwu.mobileim.model.Models.PushRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.fuwu.mobileim.model.Models.PushRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.fuwu.mobileim.model.Models.PushRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.fuwu.mobileim.model.Models.PushRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.fuwu.mobileim.model.Models.PushRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.fuwu.mobileim.model.Models.PushRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.fuwu.mobileim.model.Models.PushRequest prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code Com.Fuwu.MobileIM.Model.PushRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.fuwu.mobileim.model.Models.PushRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.fuwu.mobileim.model.Models.internal_static_Com_Fuwu_MobileIM_Model_PushRequest_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.fuwu.mobileim.model.Models.internal_static_Com_Fuwu_MobileIM_Model_PushRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.fuwu.mobileim.model.Models.PushRequest.class, com.fuwu.mobileim.model.Models.PushRequest.Builder.class);
+      }
+
+      // Construct using com.fuwu.mobileim.model.Models.PushRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getMessagePushFieldBuilder();
+          getNoticePushFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        pushType_ = com.fuwu.mobileim.model.Models.PushRequest.PushType.Message;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        if (messagePushBuilder_ == null) {
+          messagePush_ = com.fuwu.mobileim.model.Models.MessagePush.getDefaultInstance();
+        } else {
+          messagePushBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000002);
+        if (noticePushBuilder_ == null) {
+          noticePush_ = com.fuwu.mobileim.model.Models.NoticePush.getDefaultInstance();
+        } else {
+          noticePushBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.fuwu.mobileim.model.Models.internal_static_Com_Fuwu_MobileIM_Model_PushRequest_descriptor;
+      }
+
+      public com.fuwu.mobileim.model.Models.PushRequest getDefaultInstanceForType() {
+        return com.fuwu.mobileim.model.Models.PushRequest.getDefaultInstance();
+      }
+
+      public com.fuwu.mobileim.model.Models.PushRequest build() {
+        com.fuwu.mobileim.model.Models.PushRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.fuwu.mobileim.model.Models.PushRequest buildPartial() {
+        com.fuwu.mobileim.model.Models.PushRequest result = new com.fuwu.mobileim.model.Models.PushRequest(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.pushType_ = pushType_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        if (messagePushBuilder_ == null) {
+          result.messagePush_ = messagePush_;
+        } else {
+          result.messagePush_ = messagePushBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        if (noticePushBuilder_ == null) {
+          result.noticePush_ = noticePush_;
+        } else {
+          result.noticePush_ = noticePushBuilder_.build();
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.fuwu.mobileim.model.Models.PushRequest) {
+          return mergeFrom((com.fuwu.mobileim.model.Models.PushRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.fuwu.mobileim.model.Models.PushRequest other) {
+        if (other == com.fuwu.mobileim.model.Models.PushRequest.getDefaultInstance()) return this;
+        if (other.hasPushType()) {
+          setPushType(other.getPushType());
+        }
+        if (other.hasMessagePush()) {
+          mergeMessagePush(other.getMessagePush());
+        }
+        if (other.hasNoticePush()) {
+          mergeNoticePush(other.getNoticePush());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.fuwu.mobileim.model.Models.PushRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.fuwu.mobileim.model.Models.PushRequest) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      // optional .Com.Fuwu.MobileIM.Model.PushRequest.PushType pushType = 1;
+      private com.fuwu.mobileim.model.Models.PushRequest.PushType pushType_ = com.fuwu.mobileim.model.Models.PushRequest.PushType.Message;
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.PushRequest.PushType pushType = 1;</code>
+       */
+      public boolean hasPushType() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.PushRequest.PushType pushType = 1;</code>
+       */
+      public com.fuwu.mobileim.model.Models.PushRequest.PushType getPushType() {
+        return pushType_;
+      }
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.PushRequest.PushType pushType = 1;</code>
+       */
+      public Builder setPushType(com.fuwu.mobileim.model.Models.PushRequest.PushType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000001;
+        pushType_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.PushRequest.PushType pushType = 1;</code>
+       */
+      public Builder clearPushType() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        pushType_ = com.fuwu.mobileim.model.Models.PushRequest.PushType.Message;
+        onChanged();
+        return this;
+      }
+
+      // optional .Com.Fuwu.MobileIM.Model.MessagePush messagePush = 2;
+      private com.fuwu.mobileim.model.Models.MessagePush messagePush_ = com.fuwu.mobileim.model.Models.MessagePush.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.fuwu.mobileim.model.Models.MessagePush, com.fuwu.mobileim.model.Models.MessagePush.Builder, com.fuwu.mobileim.model.Models.MessagePushOrBuilder> messagePushBuilder_;
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.MessagePush messagePush = 2;</code>
+       */
+      public boolean hasMessagePush() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.MessagePush messagePush = 2;</code>
+       */
+      public com.fuwu.mobileim.model.Models.MessagePush getMessagePush() {
+        if (messagePushBuilder_ == null) {
+          return messagePush_;
+        } else {
+          return messagePushBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.MessagePush messagePush = 2;</code>
+       */
+      public Builder setMessagePush(com.fuwu.mobileim.model.Models.MessagePush value) {
+        if (messagePushBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          messagePush_ = value;
+          onChanged();
+        } else {
+          messagePushBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.MessagePush messagePush = 2;</code>
+       */
+      public Builder setMessagePush(
+          com.fuwu.mobileim.model.Models.MessagePush.Builder builderForValue) {
+        if (messagePushBuilder_ == null) {
+          messagePush_ = builderForValue.build();
+          onChanged();
+        } else {
+          messagePushBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.MessagePush messagePush = 2;</code>
+       */
+      public Builder mergeMessagePush(com.fuwu.mobileim.model.Models.MessagePush value) {
+        if (messagePushBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) == 0x00000002) &&
+              messagePush_ != com.fuwu.mobileim.model.Models.MessagePush.getDefaultInstance()) {
+            messagePush_ =
+              com.fuwu.mobileim.model.Models.MessagePush.newBuilder(messagePush_).mergeFrom(value).buildPartial();
+          } else {
+            messagePush_ = value;
+          }
+          onChanged();
+        } else {
+          messagePushBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.MessagePush messagePush = 2;</code>
+       */
+      public Builder clearMessagePush() {
+        if (messagePushBuilder_ == null) {
+          messagePush_ = com.fuwu.mobileim.model.Models.MessagePush.getDefaultInstance();
+          onChanged();
+        } else {
+          messagePushBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.MessagePush messagePush = 2;</code>
+       */
+      public com.fuwu.mobileim.model.Models.MessagePush.Builder getMessagePushBuilder() {
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return getMessagePushFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.MessagePush messagePush = 2;</code>
+       */
+      public com.fuwu.mobileim.model.Models.MessagePushOrBuilder getMessagePushOrBuilder() {
+        if (messagePushBuilder_ != null) {
+          return messagePushBuilder_.getMessageOrBuilder();
+        } else {
+          return messagePush_;
+        }
+      }
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.MessagePush messagePush = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.fuwu.mobileim.model.Models.MessagePush, com.fuwu.mobileim.model.Models.MessagePush.Builder, com.fuwu.mobileim.model.Models.MessagePushOrBuilder> 
+          getMessagePushFieldBuilder() {
+        if (messagePushBuilder_ == null) {
+          messagePushBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.fuwu.mobileim.model.Models.MessagePush, com.fuwu.mobileim.model.Models.MessagePush.Builder, com.fuwu.mobileim.model.Models.MessagePushOrBuilder>(
+                  messagePush_,
+                  getParentForChildren(),
+                  isClean());
+          messagePush_ = null;
+        }
+        return messagePushBuilder_;
+      }
+
+      // optional .Com.Fuwu.MobileIM.Model.NoticePush noticePush = 3;
+      private com.fuwu.mobileim.model.Models.NoticePush noticePush_ = com.fuwu.mobileim.model.Models.NoticePush.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          com.fuwu.mobileim.model.Models.NoticePush, com.fuwu.mobileim.model.Models.NoticePush.Builder, com.fuwu.mobileim.model.Models.NoticePushOrBuilder> noticePushBuilder_;
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.NoticePush noticePush = 3;</code>
+       */
+      public boolean hasNoticePush() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.NoticePush noticePush = 3;</code>
+       */
+      public com.fuwu.mobileim.model.Models.NoticePush getNoticePush() {
+        if (noticePushBuilder_ == null) {
+          return noticePush_;
+        } else {
+          return noticePushBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.NoticePush noticePush = 3;</code>
+       */
+      public Builder setNoticePush(com.fuwu.mobileim.model.Models.NoticePush value) {
+        if (noticePushBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          noticePush_ = value;
+          onChanged();
+        } else {
+          noticePushBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.NoticePush noticePush = 3;</code>
+       */
+      public Builder setNoticePush(
+          com.fuwu.mobileim.model.Models.NoticePush.Builder builderForValue) {
+        if (noticePushBuilder_ == null) {
+          noticePush_ = builderForValue.build();
+          onChanged();
+        } else {
+          noticePushBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.NoticePush noticePush = 3;</code>
+       */
+      public Builder mergeNoticePush(com.fuwu.mobileim.model.Models.NoticePush value) {
+        if (noticePushBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) == 0x00000004) &&
+              noticePush_ != com.fuwu.mobileim.model.Models.NoticePush.getDefaultInstance()) {
+            noticePush_ =
+              com.fuwu.mobileim.model.Models.NoticePush.newBuilder(noticePush_).mergeFrom(value).buildPartial();
+          } else {
+            noticePush_ = value;
+          }
+          onChanged();
+        } else {
+          noticePushBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.NoticePush noticePush = 3;</code>
+       */
+      public Builder clearNoticePush() {
+        if (noticePushBuilder_ == null) {
+          noticePush_ = com.fuwu.mobileim.model.Models.NoticePush.getDefaultInstance();
+          onChanged();
+        } else {
+          noticePushBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.NoticePush noticePush = 3;</code>
+       */
+      public com.fuwu.mobileim.model.Models.NoticePush.Builder getNoticePushBuilder() {
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return getNoticePushFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.NoticePush noticePush = 3;</code>
+       */
+      public com.fuwu.mobileim.model.Models.NoticePushOrBuilder getNoticePushOrBuilder() {
+        if (noticePushBuilder_ != null) {
+          return noticePushBuilder_.getMessageOrBuilder();
+        } else {
+          return noticePush_;
+        }
+      }
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.NoticePush noticePush = 3;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          com.fuwu.mobileim.model.Models.NoticePush, com.fuwu.mobileim.model.Models.NoticePush.Builder, com.fuwu.mobileim.model.Models.NoticePushOrBuilder> 
+          getNoticePushFieldBuilder() {
+        if (noticePushBuilder_ == null) {
+          noticePushBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.fuwu.mobileim.model.Models.NoticePush, com.fuwu.mobileim.model.Models.NoticePush.Builder, com.fuwu.mobileim.model.Models.NoticePushOrBuilder>(
+                  noticePush_,
+                  getParentForChildren(),
+                  isClean());
+          noticePush_ = null;
+        }
+        return noticePushBuilder_;
+      }
+
+      // @@protoc_insertion_point(builder_scope:Com.Fuwu.MobileIM.Model.PushRequest)
+    }
+
+    static {
+      defaultInstance = new PushRequest(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:Com.Fuwu.MobileIM.Model.PushRequest)
+  }
+
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_Com_Fuwu_MobileIM_Model_AuthenticationRequest_descriptor;
   private static
@@ -31184,6 +33392,21 @@ public final class Models {
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_Com_Fuwu_MobileIM_Model_ClientInfoResponse_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_Com_Fuwu_MobileIM_Model_MessagePush_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_Com_Fuwu_MobileIM_Model_MessagePush_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_Com_Fuwu_MobileIM_Model_NoticePush_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_Com_Fuwu_MobileIM_Model_NoticePush_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_Com_Fuwu_MobileIM_Model_PushRequest_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_Com_Fuwu_MobileIM_Model_PushRequest_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -31336,8 +33559,17 @@ public final class Models {
       "d\030\003 \001(\010\022\030\n\020newClientVersion\030\004 \001(\t\022\021\n\tcli" +
       "entUrl\030\005 \001(\t\022\025\n\rhasNewVersion\030\006 \001(\010\"C\n\rE" +
       "rrorCodeType\022\021\n\rInvalidUserId\020\001\022\020\n\014Inval" +
-      "idToken\020\002\022\r\n\tAuthError\020\003B\031\n\027com.fuwu.mob" +
-      "ileim.model"
+      "idToken\020\002\022\r\n\tAuthError\020\003\"k\n\013MessagePush\022" +
+      "\020\n\010senderId\030\001 \001(\005\022\022\n\nsenderName\030\002 \001(\t\022\017\n" +
+      "\007content\030\003 \001(\t\022\023\n\013contentType\030\004 \001(\t\022\020\n\010s" +
+      "endTime\030\005 \001(\t\"\014\n\nNoticePush\"\347\001\n\013PushRequ" +
+      "est\022?\n\010pushType\030\001 \001(\0162-.Com.Fuwu.MobileI" +
+      "M.Model.PushRequest.PushType\0229\n\013messageP" +
+      "ush\030\002 \001(\0132$.Com.Fuwu.MobileIM.Model.Mess",
+      "agePush\0227\n\nnoticePush\030\003 \001(\0132#.Com.Fuwu.M" +
+      "obileIM.Model.NoticePush\"#\n\010PushType\022\013\n\007" +
+      "Message\020\000\022\n\n\006Notice\020\001B\031\n\027com.fuwu.mobile" +
+      "im.model"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -31554,6 +33786,24 @@ public final class Models {
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_Com_Fuwu_MobileIM_Model_ClientInfoResponse_descriptor,
               new java.lang.String[] { "IsSucceed", "ErrorCode", "IsNewVersionRequired", "NewClientVersion", "ClientUrl", "HasNewVersion", });
+          internal_static_Com_Fuwu_MobileIM_Model_MessagePush_descriptor =
+            getDescriptor().getMessageTypes().get(35);
+          internal_static_Com_Fuwu_MobileIM_Model_MessagePush_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_Com_Fuwu_MobileIM_Model_MessagePush_descriptor,
+              new java.lang.String[] { "SenderId", "SenderName", "Content", "ContentType", "SendTime", });
+          internal_static_Com_Fuwu_MobileIM_Model_NoticePush_descriptor =
+            getDescriptor().getMessageTypes().get(36);
+          internal_static_Com_Fuwu_MobileIM_Model_NoticePush_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_Com_Fuwu_MobileIM_Model_NoticePush_descriptor,
+              new java.lang.String[] { });
+          internal_static_Com_Fuwu_MobileIM_Model_PushRequest_descriptor =
+            getDescriptor().getMessageTypes().get(37);
+          internal_static_Com_Fuwu_MobileIM_Model_PushRequest_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_Com_Fuwu_MobileIM_Model_PushRequest_descriptor,
+              new java.lang.String[] { "PushType", "MessagePush", "NoticePush", });
           return null;
         }
       };

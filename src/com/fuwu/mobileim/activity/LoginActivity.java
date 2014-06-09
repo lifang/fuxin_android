@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -19,7 +20,7 @@ import com.fuwu.mobileim.model.Models.AuthenticationResponse;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.Urlinterface;
-import com.igexin.sdk.PushManager;
+import com.fuwu.mobileim.view.CircularImage;
 
 /**
  * 作者: 张秀楠 时间：2014-5-23 下午4:34:03
@@ -33,6 +34,7 @@ public class LoginActivity extends Activity implements OnClickListener,
 	private FxApplication fx;
 	private ProgressDialog prodialog;
 	private String error_code;
+	private SharedPreferences spf;
 	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
@@ -69,18 +71,23 @@ public class LoginActivity extends Activity implements OnClickListener,
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
 		fx = (FxApplication) getApplication();
+		spf = getPreferences(0);
 		findViewById(R.id.regist).setOnClickListener(this);
 		findViewById(R.id.forgetpwd).setOnClickListener(this);
 		findViewById(R.id.login_btn).setOnClickListener(this);
 		initialize();// 初始化
-		// 个推SDK初始化
-		PushManager.getInstance().initialize(this.getApplicationContext());
+
 	}
 
 	// 初始化
 	public void initialize() {
 		user_text = (EditText) findViewById(R.id.user);
 		pwd_text = (EditText) findViewById(R.id.pwd);
+		CircularImage head = (CircularImage) findViewById(R.id.head);
+		int uid = spf.getInt("user_id", 0);
+		if (uid != 0) {
+			// FuXunTools.set_img(uid, head);
+		}
 		// user_text.setText("MockUserName");
 		user_text.setText("15862373890");
 		// user_text.setText("18913536561");
@@ -134,6 +141,8 @@ public class LoginActivity extends Activity implements OnClickListener,
 					if (response.getIsSucceed()) {
 						fx.setUser_id(response.getUserId());
 						fx.setToken(response.getToken());
+						spf.edit().putInt("user_id", response.getUserId())
+								.commit();
 						handler.sendEmptyMessage(0);
 
 					} else {

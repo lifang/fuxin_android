@@ -58,6 +58,7 @@ import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CharacterParser;
+import com.igexin.sdk.PushManager;
 
 /**
  * @作者 马龙
@@ -187,6 +188,8 @@ public class FragmengtActivity extends FragmentActivity {
 		// contactInformation();
 		contactInformation();
 
+		// 个推SDK初始化
+		PushManager.getInstance().initialize(this.getApplicationContext());
 	}
 
 	/**
@@ -305,10 +308,10 @@ public class FragmengtActivity extends FragmentActivity {
 						for (int i = 0; i < res.getContactsCount(); i++) {
 							int contactId = res.getContacts(i).getContactId();
 							String name = res.getContacts(i).getName();
-							 String sortKey = findSortKey(res.getContacts(i)
-							 .getName());
-//							String sortKey = findSortKey(res.getContacts(i)
-//									.getPinyin());
+							String sortKey = findSortKey(res.getContacts(i)
+									.getName());
+							// String sortKey = findSortKey(res.getContacts(i)
+							// .getPinyin());
 							String customName = res.getContacts(i)
 									.getCustomName();
 							String userface_url = res.getContacts(i)
@@ -495,8 +498,8 @@ public class FragmengtActivity extends FragmentActivity {
 						// Toast.makeText(getApplication(), "传参，，跳到对话界面，并清空搜索框",
 						// Toast.LENGTH_SHORT).show();
 						Intent intent = new Intent();
-						intent.putExtra("contact_id", contactsList.get(position)
-								.getContactId());
+						intent.putExtra("contact_id", contactsList
+								.get(position).getContactId());
 						intent.setClass(FragmengtActivity.this,
 								ChatActivity.class);
 						startActivity(intent);
