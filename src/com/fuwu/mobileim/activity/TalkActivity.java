@@ -1,17 +1,14 @@
 package com.fuwu.mobileim.activity;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,9 +48,8 @@ public class TalkActivity extends Fragment {
 			case 2:
 				clvAdapter = new TalkListViewAdapter(getActivity(), list,
 						fx.options);
-				Log.i("Max", list.size() + "-");
 				mListView.setAdapter(clvAdapter);
-//				Log.i("FuWu", list.get(0).toString());
+				// Log.i("FuWu", list.get(0).toString());
 				updateTalkData();
 				clvAdapter.updateList(list);
 				break;
@@ -81,7 +77,6 @@ public class TalkActivity extends Fragment {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				db.clearTalkMesCount(fx.getUser_id(), fx.getUser_id());
-				updateTalkNumberData();
 				intent.putExtra("contact_id", list.get(arg2).getContact_id());
 				intent.setClass(getActivity(), ChatActivity.class);
 				startActivity(intent);
@@ -96,12 +91,6 @@ public class TalkActivity extends Fragment {
 				return false;
 			}
 		});
-		Log.i("aa", "onCreate");
-		File file = new File(Environment.getExternalStorageDirectory()
-				+ "/test.jpg");
-		if (file.exists()) {
-			Log.i("Max", "存在");
-		}
 		clvAdapter = new TalkListViewAdapter(getActivity(), list, fx.options);
 		mListView.setAdapter(clvAdapter);
 		return rootView;
@@ -142,23 +131,13 @@ public class TalkActivity extends Fragment {
 			db = new DBManager(getActivity());
 		}
 		list = db.queryTalkList(fx.getUser_id());
-		Log.i("Max", "list:" + list.size());
 	}
 
 	public boolean delTalkData() {
 		if (!db.isOpen()) {
 			db = new DBManager(getActivity());
 		}
-		Log.i("suanfa", "uid:" + fx.getUser_id() + "/contactid:" + contact_id);
 		return db.delTalk(fx.getUser_id(), contact_id);
-	}
-
-	public void updateTalkNumberData() {
-		if (!db.isOpen()) {
-			db = new DBManager(getActivity());
-		}
-		// db.updateTalkNumber(fx.getUser_id(), contact_id);
-		handler.sendEmptyMessage(2);
 	}
 
 	public void initData() {
@@ -175,8 +154,6 @@ public class TalkActivity extends Fragment {
 	}
 
 	public void onStart() {
-		Log.i("Max", "onStart");
-		Log.i("Max", "刷新");
 		handler.sendEmptyMessage(2);
 		super.onStart();
 	}
