@@ -200,11 +200,17 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 					for (int i = 0; i < res.getContactsCount(); i++) {
 						int contactId = res.getContacts(i).getContactId();
 						String name = res.getContacts(i).getName();
-						// String sortKey = findSortKey(res.getContacts(i)
-						// .getName());
-						String sortKey = findSortKey(res.getContacts(i)
-								.getPinyin());
+//						 String sortKey = findSortKey(res.getContacts(i)
+//						 .getName());
+//						String sortKey = findSortKey(res.getContacts(i)
+//								.getPinyin());
 						String customName = res.getContacts(i).getCustomName();
+						String sortKey=null;
+						if (customName!=null&&customName.length()>0) {
+							 sortKey = findSortKey(customName);
+						}else {
+							 sortKey = findSortKey(name);
+						}
 						String userface_url = res.getContacts(i).getTileUrl();
 						int sex = res.getContacts(i).getGender().getNumber();
 						int source = res.getContacts(i).getSource();
@@ -475,6 +481,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 				Collections.sort(list1, pinyinComparator);
 				adapter = new ContactAdapter(getActivity(), list1, 0);
 			} else {
+				Collections.sort(contactsList1, pinyinComparator);
 				adapter = new ContactAdapter(getActivity(), contactsList1, 0);
 			}
 			sortListView.setVisibility(View.VISIBLE);

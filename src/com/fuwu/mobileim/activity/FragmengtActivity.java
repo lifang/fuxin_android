@@ -307,12 +307,19 @@ public class FragmengtActivity extends FragmentActivity {
 									+ "---" + res.getContacts(i).getName());
 							int contactId = res.getContacts(i).getContactId();
 							String name = res.getContacts(i).getName();
-							// String sortKey = findSortKey(res.getContacts(i)
-							// .getName());
-							String sortKey = findSortKey(res.getContacts(i)
-									.getPinyin());
+//							 String sortKey = findSortKey(res.getContacts(i)
+//							 .getName());
+//							String sortKey = findSortKey(res.getContacts(i)
+//									.getPinyin());
+							
 							String customName = res.getContacts(i)
 									.getCustomName();
+							String sortKey=null;
+							if (customName!=null&&customName.length()>0) {
+								 sortKey = findSortKey(customName);
+							}else {
+								 sortKey = findSortKey(name);
+							}
 							String userface_url = res.getContacts(i)
 									.getTileUrl();
 							int sex = res.getContacts(i).getGender()
