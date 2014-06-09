@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Toast;
 
+import com.baidu.mobstat.StatService;
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.Urlinterface;
@@ -201,14 +202,14 @@ public class SettingPhoto extends Activity implements Urlinterface {
 				int length = fin.available();
 				byte[] buffer = new byte[length];
 				fin.read(buffer);
-				
+
 				Intent intent2 = new Intent();
 				intent2.putExtra("buf", buffer);
 				intent2.putExtra("uri", photoStr);
 				Log.i("linshi", "size:" + buf.length);
 				// 通过调用setResult方法返回结果给前一个activity。
 				SettingPhoto.this.setResult(-11, intent2);
-				fin.close();     
+				fin.close();
 				stream.close();
 				// 关闭当前activity
 				SettingPhoto.this.finish();
@@ -220,4 +221,23 @@ public class SettingPhoto extends Activity implements Urlinterface {
 		}
 	}
 
+	public void onResume() {
+		super.onResume();
+
+		/**
+		 * 页面起始（每个Activity中都需要添加，如果有继承的父Activity中已经添加了该调用，那么子Activity中务必不能添加）
+		 * 不能与StatService.onPageStart一级onPageEnd函数交叉使用
+		 */
+		StatService.onResume(this);
+	}
+
+	public void onPause() {
+		super.onPause();
+
+		/**
+		 * 页面结束（每个Activity中都需要添加，如果有继承的父Activity中已经添加了该调用，那么子Activity中务必不能添加）
+		 * 不能与StatService.onPageStart一级onPageEnd函数交叉使用
+		 */
+		StatService.onPause(this);
+	}
 }

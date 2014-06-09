@@ -1,5 +1,6 @@
 package com.fuwu.mobileim.adapter;
 
+import java.io.File;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -91,10 +92,13 @@ public class TalkListViewAdapter extends BaseAdapter {
 		holder.content.setText(list.get(arg0).getContent());
 		holder.dath.setText(TimeUtil.getChatTime(list.get(arg0).getTime()));
 		// ImageCacheUtil.IMAGE_CACHE.get("/sdcard/fuxin/1.jpg", holder.head);
-		imageLoader.displayImage(
-				"http://p4.gexing.com/touxiang/2012/6/8/201268195891134.jpg",
-				holder.head, options, animateFirstListener);
-		FuXunTools.set_img(list.get(arg0).getContact_id(), holder.head);
+		File f = new File(Urlinterface.head_pic, list.get(arg0).getContent());
+		if (f.exists()) {
+			ImageCacheUtil.IMAGE_CACHE.get(
+					Urlinterface.head_pic + list.get(arg0).getContact_id(),
+					holder.head);
+		}
+		// FuXunTools.set_img(list.get(arg0).getContact_id(), holder.head);
 		return arg1;
 
 	}

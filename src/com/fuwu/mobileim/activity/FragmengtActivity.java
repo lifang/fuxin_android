@@ -47,6 +47,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.mobstat.StatService;
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.adapter.ContactAdapter;
 import com.fuwu.mobileim.adapter.FragmentViewPagerAdapter;
@@ -619,13 +620,14 @@ public class FragmengtActivity extends FragmentActivity {
 		super.onResume();
 		registerReceiver(mReuRequstReceiver, new IntentFilter(
 				"com.comdosoft.fuxun.REQUEST_ACTION"));
+		StatService.onResume(this);
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
 		unregisterReceiver(mReuRequstReceiver);
-
+		StatService.onPause(this);
 	}
 
 	class RequstReceiver extends BroadcastReceiver {

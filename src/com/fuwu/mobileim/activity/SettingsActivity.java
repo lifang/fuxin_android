@@ -45,6 +45,7 @@ import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.mobstat.StatService;
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.model.Models.ClientInfo;
 import com.fuwu.mobileim.model.Models.ClientInfoRequest;
@@ -63,7 +64,7 @@ import com.fuwu.mobileim.view.CircularImage;
  * @作者 丁作强
  * @时间 2014-6-6 下午4:48:35
  */
-public class SettingsActivity extends Fragment implements Urlinterface{
+public class SettingsActivity extends Fragment implements Urlinterface {
 	private FxApplication fxApplication;
 	private ListView listview;
 	SettingBottomAdapter adapter;
@@ -132,7 +133,7 @@ public class SettingsActivity extends Fragment implements Urlinterface{
 				installApk();
 			case 11:
 				Toast.makeText(getActivity(), "当前已是最新版本", Toast.LENGTH_SHORT)
-				.show();
+						.show();
 				break;
 			}
 		}
@@ -164,9 +165,9 @@ public class SettingsActivity extends Fragment implements Urlinterface{
 				Urlinterface.SHARED, Context.MODE_PRIVATE);
 
 		int profile_userid = preferences.getInt("profile_userid", -1);
-		if (profile_userid != -1&&profile_userid==fxApplication.getUser_id()) {
+		if (profile_userid != -1
+				&& profile_userid == fxApplication.getUser_id()) {
 			Log.i("linshi------------", "profileprofileprofileprofile本地shuju");
-			
 
 			profilePojo = getProfilePojo();
 			handler.sendEmptyMessage(0);
@@ -179,15 +180,14 @@ public class SettingsActivity extends Fragment implements Urlinterface{
 		return rootView;
 	}
 
-	
 	@Override
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
+		StatService.onResume(this);
 		profilePojo = getProfilePojo();
 		handler.sendEmptyMessage(0);
 	}
-
 
 	/**
 	 * 获得本地存储的 个人信息
@@ -208,14 +208,15 @@ public class SettingsActivity extends Fragment implements Urlinterface{
 		String mobile = preferences.getString("profile_mobile", "");// 手机号码
 		String email = preferences.getString("profile_email", "");// 邮箱
 		String birthday = preferences.getString("profile_birthday", "");// 生日
-		Boolean isAuthentication = preferences
-				.getBoolean("profile_isAuthentication", false);//
+		Boolean isAuthentication = preferences.getBoolean(
+				"profile_isAuthentication", false);//
 		profilePojo = new ProfilePojo(profile_userid, name, nickName, gender,
-				tileUrl, isProvider, lisence, mobile, email, birthday,isAuthentication);
+				tileUrl, isProvider, lisence, mobile, email, birthday,
+				isAuthentication);
 
 		return profilePojo;
 	}
-	
+
 	/**
 	 * 
 	 * 获得个人详细信息
@@ -247,10 +248,11 @@ public class SettingsActivity extends Fragment implements Urlinterface{
 						String mobile = res.getProfile().getMobilePhoneNum();// 手机号码
 						String email = res.getProfile().getEmail();// 邮箱
 						String birthday = res.getProfile().getBirthday();// 生日
-						Boolean isAuthentication =res.getProfile().getIsAuthentication();//
+						Boolean isAuthentication = res.getProfile()
+								.getIsAuthentication();//
 						profilePojo = new ProfilePojo(userId, name, nickName,
 								gender, tileUrl, isProvider, lisence, mobile,
-								email, birthday,isAuthentication);
+								email, birthday, isAuthentication);
 						putProfile(profilePojo);
 						Log.i("linshi", "  --nickName" + nickName
 								+ "  --gender" + gender + "  --tileUrl"
@@ -290,7 +292,7 @@ public class SettingsActivity extends Fragment implements Urlinterface{
 		editor.putString("profile_email", pro.getEmail());
 		editor.putString("profile_birthday", pro.getBirthday());
 		editor.putBoolean("profile_isAuthentication", pro.getIsAuthentication());
-		
+
 		editor.commit();
 
 	}
@@ -340,7 +342,7 @@ public class SettingsActivity extends Fragment implements Urlinterface{
 
 		// 设置头像
 		String face_str = profilePojo.getTileUrl();
-		Log.i("Ax", "profilePojo.getTileUrl()"+profilePojo.getTileUrl());
+		Log.i("Ax", "profilePojo.getTileUrl()" + profilePojo.getTileUrl());
 		if (face_str.length() > 4) {
 			File f = new File(Urlinterface.head_pic, profilePojo.getUserId()
 					+ "");
@@ -413,8 +415,8 @@ public class SettingsActivity extends Fragment implements Urlinterface{
 		switch (num) {
 		case 0:// 新版本检测
 			new VersionChecking().start();
-//			Toast.makeText(getActivity().getApplication(), "新版本检测",
-//					Toast.LENGTH_LONG).show();
+			// Toast.makeText(getActivity().getApplication(), "新版本检测",
+			// Toast.LENGTH_LONG).show();
 			break;
 		case 1:// 清除全部聊天记录
 				// Toast.makeText(getActivity().getApplication(), "清除全部聊天记录",
@@ -482,13 +484,13 @@ public class SettingsActivity extends Fragment implements Urlinterface{
 		@Override
 		public View getView(int position, View view, ViewGroup parent) {
 			RelativeLayout layout = null;
-//			if (convertView == null) {
-//				layout = (RelativeLayout) LayoutInflater.from(getActivity())
-//						.inflate(R.layout.setting_adapter_item, null);
-//			} else {
-//				layout = (RelativeLayout) convertView;
-//			}
-			
+			// if (convertView == null) {
+			// layout = (RelativeLayout) LayoutInflater.from(getActivity())
+			// .inflate(R.layout.setting_adapter_item, null);
+			// } else {
+			// layout = (RelativeLayout) convertView;
+			// }
+
 			ViewHolder viewHolder = null;
 			if (view == null) {
 				viewHolder = new ViewHolder();
@@ -516,7 +518,7 @@ public class SettingsActivity extends Fragment implements Urlinterface{
 			if (position == 5) {
 				// 如果有通知，则显示通知数目
 				if (true) {
-//					te.setText("3");
+					// te.setText("3");
 					viewHolder.re.setVisibility(View.GONE);
 				} else {
 					viewHolder.re.setVisibility(View.GONE);
@@ -527,13 +529,13 @@ public class SettingsActivity extends Fragment implements Urlinterface{
 			}
 			return view;
 		}
-		
-		final  class ViewHolder {
+
+		final class ViewHolder {
 			TextView titleStr; // 功能标题
-			TextView te; //  公告数量
-			RelativeLayout re; //  
-			ImageView im; //  功能图标
-			View view;  // 底部黑色线
+			TextView te; // 公告数量
+			RelativeLayout re; //
+			ImageView im; // 功能图标
+			View view; // 底部黑色线
 		}
 	}
 
@@ -550,14 +552,13 @@ public class SettingsActivity extends Fragment implements Urlinterface{
 	 * 删除所有记录
 	 */
 	public void deleteAllChatRecords() {
-		Dialog dialog = new AlertDialog.Builder(getActivity())
-				.setTitle("提示")
+		Dialog dialog = new AlertDialog.Builder(getActivity()).setTitle("提示")
 				.setMessage("您确认要删除全部聊天记录么?")
 				.setPositiveButton("确认", new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-//						Toast.makeText(getActivity().getApplication(),
-//								"清除全部聊天记录", Toast.LENGTH_LONG).show();
+						// Toast.makeText(getActivity().getApplication(),
+						// "清除全部聊天记录", Toast.LENGTH_LONG).show();
 						db.delMessage(fxApplication.getUser_id());
 					}
 				})
@@ -575,20 +576,21 @@ public class SettingsActivity extends Fragment implements Urlinterface{
 	/**
 	 * 
 	 * 版本检测
-	 *  
+	 * 
 	 */
 
 	class VersionChecking extends Thread {
 		public void run() {
 			try {
-//				TelephonyManager tm = (TelephonyManager) getActivity()
-//						.getSystemService(Context.TELEPHONY_SERVICE);
+				// TelephonyManager tm = (TelephonyManager) getActivity()
+				// .getSystemService(Context.TELEPHONY_SERVICE);
 				String release = android.os.Build.VERSION.RELEASE; // android系统版本号
 
 				ClientInfo.Builder pb = ClientInfo.newBuilder();
-//				pb.setDeviceId(tm.getDeviceId());
-				SharedPreferences preferences = getActivity().getSharedPreferences(
-						Urlinterface.SHARED, Context.MODE_PRIVATE);
+				// pb.setDeviceId(tm.getDeviceId());
+				SharedPreferences preferences = getActivity()
+						.getSharedPreferences(Urlinterface.SHARED,
+								Context.MODE_PRIVATE);
 				String deviceId = preferences.getString("clientid", "");
 				pb.setDeviceId(deviceId);
 				int profile_userid = preferences.getInt("profile_userid", -1);
@@ -615,8 +617,8 @@ public class SettingsActivity extends Fragment implements Urlinterface{
 						if (res.getHasNewVersion()) {
 							// 新版本提示
 							fileurl = res.getClientUrl();
-							 handler.sendEmptyMessage(8);
-						}else {
+							handler.sendEmptyMessage(8);
+						} else {
 							handler.sendEmptyMessage(11);
 						}
 
@@ -632,6 +634,7 @@ public class SettingsActivity extends Fragment implements Urlinterface{
 			}
 		}
 	}
+
 	public void showDownloadDialog_table() {
 		// 构造软件下载对话框
 		AlertDialog.Builder builder = new Builder(getActivity());
@@ -747,4 +750,13 @@ public class SettingsActivity extends Fragment implements Urlinterface{
 		startActivity(i);
 	}
 
+	public void onPause() {
+		super.onPause();
+
+		/**
+		 * 页面结束（每个Activity中都需要添加，如果有继承的父Activity中已经添加了该调用，那么子Activity中务必不能添加）
+		 * 不能与StatService.onPageStart一级onPageEnd函数交叉使用
+		 */
+		StatService.onPause(this);
+	}
 }

@@ -58,6 +58,7 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.mobstat.StatService;
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.adapter.FaceAdapter;
 import com.fuwu.mobileim.adapter.FacePageAdapter;
@@ -687,12 +688,14 @@ public class ChatActivity extends Activity implements OnClickListener,
 		}
 		registerReceiver(mReuRequstReceiver, new IntentFilter(
 				"com.comdosoft.fuxun.REQUEST_ACTION"));
+		StatService.onResume(this);
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
 		unregisterReceiver(mReuRequstReceiver);
+		StatService.onPause(this);
 	}
 
 	@Override
@@ -742,4 +745,5 @@ public class ChatActivity extends Activity implements OnClickListener,
 			handler.sendEmptyMessage(2);
 		}
 	}
+
 }
