@@ -57,6 +57,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 	private TextView dialog;
 	private ContactAdapter adapter;
 	private View rootView;
+	List<ContactPojo> contactsList1 = new ArrayList<ContactPojo>();
 	/**
 	 * 弹出式分组的布局
 	 */
@@ -363,34 +364,6 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		}
 	}
 
-	/**
-	 * 为ListView填充数据
-	 * 
-	 * @param date
-	 * @return
-	 */
-	private List<ContactPojo> filledData(String[] date) {
-		List<ContactPojo> mSortList = new ArrayList<ContactPojo>();
-
-		for (int i = 0; i < date.length; i++) {
-			ContactPojo sortModel = new ContactPojo();
-			sortModel.setName(date[i]);
-			// 汉字转换成拼音
-			String pinyin = characterParser.getSelling(date[i]);
-			String sortString = pinyin.substring(0, 1).toUpperCase();
-
-			// 正则表达式，判断首字母是否是英文字母
-			if (sortString.matches("[A-Z]")) {
-				sortModel.setSortKey(sortString.toUpperCase());
-			} else {
-				sortModel.setSortKey("#");
-			}
-
-			mSortList.add(sortModel);
-		}
-		return mSortList;
-
-	}
 
 	/**
 	 * 设置button的 宽度 以及监听
@@ -448,7 +421,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			buttonNumber = 0;
 			setButtonColor(buttonNumber);
 			xListView.setVisibility(View.VISIBLE);
-			 List<ContactPojo> contactsList = db.queryContactList(fxApplication.getUser_id());
+			 contactsList = db.queryContactList(fxApplication.getUser_id());
 			 Collections.sort(contactsList, pinyinComparator);
 			adapter = new ContactAdapter(getActivity(), contactsList, 1);
 			xListView.setAdapter(adapter);
@@ -462,20 +435,21 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			buttonNumber = 1;
 			setButtonColor(buttonNumber);
 			longDataComparator = new LongDataComparator();
-
-			List<ContactPojo> contactsList1 = db.queryContactList(fxApplication.getUser_id());
+			contactsList= new ArrayList<ContactPojo>();
+			contactsList1 = db.queryContactList(fxApplication.getUser_id());
 			if (contactsList1.size() > 20) { // 20个以上进行排序
 				Collections.sort(contactsList1, longDataComparator);
-				List<ContactPojo> list1 = new ArrayList<ContactPojo>();
 				for (int i = 0; i < 20; i++) {
-					list1.add(contactsList1.get(i));
+					contactsList.add(contactsList1.get(i));
 				}
-				Collections.sort(list1, pinyinComparator);
-				adapter = new ContactAdapter(getActivity(), list1, 0);
+				
 			} else {
-				Collections.sort(contactsList1, pinyinComparator);
-				adapter = new ContactAdapter(getActivity(), contactsList1, 0);
+				for (int i = 0; i < contactsList1.size(); i++) {
+					contactsList.add(contactsList1.get(i));
+				}
 			}
+			Collections.sort(contactsList, pinyinComparator);
+			adapter = new ContactAdapter(getActivity(), contactsList, 0);
 			sortListView.setVisibility(View.VISIBLE);
 			xListView.setVisibility(View.GONE);
 			sortListView.setAdapter(adapter);
@@ -487,16 +461,18 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		public void onClick(View v) {
 			buttonNumber = 2;
 			setButtonColor(buttonNumber);
-			List<ContactPojo> contactsList2 = new ArrayList<ContactPojo>();
-			;
-			for (int i = 0; i < contactsList.size(); i++) {
-				String str = FuXunTools.toNumber(contactsList.get(i)
+			contactsList= new ArrayList<ContactPojo>();
+			contactsList1 = db.queryContactList(fxApplication.getUser_id());
+			
+			for (int i = 0; i < contactsList1.size(); i++) {
+				String str = FuXunTools.toNumber(contactsList1.get(i)
 						.getSource());
 				if (FuXunTools.isExist(str, 0, 1)) {
-					contactsList2.add(contactsList.get(i));
+					contactsList.add(contactsList1.get(i));
 				}
 			}
-			adapter = new ContactAdapter(getActivity(), contactsList2, 0);
+			Collections.sort(contactsList, pinyinComparator);
+			adapter = new ContactAdapter(getActivity(), contactsList, 0);
 			sortListView.setVisibility(View.VISIBLE);
 			xListView.setVisibility(View.GONE);
 			sortListView.setAdapter(adapter);
@@ -508,15 +484,18 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		public void onClick(View v) {
 			buttonNumber = 3;
 			setButtonColor(buttonNumber);
-			List<ContactPojo> contactsList3 = new ArrayList<ContactPojo>();
-			for (int i = 0; i < contactsList.size(); i++) {
-				String str = FuXunTools.toNumber(contactsList.get(i)
+			contactsList= new ArrayList<ContactPojo>();
+			contactsList1 = db.queryContactList(fxApplication.getUser_id());
+			
+			for (int i = 0; i < contactsList1.size(); i++) {
+				String str = FuXunTools.toNumber(contactsList1.get(i)
 						.getSource());
 				if (FuXunTools.isExist(str, 2, 3)) {
-					contactsList3.add(contactsList.get(i));
+					contactsList.add(contactsList1.get(i));
 				}
 			}
-			adapter = new ContactAdapter(getActivity(), contactsList3, 0);
+			Collections.sort(contactsList, pinyinComparator);
+			adapter = new ContactAdapter(getActivity(), contactsList, 0);
 			sortListView.setVisibility(View.VISIBLE);
 			xListView.setVisibility(View.GONE);
 			sortListView.setAdapter(adapter);

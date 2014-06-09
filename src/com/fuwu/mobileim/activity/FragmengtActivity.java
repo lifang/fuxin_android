@@ -503,13 +503,6 @@ public class FragmengtActivity extends FragmentActivity {
 					@Override
 					public void onItemClick(AdapterView<?> parent, View view,
 							int position, long id) {
-						// 这里要利用adapter.getItem(position)来获取当前position所对应的对象
-						// Toast.makeText(
-						// getApplication(),
-						// ((ContactPojo) adapter.getItem(position))
-						// .getName(), Toast.LENGTH_SHORT).show();
-						// Toast.makeText(getApplication(), "传参，，跳到对话界面，并清空搜索框",
-						// Toast.LENGTH_SHORT).show();
 						Intent intent = new Intent();
 						intent.putExtra("contact_id", contactsList
 								.get(position).getContactId());
@@ -587,16 +580,16 @@ public class FragmengtActivity extends FragmentActivity {
 	}
 
 	public List<ContactPojo> findSimilarContacts(String et) {
-		List<ContactPojo> findlist = new ArrayList<ContactPojo>();
+		contactsList = new ArrayList<ContactPojo>();
 		if (et.length() > 0) {
 			for (int i = 0; i < SourceDateList.size(); i++) {
 				if (SourceDateList.get(i).getName().indexOf(et) != -1) {
-					findlist.add(SourceDateList.get(i));
+					contactsList.add(SourceDateList.get(i));
 				}
 			}
 		}
 
-		return findlist;
+		return contactsList;
 	}
 
 	class menuOnclick implements OnClickListener {
