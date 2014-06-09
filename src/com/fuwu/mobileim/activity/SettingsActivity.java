@@ -47,7 +47,6 @@ import android.widget.Toast;
 
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.model.Models.ClientInfo;
-import com.fuwu.mobileim.model.Models.ClientInfo.OSType;
 import com.fuwu.mobileim.model.Models.ClientInfoRequest;
 import com.fuwu.mobileim.model.Models.ClientInfoResponse;
 import com.fuwu.mobileim.model.Models.ProfileRequest;
@@ -478,38 +477,60 @@ public class SettingsActivity extends Fragment implements Urlinterface{
 		}
 
 		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
+		public View getView(int position, View view, ViewGroup parent) {
 			RelativeLayout layout = null;
-			if (convertView == null) {
-				layout = (RelativeLayout) LayoutInflater.from(getActivity())
-						.inflate(R.layout.setting_adapter_item, null);
+//			if (convertView == null) {
+//				layout = (RelativeLayout) LayoutInflater.from(getActivity())
+//						.inflate(R.layout.setting_adapter_item, null);
+//			} else {
+//				layout = (RelativeLayout) convertView;
+//			}
+			
+			ViewHolder viewHolder = null;
+			if (view == null) {
+				viewHolder = new ViewHolder();
+				view = LayoutInflater.from(getActivity()).inflate(
+						R.layout.setting_adapter_item, null);
+				viewHolder.titleStr = (TextView) view
+						.findViewById(R.id.titleStr);
+				viewHolder.te = (TextView) view
+						.findViewById(R.id.notice_number);
+				viewHolder.re = (RelativeLayout) view
+						.findViewById(R.id.notice_sign);
+				viewHolder.im = (ImageView) view
+						.findViewById(R.id.setting_adapter_item_iv);
+				viewHolder.view = (View) view
+						.findViewById(R.id.item_thicklines);
+
+				view.setTag(viewHolder);
 			} else {
-				layout = (RelativeLayout) convertView;
+				viewHolder = (ViewHolder) view.getTag();
 			}
-			ImageView im = (ImageView) layout
-					.findViewById(R.id.setting_adapter_item_iv);
-			TextView titleStr = (TextView) layout.findViewById(R.id.titleStr);
 			Resources resources = getResources();
-			im.setImageResource(icon[position]);
-			titleStr.setText(titleArr[position]);
-			RelativeLayout re = (RelativeLayout) layout
-					.findViewById(R.id.notice_sign);
-			TextView te = (TextView) layout.findViewById(R.id.notice_number);
+			viewHolder.im.setImageResource(icon[position]);
+			viewHolder.titleStr.setText(titleArr[position]);
 
 			if (position == 5) {
 				// 如果有通知，则显示通知数目
 				if (true) {
 //					te.setText("3");
-					re.setVisibility(View.GONE);
+					viewHolder.re.setVisibility(View.GONE);
 				} else {
-					re.setVisibility(View.GONE);
+					viewHolder.re.setVisibility(View.GONE);
 				}
 			} else { // 当前postion 不为5时，隐藏黑色线条和圆形红色块
-				View view = (View) layout.findViewById(R.id.item_thicklines);
-				view.setVisibility(View.GONE);
-				re.setVisibility(View.GONE);
+				viewHolder.view.setVisibility(View.GONE);
+				viewHolder.re.setVisibility(View.GONE);
 			}
-			return layout;
+			return view;
+		}
+		
+		final  class ViewHolder {
+			TextView titleStr; // 功能标题
+			TextView te; //  公告数量
+			RelativeLayout re; //  
+			ImageView im; //  功能图标
+			View view;  // 底部黑色线
 		}
 	}
 
