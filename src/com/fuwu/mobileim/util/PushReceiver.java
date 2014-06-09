@@ -92,7 +92,7 @@ public class PushReceiver extends BroadcastReceiver {
 		NotificationManager nm = (NotificationManager) context
 				.getSystemService(android.content.Context.NOTIFICATION_SERVICE);
 		// 2.实例化一个通知，指定图标、概要、时间
-		Notification notification = new Notification(R.drawable.logo, "福务网",
+		Notification notification = new Notification(R.drawable.moren, "福务网",
 				TimeUtil.getLongTime(time));
 
 		// notification.defaults = Notification.DEFAULT_LIGHTS;
@@ -117,7 +117,6 @@ public class PushReceiver extends BroadcastReceiver {
 	class ClientID_Post implements Runnable {
 		public void run() {
 			try {
-				Log.i("Max", 1 + "");
 				ClientInfo.Builder cinfo = ClientInfo.newBuilder();
 				cinfo.setDeviceId(clientid);
 				cinfo.setOsType(OSType.Android);
@@ -126,24 +125,20 @@ public class PushReceiver extends BroadcastReceiver {
 				cinfo.setChannel(0);
 				cinfo.setClientVersion(Urlinterface.current_version + "");
 				cinfo.setIsPushEnable(true);
-				Log.i("Max", 2 + "");
 				ClientInfoRequest.Builder builder = ClientInfoRequest
 						.newBuilder();
 				builder.setUserId(fx.getUser_id());
 				builder.setToken(fx.getToken());
 				builder.setClientInfo(cinfo);
 				ClientInfoRequest request = builder.build();
-				Log.i("Max", 3 + "");
 				byte[] by = HttpUtil.sendHttps(request.toByteArray(),
 						Urlinterface.Client, "PUT");
-				Log.i("Max", 4 + "");
 				if (by != null && by.length > 0) {
 					ClientInfoResponse response = ClientInfoResponse
 							.parseFrom(by);
 					Log.i("MyReceiver", response.getIsSucceed() + "/"
 							+ response.getErrorCode());
 				}
-				Log.i("Max", 5 + "");
 			} catch (Exception e) {
 				Log.i("error", e.toString());
 			}

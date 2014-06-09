@@ -1038,7 +1038,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int talk_dialog=0x7f020133;
         public static final int test=0x7f020134;
         public static final int testhead=0x7f020135;
-        public static final int testimg=0x7f020136;
+        public static final int touxiang=0x7f020136;
         public static final int trans=0x7f02013c;
         public static final int xlistview_arrow=0x7f020137;
         public static final int y3=0x7f020138;

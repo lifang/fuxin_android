@@ -15,8 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fuwu.mobileim.R;
-import com.fuwu.mobileim.pojo.MessagePojo;
 import com.fuwu.mobileim.pojo.TalkPojo;
+import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.TimeUtil;
 import com.fuwu.mobileim.view.CircularImage;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -88,9 +88,7 @@ public class TalkListViewAdapter extends BaseAdapter {
 		}
 		holder.content.setText(list.get(arg0).getContent());
 		holder.dath.setText(TimeUtil.getChatTime(list.get(arg0).getTime()));
-		imageLoader.displayImage(
-				"http://p4.gexing.com/touxiang/2012/6/8/201268195891134.jpg",
-				holder.head, options, animateFirstListener);
+		FuXunTools.set_img(list.get(arg0).getContact_id(), holder.head);
 		return arg1;
 
 	}

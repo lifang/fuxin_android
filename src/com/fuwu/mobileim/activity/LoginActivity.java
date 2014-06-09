@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.model.Models.AuthenticationRequest;
 import com.fuwu.mobileim.model.Models.AuthenticationResponse;
+import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.Urlinterface;
@@ -86,15 +87,17 @@ public class LoginActivity extends Activity implements OnClickListener,
 		CircularImage head = (CircularImage) findViewById(R.id.head);
 		int uid = spf.getInt("user_id", 0);
 		if (uid != 0) {
-			// FuXunTools.set_img(uid, head);
+			FuXunTools.set_img(uid, head);
 		}
+		String user = spf.getString("user", "null");
 		// user_text.setText("MockUserName");
 		// user_text.setText("15862373890");
 		// user_text.setText("18913536561");
 		// user_text.setText("15862373890");
-		// user_text.setText("18913536561");
-		user_text.setText("18711111111");
-		pwd_text.setText("111111");
+		// user_text.setText("18711111111");
+		if (!user.equals("null")) {
+			user_text.setText(user);
+		}
 	}
 
 	public void onClick(View v) {
@@ -146,8 +149,11 @@ public class LoginActivity extends Activity implements OnClickListener,
 						fx.setToken(response.getToken());
 						spf.edit().putInt("user_id", response.getUserId())
 								.commit();
+						spf.edit()
+								.putString("user",
+										user_text.getText().toString())
+								.commit();
 						handler.sendEmptyMessage(0);
-
 					} else {
 						Log.i("Max", "errorCode:" + response.getErrorCode());
 						error_code = response.getErrorCode().toString();
