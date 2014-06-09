@@ -136,6 +136,7 @@ public class PushReceiver extends BroadcastReceiver {
 				if (by != null && by.length > 0) {
 					ClientInfoResponse response = ClientInfoResponse
 							.parseFrom(by);
+					sf.edit().putString("clientid", clientid).commit();
 					Log.i("MyReceiver", response.getIsSucceed() + "/"
 							+ response.getErrorCode());
 				}
