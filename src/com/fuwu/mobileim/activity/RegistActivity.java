@@ -117,6 +117,7 @@ public class RegistActivity extends Activity implements OnClickListener,
 	// 初始化
 	public void initialize() {
 		findViewById(R.id.exit).setOnClickListener(this);
+		findViewById(R.id.xy).setOnClickListener(this);
 		name_text = (EditText) findViewById(R.id.name);
 		pwd_text = (EditText) findViewById(R.id.pwd);
 		pwds_text = (EditText) findViewById(R.id.pwds);
@@ -237,9 +238,10 @@ public class RegistActivity extends Activity implements OnClickListener,
 	}
 
 	public void onClick(View v) {
+		Intent intent = new Intent();
 		switch (v.getId()) {
 		case R.id.exit:
-			Intent intent = new Intent(RegistActivity.this, LoginActivity.class);
+			intent.setClass(RegistActivity.this, LoginActivity.class);
 			startActivity(intent);
 			this.finish();
 			break;
@@ -286,6 +288,10 @@ public class RegistActivity extends Activity implements OnClickListener,
 			} else {
 				new Thread(new ValidateCode_Post()).start();
 			}
+			break;
+		case R.id.xy:
+			intent.setClass(RegistActivity.this, AgreementActivity.class);
+			startActivity(intent);
 			break;
 		}
 	}

@@ -24,7 +24,7 @@
         android:textSize="10.0sp"
         android:visibility="gone" />
 
-    <ImageView
+    <com.fuwu.mobileim.view.CircularImage
         android:id="@+id/chat_icon"
         android:layout_width="40.0dip"
         android:layout_height="40.0dip"

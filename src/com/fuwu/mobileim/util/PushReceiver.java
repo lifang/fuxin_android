@@ -8,17 +8,25 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.activity.FragmengtActivity;
 import com.fuwu.mobileim.activity.LoginActivity;
+import com.fuwu.mobileim.model.Models.ClientInfo;
+import com.fuwu.mobileim.model.Models.ClientInfo.OSType;
+import com.fuwu.mobileim.model.Models.ClientInfoRequest;
+import com.fuwu.mobileim.model.Models.ClientInfoResponse;
+import com.fuwu.mobileim.model.Models.MessagePush;
+import com.google.protobuf.InvalidProtocolBufferException;
 import com.igexin.sdk.PushConsts;
 
 public class PushReceiver extends BroadcastReceiver {
 	public FxApplication fx;
 	public Intent intent = new Intent();
 	public SharedPreferences sf;
+	public String clientid;
 
 	public void onReceive(Context context, Intent intent) {
 		fx = (FxApplication) context.getApplicationContext();
@@ -37,13 +45,22 @@ public class PushReceiver extends BroadcastReceiver {
 				// true表示后台运行 false表示前台
 				if (sf.getBoolean("pushsetting_sound", true)) {
 					if (FuXunTools.isApplicationBroughtToBackground(context)) {
-						Log.i("MyReceiver", "后台运行");
 						if (fx.getToken().equals("NULL")) {
 							intent.setClass(context, LoginActivity.class); // 点击该通知后要跳转的Activity
 						} else {
 							intent.setClass(context, FragmengtActivity.class); // 点击该通知后要跳转的Activity
 						}
-						MyNotification("福务网", data, context, intent);
+						byte[] byteArray = Base64.decode(data, Base64.DEFAULT);
+						try {
+							MessagePush mp = MessagePush.parseFrom(byteArray);
+							mp.getSendTime();
+							Log.i("MyReceiver", new String(byteArray));
+							MyNotification("福务网",
+									mp.getSenderName() + ":" + mp.getContent(),
+									context, intent, mp.getSendTime());
+						} catch (InvalidProtocolBufferException e) {
+							e.printStackTrace();
+						}
 					} else {
 						Log.i("MyReceiver", "前台运行");
 					}
@@ -52,8 +69,9 @@ public class PushReceiver extends BroadcastReceiver {
 			break;
 		case PushConsts.GET_CLIENTID:
 			// 获取ClientID(CID)
-			String cid = bundle.getString("clientid");
-			Log.i("MyReceiver", "clientid=>" + cid);
+			clientid = bundle.getString("clientid");
+			Log.i("MyReceiver", "clientid=>" + clientid);
+			new Thread(new ClientID_Post()).start();
 			/*
 			 * 第三方应用需要将ClientID上传到第三方服务器，并且将当前用户帐号和ClientID进行关联，
 			 * 以便以后通过用户帐号查找ClientID进行消息推送
@@ -69,13 +87,13 @@ public class PushReceiver extends BroadcastReceiver {
 	// 自定义通知
 	@SuppressWarnings("deprecation")
 	public void MyNotification(String title, String content, Context context,
-			Intent startIntent) {
+			Intent startIntent, String time) {
 		// 1.得到NotificationManager
 		NotificationManager nm = (NotificationManager) context
 				.getSystemService(android.content.Context.NOTIFICATION_SERVICE);
 		// 2.实例化一个通知，指定图标、概要、时间
-		Notification notification = new Notification(R.drawable.logo, "福务网",
-				System.currentTimeMillis());
+		Notification notification = new Notification(R.drawable.moren, "福务网",
+				TimeUtil.getLongTime(time));
 
 		// notification.defaults = Notification.DEFAULT_LIGHTS;
 		if (sf.getBoolean("pushsetting_music", true)) {
@@ -93,5 +111,38 @@ public class PushReceiver extends BroadcastReceiver {
 				startIntent, 0);
 		notification.setLatestEventInfo(context, title, content, contentItent);
 		nm.notify(0, notification);
+	}
+
+	// 发送ClientID
+	class ClientID_Post implements Runnable {
+		public void run() {
+			try {
+				ClientInfo.Builder cinfo = ClientInfo.newBuilder();
+				cinfo.setDeviceId(clientid);
+				cinfo.setOsType(OSType.Android);
+				cinfo.setOSVersion(android.os.Build.VERSION.RELEASE);
+				cinfo.setUserId(fx.getUser_id());
+				cinfo.setChannel(0);
+				cinfo.setClientVersion(Urlinterface.current_version + "");
+				cinfo.setIsPushEnable(true);
+				ClientInfoRequest.Builder builder = ClientInfoRequest
+						.newBuilder();
+				builder.setUserId(fx.getUser_id());
+				builder.setToken(fx.getToken());
+				builder.setClientInfo(cinfo);
+				ClientInfoRequest request = builder.build();
+				byte[] by = HttpUtil.sendHttps(request.toByteArray(),
+						Urlinterface.Client, "PUT");
+				if (by != null && by.length > 0) {
+					ClientInfoResponse response = ClientInfoResponse
+							.parseFrom(by);
+					sf.edit().putString("clientid", clientid).commit();
+					Log.i("MyReceiver", response.getIsSucceed() + "/"
+							+ response.getErrorCode());
+				}
+			} catch (Exception e) {
+				Log.i("error", e.toString());
+			}
+		}
 	}
 }

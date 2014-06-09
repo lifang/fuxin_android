@@ -15,9 +15,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fuwu.mobileim.R;
-import com.fuwu.mobileim.pojo.MessagePojo;
 import com.fuwu.mobileim.pojo.TalkPojo;
 import com.fuwu.mobileim.util.ImageCacheUtil;
+import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.TimeUtil;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CircularImage;
@@ -94,6 +94,7 @@ public class TalkListViewAdapter extends BaseAdapter {
 		imageLoader.displayImage(
 				"http://p4.gexing.com/touxiang/2012/6/8/201268195891134.jpg",
 				holder.head, options, animateFirstListener);
+		FuXunTools.set_img(list.get(arg0).getContact_id(), holder.head);
 		return arg1;
 
 	}

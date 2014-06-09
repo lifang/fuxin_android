@@ -200,11 +200,13 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 					for (int i = 0; i < res.getContactsCount(); i++) {
 						int contactId = res.getContacts(i).getContactId();
 						String name = res.getContacts(i).getName();
-						// String sortKey = findSortKey(res.getContacts(i)
-						// .getName());
-						String sortKey = findSortKey(res.getContacts(i)
-								.getPinyin());
 						String customName = res.getContacts(i).getCustomName();
+						String sortKey=null;
+						if (customName!=null&&customName.length()>0) {
+							 sortKey = findSortKey(customName);
+						}else {
+							 sortKey = findSortKey(name);
+						}
 						String userface_url = res.getContacts(i).getTileUrl();
 						int sex = res.getContacts(i).getGender().getNumber();
 						int source = res.getContacts(i).getSource();
@@ -336,9 +338,6 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 						.getContactId());
 				intent.setClass(getActivity(), ChatActivity.class);
 				startActivity(intent);
-				// Toast.makeText(getActivity(), position+"",
-				// Toast.LENGTH_SHORT)
-				// .show();
 			}
 		});
 		handler.sendEmptyMessage(0);
@@ -353,7 +352,6 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 
 			String pinyin = characterParser.getSelling(str);
 			String sortString = pinyin.substring(0, 1).toUpperCase();
-
 			// 正则表达式，判断首字母是否是英文字母
 			if (sortString.matches("[A-Z]")) {
 				return sortString.toUpperCase();
@@ -475,6 +473,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 				Collections.sort(list1, pinyinComparator);
 				adapter = new ContactAdapter(getActivity(), list1, 0);
 			} else {
+				Collections.sort(contactsList1, pinyinComparator);
 				adapter = new ContactAdapter(getActivity(), contactsList1, 0);
 			}
 			sortListView.setVisibility(View.VISIBLE);

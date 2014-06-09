@@ -58,6 +58,7 @@ import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CharacterParser;
+import com.igexin.sdk.PushManager;
 
 /**
  * @作者 马龙
@@ -101,19 +102,19 @@ public class FragmengtActivity extends FragmentActivity {
 			case 0:// 调用加载头像的方法
 				prodialog.dismiss();
 
-				 for (int i = 0; i < contactsList.size(); i++) {
-				 String face_str = contactsList.get(i).getUserface_url();
-				 db.addContact(fxApplication.getUser_id(),
-				 contactsList.get(i));
-				 if (face_str.length() > 4) {
-				 user_number2 = user_number2 + 1;
-				 }
-				 }
-				 if (user_number2 > 0) {
-				 getUserBitmap();
-				 } else {
-				 prodialog.dismiss();
-				 }
+				for (int i = 0; i < contactsList.size(); i++) {
+					String face_str = contactsList.get(i).getUserface_url();
+					db.addContact(fxApplication.getUser_id(),
+							contactsList.get(i));
+					if (face_str.length() > 4) {
+						user_number2 = user_number2 + 1;
+					}
+				}
+				if (user_number2 > 0) {
+					getUserBitmap();
+				} else {
+					prodialog.dismiss();
+				}
 				list.get(1).onStart();
 
 				break;
@@ -187,6 +188,8 @@ public class FragmengtActivity extends FragmentActivity {
 		// contactInformation();
 		contactInformation();
 
+		// 个推SDK初始化
+		PushManager.getInstance().initialize(this.getApplicationContext());
 	}
 
 	/**
@@ -309,10 +312,17 @@ public class FragmengtActivity extends FragmentActivity {
 							String name = res.getContacts(i).getName();
 							// String sortKey = findSortKey(res.getContacts(i)
 							// .getName());
-							String sortKey = findSortKey(res.getContacts(i)
-									.getPinyin());
+							// String sortKey = findSortKey(res.getContacts(i)
+							// .getPinyin());
+
 							String customName = res.getContacts(i)
 									.getCustomName();
+							String sortKey = null;
+							if (customName != null && customName.length() > 0) {
+								sortKey = findSortKey(customName);
+							} else {
+								sortKey = findSortKey(name);
+							}
 							String userface_url = res.getContacts(i)
 									.getTileUrl();
 							int sex = res.getContacts(i).getGender()
@@ -375,7 +385,7 @@ public class FragmengtActivity extends FragmentActivity {
 	/**
 	 * 获得首字母
 	 */
-	private String findSortKey(String str) {
+	public String findSortKey(String str) {
 		if (str.length() > 0) {
 
 			String pinyin = characterParser.getSelling(str);
