@@ -581,14 +581,18 @@ public class SettingsActivity extends Fragment implements Urlinterface{
 	class VersionChecking extends Thread {
 		public void run() {
 			try {
-				TelephonyManager tm = (TelephonyManager) getActivity()
-						.getSystemService(Context.TELEPHONY_SERVICE);
-				StringBuilder sb = new StringBuilder();
-				sb.append("\nDeviceId(IMEI) = " + tm.getDeviceId());
+//				TelephonyManager tm = (TelephonyManager) getActivity()
+//						.getSystemService(Context.TELEPHONY_SERVICE);
 				String release = android.os.Build.VERSION.RELEASE; // android系统版本号
 
 				ClientInfo.Builder pb = ClientInfo.newBuilder();
+//				pb.setDeviceId(tm.getDeviceId());
+				SharedPreferences preferences = getActivity().getSharedPreferences(
+						Urlinterface.SHARED, Context.MODE_PRIVATE);
+				String deviceId = preferences.getString("clientid", "");
 				pb.setDeviceId(tm.getDeviceId());
+				int profile_userid = preferences.getInt("profile_userid", -1);
+				String name = preferences.getString("profile_name", "");// 名称
 				pb.setOSVersion(release);
 				pb.setUserId(profilePojo.getUserId());
 				pb.setChannel(0);
