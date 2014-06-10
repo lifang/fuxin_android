@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -76,6 +77,11 @@ public class LoginActivity extends Activity implements OnClickListener,
 		findViewById(R.id.regist).setOnClickListener(this);
 		findViewById(R.id.forgetpwd).setOnClickListener(this);
 		findViewById(R.id.login_btn).setOnClickListener(this);
+		Display display = getWindowManager().getDefaultDisplay();
+		int width = display.getWidth();
+		int a = display.getHeight();
+		Log.i("linshi", "display.getHeight()xdisplay.getWidth():"+a+"x"+width);
+		fx.setWidth(width);
 		initialize();// 初始化
 
 	}
