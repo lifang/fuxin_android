@@ -151,6 +151,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.fuwu.mobileim.activity.AgreementActivity"
+            android:launchMode="singleTop" >
+        </activity>
 
         <!-- 个推SDK配置开始 -->
         <!-- 配置的第三方参数属性 -->

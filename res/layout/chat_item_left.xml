@@ -32,7 +32,7 @@
         android:clickable="true"
         android:focusable="true"
         android:scaleType="fitXY"
-        android:src="@drawable/chat_item_icon_bg_selector" />
+        android:src="@drawable/moren" />
 
     <RelativeLayout
         android:id="@+id/relativeLayout1"

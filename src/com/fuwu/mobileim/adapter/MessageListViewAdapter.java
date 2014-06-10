@@ -152,8 +152,6 @@ public class MessageListViewAdapter extends BaseAdapter {
 					+ position);
 		}
 
-		holder.img.setImageBitmap(toRoundBitmap(BitmapFactory.decodeResource(
-				res, R.drawable.headpic)));
 		if (mp.getSendTime() != null && !mp.getSendTime().equals("")) {
 			holder.time.setText(TimeUtil.getChatTime(mp.getSendTime()));
 			holder.time.setVisibility(View.VISIBLE);

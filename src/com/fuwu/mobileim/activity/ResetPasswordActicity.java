@@ -222,27 +222,16 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 		case R.id.phone_ok:
 			if (phone_btn) {
 				String phone = phone_text.getText().toString();
-				if (phone.equals("")) {
+				if (phone.equals("") || FuXunTools.isMobileNO(phone)) {
 					phone_tag.setVisibility(View.VISIBLE);
 				} else {
-					if (FuXunTools.isMobileNO(phone)) {
-						phone_tag.setVisibility(View.GONE);
-						phone_ok.setText("重填");
-						phone_btn = false;
-						phone_text.setEnabled(false);
-						view.setBackgroundColor(getResources().getColor(
-								R.color.regist_bg));
-						if (FuXunTools.isConnect(this)) {
-							new Thread(new ValidateCode_Post()).start();
-						} else {
-							Toast.makeText(ResetPasswordActicity.this,
-									R.string.no_internet, Toast.LENGTH_SHORT)
-									.show();
-						}
-						validate_time.setVisibility(View.VISIBLE);
-					} else {
-						phone_tag.setVisibility(View.VISIBLE);
-					}
+					phone_tag.setVisibility(View.GONE);
+					phone_ok.setText("重填");
+					phone_btn = false;
+					phone_text.setEnabled(false);
+					view.setBackgroundColor(getResources().getColor(
+							R.color.regist_bg));
+					yz_send.setBackgroundResource(R.drawable.login_btn);
 				}
 			} else {
 				phone_btn = true;
@@ -251,16 +240,15 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 				phone_ok.setText("确定");
 				phone_text.requestFocus();// 获取焦点
 				view.setBackgroundColor(getResources().getColor(R.color.white));
+				yz_send.setBackgroundResource(R.drawable.regist_btn);
 			}
 			regist_btnOver();
 			break;
 		case R.id.yz_send:
 			if (FuXunTools.isConnect(this)) {
-				if (phone_btn) {
-					Toast.makeText(ResetPasswordActicity.this, "请先填写手机号码",
-							Toast.LENGTH_SHORT).show();
-				} else {
+				if (!phone_btn) {
 					new Thread(new ValidateCode_Post()).start();
+					validate_time.setVisibility(View.VISIBLE);
 				}
 			} else {
 				Toast.makeText(ResetPasswordActicity.this,
