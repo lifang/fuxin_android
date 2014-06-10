@@ -8,8 +8,8 @@ public interface Urlinterface {
 	static final String WebViewUrl = "https://118.242.18.189/resource/static/public/doc/app%20agreement.html";
 	static final String tag = "FuXun";
 	static final String SHARED = "FuXun";
-	static final double current_version = 0.0;// 应用版本号
-//	static final String IP = "https://118.242.18.189/IMApi/";
+	static final String current_version = "1.0.0.0";// 应用版本号
+	// static final String IP = "https://118.242.18.189/IMApi/";
 	static final String IP = "https://i.fuwu.com/IMApi/";
 
 	static String filename = "fuxin.apk";

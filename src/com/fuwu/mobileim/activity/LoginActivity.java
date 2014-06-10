@@ -180,6 +180,8 @@ public class LoginActivity extends Activity implements OnClickListener,
 								.putString("user",
 										user_text.getText().toString())
 								.commit();
+						spf.edit().putString("Token", response.getToken())
+								.commit();
 						handler.sendEmptyMessage(0);
 					} else {
 						Log.i("Max", "errorCode:" + response.getErrorCode());
