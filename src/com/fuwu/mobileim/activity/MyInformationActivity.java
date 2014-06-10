@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,8 +46,9 @@ public class MyInformationActivity extends Activity {
 	private ProfilePojo profilePojo;
 	private CircularImage myinfo_userface;
 	private EditText myinfo_nickname;
+	private RelativeLayout fuzhi_layout;
 	private TextView myinfo_certification, myinfo_mobile, myinfo_email,
-			myinfo_birthday, myinfo_sex;
+			myinfo_birthday, myinfo_sex, myinfo_fuzhi;
 	String uri;
 	Bitmap bm = null;
 	private Handler handler = new Handler() {
@@ -69,7 +71,8 @@ public class MyInformationActivity extends Activity {
 						file.createNewFile();
 						FileOutputStream stream = new FileOutputStream(file);
 						ByteArrayOutputStream stream1 = new ByteArrayOutputStream();
-						Bitmap b = BitmapFactory.decodeByteArray(buf, 0, buf.length);
+						Bitmap b = BitmapFactory.decodeByteArray(buf, 0,
+								buf.length);
 						b.compress(Bitmap.CompressFormat.JPEG, 100, stream);
 						byte[] buf2 = stream1.toByteArray(); // 将图片流以字符串形式存储下来
 						stream.write(buf2);
@@ -126,35 +129,45 @@ public class MyInformationActivity extends Activity {
 	 * 获得相关组件 并设置数据
 	 */
 	private void init() {
-		myinfo_userface = (CircularImage) findViewById(R.id.myinfo_userface);
-		myinfo_nickname = (EditText) findViewById(R.id.myinfo_nickname);
-		myinfo_certification = (TextView) findViewById(R.id.myinfo_certification);
-		myinfo_mobile = (TextView) findViewById(R.id.myinfo_mobile);
-		myinfo_email = (TextView) findViewById(R.id.myinfo_email);
-		myinfo_birthday = (TextView) findViewById(R.id.myinfo_birthday);
-		myinfo_sex = (TextView) findViewById(R.id.myinfo_sex);
+		fuzhi_layout = (RelativeLayout) findViewById(R.id.fuzhi_layout);
+		myinfo_userface = (CircularImage) findViewById(R.id.myinfo_userface);// 头像
+		myinfo_nickname = (EditText) findViewById(R.id.myinfo_nickname);// 昵称
+		myinfo_certification = (TextView) findViewById(R.id.myinfo_certification); // 行业认证
+		myinfo_mobile = (TextView) findViewById(R.id.myinfo_mobile); // 手机
+		myinfo_email = (TextView) findViewById(R.id.myinfo_email); // 邮箱
+		myinfo_birthday = (TextView) findViewById(R.id.myinfo_birthday); // 生日
+		myinfo_sex = (TextView) findViewById(R.id.myinfo_sex); // 性别
+		myinfo_fuzhi = (TextView) findViewById(R.id.myinfo_fuzhi); // 福值
 		myinfo_userface.setOnClickListener(listener);
 		// 设置头像
 		String face_str = profilePojo.getTileUrl();
 		Log.i("linshi1", "修改前----" + face_str);
-		 if (face_str != null&&face_str.length() > 4) {
-		File f = new File(Urlinterface.head_pic, profilePojo.getUserId() + "");
-		if (f.exists()) {
-			Log.i("linshi------------", "加载本地图片");
-			Drawable dra = new BitmapDrawable(
-					BitmapFactory.decodeFile(Urlinterface.head_pic
-							+ profilePojo.getUserId()));
-			myinfo_userface.setImageDrawable(dra);
+		if (face_str != null && face_str.length() > 4) {
+			File f = new File(Urlinterface.head_pic, profilePojo.getUserId()
+					+ "");
+			if (f.exists()) {
+				Log.i("linshi------------", "加载本地图片");
+				Drawable dra = new BitmapDrawable(
+						BitmapFactory.decodeFile(Urlinterface.head_pic
+								+ profilePojo.getUserId()));
+				myinfo_userface.setImageDrawable(dra);
+			} else {
+				FuXunTools.set_bk(profilePojo.getUserId(), face_str,
+						myinfo_userface);
+			}
 		} else {
-			FuXunTools.set_bk(profilePojo.getUserId(), face_str,
-					myinfo_userface);
+			myinfo_userface.setImageResource(R.drawable.moren);
 		}
-		 } else {
-		 myinfo_userface.setImageResource(R.drawable.moren);
-		 }
 		// 设置昵称
 		myinfo_nickname.setText(profilePojo.getNickName());
 
+		// 设置福值
+		if (profilePojo.getIsProvider()) {
+			myinfo_fuzhi.setText(profilePojo.getUserId()+"");
+		}else {
+			fuzhi_layout.setVisibility(View.GONE);
+		}
+		
 		// 设置认证行业
 		String str1 = profilePojo.getLisence();
 		myinfo_certification.setText(str1);
@@ -245,7 +258,8 @@ public class MyInformationActivity extends Activity {
 					ChangeProfileResponse res = ChangeProfileResponse
 							.parseFrom(by);
 					if (res.getIsSucceed()) {
-						Log.i("linshi1", "修改后---" + res.getProfile().getTileUrl());
+						Log.i("linshi1", "修改后---"
+								+ res.getProfile().getTileUrl());
 						profilePojo.setTileUrl(res.getProfile().getTileUrl());
 						profilePojo.setNickName(res.getProfile().getNickName());
 						putProfile(profilePojo);
@@ -293,11 +307,11 @@ public class MyInformationActivity extends Activity {
 		String mobile = preferences.getString("profile_mobile", "");// 手机号码
 		String email = preferences.getString("profile_email", "");// 邮箱
 		String birthday = preferences.getString("profile_birthday", "");// 生日
-		Boolean isAuthentication = preferences
-				.getBoolean("profile_isAuthentication", false);//
+		Boolean isAuthentication = preferences.getBoolean(
+				"profile_isAuthentication", false);//
 		profilePojo = new ProfilePojo(profile_userid, name, nickName, gender,
-				tileUrl, isProvider, lisence, mobile, email, birthday,isAuthentication);
-		
+				tileUrl, isProvider, lisence, mobile, email, birthday,
+				isAuthentication);
 
 		return profilePojo;
 	}
@@ -320,7 +334,7 @@ public class MyInformationActivity extends Activity {
 		editor.putString("profile_email", pro.getEmail());
 		editor.putString("profile_birthday", pro.getBirthday());
 		editor.putBoolean("profile_isAuthentication", pro.getIsAuthentication());
-		
+
 		editor.commit();
 
 	}
@@ -334,12 +348,12 @@ public class MyInformationActivity extends Activity {
 			Bundle bundle = data.getExtras();
 			uri = bundle.getString("uri");
 			buf = bundle.getByteArray("buf");
-			Log.i("linshi", buf.length+"--size");
+			Log.i("linshi", buf.length + "--size");
 			Bitmap b = BitmapFactory.decodeByteArray(buf, 0, buf.length);
 
-//			BitmapFactory.Options options = new BitmapFactory.Options();
-//			options.inSampleSize = 1;// 7就代表容量变为以前容量的1/7
-//			bm = BitmapFactory.decodeFile(uri, options);
+			// BitmapFactory.Options options = new BitmapFactory.Options();
+			// options.inSampleSize = 1;// 7就代表容量变为以前容量的1/7
+			// bm = BitmapFactory.decodeFile(uri, options);
 			myinfo_userface.setImageDrawable(new BitmapDrawable(b));
 
 			break;

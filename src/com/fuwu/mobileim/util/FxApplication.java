@@ -39,7 +39,7 @@ public class FxApplication extends Application {
 	public Map<String, String> error_map;
 	public Map<String, String> ValidateCode;
 	private List<Activity> activityList = new LinkedList<Activity>();
-
+	private int width=0;  // 屏幕宽度
 	public synchronized static FxApplication getInstance() {
 		return mApplication;
 	}
@@ -87,6 +87,14 @@ public class FxApplication extends Application {
 		mApplication = this;
 		initFaceMap();
 
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
 	}
 
 	public List<Activity> getActivityList() {

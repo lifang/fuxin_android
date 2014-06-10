@@ -83,14 +83,15 @@ public class LoginActivity extends Activity implements OnClickListener,
 		findViewById(R.id.regist).setOnClickListener(this);
 		findViewById(R.id.forgetpwd).setOnClickListener(this);
 		findViewById(R.id.login_btn).setOnClickListener(this);
+		Display display = getWindowManager().getDefaultDisplay();
+		int width = display.getWidth();
+		int a = display.getHeight();
+		Log.i("linshi", "display.getHeight()xdisplay.getWidth():"+a+"x"+width);
+		fx.setWidth(width);
 		initialize();// 初始化
 		// 百度统计
 		StatService.setOn(this, StatService.EXCEPTION_LOG);
 
-		Display display = this.getWindowManager().getDefaultDisplay();
-		int width = display.getWidth();
-		int height = display.getHeight();
-		Log.i("Max", "w:" + width + "/h:" + height);
 	}
 
 	// 初始化

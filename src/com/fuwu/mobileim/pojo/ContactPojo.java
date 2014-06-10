@@ -15,8 +15,8 @@ public class ContactPojo {
 	private int sex;  //  性别
 	private int source;  //  是否交易 是否订阅
 	private String lastContactTime; //最近联系时间
-	private int isBlocked; //是否屏蔽   1 --屏蔽    2--没屏蔽
-	private int isProvider; //是不是 福师   1 --是    2--不是
+	private int isBlocked; //是否屏蔽   1 --屏蔽    0--没屏蔽
+	private int isProvider; //是不是 福师   1 --是    0--不是
 	
     private String lisence; // 认证
     private String individualResume ; //  个人简介

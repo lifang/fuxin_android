@@ -55,7 +55,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 	private XListView xListView;// 可上拉刷新 的 listview ，全部 部分使用
 	private SideBar sideBar;
 	private TextView dialog;
-	private ContactAdapter adapter;
+	private ContactAdapter adapter1, adapter2;
 	private View rootView;
 	List<ContactPojo> contactsList1 = new ArrayList<ContactPojo>();
 	/**
@@ -67,7 +67,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 	 * 汉字转换成拼音的类
 	 */
 	private CharacterParser characterParser;
-	private List<ContactPojo> contactsList; // 联系人arraylist数组
+	private List<ContactPojo> contactsList = new ArrayList<ContactPojo>();; // 联系人arraylist数组
 
 	/**
 	 * 根据拼音来排列ListView里面的数据类
@@ -85,6 +85,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 	private List<Button> btnList = new ArrayList<Button>();
 	private String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ#";
 	SideBar b;
+	private int adapter_number = 1;
 	private Handler handler = new Handler() {
 		/*
 		 * (non-Javadoc)
@@ -105,8 +106,8 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 					Collections.sort(contactsList, pinyinComparator);
 				}
 
-				adapter = new ContactAdapter(getActivity(), contactsList, 1);
-				xListView.setAdapter(adapter);
+				xListView.setAdapter(adapter1);
+				adapter1.updateListView(contactsList);
 				onLoad();
 				break;
 			case 1:
@@ -129,9 +130,8 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 					Collections.sort(contactsList, pinyinComparator);
 				}
 
-//				fxApplication.setContactsList(contactsList);
-				adapter = new ContactAdapter(getActivity(), contactsList, 1);
-				xListView.setAdapter(adapter);
+				xListView.setAdapter(adapter1);
+				adapter1.updateListView(contactsList);
 				onLoad();
 				break;
 			case 6:
@@ -152,10 +152,22 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		rootView = inflater
 				.inflate(R.layout.contact_activity, container, false);
 		fxApplication = (FxApplication) getActivity().getApplication();
+
+		adapter1 = new ContactAdapter(getActivity(), contactsList, 1);
+		adapter2 = new ContactAdapter(getActivity(), contactsList, 0);
 		db = new DBManager(getActivity());
+		longDataComparator = new LongDataComparator();
+		// 实例化汉字转拼音类
+		characterParser = CharacterParser.getInstance();
+		pinyinComparator = new PinyinComparator();
 		initViews();
-		Display display = getActivity().getWindowManager().getDefaultDisplay();
-		width = display.getWidth();
+		// Display display =
+		// getActivity().getWindowManager().getDefaultDisplay();
+		// width = display.getWidth();
+		// int a = display.getHeight();
+		// Log.i("linshi",
+		// "display.getHeight()xdisplay.getWidth():"+a+"x"+width);
+		// fxApplication.setWidth(width);
 		setButton();
 		return rootView;
 	}
@@ -202,11 +214,11 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 						int contactId = res.getContacts(i).getContactId();
 						String name = res.getContacts(i).getName();
 						String customName = res.getContacts(i).getCustomName();
-						String sortKey=null;
-						if (customName!=null&&customName.length()>0) {
-							 sortKey = findSortKey(customName);
-						}else {
-							 sortKey = findSortKey(name);
+						String sortKey = null;
+						if (customName != null && customName.length() > 0) {
+							sortKey = findSortKey(customName);
+						} else {
+							sortKey = findSortKey(name);
 						}
 						String userface_url = res.getContacts(i).getTileUrl();
 						int sex = res.getContacts(i).getGender().getNumber();
@@ -259,14 +271,6 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 	}
 
 	private void initViews() {
-		contactsList = new ArrayList<ContactPojo>();
-
-		// 实例化汉字转拼音类
-		characterParser = CharacterParser.getInstance();
-
-		pinyinComparator = new PinyinComparator();
-		// Thread thread = new Thread(new getContacts());
-		// thread.start();
 
 		sectionToastLayout = (RelativeLayout) rootView
 				.findViewById(R.id.section_toast_layout);
@@ -278,19 +282,23 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 
 			@Override
 			public void onTouchingLetterChanged(String s) {
-
 				sideBar.setTextView(sectionToastText);
 				sideBar.setRelativeLayout(sectionToastLayout);
 				float alphabetHeight = sideBar.getHeight();
 				int pos = getPositionForAlphabet(s);
-				float y = (pos * 100 / 27f) * alphabetHeight / 100;
+				float y = (pos * 100 / 26f) * alphabetHeight / 100;
 				LayoutParams param = (LayoutParams) sectionToastLayout
 						.getLayoutParams();
 				param.rightMargin = 60;
 				param.topMargin = (int) y;
 				// sectionToastText.setText(s);
 				// 该字母首次出现的位置
-				int position = adapter.getPositionForSection(s.charAt(0));
+				int position = -1;
+				if (adapter_number == 1) {
+					position = adapter1.getPositionForSection(s.charAt(0));
+				} else if (adapter_number == 2) {
+					position = adapter2.getPositionForSection(s.charAt(0));
+				}
 				if (position != -1) {
 					sortListView.setSelection(position);
 					xListView.setSelection(position);
@@ -341,7 +349,6 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 				startActivity(intent);
 			}
 		});
-		handler.sendEmptyMessage(0);
 
 	}
 
@@ -350,7 +357,6 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 	 */
 	private String findSortKey(String str) {
 		if (str.length() > 0) {
-
 			String pinyin = characterParser.getSelling(str);
 			String sortString = pinyin.substring(0, 1).toUpperCase();
 			// 正则表达式，判断首字母是否是英文字母
@@ -364,16 +370,21 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		}
 	}
 
-
 	/**
 	 * 设置button的 宽度 以及监听
 	 * 
 	 * 
 	 */
 	private void setButton() {
+		width = fxApplication.getWidth();
 		int width0 = 4; // 边框宽度
 		int width1 = 20; // 外部边框距左右边界距离
 		int hight0 = 70; // 外部边框高度
+		if (width == 720) {
+			hight0 = 70;
+		} else if (width == 480) {
+			hight0 = 50;
+		}
 		int hight1 = hight0 - width0 * 2; // button高度
 		LinearLayout a_layout = (LinearLayout) rootView
 				.findViewById(R.id.a_layout);
@@ -418,13 +429,14 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 	private View.OnClickListener listener_0 = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
+			adapter_number = 1;
 			buttonNumber = 0;
 			setButtonColor(buttonNumber);
 			xListView.setVisibility(View.VISIBLE);
-			 contactsList = db.queryContactList(fxApplication.getUser_id());
-			 Collections.sort(contactsList, pinyinComparator);
-			adapter = new ContactAdapter(getActivity(), contactsList, 1);
-			xListView.setAdapter(adapter);
+			contactsList = db.queryContactList(fxApplication.getUser_id());
+			Collections.sort(contactsList, pinyinComparator);
+			xListView.setAdapter(adapter1);
+			adapter1.notifyDataSetChanged();
 			sortListView.setVisibility(View.GONE);
 		}
 	};
@@ -433,26 +445,26 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		@Override
 		public void onClick(View v) {
 			buttonNumber = 1;
+			adapter_number = 2;
 			setButtonColor(buttonNumber);
-			longDataComparator = new LongDataComparator();
-			contactsList= new ArrayList<ContactPojo>();
+
+			contactsList.clear();
 			contactsList1 = db.queryContactList(fxApplication.getUser_id());
 			if (contactsList1.size() > 20) { // 20个以上进行排序
 				Collections.sort(contactsList1, longDataComparator);
 				for (int i = 0; i < 20; i++) {
 					contactsList.add(contactsList1.get(i));
 				}
-				
 			} else {
 				for (int i = 0; i < contactsList1.size(); i++) {
 					contactsList.add(contactsList1.get(i));
 				}
 			}
 			Collections.sort(contactsList, pinyinComparator);
-			adapter = new ContactAdapter(getActivity(), contactsList, 0);
+			sortListView.setAdapter(adapter2);
+			adapter2.updateListView(contactsList);
 			sortListView.setVisibility(View.VISIBLE);
 			xListView.setVisibility(View.GONE);
-			sortListView.setAdapter(adapter);
 		}
 	};
 	// 交易
@@ -460,10 +472,11 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		@Override
 		public void onClick(View v) {
 			buttonNumber = 2;
+			adapter_number = 2;
 			setButtonColor(buttonNumber);
-			contactsList= new ArrayList<ContactPojo>();
+			contactsList.clear();
 			contactsList1 = db.queryContactList(fxApplication.getUser_id());
-			
+
 			for (int i = 0; i < contactsList1.size(); i++) {
 				String str = FuXunTools.toNumber(contactsList1.get(i)
 						.getSource());
@@ -472,10 +485,10 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 				}
 			}
 			Collections.sort(contactsList, pinyinComparator);
-			adapter = new ContactAdapter(getActivity(), contactsList, 0);
+			sortListView.setAdapter(adapter2);
+			adapter2.updateListView(contactsList);
 			sortListView.setVisibility(View.VISIBLE);
 			xListView.setVisibility(View.GONE);
-			sortListView.setAdapter(adapter);
 		}
 	};
 	// 订阅
@@ -483,10 +496,11 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		@Override
 		public void onClick(View v) {
 			buttonNumber = 3;
+			adapter_number = 2;
 			setButtonColor(buttonNumber);
-			contactsList= new ArrayList<ContactPojo>();
+			contactsList.clear();
 			contactsList1 = db.queryContactList(fxApplication.getUser_id());
-			
+
 			for (int i = 0; i < contactsList1.size(); i++) {
 				String str = FuXunTools.toNumber(contactsList1.get(i)
 						.getSource());
@@ -495,10 +509,10 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 				}
 			}
 			Collections.sort(contactsList, pinyinComparator);
-			adapter = new ContactAdapter(getActivity(), contactsList, 0);
+			sortListView.setAdapter(adapter2);
+			adapter2.updateListView(contactsList);
 			sortListView.setVisibility(View.VISIBLE);
 			xListView.setVisibility(View.GONE);
-			sortListView.setAdapter(adapter);
 		}
 	};
 

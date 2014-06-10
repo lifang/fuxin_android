@@ -110,6 +110,44 @@
             android:background="#999999" />
     </RelativeLayout>
 
+     <RelativeLayout
+         android:id="@+id/fuzhi_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="50dip"
+        android:background="@color/white" >
+
+        <TextView
+            android:id="@+id/fuzhi_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="17dp"
+            android:text="@string/my_info_fuzhi"
+            android:textColor="#999999"
+            android:textSize="19dp" />
+
+        <TextView
+            android:id="@+id/myinfo_fuzhi"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="17dp"
+            android:layout_toRightOf="@+id/fuzhi_text"
+            android:gravity="right"
+            android:singleLine="true"
+            android:textColor="#999999"
+            android:textSize="19dp" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="#E1E1E1" />
+    </RelativeLayout>
+    
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="50dip"
