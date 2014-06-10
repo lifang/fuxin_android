@@ -1352,6 +1352,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int name=0x7f06000b;
         public static final int next=0x7f06001d;
         public static final int no_change=0x7f060042;
+        public static final int no_internet=0x7f060043;
         public static final int phone_ok=0x7f060021;
         public static final int please_pwd=0x7f060012;
         public static final int please_user=0x7f060011;

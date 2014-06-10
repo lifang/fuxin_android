@@ -212,7 +212,12 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 			break;
 		case R.id.backpwd_over:
 			Log.i("Max", judge() + "");
-			new Thread(new Backpwd_Post()).start();
+			if (FuXunTools.isConnect(this)) {
+				new Thread(new Backpwd_Post()).start();
+			} else {
+				Toast.makeText(ResetPasswordActicity.this,
+						R.string.no_internet, Toast.LENGTH_SHORT).show();
+			}
 			break;
 		case R.id.phone_ok:
 			if (phone_btn) {
@@ -227,7 +232,13 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 						phone_text.setEnabled(false);
 						view.setBackgroundColor(getResources().getColor(
 								R.color.regist_bg));
-						new Thread(new ValidateCode_Post()).start();
+						if (FuXunTools.isConnect(this)) {
+							new Thread(new ValidateCode_Post()).start();
+						} else {
+							Toast.makeText(ResetPasswordActicity.this,
+									R.string.no_internet, Toast.LENGTH_SHORT)
+									.show();
+						}
 						validate_time.setVisibility(View.VISIBLE);
 					} else {
 						phone_tag.setVisibility(View.VISIBLE);
@@ -244,11 +255,16 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 			regist_btnOver();
 			break;
 		case R.id.yz_send:
-			if (phone_btn) {
-				Toast.makeText(ResetPasswordActicity.this, "请先填写手机号码",
-						Toast.LENGTH_SHORT).show();
+			if (FuXunTools.isConnect(this)) {
+				if (phone_btn) {
+					Toast.makeText(ResetPasswordActicity.this, "请先填写手机号码",
+							Toast.LENGTH_SHORT).show();
+				} else {
+					new Thread(new ValidateCode_Post()).start();
+				}
 			} else {
-				new Thread(new ValidateCode_Post()).start();
+				Toast.makeText(ResetPasswordActicity.this,
+						R.string.no_internet, Toast.LENGTH_SHORT).show();
 			}
 			break;
 		}

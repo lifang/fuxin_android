@@ -65,6 +65,9 @@
                 android:id="@+id/content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="40dp"
+                android:ellipsize="end"
+                android:singleLine="true"
                 android:textColor="#999999"
                 android:textSize="16dp" />
         </LinearLayout>

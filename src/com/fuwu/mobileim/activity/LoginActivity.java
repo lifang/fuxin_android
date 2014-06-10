@@ -116,19 +116,24 @@ public class LoginActivity extends Activity implements OnClickListener,
 			this.finish();
 			break;
 		case R.id.login_btn:
-			user = user_text.getText().toString();
-			pwd = pwd_text.getText().toString();
-			if (user.equals("") && pwd.equals("")) {
-				Toast.makeText(LoginActivity.this, "用户名或密码不可为空",
-						Toast.LENGTH_SHORT).show();
+			if (FuXunTools.isConnect(this)) {
+				user = user_text.getText().toString();
+				pwd = pwd_text.getText().toString();
+				if (user.equals("") && pwd.equals("")) {
+					Toast.makeText(LoginActivity.this, "用户名或密码不可为空",
+							Toast.LENGTH_SHORT).show();
+				} else {
+					prodialog = new ProgressDialog(LoginActivity.this);
+					prodialog.setMessage("努力登陆中..");
+					prodialog.setCanceledOnTouchOutside(false);
+					prodialog.show();
+					new Thread(new Login_Post()).start();
+				}
+				break;
 			} else {
-				prodialog = new ProgressDialog(LoginActivity.this);
-				prodialog.setMessage("努力登陆中..");
-				prodialog.setCanceledOnTouchOutside(false);
-				prodialog.show();
-				new Thread(new Login_Post()).start();
+				Toast.makeText(LoginActivity.this, R.string.no_internet,
+						Toast.LENGTH_SHORT).show();
 			}
-			break;
 		}
 	}
 
@@ -174,7 +179,6 @@ public class LoginActivity extends Activity implements OnClickListener,
 
 	public void onResume() {
 		super.onResume();
-
 		/**
 		 * 页面起始（每个Activity中都需要添加，如果有继承的父Activity中已经添加了该调用，那么子Activity中务必不能添加）
 		 * 不能与StatService.onPageStart一级onPageEnd函数交叉使用
