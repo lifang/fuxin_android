@@ -1,8 +1,6 @@
 package com.fuwu.mobileim.activity;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,13 +9,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.ActivityManager;
-import android.app.ActivityManager.RunningServiceInfo;
 import android.content.BroadcastReceiver;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -69,6 +65,7 @@ import com.fuwu.mobileim.model.Models.SendMessageRequest;
 import com.fuwu.mobileim.model.Models.SendMessageResponse;
 import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.pojo.MessagePojo;
+import com.fuwu.mobileim.pojo.TalkPojo;
 import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
@@ -119,8 +116,11 @@ public class ChatActivity extends Activity implements OnClickListener,
 	private MessageListViewAdapter mMessageAdapter;
 	private DBManager db;
 	private ContactPojo cp;
+	private TalkPojo tp;
 	private RequstReceiver mReuRequstReceiver;
-	private ExecutorService singleThreadExecutor = Executors
+	private ExecutorService sendMessageExecutor = Executors
+			.newSingleThreadExecutor();
+	private ExecutorService loadImageExecutor = Executors
 			.newSingleThreadExecutor();
 	private Handler handler = new Handler() {
 		@Override
@@ -151,6 +151,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 				mMessageAdapter.updMessage(mp);
 				mListView.setSelection(list.size() - 1);
 				db.addMessage(mp);
+				db.addTalk(tp);
 				break;
 			case 7:
 				Intent intent = new Intent();
@@ -183,8 +184,8 @@ public class ChatActivity extends Activity implements OnClickListener,
 		keys = new ArrayList<String>();
 		keys.addAll(keySet);
 		user_id = fx.getUser_id();
-		// contact_id = user_id;
-		contact_id = intent.getIntExtra("contact_id", 0);
+		contact_id = user_id;
+		// contact_id = intent.getIntExtra("contact_id", 0);
 		cp = db.queryContact(user_id, contact_id);
 		Log.i("Ax", "contact_id:" + intent.getIntExtra("contact_id", 0));
 		updateMessageData();
@@ -259,7 +260,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 				return false;
 			}
 		});
-		mName.setText(cp.getName());
+		mName.setText(getContactName());
 
 		mMessageAdapter = new MessageListViewAdapter(getResources(), this,
 				list, cp, user_id, fx.getToken());
@@ -411,16 +412,11 @@ public class ChatActivity extends Activity implements OnClickListener,
 		});
 	}
 
-	private boolean isServiceRunning() {
-		ActivityManager manager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
-		for (RunningServiceInfo service : manager
-				.getRunningServices(Integer.MAX_VALUE)) {
-			if ("com.fuwu.mobileim.activity.RequstService"
-					.equals(service.service.getClassName())) {
-				return true;
-			}
+	public String getContactName() {
+		if (cp.getCustomName() != null && !cp.getCustomName().isEmpty()) {
+			return cp.getCustomName();
 		}
-		return false;
+		return cp.getName();
 	}
 
 	public void HideKeyboard() {
@@ -549,9 +545,15 @@ public class ChatActivity extends Activity implements OnClickListener,
 							time = sendTime;
 						}
 						if (type == 1) {
+							tp = new TalkPojo(user_id, contact_id,
+									getContactName(), cp.getUserface_url(),
+									message, time, 0);
 							mp = new MessagePojo(user_id, contact_id, time,
 									message, 1, 1);
 						} else {
+							tp = new TalkPojo(user_id, contact_id,
+									getContactName(), cp.getUserface_url(),
+									"[图片]", time, 0);
 							handler.sendEmptyMessage(7);
 							mp.setSendTime(time);
 						}
@@ -569,6 +571,28 @@ public class ChatActivity extends Activity implements OnClickListener,
 			} catch (InvalidProtocolBufferException e) {
 				e.printStackTrace();
 			}
+		}
+	}
+
+	class LoadImage extends Thread {
+		private String path;
+
+		public LoadImage(String path) {
+			super();
+			this.path = path;
+		}
+
+		@Override
+		public void run() {
+			super.run();
+			Bitmap photo = ImageUtil.compressImage(path);
+			// Bitmap photo = ImageUtil.createImageThumbnail(path, 800);
+			String fileName = System.currentTimeMillis() + "";
+			ImageUtil.saveBitmap(fileName, "JPG", photo);
+			mp = new MessagePojo(user_id, contact_id, "", fileName + ".jpg", 1,
+					2);
+			sendMessageExecutor.execute(new SendMessageThread(
+					Bitmap2Bytes(photo), null, 2));
 		}
 	}
 
@@ -602,7 +626,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 			}
 			break;
 		case R.id.plus_btn:
-			Log.i("FuWu", "service:" + isServiceRunning());
+//			Log.i("FuWu", "service:" + isServiceRunning());
 			if (!isPlusShow) {
 				if (isFaceShow) {
 					isFaceShow = false;
@@ -623,7 +647,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 					Toast.makeText(getApplicationContext(),
 							"信息内容限制300字,请分段输入.", 0).show();
 				} else {
-					singleThreadExecutor.execute(new SendMessageThread(null,
+					sendMessageExecutor.execute(new SendMessageThread(null,
 							str, 1));
 				}
 			}
@@ -711,28 +735,21 @@ public class ChatActivity extends Activity implements OnClickListener,
 		StatService.onPause(this);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode == RESULT_OK) {
 			switch (requestCode) {
 			case 1:
-				try {
-					ContentResolver resolver = getContentResolver();
-					Uri imgUri = data.getData();
-					Bitmap photo = MediaStore.Images.Media.getBitmap(resolver,
-							imgUri);
-					String fileName = System.currentTimeMillis() + "";
-					ImageUtil.saveBitmap(fileName, "JPG", photo);
-					mp = new MessagePojo(user_id, contact_id, "", fileName
-							+ ".jpg", 1, 2);
-					singleThreadExecutor.execute(new SendMessageThread(
-							Bitmap2Bytes(photo), null, 2));
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				Uri imgUri = data.getData();
+				String[] proj = { MediaStore.Images.Media.DATA };
+				Cursor cursor = managedQuery(imgUri, proj, null, null, null);
+				int column_index = cursor
+						.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+				cursor.moveToFirst();
+				String path = cursor.getString(column_index);
+				loadImageExecutor.execute(new LoadImage(path));
 				break;
 			case 2:
 				Bundle bundle = data.getExtras();
@@ -742,7 +759,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 					ImageUtil.saveBitmap(file, "JPG", bitmap);
 					mp = new MessagePojo(user_id, contact_id, "",
 							file + ".jpg", 1, 2);
-					singleThreadExecutor.execute(new SendMessageThread(
+					sendMessageExecutor.execute(new SendMessageThread(
 							Bitmap2Bytes(bitmap), null, 2));
 				}
 				break;

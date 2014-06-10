@@ -314,11 +314,6 @@ public class FragmengtActivity extends FragmentActivity {
 									+ "---" + res.getContacts(i).getName());
 							int contactId = res.getContacts(i).getContactId();
 							String name = res.getContacts(i).getName();
-							// String sortKey = findSortKey(res.getContacts(i)
-							// .getName());
-							// String sortKey = findSortKey(res.getContacts(i)
-							// .getPinyin());
-
 							String customName = res.getContacts(i)
 									.getCustomName();
 							String sortKey = null;

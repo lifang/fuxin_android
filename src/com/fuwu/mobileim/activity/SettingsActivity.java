@@ -29,7 +29,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.ContactsContract.Profile;
 import android.support.v4.app.Fragment;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,7 +43,6 @@ import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.baidu.mobstat.StatService;
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.model.Models.ClientInfo;
@@ -464,10 +462,10 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		private int[] icon = new int[] { R.drawable.setting_image1,
 				R.drawable.setting_image2, R.drawable.setting_image3,
 				R.drawable.setting_image4, R.drawable.setting_image5,
-				R.drawable.setting_image6, R.drawable.setting_image7 }; // icon
-																		// 集合
+				R.drawable.setting_image7 }; // icon
+												// 集合
 		private String[] titleArr = new String[] { "新版本检测", "清除全部聊天记录", "消息推送",
-				"修改密码", "屏蔽管理", "系统公告管理", "退出登录" }; //
+				"修改密码", "屏蔽管理", "退出登录" }; //
 
 		public int getCount() {
 			return titleArr.length;
@@ -511,7 +509,6 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 			} else {
 				viewHolder = (ViewHolder) view.getTag();
 			}
-			Resources resources = getResources();
 			viewHolder.im.setImageResource(icon[position]);
 			viewHolder.titleStr.setText(titleArr[position]);
 

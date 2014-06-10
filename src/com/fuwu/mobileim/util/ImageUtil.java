@@ -1,5 +1,6 @@
 package com.fuwu.mobileim.util;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -11,17 +12,64 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
+
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import cn.trinea.android.common.util.ImageUtils;
 
 /**
  * @作者 马龙
  * @时间 创建时间：2014-6-5 下午6:20:09
  */
 public class ImageUtil {
+
+	public static Bitmap compressImage(String path) {
+		Bitmap image = createImageThumbnail(path, 0);
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		image.compress(Bitmap.CompressFormat.JPEG, 100, baos);// 质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
+		int options = 100;
+		while (baos.toByteArray().length / 2048 > 100) { // 循环判断如果压缩后图片是否大于100kb,大于继续压缩
+			baos.reset();// 重置baos即清空baos
+			image.compress(Bitmap.CompressFormat.JPEG, options, baos);// 这里压缩options%，把压缩后的数据存放到baos中
+			options -= 10;// 每次都减少10
+		}
+		ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());// 把压缩后的数据baos存放到ByteArrayInputStream中
+		Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, null);// 把ByteArrayInputStream数据生成图片
+		return bitmap;
+	}
+
+	public static Bitmap compressImageFromFile(String srcPath) {
+		BitmapFactory.Options newOpts = new BitmapFactory.Options();
+		newOpts.inJustDecodeBounds = true;// 只读边,不读内容
+		Bitmap bitmap = BitmapFactory.decodeFile(srcPath, newOpts);
+		newOpts.inJustDecodeBounds = false;
+		int w = newOpts.outWidth;
+		int h = newOpts.outHeight;
+		float hh = 1280f;
+		float ww = 720f;
+		int be = 1;
+		if (w > h && w > ww) {
+			be = (int) (newOpts.outWidth / ww);
+		} else if (w < h && h > hh) {
+			be = (int) (newOpts.outHeight / hh);
+		}
+		if (be <= 0)
+			be = 1;
+		newOpts.inSampleSize = be;// 设置采样率
+
+		newOpts.inPreferredConfig = Config.ARGB_8888;// 该模式是默认的,可不设
+		newOpts.inPurgeable = true;// 同时设置才会有效
+		newOpts.inInputShareable = true;// 。当系统内存不够时候图片自动被回收
+
+		bitmap = BitmapFactory.decodeFile(srcPath, newOpts);
+		// return compressBmpFromBmp(bitmap);//原来的方法调用了这个方法企图进行二次压缩
+		// 其实是无效的,大家尽管尝试
+		return bitmap;
+	}
 
 	public static Bitmap createImageThumbnail(String filePath, int width) {
 		Bitmap bitmap = null;
@@ -31,11 +79,22 @@ public class ImageUtil {
 
 		int w = opts.outWidth;
 		int h = opts.outHeight;
-		if (opts.outWidth > width / 2) {
-			w = width / 2;
-		}
-		if (opts.outHeight > width / 3) {
-			h = width / 3;
+
+		if (width == 0) {
+			if (w > 2000 || h > 2000) {
+				w = w / 3;
+				h = h / 3;
+			} else if (w > 1000 || h > 1000) {
+				w = w / 2;
+				h = h / 2;
+			}
+		} else {
+			if (opts.outWidth > width / 2) {
+				w = width / 2;
+			}
+			if (opts.outHeight > width / 3) {
+				h = width / 3;
+			}
 		}
 
 		opts.inSampleSize = computeSampleSize(opts, -1, w * h);
@@ -44,7 +103,6 @@ public class ImageUtil {
 		try {
 			bitmap = BitmapFactory.decodeFile(filePath, opts);
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
 		return bitmap;
 	}
@@ -155,6 +213,7 @@ public class ImageUtil {
 	 * @param b
 	 * @return
 	 */
+	@SuppressWarnings("deprecation")
 	public static Drawable bitmapToDrawable(Bitmap b) {
 		return b == null ? null : new BitmapDrawable(b);
 	}

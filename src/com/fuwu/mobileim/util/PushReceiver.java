@@ -76,9 +76,9 @@ public class PushReceiver extends BroadcastReceiver {
 			// 获取ClientID(CID)
 			clientid = bundle.getString("clientid");
 			Log.i("MyReceiver", "clientid=>" + clientid);
-			if (sf.getBoolean("welcome", true)) {
-				new Thread(new ClientID_Post()).start();
-			}
+			// if (sf.getBoolean("welcome", true)) {
+			new Thread(new ClientID_Post()).start();
+			// }
 			/*
 			 * 第三方应用需要将ClientID上传到第三方服务器，并且将当前用户帐号和ClientID进行关联，
 			 * 以便以后通过用户帐号查找ClientID进行消息推送
@@ -129,7 +129,7 @@ public class PushReceiver extends BroadcastReceiver {
 				cinfo.setOsType(OSType.Android);
 				cinfo.setOSVersion(android.os.Build.VERSION.RELEASE);
 				cinfo.setUserId(fx.getUser_id());
-				cinfo.setChannel(0);
+				cinfo.setChannel(10000);
 				cinfo.setClientVersion(Urlinterface.current_version + "");
 				cinfo.setIsPushEnable(true);
 				ClientInfoRequest.Builder builder = ClientInfoRequest
