@@ -1,10 +1,15 @@
 package com.fuwu.mobileim.activity;
 
+import java.io.File;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,7 +17,6 @@ import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -95,8 +99,15 @@ public class LoginActivity extends Activity implements OnClickListener,
 		pwd_text = (EditText) findViewById(R.id.pwd);
 		CircularImage head = (CircularImage) findViewById(R.id.head);
 		int uid = spf.getInt("user_id", 0);
+		Log.i("fx", Urlinterface.head_pic + uid);
 		if (uid != 0) {
-			FuXunTools.set_img(uid, head);
+			File file = new File(Urlinterface.head_pic, uid + "");
+			if (file.exists()) {
+				@SuppressWarnings("deprecation")
+				Drawable dra = new BitmapDrawable(
+						BitmapFactory.decodeFile(Urlinterface.head_pic + uid));
+				head.setImageDrawable(dra);
+			}
 		}
 		String user = spf.getString("user", "null");
 		// user_text.setText("MockUserName");
