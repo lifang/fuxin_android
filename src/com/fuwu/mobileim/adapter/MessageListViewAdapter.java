@@ -1,10 +1,11 @@
 package com.fuwu.mobileim.adapter;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -13,16 +14,14 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PorterDuff.Mode;
+import android.graphics.drawable.Drawable;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ImageSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -34,6 +33,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import cn.trinea.android.common.service.impl.ImageCache;
+
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.model.Models.ChangeContactDetailRequest;
 import com.fuwu.mobileim.model.Models.ChangeContactDetailResponse;
@@ -44,6 +45,8 @@ import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
+import com.fuwu.mobileim.util.ImageCacheUtil;
+import com.fuwu.mobileim.util.ImageUtil;
 import com.fuwu.mobileim.util.TimeUtil;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.MyDialog;
@@ -130,7 +133,7 @@ public class MessageListViewAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		MessagePojo mp = list.get(position);
+		final MessagePojo mp = list.get(position);
 		ViewHolder holder = null;
 		if (convertView == null
 				|| convertView.getTag(R.drawable.ic_launcher + position) == null) {
@@ -145,8 +148,9 @@ public class MessageListViewAdapter extends BaseAdapter {
 			holder.mes = (TextView) convertView
 					.findViewById(R.id.chat_textView2);
 			holder.img = (ImageView) convertView.findViewById(R.id.chat_icon);
+			holder.sendImg = (ImageView) convertView
+					.findViewById(R.id.chat_img);
 			convertView.setTag(R.drawable.ic_launcher + position);
-
 		} else {
 			holder = (ViewHolder) convertView.getTag(R.drawable.ic_launcher
 					+ position);
@@ -159,8 +163,7 @@ public class MessageListViewAdapter extends BaseAdapter {
 			holder.time.setVisibility(View.VISIBLE);
 		}
 		if (mp.getIsComMeg() == 0) {
-			// 设置头像
-			FuXunTools.set_img(cp.getContactId(),holder.img);
+			FuXunTools.set_img(cp.getContactId(), holder.img);
 			holder.img.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -168,25 +171,52 @@ public class MessageListViewAdapter extends BaseAdapter {
 				}
 			});
 		} else {
-			// 设置头像
-			FuXunTools.set_img(user_id,holder.img);
+			FuXunTools.set_img(user_id, holder.img);
 		}
 		if (mp.getMsgType() == 1) {
 			holder.mes.setText(convertNormalStringToSpannableString(mp
 					.getContent()));
 		} else {
-			holder.mes.setBackground(BitmapDrawable.createFromPath(mp
-					.getContent()));
+			holder.sendImg.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					showBigImage("/sdcard/fuXun/" + mp.getContent());
+				}
+			});
+			holder.mes.setVisibility(View.GONE);
+			holder.sendImg.setVisibility(View.VISIBLE);
+			holder.sendImg.setImageBitmap(ImageUtil.createImageThumbnail(
+					"/sdcard/fuXun/" + mp.getContent(), 720));
+			// ImageCacheUtil.IMAGE_CACHE.get("/sdcard/fuXun/" +
+			// mp.getContent(),
+			// holder.sendImg);
 		}
 
 		return convertView;
 	}
 
-	public final class ViewHolder {
+	public final static class ViewHolder {
 		public TextView time;
 		public TextView mes;
 		public TextView order;
 		public ImageView img;
+		public ImageView sendImg;
+	}
+
+	public void showBigImage(String path) {
+		LayoutInflater inflater = LayoutInflater.from(mContext);
+		View imgEntryView = inflater.inflate(R.layout.chat_dialog, null); // 加载自定义的布局文件
+		final AlertDialog dialog = new AlertDialog.Builder(mContext).create();
+		ImageView img = (ImageView) imgEntryView.findViewById(R.id.large_image);
+		ImageCacheUtil.IMAGE_CACHE.get(path, img);
+		dialog.setView(imgEntryView); // 自定义dialog
+		dialog.show();
+		// 点击布局文件（也可以理解为点击大图）后关闭dialog，这里的dialog不需要按钮
+		imgEntryView.setOnClickListener(new OnClickListener() {
+			public void onClick(View paramView) {
+				dialog.cancel();
+			}
+		});
 	}
 
 	private void showLoginDialog() {
@@ -200,10 +230,8 @@ public class MessageListViewAdapter extends BaseAdapter {
 		ImageView img_gou = (ImageView) view.findViewById(R.id.info_gouIcon);
 		ImageView img_yue = (ImageView) view.findViewById(R.id.info_yueIcon);
 		ok = (Button) view.findViewById(R.id.info_ok);
-		// img.setImageBitmap(FuXunTools.toRoundBitmap(BitmapFactory
-		// .decodeResource(mContext.getResources(), R.drawable.headpic)));
 		// 设置头像
-		FuXunTools.set_img(cp.getContactId(),img);
+		FuXunTools.set_img(cp.getContactId(), img);
 		String str = FuXunTools.toNumber(cp.getSource());
 		if (FuXunTools.isExist(str, 0, 1)) {
 			img_gou.setVisibility(View.VISIBLE);

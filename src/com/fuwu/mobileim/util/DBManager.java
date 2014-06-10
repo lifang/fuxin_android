@@ -95,6 +95,10 @@ public class DBManager {
 			db.execSQL(
 					"update contact set customName = ? where userId = ? and contactId = ?",
 					new Object[] { rem, user_id + "", contact_id + "" });
+			db.execSQL(
+					"update talk set nick_name = ? where user_id = ? and contact_id = ?",
+					new Object[] { rem, user_id + "", contact_id + "" });
+
 			db.setTransactionSuccessful();
 		} finally {
 			db.endTransaction();
@@ -174,7 +178,7 @@ public class DBManager {
 		ArrayList<ContactPojo> cpList = new ArrayList<ContactPojo>();
 		Cursor c = queryContactCursor(user_id);
 		while (c.moveToNext()) {
-			
+
 			ContactPojo mp = new ContactPojo();
 			mp.setContactId(c.getInt(c.getColumnIndex("contactId")));
 			mp.setCustomName(c.getString(c.getColumnIndex("customName")));
@@ -187,14 +191,16 @@ public class DBManager {
 			mp.setLisence(c.getString(c.getColumnIndex("lisence")));
 			mp.setName(c.getString(c.getColumnIndex("name")));
 			mp.setSex(c.getInt(c.getColumnIndex("sex")));
-			String sortKey=null;
-			if (c.getString(c.getColumnIndex("customName"))!=null&&c.getString(c.getColumnIndex("customName")).length()>0) {
-				 sortKey = findSortKey(c.getString(c.getColumnIndex("customName")));
-			}else {
-				 sortKey = findSortKey(c.getString(c.getColumnIndex("name")));
+			String sortKey = null;
+			if (c.getString(c.getColumnIndex("customName")) != null
+					&& c.getString(c.getColumnIndex("customName")).length() > 0) {
+				sortKey = findSortKey(c.getString(c
+						.getColumnIndex("customName")));
+			} else {
+				sortKey = findSortKey(c.getString(c.getColumnIndex("name")));
 			}
 			mp.setSortKey(sortKey);
-//			mp.setSortKey(c.getString(c.getColumnIndex("sortKey")));
+			// mp.setSortKey(c.getString(c.getColumnIndex("sortKey")));
 			mp.setSource(c.getInt(c.getColumnIndex("source")));
 			mp.setUserface_url(c.getString(c.getColumnIndex("userface_url")));
 			cpList.add(mp);
@@ -394,10 +400,11 @@ public class DBManager {
 	public boolean isOpen() {
 		return db.isOpen();
 	}
+
 	/**
 	 * 获得首字母
 	 */
-	public  String findSortKey(String str) {
+	public String findSortKey(String str) {
 		if (str.length() > 0) {
 
 			String pinyin = characterParser.getSelling(str);
@@ -413,5 +420,5 @@ public class DBManager {
 			return "#";
 		}
 	}
-	
+
 }

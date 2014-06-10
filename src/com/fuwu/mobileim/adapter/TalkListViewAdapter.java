@@ -3,7 +3,6 @@ package com.fuwu.mobileim.adapter;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
@@ -13,13 +12,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.pojo.TalkPojo;
-import com.fuwu.mobileim.util.ImageCacheUtil;
 import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.TimeUtil;
-import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CircularImage;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
