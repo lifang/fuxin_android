@@ -46,9 +46,6 @@ public class TalkActivity extends Fragment {
 			case 1:
 				break;
 			case 2:
-				clvAdapter = new TalkListViewAdapter(getActivity(), list,
-						fx.options);
-				mListView.setAdapter(clvAdapter);
 				// Log.i("FuWu", list.get(0).toString());
 				updateTalkData();
 				clvAdapter.updateList(list);

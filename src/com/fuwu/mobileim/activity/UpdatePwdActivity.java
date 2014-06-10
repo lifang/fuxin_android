@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.mobstat.StatService;
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.model.Models.ChangePasswordRequest;
 import com.fuwu.mobileim.model.Models.ChangePasswordResponse;
@@ -226,27 +227,27 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 			this.finish();
 			break;
 		case R.id.update_over:
-			new Thread(new UpdatePwd_Post()).start();
+			if (FuXunTools.isConnect(this)) {
+				new Thread(new UpdatePwd_Post()).start();
+			} else {
+				Toast.makeText(UpdatePwdActivity.this, R.string.no_internet,
+						Toast.LENGTH_SHORT).show();
+			}
 			break;
 		case R.id.phone_ok:
 			Log.i("aa", "111");
 			if (phone_btn) {
 				String phone = phone_text.getText().toString();
-				if (phone.equals("")) {
+				if (phone.equals("") || !FuXunTools.isMobileNO(phone)) {
 					phone_tag.setVisibility(View.VISIBLE);
 				} else {
-					if (FuXunTools.isMobileNO(phone)) {
-						phone_tag.setVisibility(View.GONE);
-						phone_ok.setText("重填");
-						phone_btn = false;
-						phone_text.setEnabled(false);
-						view.setBackgroundColor(getResources().getColor(
-								R.color.regist_bg));
-						new Thread(new ValidateCode_Post()).start();
-						validate_time.setVisibility(View.VISIBLE);
-					} else {
-						phone_tag.setVisibility(View.VISIBLE);
-					}
+					phone_tag.setVisibility(View.GONE);
+					phone_ok.setText("重填");
+					phone_btn = false;
+					phone_text.setEnabled(false);
+					view.setBackgroundColor(getResources().getColor(
+							R.color.regist_bg));
+					yz_send.setBackgroundResource(R.drawable.login_btn);
 				}
 			} else {
 				phone_btn = true;
@@ -255,15 +256,19 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 				phone_ok.setText("确定");
 				phone_text.requestFocus();// 获取焦点
 				view.setBackgroundColor(getResources().getColor(R.color.white));
+				yz_send.setBackgroundResource(R.drawable.regist_btn);
 			}
 			regist_btnOver();
 			break;
 		case R.id.yz_send:
-			if (phone_btn) {
-				Toast.makeText(UpdatePwdActivity.this, "请先填写手机号码",
-						Toast.LENGTH_SHORT).show();
+			if (FuXunTools.isConnect(this)) {
+				if (!phone_btn) {
+					new Thread(new ValidateCode_Post()).start();
+					validate_time.setVisibility(View.VISIBLE);
+				}
 			} else {
-				new Thread(new ValidateCode_Post()).start();
+				Toast.makeText(UpdatePwdActivity.this, R.string.no_internet,
+						Toast.LENGTH_SHORT).show();
 			}
 			break;
 		}
@@ -320,5 +325,25 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 			}
 		});
 		builder.show();
+	}
+
+	public void onResume() {
+		super.onResume();
+
+		/**
+		 * 页面起始（每个Activity中都需要添加，如果有继承的父Activity中已经添加了该调用，那么子Activity中务必不能添加）
+		 * 不能与StatService.onPageStart一级onPageEnd函数交叉使用
+		 */
+		StatService.onResume(this);
+	}
+
+	public void onPause() {
+		super.onPause();
+
+		/**
+		 * 页面结束（每个Activity中都需要添加，如果有继承的父Activity中已经添加了该调用，那么子Activity中务必不能添加）
+		 * 不能与StatService.onPageStart一级onPageEnd函数交叉使用
+		 */
+		StatService.onPause(this);
 	}
 }

@@ -44,20 +44,25 @@ public class PushReceiver extends BroadcastReceiver {
 				Log.i("MyReceiver", data);
 				// true表示后台运行 false表示前台
 				if (sf.getBoolean("pushsetting_sound", true)) {
+					Log.i("MyReceiver", "clientid=>1");
 					if (FuXunTools.isApplicationBroughtToBackground(context)) {
+
 						if (fx.getToken().equals("NULL")) {
 							intent.setClass(context, LoginActivity.class); // 点击该通知后要跳转的Activity
 						} else {
 							intent.setClass(context, FragmengtActivity.class); // 点击该通知后要跳转的Activity
 						}
+						Log.i("MyReceiver", "clientid=>2");
 						byte[] byteArray = Base64.decode(data, Base64.DEFAULT);
 						try {
 							MessagePush mp = MessagePush.parseFrom(byteArray);
 							mp.getSendTime();
 							Log.i("MyReceiver", new String(byteArray));
+							Log.i("MyReceiver", "clientid=>3");
 							MyNotification("福务网",
 									mp.getSenderName() + ":" + mp.getContent(),
 									context, intent, mp.getSendTime());
+							Log.i("MyReceiver", "clientid=>4");
 						} catch (InvalidProtocolBufferException e) {
 							e.printStackTrace();
 						}
@@ -71,7 +76,9 @@ public class PushReceiver extends BroadcastReceiver {
 			// 获取ClientID(CID)
 			clientid = bundle.getString("clientid");
 			Log.i("MyReceiver", "clientid=>" + clientid);
-			new Thread(new ClientID_Post()).start();
+			if (sf.getBoolean("welcome", true)) {
+				new Thread(new ClientID_Post()).start();
+			}
 			/*
 			 * 第三方应用需要将ClientID上传到第三方服务器，并且将当前用户帐号和ClientID进行关联，
 			 * 以便以后通过用户帐号查找ClientID进行消息推送
