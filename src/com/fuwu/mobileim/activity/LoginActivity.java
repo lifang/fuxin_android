@@ -86,7 +86,8 @@ public class LoginActivity extends Activity implements OnClickListener,
 		Display display = getWindowManager().getDefaultDisplay();
 		int width = display.getWidth();
 		int a = display.getHeight();
-		Log.i("linshi", "display.getHeight()xdisplay.getWidth():"+a+"x"+width);
+		Log.i("linshi", "display.getHeight()xdisplay.getWidth():" + a + "x"
+				+ width);
 		fx.setWidth(width);
 		initialize();// 初始化
 		// 百度统计
