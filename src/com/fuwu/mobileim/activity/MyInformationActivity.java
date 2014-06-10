@@ -113,16 +113,9 @@ public class MyInformationActivity extends Activity {
 		my_info_confirm = (ImageButton) findViewById(R.id.my_info_confirm);
 		my_info_confirm.setOnClickListener(listener2);// 给保存按钮设置监听
 
-		SharedPreferences preferences = getSharedPreferences(
-				Urlinterface.SHARED, Context.MODE_PRIVATE);
+		profilePojo = fxApplication.getProfilePojo();// 获得全局变量中的个人信息
 
-		int profile_userid = preferences.getInt("profile_userid", -1);
-		if (profile_userid != -1
-				&& profile_userid == fxApplication.getUser_id()) {
-			profilePojo = getProfilePojo();// 获得本地存储的个人信息
-
-			init();
-		}
+		init();
 	}
 
 	/**
@@ -163,7 +156,7 @@ public class MyInformationActivity extends Activity {
 
 		// 设置福值
 		if (profilePojo.getIsProvider()) {
-			myinfo_fuzhi.setText(profilePojo.getUserId()+"");
+			myinfo_fuzhi.setText(profilePojo.getFuZhi());
 		}else {
 			fuzhi_layout.setVisibility(View.GONE);
 		}
@@ -262,7 +255,7 @@ public class MyInformationActivity extends Activity {
 								+ res.getProfile().getTileUrl());
 						profilePojo.setTileUrl(res.getProfile().getTileUrl());
 						profilePojo.setNickName(res.getProfile().getNickName());
-						putProfile(profilePojo);
+						fxApplication.setProfilePojo(profilePojo);
 						handler.sendEmptyMessage(0);
 					} else {
 						handler.sendEmptyMessage(1);
@@ -270,7 +263,6 @@ public class MyInformationActivity extends Activity {
 				} else {
 					handler.sendEmptyMessage(6);
 				}
-				//
 			} catch (Exception e) {
 				handler.sendEmptyMessage(7);
 			}
@@ -288,56 +280,7 @@ public class MyInformationActivity extends Activity {
 		}
 	};
 
-	/**
-	 * 获得本地存储的 个人信息
-	 */
-	private ProfilePojo getProfilePojo() {
 
-		SharedPreferences preferences = getSharedPreferences(
-				Urlinterface.SHARED, Context.MODE_PRIVATE);
-
-		int profile_userid = preferences.getInt("profile_userid", -1);
-		String name = preferences.getString("profile_name", "");// 名称
-		String nickName = preferences.getString("profile_nickName", "");// 昵称
-		int gender = preferences.getInt("profile_gender", -1);// 性别
-		String tileUrl = preferences.getString("profile_tileUrl", "");// 头像
-		Boolean isProvider = preferences
-				.getBoolean("profile_isProvider", false);//
-		String lisence = preferences.getString("profile_lisence", "");// 行业认证
-		String mobile = preferences.getString("profile_mobile", "");// 手机号码
-		String email = preferences.getString("profile_email", "");// 邮箱
-		String birthday = preferences.getString("profile_birthday", "");// 生日
-		Boolean isAuthentication = preferences.getBoolean(
-				"profile_isAuthentication", false);//
-		profilePojo = new ProfilePojo(profile_userid, name, nickName, gender,
-				tileUrl, isProvider, lisence, mobile, email, birthday,
-				isAuthentication);
-
-		return profilePojo;
-	}
-
-	/**
-	 * 更新本地存储的 个人信息
-	 */
-	private void putProfile(ProfilePojo pro) {
-		SharedPreferences preferences = getSharedPreferences(
-				Urlinterface.SHARED, Context.MODE_PRIVATE);
-		Editor editor = preferences.edit();
-		editor.putInt("profile_userid", pro.getUserId());
-		editor.putString("profile_name", pro.getName());
-		editor.putString("profile_nickName", pro.getNickName());
-		editor.putInt("profile_gender", pro.getGender());
-		editor.putString("profile_tileUrl", pro.getTileUrl());
-		editor.putBoolean("profile_isProvider", pro.getIsProvider());
-		editor.putString("profile_lisence", pro.getLisence());
-		editor.putString("profile_mobile", pro.getMobile());
-		editor.putString("profile_email", pro.getEmail());
-		editor.putString("profile_birthday", pro.getBirthday());
-		editor.putBoolean("profile_isAuthentication", pro.getIsAuthentication());
-
-		editor.commit();
-
-	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -165,17 +165,17 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 				Urlinterface.SHARED, Context.MODE_PRIVATE);
 
 		int profile_userid = preferences.getInt("profile_userid", -1);
-		if (profile_userid != -1
-				&& profile_userid == fxApplication.getUser_id()) {
-			Log.i("linshi------------", "profileprofileprofileprofile本地shuju");
-
-			profilePojo = getProfilePojo();
-			handler.sendEmptyMessage(0);
-
-		} else {
+//		if (profile_userid != -1
+//				&& profile_userid == fxApplication.getUser_id()) {
+//			Log.i("linshi------------", "profileprofileprofileprofile本地shuju");
+//
+//			profilePojo = getProfilePojo();
+//			handler.sendEmptyMessage(0);
+//
+//		} else {
 			Thread thread = new Thread(new getProfile());
 			thread.start();
-		}
+//		}
 
 		return rootView;
 	}
@@ -185,37 +185,10 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		// TODO Auto-generated method stub
 		super.onResume();
 		StatService.onResume(this);
-		profilePojo = getProfilePojo();
+		profilePojo = fxApplication.getProfilePojo();
 		handler.sendEmptyMessage(0);
 	}
 
-	/**
-	 * 获得本地存储的 个人信息
-	 */
-	private ProfilePojo getProfilePojo() {
-
-		SharedPreferences preferences = getActivity().getSharedPreferences(
-				Urlinterface.SHARED, Context.MODE_PRIVATE);
-
-		int profile_userid = preferences.getInt("profile_userid", -1);
-		String name = preferences.getString("profile_name", "");// 名称
-		String nickName = preferences.getString("profile_nickName", "");// 昵称
-		int gender = preferences.getInt("profile_gender", -1);// 性别
-		String tileUrl = preferences.getString("profile_tileUrl", "");// 头像
-		Boolean isProvider = preferences
-				.getBoolean("profile_isProvider", false);//
-		String lisence = preferences.getString("profile_lisence", "");// 行业认证
-		String mobile = preferences.getString("profile_mobile", "");// 手机号码
-		String email = preferences.getString("profile_email", "");// 邮箱
-		String birthday = preferences.getString("profile_birthday", "");// 生日
-		Boolean isAuthentication = preferences.getBoolean(
-				"profile_isAuthentication", false);//
-		profilePojo = new ProfilePojo(profile_userid, name, nickName, gender,
-				tileUrl, isProvider, lisence, mobile, email, birthday,
-				isAuthentication);
-
-		return profilePojo;
-	}
 
 	/**
 	 * 
@@ -249,11 +222,11 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 						String email = res.getProfile().getEmail();// 邮箱
 						String birthday = res.getProfile().getBirthday();// 生日
 						Boolean isAuthentication = res.getProfile()
-								.getIsAuthentication();//
+								.getIsAuthentication();// 实名认证
+						String fuzhi = res.getProfile().getFuzhi();// 福值
 						profilePojo = new ProfilePojo(userId, name, nickName,
 								gender, tileUrl, isProvider, lisence, mobile,
-								email, birthday, isAuthentication);
-						putProfile(profilePojo);
+								email, birthday, isAuthentication,fuzhi);
 						Log.i("linshi", "  --nickName" + nickName
 								+ "  --gender" + gender + "  --tileUrl"
 								+ tileUrl + "  --lisence" + lisence
@@ -277,25 +250,6 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		}
 	}
 
-	private void putProfile(ProfilePojo pro) {
-		SharedPreferences preferences = getActivity().getSharedPreferences(
-				Urlinterface.SHARED, Context.MODE_PRIVATE);
-		Editor editor = preferences.edit();
-		editor.putInt("profile_userid", pro.getUserId());
-		editor.putString("profile_name", pro.getName());
-		editor.putString("profile_nickName", pro.getNickName());
-		editor.putInt("profile_gender", pro.getGender());
-		editor.putString("profile_tileUrl", pro.getTileUrl());
-		editor.putBoolean("profile_isProvider", pro.getIsProvider());
-		editor.putString("profile_lisence", pro.getLisence());
-		editor.putString("profile_mobile", pro.getMobile());
-		editor.putString("profile_email", pro.getEmail());
-		editor.putString("profile_birthday", pro.getBirthday());
-		editor.putBoolean("profile_isAuthentication", pro.getIsAuthentication());
-
-		editor.commit();
-
-	}
 
 	/**
 	 * 

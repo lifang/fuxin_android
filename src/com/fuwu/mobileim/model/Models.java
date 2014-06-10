@@ -3381,6 +3381,21 @@ public final class Models {
      */
     com.google.protobuf.ByteString
         getIndividualResumeBytes();
+
+    // optional string fuzhi = 13;
+    /**
+     * <code>optional string fuzhi = 13;</code>
+     */
+    boolean hasFuzhi();
+    /**
+     * <code>optional string fuzhi = 13;</code>
+     */
+    java.lang.String getFuzhi();
+    /**
+     * <code>optional string fuzhi = 13;</code>
+     */
+    com.google.protobuf.ByteString
+        getFuzhiBytes();
   }
   /**
    * Protobuf type {@code Com.Fuwu.MobileIM.Model.Contact}
@@ -3497,6 +3512,11 @@ public final class Models {
             case 98: {
               bitField0_ |= 0x00000800;
               individualResume_ = input.readBytes();
+              break;
+            }
+            case 106: {
+              bitField0_ |= 0x00001000;
+              fuzhi_ = input.readBytes();
               break;
             }
           }
@@ -4043,6 +4063,49 @@ public final class Models {
       }
     }
 
+    // optional string fuzhi = 13;
+    public static final int FUZHI_FIELD_NUMBER = 13;
+    private java.lang.Object fuzhi_;
+    /**
+     * <code>optional string fuzhi = 13;</code>
+     */
+    public boolean hasFuzhi() {
+      return ((bitField0_ & 0x00001000) == 0x00001000);
+    }
+    /**
+     * <code>optional string fuzhi = 13;</code>
+     */
+    public java.lang.String getFuzhi() {
+      java.lang.Object ref = fuzhi_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          fuzhi_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string fuzhi = 13;</code>
+     */
+    public com.google.protobuf.ByteString
+        getFuzhiBytes() {
+      java.lang.Object ref = fuzhi_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        fuzhi_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private void initFields() {
       contactId_ = 0;
       name_ = "";
@@ -4056,6 +4119,7 @@ public final class Models {
       isProvider_ = false;
       lisence_ = "";
       individualResume_ = "";
+      fuzhi_ = "";
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -4104,6 +4168,9 @@ public final class Models {
       }
       if (((bitField0_ & 0x00000800) == 0x00000800)) {
         output.writeBytes(12, getIndividualResumeBytes());
+      }
+      if (((bitField0_ & 0x00001000) == 0x00001000)) {
+        output.writeBytes(13, getFuzhiBytes());
       }
       getUnknownFields().writeTo(output);
     }
@@ -4161,6 +4228,10 @@ public final class Models {
       if (((bitField0_ & 0x00000800) == 0x00000800)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(12, getIndividualResumeBytes());
+      }
+      if (((bitField0_ & 0x00001000) == 0x00001000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(13, getFuzhiBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -4302,6 +4373,8 @@ public final class Models {
         bitField0_ = (bitField0_ & ~0x00000400);
         individualResume_ = "";
         bitField0_ = (bitField0_ & ~0x00000800);
+        fuzhi_ = "";
+        bitField0_ = (bitField0_ & ~0x00001000);
         return this;
       }
 
@@ -4378,6 +4451,10 @@ public final class Models {
           to_bitField0_ |= 0x00000800;
         }
         result.individualResume_ = individualResume_;
+        if (((from_bitField0_ & 0x00001000) == 0x00001000)) {
+          to_bitField0_ |= 0x00001000;
+        }
+        result.fuzhi_ = fuzhi_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -4442,6 +4519,11 @@ public final class Models {
         if (other.hasIndividualResume()) {
           bitField0_ |= 0x00000800;
           individualResume_ = other.individualResume_;
+          onChanged();
+        }
+        if (other.hasFuzhi()) {
+          bitField0_ |= 0x00001000;
+          fuzhi_ = other.fuzhi_;
           onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
@@ -5169,6 +5251,80 @@ public final class Models {
   }
   bitField0_ |= 0x00000800;
         individualResume_ = value;
+        onChanged();
+        return this;
+      }
+
+      // optional string fuzhi = 13;
+      private java.lang.Object fuzhi_ = "";
+      /**
+       * <code>optional string fuzhi = 13;</code>
+       */
+      public boolean hasFuzhi() {
+        return ((bitField0_ & 0x00001000) == 0x00001000);
+      }
+      /**
+       * <code>optional string fuzhi = 13;</code>
+       */
+      public java.lang.String getFuzhi() {
+        java.lang.Object ref = fuzhi_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          fuzhi_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string fuzhi = 13;</code>
+       */
+      public com.google.protobuf.ByteString
+          getFuzhiBytes() {
+        java.lang.Object ref = fuzhi_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          fuzhi_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string fuzhi = 13;</code>
+       */
+      public Builder setFuzhi(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00001000;
+        fuzhi_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string fuzhi = 13;</code>
+       */
+      public Builder clearFuzhi() {
+        bitField0_ = (bitField0_ & ~0x00001000);
+        fuzhi_ = getDefaultInstance().getFuzhi();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string fuzhi = 13;</code>
+       */
+      public Builder setFuzhiBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00001000;
+        fuzhi_ = value;
         onChanged();
         return this;
       }
@@ -10769,9 +10925,9 @@ public final class Models {
     com.google.protobuf.ByteString
         getLisenceBytes();
 
-    // optional bool IsAuthentication = 11;
+    // optional bool isAuthentication = 11;
     /**
-     * <code>optional bool IsAuthentication = 11;</code>
+     * <code>optional bool isAuthentication = 11;</code>
      *
      * <pre>
      *用户是否通过实名认证
@@ -10779,13 +10935,28 @@ public final class Models {
      */
     boolean hasIsAuthentication();
     /**
-     * <code>optional bool IsAuthentication = 11;</code>
+     * <code>optional bool isAuthentication = 11;</code>
      *
      * <pre>
      *用户是否通过实名认证
      * </pre>
      */
     boolean getIsAuthentication();
+
+    // optional string fuzhi = 12;
+    /**
+     * <code>optional string fuzhi = 12;</code>
+     */
+    boolean hasFuzhi();
+    /**
+     * <code>optional string fuzhi = 12;</code>
+     */
+    java.lang.String getFuzhi();
+    /**
+     * <code>optional string fuzhi = 12;</code>
+     */
+    com.google.protobuf.ByteString
+        getFuzhiBytes();
   }
   /**
    * Protobuf type {@code Com.Fuwu.MobileIM.Model.Profile}
@@ -10897,6 +11068,11 @@ public final class Models {
             case 88: {
               bitField0_ |= 0x00000400;
               isAuthentication_ = input.readBool();
+              break;
+            }
+            case 98: {
+              bitField0_ |= 0x00000800;
+              fuzhi_ = input.readBytes();
               break;
             }
           }
@@ -11403,11 +11579,11 @@ public final class Models {
       }
     }
 
-    // optional bool IsAuthentication = 11;
+    // optional bool isAuthentication = 11;
     public static final int ISAUTHENTICATION_FIELD_NUMBER = 11;
     private boolean isAuthentication_;
     /**
-     * <code>optional bool IsAuthentication = 11;</code>
+     * <code>optional bool isAuthentication = 11;</code>
      *
      * <pre>
      *用户是否通过实名认证
@@ -11417,7 +11593,7 @@ public final class Models {
       return ((bitField0_ & 0x00000400) == 0x00000400);
     }
     /**
-     * <code>optional bool IsAuthentication = 11;</code>
+     * <code>optional bool isAuthentication = 11;</code>
      *
      * <pre>
      *用户是否通过实名认证
@@ -11425,6 +11601,49 @@ public final class Models {
      */
     public boolean getIsAuthentication() {
       return isAuthentication_;
+    }
+
+    // optional string fuzhi = 12;
+    public static final int FUZHI_FIELD_NUMBER = 12;
+    private java.lang.Object fuzhi_;
+    /**
+     * <code>optional string fuzhi = 12;</code>
+     */
+    public boolean hasFuzhi() {
+      return ((bitField0_ & 0x00000800) == 0x00000800);
+    }
+    /**
+     * <code>optional string fuzhi = 12;</code>
+     */
+    public java.lang.String getFuzhi() {
+      java.lang.Object ref = fuzhi_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          fuzhi_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string fuzhi = 12;</code>
+     */
+    public com.google.protobuf.ByteString
+        getFuzhiBytes() {
+      java.lang.Object ref = fuzhi_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        fuzhi_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     private void initFields() {
@@ -11439,6 +11658,7 @@ public final class Models {
       isProvider_ = false;
       lisence_ = "";
       isAuthentication_ = false;
+      fuzhi_ = "";
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -11484,6 +11704,9 @@ public final class Models {
       }
       if (((bitField0_ & 0x00000400) == 0x00000400)) {
         output.writeBool(11, isAuthentication_);
+      }
+      if (((bitField0_ & 0x00000800) == 0x00000800)) {
+        output.writeBytes(12, getFuzhiBytes());
       }
       getUnknownFields().writeTo(output);
     }
@@ -11537,6 +11760,10 @@ public final class Models {
       if (((bitField0_ & 0x00000400) == 0x00000400)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(11, isAuthentication_);
+      }
+      if (((bitField0_ & 0x00000800) == 0x00000800)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(12, getFuzhiBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -11676,6 +11903,8 @@ public final class Models {
         bitField0_ = (bitField0_ & ~0x00000200);
         isAuthentication_ = false;
         bitField0_ = (bitField0_ & ~0x00000400);
+        fuzhi_ = "";
+        bitField0_ = (bitField0_ & ~0x00000800);
         return this;
       }
 
@@ -11748,6 +11977,10 @@ public final class Models {
           to_bitField0_ |= 0x00000400;
         }
         result.isAuthentication_ = isAuthentication_;
+        if (((from_bitField0_ & 0x00000800) == 0x00000800)) {
+          to_bitField0_ |= 0x00000800;
+        }
+        result.fuzhi_ = fuzhi_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -11810,6 +12043,11 @@ public final class Models {
         }
         if (other.hasIsAuthentication()) {
           setIsAuthentication(other.getIsAuthentication());
+        }
+        if (other.hasFuzhi()) {
+          bitField0_ |= 0x00000800;
+          fuzhi_ = other.fuzhi_;
+          onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -12458,10 +12696,10 @@ public final class Models {
         return this;
       }
 
-      // optional bool IsAuthentication = 11;
+      // optional bool isAuthentication = 11;
       private boolean isAuthentication_ ;
       /**
-       * <code>optional bool IsAuthentication = 11;</code>
+       * <code>optional bool isAuthentication = 11;</code>
        *
        * <pre>
        *用户是否通过实名认证
@@ -12471,7 +12709,7 @@ public final class Models {
         return ((bitField0_ & 0x00000400) == 0x00000400);
       }
       /**
-       * <code>optional bool IsAuthentication = 11;</code>
+       * <code>optional bool isAuthentication = 11;</code>
        *
        * <pre>
        *用户是否通过实名认证
@@ -12481,7 +12719,7 @@ public final class Models {
         return isAuthentication_;
       }
       /**
-       * <code>optional bool IsAuthentication = 11;</code>
+       * <code>optional bool isAuthentication = 11;</code>
        *
        * <pre>
        *用户是否通过实名认证
@@ -12494,7 +12732,7 @@ public final class Models {
         return this;
       }
       /**
-       * <code>optional bool IsAuthentication = 11;</code>
+       * <code>optional bool isAuthentication = 11;</code>
        *
        * <pre>
        *用户是否通过实名认证
@@ -12503,6 +12741,80 @@ public final class Models {
       public Builder clearIsAuthentication() {
         bitField0_ = (bitField0_ & ~0x00000400);
         isAuthentication_ = false;
+        onChanged();
+        return this;
+      }
+
+      // optional string fuzhi = 12;
+      private java.lang.Object fuzhi_ = "";
+      /**
+       * <code>optional string fuzhi = 12;</code>
+       */
+      public boolean hasFuzhi() {
+        return ((bitField0_ & 0x00000800) == 0x00000800);
+      }
+      /**
+       * <code>optional string fuzhi = 12;</code>
+       */
+      public java.lang.String getFuzhi() {
+        java.lang.Object ref = fuzhi_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          fuzhi_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string fuzhi = 12;</code>
+       */
+      public com.google.protobuf.ByteString
+          getFuzhiBytes() {
+        java.lang.Object ref = fuzhi_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          fuzhi_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string fuzhi = 12;</code>
+       */
+      public Builder setFuzhi(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000800;
+        fuzhi_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string fuzhi = 12;</code>
+       */
+      public Builder clearFuzhi() {
+        bitField0_ = (bitField0_ & ~0x00000800);
+        fuzhi_ = getDefaultInstance().getFuzhi();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string fuzhi = 12;</code>
+       */
+      public Builder setFuzhiBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000800;
+        fuzhi_ = value;
         onChanged();
         return this;
       }
@@ -33547,142 +33859,143 @@ public final class Models {
       "se.ErrorCodeType\"j\n\rErrorCodeType\022\016\n\nBad" +
       "Request\020\001\022\021\n\rInvalidUserId\020\002\022\020\n\014InvalidT" +
       "oken\020\003\022\017\n\013InvalidUser\020\004\022\023\n\017InvalidDataba" +
-      "se\020\005\"\310\002\n\007Contact\022\021\n\tcontactId\030\001 \001(\005\022\014\n\004n" +
+      "se\020\005\"\327\002\n\007Contact\022\021\n\tcontactId\030\001 \001(\005\022\014\n\004n" +
       "ame\030\002 \001(\t\022\022\n\ncustomName\030\003 \001(\t\022\016\n\006pinyin\030",
       "\004 \001(\t\022\021\n\tisBlocked\030\005 \001(\010\022\027\n\017lastContactT" +
       "ime\030\006 \001(\t\022;\n\006gender\030\007 \001(\0162+.Com.Fuwu.Mob" +
       "ileIM.Model.Contact.GenderType\022\016\n\006source" +
       "\030\010 \001(\005\022\017\n\007tileUrl\030\t \001(\t\022\022\n\nisProvider\030\n " +
       "\001(\010\022\017\n\007lisence\030\013 \001(\t\022\030\n\020individualResume" +
-      "\030\014 \001(\t\"/\n\nGenderType\022\010\n\004Male\020\000\022\n\n\006Female" +
-      "\020\001\022\013\n\007Privacy\020\002\"B\n\016ContactRequest\022\r\n\005tok" +
-      "en\030\001 \001(\t\022\016\n\006userId\030\002 \001(\005\022\021\n\ttimeStamp\030\003 " +
-      "\001(\t\"k\n\017ContactResponse\022\021\n\tisSucceed\030\001 \001(" +
-      "\010\0222\n\010contacts\030\002 \003(\0132 .Com.Fuwu.MobileIM.",
-      "Model.Contact\022\021\n\ttimeStamp\030\003 \001(\t\"Z\n\023Bloc" +
-      "kContactRequest\022\r\n\005token\030\001 \001(\t\022\016\n\006userId" +
-      "\030\002 \001(\005\022\021\n\tcontactId\030\003 \001(\005\022\021\n\tisBlocked\030\004" +
-      " \001(\010\"O\n\024BlockContactResponse\022\021\n\tisSuccee" +
-      "d\030\001 \001(\010\022\021\n\tcontactId\030\002 \001(\005\022\021\n\tisBlocked\030" +
-      "\003 \001(\010\"H\n\024ContactDetailRequest\022\r\n\005token\030\001" +
-      " \001(\t\022\016\n\006userId\030\002 \001(\005\022\021\n\tcontactId\030\003 \001(\005\"" +
-      "]\n\025ContactDetailResponse\022\021\n\tisSucceed\030\001 " +
-      "\001(\010\0221\n\007contact\030\002 \001(\0132 .Com.Fuwu.MobileIM" +
-      ".Model.Contact\"n\n\032ChangeContactDetailReq",
-      "uest\022\r\n\005token\030\001 \001(\t\022\016\n\006userId\030\002 \001(\005\0221\n\007c" +
-      "ontact\030\003 \001(\0132 .Com.Fuwu.MobileIM.Model.C" +
-      "ontact\"c\n\033ChangeContactDetailResponse\022\021\n" +
-      "\tisSucceed\030\001 \001(\010\0221\n\007contact\030\002 \001(\0132 .Com." +
-      "Fuwu.MobileIM.Model.Contact\"\260\002\n\007Profile\022" +
-      "\016\n\006userId\030\001 \001(\005\022\014\n\004name\030\002 \001(\t\022\020\n\010nickNam" +
-      "e\030\003 \001(\t\022;\n\006gender\030\004 \001(\0162+.Com.Fuwu.Mobil" +
-      "eIM.Model.Profile.GenderType\022\026\n\016mobilePh" +
-      "oneNum\030\005 \001(\t\022\r\n\005email\030\006 \001(\t\022\020\n\010birthday\030" +
-      "\007 \001(\t\022\017\n\007tileUrl\030\010 \001(\t\022\022\n\nisProvider\030\t \001",
-      "(\010\022\017\n\007lisence\030\n \001(\t\022\030\n\020IsAuthentication\030" +
-      "\013 \001(\010\"/\n\nGenderType\022\010\n\004Male\020\000\022\n\n\006Female\020" +
-      "\001\022\013\n\007Privacy\020\002\"/\n\016ProfileRequest\022\r\n\005toke" +
-      "n\030\001 \001(\t\022\016\n\006userId\030\002 \001(\005\"W\n\017ProfileRespon" +
-      "se\022\021\n\tisSucceed\030\001 \001(\010\0221\n\007profile\030\002 \001(\0132 " +
-      ".Com.Fuwu.MobileIM.Model.Profile\"~\n\024Chan" +
-      "geProfileRequest\022\r\n\005token\030\001 \001(\t\022\016\n\006userI" +
-      "d\030\002 \001(\005\022\021\n\tsignature\030\003 \001(\t\022\r\n\005tiles\030\004 \001(" +
-      "\014\022\023\n\013contentType\030\005 \001(\t\022\020\n\010nickName\030\006 \001(\t" +
-      "\"]\n\025ChangeProfileResponse\022\021\n\tisSucceed\030\001",
-      " \001(\010\0221\n\007profile\030\002 \001(\0132 .Com.Fuwu.MobileI" +
-      "M.Model.Profile\"\264\002\n\007Message\022\016\n\006userId\030\001 " +
-      "\001(\005\022\021\n\tcontactId\030\002 \001(\005\022A\n\013contentType\030\003 " +
-      "\001(\0162,.Com.Fuwu.MobileIM.Model.Message.Co" +
-      "ntentType\022\017\n\007content\030\004 \001(\t\022\020\n\010sendTime\030\005" +
-      " \001(\t\022=\n\timageType\030\006 \001(\0162*.Com.Fuwu.Mobil" +
-      "eIM.Model.Message.ImageType\022\025\n\rbinaryCon" +
-      "tent\030\007 \001(\014\"\"\n\013ContentType\022\010\n\004Text\020\000\022\t\n\005I" +
-      "mage\020\001\"&\n\tImageType\022\007\n\003JPG\020\000\022\007\n\003PNG\020\001\022\007\n" +
-      "\003GIF\020\002\"T\n\013MessageList\022\021\n\tcontactId\030\001 \001(\005",
-      "\0222\n\010messages\030\002 \003(\0132 .Com.Fuwu.MobileIM.M" +
-      "odel.Message\"B\n\016MessageRequest\022\r\n\005token\030" +
-      "\001 \001(\t\022\016\n\006userId\030\002 \001(\005\022\021\n\ttimeStamp\030\003 \001(\t" +
-      "\"s\n\017MessageResponse\022\021\n\tisSucceed\030\001 \001(\010\022:" +
-      "\n\014messageLists\030\002 \003(\0132$.Com.Fuwu.MobileIM" +
-      ".Model.MessageList\022\021\n\ttimeStamp\030\003 \001(\t\"f\n" +
-      "\022SendMessageRequest\022\r\n\005token\030\001 \001(\t\022\016\n\006us" +
-      "erId\030\002 \001(\005\0221\n\007message\030\003 \001(\0132 .Com.Fuwu.M" +
-      "obileIM.Model.Message\"M\n\023SendMessageResp" +
-      "onse\022\021\n\tisSucceed\030\001 \001(\010\022\020\n\010sendTime\030\002 \001(",
-      "\t\022\021\n\terrorCode\030\003 \001(\005\"m\n\017RegisterRequest\022" +
-      "\031\n\021mobilePhoneNumber\030\001 \001(\t\022\020\n\010password\030\002" +
-      " \001(\t\022\027\n\017passwordConfirm\030\003 \001(\t\022\024\n\014validat" +
-      "eCode\030\004 \001(\t\"\336\002\n\020RegisterResponse\022\021\n\tisSu" +
-      "cceed\030\001 \001(\010\022\016\n\006userId\030\002 \001(\005\022\r\n\005token\030\003 \001" +
-      "(\t\022J\n\terrorCode\030\004 \001(\01627.Com.Fuwu.MobileI" +
-      "M.Model.RegisterResponse.ErrorCodeType\"\313" +
-      "\001\n\rErrorCodeType\022\016\n\nBadRequest\020\001\022\023\n\017Inva" +
-      "lidDatabase\020\002\022\034\n\030InvalidMobilePhoneNumbe" +
-      "r\020\003\022\023\n\017ExistingUserYes\020\004\022\023\n\017InvalidPassw",
-      "ord\020\005\022\032\n\026InvalidConfirmPassword\020\006\022\030\n\024Inv" +
-      "alidMatchPassword\020\007\022\027\n\023InvalidValidateCo" +
-      "de\020\010\"\221\001\n\025ChangePasswordRequest\022\r\n\005token\030" +
-      "\001 \001(\t\022\016\n\006userId\030\002 \001(\005\022\024\n\014validateCode\030\003 " +
-      "\001(\t\022\030\n\020originalPassword\030\004 \001(\t\022\020\n\010passwor" +
-      "d\030\005 \001(\t\022\027\n\017passwordConfirm\030\006 \001(\t\"\377\002\n\026Cha" +
-      "ngePasswordResponse\022\021\n\tisSucceed\030\001 \001(\010\022P" +
-      "\n\terrorCode\030\002 \001(\0162=.Com.Fuwu.MobileIM.Mo" +
-      "del.ChangePasswordResponse.ErrorCodeType" +
-      "\"\377\001\n\rErrorCodeType\022\016\n\nBadRequest\020\001\022\021\n\rIn",
-      "validUserId\020\002\022\020\n\014InvalidToken\020\003\022\017\n\013Inval" +
-      "idUser\020\004\022\023\n\017InvalidDatabase\020\005\022\022\n\016Existin" +
-      "gUserNo\020\006\022\033\n\027InvalidOriginalPassword\020\007\022\023" +
-      "\n\017InvalidPassword\020\010\022\032\n\026InvalidConfirmPas" +
-      "sword\020\t\022\030\n\024InvalidMatchPassword\020\n\022\027\n\023Inv" +
-      "alidValidateCode\020\013\"l\n\024ResetPasswordReque" +
-      "st\022\023\n\013phoneNumber\030\001 \001(\t\022\024\n\014validateCode\030" +
-      "\002 \001(\t\022\020\n\010password\030\003 \001(\t\022\027\n\017passwordConfi" +
-      "rm\030\004 \001(\t\"\302\002\n\025ResetPasswordResponse\022\021\n\tis" +
-      "Succeed\030\001 \001(\010\022O\n\terrorCode\030\002 \001(\0162<.Com.F",
-      "uwu.MobileIM.Model.ResetPasswordResponse" +
-      ".ErrorCodeType\"\304\001\n\rErrorCodeType\022\016\n\nBadR" +
-      "equest\020\001\022\023\n\017InvalidDatabase\020\002\022\026\n\022Invalid" +
-      "PhoneNumber\020\003\022\023\n\017InvalidPassword\020\004\022\032\n\026In" +
-      "validPasswordConfirm\020\005\022\030\n\024InvalidMatchPa" +
-      "ssword\020\006\022\027\n\023InvalidValidateCode\020\007\022\022\n\016Exi" +
-      "stingUserNo\020\010\"\270\001\n\023ValidateCodeRequest\022\023\n" +
-      "\013phoneNumber\030\001 \001(\t\022G\n\004type\030\002 \001(\01629.Com.F" +
-      "uwu.MobileIM.Model.ValidateCodeRequest.V" +
-      "alidateType\"C\n\014ValidateType\022\014\n\010Register\020",
-      "\001\022\022\n\016ChangePassword\020\002\022\021\n\rResetPassword\020\003" +
-      "\"\212\002\n\024ValidateCodeResponse\022\021\n\tisSucceed\030\001" +
-      " \001(\010\022N\n\terrorCode\030\002 \001(\0162;.Com.Fuwu.Mobil" +
-      "eIM.Model.ValidateCodeResponse.ErrorCode" +
-      "Type\"\216\001\n\rErrorCodeType\022\016\n\nBadRequest\020\001\022\026" +
-      "\n\022InvalidPhoneNumber\020\002\022\017\n\013InvalidType\020\003\022" +
-      "\023\n\017ExistingUserYes\020\004\022\022\n\016ExistingUserNo\020\005" +
-      "\022\014\n\010LockTime\020\006\022\r\n\tSendError\020\007\"\206\002\n\nClient" +
-      "Info\022\020\n\010deviceId\030\001 \001(\t\022:\n\006osType\030\002 \001(\0162*" +
-      ".Com.Fuwu.MobileIM.Model.ClientInfo.OSTy",
-      "pe\022\021\n\tOSVersion\030\003 \001(\t\022\016\n\006userId\030\004 \001(\005\022\017\n" +
-      "\007channel\030\005 \001(\005\022\025\n\rclientVersion\030\006 \001(\t\022\024\n" +
-      "\014isPushEnable\030\007 \001(\010\"I\n\006OSType\022\n\n\006Others\020" +
-      "\000\022\007\n\003IOS\020\001\022\013\n\007Android\020\002\022\020\n\014WindowsPhone\020" +
-      "\003\022\013\n\007Symbian\020\004\"k\n\021ClientInfoRequest\022\016\n\006u" +
-      "serId\030\001 \001(\005\022\r\n\005token\030\002 \001(\t\0227\n\nclientInfo" +
-      "\030\003 \001(\0132#.Com.Fuwu.MobileIM.Model.ClientI" +
-      "nfo\"\234\002\n\022ClientInfoResponse\022\021\n\tisSucceed\030" +
-      "\001 \001(\010\022L\n\terrorCode\030\002 \001(\01629.Com.Fuwu.Mobi" +
-      "leIM.Model.ClientInfoResponse.ErrorCodeT",
-      "ype\022\034\n\024isNewVersionRequired\030\003 \001(\010\022\030\n\020new" +
-      "ClientVersion\030\004 \001(\t\022\021\n\tclientUrl\030\005 \001(\t\022\025" +
-      "\n\rhasNewVersion\030\006 \001(\010\"C\n\rErrorCodeType\022\021" +
-      "\n\rInvalidUserId\020\001\022\020\n\014InvalidToken\020\002\022\r\n\tA" +
-      "uthError\020\003\"k\n\013MessagePush\022\020\n\010senderId\030\001 " +
-      "\001(\005\022\022\n\nsenderName\030\002 \001(\t\022\017\n\007content\030\003 \001(\t" +
-      "\022\023\n\013contentType\030\004 \001(\t\022\020\n\010sendTime\030\005 \001(\t\"" +
-      "\014\n\nNoticePush\"\347\001\n\013PushRequest\022?\n\010pushTyp" +
-      "e\030\001 \001(\0162-.Com.Fuwu.MobileIM.Model.PushRe" +
-      "quest.PushType\0229\n\013messagePush\030\002 \001(\0132$.Co",
-      "m.Fuwu.MobileIM.Model.MessagePush\0227\n\nnot" +
-      "icePush\030\003 \001(\0132#.Com.Fuwu.MobileIM.Model." +
-      "NoticePush\"#\n\010PushType\022\013\n\007Message\020\000\022\n\n\006N" +
-      "otice\020\001B\031\n\027com.fuwu.mobileim.model"
+      "\030\014 \001(\t\022\r\n\005fuzhi\030\r \001(\t\"/\n\nGenderType\022\010\n\004M" +
+      "ale\020\000\022\n\n\006Female\020\001\022\013\n\007Privacy\020\002\"B\n\016Contac" +
+      "tRequest\022\r\n\005token\030\001 \001(\t\022\016\n\006userId\030\002 \001(\005\022" +
+      "\021\n\ttimeStamp\030\003 \001(\t\"k\n\017ContactResponse\022\021\n" +
+      "\tisSucceed\030\001 \001(\010\0222\n\010contacts\030\002 \003(\0132 .Com",
+      ".Fuwu.MobileIM.Model.Contact\022\021\n\ttimeStam" +
+      "p\030\003 \001(\t\"Z\n\023BlockContactRequest\022\r\n\005token\030" +
+      "\001 \001(\t\022\016\n\006userId\030\002 \001(\005\022\021\n\tcontactId\030\003 \001(\005" +
+      "\022\021\n\tisBlocked\030\004 \001(\010\"O\n\024BlockContactRespo" +
+      "nse\022\021\n\tisSucceed\030\001 \001(\010\022\021\n\tcontactId\030\002 \001(" +
+      "\005\022\021\n\tisBlocked\030\003 \001(\010\"H\n\024ContactDetailReq" +
+      "uest\022\r\n\005token\030\001 \001(\t\022\016\n\006userId\030\002 \001(\005\022\021\n\tc" +
+      "ontactId\030\003 \001(\005\"]\n\025ContactDetailResponse\022" +
+      "\021\n\tisSucceed\030\001 \001(\010\0221\n\007contact\030\002 \001(\0132 .Co" +
+      "m.Fuwu.MobileIM.Model.Contact\"n\n\032ChangeC",
+      "ontactDetailRequest\022\r\n\005token\030\001 \001(\t\022\016\n\006us" +
+      "erId\030\002 \001(\005\0221\n\007contact\030\003 \001(\0132 .Com.Fuwu.M" +
+      "obileIM.Model.Contact\"c\n\033ChangeContactDe" +
+      "tailResponse\022\021\n\tisSucceed\030\001 \001(\010\0221\n\007conta" +
+      "ct\030\002 \001(\0132 .Com.Fuwu.MobileIM.Model.Conta" +
+      "ct\"\277\002\n\007Profile\022\016\n\006userId\030\001 \001(\005\022\014\n\004name\030\002" +
+      " \001(\t\022\020\n\010nickName\030\003 \001(\t\022;\n\006gender\030\004 \001(\0162+" +
+      ".Com.Fuwu.MobileIM.Model.Profile.GenderT" +
+      "ype\022\026\n\016mobilePhoneNum\030\005 \001(\t\022\r\n\005email\030\006 \001" +
+      "(\t\022\020\n\010birthday\030\007 \001(\t\022\017\n\007tileUrl\030\010 \001(\t\022\022\n",
+      "\nisProvider\030\t \001(\010\022\017\n\007lisence\030\n \001(\t\022\030\n\020is" +
+      "Authentication\030\013 \001(\010\022\r\n\005fuzhi\030\014 \001(\t\"/\n\nG" +
+      "enderType\022\010\n\004Male\020\000\022\n\n\006Female\020\001\022\013\n\007Priva" +
+      "cy\020\002\"/\n\016ProfileRequest\022\r\n\005token\030\001 \001(\t\022\016\n" +
+      "\006userId\030\002 \001(\005\"W\n\017ProfileResponse\022\021\n\tisSu" +
+      "cceed\030\001 \001(\010\0221\n\007profile\030\002 \001(\0132 .Com.Fuwu." +
+      "MobileIM.Model.Profile\"~\n\024ChangeProfileR" +
+      "equest\022\r\n\005token\030\001 \001(\t\022\016\n\006userId\030\002 \001(\005\022\021\n" +
+      "\tsignature\030\003 \001(\t\022\r\n\005tiles\030\004 \001(\014\022\023\n\013conte" +
+      "ntType\030\005 \001(\t\022\020\n\010nickName\030\006 \001(\t\"]\n\025Change",
+      "ProfileResponse\022\021\n\tisSucceed\030\001 \001(\010\0221\n\007pr" +
+      "ofile\030\002 \001(\0132 .Com.Fuwu.MobileIM.Model.Pr" +
+      "ofile\"\264\002\n\007Message\022\016\n\006userId\030\001 \001(\005\022\021\n\tcon" +
+      "tactId\030\002 \001(\005\022A\n\013contentType\030\003 \001(\0162,.Com." +
+      "Fuwu.MobileIM.Model.Message.ContentType\022" +
+      "\017\n\007content\030\004 \001(\t\022\020\n\010sendTime\030\005 \001(\t\022=\n\tim" +
+      "ageType\030\006 \001(\0162*.Com.Fuwu.MobileIM.Model." +
+      "Message.ImageType\022\025\n\rbinaryContent\030\007 \001(\014" +
+      "\"\"\n\013ContentType\022\010\n\004Text\020\000\022\t\n\005Image\020\001\"&\n\t" +
+      "ImageType\022\007\n\003JPG\020\000\022\007\n\003PNG\020\001\022\007\n\003GIF\020\002\"T\n\013",
+      "MessageList\022\021\n\tcontactId\030\001 \001(\005\0222\n\010messag" +
+      "es\030\002 \003(\0132 .Com.Fuwu.MobileIM.Model.Messa" +
+      "ge\"B\n\016MessageRequest\022\r\n\005token\030\001 \001(\t\022\016\n\006u" +
+      "serId\030\002 \001(\005\022\021\n\ttimeStamp\030\003 \001(\t\"s\n\017Messag" +
+      "eResponse\022\021\n\tisSucceed\030\001 \001(\010\022:\n\014messageL" +
+      "ists\030\002 \003(\0132$.Com.Fuwu.MobileIM.Model.Mes" +
+      "sageList\022\021\n\ttimeStamp\030\003 \001(\t\"f\n\022SendMessa" +
+      "geRequest\022\r\n\005token\030\001 \001(\t\022\016\n\006userId\030\002 \001(\005" +
+      "\0221\n\007message\030\003 \001(\0132 .Com.Fuwu.MobileIM.Mo" +
+      "del.Message\"M\n\023SendMessageResponse\022\021\n\tis",
+      "Succeed\030\001 \001(\010\022\020\n\010sendTime\030\002 \001(\t\022\021\n\terror" +
+      "Code\030\003 \001(\005\"m\n\017RegisterRequest\022\031\n\021mobileP" +
+      "honeNumber\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\022\027\n\017pa" +
+      "sswordConfirm\030\003 \001(\t\022\024\n\014validateCode\030\004 \001(" +
+      "\t\"\336\002\n\020RegisterResponse\022\021\n\tisSucceed\030\001 \001(" +
+      "\010\022\016\n\006userId\030\002 \001(\005\022\r\n\005token\030\003 \001(\t\022J\n\terro" +
+      "rCode\030\004 \001(\01627.Com.Fuwu.MobileIM.Model.Re" +
+      "gisterResponse.ErrorCodeType\"\313\001\n\rErrorCo" +
+      "deType\022\016\n\nBadRequest\020\001\022\023\n\017InvalidDatabas" +
+      "e\020\002\022\034\n\030InvalidMobilePhoneNumber\020\003\022\023\n\017Exi",
+      "stingUserYes\020\004\022\023\n\017InvalidPassword\020\005\022\032\n\026I" +
+      "nvalidConfirmPassword\020\006\022\030\n\024InvalidMatchP" +
+      "assword\020\007\022\027\n\023InvalidValidateCode\020\010\"\221\001\n\025C" +
+      "hangePasswordRequest\022\r\n\005token\030\001 \001(\t\022\016\n\006u" +
+      "serId\030\002 \001(\005\022\024\n\014validateCode\030\003 \001(\t\022\030\n\020ori" +
+      "ginalPassword\030\004 \001(\t\022\020\n\010password\030\005 \001(\t\022\027\n" +
+      "\017passwordConfirm\030\006 \001(\t\"\377\002\n\026ChangePasswor" +
+      "dResponse\022\021\n\tisSucceed\030\001 \001(\010\022P\n\terrorCod" +
+      "e\030\002 \001(\0162=.Com.Fuwu.MobileIM.Model.Change" +
+      "PasswordResponse.ErrorCodeType\"\377\001\n\rError",
+      "CodeType\022\016\n\nBadRequest\020\001\022\021\n\rInvalidUserI" +
+      "d\020\002\022\020\n\014InvalidToken\020\003\022\017\n\013InvalidUser\020\004\022\023" +
+      "\n\017InvalidDatabase\020\005\022\022\n\016ExistingUserNo\020\006\022" +
+      "\033\n\027InvalidOriginalPassword\020\007\022\023\n\017InvalidP" +
+      "assword\020\010\022\032\n\026InvalidConfirmPassword\020\t\022\030\n" +
+      "\024InvalidMatchPassword\020\n\022\027\n\023InvalidValida" +
+      "teCode\020\013\"l\n\024ResetPasswordRequest\022\023\n\013phon" +
+      "eNumber\030\001 \001(\t\022\024\n\014validateCode\030\002 \001(\t\022\020\n\010p" +
+      "assword\030\003 \001(\t\022\027\n\017passwordConfirm\030\004 \001(\t\"\302" +
+      "\002\n\025ResetPasswordResponse\022\021\n\tisSucceed\030\001 ",
+      "\001(\010\022O\n\terrorCode\030\002 \001(\0162<.Com.Fuwu.Mobile" +
+      "IM.Model.ResetPasswordResponse.ErrorCode" +
+      "Type\"\304\001\n\rErrorCodeType\022\016\n\nBadRequest\020\001\022\023" +
+      "\n\017InvalidDatabase\020\002\022\026\n\022InvalidPhoneNumbe" +
+      "r\020\003\022\023\n\017InvalidPassword\020\004\022\032\n\026InvalidPassw" +
+      "ordConfirm\020\005\022\030\n\024InvalidMatchPassword\020\006\022\027" +
+      "\n\023InvalidValidateCode\020\007\022\022\n\016ExistingUserN" +
+      "o\020\010\"\270\001\n\023ValidateCodeRequest\022\023\n\013phoneNumb" +
+      "er\030\001 \001(\t\022G\n\004type\030\002 \001(\01629.Com.Fuwu.Mobile" +
+      "IM.Model.ValidateCodeRequest.ValidateTyp",
+      "e\"C\n\014ValidateType\022\014\n\010Register\020\001\022\022\n\016Chang" +
+      "ePassword\020\002\022\021\n\rResetPassword\020\003\"\212\002\n\024Valid" +
+      "ateCodeResponse\022\021\n\tisSucceed\030\001 \001(\010\022N\n\ter" +
+      "rorCode\030\002 \001(\0162;.Com.Fuwu.MobileIM.Model." +
+      "ValidateCodeResponse.ErrorCodeType\"\216\001\n\rE" +
+      "rrorCodeType\022\016\n\nBadRequest\020\001\022\026\n\022InvalidP" +
+      "honeNumber\020\002\022\017\n\013InvalidType\020\003\022\023\n\017Existin" +
+      "gUserYes\020\004\022\022\n\016ExistingUserNo\020\005\022\014\n\010LockTi" +
+      "me\020\006\022\r\n\tSendError\020\007\"\206\002\n\nClientInfo\022\020\n\010de" +
+      "viceId\030\001 \001(\t\022:\n\006osType\030\002 \001(\0162*.Com.Fuwu.",
+      "MobileIM.Model.ClientInfo.OSType\022\021\n\tOSVe" +
+      "rsion\030\003 \001(\t\022\016\n\006userId\030\004 \001(\005\022\017\n\007channel\030\005" +
+      " \001(\005\022\025\n\rclientVersion\030\006 \001(\t\022\024\n\014isPushEna" +
+      "ble\030\007 \001(\010\"I\n\006OSType\022\n\n\006Others\020\000\022\007\n\003IOS\020\001" +
+      "\022\013\n\007Android\020\002\022\020\n\014WindowsPhone\020\003\022\013\n\007Symbi" +
+      "an\020\004\"k\n\021ClientInfoRequest\022\016\n\006userId\030\001 \001(" +
+      "\005\022\r\n\005token\030\002 \001(\t\0227\n\nclientInfo\030\003 \001(\0132#.C" +
+      "om.Fuwu.MobileIM.Model.ClientInfo\"\234\002\n\022Cl" +
+      "ientInfoResponse\022\021\n\tisSucceed\030\001 \001(\010\022L\n\te" +
+      "rrorCode\030\002 \001(\01629.Com.Fuwu.MobileIM.Model",
+      ".ClientInfoResponse.ErrorCodeType\022\034\n\024isN" +
+      "ewVersionRequired\030\003 \001(\010\022\030\n\020newClientVers" +
+      "ion\030\004 \001(\t\022\021\n\tclientUrl\030\005 \001(\t\022\025\n\rhasNewVe" +
+      "rsion\030\006 \001(\010\"C\n\rErrorCodeType\022\021\n\rInvalidU" +
+      "serId\020\001\022\020\n\014InvalidToken\020\002\022\r\n\tAuthError\020\003" +
+      "\"k\n\013MessagePush\022\020\n\010senderId\030\001 \001(\005\022\022\n\nsen" +
+      "derName\030\002 \001(\t\022\017\n\007content\030\003 \001(\t\022\023\n\013conten" +
+      "tType\030\004 \001(\t\022\020\n\010sendTime\030\005 \001(\t\"\014\n\nNoticeP" +
+      "ush\"\347\001\n\013PushRequest\022?\n\010pushType\030\001 \001(\0162-." +
+      "Com.Fuwu.MobileIM.Model.PushRequest.Push",
+      "Type\0229\n\013messagePush\030\002 \001(\0132$.Com.Fuwu.Mob" +
+      "ileIM.Model.MessagePush\0227\n\nnoticePush\030\003 " +
+      "\001(\0132#.Com.Fuwu.MobileIM.Model.NoticePush" +
+      "\"#\n\010PushType\022\013\n\007Message\020\000\022\n\n\006Notice\020\001B\031\n" +
+      "\027com.fuwu.mobileim.model"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -33718,7 +34031,7 @@ public final class Models {
           internal_static_Com_Fuwu_MobileIM_Model_Contact_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_Com_Fuwu_MobileIM_Model_Contact_descriptor,
-              new java.lang.String[] { "ContactId", "Name", "CustomName", "Pinyin", "IsBlocked", "LastContactTime", "Gender", "Source", "TileUrl", "IsProvider", "Lisence", "IndividualResume", });
+              new java.lang.String[] { "ContactId", "Name", "CustomName", "Pinyin", "IsBlocked", "LastContactTime", "Gender", "Source", "TileUrl", "IsProvider", "Lisence", "IndividualResume", "Fuzhi", });
           internal_static_Com_Fuwu_MobileIM_Model_ContactRequest_descriptor =
             getDescriptor().getMessageTypes().get(5);
           internal_static_Com_Fuwu_MobileIM_Model_ContactRequest_fieldAccessorTable = new
@@ -33772,7 +34085,7 @@ public final class Models {
           internal_static_Com_Fuwu_MobileIM_Model_Profile_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_Com_Fuwu_MobileIM_Model_Profile_descriptor,
-              new java.lang.String[] { "UserId", "Name", "NickName", "Gender", "MobilePhoneNum", "Email", "Birthday", "TileUrl", "IsProvider", "Lisence", "IsAuthentication", });
+              new java.lang.String[] { "UserId", "Name", "NickName", "Gender", "MobilePhoneNum", "Email", "Birthday", "TileUrl", "IsProvider", "Lisence", "IsAuthentication", "Fuzhi", });
           internal_static_Com_Fuwu_MobileIM_Model_ProfileRequest_descriptor =
             getDescriptor().getMessageTypes().get(14);
           internal_static_Com_Fuwu_MobileIM_Model_ProfileRequest_fieldAccessorTable = new
