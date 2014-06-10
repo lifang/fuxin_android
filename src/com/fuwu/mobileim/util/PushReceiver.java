@@ -76,7 +76,9 @@ public class PushReceiver extends BroadcastReceiver {
 			// 获取ClientID(CID)
 			clientid = bundle.getString("clientid");
 			Log.i("MyReceiver", "clientid=>" + clientid);
-			new Thread(new ClientID_Post()).start();
+			if (sf.getBoolean("welcome", true)) {
+				new Thread(new ClientID_Post()).start();
+			}
 			/*
 			 * 第三方应用需要将ClientID上传到第三方服务器，并且将当前用户帐号和ClientID进行关联，
 			 * 以便以后通过用户帐号查找ClientID进行消息推送

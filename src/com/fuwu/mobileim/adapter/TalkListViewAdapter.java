@@ -92,7 +92,8 @@ public class TalkListViewAdapter extends BaseAdapter {
 		holder.content.setText(list.get(arg0).getContent());
 		holder.dath.setText(TimeUtil.getChatTime(list.get(arg0).getTime()));
 		// ImageCacheUtil.IMAGE_CACHE.get("/sdcard/fuxin/1.jpg", holder.head);
-		File f = new File(Urlinterface.head_pic, list.get(arg0).getContent());
+		File f = new File(Urlinterface.head_pic, list.get(arg0).getContact_id()
+				+ "");
 		if (f.exists()) {
 			ImageCacheUtil.IMAGE_CACHE.get(
 					Urlinterface.head_pic + list.get(arg0).getContact_id(),
