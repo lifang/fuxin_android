@@ -2,6 +2,7 @@ package com.fuwu.mobileim.activity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -60,6 +61,7 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 						Toast.LENGTH_SHORT).show();
 				break;
 			case 1:
+				prodialog.dismiss();
 				showLoginDialog();
 				break;
 			case 3:
@@ -75,6 +77,7 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 				}
 				break;
 			case 4:
+				prodialog.dismiss();
 				if (!error_code.equals("")) {
 					String errorString = fx.error_map.get(error_code);
 					if (errorString == null) {
@@ -93,6 +96,7 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 			}
 		}
 	};
+	private ProgressDialog prodialog;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -213,6 +217,10 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 		case R.id.backpwd_over:
 			Log.i("Max", judge() + "");
 			if (FuXunTools.isConnect(this)) {
+				prodialog = new ProgressDialog(ResetPasswordActicity.this);
+				prodialog.setMessage("努力连接中..");
+				prodialog.setCanceledOnTouchOutside(false);
+				prodialog.show();
 				new Thread(new Backpwd_Post()).start();
 			} else {
 				Toast.makeText(ResetPasswordActicity.this,
