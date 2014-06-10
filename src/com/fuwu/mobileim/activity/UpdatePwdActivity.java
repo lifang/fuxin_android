@@ -247,13 +247,6 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 					phone_text.setEnabled(false);
 					view.setBackgroundColor(getResources().getColor(
 							R.color.regist_bg));
-					if (FuXunTools.isConnect(this)) {
-						new Thread(new ValidateCode_Post()).start();
-					} else {
-						Toast.makeText(UpdatePwdActivity.this,
-								R.string.no_internet, Toast.LENGTH_SHORT)
-								.show();
-					}
 					yz_send.setBackgroundResource(R.drawable.login_btn);
 				}
 			} else {
@@ -269,10 +262,7 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 			break;
 		case R.id.yz_send:
 			if (FuXunTools.isConnect(this)) {
-				if (phone_btn) {
-					Toast.makeText(UpdatePwdActivity.this, "请先填写手机号码",
-							Toast.LENGTH_SHORT).show();
-				} else {
+				if (!phone_btn) {
 					new Thread(new ValidateCode_Post()).start();
 					validate_time.setVisibility(View.VISIBLE);
 				}

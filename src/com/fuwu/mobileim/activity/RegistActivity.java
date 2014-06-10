@@ -285,10 +285,7 @@ public class RegistActivity extends Activity implements OnClickListener,
 			break;
 		case R.id.yz_send:
 			if (FuXunTools.isConnect(this)) {
-				if (phone_btn) {
-					Toast.makeText(RegistActivity.this, "请先填写手机号码",
-							Toast.LENGTH_SHORT).show();
-				} else {
+				if (!phone_btn) {
 					new Thread(new ValidateCode_Post()).start();
 					validate_time.setVisibility(View.VISIBLE);
 				}
