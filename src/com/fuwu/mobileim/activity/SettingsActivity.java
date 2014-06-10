@@ -19,6 +19,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -180,15 +181,22 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		return rootView;
 	}
 
-	@Override
-	public void onResume() {
-		// TODO Auto-generated method stub
-		super.onResume();
-		StatService.onResume(this);
-		profilePojo = fxApplication.getProfilePojo();
-		handler.sendEmptyMessage(0);
-	}
 
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+		switch (resultCode) {
+		case -11:
+			profilePojo = fxApplication.getProfilePojo();
+			handler.sendEmptyMessage(0);
+			break;
+		default:
+			break;
+
+		}
+		super.onActivityResult(requestCode, resultCode, data);
+
+	}
 
 	/**
 	 * 
@@ -298,18 +306,18 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		String face_str = profilePojo.getTileUrl();
 		Log.i("Ax", "profilePojo.getTileUrl()" + profilePojo.getTileUrl());
 		if (face_str.length() > 4) {
-			File f = new File(Urlinterface.head_pic, profilePojo.getUserId()
-					+ "");
-			if (f.exists()) {
+//			File f = new File(Urlinterface.head_pic, profilePojo.getUserId()
+//					+ "");
+//			if (f.exists()) {
 				Log.i("linshi------------", "加载本地图片");
-				Drawable dra = new BitmapDrawable(
-						BitmapFactory.decodeFile(Urlinterface.head_pic
-								+ profilePojo.getUserId()));
-				setting_userface.setImageDrawable(dra);
-			} else {
+//				Drawable dra = new BitmapDrawable(
+//						BitmapFactory.decodeFile(Urlinterface.head_pic
+//								+ profilePojo.getUserId()));
+//				setting_userface.setImageDrawable(dra);
+//			} else {
 				FuXunTools.set_bk(profilePojo.getUserId(), face_str,
 						setting_userface);
-			}
+//			}
 		} else {
 			setting_userface.setImageResource(R.drawable.moren);
 		}
@@ -356,7 +364,7 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 			// Toast.LENGTH_LONG).show();
 			Intent intent = new Intent();
 			intent.setClass(getActivity(), MyInformationActivity.class);
-			startActivity(intent);
+			startActivityForResult(intent, 0);
 		}
 	};
 

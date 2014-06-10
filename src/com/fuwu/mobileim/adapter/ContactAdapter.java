@@ -93,9 +93,12 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 					+ "");
 			if (f.exists()) {
 				Log.i("linshi------------", "加载本地图片");
-				ImageCacheUtil.IMAGE_CACHE.get(
-						Urlinterface.head_pic + contact.getContactId(),
-						viewHolder.contact_user_face);
+//				ImageCacheUtil.IMAGE_CACHE.get(
+//						Urlinterface.head_pic + contact.getContactId(),
+//						viewHolder.contact_user_face);
+				Drawable dra = new BitmapDrawable(
+						BitmapFactory.decodeFile(Urlinterface.head_pic + contact.getContactId()));
+				viewHolder.contact_user_face.setImageDrawable(dra);
 			} else {
 				FuXunTools.set_bk(contact.getContactId(), face_str,
 						viewHolder.contact_user_face);

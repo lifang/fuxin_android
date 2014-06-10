@@ -240,7 +240,7 @@ public class BlockManagementActivity extends Activity {
 								BitmapFactory.decodeFile(Urlinterface.head_pic + contact.getContactId()));
 						head.setImageDrawable(dra);
 					} else {
-						FuXunTools.set_bk(contact.getContactId(),face_str, head);
+						head.setImageResource(R.drawable.moren);
 					}
 				}
 			TextView name = (TextView) layout.findViewById(R.id.block_name);

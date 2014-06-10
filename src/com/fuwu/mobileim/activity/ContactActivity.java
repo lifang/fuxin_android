@@ -2,9 +2,7 @@ package com.fuwu.mobileim.activity;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +13,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,6 +54,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 	private TextView dialog;
 	private ContactAdapter adapter1, adapter2;
 	private View rootView;
+	private int user_number1 = 0;
 	List<ContactPojo> contactsList1 = new ArrayList<ContactPojo>();
 	/**
 	 * 弹出式分组的布局
@@ -86,6 +84,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 	private String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ#";
 	SideBar b;
 	private int adapter_number = 1;
+	int user_id=0;
 	private Handler handler = new Handler() {
 		/*
 		 * (non-Javadoc)
@@ -99,7 +98,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 				if (!db.isOpen()) {
 					db = new DBManager(getActivity());
 				}
-				contactsList = db.queryContactList(fxApplication.getUser_id());
+				contactsList = db.queryContactList(user_id);
 				//
 				// 根据a-z进行排序源数据
 				if (contactsList.size() > 1) { // 2个以上进行排序
@@ -115,25 +114,29 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 				if (!db.isOpen()) {
 					db = new DBManager(getActivity());
 				}
-				for (int i = 0; i < contactsList.size(); i++) {
-					db.modifyContact(fxApplication.getUser_id(),
-							contactsList.get(i));
-					String url = Urlinterface.IP
-							+ contactsList.get(i).getUserface_url();
-					FuXunTools.getBitmap(contactsList.get(i).getContactId(),
-							url);
+				if (contactsList.size()==0) {
+					Toast.makeText(getActivity(), "没有数据更新", Toast.LENGTH_SHORT)
+					.show();
+				}else {
+					for (int i = 0; i < contactsList.size(); i++) {
+						db.modifyContact(user_id,
+								contactsList.get(i));
+						String url =contactsList.get(i).getUserface_url();
+						
+					}
+					FuXunTools.getBitmap(contactsList);
 				}
-				contactsList = db.queryContactList(fxApplication.getUser_id());
+				contactsList = db.queryContactList(user_id);
 
 				// 根据a-z进行排序源数据
 				if (contactsList.size() > 1) { // 2个以上进行排序
 					Collections.sort(contactsList, pinyinComparator);
 				}
-
 				xListView.setAdapter(adapter1);
 				adapter1.updateListView(contactsList);
 				onLoad();
 				break;
+				
 			case 6:
 				Toast.makeText(getActivity(), "请求失败", Toast.LENGTH_SHORT)
 						.show();
@@ -152,10 +155,13 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		rootView = inflater
 				.inflate(R.layout.contact_activity, container, false);
 		fxApplication = (FxApplication) getActivity().getApplication();
-
 		adapter1 = new ContactAdapter(getActivity(), contactsList, 1);
 		adapter2 = new ContactAdapter(getActivity(), contactsList, 0);
 		db = new DBManager(getActivity());
+		SharedPreferences preferences = getActivity().getSharedPreferences(
+				Urlinterface.SHARED, Context.MODE_PRIVATE);
+
+		 user_id = preferences.getInt("user_id", -1);
 		longDataComparator = new LongDataComparator();
 		// 实例化汉字转拼音类
 		characterParser = CharacterParser.getInstance();
@@ -197,18 +203,24 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 				String timeStamp = preferences
 						.getString("contactTimeStamp", "");
 				ContactRequest.Builder builder = ContactRequest.newBuilder();
-				builder.setUserId(fxApplication.getUser_id());
+				builder.setUserId(user_id);
 				builder.setToken(fxApplication.getToken());
-				builder.setTimeStamp(timeStamp);
+				if (timeStamp.equals("")) {
+					
+				}else {
+					builder.setTimeStamp(timeStamp);	
+				}
+				
 				Log.i("1", "User_id:" + fxApplication.getUser_id() + "--Token"
-						+ fxApplication.getToken());
+						+ fxApplication.getToken()+ "--timeStamp:"
+								+ timeStamp);
 
 				ContactRequest response = builder.build();
 
 				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
 						Urlinterface.getContacts, "POST");
 				if (by != null && by.length > 0) {
-					contactsList = new ArrayList<ContactPojo>();
+					contactsList.clear();
 					ContactResponse res = ContactResponse.parseFrom(by);
 					for (int i = 0; i < res.getContactsCount(); i++) {
 						int contactId = res.getContacts(i).getContactId();
@@ -433,7 +445,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			buttonNumber = 0;
 			setButtonColor(buttonNumber);
 			xListView.setVisibility(View.VISIBLE);
-			contactsList = db.queryContactList(fxApplication.getUser_id());
+			contactsList = db.queryContactList(user_id);
 			Collections.sort(contactsList, pinyinComparator);
 			xListView.setAdapter(adapter1);
 			adapter1.notifyDataSetChanged();
@@ -449,7 +461,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			setButtonColor(buttonNumber);
 
 			contactsList.clear();
-			contactsList1 = db.queryContactList(fxApplication.getUser_id());
+			contactsList1 = db.queryContactList(user_id);
 			if (contactsList1.size() > 20) { // 20个以上进行排序
 				Collections.sort(contactsList1, longDataComparator);
 				for (int i = 0; i < 20; i++) {
@@ -475,7 +487,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			adapter_number = 2;
 			setButtonColor(buttonNumber);
 			contactsList.clear();
-			contactsList1 = db.queryContactList(fxApplication.getUser_id());
+			contactsList1 = db.queryContactList(user_id);
 
 			for (int i = 0; i < contactsList1.size(); i++) {
 				String str = FuXunTools.toNumber(contactsList1.get(i)
@@ -499,7 +511,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			adapter_number = 2;
 			setButtonColor(buttonNumber);
 			contactsList.clear();
-			contactsList1 = db.queryContactList(fxApplication.getUser_id());
+			contactsList1 = db.queryContactList(user_id);
 
 			for (int i = 0; i < contactsList1.size(); i++) {
 				String str = FuXunTools.toNumber(contactsList1.get(i)

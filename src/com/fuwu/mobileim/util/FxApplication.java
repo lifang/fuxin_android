@@ -1,6 +1,5 @@
 package com.fuwu.mobileim.util;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -13,7 +12,6 @@ import android.app.Application;
 import android.content.Context;
 
 import com.fuwu.mobileim.R;
-import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.pojo.ProfilePojo;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -51,7 +49,6 @@ public class FxApplication extends Application {
 	public FxApplication() {
 		this.setToken("NULL");
 	}
-
 	public void onCreate() {
 
 		super.onCreate();
@@ -86,7 +83,6 @@ public class FxApplication extends Application {
 		initImageLoader(getApplicationContext());
 		mApplication = this;
 		initFaceMap();
-
 	}
 
 	public int getWidth() {

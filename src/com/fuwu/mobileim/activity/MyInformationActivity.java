@@ -189,6 +189,8 @@ public class MyInformationActivity extends Activity {
 	private View.OnClickListener listener1 = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
+			Intent intent2 = new Intent();
+			MyInformationActivity.this.setResult(-11, intent2);
 			MyInformationActivity.this.finish();
 		}
 	};
