@@ -47,6 +47,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.mobstat.StatService;
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.adapter.ContactAdapter;
 import com.fuwu.mobileim.adapter.FragmentViewPagerAdapter;
@@ -502,13 +503,6 @@ public class FragmengtActivity extends FragmentActivity {
 					@Override
 					public void onItemClick(AdapterView<?> parent, View view,
 							int position, long id) {
-						// 这里要利用adapter.getItem(position)来获取当前position所对应的对象
-						// Toast.makeText(
-						// getApplication(),
-						// ((ContactPojo) adapter.getItem(position))
-						// .getName(), Toast.LENGTH_SHORT).show();
-						// Toast.makeText(getApplication(), "传参，，跳到对话界面，并清空搜索框",
-						// Toast.LENGTH_SHORT).show();
 						Intent intent = new Intent();
 						intent.putExtra("contact_id", contactsList
 								.get(position).getContactId());
@@ -586,16 +580,16 @@ public class FragmengtActivity extends FragmentActivity {
 	}
 
 	public List<ContactPojo> findSimilarContacts(String et) {
-		List<ContactPojo> findlist = new ArrayList<ContactPojo>();
+		contactsList = new ArrayList<ContactPojo>();
 		if (et.length() > 0) {
 			for (int i = 0; i < SourceDateList.size(); i++) {
 				if (SourceDateList.get(i).getName().indexOf(et) != -1) {
-					findlist.add(SourceDateList.get(i));
+					contactsList.add(SourceDateList.get(i));
 				}
 			}
 		}
 
-		return findlist;
+		return contactsList;
 	}
 
 	class menuOnclick implements OnClickListener {
@@ -619,13 +613,14 @@ public class FragmengtActivity extends FragmentActivity {
 		super.onResume();
 		registerReceiver(mReuRequstReceiver, new IntentFilter(
 				"com.comdosoft.fuxun.REQUEST_ACTION"));
+		StatService.onResume(this);
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
 		unregisterReceiver(mReuRequstReceiver);
-
+		StatService.onPause(this);
 	}
 
 	class RequstReceiver extends BroadcastReceiver {

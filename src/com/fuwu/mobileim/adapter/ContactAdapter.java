@@ -80,8 +80,8 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 			viewHolder = (ViewHolder) view.getTag();
 		}
 
-//		ImageCacheUtil.IMAGE_CACHE.get("/sdcard/fuxin/1.jpg",
-//				viewHolder.contact_user_face);
+		// ImageCacheUtil.IMAGE_CACHE.get("/sdcard/fuxin/1.jpg",
+		// viewHolder.contact_user_face);
 
 		// 设置头像
 		String face_str = contact.getUserface_url();

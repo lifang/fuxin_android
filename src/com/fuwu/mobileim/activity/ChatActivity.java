@@ -54,6 +54,7 @@ import android.widget.PopupWindow;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.baidu.mobstat.StatService;
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.adapter.FaceAdapter;
 import com.fuwu.mobileim.adapter.FacePageAdapter;
@@ -175,8 +176,8 @@ public class ChatActivity extends Activity implements OnClickListener,
 		keys = new ArrayList<String>();
 		keys.addAll(keySet);
 		user_id = fx.getUser_id();
-		contact_id = user_id;
-		// contact_id = intent.getIntExtra("contact_id", 0);
+		// contact_id = user_id;
+		contact_id = intent.getIntExtra("contact_id", 0);
 		cp = db.queryContact(user_id, contact_id);
 		Log.i("Ax", "contact_id:" + intent.getIntExtra("contact_id", 0));
 		updateMessageData();
@@ -674,12 +675,14 @@ public class ChatActivity extends Activity implements OnClickListener,
 		}
 		registerReceiver(mReuRequstReceiver, new IntentFilter(
 				"com.comdosoft.fuxun.REQUEST_ACTION"));
+		StatService.onResume(this);
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
 		unregisterReceiver(mReuRequstReceiver);
+		StatService.onPause(this);
 	}
 
 	@Override
@@ -732,4 +735,5 @@ public class ChatActivity extends Activity implements OnClickListener,
 			handler.sendEmptyMessage(2);
 		}
 	}
+
 }

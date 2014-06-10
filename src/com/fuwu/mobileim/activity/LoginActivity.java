@@ -14,6 +14,7 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.baidu.mobstat.StatService;
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.model.Models.AuthenticationRequest;
 import com.fuwu.mobileim.model.Models.AuthenticationResponse;
@@ -77,7 +78,8 @@ public class LoginActivity extends Activity implements OnClickListener,
 		findViewById(R.id.forgetpwd).setOnClickListener(this);
 		findViewById(R.id.login_btn).setOnClickListener(this);
 		initialize();// 初始化
-
+		// 百度统计
+		StatService.setOn(this, StatService.EXCEPTION_LOG);
 	}
 
 	// 初始化
@@ -115,19 +117,24 @@ public class LoginActivity extends Activity implements OnClickListener,
 			this.finish();
 			break;
 		case R.id.login_btn:
-			user = user_text.getText().toString();
-			pwd = pwd_text.getText().toString();
-			if (user.equals("") && pwd.equals("")) {
-				Toast.makeText(LoginActivity.this, "用户名或密码不可为空",
-						Toast.LENGTH_SHORT).show();
+			if (FuXunTools.isConnect(this)) {
+				user = user_text.getText().toString();
+				pwd = pwd_text.getText().toString();
+				if (user.equals("") && pwd.equals("")) {
+					Toast.makeText(LoginActivity.this, "用户名或密码不可为空",
+							Toast.LENGTH_SHORT).show();
+				} else {
+					prodialog = new ProgressDialog(LoginActivity.this);
+					prodialog.setMessage("努力登陆中..");
+					prodialog.setCanceledOnTouchOutside(false);
+					prodialog.show();
+					new Thread(new Login_Post()).start();
+				}
+				break;
 			} else {
-				prodialog = new ProgressDialog(LoginActivity.this);
-				prodialog.setMessage("努力登陆中..");
-				prodialog.setCanceledOnTouchOutside(false);
-				prodialog.show();
-				new Thread(new Login_Post()).start();
+				Toast.makeText(LoginActivity.this, R.string.no_internet,
+						Toast.LENGTH_SHORT).show();
 			}
-			break;
 		}
 	}
 
@@ -169,5 +176,24 @@ public class LoginActivity extends Activity implements OnClickListener,
 				Log.i("error", e.toString());
 			}
 		}
+	}
+
+	public void onResume() {
+		super.onResume();
+		/**
+		 * 页面起始（每个Activity中都需要添加，如果有继承的父Activity中已经添加了该调用，那么子Activity中务必不能添加）
+		 * 不能与StatService.onPageStart一级onPageEnd函数交叉使用
+		 */
+		StatService.onResume(this);
+	}
+
+	public void onPause() {
+		super.onPause();
+
+		/**
+		 * 页面结束（每个Activity中都需要添加，如果有继承的父Activity中已经添加了该调用，那么子Activity中务必不能添加）
+		 * 不能与StatService.onPageStart一级onPageEnd函数交叉使用
+		 */
+		StatService.onPause(this);
 	}
 }

@@ -25,6 +25,8 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
@@ -338,7 +340,7 @@ public class FuXunTools {
 	}
 
 	//
-	public static  void set_img(int id, ImageView iv) {
+	public static void set_img(int id, ImageView iv) {
 
 		File f = new File(Urlinterface.head_pic, id + "");
 		if (f.exists()) {
@@ -352,4 +354,28 @@ public class FuXunTools {
 
 	}
 
+	// 判断网络
+	public static boolean isConnect(Context context) {
+
+		// 获取手机所有连接管理对象（包括对wi-fi,net等连接的管理）
+		try {
+			ConnectivityManager connectivity = (ConnectivityManager) context
+					.getSystemService(Context.CONNECTIVITY_SERVICE);
+			if (connectivity != null) {
+
+				// 获取网络连接管理的对象
+				NetworkInfo info = connectivity.getActiveNetworkInfo();
+
+				if (info != null && info.isConnected()) {
+					// 判断当前网络是否已经连接
+					if (info.getState() == NetworkInfo.State.CONNECTED) {
+						return true;
+					}
+				}
+			}
+		} catch (Exception e) {
+			Log.v("error", e.toString());
+		}
+		return false;
+	}
 }
