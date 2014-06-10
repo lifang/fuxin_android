@@ -1395,19 +1395,6 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int A6_Font=0x7f07000d;
         public static final int A7_Font=0x7f07000e;
         public static final int A8_Font=0x7f07000f;
-        /** 
-        Base application theme for API 11+. This theme completely replaces
-        AppBaseTheme from res/values/styles.xml on API 11+ devices.
-    
- API 11 theme customizations can go here. 
-
-        Base application theme for API 14+. This theme completely replaces
-        AppBaseTheme from BOTH res/values/styles.xml and
-        res/values-v11/styles.xml on API 14+ devices.
-    
- API 14 theme customizations can go here. 
-         */
-        public static final int AppBaseTheme=0x7f070047;
         public static final int B1_Font=0x7f070010;
         public static final int B2_Font=0x7f070011;
         public static final int B3_Font=0x7f070012;
