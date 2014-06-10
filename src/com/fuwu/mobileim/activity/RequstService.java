@@ -56,12 +56,16 @@ public class RequstService extends Service {
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		// 防止intent为null时异常
-		fx = (FxApplication) getApplication();
 		if (intent != null) {
-			sp = getSharedPreferences("FuXin", Context.MODE_PRIVATE);
-			db = new DBManager(this);
-			scheduledThreadPool.scheduleAtFixedRate(new RequstThread(), 0, 10,
-					TimeUnit.SECONDS);
+			Log.i("FuWu", "scheduledThreadPool.isShutdown:"
+					+ scheduledThreadPool.isShutdown());
+			if (!scheduledThreadPool.isShutdown()) {
+				fx = (FxApplication) getApplication();
+				sp = getSharedPreferences("FuXin", Context.MODE_PRIVATE);
+				db = new DBManager(this);
+				scheduledThreadPool.scheduleAtFixedRate(new RequstThread(), 0,
+						10, TimeUnit.SECONDS);
+			}
 		}
 		return START_STICKY;
 	}
@@ -114,14 +118,18 @@ public class RequstService extends Service {
 		public void run() {
 			super.run();
 			String imgUrl = url + "&userId=" + user_id + "&token=" + token;
+			Log.i("FuWu", "url" + imgUrl);
 			Bitmap bitmap = ImageUtil.getBitmapFromUrl(imgUrl, 10 * 1000);
 			String fileName = System.currentTimeMillis() + "";
-			ImageUtil.saveBitmap(fileName, "JPG", bitmap);
-			MessagePojo mp = new MessagePojo(user_id, contact_id, time,
-					fileName + ".jpg", 0, 2);
-			db.addMessage(mp);
-			Intent intnet = new Intent("com.comdosoft.fuxun.REQUEST_ACTION");
-			sendBroadcast(intnet);
+			if (bitmap != null && bitmap.getWidth() > 0
+					&& bitmap.getHeight() > 0) {
+				ImageUtil.saveBitmap(fileName, "JPG", bitmap);
+				MessagePojo mp = new MessagePojo(user_id, contact_id, time,
+						fileName + ".jpg", 0, 2);
+				db.addMessage(mp);
+				Intent intnet = new Intent("com.comdosoft.fuxun.REQUEST_ACTION");
+				sendBroadcast(intnet);
+			}
 		}
 	}
 
@@ -130,7 +138,7 @@ public class RequstService extends Service {
 		public void run() {
 			super.run();
 			try {
-				Log.i("FuWu", "sendBroadcast------");
+				Log.i("FuWu", "starService------");
 				MessageRequest.Builder builder = MessageRequest.newBuilder();
 				Log.i("Ax", "timeStamp:" + getTimeStamp());
 				builder.setUserId(fx.getUser_id());
@@ -168,7 +176,7 @@ public class RequstService extends Service {
 								mp = new MessagePojo(user_id, contact_id, time,
 										m.getContent(), 0, 1);
 							} else {
-								Log.i("FuWu", "content:" + m.getContent());
+								Log.i("FuWu", "imageURL:" + m.getContent());
 								singleThreadExecutor
 										.execute(new DownloadImageThread(
 												user_id, contact_id, time, m
@@ -202,7 +210,7 @@ public class RequstService extends Service {
 					sendBroadcast(intnet);
 				}
 			} catch (InvalidProtocolBufferException e) {
-				Log.i("Ax", e.toString());
+				Log.i("FuWu", e.toString());
 			}
 		}
 	}

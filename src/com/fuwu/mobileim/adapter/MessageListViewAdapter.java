@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.res.Resources;
@@ -14,7 +13,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PorterDuff.Mode;
-import android.graphics.drawable.Drawable;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.os.Handler;
@@ -33,8 +31,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import cn.trinea.android.common.service.impl.ImageCache;
-
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.model.Models.ChangeContactDetailRequest;
 import com.fuwu.mobileim.model.Models.ChangeContactDetailResponse;
@@ -163,7 +159,8 @@ public class MessageListViewAdapter extends BaseAdapter {
 			holder.time.setVisibility(View.VISIBLE);
 		}
 		if (mp.getIsComMeg() == 0) {
-			FuXunTools.set_img(cp.getContactId(), holder.img);
+			ImageCacheUtil.IMAGE_CACHE.get(
+					Urlinterface.head_pic + cp.getContactId(), holder.img);
 			holder.img.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -171,7 +168,8 @@ public class MessageListViewAdapter extends BaseAdapter {
 				}
 			});
 		} else {
-			FuXunTools.set_img(user_id, holder.img);
+			ImageCacheUtil.IMAGE_CACHE.get(Urlinterface.head_pic + user_id,
+					holder.img);
 		}
 		if (mp.getMsgType() == 1) {
 			holder.mes.setText(convertNormalStringToSpannableString(mp

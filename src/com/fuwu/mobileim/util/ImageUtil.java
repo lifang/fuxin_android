@@ -92,9 +92,11 @@ public class ImageUtil {
 			f.createNewFile();
 			FileOutputStream fOut = null;
 			fOut = new FileOutputStream(f);
-			mBitmap.compress(Bitmap.CompressFormat.JPEG, 90, fOut);
-			fOut.flush();
-			fOut.close();
+			if (fOut != null) {
+				mBitmap.compress(Bitmap.CompressFormat.JPEG, 90, fOut);
+				fOut.flush();
+				fOut.close();
+			}
 		} catch (IOException e) {
 		}
 	}
@@ -217,10 +219,11 @@ public class ImageUtil {
 			stream = con.getInputStream();
 		} catch (MalformedURLException e) {
 			closeInputStream(stream);
-			throw new RuntimeException("MalformedURLException occurred. ", e);
+			// throw new RuntimeException("MalformedURLException occurred. ",
+			// e);
 		} catch (IOException e) {
 			closeInputStream(stream);
-			throw new RuntimeException("IOException occurred. ", e);
+			// throw new RuntimeException("IOException occurred. ", e);
 		}
 		return stream;
 	}

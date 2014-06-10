@@ -116,7 +116,16 @@ public class ContactPojo {
 	public void setIndividualResume(String individualResume) {
 		this.individualResume = individualResume;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "ContactPojo [contactId=" + contactId + ", sortKey=" + sortKey
+				+ ", name=" + name + ", customName=" + customName
+				+ ", userface_url=" + userface_url + ", sex=" + sex
+				+ ", source=" + source + ", lastContactTime=" + lastContactTime
+				+ ", isBlocked=" + isBlocked + ", isProvider=" + isProvider
+				+ ", lisence=" + lisence + ", individualResume="
+				+ individualResume + "]";
+	}
 	
 }

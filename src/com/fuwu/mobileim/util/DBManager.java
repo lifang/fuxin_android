@@ -7,8 +7,6 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-
-import com.fuwu.mobileim.activity.FragmengtActivity;
 import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.pojo.MessagePojo;
 import com.fuwu.mobileim.pojo.PushPojo;
@@ -111,6 +109,9 @@ public class DBManager {
 			db.execSQL(
 					"Delete from message where user_id = ? and contact_id = ? ",
 					new Object[] { user_id + "", contact_id + "" });
+			db.execSQL(
+					"Delete from talk where user_id = ? and contact_id = ? ",
+					new Object[] { user_id + "", contact_id + "" });
 			db.setTransactionSuccessful();
 		} finally {
 			db.endTransaction();
@@ -121,6 +122,8 @@ public class DBManager {
 		db.beginTransaction();
 		try {
 			db.execSQL("Delete from message where user_id = ?",
+					new Object[] { user_id + "" });
+			db.execSQL("Delete from talk where user_id = ?",
 					new Object[] { user_id + "" });
 			db.setTransactionSuccessful();
 		} finally {
@@ -229,6 +232,7 @@ public class DBManager {
 			mp.setSource(c.getInt(c.getColumnIndex("source")));
 			mp.setUserface_url(c.getString(c.getColumnIndex("userface_url")));
 		}
+		Log.i("FuWu", "contactPojo:" + mp.toString());
 		c.close();
 		return mp;
 	}

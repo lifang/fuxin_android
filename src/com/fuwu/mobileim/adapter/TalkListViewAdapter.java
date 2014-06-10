@@ -15,7 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.pojo.TalkPojo;
-import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.ImageCacheUtil;
 import com.fuwu.mobileim.util.TimeUtil;
 import com.fuwu.mobileim.util.Urlinterface;
@@ -82,7 +81,7 @@ public class TalkListViewAdapter extends BaseAdapter {
 			holder.statics.setVisibility(View.VISIBLE);
 		}
 		String names = list.get(arg0).getNick_name();
-		if (names.equals("")) {
+		if (names != null && names.equals("")) {
 			holder.name.setText("暂未设置昵称");
 		} else {
 			holder.name.setText(names);
@@ -90,7 +89,8 @@ public class TalkListViewAdapter extends BaseAdapter {
 		holder.content.setText(list.get(arg0).getContent());
 		holder.dath.setText(TimeUtil.getChatTime(list.get(arg0).getTime()));
 		// ImageCacheUtil.IMAGE_CACHE.get("/sdcard/fuxin/1.jpg", holder.head);
-		File f = new File(Urlinterface.head_pic, list.get(arg0).getContent());
+		File f = new File(Urlinterface.head_pic, list.get(arg0).getContact_id()
+				+ "");
 		if (f.exists()) {
 			ImageCacheUtil.IMAGE_CACHE.get(
 					Urlinterface.head_pic + list.get(arg0).getContact_id(),

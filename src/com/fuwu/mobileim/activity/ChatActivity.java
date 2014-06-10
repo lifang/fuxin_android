@@ -11,6 +11,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningServiceInfo;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -149,6 +151,11 @@ public class ChatActivity extends Activity implements OnClickListener,
 				mMessageAdapter.updMessage(mp);
 				mListView.setSelection(list.size() - 1);
 				db.addMessage(mp);
+				break;
+			case 7:
+				Intent intent = new Intent();
+				intent.setClass(ChatActivity.this, RequstService.class);
+				startService(intent);
 				break;
 			}
 		}
@@ -404,6 +411,18 @@ public class ChatActivity extends Activity implements OnClickListener,
 		});
 	}
 
+	private boolean isServiceRunning() {
+		ActivityManager manager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+		for (RunningServiceInfo service : manager
+				.getRunningServices(Integer.MAX_VALUE)) {
+			if ("com.fuwu.mobileim.activity.RequstService"
+					.equals(service.service.getClassName())) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public void HideKeyboard() {
 		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		imm.hideSoftInputFromWindow(msgEt.getWindowToken(), 0); // 强制隐藏键盘
@@ -533,6 +552,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 							mp = new MessagePojo(user_id, contact_id, time,
 									message, 1, 1);
 						} else {
+							handler.sendEmptyMessage(7);
 							mp.setSendTime(time);
 						}
 						handler.sendEmptyMessage(6);
@@ -582,6 +602,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 			}
 			break;
 		case R.id.plus_btn:
+			Log.i("FuWu", "service:" + isServiceRunning());
 			if (!isPlusShow) {
 				if (isFaceShow) {
 					isFaceShow = false;
@@ -598,8 +619,13 @@ public class ChatActivity extends Activity implements OnClickListener,
 		case R.id.send_btn:
 			String str = msgEt.getText().toString();
 			if (str != null && !str.isEmpty()) {
-				singleThreadExecutor
-						.execute(new SendMessageThread(null, str, 1));
+				if (str.length() > 300) {
+					Toast.makeText(getApplicationContext(),
+							"信息内容限制300字,请分段输入.", 0).show();
+				} else {
+					singleThreadExecutor.execute(new SendMessageThread(null,
+							str, 1));
+				}
 			}
 			break;
 		case R.id.msg_et:

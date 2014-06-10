@@ -94,26 +94,17 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 0:
-				db = new DBManager(getActivity());
-				if (!db.isOpen()) {
-					db = new DBManager(getActivity());
-				}
 				contactsList = db.queryContactList(fxApplication.getUser_id());
 				//
 				// 根据a-z进行排序源数据
 				if (contactsList.size() > 1) { // 2个以上进行排序
 					Collections.sort(contactsList, pinyinComparator);
 				}
-
 				adapter = new ContactAdapter(getActivity(), contactsList, 1);
 				xListView.setAdapter(adapter);
 				onLoad();
 				break;
 			case 1:
-				db = new DBManager(getActivity());
-				if (!db.isOpen()) {
-					db = new DBManager(getActivity());
-				}
 				for (int i = 0; i < contactsList.size(); i++) {
 					db.modifyContact(fxApplication.getUser_id(),
 							contactsList.get(i));
@@ -129,7 +120,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 					Collections.sort(contactsList, pinyinComparator);
 				}
 
-//				fxApplication.setContactsList(contactsList);
+				// fxApplication.setContactsList(contactsList);
 				adapter = new ContactAdapter(getActivity(), contactsList, 1);
 				xListView.setAdapter(adapter);
 				onLoad();
@@ -202,11 +193,11 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 						int contactId = res.getContacts(i).getContactId();
 						String name = res.getContacts(i).getName();
 						String customName = res.getContacts(i).getCustomName();
-						String sortKey=null;
-						if (customName!=null&&customName.length()>0) {
-							 sortKey = findSortKey(customName);
-						}else {
-							 sortKey = findSortKey(name);
+						String sortKey = null;
+						if (customName != null && customName.length() > 0) {
+							sortKey = findSortKey(customName);
+						} else {
+							sortKey = findSortKey(name);
 						}
 						String userface_url = res.getContacts(i).getTileUrl();
 						int sex = res.getContacts(i).getGender().getNumber();
@@ -341,7 +332,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 				startActivity(intent);
 			}
 		});
-		handler.sendEmptyMessage(0);
+		// handler.sendEmptyMessage(0);
 
 	}
 
@@ -363,7 +354,6 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			return "#";
 		}
 	}
-
 
 	/**
 	 * 设置button的 宽度 以及监听
@@ -421,8 +411,8 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			buttonNumber = 0;
 			setButtonColor(buttonNumber);
 			xListView.setVisibility(View.VISIBLE);
-			 contactsList = db.queryContactList(fxApplication.getUser_id());
-			 Collections.sort(contactsList, pinyinComparator);
+			contactsList = db.queryContactList(fxApplication.getUser_id());
+			Collections.sort(contactsList, pinyinComparator);
 			adapter = new ContactAdapter(getActivity(), contactsList, 1);
 			xListView.setAdapter(adapter);
 			sortListView.setVisibility(View.GONE);
@@ -435,14 +425,14 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			buttonNumber = 1;
 			setButtonColor(buttonNumber);
 			longDataComparator = new LongDataComparator();
-			contactsList= new ArrayList<ContactPojo>();
+			contactsList = new ArrayList<ContactPojo>();
 			contactsList1 = db.queryContactList(fxApplication.getUser_id());
 			if (contactsList1.size() > 20) { // 20个以上进行排序
 				Collections.sort(contactsList1, longDataComparator);
 				for (int i = 0; i < 20; i++) {
 					contactsList.add(contactsList1.get(i));
 				}
-				
+
 			} else {
 				for (int i = 0; i < contactsList1.size(); i++) {
 					contactsList.add(contactsList1.get(i));
@@ -461,9 +451,9 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		public void onClick(View v) {
 			buttonNumber = 2;
 			setButtonColor(buttonNumber);
-			contactsList= new ArrayList<ContactPojo>();
+			contactsList = new ArrayList<ContactPojo>();
 			contactsList1 = db.queryContactList(fxApplication.getUser_id());
-			
+
 			for (int i = 0; i < contactsList1.size(); i++) {
 				String str = FuXunTools.toNumber(contactsList1.get(i)
 						.getSource());
@@ -484,9 +474,9 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		public void onClick(View v) {
 			buttonNumber = 3;
 			setButtonColor(buttonNumber);
-			contactsList= new ArrayList<ContactPojo>();
+			contactsList = new ArrayList<ContactPojo>();
 			contactsList1 = db.queryContactList(fxApplication.getUser_id());
-			
+
 			for (int i = 0; i < contactsList1.size(); i++) {
 				String str = FuXunTools.toNumber(contactsList1.get(i)
 						.getSource());
@@ -559,7 +549,14 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		Thread thread = new Thread(new getContacts2());
 		thread.start();
 		Log.i("linshi", "1111111111111111111111111111");
+	}
 
+	@Override
+	public void onResume() {
+		super.onResume();
+		if (!db.isOpen()) {
+			db = new DBManager(getActivity());
+		}
 	}
 
 }

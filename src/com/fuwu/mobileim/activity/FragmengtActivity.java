@@ -161,6 +161,9 @@ public class FragmengtActivity extends FragmentActivity {
 			@Override
 			public void onExtraPageSelected(int i) {
 				super.onExtraPageSelected(i);
+				if (i == 0) {
+					list.get(0).onStart();
+				}
 				changeLocation(i);
 				changeColor(i);
 				if (i == 1) {
