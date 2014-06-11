@@ -1,24 +1,20 @@
 package com.fuwu.mobileim.activity;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -57,7 +53,6 @@ import android.widget.PopupWindow;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.baidu.mobstat.StatService;
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.adapter.FaceAdapter;
@@ -71,6 +66,7 @@ import com.fuwu.mobileim.model.Models.SendMessageRequest;
 import com.fuwu.mobileim.model.Models.SendMessageResponse;
 import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.pojo.MessagePojo;
+import com.fuwu.mobileim.pojo.TalkPojo;
 import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
@@ -101,6 +97,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 	private int currentPage = 0;
 	private boolean isFaceShow = false;;
 	private boolean isPlusShow = false;;
+	private String sendTime;
 	private List<String> keys;
 	private List<MessagePojo> list;
 	private XListView mListView;
@@ -116,17 +113,24 @@ public class ChatActivity extends Activity implements OnClickListener,
 	private EditText msgEt;
 	private MessagePojo mp;
 	private FxApplication fx;
+	private ProgressDialog pd;
 	private PopupWindow menuWindow;
 	private MessageListViewAdapter mMessageAdapter;
 	private DBManager db;
 	private ContactPojo cp;
+	private TalkPojo tp;
 	private RequstReceiver mReuRequstReceiver;
-	private ExecutorService singleThreadExecutor = Executors
+	private ExecutorService sendMessageExecutor = Executors
+			.newSingleThreadExecutor();
+	private ExecutorService loadImageExecutor = Executors
 			.newSingleThreadExecutor();
 	private Handler handler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
+			if (msg.what == 5 || msg.what == 6 || msg.what == 7) {
+				progressDialogDismiss();
+			}
 			switch (msg.what) {
 			case 0:
 				Toast.makeText(getApplicationContext(), "请求失败!", 0).show();
@@ -152,9 +156,12 @@ public class ChatActivity extends Activity implements OnClickListener,
 				mMessageAdapter.updMessage(mp);
 				mListView.setSelection(list.size() - 1);
 				db.addMessage(mp);
+				db.addTalk(tp);
 				break;
 			case 7:
-				Toast.makeText(getApplicationContext(), "发送图片成功!", 0).show();
+				Intent intent = new Intent();
+				intent.setClass(ChatActivity.this, RequstService.class);
+				startService(intent);
 				break;
 			}
 		}
@@ -168,6 +175,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 		initView();
 		initFacePage();
 		initPlusGridView();
+		Log.i("FuWu", "oncreate");
 	}
 
 	public void initData() {
@@ -257,8 +265,9 @@ public class ChatActivity extends Activity implements OnClickListener,
 				return false;
 			}
 		});
-		mName.setText(cp.getName());
-
+		mName.setText(getContactName());
+		pd = new ProgressDialog(this);
+		pd.setMessage("正在发送图片...");
 		mMessageAdapter = new MessageListViewAdapter(getResources(), this,
 				list, cp, user_id, fx.getToken());
 		mListView.setAdapter(mMessageAdapter);
@@ -267,7 +276,6 @@ public class ChatActivity extends Activity implements OnClickListener,
 	}
 
 	private void initFacePage() {
-		// TODO Auto-generated method stub
 		List<View> lv = new ArrayList<View>();
 		for (int i = 0; i < FxApplication.NUM_PAGE; ++i)
 			lv.add(getGridView(i));
@@ -410,6 +418,19 @@ public class ChatActivity extends Activity implements OnClickListener,
 		});
 	}
 
+	public void progressDialogDismiss() {
+		if (pd.isShowing()) {
+			pd.dismiss();
+		}
+	}
+
+	public String getContactName() {
+		if (cp.getCustomName() != null && !cp.getCustomName().isEmpty()) {
+			return cp.getCustomName();
+		}
+		return cp.getName();
+	}
+
 	public void HideKeyboard() {
 		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		imm.hideSoftInputFromWindow(msgEt.getWindowToken(), 0); // 强制隐藏键盘
@@ -470,9 +491,6 @@ public class ChatActivity extends Activity implements OnClickListener,
 					BlockContactResponse res = BlockContactResponse
 							.parseFrom(by);
 					if (res.getIsSucceed()) {
-						if (!db.isOpen()) {
-							db = new DBManager(ChatActivity.this);
-						}
 						db.modifyContactBlock(1, fx.getUser_id(), contact_id);
 						handler.sendEmptyMessage(3);
 					} else {
@@ -532,11 +550,26 @@ public class ChatActivity extends Activity implements OnClickListener,
 					SendMessageResponse response = SendMessageResponse
 							.parseFrom(b);
 					if (response.getIsSucceed()) {
-						if (type == 1) {
-							handler.sendEmptyMessage(6);
-						} else {
-							handler.sendEmptyMessage(7);
+						sendTime = response.getSendTime();
+						String time = "";
+						if (TimeUtil.isFiveMin(
+								db.getLastTime(user_id, contact_id), sendTime)) {
+							time = sendTime;
 						}
+						if (type == 1) {
+							tp = new TalkPojo(user_id, contact_id,
+									getContactName(), cp.getUserface_url(),
+									message, time, 0);
+							mp = new MessagePojo(user_id, contact_id, time,
+									message, 1, 1);
+						} else {
+							tp = new TalkPojo(user_id, contact_id,
+									getContactName(), cp.getUserface_url(),
+									"[图片]", time, 0);
+							handler.sendEmptyMessage(7);
+							mp.setSendTime(time);
+						}
+						handler.sendEmptyMessage(6);
 					} else {
 						handler.sendEmptyMessage(5);
 					}
@@ -550,6 +583,28 @@ public class ChatActivity extends Activity implements OnClickListener,
 			} catch (InvalidProtocolBufferException e) {
 				e.printStackTrace();
 			}
+		}
+	}
+
+	class LoadImage extends Thread {
+		private String path;
+
+		public LoadImage(String path) {
+			super();
+			this.path = path;
+		}
+
+		@Override
+		public void run() {
+			super.run();
+			Bitmap photo = ImageUtil.compressImage(path);
+			// Bitmap photo = ImageUtil.createImageThumbnail(path, 800);
+			String fileName = System.currentTimeMillis() + "";
+			ImageUtil.saveBitmap(fileName, "JPG", photo);
+			mp = new MessagePojo(user_id, contact_id, "", fileName + ".jpg", 1,
+					2);
+			sendMessageExecutor.execute(new SendMessageThread(
+					Bitmap2Bytes(photo), null, 2));
 		}
 	}
 
@@ -583,6 +638,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 			}
 			break;
 		case R.id.plus_btn:
+			// Log.i("FuWu", "service:" + isServiceRunning());
 			if (!isPlusShow) {
 				if (isFaceShow) {
 					isFaceShow = false;
@@ -599,20 +655,13 @@ public class ChatActivity extends Activity implements OnClickListener,
 		case R.id.send_btn:
 			String str = msgEt.getText().toString();
 			if (str != null && !str.isEmpty()) {
-				if (!db.isOpen()) {
-					db = new DBManager(this);
+				if (str.length() > 300) {
+					Toast.makeText(getApplicationContext(),
+							"信息内容限制300字,请分段输入.", 0).show();
+				} else {
+					sendMessageExecutor.execute(new SendMessageThread(null,
+							str, 1));
 				}
-				SimpleDateFormat sdf = new SimpleDateFormat(
-						"yyyy-MM-dd HH:mm:ss");
-				Date today = new Date(System.currentTimeMillis());
-				String time = "";
-				if (TimeUtil.isFiveMin(db.getLastTime(user_id, contact_id),
-						sdf.format(today))) {
-					time = sdf.format(today);
-				}
-				singleThreadExecutor
-						.execute(new SendMessageThread(null, str, 1));
-				mp = new MessagePojo(user_id, contact_id, time, str, 1, 1);
 			}
 			break;
 		case R.id.msg_et:
@@ -698,36 +747,34 @@ public class ChatActivity extends Activity implements OnClickListener,
 		StatService.onPause(this);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode == RESULT_OK) {
 			switch (requestCode) {
 			case 1:
-				try {
-					ContentResolver resolver = getContentResolver();
-					Uri imgUri = data.getData();
-					Bitmap photo = MediaStore.Images.Media.getBitmap(resolver,
-							imgUri);
-					// ImageUtil.saveBitmap(System.currentTimeMillis() + "",
-					// "JPG", photo);
-					singleThreadExecutor.execute(new SendMessageThread(
-							Bitmap2Bytes(photo), null, 2));
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				pd.show();
+				Uri imgUri = data.getData();
+				String[] proj = { MediaStore.Images.Media.DATA };
+				Cursor cursor = managedQuery(imgUri, proj, null, null, null);
+				int column_index = cursor
+						.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+				cursor.moveToFirst();
+				String path = cursor.getString(column_index);
+				loadImageExecutor.execute(new LoadImage(path));
 				break;
 			case 2:
+				pd.show();
 				Bundle bundle = data.getExtras();
 				if (bundle != null) {
 					Bitmap bitmap = (Bitmap) bundle.get("data");
-					ImageUtil.saveBitmap(System.currentTimeMillis() + "",
-							"JPG", bitmap);
-					Toast.makeText(getApplicationContext(),
-							bitmap.getWidth() + "--" + bitmap.getHeight(), 0)
-							.show();
+					String file = System.currentTimeMillis() + "";
+					ImageUtil.saveBitmap(file, "JPG", bitmap);
+					mp = new MessagePojo(user_id, contact_id, "",
+							file + ".jpg", 1, 2);
+					sendMessageExecutor.execute(new SendMessageThread(
+							Bitmap2Bytes(bitmap), null, 2));
 				}
 				break;
 			}

@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Log;
@@ -15,11 +14,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.pojo.TalkPojo;
 import com.fuwu.mobileim.util.ImageCacheUtil;
-import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.TimeUtil;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CircularImage;
@@ -85,7 +82,7 @@ public class TalkListViewAdapter extends BaseAdapter {
 			holder.statics.setVisibility(View.VISIBLE);
 		}
 		String names = list.get(arg0).getNick_name();
-		if (names.equals("")) {
+		if (names != null && names.equals("")) {
 			holder.name.setText("暂未设置昵称");
 		} else {
 			holder.name.setText(names);

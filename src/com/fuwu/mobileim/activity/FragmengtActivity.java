@@ -164,6 +164,9 @@ public class FragmengtActivity extends FragmentActivity {
 			@Override
 			public void onExtraPageSelected(int i) {
 				super.onExtraPageSelected(i);
+				if (i == 0) {
+					list.get(0).onStart();
+				}
 				changeLocation(i);
 				changeColor(i);
 				if (i == 1) {
@@ -313,11 +316,6 @@ public class FragmengtActivity extends FragmentActivity {
 									+ "---" + res.getContacts(i).getName());
 							int contactId = res.getContacts(i).getContactId();
 							String name = res.getContacts(i).getName();
-							// String sortKey = findSortKey(res.getContacts(i)
-							// .getName());
-							// String sortKey = findSortKey(res.getContacts(i)
-							// .getPinyin());
-
 							String customName = res.getContacts(i)
 									.getCustomName();
 							String sortKey = null;

@@ -32,7 +32,7 @@
         android:clickable="true"
         android:focusable="true"
         android:scaleType="fitXY"
-        android:src="@drawable/chat_item_icon_bg_selector" />
+        android:src="@drawable/moren" />
 
     <RelativeLayout
         android:id="@+id/relativeLayout1"
@@ -44,6 +44,12 @@
         android:background="@drawable/balloon_l_selector"
         android:clickable="true"
         android:minHeight="44.0dip" >
+
+        <ImageView
+            android:id="@+id/chat_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/chat_textView2"

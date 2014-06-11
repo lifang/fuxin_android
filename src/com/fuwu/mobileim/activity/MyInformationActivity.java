@@ -33,6 +33,7 @@ import com.fuwu.mobileim.pojo.ProfilePojo;
 import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
+import com.fuwu.mobileim.util.ImageCacheUtil;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CircularImage;
 import com.google.protobuf.ByteString;
@@ -56,6 +57,7 @@ public class MyInformationActivity extends Activity {
 			switch (msg.what) {
 			case 0:
 				prodialog.dismiss();
+				ImageCacheUtil.IMAGE_CACHE.clear();
 				Toast.makeText(getApplicationContext(), "修改成功",
 						Toast.LENGTH_SHORT).show();
 				if (buf != null) {

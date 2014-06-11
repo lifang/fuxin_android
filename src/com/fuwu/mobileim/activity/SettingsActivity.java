@@ -30,7 +30,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.ContactsContract.Profile;
 import android.support.v4.app.Fragment;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,7 +44,6 @@ import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.baidu.mobstat.StatService;
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.model.Models.ClientInfo;
@@ -166,21 +164,20 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 				Urlinterface.SHARED, Context.MODE_PRIVATE);
 
 		int profile_userid = preferences.getInt("profile_userid", -1);
-//		if (profile_userid != -1
-//				&& profile_userid == fxApplication.getUser_id()) {
-//			Log.i("linshi------------", "profileprofileprofileprofile本地shuju");
-//
-//			profilePojo = getProfilePojo();
-//			handler.sendEmptyMessage(0);
-//
-//		} else {
-			Thread thread = new Thread(new getProfile());
-			thread.start();
-//		}
+		// if (profile_userid != -1
+		// && profile_userid == fxApplication.getUser_id()) {
+		// Log.i("linshi------------", "profileprofileprofileprofile本地shuju");
+		//
+		// profilePojo = getProfilePojo();
+		// handler.sendEmptyMessage(0);
+		//
+		// } else {
+		Thread thread = new Thread(new getProfile());
+		thread.start();
+		// }
 
 		return rootView;
 	}
-
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -234,7 +231,7 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 						String fuzhi = res.getProfile().getFuzhi();// 福值
 						profilePojo = new ProfilePojo(userId, name, nickName,
 								gender, tileUrl, isProvider, lisence, mobile,
-								email, birthday, isAuthentication,fuzhi);
+								email, birthday, isAuthentication, fuzhi);
 						Log.i("linshi", "  --nickName" + nickName
 								+ "  --gender" + gender + "  --tileUrl"
 								+ tileUrl + "  --lisence" + lisence
@@ -257,7 +254,6 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 			}
 		}
 	}
-
 
 	/**
 	 * 
@@ -306,18 +302,18 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		String face_str = profilePojo.getTileUrl();
 		Log.i("Ax", "profilePojo.getTileUrl()" + profilePojo.getTileUrl());
 		if (face_str.length() > 4) {
-//			File f = new File(Urlinterface.head_pic, profilePojo.getUserId()
-//					+ "");
-//			if (f.exists()) {
-				Log.i("linshi------------", "加载本地图片");
-//				Drawable dra = new BitmapDrawable(
-//						BitmapFactory.decodeFile(Urlinterface.head_pic
-//								+ profilePojo.getUserId()));
-//				setting_userface.setImageDrawable(dra);
-//			} else {
-				FuXunTools.set_bk(profilePojo.getUserId(), face_str,
-						setting_userface);
-//			}
+			// File f = new File(Urlinterface.head_pic, profilePojo.getUserId()
+			// + "");
+			// if (f.exists()) {
+			Log.i("linshi------------", "加载本地图片");
+			// Drawable dra = new BitmapDrawable(
+			// BitmapFactory.decodeFile(Urlinterface.head_pic
+			// + profilePojo.getUserId()));
+			// setting_userface.setImageDrawable(dra);
+			// } else {
+			FuXunTools.set_bk(profilePojo.getUserId(), face_str,
+					setting_userface);
+			// }
 		} else {
 			setting_userface.setImageResource(R.drawable.moren);
 		}
@@ -399,13 +395,13 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 			intent.setClass(getActivity(), BlockManagementActivity.class);
 			startActivity(intent);
 			break;
-		case 5:// 系统公告管理
-				// intent.setClass(getActivity(), SystemPushActivity.class);
-				// startActivity(intent);
-			Toast.makeText(getActivity().getApplication(), "该功能暂不实现",
-					Toast.LENGTH_LONG).show();
-			break;
-		case 6:// 退出登录
+		// case 5:// 系统公告管理
+		// // intent.setClass(getActivity(), SystemPushActivity.class);
+		// // startActivity(intent);
+		// Toast.makeText(getActivity().getApplication(), "该功能暂不实现",
+		// Toast.LENGTH_LONG).show();
+		// break;
+		case 5:// 退出登录
 			intent.setClass(getActivity(), LoginActivity.class);
 			startActivity(intent);
 			clearActivity();
@@ -426,10 +422,10 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		private int[] icon = new int[] { R.drawable.setting_image1,
 				R.drawable.setting_image2, R.drawable.setting_image3,
 				R.drawable.setting_image4, R.drawable.setting_image5,
-				R.drawable.setting_image6, R.drawable.setting_image7 }; // icon
-																		// 集合
+				R.drawable.setting_image7 }; // icon
+												// 集合
 		private String[] titleArr = new String[] { "新版本检测", "清除全部聊天记录", "消息推送",
-				"修改密码", "屏蔽管理", "系统公告管理", "退出登录" }; //
+				"修改密码", "屏蔽管理", "退出登录" }; //
 
 		public int getCount() {
 			return titleArr.length;
@@ -473,7 +469,6 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 			} else {
 				viewHolder = (ViewHolder) view.getTag();
 			}
-			Resources resources = getResources();
 			viewHolder.im.setImageResource(icon[position]);
 			viewHolder.titleStr.setText(titleArr[position]);
 

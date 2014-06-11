@@ -7,8 +7,6 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-
-import com.fuwu.mobileim.activity.FragmengtActivity;
 import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.pojo.MessagePojo;
 import com.fuwu.mobileim.pojo.PushPojo;
@@ -62,8 +60,9 @@ public class DBManager {
 
 	public void addTalk(TalkPojo tp) {
 		db.beginTransaction();
+		Cursor c = null;
 		try {
-			Cursor c = queryTalkCursor(tp.getUser_id(), tp.getContact_id());
+			c = queryTalkCursor(tp.getUser_id(), tp.getContact_id());
 			if (c.getCount() > 0) {
 				c.moveToFirst();
 				int count = c.getInt(c.getColumnIndex("mes_count"));
@@ -80,11 +79,11 @@ public class DBManager {
 								tp.getContent(), tp.getTime(),
 								tp.getMes_count() });
 			}
-			c.close();
 			db.setTransactionSuccessful();
 		} catch (Exception e) {
 			Log.i("FuWu", e.getMessage());
 		} finally {
+			c.close();
 			db.endTransaction();
 		}
 	}
@@ -95,6 +94,10 @@ public class DBManager {
 			db.execSQL(
 					"update contact set customName = ? where userId = ? and contactId = ?",
 					new Object[] { rem, user_id + "", contact_id + "" });
+			db.execSQL(
+					"update talk set nick_name = ? where user_id = ? and contact_id = ?",
+					new Object[] { rem, user_id + "", contact_id + "" });
+
 			db.setTransactionSuccessful();
 		} finally {
 			db.endTransaction();
@@ -107,6 +110,9 @@ public class DBManager {
 			db.execSQL(
 					"Delete from message where user_id = ? and contact_id = ? ",
 					new Object[] { user_id + "", contact_id + "" });
+			db.execSQL(
+					"Delete from talk where user_id = ? and contact_id = ? ",
+					new Object[] { user_id + "", contact_id + "" });
 			db.setTransactionSuccessful();
 		} finally {
 			db.endTransaction();
@@ -117,6 +123,8 @@ public class DBManager {
 		db.beginTransaction();
 		try {
 			db.execSQL("Delete from message where user_id = ?",
+					new Object[] { user_id + "" });
+			db.execSQL("Delete from talk where user_id = ?",
 					new Object[] { user_id + "" });
 			db.setTransactionSuccessful();
 		} finally {
@@ -172,131 +180,170 @@ public class DBManager {
 
 	public List<ContactPojo> queryContactList(int user_id) {
 		ArrayList<ContactPojo> cpList = new ArrayList<ContactPojo>();
-		Cursor c = queryContactCursor(user_id);
-		while (c.moveToNext()) {
-			
-			ContactPojo mp = new ContactPojo();
-			mp.setContactId(c.getInt(c.getColumnIndex("contactId")));
-			mp.setCustomName(c.getString(c.getColumnIndex("customName")));
-			mp.setIndividualResume(c.getString(c
-					.getColumnIndex("individualResume")));
-			mp.setIsBlocked(c.getInt(c.getColumnIndex("isBlocked")));
-			mp.setIsProvider(c.getInt(c.getColumnIndex("isProvider")));
-			mp.setLastContactTime(c.getString(c
-					.getColumnIndex("lastContactTime")));
-			mp.setLisence(c.getString(c.getColumnIndex("lisence")));
-			mp.setName(c.getString(c.getColumnIndex("name")));
-			mp.setSex(c.getInt(c.getColumnIndex("sex")));
-			String sortKey=null;
-			if (c.getString(c.getColumnIndex("customName"))!=null&&c.getString(c.getColumnIndex("customName")).length()>0) {
-				 sortKey = findSortKey(c.getString(c.getColumnIndex("customName")));
-			}else {
-				 sortKey = findSortKey(c.getString(c.getColumnIndex("name")));
-			}
-			mp.setSortKey(sortKey);
-//			mp.setSortKey(c.getString(c.getColumnIndex("sortKey")));
-			mp.setSource(c.getInt(c.getColumnIndex("source")));
-			mp.setUserface_url(c.getString(c.getColumnIndex("userface_url")));
-			cpList.add(mp);
+		Cursor c = null;
+		try {
+			c = queryContactCursor(user_id);
+			while (c.moveToNext()) {
 
+				ContactPojo mp = new ContactPojo();
+				mp.setContactId(c.getInt(c.getColumnIndex("contactId")));
+				mp.setCustomName(c.getString(c.getColumnIndex("customName")));
+				mp.setIndividualResume(c.getString(c
+						.getColumnIndex("individualResume")));
+				mp.setIsBlocked(c.getInt(c.getColumnIndex("isBlocked")));
+				mp.setIsProvider(c.getInt(c.getColumnIndex("isProvider")));
+				mp.setLastContactTime(c.getString(c
+						.getColumnIndex("lastContactTime")));
+				mp.setLisence(c.getString(c.getColumnIndex("lisence")));
+				mp.setName(c.getString(c.getColumnIndex("name")));
+				mp.setSex(c.getInt(c.getColumnIndex("sex")));
+				String sortKey = null;
+				if (c.getString(c.getColumnIndex("customName")) != null
+						&& c.getString(c.getColumnIndex("customName")).length() > 0) {
+					sortKey = findSortKey(c.getString(c
+							.getColumnIndex("customName")));
+				} else {
+					sortKey = findSortKey(c.getString(c.getColumnIndex("name")));
+				}
+				mp.setSortKey(sortKey);
+				// mp.setSortKey(c.getString(c.getColumnIndex("sortKey")));
+				mp.setSource(c.getInt(c.getColumnIndex("source")));
+				mp.setUserface_url(c.getString(c.getColumnIndex("userface_url")));
+				cpList.add(mp);
+
+			}
+		} catch (Exception e) {
+		} finally {
+			c.close();
 		}
-		c.close();
 		return cpList;
 	}
 
 	public ContactPojo queryContact(int user_id, int contact_id) {
-		Cursor c = queryContactCursor(user_id, contact_id);
+		Cursor c = null;
 		ContactPojo mp = new ContactPojo();
-		if (c.moveToNext()) {
-			mp.setContactId(c.getInt(c.getColumnIndex("contactId")));
-			mp.setCustomName(c.getString(c.getColumnIndex("customName")));
-			mp.setIndividualResume(c.getString(c
-					.getColumnIndex("individualResume")));
-			mp.setIsBlocked(c.getInt(c.getColumnIndex("isBlocked")));
-			mp.setIsProvider(c.getInt(c.getColumnIndex("isProvider")));
-			mp.setLastContactTime(c.getString(c
-					.getColumnIndex("lastContactTime")));
-			mp.setLisence(c.getString(c.getColumnIndex("lisence")));
-			mp.setName(c.getString(c.getColumnIndex("name")));
-			mp.setSex(c.getInt(c.getColumnIndex("sex")));
-			mp.setSortKey(c.getString(c.getColumnIndex("sortKey")));
-			mp.setSource(c.getInt(c.getColumnIndex("source")));
-			mp.setUserface_url(c.getString(c.getColumnIndex("userface_url")));
+		try {
+			c = queryContactCursor(user_id, contact_id);
+		} catch (Exception e) {
+			if (c.moveToNext()) {
+				mp.setContactId(c.getInt(c.getColumnIndex("contactId")));
+				mp.setCustomName(c.getString(c.getColumnIndex("customName")));
+				mp.setIndividualResume(c.getString(c
+						.getColumnIndex("individualResume")));
+				mp.setIsBlocked(c.getInt(c.getColumnIndex("isBlocked")));
+				mp.setIsProvider(c.getInt(c.getColumnIndex("isProvider")));
+				mp.setLastContactTime(c.getString(c
+						.getColumnIndex("lastContactTime")));
+				mp.setLisence(c.getString(c.getColumnIndex("lisence")));
+				mp.setName(c.getString(c.getColumnIndex("name")));
+				mp.setSex(c.getInt(c.getColumnIndex("sex")));
+				mp.setSortKey(c.getString(c.getColumnIndex("sortKey")));
+				mp.setSource(c.getInt(c.getColumnIndex("source")));
+				mp.setUserface_url(c.getString(c.getColumnIndex("userface_url")));
+			}
+		} finally {
+			c.close();
 		}
-		c.close();
+		Log.i("FuWu", "contactPojo:" + mp.toString());
 		return mp;
 	}
 
 	public List<MessagePojo> queryMessageList(int user_id, int contact_id,
 			int num, int max) {
-		clearTalkMesCount(user_id, contact_id);
 		ArrayList<MessagePojo> mpList = new ArrayList<MessagePojo>();
-		Cursor c = queryMessageCursor(user_id, contact_id, num, max);
-		while (c.moveToNext()) {
-			MessagePojo mp = new MessagePojo();
-			mp.setUserId(user_id);
-			mp.setContactId(contact_id);
-			mp.setContent(c.getString(c.getColumnIndex("content")));
-			mp.setIsComMeg(c.getInt(c.getColumnIndex("is_com")));
-			mp.setMsgType(c.getInt(c.getColumnIndex("type")));
-			mp.setSendTime(c.getString(c.getColumnIndex("time")));
-			mpList.add(mp);
+		Cursor c = null;
+		try {
+			clearTalkMesCount(user_id, contact_id);
+			c = queryMessageCursor(user_id, contact_id, num, max);
+			while (c.moveToNext()) {
+				MessagePojo mp = new MessagePojo();
+				mp.setUserId(user_id);
+				mp.setContactId(contact_id);
+				mp.setContent(c.getString(c.getColumnIndex("content")));
+				mp.setIsComMeg(c.getInt(c.getColumnIndex("is_com")));
+				mp.setMsgType(c.getInt(c.getColumnIndex("type")));
+				mp.setSendTime(c.getString(c.getColumnIndex("time")));
+				mpList.add(mp);
+			}
+		} catch (Exception e) {
+		} finally {
+			c.close();
 		}
-		c.close();
 		return mpList;
 	}
 
 	public String getLastTime(int user_id, int contact_id) {
-		Cursor c = queryMessageLastTimeCursor(user_id, contact_id);
+		Cursor c = null;
 		String time = "";
-		if (c.moveToLast()) {
-			time = c.getString(c.getColumnIndex("time"));
+		try {
+			c = queryMessageLastTimeCursor(user_id, contact_id);
+			if (c.moveToLast()) {
+				time = c.getString(c.getColumnIndex("time"));
+			}
+		} catch (Exception e) {
+		} finally {
+			c.close();
 		}
-		c.close();
 		return time;
 	}
 
 	public int getMesCount(int user_id, int contact_id) {
-		Cursor c = queryMessageCountCursor(user_id, contact_id);
-		int count = c.getCount();
-		c.close();
+		Cursor c = null;
+		int count = 0;
+		try {
+			c = queryMessageCountCursor(user_id, contact_id);
+			count = c.getCount();
+		} catch (Exception e) {
+		} finally {
+			c.close();
+		}
 		return count;
 	}
 
 	public List<TalkPojo> queryTalkList(int user_id) {
 		Log.i("Max", user_id + "");
 		ArrayList<TalkPojo> talkList = new ArrayList<TalkPojo>();
-		Cursor c = queryTalkCursor(user_id);
-		while (c.moveToNext()) {
-			TalkPojo talk = new TalkPojo();
-			talk.setUser_id(c.getInt(c.getColumnIndex("user_id")));
-			talk.setContact_id(c.getInt(c.getColumnIndex("contact_id")));
-			talk.setNick_name(c.getString(c.getColumnIndex("nick_name")));
-			talk.setHead_pic(c.getString(c.getColumnIndex("head_pic")));
-			talk.setContent(c.getString(c.getColumnIndex("content")));
-			talk.setTime(c.getString(c.getColumnIndex("time")));
-			talk.setMes_count(c.getInt(c.getColumnIndex("mes_count")));
-			talkList.add(talk);
+		Cursor c = null;
+		try {
+			c = queryTalkCursor(user_id);
+			while (c.moveToNext()) {
+				TalkPojo talk = new TalkPojo();
+				talk.setUser_id(c.getInt(c.getColumnIndex("user_id")));
+				talk.setContact_id(c.getInt(c.getColumnIndex("contact_id")));
+				talk.setNick_name(c.getString(c.getColumnIndex("nick_name")));
+				talk.setHead_pic(c.getString(c.getColumnIndex("head_pic")));
+				talk.setContent(c.getString(c.getColumnIndex("content")));
+				talk.setTime(c.getString(c.getColumnIndex("time")));
+				talk.setMes_count(c.getInt(c.getColumnIndex("mes_count")));
+				talkList.add(talk);
+			}
+		} catch (Exception e) {
+		} finally {
+			c.close();
 		}
-		c.close();
 		return talkList;
 	}
 
 	public List<PushPojo> queryPushList(int user_id) {
 		Log.i("Max", user_id + "");
 		ArrayList<PushPojo> pushList = new ArrayList<PushPojo>();
-		Cursor c = querySystemPush(user_id);
-		while (c.moveToNext()) {
-			PushPojo push = new PushPojo();
-			push.setId(c.getInt(c.getColumnIndex("id")));
-			push.setContent(c.getString(c.getColumnIndex("content")));
-			push.setUrl(c.getString(c.getColumnIndex("url")));
-			push.setTime(c.getString(c.getColumnIndex("time")));
-			push.setStatus(c.getInt(c.getColumnIndex("status")));
-			push.setUserId(c.getInt(c.getColumnIndex("userId")));
-			pushList.add(push);
+		Cursor c = null;
+		try {
+			c = querySystemPush(user_id);
+			while (c.moveToNext()) {
+				PushPojo push = new PushPojo();
+				push.setId(c.getInt(c.getColumnIndex("id")));
+				push.setContent(c.getString(c.getColumnIndex("content")));
+				push.setUrl(c.getString(c.getColumnIndex("url")));
+				push.setTime(c.getString(c.getColumnIndex("time")));
+				push.setStatus(c.getInt(c.getColumnIndex("status")));
+				push.setUserId(c.getInt(c.getColumnIndex("userId")));
+				pushList.add(push);
+			}
+		} catch (Exception e) {
+		} finally {
+			c.close();
 		}
-		c.close();
 		return pushList;
 	}
 
@@ -394,10 +441,11 @@ public class DBManager {
 	public boolean isOpen() {
 		return db.isOpen();
 	}
+
 	/**
 	 * 获得首字母
 	 */
-	public  String findSortKey(String str) {
+	public String findSortKey(String str) {
 		if (str.length() > 0) {
 
 			String pinyin = characterParser.getSelling(str);
@@ -413,5 +461,5 @@ public class DBManager {
 			return "#";
 		}
 	}
-	
+
 }
