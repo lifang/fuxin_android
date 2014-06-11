@@ -103,6 +103,11 @@
         <activity
             android:name="com.fuwu.mobileim.activity.LoginActivity"
             android:launchMode="singleTop" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name="com.fuwu.mobileim.activity.BlockManagementActivity"
@@ -113,11 +118,6 @@
         <activity
             android:name="com.fuwu.mobileim.activity.RegistActivity"
             android:launchMode="singleTop" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.fuwu.mobileim.activity.BackPwdActicity"
