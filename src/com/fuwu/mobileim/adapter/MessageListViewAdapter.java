@@ -6,6 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -17,9 +18,11 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.os.Handler;
 import android.os.Message;
+import android.sax.StartElementListener;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -32,6 +35,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.fuwu.mobileim.R;
+import com.fuwu.mobileim.activity.ZoomImageActivity;
 import com.fuwu.mobileim.model.Models.ChangeContactDetailRequest;
 import com.fuwu.mobileim.model.Models.ChangeContactDetailResponse;
 import com.fuwu.mobileim.model.Models.Contact;
@@ -176,7 +180,12 @@ public class MessageListViewAdapter extends BaseAdapter {
 			holder.sendImg.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					showBigImage("/sdcard/fuXun/" + mp.getContent());
+					Intent intent = new Intent();
+					intent.setClass(mContext, ZoomImageActivity.class);
+					intent.putExtra("image_path",
+							"/sdcard/fuXun/" + mp.getContent());
+					mContext.startActivity(intent);
+					// showBigImage("/sdcard/fuXun/" + mp.getContent());
 				}
 			});
 			holder.mes.setVisibility(View.GONE);
@@ -203,7 +212,7 @@ public class MessageListViewAdapter extends BaseAdapter {
 		LayoutInflater inflater = LayoutInflater.from(mContext);
 		View imgEntryView = inflater.inflate(R.layout.chat_dialog, null); // 加载自定义的布局文件
 		final AlertDialog dialog = new AlertDialog.Builder(mContext).create();
-		ImageView img = (ImageView) imgEntryView.findViewById(R.id.large_image);
+		ImageView img = (ImageView) imgEntryView.findViewById(R.id.zoom_image);
 		ImageCacheUtil.IMAGE_CACHE.get(path, img);
 		dialog.setView(imgEntryView); // 自定义dialog
 		dialog.show();

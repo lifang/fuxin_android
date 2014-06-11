@@ -117,6 +117,9 @@
         <activity
             android:name="com.fuwu.mobileim.activity.BackPwdActicity"
             android:launchMode="singleTop" />
+          <activity
+            android:name="com.fuwu.mobileim.activity.ZoomImageActivity"
+            android:launchMode="singleTop" />
         <activity
             android:name="com.fuwu.mobileim.activity.SystemPushActivity"
             android:launchMode="singleTop" />

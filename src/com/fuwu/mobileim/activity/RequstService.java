@@ -198,6 +198,7 @@ public class RequstService extends Service {
 								TalkPojo tp = new TalkPojo(user_id, contact_id,
 										name, cp.getUserface_url(), str,
 										m.getSendTime(), mesCount);
+								Log.i("FuWu", "tp--" + tp.toString());
 								db.addTalk(tp);
 							}
 						}
@@ -211,8 +212,8 @@ public class RequstService extends Service {
 				Log.i("FuWu", e.toString());
 			} finally {
 				if (scheduledThreadPool.isShutdown()) {
-					scheduledThreadPool.scheduleAtFixedRate(new RequstThread(), 0,
-							10, TimeUnit.SECONDS);
+					scheduledThreadPool.scheduleAtFixedRate(new RequstThread(),
+							0, 10, TimeUnit.SECONDS);
 				}
 			}
 		}
