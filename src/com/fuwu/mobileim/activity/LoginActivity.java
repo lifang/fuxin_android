@@ -1,6 +1,7 @@
 package com.fuwu.mobileim.activity;
 
 import java.io.File;
+import java.net.URL;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -80,8 +81,7 @@ public class LoginActivity extends Activity implements OnClickListener,
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
 		fx = (FxApplication) getApplication();
-		spf = getSharedPreferences(
-				Urlinterface.SHARED, Context.MODE_PRIVATE);
+		spf = getSharedPreferences(Urlinterface.SHARED, 0);
 		findViewById(R.id.regist).setOnClickListener(this);
 		findViewById(R.id.forgetpwd).setOnClickListener(this);
 		findViewById(R.id.login_btn).setOnClickListener(this);
