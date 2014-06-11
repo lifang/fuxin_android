@@ -145,7 +145,7 @@ public class BlockManagementDisplayActivity extends Activity {
 						BitmapFactory.decodeFile(Urlinterface.head_pic + contact.getContactId()));
 				block_display_userface.setImageDrawable(dra);
 			} else {
-				FuXunTools.set_bk(contact.getContactId(),face_str, block_display_userface);
+				block_display_userface.setImageResource(R.drawable.moren);
 			}
 		}
 

@@ -31447,62 +31447,72 @@ public final class Models {
      */
     int getSenderId();
 
-    // optional string senderName = 2;
+    // optional int32 contactId = 2;
     /**
-     * <code>optional string senderName = 2;</code>
+     * <code>optional int32 contactId = 2;</code>
+     */
+    boolean hasContactId();
+    /**
+     * <code>optional int32 contactId = 2;</code>
+     */
+    int getContactId();
+
+    // optional string senderName = 3;
+    /**
+     * <code>optional string senderName = 3;</code>
      */
     boolean hasSenderName();
     /**
-     * <code>optional string senderName = 2;</code>
+     * <code>optional string senderName = 3;</code>
      */
     java.lang.String getSenderName();
     /**
-     * <code>optional string senderName = 2;</code>
+     * <code>optional string senderName = 3;</code>
      */
     com.google.protobuf.ByteString
         getSenderNameBytes();
 
-    // optional string content = 3;
+    // optional string content = 4;
     /**
-     * <code>optional string content = 3;</code>
+     * <code>optional string content = 4;</code>
      */
     boolean hasContent();
     /**
-     * <code>optional string content = 3;</code>
+     * <code>optional string content = 4;</code>
      */
     java.lang.String getContent();
     /**
-     * <code>optional string content = 3;</code>
+     * <code>optional string content = 4;</code>
      */
     com.google.protobuf.ByteString
         getContentBytes();
 
-    // optional string contentType = 4;
+    // optional string contentType = 5;
     /**
-     * <code>optional string contentType = 4;</code>
+     * <code>optional string contentType = 5;</code>
      */
     boolean hasContentType();
     /**
-     * <code>optional string contentType = 4;</code>
+     * <code>optional string contentType = 5;</code>
      */
     java.lang.String getContentType();
     /**
-     * <code>optional string contentType = 4;</code>
+     * <code>optional string contentType = 5;</code>
      */
     com.google.protobuf.ByteString
         getContentTypeBytes();
 
-    // optional string sendTime = 5;
+    // optional string sendTime = 6;
     /**
-     * <code>optional string sendTime = 5;</code>
+     * <code>optional string sendTime = 6;</code>
      */
     boolean hasSendTime();
     /**
-     * <code>optional string sendTime = 5;</code>
+     * <code>optional string sendTime = 6;</code>
      */
     java.lang.String getSendTime();
     /**
-     * <code>optional string sendTime = 5;</code>
+     * <code>optional string sendTime = 6;</code>
      */
     com.google.protobuf.ByteString
         getSendTimeBytes();
@@ -31563,23 +31573,28 @@ public final class Models {
               senderId_ = input.readInt32();
               break;
             }
-            case 18: {
+            case 16: {
               bitField0_ |= 0x00000002;
-              senderName_ = input.readBytes();
+              contactId_ = input.readInt32();
               break;
             }
             case 26: {
               bitField0_ |= 0x00000004;
-              content_ = input.readBytes();
+              senderName_ = input.readBytes();
               break;
             }
             case 34: {
               bitField0_ |= 0x00000008;
-              contentType_ = input.readBytes();
+              content_ = input.readBytes();
               break;
             }
             case 42: {
               bitField0_ |= 0x00000010;
+              contentType_ = input.readBytes();
+              break;
+            }
+            case 50: {
+              bitField0_ |= 0x00000020;
               sendTime_ = input.readBytes();
               break;
             }
@@ -31639,17 +31654,33 @@ public final class Models {
       return senderId_;
     }
 
-    // optional string senderName = 2;
-    public static final int SENDERNAME_FIELD_NUMBER = 2;
-    private java.lang.Object senderName_;
+    // optional int32 contactId = 2;
+    public static final int CONTACTID_FIELD_NUMBER = 2;
+    private int contactId_;
     /**
-     * <code>optional string senderName = 2;</code>
+     * <code>optional int32 contactId = 2;</code>
      */
-    public boolean hasSenderName() {
+    public boolean hasContactId() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
-     * <code>optional string senderName = 2;</code>
+     * <code>optional int32 contactId = 2;</code>
+     */
+    public int getContactId() {
+      return contactId_;
+    }
+
+    // optional string senderName = 3;
+    public static final int SENDERNAME_FIELD_NUMBER = 3;
+    private java.lang.Object senderName_;
+    /**
+     * <code>optional string senderName = 3;</code>
+     */
+    public boolean hasSenderName() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>optional string senderName = 3;</code>
      */
     public java.lang.String getSenderName() {
       java.lang.Object ref = senderName_;
@@ -31666,7 +31697,7 @@ public final class Models {
       }
     }
     /**
-     * <code>optional string senderName = 2;</code>
+     * <code>optional string senderName = 3;</code>
      */
     public com.google.protobuf.ByteString
         getSenderNameBytes() {
@@ -31682,17 +31713,17 @@ public final class Models {
       }
     }
 
-    // optional string content = 3;
-    public static final int CONTENT_FIELD_NUMBER = 3;
+    // optional string content = 4;
+    public static final int CONTENT_FIELD_NUMBER = 4;
     private java.lang.Object content_;
     /**
-     * <code>optional string content = 3;</code>
+     * <code>optional string content = 4;</code>
      */
     public boolean hasContent() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
+      return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
-     * <code>optional string content = 3;</code>
+     * <code>optional string content = 4;</code>
      */
     public java.lang.String getContent() {
       java.lang.Object ref = content_;
@@ -31709,7 +31740,7 @@ public final class Models {
       }
     }
     /**
-     * <code>optional string content = 3;</code>
+     * <code>optional string content = 4;</code>
      */
     public com.google.protobuf.ByteString
         getContentBytes() {
@@ -31725,17 +31756,17 @@ public final class Models {
       }
     }
 
-    // optional string contentType = 4;
-    public static final int CONTENTTYPE_FIELD_NUMBER = 4;
+    // optional string contentType = 5;
+    public static final int CONTENTTYPE_FIELD_NUMBER = 5;
     private java.lang.Object contentType_;
     /**
-     * <code>optional string contentType = 4;</code>
+     * <code>optional string contentType = 5;</code>
      */
     public boolean hasContentType() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
+      return ((bitField0_ & 0x00000010) == 0x00000010);
     }
     /**
-     * <code>optional string contentType = 4;</code>
+     * <code>optional string contentType = 5;</code>
      */
     public java.lang.String getContentType() {
       java.lang.Object ref = contentType_;
@@ -31752,7 +31783,7 @@ public final class Models {
       }
     }
     /**
-     * <code>optional string contentType = 4;</code>
+     * <code>optional string contentType = 5;</code>
      */
     public com.google.protobuf.ByteString
         getContentTypeBytes() {
@@ -31768,17 +31799,17 @@ public final class Models {
       }
     }
 
-    // optional string sendTime = 5;
-    public static final int SENDTIME_FIELD_NUMBER = 5;
+    // optional string sendTime = 6;
+    public static final int SENDTIME_FIELD_NUMBER = 6;
     private java.lang.Object sendTime_;
     /**
-     * <code>optional string sendTime = 5;</code>
+     * <code>optional string sendTime = 6;</code>
      */
     public boolean hasSendTime() {
-      return ((bitField0_ & 0x00000010) == 0x00000010);
+      return ((bitField0_ & 0x00000020) == 0x00000020);
     }
     /**
-     * <code>optional string sendTime = 5;</code>
+     * <code>optional string sendTime = 6;</code>
      */
     public java.lang.String getSendTime() {
       java.lang.Object ref = sendTime_;
@@ -31795,7 +31826,7 @@ public final class Models {
       }
     }
     /**
-     * <code>optional string sendTime = 5;</code>
+     * <code>optional string sendTime = 6;</code>
      */
     public com.google.protobuf.ByteString
         getSendTimeBytes() {
@@ -31813,6 +31844,7 @@ public final class Models {
 
     private void initFields() {
       senderId_ = 0;
+      contactId_ = 0;
       senderName_ = "";
       content_ = "";
       contentType_ = "";
@@ -31834,16 +31866,19 @@ public final class Models {
         output.writeInt32(1, senderId_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeBytes(2, getSenderNameBytes());
+        output.writeInt32(2, contactId_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeBytes(3, getContentBytes());
+        output.writeBytes(3, getSenderNameBytes());
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeBytes(4, getContentTypeBytes());
+        output.writeBytes(4, getContentBytes());
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        output.writeBytes(5, getSendTimeBytes());
+        output.writeBytes(5, getContentTypeBytes());
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        output.writeBytes(6, getSendTimeBytes());
       }
       getUnknownFields().writeTo(output);
     }
@@ -31860,19 +31895,23 @@ public final class Models {
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(2, getSenderNameBytes());
+          .computeInt32Size(2, contactId_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(3, getContentBytes());
+          .computeBytesSize(3, getSenderNameBytes());
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(4, getContentTypeBytes());
+          .computeBytesSize(4, getContentBytes());
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(5, getSendTimeBytes());
+          .computeBytesSize(5, getContentTypeBytes());
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(6, getSendTimeBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -31992,14 +32031,16 @@ public final class Models {
         super.clear();
         senderId_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
-        senderName_ = "";
+        contactId_ = 0;
         bitField0_ = (bitField0_ & ~0x00000002);
-        content_ = "";
+        senderName_ = "";
         bitField0_ = (bitField0_ & ~0x00000004);
-        contentType_ = "";
+        content_ = "";
         bitField0_ = (bitField0_ & ~0x00000008);
-        sendTime_ = "";
+        contentType_ = "";
         bitField0_ = (bitField0_ & ~0x00000010);
+        sendTime_ = "";
+        bitField0_ = (bitField0_ & ~0x00000020);
         return this;
       }
 
@@ -32035,17 +32076,21 @@ public final class Models {
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
-        result.senderName_ = senderName_;
+        result.contactId_ = contactId_;
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
-        result.content_ = content_;
+        result.senderName_ = senderName_;
         if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
           to_bitField0_ |= 0x00000008;
         }
-        result.contentType_ = contentType_;
+        result.content_ = content_;
         if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
           to_bitField0_ |= 0x00000010;
+        }
+        result.contentType_ = contentType_;
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000020;
         }
         result.sendTime_ = sendTime_;
         result.bitField0_ = to_bitField0_;
@@ -32067,23 +32112,26 @@ public final class Models {
         if (other.hasSenderId()) {
           setSenderId(other.getSenderId());
         }
+        if (other.hasContactId()) {
+          setContactId(other.getContactId());
+        }
         if (other.hasSenderName()) {
-          bitField0_ |= 0x00000002;
+          bitField0_ |= 0x00000004;
           senderName_ = other.senderName_;
           onChanged();
         }
         if (other.hasContent()) {
-          bitField0_ |= 0x00000004;
+          bitField0_ |= 0x00000008;
           content_ = other.content_;
           onChanged();
         }
         if (other.hasContentType()) {
-          bitField0_ |= 0x00000008;
+          bitField0_ |= 0x00000010;
           contentType_ = other.contentType_;
           onChanged();
         }
         if (other.hasSendTime()) {
-          bitField0_ |= 0x00000010;
+          bitField0_ |= 0x00000020;
           sendTime_ = other.sendTime_;
           onChanged();
         }
@@ -32147,16 +32195,49 @@ public final class Models {
         return this;
       }
 
-      // optional string senderName = 2;
-      private java.lang.Object senderName_ = "";
+      // optional int32 contactId = 2;
+      private int contactId_ ;
       /**
-       * <code>optional string senderName = 2;</code>
+       * <code>optional int32 contactId = 2;</code>
        */
-      public boolean hasSenderName() {
+      public boolean hasContactId() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
-       * <code>optional string senderName = 2;</code>
+       * <code>optional int32 contactId = 2;</code>
+       */
+      public int getContactId() {
+        return contactId_;
+      }
+      /**
+       * <code>optional int32 contactId = 2;</code>
+       */
+      public Builder setContactId(int value) {
+        bitField0_ |= 0x00000002;
+        contactId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 contactId = 2;</code>
+       */
+      public Builder clearContactId() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        contactId_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // optional string senderName = 3;
+      private java.lang.Object senderName_ = "";
+      /**
+       * <code>optional string senderName = 3;</code>
+       */
+      public boolean hasSenderName() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>optional string senderName = 3;</code>
        */
       public java.lang.String getSenderName() {
         java.lang.Object ref = senderName_;
@@ -32170,7 +32251,7 @@ public final class Models {
         }
       }
       /**
-       * <code>optional string senderName = 2;</code>
+       * <code>optional string senderName = 3;</code>
        */
       public com.google.protobuf.ByteString
           getSenderNameBytes() {
@@ -32186,51 +32267,51 @@ public final class Models {
         }
       }
       /**
-       * <code>optional string senderName = 2;</code>
+       * <code>optional string senderName = 3;</code>
        */
       public Builder setSenderName(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
+  bitField0_ |= 0x00000004;
         senderName_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string senderName = 2;</code>
+       * <code>optional string senderName = 3;</code>
        */
       public Builder clearSenderName() {
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000004);
         senderName_ = getDefaultInstance().getSenderName();
         onChanged();
         return this;
       }
       /**
-       * <code>optional string senderName = 2;</code>
+       * <code>optional string senderName = 3;</code>
        */
       public Builder setSenderNameBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
+  bitField0_ |= 0x00000004;
         senderName_ = value;
         onChanged();
         return this;
       }
 
-      // optional string content = 3;
+      // optional string content = 4;
       private java.lang.Object content_ = "";
       /**
-       * <code>optional string content = 3;</code>
+       * <code>optional string content = 4;</code>
        */
       public boolean hasContent() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
+        return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
-       * <code>optional string content = 3;</code>
+       * <code>optional string content = 4;</code>
        */
       public java.lang.String getContent() {
         java.lang.Object ref = content_;
@@ -32244,7 +32325,7 @@ public final class Models {
         }
       }
       /**
-       * <code>optional string content = 3;</code>
+       * <code>optional string content = 4;</code>
        */
       public com.google.protobuf.ByteString
           getContentBytes() {
@@ -32260,51 +32341,51 @@ public final class Models {
         }
       }
       /**
-       * <code>optional string content = 3;</code>
+       * <code>optional string content = 4;</code>
        */
       public Builder setContent(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000004;
+  bitField0_ |= 0x00000008;
         content_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string content = 3;</code>
+       * <code>optional string content = 4;</code>
        */
       public Builder clearContent() {
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000008);
         content_ = getDefaultInstance().getContent();
         onChanged();
         return this;
       }
       /**
-       * <code>optional string content = 3;</code>
+       * <code>optional string content = 4;</code>
        */
       public Builder setContentBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000004;
+  bitField0_ |= 0x00000008;
         content_ = value;
         onChanged();
         return this;
       }
 
-      // optional string contentType = 4;
+      // optional string contentType = 5;
       private java.lang.Object contentType_ = "";
       /**
-       * <code>optional string contentType = 4;</code>
+       * <code>optional string contentType = 5;</code>
        */
       public boolean hasContentType() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
+        return ((bitField0_ & 0x00000010) == 0x00000010);
       }
       /**
-       * <code>optional string contentType = 4;</code>
+       * <code>optional string contentType = 5;</code>
        */
       public java.lang.String getContentType() {
         java.lang.Object ref = contentType_;
@@ -32318,7 +32399,7 @@ public final class Models {
         }
       }
       /**
-       * <code>optional string contentType = 4;</code>
+       * <code>optional string contentType = 5;</code>
        */
       public com.google.protobuf.ByteString
           getContentTypeBytes() {
@@ -32334,51 +32415,51 @@ public final class Models {
         }
       }
       /**
-       * <code>optional string contentType = 4;</code>
+       * <code>optional string contentType = 5;</code>
        */
       public Builder setContentType(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000008;
+  bitField0_ |= 0x00000010;
         contentType_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string contentType = 4;</code>
+       * <code>optional string contentType = 5;</code>
        */
       public Builder clearContentType() {
-        bitField0_ = (bitField0_ & ~0x00000008);
+        bitField0_ = (bitField0_ & ~0x00000010);
         contentType_ = getDefaultInstance().getContentType();
         onChanged();
         return this;
       }
       /**
-       * <code>optional string contentType = 4;</code>
+       * <code>optional string contentType = 5;</code>
        */
       public Builder setContentTypeBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000008;
+  bitField0_ |= 0x00000010;
         contentType_ = value;
         onChanged();
         return this;
       }
 
-      // optional string sendTime = 5;
+      // optional string sendTime = 6;
       private java.lang.Object sendTime_ = "";
       /**
-       * <code>optional string sendTime = 5;</code>
+       * <code>optional string sendTime = 6;</code>
        */
       public boolean hasSendTime() {
-        return ((bitField0_ & 0x00000010) == 0x00000010);
+        return ((bitField0_ & 0x00000020) == 0x00000020);
       }
       /**
-       * <code>optional string sendTime = 5;</code>
+       * <code>optional string sendTime = 6;</code>
        */
       public java.lang.String getSendTime() {
         java.lang.Object ref = sendTime_;
@@ -32392,7 +32473,7 @@ public final class Models {
         }
       }
       /**
-       * <code>optional string sendTime = 5;</code>
+       * <code>optional string sendTime = 6;</code>
        */
       public com.google.protobuf.ByteString
           getSendTimeBytes() {
@@ -32408,36 +32489,36 @@ public final class Models {
         }
       }
       /**
-       * <code>optional string sendTime = 5;</code>
+       * <code>optional string sendTime = 6;</code>
        */
       public Builder setSendTime(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000010;
+  bitField0_ |= 0x00000020;
         sendTime_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string sendTime = 5;</code>
+       * <code>optional string sendTime = 6;</code>
        */
       public Builder clearSendTime() {
-        bitField0_ = (bitField0_ & ~0x00000010);
+        bitField0_ = (bitField0_ & ~0x00000020);
         sendTime_ = getDefaultInstance().getSendTime();
         onChanged();
         return this;
       }
       /**
-       * <code>optional string sendTime = 5;</code>
+       * <code>optional string sendTime = 6;</code>
        */
       public Builder setSendTimeBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000010;
+  bitField0_ |= 0x00000020;
         sendTime_ = value;
         onChanged();
         return this;
@@ -33986,16 +34067,17 @@ public final class Models {
       "ion\030\004 \001(\t\022\021\n\tclientUrl\030\005 \001(\t\022\025\n\rhasNewVe" +
       "rsion\030\006 \001(\010\"C\n\rErrorCodeType\022\021\n\rInvalidU" +
       "serId\020\001\022\020\n\014InvalidToken\020\002\022\r\n\tAuthError\020\003" +
-      "\"k\n\013MessagePush\022\020\n\010senderId\030\001 \001(\005\022\022\n\nsen" +
-      "derName\030\002 \001(\t\022\017\n\007content\030\003 \001(\t\022\023\n\013conten" +
-      "tType\030\004 \001(\t\022\020\n\010sendTime\030\005 \001(\t\"\014\n\nNoticeP" +
-      "ush\"\347\001\n\013PushRequest\022?\n\010pushType\030\001 \001(\0162-." +
-      "Com.Fuwu.MobileIM.Model.PushRequest.Push",
-      "Type\0229\n\013messagePush\030\002 \001(\0132$.Com.Fuwu.Mob" +
-      "ileIM.Model.MessagePush\0227\n\nnoticePush\030\003 " +
-      "\001(\0132#.Com.Fuwu.MobileIM.Model.NoticePush" +
-      "\"#\n\010PushType\022\013\n\007Message\020\000\022\n\n\006Notice\020\001B\031\n" +
-      "\027com.fuwu.mobileim.model"
+      "\"~\n\013MessagePush\022\020\n\010senderId\030\001 \001(\005\022\021\n\tcon" +
+      "tactId\030\002 \001(\005\022\022\n\nsenderName\030\003 \001(\t\022\017\n\007cont" +
+      "ent\030\004 \001(\t\022\023\n\013contentType\030\005 \001(\t\022\020\n\010sendTi" +
+      "me\030\006 \001(\t\"\014\n\nNoticePush\"\347\001\n\013PushRequest\022?" +
+      "\n\010pushType\030\001 \001(\0162-.Com.Fuwu.MobileIM.Mod",
+      "el.PushRequest.PushType\0229\n\013messagePush\030\002" +
+      " \001(\0132$.Com.Fuwu.MobileIM.Model.MessagePu" +
+      "sh\0227\n\nnoticePush\030\003 \001(\0132#.Com.Fuwu.Mobile" +
+      "IM.Model.NoticePush\"#\n\010PushType\022\013\n\007Messa" +
+      "ge\020\000\022\n\n\006Notice\020\001B\031\n\027com.fuwu.mobileim.mo" +
+      "del"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -34217,7 +34299,7 @@ public final class Models {
           internal_static_Com_Fuwu_MobileIM_Model_MessagePush_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_Com_Fuwu_MobileIM_Model_MessagePush_descriptor,
-              new java.lang.String[] { "SenderId", "SenderName", "Content", "ContentType", "SendTime", });
+              new java.lang.String[] { "SenderId", "ContactId", "SenderName", "Content", "ContentType", "SendTime", });
           internal_static_Com_Fuwu_MobileIM_Model_NoticePush_descriptor =
             getDescriptor().getMessageTypes().get(36);
           internal_static_Com_Fuwu_MobileIM_Model_NoticePush_fieldAccessorTable = new

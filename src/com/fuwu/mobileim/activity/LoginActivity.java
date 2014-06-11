@@ -1,10 +1,15 @@
 package com.fuwu.mobileim.activity;
 
+import java.io.File;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,7 +17,6 @@ import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -79,14 +83,16 @@ public class LoginActivity extends Activity implements OnClickListener,
 		findViewById(R.id.regist).setOnClickListener(this);
 		findViewById(R.id.forgetpwd).setOnClickListener(this);
 		findViewById(R.id.login_btn).setOnClickListener(this);
+		Display display = getWindowManager().getDefaultDisplay();
+		int width = display.getWidth();
+		int a = display.getHeight();
+		Log.i("linshi", "display.getHeight()xdisplay.getWidth():" + a + "x"
+				+ width);
+		fx.setWidth(width);
 		initialize();// 初始化
 		// 百度统计
 		StatService.setOn(this, StatService.EXCEPTION_LOG);
 
-		Display display = this.getWindowManager().getDefaultDisplay();
-		int width = display.getWidth();
-		int height = display.getHeight();
-		Log.i("Max", "w:" + width + "/h:" + height);
 	}
 
 	// 初始化
@@ -95,16 +101,23 @@ public class LoginActivity extends Activity implements OnClickListener,
 		pwd_text = (EditText) findViewById(R.id.pwd);
 		CircularImage head = (CircularImage) findViewById(R.id.head);
 		int uid = spf.getInt("user_id", 0);
+		Log.i("fx", Urlinterface.head_pic + uid);
 		if (uid != 0) {
-			FuXunTools.set_img(uid, head);
+			File file = new File(Urlinterface.head_pic, uid + "");
+			if (file.exists()) {
+				@SuppressWarnings("deprecation")
+				Drawable dra = new BitmapDrawable(
+						BitmapFactory.decodeFile(Urlinterface.head_pic + uid));
+				head.setImageDrawable(dra);
+			}
 		}
 		String user = spf.getString("user", "null");
 		// user_text.setText("MockUserName");
 		// user_text.setText("15862373890");
 		// user_text.setText("18913536561");
 		// user_text.setText("15862373890");
-		user_text.setText("18711111120");
-		pwd_text.setText("111111");
+		// user_text.setText("18711111120");
+		// pwd_text.setText("111111");
 		if (!user.equals("null")) {
 			user_text.setText(user);
 		}

@@ -12,14 +12,15 @@ public class ProfilePojo {
 	private String mobile;// 手机号码
 	private String email;// 邮箱
 	private String birthday;// 生日
-	private boolean isAuthentication;// 福师
+	private boolean isAuthentication;// 实名认证
+	private String fuZhi;// 福值
 	
 	public ProfilePojo() {
 	}
 
 	public ProfilePojo(int userId, String name, String nickName, int gender,
 			String tileUrl, boolean isProvider, String lisence, String mobile,
-			String email, String birthday, boolean isAuthentication) {
+			String email, String birthday, boolean isAuthentication , String fuZhi) {
 		super();
 		this.userId = userId;
 		this.name = name;
@@ -32,6 +33,16 @@ public class ProfilePojo {
 		this.email = email;
 		this.birthday = birthday;
 		this.isAuthentication = isAuthentication;
+		this.fuZhi = fuZhi;
+	}
+
+	
+	public String getFuZhi() {
+		return fuZhi;
+	}
+
+	public void setFuZhi(String fuZhi) {
+		this.fuZhi = fuZhi;
 	}
 
 	public int getUserId() {

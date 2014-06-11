@@ -215,7 +215,6 @@ public class FragmengtActivity extends FragmentActivity {
 			Thread thread = new Thread(new getContacts());
 			thread.start();
 		} else {
-			// list.get(1).onStart();
 			Log.i("Ax", "加载本地联系人");
 		}
 	}
@@ -468,14 +467,29 @@ public class FragmengtActivity extends FragmentActivity {
 	 * 改变“褔务网v1.0” 的 样式
 	 */
 	public void changeTitleStyle() {
+		int width = fxApplication.getWidth();
 		TextView tv = (TextView) findViewById(R.id.contact_title);
 		String tv_str = (String) tv.getText().toString();
 		SpannableStringBuilder style2 = new SpannableStringBuilder(tv_str);
-		style2.setSpan(new AbsoluteSizeSpan(40), 0, 3,
-				Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-		style2.setSpan(new AbsoluteSizeSpan(25), 3, tv_str.length(),
-				Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-		tv.setText(style2);
+
+		switch (width) {
+		case 480:
+			style2.setSpan(new AbsoluteSizeSpan(30), 0, 3,
+					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+			style2.setSpan(new AbsoluteSizeSpan(20), 3, tv_str.length(),
+					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+			tv.setText(style2);
+			break;
+
+		default:
+			style2.setSpan(new AbsoluteSizeSpan(40), 0, 3,
+					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+			style2.setSpan(new AbsoluteSizeSpan(25), 3, tv_str.length(),
+					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+			tv.setText(style2);
+			break;
+		}
+
 	}
 
 	/**

@@ -138,7 +138,6 @@ public class RequstService extends Service {
 		public void run() {
 			super.run();
 			try {
-				Log.i("FuWu", "starService------");
 				MessageRequest.Builder builder = MessageRequest.newBuilder();
 				Log.i("Ax", "timeStamp:" + getTimeStamp());
 				builder.setUserId(fx.getUser_id());
@@ -204,13 +203,17 @@ public class RequstService extends Service {
 						}
 						db.addMessageList(list);
 					}
-					Log.i("FuWu", "sendBroadcast!!!");
 					Intent intnet = new Intent(
 							"com.comdosoft.fuxun.REQUEST_ACTION");
 					sendBroadcast(intnet);
 				}
 			} catch (InvalidProtocolBufferException e) {
 				Log.i("FuWu", e.toString());
+			} finally {
+				if (scheduledThreadPool.isShutdown()) {
+					scheduledThreadPool.scheduleAtFixedRate(new RequstThread(), 0,
+							10, TimeUnit.SECONDS);
+				}
 			}
 		}
 	}

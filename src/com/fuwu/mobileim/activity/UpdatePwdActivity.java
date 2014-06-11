@@ -2,6 +2,7 @@ package com.fuwu.mobileim.activity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -54,6 +55,7 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 	private TextView new_pwds_tag;
 	private FxApplication fx;
 	private String error_code;
+	private ProgressDialog prodialog;
 	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
@@ -64,6 +66,7 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 						Toast.LENGTH_SHORT).show();
 				break;
 			case 1:
+				prodialog.dismiss();
 				showLoginDialog();
 				break;
 			case 2:
@@ -79,6 +82,7 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 				}
 				break;
 			case 3:
+				prodialog.dismiss();
 				if (!error_code.equals("")) {
 					String errorString = fx.error_map.get(error_code);
 					if (errorString == null) {
@@ -228,6 +232,10 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 			break;
 		case R.id.update_over:
 			if (FuXunTools.isConnect(this)) {
+				prodialog = new ProgressDialog(UpdatePwdActivity.this);
+				prodialog.setMessage("努力连接中..");
+				prodialog.setCanceledOnTouchOutside(false);
+				prodialog.show();
 				new Thread(new UpdatePwd_Post()).start();
 			} else {
 				Toast.makeText(UpdatePwdActivity.this, R.string.no_internet,

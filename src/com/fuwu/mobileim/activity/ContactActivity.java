@@ -107,9 +107,9 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 							contactsList.get(i));
 					String url = Urlinterface.IP
 							+ contactsList.get(i).getUserface_url();
-					FuXunTools.getBitmap(contactsList.get(i).getContactId(),
-							url);
+
 				}
+				FuXunTools.getBitmap(contactsList);
 				contactsList = db.queryContactList(fxApplication.getUser_id());
 
 				// 根据a-z进行排序源数据

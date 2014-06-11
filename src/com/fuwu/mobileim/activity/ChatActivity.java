@@ -9,6 +9,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -112,6 +113,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 	private EditText msgEt;
 	private MessagePojo mp;
 	private FxApplication fx;
+	private ProgressDialog pd;
 	private PopupWindow menuWindow;
 	private MessageListViewAdapter mMessageAdapter;
 	private DBManager db;
@@ -126,6 +128,9 @@ public class ChatActivity extends Activity implements OnClickListener,
 		@Override
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
+			if (msg.what == 5 || msg.what == 6 || msg.what == 7) {
+				progressDialogDismiss();
+			}
 			switch (msg.what) {
 			case 0:
 				Toast.makeText(getApplicationContext(), "请求失败!", 0).show();
@@ -170,7 +175,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 		initView();
 		initFacePage();
 		initPlusGridView();
-
+		Log.i("FuWu", "oncreate");
 	}
 
 	public void initData() {
@@ -184,8 +189,8 @@ public class ChatActivity extends Activity implements OnClickListener,
 		keys = new ArrayList<String>();
 		keys.addAll(keySet);
 		user_id = fx.getUser_id();
-		contact_id = user_id;
-		// contact_id = intent.getIntExtra("contact_id", 0);
+		// contact_id = user_id;
+		contact_id = intent.getIntExtra("contact_id", 0);
 		cp = db.queryContact(user_id, contact_id);
 		Log.i("Ax", "contact_id:" + intent.getIntExtra("contact_id", 0));
 		updateMessageData();
@@ -261,7 +266,8 @@ public class ChatActivity extends Activity implements OnClickListener,
 			}
 		});
 		mName.setText(getContactName());
-
+		pd = new ProgressDialog(this);
+		pd.setMessage("正在发送图片...");
 		mMessageAdapter = new MessageListViewAdapter(getResources(), this,
 				list, cp, user_id, fx.getToken());
 		mListView.setAdapter(mMessageAdapter);
@@ -410,6 +416,12 @@ public class ChatActivity extends Activity implements OnClickListener,
 				}
 			}
 		});
+	}
+
+	public void progressDialogDismiss() {
+		if (pd.isShowing()) {
+			pd.dismiss();
+		}
 	}
 
 	public String getContactName() {
@@ -626,7 +638,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 			}
 			break;
 		case R.id.plus_btn:
-//			Log.i("FuWu", "service:" + isServiceRunning());
+			// Log.i("FuWu", "service:" + isServiceRunning());
 			if (!isPlusShow) {
 				if (isFaceShow) {
 					isFaceShow = false;
@@ -742,6 +754,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 		if (resultCode == RESULT_OK) {
 			switch (requestCode) {
 			case 1:
+				pd.show();
 				Uri imgUri = data.getData();
 				String[] proj = { MediaStore.Images.Media.DATA };
 				Cursor cursor = managedQuery(imgUri, proj, null, null, null);
@@ -752,6 +765,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 				loadImageExecutor.execute(new LoadImage(path));
 				break;
 			case 2:
+				pd.show();
 				Bundle bundle = data.getExtras();
 				if (bundle != null) {
 					Bitmap bitmap = (Bitmap) bundle.get("data");

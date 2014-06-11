@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -35,6 +36,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.fuwu.mobileim.R;
+import com.fuwu.mobileim.pojo.ContactPojo;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
@@ -275,52 +277,55 @@ public class FuXunTools {
 	/*
 	 * 获得头像并以个人的id 作为文件名，保存到 /fuXun/head_pic/ 中
 	 */
-	public static void getBitmap(final int contactId, final String url) {
+	public static void getBitmap(final List<ContactPojo> contactsList) {
 
 		Thread thread = new Thread() {
 			public void run() {
 				Drawable face_drawable;
 				try {
-					Log.i("linshi------------", url);
-					URL myurl = new URL(url);
-					// 获得连接
-					HttpURLConnection conn = (HttpURLConnection) myurl
-							.openConnection();
-					conn.setConnectTimeout(6000);// 设置超时
-					conn.setDoInput(true);
-					conn.setUseCaches(false);// 不缓存
-					conn.connect();
-					InputStream is = conn.getInputStream();// 获得图片的数据流
-					// bm =decodeSampledBitmapFromStream(is,150,150);
+					for (int i = 0; i < contactsList.size(); i++) {
 
-					BitmapFactory.Options options = new BitmapFactory.Options();
-					options.inJustDecodeBounds = false;
-					// options.outWidth = 159;
-					// options.outHeight = 159;
-					options.inSampleSize = 1;
-					bm = BitmapFactory.decodeStream(is, null, options);
-					Log.i("linshi", bm.getWidth() + "---" + bm.getHeight());
-					is.close();
-					if (bm != null) {
-						Log.i("linshi",
-								bm.getWidth() + "---2---" + bm.getHeight());
-						File f = new File(Urlinterface.head_pic, contactId + "");
+						URL myurl = new URL(contactsList.get(i)
+								.getUserface_url());
+						// 获得连接
+						HttpURLConnection conn = (HttpURLConnection) myurl
+								.openConnection();
+						conn.setConnectTimeout(6000);// 设置超时
+						conn.setDoInput(true);
+						conn.setUseCaches(false);// 不缓存
+						conn.connect();
+						InputStream is = conn.getInputStream();// 获得图片的数据流
+						// bm =decodeSampledBitmapFromStream(is,150,150);
 
-						if (f.exists()) {
-							f.delete();
+						BitmapFactory.Options options = new BitmapFactory.Options();
+						options.inJustDecodeBounds = false;
+						options.inSampleSize = 1;
+						bm = BitmapFactory.decodeStream(is, null, options);
+						Log.i("linshi", bm.getWidth() + "---" + bm.getHeight());
+						is.close();
+						if (bm != null) {
+							Log.i("linshi",
+									bm.getWidth() + "---2---" + bm.getHeight());
+							File f = new File(Urlinterface.head_pic,
+									contactsList.get(i).getContactId() + "");
+
+							if (f.exists()) {
+								f.delete();
+							}
+							if (!f.getParentFile().exists()) {
+								f.getParentFile().mkdirs();
+							}
+							Log.i("linshi", "----1");
+							FileOutputStream out = new FileOutputStream(f);
+							Log.i("linshi", "----6");
+							bm.compress(Bitmap.CompressFormat.PNG, 60, out);
+							out.flush();
+							out.close();
+							
+							Log.i("linshi", "已经保存");
 						}
-						if (!f.getParentFile().exists()) {
-							f.getParentFile().mkdirs();
-						}
-						Log.i("linshi", "----1");
-						FileOutputStream out = new FileOutputStream(f);
-						Log.i("linshi", "----6");
-						bm.compress(Bitmap.CompressFormat.PNG, 60, out);
-						out.flush();
-						out.close();
-						Log.i("linshi", "已经保存");
 					}
-
+					ImageCacheUtil.IMAGE_CACHE.clear();
 				} catch (Exception e) {
 					Log.i("linshi", "发生异常");
 					// Log.i("linshi", url);

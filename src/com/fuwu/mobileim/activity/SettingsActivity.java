@@ -19,6 +19,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -163,56 +164,35 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 				Urlinterface.SHARED, Context.MODE_PRIVATE);
 
 		int profile_userid = preferences.getInt("profile_userid", -1);
-		if (profile_userid != -1
-				&& profile_userid == fxApplication.getUser_id()) {
-			Log.i("linshi------------", "profileprofileprofileprofile本地shuju");
-
-			profilePojo = getProfilePojo();
-			handler.sendEmptyMessage(0);
-
-		} else {
-			Thread thread = new Thread(new getProfile());
-			thread.start();
-		}
+		// if (profile_userid != -1
+		// && profile_userid == fxApplication.getUser_id()) {
+		// Log.i("linshi------------", "profileprofileprofileprofile本地shuju");
+		//
+		// profilePojo = getProfilePojo();
+		// handler.sendEmptyMessage(0);
+		//
+		// } else {
+		Thread thread = new Thread(new getProfile());
+		thread.start();
+		// }
 
 		return rootView;
 	}
 
 	@Override
-	public void onResume() {
-		// TODO Auto-generated method stub
-		super.onResume();
-		StatService.onResume(this);
-		profilePojo = getProfilePojo();
-		handler.sendEmptyMessage(0);
-	}
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-	/**
-	 * 获得本地存储的 个人信息
-	 */
-	private ProfilePojo getProfilePojo() {
+		switch (resultCode) {
+		case -11:
+			profilePojo = fxApplication.getProfilePojo();
+			handler.sendEmptyMessage(0);
+			break;
+		default:
+			break;
 
-		SharedPreferences preferences = getActivity().getSharedPreferences(
-				Urlinterface.SHARED, Context.MODE_PRIVATE);
+		}
+		super.onActivityResult(requestCode, resultCode, data);
 
-		int profile_userid = preferences.getInt("profile_userid", -1);
-		String name = preferences.getString("profile_name", "");// 名称
-		String nickName = preferences.getString("profile_nickName", "");// 昵称
-		int gender = preferences.getInt("profile_gender", -1);// 性别
-		String tileUrl = preferences.getString("profile_tileUrl", "");// 头像
-		Boolean isProvider = preferences
-				.getBoolean("profile_isProvider", false);//
-		String lisence = preferences.getString("profile_lisence", "");// 行业认证
-		String mobile = preferences.getString("profile_mobile", "");// 手机号码
-		String email = preferences.getString("profile_email", "");// 邮箱
-		String birthday = preferences.getString("profile_birthday", "");// 生日
-		Boolean isAuthentication = preferences.getBoolean(
-				"profile_isAuthentication", false);//
-		profilePojo = new ProfilePojo(profile_userid, name, nickName, gender,
-				tileUrl, isProvider, lisence, mobile, email, birthday,
-				isAuthentication);
-
-		return profilePojo;
 	}
 
 	/**
@@ -247,11 +227,11 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 						String email = res.getProfile().getEmail();// 邮箱
 						String birthday = res.getProfile().getBirthday();// 生日
 						Boolean isAuthentication = res.getProfile()
-								.getIsAuthentication();//
+								.getIsAuthentication();// 实名认证
+						String fuzhi = res.getProfile().getFuzhi();// 福值
 						profilePojo = new ProfilePojo(userId, name, nickName,
 								gender, tileUrl, isProvider, lisence, mobile,
-								email, birthday, isAuthentication);
-						putProfile(profilePojo);
+								email, birthday, isAuthentication, fuzhi);
 						Log.i("linshi", "  --nickName" + nickName
 								+ "  --gender" + gender + "  --tileUrl"
 								+ tileUrl + "  --lisence" + lisence
@@ -273,26 +253,6 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 				handler.sendEmptyMessage(7);
 			}
 		}
-	}
-
-	private void putProfile(ProfilePojo pro) {
-		SharedPreferences preferences = getActivity().getSharedPreferences(
-				Urlinterface.SHARED, Context.MODE_PRIVATE);
-		Editor editor = preferences.edit();
-		editor.putInt("profile_userid", pro.getUserId());
-		editor.putString("profile_name", pro.getName());
-		editor.putString("profile_nickName", pro.getNickName());
-		editor.putInt("profile_gender", pro.getGender());
-		editor.putString("profile_tileUrl", pro.getTileUrl());
-		editor.putBoolean("profile_isProvider", pro.getIsProvider());
-		editor.putString("profile_lisence", pro.getLisence());
-		editor.putString("profile_mobile", pro.getMobile());
-		editor.putString("profile_email", pro.getEmail());
-		editor.putString("profile_birthday", pro.getBirthday());
-		editor.putBoolean("profile_isAuthentication", pro.getIsAuthentication());
-
-		editor.commit();
-
 	}
 
 	/**
@@ -342,18 +302,18 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		String face_str = profilePojo.getTileUrl();
 		Log.i("Ax", "profilePojo.getTileUrl()" + profilePojo.getTileUrl());
 		if (face_str.length() > 4) {
-			File f = new File(Urlinterface.head_pic, profilePojo.getUserId()
-					+ "");
-			if (f.exists()) {
-				Log.i("linshi------------", "加载本地图片");
-				Drawable dra = new BitmapDrawable(
-						BitmapFactory.decodeFile(Urlinterface.head_pic
-								+ profilePojo.getUserId()));
-				setting_userface.setImageDrawable(dra);
-			} else {
-				FuXunTools.set_bk(profilePojo.getUserId(), face_str,
-						setting_userface);
-			}
+			// File f = new File(Urlinterface.head_pic, profilePojo.getUserId()
+			// + "");
+			// if (f.exists()) {
+			Log.i("linshi------------", "加载本地图片");
+			// Drawable dra = new BitmapDrawable(
+			// BitmapFactory.decodeFile(Urlinterface.head_pic
+			// + profilePojo.getUserId()));
+			// setting_userface.setImageDrawable(dra);
+			// } else {
+			FuXunTools.set_bk(profilePojo.getUserId(), face_str,
+					setting_userface);
+			// }
 		} else {
 			setting_userface.setImageResource(R.drawable.moren);
 		}
@@ -400,7 +360,7 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 			// Toast.LENGTH_LONG).show();
 			Intent intent = new Intent();
 			intent.setClass(getActivity(), MyInformationActivity.class);
-			startActivity(intent);
+			startActivityForResult(intent, 0);
 		}
 	};
 
@@ -435,13 +395,13 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 			intent.setClass(getActivity(), BlockManagementActivity.class);
 			startActivity(intent);
 			break;
-		case 5:// 系统公告管理
-				// intent.setClass(getActivity(), SystemPushActivity.class);
-				// startActivity(intent);
-			Toast.makeText(getActivity().getApplication(), "该功能暂不实现",
-					Toast.LENGTH_LONG).show();
-			break;
-		case 6:// 退出登录
+		// case 5:// 系统公告管理
+		// // intent.setClass(getActivity(), SystemPushActivity.class);
+		// // startActivity(intent);
+		// Toast.makeText(getActivity().getApplication(), "该功能暂不实现",
+		// Toast.LENGTH_LONG).show();
+		// break;
+		case 5:// 退出登录
 			intent.setClass(getActivity(), LoginActivity.class);
 			startActivity(intent);
 			clearActivity();

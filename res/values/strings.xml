@@ -42,6 +42,7 @@
     <string name="my_info">我的信息</string>
     <string name="my_info_userface">头像：</string>
     <string name="my_info_nickname">昵称：</string>
+    <string name="my_info_fuzhi">福值：</string>
     <string name="my_info_certification">行业认证：</string>
     <string name="my_info_classtype">课程类别：</string>
     <string name="my_info_mobile">手机号码：</string>
