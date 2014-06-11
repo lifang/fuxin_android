@@ -84,7 +84,8 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 	private String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ#";
 	SideBar b;
 	private int adapter_number = 1;
-	int user_id=0;
+	int user_id = 0;
+	int version = 0;
 	private Handler handler = new Handler() {
 		/*
 		 * (non-Javadoc)
@@ -114,15 +115,14 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 				if (!db.isOpen()) {
 					db = new DBManager(getActivity());
 				}
-				if (contactsList.size()==0) {
+				if (contactsList.size() == 0) {
 					Toast.makeText(getActivity(), "没有数据更新", Toast.LENGTH_SHORT)
-					.show();
-				}else {
+							.show();
+				} else {
 					for (int i = 0; i < contactsList.size(); i++) {
-						db.modifyContact(user_id,
-								contactsList.get(i));
-						String url =contactsList.get(i).getUserface_url();
-						
+						db.modifyContact(user_id, contactsList.get(i));
+						String url = contactsList.get(i).getUserface_url();
+
 					}
 					FuXunTools.getBitmap(contactsList);
 				}
@@ -136,7 +136,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 				adapter1.updateListView(contactsList);
 				onLoad();
 				break;
-				
+
 			case 6:
 				Toast.makeText(getActivity(), "请求失败", Toast.LENGTH_SHORT)
 						.show();
@@ -158,22 +158,17 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		adapter1 = new ContactAdapter(getActivity(), contactsList, 1);
 		adapter2 = new ContactAdapter(getActivity(), contactsList, 0);
 		db = new DBManager(getActivity());
+		String release = android.os.Build.VERSION.RELEASE; // android系统版本号
+		version = Integer.parseInt(release.substring(0, 1));
 		SharedPreferences preferences = getActivity().getSharedPreferences(
 				Urlinterface.SHARED, Context.MODE_PRIVATE);
 
-		 user_id = preferences.getInt("user_id", -1);
+		user_id = preferences.getInt("user_id", -1);
 		longDataComparator = new LongDataComparator();
 		// 实例化汉字转拼音类
 		characterParser = CharacterParser.getInstance();
 		pinyinComparator = new PinyinComparator();
 		initViews();
-		// Display display =
-		// getActivity().getWindowManager().getDefaultDisplay();
-		// width = display.getWidth();
-		// int a = display.getHeight();
-		// Log.i("linshi",
-		// "display.getHeight()xdisplay.getWidth():"+a+"x"+width);
-		// fxApplication.setWidth(width);
 		setButton();
 		return rootView;
 	}
@@ -206,14 +201,13 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 				builder.setUserId(user_id);
 				builder.setToken(fxApplication.getToken());
 				if (timeStamp.equals("")) {
-					
-				}else {
-					builder.setTimeStamp(timeStamp);	
+
+				} else {
+					builder.setTimeStamp(timeStamp);
 				}
-				
+
 				Log.i("1", "User_id:" + fxApplication.getUser_id() + "--Token"
-						+ fxApplication.getToken()+ "--timeStamp:"
-								+ timeStamp);
+						+ fxApplication.getToken() + "--timeStamp:" + timeStamp);
 
 				ContactRequest response = builder.build();
 
@@ -402,7 +396,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 				.findViewById(R.id.a_layout);
 		LayoutParams param = (LayoutParams) a_layout.getLayoutParams();
 		param.leftMargin = 20;
-		param.rightMargin = 20;
+		param.rightMargin = 21;
 		param.topMargin = 10;
 		param.bottomMargin = 10;
 		param.height = hight0;
@@ -435,6 +429,13 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		button_recently.setOnClickListener(listener_1);
 		button_trading.setOnClickListener(listener_2);
 		button_subscription.setOnClickListener(listener_3);
+
+		if (version < 4) {
+			button_all.setBackgroundResource(R.drawable.left_shape_red2);
+			button_subscription
+					.setBackgroundResource(R.drawable.right_shape_white2);
+		}
+
 	}
 
 	// 全部
@@ -540,13 +541,21 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			}
 		}
 		btnList.get(0).setBackgroundResource(R.drawable.left_shape_white);
+
 		btnList.get(1).setBackgroundResource(R.drawable.middle_shape_white);
 		btnList.get(2).setBackgroundResource(R.drawable.middle_shape_white);
 		btnList.get(3).setBackgroundResource(R.drawable.right_shape_white);
+		if (version < 4) {
+			btnList.get(0).setBackgroundResource(R.drawable.left_shape_white2);
+			btnList.get(3).setBackgroundResource(R.drawable.right_shape_white2);
+		}
 		switch (buttonNumber) {
 		case 0:
 			btnList.get(buttonNumber).setBackgroundResource(
 					R.drawable.left_shape_red);
+			if (version < 4) {
+				button_all.setBackgroundResource(R.drawable.left_shape_red2);
+			}
 			break;
 		case 1:
 		case 2:
@@ -556,6 +565,10 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		case 3:
 			btnList.get(buttonNumber).setBackgroundResource(
 					R.drawable.right_shape_red);
+			if (version < 4) {
+				btnList.get(buttonNumber).setBackgroundResource(
+						R.drawable.right_shape_red2);
+			}
 			break;
 		default:
 			break;

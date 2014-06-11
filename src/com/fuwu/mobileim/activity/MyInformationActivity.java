@@ -27,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fuwu.mobileim.R;
+import com.fuwu.mobileim.activity.SettingsActivity.getProfile;
 import com.fuwu.mobileim.model.Models.ChangeProfileRequest;
 import com.fuwu.mobileim.model.Models.ChangeProfileResponse;
 import com.fuwu.mobileim.pojo.ProfilePojo;
@@ -142,10 +143,9 @@ public class MyInformationActivity extends Activity {
 					+ "");
 			if (f.exists()) {
 				Log.i("linshi------------", "加载本地图片");
-				Drawable dra = new BitmapDrawable(
-						BitmapFactory.decodeFile(Urlinterface.head_pic
-								+ profilePojo.getUserId()));
-				myinfo_userface.setImageDrawable(dra);
+				ImageCacheUtil.IMAGE_CACHE.get(
+						Urlinterface.head_pic + profilePojo.getUserId(),
+						myinfo_userface);
 			} else {
 				FuXunTools.set_bk(profilePojo.getUserId(), face_str,
 						myinfo_userface);
@@ -213,12 +213,19 @@ public class MyInformationActivity extends Activity {
 						Toast.LENGTH_SHORT).show();
 
 			} else {
-				prodialog = new ProgressDialog(MyInformationActivity.this);
-				prodialog.setMessage("正在修改...");
-				prodialog.setCanceledOnTouchOutside(false);
-				prodialog.show();
-				Thread thread = new Thread(new modifyProfile());
-				thread.start();
+				
+				if (FuXunTools.isConnect(MyInformationActivity.this)) {
+					prodialog = new ProgressDialog(MyInformationActivity.this);
+					prodialog.setMessage("正在修改...");
+					prodialog.setCanceledOnTouchOutside(false);
+					prodialog.show();
+					Thread thread = new Thread(new modifyProfile());
+					thread.start();
+				} else {
+					Toast.makeText(MyInformationActivity.this, R.string.no_internet,
+							Toast.LENGTH_SHORT).show();
+				}
+				
 			}
 		}
 	};

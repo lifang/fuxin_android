@@ -37,7 +37,7 @@
                 android:id="@+id/setting_teachername"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="叮叮叮"
+                android:text=""
                 android:textColor="#333333"
                 android:textSize="19dp" />
 
@@ -63,6 +63,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:visibility="gone"
                     android:background="@drawable/certification1" />
 
                 <ImageView
@@ -71,6 +72,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="19dp"
+                    android:visibility="gone"
                     android:layout_toRightOf="@+id/certification_one"
                     android:background="@drawable/certification2" />
 
@@ -80,12 +82,13 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="19dp"
+                    android:visibility="gone"
                     android:layout_toRightOf="@+id/certification_two"
                     android:background="@drawable/certification3" />
 
                 <ImageView
-                    android:layout_width="50px"
-                    android:layout_height="30px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="17dp"
