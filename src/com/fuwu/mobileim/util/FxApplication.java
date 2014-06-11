@@ -37,18 +37,19 @@ public class FxApplication extends Application {
 	public Map<String, String> error_map;
 	public Map<String, String> ValidateCode;
 	private List<Activity> activityList = new LinkedList<Activity>();
-	private int width=0;  // 屏幕宽度
+	private int width = 0; // 屏幕宽度
+
 	public synchronized static FxApplication getInstance() {
 		return mApplication;
 	}
 
 	public void initData() {
-		profilePojo= new ProfilePojo();
+		profilePojo = new ProfilePojo();
 	}
 
 	public FxApplication() {
-		this.setToken("NULL");
 	}
+
 	public void onCreate() {
 
 		super.onCreate();
@@ -117,7 +118,6 @@ public class FxApplication extends Application {
 		// Initialize ImageLoader with configuration.
 		ImageLoader.getInstance().init(config);
 	}
-
 
 	public Map<String, Integer> getFaceMap() {
 		if (!mFaceMap.isEmpty())

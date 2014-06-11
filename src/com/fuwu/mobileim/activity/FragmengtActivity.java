@@ -33,6 +33,7 @@ import android.text.TextWatcher;
 import android.text.style.AbsoluteSizeSpan;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
@@ -92,6 +93,7 @@ public class FragmengtActivity extends FragmentActivity {
 	private static Bitmap bm = null;
 	private int user_number1 = 0;
 	private int user_number2 = 0;
+	private SharedPreferences spf;
 	private Handler handler = new Handler() {
 		/*
 		 * (non-Javadoc)
@@ -150,6 +152,7 @@ public class FragmengtActivity extends FragmentActivity {
 		super.onCreate(arg0);
 		setContentView(R.layout.main);
 		getButton();
+		spf = getSharedPreferences(Urlinterface.SHARED, 0);
 		vp = (ViewPager) findViewById(R.id.main_viewPager);
 		list.add(new TalkActivity());
 		list.add(new ContactActivity());
@@ -642,4 +645,13 @@ public class FragmengtActivity extends FragmentActivity {
 		}
 	}
 
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			spf.edit().putString("Token", "null").commit();
+			System.exit(0);
+
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
 }
