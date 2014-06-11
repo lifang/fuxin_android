@@ -116,8 +116,8 @@ public class LoginActivity extends Activity implements OnClickListener,
 		// user_text.setText("15862373890");
 		// user_text.setText("18913536561");
 		// user_text.setText("15862373890");
-		// user_text.setText("18711111120");
-		// pwd_text.setText("111111");
+//		user_text.setText("18711111120");
+		pwd_text.setText("111111");
 		if (!user.equals("null")) {
 			user_text.setText(user);
 		}

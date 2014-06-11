@@ -67,10 +67,10 @@ public class DBManager {
 				c.moveToFirst();
 				int count = c.getInt(c.getColumnIndex("mes_count"));
 				db.execSQL(
-						"update talk set content = ? , time = ? , mes_count = ? where user_id = ? and contact_id = ?",
-						new Object[] { tp.getContent(), tp.getTime(),
-								tp.getMes_count() + count, tp.getUser_id(),
-								tp.getContact_id(), });
+						"update talk set nick_name = ? , content = ? , time = ? , mes_count = ? where user_id = ? and contact_id = ?",
+						new Object[] { tp.getNick_name(), tp.getContent(),
+								tp.getTime(), tp.getMes_count() + count,
+								tp.getUser_id(), tp.getContact_id(), });
 			} else {
 				db.execSQL(
 						"INSERT INTO talk VALUES(null,?,?,?,?,?,?,?)",
@@ -224,7 +224,6 @@ public class DBManager {
 		ContactPojo mp = new ContactPojo();
 		try {
 			c = queryContactCursor(user_id, contact_id);
-		} catch (Exception e) {
 			if (c.moveToNext()) {
 				mp.setContactId(c.getInt(c.getColumnIndex("contactId")));
 				mp.setCustomName(c.getString(c.getColumnIndex("customName")));
@@ -241,10 +240,10 @@ public class DBManager {
 				mp.setSource(c.getInt(c.getColumnIndex("source")));
 				mp.setUserface_url(c.getString(c.getColumnIndex("userface_url")));
 			}
+		} catch (Exception e) {
 		} finally {
 			c.close();
 		}
-		Log.i("FuWu", "contactPojo:" + mp.toString());
 		return mp;
 	}
 
@@ -301,7 +300,6 @@ public class DBManager {
 	}
 
 	public List<TalkPojo> queryTalkList(int user_id) {
-		Log.i("Max", user_id + "");
 		ArrayList<TalkPojo> talkList = new ArrayList<TalkPojo>();
 		Cursor c = null;
 		try {
@@ -315,6 +313,7 @@ public class DBManager {
 				talk.setContent(c.getString(c.getColumnIndex("content")));
 				talk.setTime(c.getString(c.getColumnIndex("time")));
 				talk.setMes_count(c.getInt(c.getColumnIndex("mes_count")));
+				Log.i("FuWu", "talkPojo:" + talk.toString());
 				talkList.add(talk);
 			}
 		} catch (Exception e) {

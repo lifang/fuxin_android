@@ -82,10 +82,11 @@ public class TalkListViewAdapter extends BaseAdapter {
 			holder.statics.setVisibility(View.VISIBLE);
 		}
 		String names = list.get(arg0).getNick_name();
-		if (names != null && names.equals("")) {
-			holder.name.setText("暂未设置昵称");
-		} else {
+		Log.i("FuWu", "name:" + names);
+		if (names != null && !names.equals("")) {
 			holder.name.setText(names);
+		} else {
+			holder.name.setText("暂未设置昵称");
 		}
 		holder.content.setText(list.get(arg0).getContent());
 		holder.dath.setText(TimeUtil.getChatTime(list.get(arg0).getTime()));

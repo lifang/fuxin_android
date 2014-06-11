@@ -46,7 +46,6 @@ public class TalkActivity extends Fragment {
 			case 1:
 				break;
 			case 2:
-				// Log.i("FuWu", list.get(0).toString());
 				updateTalkData();
 				clvAdapter.updateList(list);
 				break;
@@ -67,9 +66,7 @@ public class TalkActivity extends Fragment {
 		rootView = inflater.inflate(R.layout.talk, container, false);
 		fx = (FxApplication) getActivity().getApplication();
 		initData();
-
 		mListView = (ListView) rootView.findViewById(R.id.talk_listview);
-		mListView.setAdapter(clvAdapter);
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
