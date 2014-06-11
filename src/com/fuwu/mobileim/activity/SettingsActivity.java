@@ -472,7 +472,7 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 			viewHolder.im.setImageResource(icon[position]);
 			viewHolder.titleStr.setText(titleArr[position]);
 
-			if (position == 5) {
+			if (position == 4) {
 				// 如果有通知，则显示通知数目
 				if (true) {
 					// te.setText("3");

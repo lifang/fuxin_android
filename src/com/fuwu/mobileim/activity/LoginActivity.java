@@ -6,6 +6,7 @@ import java.net.URL;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
@@ -90,6 +91,7 @@ public class LoginActivity extends Activity implements OnClickListener,
 		Log.i("linshi", "display.getHeight()xdisplay.getWidth():" + a + "x"
 				+ width);
 		fx.setWidth(width);
+		fx.setHight(a);
 		initialize();// 初始化
 		// 百度统计
 		StatService.setOn(this, StatService.EXCEPTION_LOG);
