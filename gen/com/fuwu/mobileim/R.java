@@ -939,13 +939,15 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int talk_dialog=0x7f0200a8;
         public static final int test=0x7f0200a9;
         public static final int testhead=0x7f0200aa;
-        public static final int touxiang=0x7f0200ab;
-        public static final int trans=0x7f0200b1;
-        public static final int xlistview_arrow=0x7f0200ac;
-        public static final int y3=0x7f0200ad;
-        public static final int yuan=0x7f0200ae;
-        public static final int yue=0x7f0200af;
-        public static final int yue_icon=0x7f0200b0;
+        public static final int touming_btn=0x7f0200ab;
+        public static final int touming_btn2=0x7f0200ac;
+        public static final int touxiang=0x7f0200ad;
+        public static final int trans=0x7f0200b3;
+        public static final int xlistview_arrow=0x7f0200ae;
+        public static final int y3=0x7f0200af;
+        public static final int yuan=0x7f0200b0;
+        public static final int yue=0x7f0200b1;
+        public static final int yue_icon=0x7f0200b2;
     }
     public static final class id {
         public static final int a_layout=0x7f09005d;

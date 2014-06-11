@@ -99,6 +99,7 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 				}
 				break;
 			case 4:
+				prodialog.dismiss();
 				Toast.makeText(UpdatePwdActivity.this, "请求超时",
 						Toast.LENGTH_SHORT).show();
 				break;
@@ -255,7 +256,9 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 					phone_text.setEnabled(false);
 					view.setBackgroundColor(getResources().getColor(
 							R.color.regist_bg));
-					yz_send.setBackgroundResource(R.drawable.login_btn);
+					yz_send.setBackgroundResource(R.drawable.touming_btn);
+					yz_send.setTextColor(getResources().getColor(
+							R.color.system_textColor));
 				}
 			} else {
 				phone_btn = true;
@@ -264,7 +267,8 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 				phone_ok.setText("确定");
 				phone_text.requestFocus();// 获取焦点
 				view.setBackgroundColor(getResources().getColor(R.color.white));
-				yz_send.setBackgroundResource(R.drawable.regist_btn);
+				yz_send.setBackgroundResource(R.drawable.touming_btn2);
+				yz_send.setTextColor(getResources().getColor(R.color.qianhui));
 			}
 			regist_btnOver();
 			break;

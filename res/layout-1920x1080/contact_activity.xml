@@ -1,0 +1,122 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/a_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/out_button_shape"
+        android:paddingLeft="2dp" >
+
+        <Button
+            android:id="@+id/button_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:background="@drawable/left_shape_red"
+            android:textSize="17dp" 
+            android:text="@string/button_all" />
+
+        <Button
+            android:id="@+id/view_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/address_book_buttoncolor_red" />
+
+        <Button
+            android:id="@+id/button_recently"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/red_block"
+            android:background="@drawable/middle_shape_white"
+            android:textSize="17dp" 
+            android:text="@string/button_recently" />
+
+        <Button
+            android:id="@+id/view_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/address_book_buttoncolor_red" />
+
+        <Button
+            android:id="@+id/button_trading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/red_block"
+            android:background="@drawable/middle_shape_white"
+            android:textSize="17dp" 
+            android:text="@string/button_trading" />
+
+        <Button
+            android:id="@+id/view_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/address_book_buttoncolor_red" />
+
+        <Button
+            android:id="@+id/button_subscription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/red_block"
+            android:background="@drawable/right_shape_white"
+            android:textSize="17dp" 
+            android:text="@string/button_subscription" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/contacts_list_view"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/a_layout"
+        android:fadingEdge="none"
+        android:visibility="gone"
+        android:scrollbars="none" >
+    </ListView>
+
+    <com.fuwu.mobileim.view.XListView
+        android:id="@+id/contacts_list_view_refresh"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/a_layout"
+        
+        android:fadingEdge="none"
+        android:scrollbars="none" >
+    </com.fuwu.mobileim.view.XListView>
+
+    <com.fuwu.mobileim.view.SideBar
+        android:id="@+id/sidrbar"
+        android:layout_width="30.0dip"
+        android:layout_height="fill_parent"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/a_layout"
+        android:layout_gravity="right|center" />
+
+    <RelativeLayout
+        android:id="@+id/section_toast_layout"
+        android:layout_width="70dip"
+        android:layout_height="70dip"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/section_toast"
+        android:visibility="gone" >
+
+        <TextView
+            android:id="@+id/section_toast_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="#fff"
+            android:textSize="30sp" />
+    </RelativeLayout>
+
+</RelativeLayout>

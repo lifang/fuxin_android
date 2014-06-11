@@ -38,6 +38,7 @@ public class FxApplication extends Application {
 	public Map<String, String> ValidateCode;
 	private List<Activity> activityList = new LinkedList<Activity>();
 	private int width = 0; // 屏幕宽度
+	private int hight = 0; // 屏幕宽度
 
 	public synchronized static FxApplication getInstance() {
 		return mApplication;
@@ -92,6 +93,14 @@ public class FxApplication extends Application {
 
 	public void setWidth(int width) {
 		this.width = width;
+	}
+
+	public int getHight() {
+		return hight;
+	}
+
+	public void setHight(int hight) {
+		this.hight = hight;
 	}
 
 	public List<Activity> getActivityList() {
