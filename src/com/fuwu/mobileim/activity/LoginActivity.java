@@ -1,12 +1,9 @@
 package com.fuwu.mobileim.activity;
 
 import java.io.File;
-import java.net.URL;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
@@ -21,7 +18,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.baidu.mobstat.StatService;
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.model.Models.AuthenticationRequest;
@@ -119,8 +115,8 @@ public class LoginActivity extends Activity implements OnClickListener,
 		// user_text.setText("15862373890");
 		// user_text.setText("18913536561");
 		// user_text.setText("15862373890");
-//		user_text.setText("18711111120");
-		pwd_text.setText("123456");
+		// user_text.setText("18711111120");
+		 pwd_text.setText("123123");
 		if (!user.equals("null")) {
 			user_text.setText(user);
 		}

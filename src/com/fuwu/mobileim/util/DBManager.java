@@ -43,12 +43,14 @@ public class DBManager {
 		try {
 			for (int i = 0; i < mps.size(); i++) {
 				MessagePojo mp = mps.get(i);
-				db.execSQL(
-						"INSERT INTO message VALUES(null,?,?,?,?,?,?)",
-						new Object[] { mp.getUserId(), mp.getContactId(),
-								mp.getContent(), mp.getSendTime(),
-								mp.getMsgType(), mp.getIsComMeg() });
-				Log.i("FuWu", mp.toString());
+				Log.i("FuWu", "mp:" + mp.toString());
+				if (mp != null && mp.getUserId() != 0) {
+					db.execSQL(
+							"INSERT INTO message VALUES(null,?,?,?,?,?,?)",
+							new Object[] { mp.getUserId(), mp.getContactId(),
+									mp.getContent(), mp.getSendTime(),
+									mp.getMsgType(), mp.getIsComMeg() });
+				}
 			}
 			db.setTransactionSuccessful();
 		} catch (Exception e) {
@@ -313,7 +315,6 @@ public class DBManager {
 				talk.setContent(c.getString(c.getColumnIndex("content")));
 				talk.setTime(c.getString(c.getColumnIndex("time")));
 				talk.setMes_count(c.getInt(c.getColumnIndex("mes_count")));
-				Log.i("FuWu", "talkPojo:" + talk.toString());
 				talkList.add(talk);
 			}
 		} catch (Exception e) {

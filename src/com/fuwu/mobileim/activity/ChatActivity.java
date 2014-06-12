@@ -188,8 +188,8 @@ public class ChatActivity extends Activity implements OnClickListener,
 		keys = new ArrayList<String>();
 		keys.addAll(keySet);
 		user_id = fx.getUser_id();
-		contact_id = user_id;
-		// contact_id = intent.getIntExtra("contact_id", 0);
+		// contact_id = user_id;
+		contact_id = intent.getIntExtra("contact_id", 0);
 		cp = db.queryContact(user_id, contact_id);
 		updateMessageData();
 	}
@@ -263,6 +263,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 		});
 		mName.setText(getContactName());
 		pd = new ProgressDialog(this);
+		pd.setCanceledOnTouchOutside(false);
 		pd.setMessage("正在发送图片...");
 		mMessageAdapter = new MessageListViewAdapter(getResources(), this,
 				list, cp, user_id, fx.getToken());
@@ -539,13 +540,13 @@ public class ChatActivity extends Activity implements OnClickListener,
 						if (type == 1) {
 							tp = new TalkPojo(user_id, contact_id,
 									getContactName(), cp.getUserface_url(),
-									message, time, 0);
+									message, sendTime, 0);
 							mp = new MessagePojo(user_id, contact_id, time,
 									message, 1, 1);
 						} else {
 							tp = new TalkPojo(user_id, contact_id,
 									getContactName(), cp.getUserface_url(),
-									"[图片]", time, 0);
+									"[图片]", sendTime, 0);
 							handler.sendEmptyMessage(7);
 							mp.setSendTime(time);
 						}
@@ -618,7 +619,6 @@ public class ChatActivity extends Activity implements OnClickListener,
 			}
 			break;
 		case R.id.plus_btn:
-			// Log.i("FuWu", "service:" + isServiceRunning());
 			if (!isPlusShow) {
 				if (isFaceShow) {
 					isFaceShow = false;
@@ -639,6 +639,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 					Toast.makeText(getApplicationContext(),
 							"信息内容限制300字,请分段输入.", 0).show();
 				} else {
+					handler.sendEmptyMessage(1);
 					sendMessageExecutor.execute(new SendMessageThread(null,
 							str, 1));
 				}

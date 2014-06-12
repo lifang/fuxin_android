@@ -18,7 +18,6 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.os.Handler;
 import android.os.Message;
-import android.sax.StartElementListener;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ImageSpan;
@@ -183,7 +182,7 @@ public class MessageListViewAdapter extends BaseAdapter {
 					Intent intent = new Intent();
 					intent.setClass(mContext, ZoomImageActivity.class);
 					intent.putExtra("image_path",
-							"/sdcard/fuXun/" + mp.getContent());
+							Urlinterface.SDCARD + mp.getContent());
 					mContext.startActivity(intent);
 					// showBigImage("/sdcard/fuXun/" + mp.getContent());
 				}
@@ -191,7 +190,10 @@ public class MessageListViewAdapter extends BaseAdapter {
 			holder.mes.setVisibility(View.GONE);
 			holder.sendImg.setVisibility(View.VISIBLE);
 			holder.sendImg.setImageBitmap(ImageUtil.createImageThumbnail(
-					"/sdcard/fuXun/" + mp.getContent(), 720));
+					Urlinterface.SDCARD + mp.getContent(), 720));
+			if (position == list.size() - 1) {
+				Log.i("FuWu", "listviewMP:" + mp.getContent());
+			}
 			// ImageCacheUtil.IMAGE_CACHE.get("/sdcard/fuXun/" +
 			// mp.getContent(),
 			// holder.sendImg);
