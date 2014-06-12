@@ -293,12 +293,15 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			public void onTouchingLetterChanged(String s) {
 				sideBar.setTextView(sectionToastText);
 				sideBar.setRelativeLayout(sectionToastLayout);
-				float alphabetHeight = sideBar.getHeight();
+				float alphabetHeight = sideBar.getHeight()-50;
 				int pos = getPositionForAlphabet(s);
-				float y = (pos * 100 / 26f) * alphabetHeight / 100;
+				float y = (pos * 100 / 27f) * alphabetHeight / 100+10;
+//				if (pos>=26) {
+//					 y = (26 * 100 / 27f) * alphabetHeight / 100;
+//				}
 				LayoutParams param = (LayoutParams) sectionToastLayout
 						.getLayoutParams();
-				param.rightMargin = 60;
+//				param.rightMargin = 50;
 				param.topMargin = (int) y;
 				// sectionToastText.setText(s);
 				// 该字母首次出现的位置

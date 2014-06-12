@@ -34,7 +34,7 @@
 
         <TextView
             android:id="@+id/contact_name"
-            android:layout_width="173dp"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:textColor="#333333"
