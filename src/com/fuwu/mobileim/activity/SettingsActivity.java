@@ -140,7 +140,8 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 			}
 		}
 	};
-	SharedPreferences preferences ;
+	SharedPreferences preferences;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -148,9 +149,8 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		fxApplication = (FxApplication) getActivity().getApplication();
 		db = new DBManager(getActivity());
 		adapter = new SettingBottomAdapter();
-		preferences = getActivity()
-				.getSharedPreferences(Urlinterface.SHARED,
-						Context.MODE_PRIVATE);
+		preferences = getActivity().getSharedPreferences(Urlinterface.SHARED,
+				Context.MODE_PRIVATE);
 		listview = (ListView) rootView.findViewById(R.id.setting_listview);
 		listview.setDivider(null);
 		listview.setAdapter(adapter);
@@ -385,11 +385,15 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		// Toast.LENGTH_LONG).show();
 		// break;
 		case 5:// 退出登录
+			SharedPreferences preferences = getActivity().getSharedPreferences(
+					Urlinterface.SHARED, Context.MODE_PRIVATE);
+			Editor editor = preferences.edit();
+			editor.putString("pwd", "");
+			editor.commit();
 			intent.setClass(getActivity(), LoginActivity.class);
 			startActivity(intent);
 			clearActivity();
 			fxApplication.initData();
-			
 			break;
 		default:
 			break;

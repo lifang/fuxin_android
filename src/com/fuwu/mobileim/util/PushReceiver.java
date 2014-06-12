@@ -43,10 +43,10 @@ public class PushReceiver extends BroadcastReceiver {
 				String data = new String(payload);
 				Log.i("MyReceiver", data);
 				// true表示后台运行 false表示前台
-				if (sf.getBoolean("pushsetting_sound", true)) {
+				if (!sf.getBoolean("pushsetting_sound", false)) {
 					if (FuXunTools.isApplicationBroughtToBackground(context)) {
 
-						if (sf.getString("Token","null").equals("null")) {
+						if (sf.getString("Token", "null").equals("null")) {
 							intent.setClass(context, LoginActivity.class); // 点击该通知后要跳转的Activity
 						} else {
 							intent.setClass(context, FragmengtActivity.class); // 点击该通知后要跳转的Activity
@@ -54,7 +54,6 @@ public class PushReceiver extends BroadcastReceiver {
 						byte[] byteArray = Base64.decode(data, Base64.DEFAULT);
 						try {
 							MessagePush mp = MessagePush.parseFrom(byteArray);
-							mp.getSendTime();
 							Log.i("MyReceiver", new String(byteArray));
 							MyNotification("福务网",
 									mp.getSenderName() + ":" + mp.getContent(),
@@ -72,9 +71,9 @@ public class PushReceiver extends BroadcastReceiver {
 			// 获取ClientID(CID)
 			clientid = bundle.getString("clientid");
 			Log.i("MyReceiver", "clientid=>" + clientid);
-			// if (sf.getBoolean("welcome", true)) {
-			new Thread(new ClientID_Post()).start();
-			// }
+			if (sf.getString("clientid", "null").equals("null")) {
+				new Thread(new ClientID_Post()).start();
+			}
 			/*
 			 * 第三方应用需要将ClientID上传到第三方服务器，并且将当前用户帐号和ClientID进行关联，
 			 * 以便以后通过用户帐号查找ClientID进行消息推送
@@ -99,11 +98,11 @@ public class PushReceiver extends BroadcastReceiver {
 				TimeUtil.getLongTime(time));
 
 		// notification.defaults = Notification.DEFAULT_LIGHTS;
-		if (sf.getBoolean("pushsetting_music", true)) {
+		if (!sf.getBoolean("pushsetting_music", false)) {
 			notification.defaults |= Notification.DEFAULT_SOUND;// 声音
 
 		}
-		if (sf.getBoolean("pushsetting_shake", true)) {
+		if (!sf.getBoolean("pushsetting_shake", false)) {
 			notification.defaults |= Notification.DEFAULT_VIBRATE;// 震动
 		}
 		// notification.defaults |= Notification.DEFAULT_LIGHTS;
@@ -139,9 +138,11 @@ public class PushReceiver extends BroadcastReceiver {
 				if (by != null && by.length > 0) {
 					ClientInfoResponse response = ClientInfoResponse
 							.parseFrom(by);
-					sf.edit().putString("clientid", clientid).commit();
-					Log.i("MyReceiver", response.getIsSucceed() + "/"
-							+ response.getErrorCode());
+					if (response.getIsSucceed()) {
+						sf.edit().putString("clientid", clientid).commit();
+						Log.i("MyReceiver", response.getIsSucceed() + "/"
+								+ response.getErrorCode());
+					}
 				}
 			} catch (Exception e) {
 				Log.i("error", e.toString());

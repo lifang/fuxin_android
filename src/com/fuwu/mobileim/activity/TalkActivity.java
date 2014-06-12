@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -24,6 +25,7 @@ import com.fuwu.mobileim.adapter.TalkListViewAdapter;
 import com.fuwu.mobileim.pojo.TalkPojo;
 import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FxApplication;
+import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.MyDialog;
 
 /**
@@ -39,6 +41,7 @@ public class TalkActivity extends Fragment {
 	private int contact_id;
 	private FxApplication fx;
 	@SuppressLint("HandlerLeak")
+	private SharedPreferences sp;
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
@@ -65,6 +68,7 @@ public class TalkActivity extends Fragment {
 			Bundle savedInstanceState) {
 		rootView = inflater.inflate(R.layout.talk, container, false);
 		fx = (FxApplication) getActivity().getApplication();
+		sp = getActivity().getSharedPreferences(Urlinterface.SHARED, 0);
 		initData();
 		mListView = (ListView) rootView.findViewById(R.id.talk_listview);
 		mListView.setOnItemClickListener(new OnItemClickListener() {
@@ -86,7 +90,7 @@ public class TalkActivity extends Fragment {
 			}
 		});
 		clvAdapter = new TalkListViewAdapter(getActivity(), list, fx.options);
-		mListView.setAdapter(clvAdapter);
+		// mListView.setAdapter(clvAdapter);
 		return rootView;
 	}
 
@@ -124,7 +128,7 @@ public class TalkActivity extends Fragment {
 		if (!db.isOpen()) {
 			db = new DBManager(getActivity());
 		}
-		list = db.queryTalkList(fx.getUser_id());
+		list = db.queryTalkList(sp.getInt("user_id", 0));
 	}
 
 	public boolean delTalkData() {

@@ -124,6 +124,10 @@ public class LoginActivity extends Activity implements OnClickListener,
 		if (!user.equals("null")) {
 			user_text.setText(user);
 		}
+		String pwd_str = spf.getString("pwd", "");
+		if (!pwd_str.equals("")) {
+			pwd_text.setText(pwd_str);
+		}
 	}
 
 	public void onClick(View v) {
@@ -186,6 +190,7 @@ public class LoginActivity extends Activity implements OnClickListener,
 								.commit();
 						spf.edit().putString("Token", response.getToken())
 								.commit();
+						spf.edit().putString("pwd", pwd).commit();
 						handler.sendEmptyMessage(0);
 					} else {
 						Log.i("Max", "errorCode:" + response.getErrorCode());
