@@ -13,6 +13,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
@@ -381,6 +382,23 @@ public class ImageUtil {
 		matrix.postScale(scaleWidth, scaleHeight);
 		return Bitmap.createBitmap(org, 0, 0, org.getWidth(), org.getHeight(),
 				matrix, true);
+	}
+
+	public static Bitmap getBitmapScale(float height, int id, Resources res) {
+		Bitmap bmp = BitmapFactory.decodeResource(res, id);
+		int bmpWidth = bmp.getWidth();
+		int bmpHeight = bmp.getHeight();
+		// 缩放图片的尺寸
+		float scale = (height / 1920f) * 100;
+		float scaleWidth = (float) scale / bmpWidth; // 按固定大小缩放 sWidth 写多大就多大
+		float scaleHeight = (float) scale / bmpHeight;
+
+		Matrix matrix = new Matrix();
+		matrix.postScale(scaleWidth, scaleHeight);// 产生缩放后的Bitmap对象
+		Bitmap resizeBitmap = Bitmap.createBitmap(bmp, 0, 0, bmpWidth,
+				bmpHeight, matrix, false);
+		bmp.recycle();
+		return resizeBitmap;
 	}
 
 	/**

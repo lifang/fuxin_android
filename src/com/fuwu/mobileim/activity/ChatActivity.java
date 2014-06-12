@@ -175,7 +175,6 @@ public class ChatActivity extends Activity implements OnClickListener,
 		initView();
 		initFacePage();
 		initPlusGridView();
-		Log.i("FuWu", "oncreate");
 	}
 
 	public void initData() {
@@ -192,7 +191,6 @@ public class ChatActivity extends Activity implements OnClickListener,
 		// contact_id = user_id;
 		contact_id = intent.getIntExtra("contact_id", 0);
 		cp = db.queryContact(user_id, contact_id);
-		Log.i("Ax", "contact_id:" + intent.getIntExtra("contact_id", 0));
 		updateMessageData();
 	}
 
@@ -227,40 +225,38 @@ public class ChatActivity extends Activity implements OnClickListener,
 		mBack.setOnClickListener(this);
 		mOther.setOnClickListener(this);
 		mListView.setXListViewListener(this);
-		mBack.setImageBitmap(getBitmapScale(BitmapFactory.decodeResource(
-				getResources(), R.drawable.back)));
-		mOther.setImageBitmap(getBitmapScale(BitmapFactory.decodeResource(
-				getResources(), R.drawable.other)));
-		mFaceBtn.setImageBitmap(getBitmapScale(BitmapFactory.decodeResource(
-				getResources(), R.drawable.face)));
+		mBack.setImageBitmap(ImageUtil.getBitmapScale(height, R.drawable.back,
+				getResources()));
+		mOther.setImageBitmap(ImageUtil.getBitmapScale(height,
+				R.drawable.other, getResources()));
+		mFaceBtn.setImageBitmap(ImageUtil.getBitmapScale(height,
+				R.drawable.face, getResources()));
 		mFaceBtn.setOnTouchListener(new OnTouchListener() {
 			// 点击变色
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				if (event.getAction() == MotionEvent.ACTION_DOWN) {
-					mFaceBtn.setImageBitmap(getBitmapScale(BitmapFactory
-							.decodeResource(getResources(),
-									R.drawable.face_hover)));
+					mFaceBtn.setImageBitmap(ImageUtil.getBitmapScale(height,
+							R.drawable.face_hover, getResources()));
 				} else if (event.getAction() == MotionEvent.ACTION_UP) {
-					mFaceBtn.setImageBitmap(getBitmapScale(BitmapFactory
-							.decodeResource(getResources(), R.drawable.face)));
+					mFaceBtn.setImageBitmap(ImageUtil.getBitmapScale(height,
+							R.drawable.face, getResources()));
 				}
 				return false;
 			}
 		});
-		mPlusBtn.setImageBitmap(getBitmapScale(BitmapFactory.decodeResource(
-				getResources(), R.drawable.plus)));
+		mPlusBtn.setImageBitmap(ImageUtil.getBitmapScale(height,
+				R.drawable.plus, getResources()));
 		mPlusBtn.setOnTouchListener(new OnTouchListener() {
 			// 点击变色
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				if (event.getAction() == MotionEvent.ACTION_DOWN) {
-					mPlusBtn.setImageBitmap(getBitmapScale(BitmapFactory
-							.decodeResource(getResources(),
-									R.drawable.plus_hover)));
+					mPlusBtn.setImageBitmap(ImageUtil.getBitmapScale(height,
+							R.drawable.plus_hover, getResources()));
 				} else if (event.getAction() == MotionEvent.ACTION_UP) {
-					mPlusBtn.setImageBitmap(getBitmapScale(BitmapFactory
-							.decodeResource(getResources(), R.drawable.plus)));
+					mPlusBtn.setImageBitmap(ImageUtil.getBitmapScale(height,
+							R.drawable.plus, getResources()));
 				}
 				return false;
 			}
@@ -440,22 +436,6 @@ public class ChatActivity extends Activity implements OnClickListener,
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		bm.compress(Bitmap.CompressFormat.PNG, 100, baos);
 		return baos.toByteArray();
-	}
-
-	public Bitmap getBitmapScale(Bitmap bmp) {
-		int bmpWidth = bmp.getWidth();
-		int bmpHeight = bmp.getHeight();
-		// 缩放图片的尺寸
-		float scale = (height / 1920f) * 100;
-		float scaleWidth = (float) scale / bmpWidth; // 按固定大小缩放 sWidth 写多大就多大
-		float scaleHeight = (float) scale / bmpHeight;
-
-		Matrix matrix = new Matrix();
-		matrix.postScale(scaleWidth, scaleHeight);// 产生缩放后的Bitmap对象
-		Bitmap resizeBitmap = Bitmap.createBitmap(bmp, 0, 0, bmpWidth,
-				bmpHeight, matrix, false);
-		bmp.recycle();
-		return resizeBitmap;
 	}
 
 	@SuppressWarnings("deprecation")

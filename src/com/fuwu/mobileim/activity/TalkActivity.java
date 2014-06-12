@@ -49,7 +49,6 @@ public class TalkActivity extends Fragment {
 			case 1:
 				break;
 			case 2:
-				// Log.i("FuWu", list.get(0).toString());
 				updateTalkData();
 				clvAdapter.updateList(list);
 				break;
@@ -71,9 +70,7 @@ public class TalkActivity extends Fragment {
 		fx = (FxApplication) getActivity().getApplication();
 		sp = getActivity().getSharedPreferences(Urlinterface.SHARED, 0);
 		initData();
-
 		mListView = (ListView) rootView.findViewById(R.id.talk_listview);
-		mListView.setAdapter(clvAdapter);
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {

@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -61,25 +62,14 @@ public class BlockManagementActivity extends Activity {
 				}
 				Toast.makeText(getApplicationContext(), "恢复成功",
 						Toast.LENGTH_SHORT).show();
-				
-//				for (int i = 0; i < fxApplication.getContactsList().size(); i++) {
-//					if (fxApplication.getContactsList().get(i).getContactId() == list
-//							.get(index).getContactId()) {
-//						fxApplication.getContactsList().get(i)
-//								.setIsBlocked(0);
-//						
-//						db.modifyContactBlock(0,fxApplication.getUser_id(),
-//								fxApplication.getContactsList().get(i).getContactId());
-//					}
-//					break;
-//				}
-				db.modifyContactBlock(0,fxApplication.getUser_id(),
+
+				db.modifyContactBlock(0, user_id,
 						list.get(index).getContactId());
 				list.remove(index);
 				clvAdapter.notifyDataSetChanged();
 				break;
 			case 1:
-				 prodialog.dismiss();
+				prodialog.dismiss();
 				Toast.makeText(getApplicationContext(), "恢复失败",
 						Toast.LENGTH_SHORT).show();
 				break;
@@ -88,52 +78,46 @@ public class BlockManagementActivity extends Activity {
 				if (!db.isOpen()) {
 					db = new DBManager(BlockManagementActivity.this);
 				}
-				
-//				for (int i = 0; i < fxApplication.getContactsList().size(); i++) {
-//					if (fxApplication.getContactsList().get(i).getContactId() == list
-//							.get(index).getContactId()) {
-//						fxApplication.getContactsList().get(i)
-//								.setIsBlocked(0);
-//						db.modifyContactBlock(0,fxApplication.getUser_id(),
-//								fxApplication.getContactsList().get(i).getContactId());
-//					}
-//					break;
-//				}
-				db.modifyContactBlock(0,fxApplication.getUser_id(),
+
+				db.modifyContactBlock(0,user_id,
 						list.get(index).getContactId());
 				list.remove(index);
 				clvAdapter.notifyDataSetChanged();
 				break;
 			case 6:
-				 prodialog.dismiss();
+				prodialog.dismiss();
 				Toast.makeText(getApplicationContext(), "请求失败",
 						Toast.LENGTH_SHORT).show();
 				break;
 
 			case 7:
-				 prodialog.dismiss();
+				prodialog.dismiss();
 				Toast.makeText(getApplicationContext(), "网络错误",
 						Toast.LENGTH_SHORT).show();
 				break;
 			}
 		}
 	};
-	private FxApplication fxApplication;
+	SharedPreferences preferences;
+	int user_id = -1;
+	String Token = "";
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.block_management);
-		fxApplication = (FxApplication) getApplication();
 		db = new DBManager(this);
+		preferences = getSharedPreferences(Urlinterface.SHARED,
+				Context.MODE_PRIVATE);
+		user_id = preferences.getInt("user_id", -1);
+		Token = preferences.getString("Token", "");
 		// 获得被屏蔽的联系人
-		List<ContactPojo> contactsList = db.queryContactList(fxApplication.getUser_id());
-//		fxApplication.setContactsList(contactsList);
-		for (int i = 0; i <contactsList.size(); i++) {
-			if (contactsList.get(i).getIsBlocked()==1) {
+		List<ContactPojo> contactsList = db.queryContactList(user_id);
+		for (int i = 0; i < contactsList.size(); i++) {
+			if (contactsList.get(i).getIsBlocked() == 1) {
 				list.add(contactsList.get(i));
 			}
 		}
-		
+
 		block_management_back = (ImageButton) findViewById(R.id.block_management_back);
 		mListView = (ListView) findViewById(R.id.block_management_listView);
 		mListView.setDivider(null);
@@ -161,8 +145,8 @@ public class BlockManagementActivity extends Activity {
 
 				BlockContactRequest.Builder builder = BlockContactRequest
 						.newBuilder();
-				builder.setUserId(fxApplication.getUser_id());
-				builder.setToken(fxApplication.getToken());
+				builder.setUserId(user_id);
+				builder.setToken(Token);
 				builder.setContactId(list.get(index).getContactId());
 				builder.setIsBlocked(false);
 
@@ -227,22 +211,24 @@ public class BlockManagementActivity extends Activity {
 			} else {
 				layout = (RelativeLayout) arg1;
 			}
-			 CircularImage head = (CircularImage)
-			 layout.findViewById(R.id.block_face);
+			CircularImage head = (CircularImage) layout
+					.findViewById(R.id.block_face);
 			// 设置头像
-				String face_str = contact.getUserface_url();
-				if (face_str.length() > 4) {
-					face_str=Urlinterface.IP+face_str;
-					File f = new File(Urlinterface.head_pic, contact.getContactId()+"");
-					if (f.exists()) {
-						Log.i("linshi------------", "加载本地图片");
-						Drawable dra = new BitmapDrawable(
-								BitmapFactory.decodeFile(Urlinterface.head_pic + contact.getContactId()));
-						head.setImageDrawable(dra);
-					} else {
-						head.setImageResource(R.drawable.moren);
-					}
+			String face_str = contact.getUserface_url();
+			if (face_str.length() > 4) {
+				face_str = Urlinterface.IP + face_str;
+				File f = new File(Urlinterface.head_pic, contact.getContactId()
+						+ "");
+				if (f.exists()) {
+					Log.i("linshi------------", "加载本地图片");
+					Drawable dra = new BitmapDrawable(
+							BitmapFactory.decodeFile(Urlinterface.head_pic
+									+ contact.getContactId()));
+					head.setImageDrawable(dra);
+				} else {
+					head.setImageResource(R.drawable.moren);
 				}
+			}
 			TextView name = (TextView) layout.findViewById(R.id.block_name);
 			name.setText(contact.getName());
 			Button restore = (Button) layout.findViewById(R.id.block_restore);
@@ -281,14 +267,14 @@ public class BlockManagementActivity extends Activity {
 			return layout;
 		}
 	}
-	
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 		switch (resultCode) {
 		case -11:
 			handler.sendEmptyMessage(2);
-			
+
 			break;
 		default:
 			break;

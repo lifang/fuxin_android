@@ -7,23 +7,22 @@
     <RelativeLayout
         android:id="@+id/setting_top"
         android:layout_width="fill_parent"
-        android:layout_height="80dp"
+        android:layout_height="65dp"
         android:background="@color/white"
-        
         android:orientation="vertical" >
 
         <RelativeLayout
             android:id="@+id/setting_userface0"
             android:layout_width="wrap_content"
-            android:gravity="center_vertical"
-            
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="17dp"
+            android:gravity="center_vertical" >
 
             <com.fuwu.mobileim.view.CircularImage
                 android:id="@+id/setting_userface"
                 android:layout_width="42dp"
                 android:layout_height="42dp"
-                android:layout_marginLeft="5dp"
                 android:src="@drawable/moren" />
         </RelativeLayout>
 
@@ -31,31 +30,32 @@
             android:id="@+id/setting_relativeLayout1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="14dp"
             android:layout_toRightOf="@+id/setting_userface0" >
 
             <TextView
                 android:id="@+id/setting_teachername"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="叮叮叮"
+                android:text=""
                 android:textColor="#333333"
-                android:textSize="19dp" />
+                android:textSize="17dp" />
 
             <ImageView
                 android:id="@+id/setting_sex_item"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
-                android:layout_marginTop="4dp"
                 android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/setting_teachername"
-                 />
+                android:layout_marginTop="4dp"
+                android:layout_toRightOf="@+id/setting_teachername" />
 
             <RelativeLayout
                 android:id="@+id/setting_userface2"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
                 android:layout_below="@+id/setting_teachername"
+                android:layout_marginTop="4dp"
                 android:gravity="center_vertical" >
 
                 <ImageView
@@ -63,7 +63,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/certification1" />
+                    android:background="@drawable/certification1"
+                    android:visibility="gone" />
 
                 <ImageView
                     android:id="@+id/certification_two"
@@ -72,7 +73,8 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="19dp"
                     android:layout_toRightOf="@+id/certification_one"
-                    android:background="@drawable/certification2" />
+                    android:background="@drawable/certification2"
+                    android:visibility="gone" />
 
                 <ImageView
                     android:id="@+id/certification_three"
@@ -81,11 +83,12 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="19dp"
                     android:layout_toRightOf="@+id/certification_two"
-                    android:background="@drawable/certification3" />
+                    android:background="@drawable/certification3"
+                    android:visibility="gone" />
 
                 <ImageView
-                    android:layout_width="50px"
-                    android:layout_height="30px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="17dp"
@@ -98,8 +101,8 @@
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
         android:background="#E1E1E1" />
 
     <ListView
