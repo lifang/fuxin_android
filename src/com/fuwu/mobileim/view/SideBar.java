@@ -51,16 +51,16 @@ public class SideBar extends View {
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
 		// 获取焦点改变背景颜色.
-		int height = getHeight();// 获取对应高度
+		int height = getHeight()-50;// 获取对应高度
 		int width = getWidth(); // 获取对应宽度
 		int singleHeight = height / b.length;// 获取每一个字母的高度
 
 		for (int i = 0; i < b.length; i++) {
 			paint.setColor(Color.rgb(201, 201, 201));
 			// paint.setColor(Color.WHITE);
-			paint.setTypeface(Typeface.DEFAULT_BOLD);
+//			paint.setTypeface(Typeface.DEFAULT_BOLD);
 			paint.setAntiAlias(true);
-			paint.setTextSize(height/26);
+			paint.setTextSize(height/28);
 			// 选中的状态
 			if (i == choose) {
 				paint.setColor(Color.rgb(201, 201, 201));

@@ -85,6 +85,7 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 	private int progress;
 	private String fileurl = "";
 	private DBManager db;
+	int dataNumber=0;  //  0 数据没加载完，1 数据加载完
 	private Handler handler = new Handler() {
 		/*
 		 * (non-Javadoc)
@@ -94,7 +95,8 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 0:
-				fxApplication.setProfilePojo(profilePojo);
+//				fxApplication.setProfilePojo(profilePojo);
+				putProfile(profilePojo);
 				setData();
 				break;
 			case 6:
@@ -173,21 +175,7 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		return rootView;
 	}
 
-	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-		switch (resultCode) {
-		case -11:
-			profilePojo = fxApplication.getProfilePojo();
-			handler.sendEmptyMessage(0);
-			break;
-		default:
-			break;
-
-		}
-		super.onActivityResult(requestCode, resultCode, data);
-
-	}
 
 	/**
 	 * 
@@ -353,6 +341,7 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 			// Toast.makeText(getActivity().getApplication(), "跳到个人信息页面",
 			// Toast.LENGTH_LONG).show();
 			Intent intent = new Intent();
+			intent.putExtra("dataNumber", dataNumber);
 			intent.setClass(getActivity(), MyInformationActivity.class);
 			startActivityForResult(intent, 0);
 		}
@@ -707,5 +696,68 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		 * 不能与StatService.onPageStart一级onPageEnd函数交叉使用
 		 */
 		StatService.onPause(this);
+	}
+	
+	/**
+	 * 获得本地存储的 个人信息
+	 */
+	private ProfilePojo getProfilePojo() {
+
+		SharedPreferences preferences = getActivity().getSharedPreferences(
+				Urlinterface.SHARED, Context.MODE_PRIVATE);
+
+		int profile_userid = preferences.getInt("profile_userid", -1);
+		String name = preferences.getString("profile_name", "");// 名称
+		String nickName = preferences.getString("profile_nickName", "");// 昵称
+		int gender = preferences.getInt("profile_gender", -1);// 性别
+		String tileUrl = preferences.getString("profile_tileUrl", "");// 头像
+		Boolean isProvider = preferences
+				.getBoolean("profile_isProvider", false);//
+		String lisence = preferences.getString("profile_lisence", "");// 行业认证
+		String mobile = preferences.getString("profile_mobile", "");// 手机号码
+		String email = preferences.getString("profile_email", "");// 邮箱
+		String birthday = preferences.getString("profile_birthday", "");// 生日
+		Boolean isAuthentication = preferences
+				.getBoolean("profile_isAuthentication", false);//
+		String fuzhi = preferences.getString("profile_fuZhi", "");// 生日
+		profilePojo = new ProfilePojo(profile_userid, name, nickName, gender,
+				tileUrl, isProvider, lisence, mobile, email, birthday,isAuthentication,fuzhi);
+		return profilePojo;
+	}
+	private void putProfile(ProfilePojo pro) {
+		SharedPreferences preferences = getActivity().getSharedPreferences(
+				Urlinterface.SHARED, Context.MODE_PRIVATE);
+		Editor editor = preferences.edit();
+		editor.putInt("profile_userid", pro.getUserId());
+		editor.putString("profile_name", pro.getName());
+		editor.putString("profile_nickName", pro.getNickName());
+		editor.putInt("profile_gender", pro.getGender());
+		editor.putString("profile_tileUrl", pro.getTileUrl());
+		editor.putBoolean("profile_isProvider", pro.getIsProvider());
+		editor.putString("profile_lisence", pro.getLisence());
+		editor.putString("profile_mobile", pro.getMobile());
+		editor.putString("profile_email", pro.getEmail());
+		editor.putString("profile_birthday", pro.getBirthday());
+		editor.putBoolean("profile_isAuthentication", pro.getIsAuthentication());
+		editor.putString("profile_fuZhi", pro.getFuZhi());
+		editor.commit();
+		dataNumber=1;
+
+	}
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+		switch (resultCode) {
+		case -11:
+			profilePojo =getProfilePojo();
+			handler.sendEmptyMessage(0);
+			break;
+		default:
+			break;
+
+		}
+		super.onActivityResult(requestCode, resultCode, data);
+
 	}
 }
