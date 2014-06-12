@@ -30,7 +30,7 @@ public class MyDialog extends Dialog {
 
 		LayoutParams p = getWindow().getAttributes(); // 获取对话框当前的参数值
 		if (type == 0) {
-			p.height = (int) (d.getHeight() * 0.2); // 高度设置
+			p.height = p.WRAP_CONTENT; // 高度设置
 			p.width = (int) (d.getWidth() * 0.8); // 宽度设置
 		} else {
 			p.height = p.WRAP_CONTENT;

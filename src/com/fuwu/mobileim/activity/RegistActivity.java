@@ -93,6 +93,9 @@ public class RegistActivity extends Activity implements OnClickListener,
 					if (errorString == null) {
 						Toast.makeText(RegistActivity.this, "短信发送失败,请重试",
 								Toast.LENGTH_SHORT).show();
+					} else if (errorString.equals("ExistingUserYes")) {
+						Toast.makeText(RegistActivity.this, "手机已被注册",
+								Toast.LENGTH_SHORT).show();
 					} else {
 						Toast.makeText(RegistActivity.this, errorString,
 								Toast.LENGTH_SHORT).show();

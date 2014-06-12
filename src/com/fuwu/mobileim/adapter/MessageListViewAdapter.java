@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -18,11 +19,9 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.os.Handler;
 import android.os.Message;
-import android.sax.StartElementListener;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ImageSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -34,6 +33,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.activity.ZoomImageActivity;
 import com.fuwu.mobileim.model.Models.ChangeContactDetailRequest;
