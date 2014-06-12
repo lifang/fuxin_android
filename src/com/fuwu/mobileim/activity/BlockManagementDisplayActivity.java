@@ -6,7 +6,9 @@ import java.util.List;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -81,22 +83,26 @@ public class BlockManagementDisplayActivity extends Activity {
 	};
 	private int contactId = -1;
 	private ContactPojo contact;
-	private FxApplication fxApplication;
-
+	SharedPreferences preferences;
+	int user_id = -1;
+	String Token = "";
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.block_management_display);
-		fxApplication = (FxApplication) getApplication();
 		Setwindow(0.19f);// 设置窗口化
 		db = new DBManager(this);
+		preferences = getSharedPreferences(Urlinterface.SHARED,
+				Context.MODE_PRIVATE);
+		user_id = preferences.getInt("user_id", -1);
+		Token = preferences.getString("Token", "");
 		Intent intent = getIntent();//
 		contactId = intent.getIntExtra("contactId", -1);
-		for (int i = 0; i < db.queryContactList(fxApplication.getUser_id()).size(); i++) {
-			if (db.queryContactList(fxApplication.getUser_id()).get(i).getContactId() == contactId) {
-				contact = db.queryContactList(fxApplication.getUser_id()).get(i);
+		for (int i = 0; i < db.queryContactList(user_id).size(); i++) {
+			if (db.queryContactList(user_id).get(i).getContactId() == contactId) {
+				contact = db.queryContactList(user_id).get(i);
 				break;
 			}
 		}
@@ -205,8 +211,8 @@ public class BlockManagementDisplayActivity extends Activity {
 
 				BlockContactRequest.Builder builder = BlockContactRequest
 						.newBuilder();
-				builder.setUserId(fxApplication.getUser_id());
-				builder.setToken(fxApplication.getToken());
+				builder.setUserId(user_id);
+				builder.setToken(Token);
 				builder.setContactId(contactId);
 				builder.setIsBlocked(false);
 

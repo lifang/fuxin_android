@@ -16,7 +16,8 @@
             android:id="@+id/setting_userface0"
             android:layout_width="wrap_content"
             android:gravity="center_vertical"
-            
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="25dp"
             android:layout_height="wrap_content" >
 
             <com.fuwu.mobileim.view.CircularImage
@@ -31,6 +32,8 @@
             android:id="@+id/setting_relativeLayout1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+             android:layout_marginLeft="15dp"
+            android:layout_marginTop="19dp"
             android:layout_toRightOf="@+id/setting_userface0" >
 
             <TextView

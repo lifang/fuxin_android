@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,6 +14,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fuwu.mobileim.R;
+import com.fuwu.mobileim.activity.FragmengtActivity.getContacts;
 import com.fuwu.mobileim.adapter.ContactAdapter;
 import com.fuwu.mobileim.model.Models.ContactRequest;
 import com.fuwu.mobileim.model.Models.ContactResponse;
@@ -48,8 +51,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 
 	private DBManager db;
 	private FxApplication fxApplication;
-	private ListView sortListView;// 普通的 listview，最近，订阅，交易 这三个部分使用
-	private XListView xListView;// 可上拉刷新 的 listview ，全部 部分使用
+	private XListView xListView;// 可上拉刷新 的 listview ，
 	private SideBar sideBar;
 	private TextView dialog;
 	private ContactAdapter adapter1, adapter2;
@@ -79,7 +81,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			button_subscription;
 	private Button view1, view2, view3;
 	int width;
-	private int buttonNumber = -1;
+	private int buttonNumber = 0;
 	private List<Button> btnList = new ArrayList<Button>();
 	private String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ#";
 	SideBar b;
@@ -148,7 +150,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			}
 		}
 	};
-
+	SharedPreferences preferences;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -160,7 +162,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		db = new DBManager(getActivity());
 		String release = android.os.Build.VERSION.RELEASE; // android系统版本号
 		version = Integer.parseInt(release.substring(0, 1));
-		SharedPreferences preferences = getActivity().getSharedPreferences(
+		 preferences = getActivity().getSharedPreferences(
 				Urlinterface.SHARED, Context.MODE_PRIVATE);
 
 		user_id = preferences.getInt("user_id", -1);
@@ -199,7 +201,8 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 						.getString("contactTimeStamp", "");
 				ContactRequest.Builder builder = ContactRequest.newBuilder();
 				builder.setUserId(user_id);
-				builder.setToken(fxApplication.getToken());
+				builder.setToken(preferences
+						.getString("Token", ""));
 				if (timeStamp.equals("")) {
 
 				} else {
@@ -306,7 +309,6 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 					position = adapter2.getPositionForSection(s.charAt(0));
 				}
 				if (position != -1) {
-					sortListView.setSelection(position);
 					xListView.setSelection(position);
 
 					// TextView tv= (TextView)
@@ -322,22 +324,6 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			}
 		});
 
-		sortListView = (ListView) rootView
-				.findViewById(R.id.contacts_list_view);
-		sortListView.setDivider(null);
-		sortListView.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-
-				Intent intent = new Intent();
-				intent.putExtra("contact_id", contactsList.get(position)
-						.getContactId());
-				intent.setClass(getActivity(), ChatActivity.class);
-				startActivity(intent);
-			}
-		});
 		xListView = (XListView) rootView
 				.findViewById(R.id.contacts_list_view_refresh);
 		xListView.setDivider(null);
@@ -382,14 +368,16 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 	 * 
 	 */
 	private void setButton() {
-		width = fxApplication.getWidth();
+		Display display = getActivity().getWindowManager().getDefaultDisplay();
+		int width = display.getWidth();
+		int height = display.getHeight();
 		int width0 = 4; // 边框宽度
 		int width1 = 20; // 外部边框距左右边界距离
 		int hight0 = 70; // 外部边框高度
 		if (width == 720) {
 			hight0 = 70;
 		} else if (width == 480) {
-			hight0 = 50;
+			hight0 = 45;
 		}
 		int hight1 = hight0 - width0 * 2; // button高度
 		LinearLayout a_layout = (LinearLayout) rootView
@@ -445,12 +433,10 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			adapter_number = 1;
 			buttonNumber = 0;
 			setButtonColor(buttonNumber);
-			xListView.setVisibility(View.VISIBLE);
 			contactsList = db.queryContactList(user_id);
 			Collections.sort(contactsList, pinyinComparator);
 			xListView.setAdapter(adapter1);
 			adapter1.notifyDataSetChanged();
-			sortListView.setVisibility(View.GONE);
 		}
 	};
 	// 最近
@@ -474,10 +460,8 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 				}
 			}
 			Collections.sort(contactsList, pinyinComparator);
-			sortListView.setAdapter(adapter2);
+			xListView.setAdapter(adapter2);
 			adapter2.updateListView(contactsList);
-			sortListView.setVisibility(View.VISIBLE);
-			xListView.setVisibility(View.GONE);
 		}
 	};
 	// 交易
@@ -498,10 +482,8 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 				}
 			}
 			Collections.sort(contactsList, pinyinComparator);
-			sortListView.setAdapter(adapter2);
+			xListView.setAdapter(adapter2);
 			adapter2.updateListView(contactsList);
-			sortListView.setVisibility(View.VISIBLE);
-			xListView.setVisibility(View.GONE);
 		}
 	};
 	// 订阅
@@ -522,10 +504,8 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 				}
 			}
 			Collections.sort(contactsList, pinyinComparator);
-			sortListView.setAdapter(adapter2);
+			xListView.setAdapter(adapter2);
 			adapter2.updateListView(contactsList);
-			sortListView.setVisibility(View.VISIBLE);
-			xListView.setVisibility(View.GONE);
 		}
 	};
 
@@ -594,9 +574,18 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 
 	public void onRefresh() {
 		// TODO Auto-generated method stub
-		contactsList = new ArrayList<ContactPojo>();
-		Thread thread = new Thread(new getContacts2());
-		thread.start();
+		if (buttonNumber==0) {
+		if (FuXunTools.isConnect(getActivity())) {
+			contactsList = new ArrayList<ContactPojo>();
+			Thread thread = new Thread(new getContacts2());
+			thread.start();	
+			} else {
+				Toast.makeText(getActivity(), R.string.no_internet,
+						Toast.LENGTH_SHORT).show();
+			}
+		}else {
+			onLoad();
+		}
 		Log.i("linshi", "1111111111111111111111111111");
 
 	}

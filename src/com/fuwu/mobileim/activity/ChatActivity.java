@@ -188,8 +188,8 @@ public class ChatActivity extends Activity implements OnClickListener,
 		keys = new ArrayList<String>();
 		keys.addAll(keySet);
 		user_id = fx.getUser_id();
-		contact_id = user_id;
-		// contact_id = intent.getIntExtra("contact_id", 0);
+		// contact_id = user_id;
+		contact_id = intent.getIntExtra("contact_id", 0);
 		cp = db.queryContact(user_id, contact_id);
 		updateMessageData();
 	}

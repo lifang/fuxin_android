@@ -202,7 +202,6 @@ public class FragmengtActivity extends FragmentActivity {
 
 		Log.i("Max",
 				fxApplication.getToken() + "/" + fxApplication.getUser_id());
-		// contactInformation();
 		contactInformation();
 
 		// 个推SDK初始化

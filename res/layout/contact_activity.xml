@@ -74,15 +74,6 @@
             android:text="@string/button_subscription" />
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/contacts_list_view"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/a_layout"
-        android:fadingEdge="none"
-        android:visibility="gone"
-        android:scrollbars="none" >
-    </ListView>
 
     <com.fuwu.mobileim.view.XListView
         android:id="@+id/contacts_list_view_refresh"

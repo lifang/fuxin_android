@@ -138,7 +138,7 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 			}
 		}
 	};
-
+	SharedPreferences preferences ;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -146,7 +146,9 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		fxApplication = (FxApplication) getActivity().getApplication();
 		db = new DBManager(getActivity());
 		adapter = new SettingBottomAdapter();
-
+		preferences = getActivity()
+				.getSharedPreferences(Urlinterface.SHARED,
+						Context.MODE_PRIVATE);
 		listview = (ListView) rootView.findViewById(R.id.setting_listview);
 		listview.setDivider(null);
 		listview.setAdapter(adapter);
@@ -160,19 +162,6 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 			}
 		});
 		init();
-
-		SharedPreferences preferences = getActivity().getSharedPreferences(
-				Urlinterface.SHARED, Context.MODE_PRIVATE);
-
-		int profile_userid = preferences.getInt("profile_userid", -1);
-		// if (profile_userid != -1
-		// && profile_userid == fxApplication.getUser_id()) {
-		// Log.i("linshi------------", "profileprofileprofileprofile本地shuju");
-		//
-		// profilePojo = getProfilePojo();
-		// handler.sendEmptyMessage(0);
-		//
-		// } else {
 		if (FuXunTools.isConnect(getActivity())) {
 			Thread thread = new Thread(new getProfile());
 			thread.start();
@@ -180,7 +169,6 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 			Toast.makeText(getActivity(), R.string.no_internet,
 					Toast.LENGTH_SHORT).show();
 		}
-		// }
 
 		return rootView;
 	}
@@ -211,9 +199,11 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 	class getProfile implements Runnable {
 		public void run() {
 			try {
+				int user_id = preferences.getInt("user_id", -1);
+				String Token = preferences.getString("Token", "");
 				ProfileRequest.Builder builder = ProfileRequest.newBuilder();
-				builder.setUserId(fxApplication.getUser_id());
-				builder.setToken(fxApplication.getToken());
+				builder.setUserId(user_id);
+				builder.setToken(Token);
 				ProfileRequest response = builder.build();
 
 				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
@@ -284,15 +274,15 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 				.findViewById(R.id.certification_two);// 验证2
 		certification_three = (ImageView) rootView
 				.findViewById(R.id.certification_three);// 验证3
-		LayoutParams param = (LayoutParams) a_layout.getLayoutParams();
-		param.leftMargin = 40;
-		param.topMargin = 50;
-		RelativeLayout setting_relativeLayout1 = (RelativeLayout) rootView
-				.findViewById(R.id.setting_relativeLayout1);
-		LayoutParams param2 = (LayoutParams) setting_relativeLayout1
-				.getLayoutParams();
-		param2.leftMargin = 30;
-		param2.topMargin = 38;
+		// LayoutParams param = (LayoutParams) a_layout.getLayoutParams();
+		// param.leftMargin = 40;
+		// param.topMargin = 50;
+		// RelativeLayout setting_relativeLayout1 = (RelativeLayout) rootView
+		// .findViewById(R.id.setting_relativeLayout1);
+		// LayoutParams param2 = (LayoutParams) setting_relativeLayout1
+		// .getLayoutParams();
+		// param2.leftMargin = 30;
+		// param2.topMargin = 38;
 		setting_top.setOnClickListener(listener1);// 给个人信息部分设置监听
 	}
 
@@ -410,11 +400,7 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 			startActivity(intent);
 			clearActivity();
 			fxApplication.initData();
-			SharedPreferences preferences = getActivity().getSharedPreferences(
-					Urlinterface.SHARED, Context.MODE_PRIVATE);
-			Editor editor = preferences.edit();
-			editor.putInt("profile_userid", -1);
-			editor.commit();
+			
 			break;
 		default:
 			break;
@@ -520,7 +506,8 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 					public void onClick(DialogInterface dialog, int which) {
 						// Toast.makeText(getActivity().getApplication(),
 						// "清除全部聊天记录", Toast.LENGTH_LONG).show();
-						db.delMessage(fxApplication.getUser_id());
+						int user_id = preferences.getInt("user_id", -1);
+						db.delMessage(user_id);
 					}
 				})
 				.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -549,23 +536,20 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 
 				ClientInfo.Builder pb = ClientInfo.newBuilder();
 				// pb.setDeviceId(tm.getDeviceId());
-				SharedPreferences preferences = getActivity()
-						.getSharedPreferences(Urlinterface.SHARED,
-								Context.MODE_PRIVATE);
 				String deviceId = preferences.getString("clientid", "");
+				int user_id = preferences.getInt("user_id", -1);
+				String Token = preferences.getString("Token", "");
 				pb.setDeviceId(deviceId);
-				int profile_userid = preferences.getInt("profile_userid", -1);
-				String name = preferences.getString("profile_name", "");// 名称
 				pb.setOSVersion(release);
-				pb.setUserId(profilePojo.getUserId());
+				pb.setUserId(user_id);
 				pb.setChannel(0);
 				pb.setClientVersion(Urlinterface.current_version + "");
 				pb.setIsPushEnable(true);
 				Log.i("linshi", "-----------------");
 				ClientInfoRequest.Builder builder = ClientInfoRequest
 						.newBuilder();
-				builder.setUserId(fxApplication.getUser_id());
-				builder.setToken(fxApplication.getToken());
+				builder.setUserId(user_id);
+				builder.setToken(Token);
 				builder.setClientInfo(pb);
 				ClientInfoRequest response = builder.build();
 
