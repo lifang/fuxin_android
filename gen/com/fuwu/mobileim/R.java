@@ -952,7 +952,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     public static final class id {
         public static final int a_layout=0x7f09005c;
         public static final int accordion=0x7f09000b;
-        public static final int action_settings=0x7f09012b;
+        public static final int action_settings=0x7f09012e;
         public static final int agreement=0x7f0900fb;
         public static final int all=0x7f09001f;
         public static final int app_logo=0x7f09007c;
@@ -1026,7 +1026,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int cubein=0x7f090002;
         public static final int cubeout=0x7f090003;
         public static final int dath=0x7f09011d;
-        public static final int del_talk=0x7f09011e;
+        public static final int del_talk=0x7f090121;
         public static final int delete=0x7f090114;
         public static final int disabled=0x7f090016;
         public static final int dismiss=0x7f090015;
@@ -1067,6 +1067,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int info_lisence=0x7f090051;
         public static final int info_lisenceText=0x7f090050;
         public static final int info_name=0x7f090049;
+        public static final int info_nickname=0x7f09011f;
+        public static final int info_nickname_ok=0x7f090120;
         public static final int info_ok=0x7f09004f;
         public static final int info_rem=0x7f09004a;
         public static final int info_remInfo=0x7f09004e;
@@ -1112,12 +1114,13 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int name=0x7f0900ee;
         public static final int name_layout=0x7f09002a;
         public static final int name_tag=0x7f0900ef;
-        public static final int new_pwd=0x7f090121;
-        public static final int new_pwd_tag=0x7f090122;
-        public static final int new_pwds=0x7f090123;
-        public static final int new_pwds_tag=0x7f090124;
+        public static final int new_pwd=0x7f090124;
+        public static final int new_pwd_tag=0x7f090125;
+        public static final int new_pwds=0x7f090126;
+        public static final int new_pwds_tag=0x7f090127;
         public static final int news=0x7f090116;
         public static final int next_time=0x7f09008d;
+        public static final int nickname=0x7f09011e;
         public static final int none=0x7f090012;
         public static final int notice_number=0x7f090102;
         public static final int notice_sign=0x7f090101;
@@ -1135,8 +1138,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int notification_update_icon=0x7f0900dc;
         public static final int notification_update_text=0x7f0900dd;
         public static final int notification_version=0x7f0900d8;
-        public static final int old_pwd=0x7f09011f;
-        public static final int old_pwd_tag=0x7f090120;
+        public static final int old_pwd=0x7f090122;
+        public static final int old_pwd_tag=0x7f090123;
         public static final int other_operation=0x7f09008a;
         public static final int paizhaoshangchuan=0x7f090106;
         public static final int phone=0x7f0900f4;
@@ -1228,7 +1231,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int update_notification_progressbar=0x7f090027;
         public static final int update_notification_progressblock=0x7f090026;
         public static final int update_notification_progresstext=0x7f090025;
-        public static final int update_over=0x7f090125;
+        public static final int update_over=0x7f090128;
         public static final int update_progress=0x7f090113;
         public static final int upload_status=0x7f090084;
         public static final int user=0x7f0900ac;
@@ -1239,11 +1242,11 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int view_3=0x7f090062;
         public static final int webview=0x7f090022;
         public static final int wifi_download=0x7f09008c;
-        public static final int xlistview_header_arrow=0x7f090129;
-        public static final int xlistview_header_content=0x7f090126;
-        public static final int xlistview_header_hint_textview=0x7f090128;
-        public static final int xlistview_header_progressbar=0x7f09012a;
-        public static final int xlistview_header_text=0x7f090127;
+        public static final int xlistview_header_arrow=0x7f09012c;
+        public static final int xlistview_header_content=0x7f090129;
+        public static final int xlistview_header_hint_textview=0x7f09012b;
+        public static final int xlistview_header_progressbar=0x7f09012d;
+        public static final int xlistview_header_text=0x7f09012a;
         public static final int xy=0x7f0900fc;
         public static final int yz=0x7f0900f7;
         public static final int yz_send=0x7f0900f8;
@@ -1358,6 +1361,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int system_title=0x7f060027;
         public static final int takephoto=0x7f060040;
         public static final int talk=0x7f06000d;
+        public static final int talk_nickname=0x7f060045;
         public static final int update_title=0x7f06002b;
         public static final int validate=0x7f060029;
         public static final int validate2=0x7f06002a;

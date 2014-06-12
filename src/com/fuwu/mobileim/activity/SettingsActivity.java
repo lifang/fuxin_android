@@ -402,15 +402,15 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		// Toast.LENGTH_LONG).show();
 		// break;
 		case 5:// 退出登录
+			SharedPreferences preferences = getActivity().getSharedPreferences(
+					Urlinterface.SHARED, Context.MODE_PRIVATE);
+			Editor editor = preferences.edit();
+			editor.putString("pwd", "");
+			editor.commit();
 			intent.setClass(getActivity(), LoginActivity.class);
 			startActivity(intent);
 			clearActivity();
 			fxApplication.initData();
-			SharedPreferences preferences = getActivity().getSharedPreferences(
-					Urlinterface.SHARED, Context.MODE_PRIVATE);
-			Editor editor = preferences.edit();
-			editor.putInt("profile_userid", -1);
-			editor.commit();
 			break;
 		default:
 			break;
