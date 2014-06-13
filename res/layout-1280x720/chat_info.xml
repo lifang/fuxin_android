@@ -48,8 +48,9 @@
         android:id="@+id/info_gouIcon"
         android:layout_width="30dp"
         android:layout_height="17dp"
-        android:layout_alignTop="@id/info_yueIcon"
-        android:layout_toLeftOf="@id/info_yueIcon"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/info_img"
+        android:layout_marginRight="45dp"
         android:src="@drawable/gou" />
 
     <View
