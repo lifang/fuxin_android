@@ -536,12 +536,12 @@ public class FragmengtActivity extends FragmentActivity {
 						SharedPreferences preferences = getSharedPreferences(
 								Urlinterface.SHARED, Context.MODE_PRIVATE);
 						Editor editor = preferences.edit();
-						editor.putInt("contact_id", contactsList.get(position - 1)
+						editor.putInt("contact_id", contactsList.get(position)
 								.getContactId());
 						editor.commit();
 						Intent intent = new Intent();
-//						intent.putExtra("contact_id", contactsList
-//								.get(position).getContactId());
+						intent.putExtra("contact_id", contactsList
+								.get(position).getContactId());
 						intent.setClass(FragmengtActivity.this,
 								ChatActivity.class);
 						startActivity(intent);
