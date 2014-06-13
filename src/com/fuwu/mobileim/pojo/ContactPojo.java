@@ -20,6 +20,7 @@ public class ContactPojo {
 	
     private String lisence; // 认证
     private String individualResume ; //  个人简介
+    private String fuzhi;
 	public ContactPojo() {
 	}
 	
@@ -42,7 +43,15 @@ public class ContactPojo {
 		this.lisence = lisence;
 		this.individualResume = individualResume;
 	}
+	
 
+	public String getFuzhi() {
+		return fuzhi;
+	}
+
+	public void setFuzhi(String fuzhi) {
+		this.fuzhi = fuzhi;
+	}
 
 	public int getContactId() {
 		return contactId;
@@ -125,7 +134,7 @@ public class ContactPojo {
 				+ ", source=" + source + ", lastContactTime=" + lastContactTime
 				+ ", isBlocked=" + isBlocked + ", isProvider=" + isProvider
 				+ ", lisence=" + lisence + ", individualResume="
-				+ individualResume + "]";
+				+ individualResume + ", fuzhi=" + fuzhi + "]";
 	}
 	
 }

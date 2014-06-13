@@ -68,6 +68,7 @@ import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.pojo.MessagePojo;
 import com.fuwu.mobileim.pojo.TalkPojo;
 import com.fuwu.mobileim.util.DBManager;
+import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.ImageUtil;
@@ -162,6 +163,9 @@ public class ChatActivity extends Activity implements OnClickListener,
 				Intent intent = new Intent();
 				intent.setClass(ChatActivity.this, RequstService.class);
 				startService(intent);
+				break;
+			case 8:
+				Toast.makeText(getApplicationContext(), "网络异常", 0).show();
 				break;
 			}
 		}
@@ -402,14 +406,18 @@ public class ChatActivity extends Activity implements OnClickListener,
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				if (position == 0) {
-					Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-					intent.setType("image/*");
-					startActivityForResult(intent, 1);
+				if (FuXunTools.isConnect(ChatActivity.this)) {
+					if (position == 0) {
+						Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+						intent.setType("image/*");
+						startActivityForResult(intent, 1);
+					} else {
+						Intent takephoto = new Intent(
+								MediaStore.ACTION_IMAGE_CAPTURE);
+						startActivityForResult(takephoto, 2);
+					}
 				} else {
-					Intent takephoto = new Intent(
-							MediaStore.ACTION_IMAGE_CAPTURE);
-					startActivityForResult(takephoto, 2);
+					handler.sendEmptyMessage(8);
 				}
 			}
 		});
@@ -639,9 +647,13 @@ public class ChatActivity extends Activity implements OnClickListener,
 					Toast.makeText(getApplicationContext(),
 							"信息内容限制300字,请分段输入.", 0).show();
 				} else {
-					handler.sendEmptyMessage(1);
-					sendMessageExecutor.execute(new SendMessageThread(null,
-							str, 1));
+					if (FuXunTools.isConnect(this)) {
+						handler.sendEmptyMessage(1);
+						sendMessageExecutor.execute(new SendMessageThread(null,
+								str, 1));
+					} else {
+						handler.sendEmptyMessage(8);
+					}
 				}
 			}
 			break;
@@ -663,7 +675,11 @@ public class ChatActivity extends Activity implements OnClickListener,
 			}
 			break;
 		case R.id.chatset_block:
-			new BlockContact().start();
+			if (FuXunTools.isConnect(this)) {
+				new BlockContact().start();
+			} else {
+				handler.sendEmptyMessage(8);
+			}
 			if (menuWindow.isShowing()) {
 				menuWindow.dismiss();
 			}
@@ -732,33 +748,37 @@ public class ChatActivity extends Activity implements OnClickListener,
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		if (resultCode == RESULT_OK) {
-			switch (requestCode) {
-			case 1:
-				pd.show();
-				Uri imgUri = data.getData();
-				String[] proj = { MediaStore.Images.Media.DATA };
-				Cursor cursor = managedQuery(imgUri, proj, null, null, null);
-				int column_index = cursor
-						.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-				cursor.moveToFirst();
-				String path = cursor.getString(column_index);
-				loadImageExecutor.execute(new LoadImage(path));
-				break;
-			case 2:
-				pd.show();
-				Bundle bundle = data.getExtras();
-				if (bundle != null) {
-					Bitmap bitmap = (Bitmap) bundle.get("data");
-					String file = System.currentTimeMillis() + "";
-					ImageUtil.saveBitmap(file, "JPG", bitmap);
-					mp = new MessagePojo(user_id, contact_id, "",
-							file + ".jpg", 1, 2);
-					sendMessageExecutor.execute(new SendMessageThread(
-							Bitmap2Bytes(bitmap), null, 2));
+		if (FuXunTools.isConnect(this)) {
+			if (resultCode == RESULT_OK) {
+				switch (requestCode) {
+				case 1:
+					pd.show();
+					Uri imgUri = data.getData();
+					String[] proj = { MediaStore.Images.Media.DATA };
+					Cursor cursor = managedQuery(imgUri, proj, null, null, null);
+					int column_index = cursor
+							.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+					cursor.moveToFirst();
+					String path = cursor.getString(column_index);
+					loadImageExecutor.execute(new LoadImage(path));
+					break;
+				case 2:
+					pd.show();
+					Bundle bundle = data.getExtras();
+					if (bundle != null) {
+						Bitmap bitmap = (Bitmap) bundle.get("data");
+						String file = System.currentTimeMillis() + "";
+						ImageUtil.saveBitmap(file, "JPG", bitmap);
+						mp = new MessagePojo(user_id, contact_id, "", file
+								+ ".jpg", 1, 2);
+						sendMessageExecutor.execute(new SendMessageThread(
+								Bitmap2Bytes(bitmap), null, 2));
+					}
+					break;
 				}
-				break;
 			}
+		} else {
+			handler.sendEmptyMessage(8);
 		}
 	}
 

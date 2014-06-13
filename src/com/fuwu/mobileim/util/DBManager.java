@@ -11,17 +11,14 @@ import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.pojo.MessagePojo;
 import com.fuwu.mobileim.pojo.PushPojo;
 import com.fuwu.mobileim.pojo.TalkPojo;
-import com.fuwu.mobileim.view.CharacterParser;
 
 public class DBManager {
 	private DBHelper helper;
 	private SQLiteDatabase db;
-	private CharacterParser characterParser;
-
+	
 	public DBManager(Context context) {
 		helper = new DBHelper(context);
 		db = helper.getWritableDatabase();
-		characterParser = CharacterParser.getInstance();
 	}
 
 	public void addMessage(MessagePojo mp) {
