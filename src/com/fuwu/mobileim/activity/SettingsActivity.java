@@ -11,6 +11,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.content.Context;
@@ -18,11 +19,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -41,9 +37,9 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.baidu.mobstat.StatService;
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.model.Models.ClientInfo;
@@ -51,6 +47,9 @@ import com.fuwu.mobileim.model.Models.ClientInfoRequest;
 import com.fuwu.mobileim.model.Models.ClientInfoResponse;
 import com.fuwu.mobileim.model.Models.ProfileRequest;
 import com.fuwu.mobileim.model.Models.ProfileResponse;
+import com.fuwu.mobileim.model.Models.UnAuthenticationRequest;
+import com.fuwu.mobileim.model.Models.UnAuthenticationResponse;
+import com.fuwu.mobileim.model.Models.ClientInfo.OSType;
 import com.fuwu.mobileim.pojo.ProfilePojo;
 import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FuXunTools;
@@ -59,6 +58,7 @@ import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.ImageCacheUtil;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CircularImage;
+import com.google.protobuf.InvalidProtocolBufferException;
 
 /**
  * @作者 丁作强
@@ -85,7 +85,8 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 	private int progress;
 	private String fileurl = "";
 	private DBManager db;
-	int dataNumber=0;  //  0 数据没加载完，1 数据加载完
+	int dataNumber = 0; // 0 数据没加载完，1 数据加载完
+	private ProgressDialog prodialog;
 	private Handler handler = new Handler() {
 		/*
 		 * (non-Javadoc)
@@ -95,16 +96,26 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 0:
-//				fxApplication.setProfilePojo(profilePojo);
+				// fxApplication.setProfilePojo(profilePojo);
 				putProfile(profilePojo);
 				setData();
+				break;
+			case 5:
+				prodialog.dismiss();
+				Intent intent = new Intent();
+				preferences.edit().putString("pwd", "").commit();
+				preferences.edit().putString("clientid", "").commit();
+				intent.setClass(getActivity(), LoginActivity.class);
+				startActivity(intent);
+				clearActivity();
+				fxApplication.initData();
 				break;
 			case 6:
 				Toast.makeText(getActivity(), "请求失败", Toast.LENGTH_SHORT)
 						.show();
 				break;
 			case 7:
-				Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT)
+				Toast.makeText(getActivity(),  R.string.no_internet, Toast.LENGTH_SHORT)
 						.show();
 				break;
 			case 8:
@@ -175,8 +186,6 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		return rootView;
 	}
 
-
-
 	/**
 	 * 
 	 * 获得个人详细信息
@@ -234,6 +243,7 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 				// handler.sendEmptyMessage(0);
 			} catch (Exception e) {
 				// prodialog.dismiss();
+				Log.i("Max", e.toString());
 				handler.sendEmptyMessage(7);
 			}
 		}
@@ -347,9 +357,12 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		Intent intent = new Intent();
 		switch (num) {
 		case 0:// 新版本检测
+			if (FuXunTools.isConnect(getActivity())) {
 			new VersionChecking().start();
-			// Toast.makeText(getActivity().getApplication(), "新版本检测",
-			// Toast.LENGTH_LONG).show();
+			} else {
+				Toast.makeText(getActivity(), R.string.no_internet,
+						Toast.LENGTH_SHORT).show();
+			}
 			break;
 		case 1:// 清除全部聊天记录
 				// Toast.makeText(getActivity().getApplication(), "清除全部聊天记录",
@@ -377,15 +390,11 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		// Toast.LENGTH_LONG).show();
 		// break;
 		case 5:// 退出登录
-			SharedPreferences preferences = getActivity().getSharedPreferences(
-					Urlinterface.SHARED, Context.MODE_PRIVATE);
-			Editor editor = preferences.edit();
-			editor.putString("pwd", "");
-			editor.commit();
-			intent.setClass(getActivity(), LoginActivity.class);
-			startActivity(intent);
-			clearActivity();
-			fxApplication.initData();
+			prodialog = new ProgressDialog(getActivity());
+			prodialog.setMessage("努力退出中..");
+			prodialog.setCanceledOnTouchOutside(false);
+			prodialog.show();
+			new Thread(new UnAuthentication()).start();
 			break;
 		default:
 			break;
@@ -657,6 +666,53 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		}
 	};
 
+	// 退出登陆
+	class UnAuthentication implements Runnable {
+		public void run() {
+			try {
+				// UnAuthenticationRequest.Builder builder =
+				// UnAuthenticationRequest
+				// .newBuilder();
+				// builder.setUserId(preferences.getInt("user_id", 0));
+				// builder.setToken(preferences.getString("Token", ""));
+				// UnAuthenticationRequest request = builder.build();
+				// byte[] by = HttpUtil.sendHttps(request.toByteArray(),
+				// Urlinterface.LOGIN, "POST");
+				// if (by != null && by.length > 0) {
+				// UnAuthenticationResponse response = UnAuthenticationResponse
+				// .parseFrom(by);
+				// Log.i("Max", response.getIsSucceed() + "");
+				// handler.sendEmptyMessage(5);
+				// }
+				ClientInfo.Builder cinfo = ClientInfo.newBuilder();
+				cinfo.setDeviceId(preferences.getString("clientid", ""));
+				cinfo.setOsType(OSType.Android);
+				cinfo.setOSVersion(android.os.Build.VERSION.RELEASE);
+				cinfo.setUserId(preferences.getInt("user_id", 0));
+				cinfo.setChannel(10000);
+				cinfo.setClientVersion(Urlinterface.current_version + "");
+				cinfo.setIsPushEnable(false);
+				ClientInfoRequest.Builder builder = ClientInfoRequest
+						.newBuilder();
+				builder.setUserId(preferences.getInt("user_id", 0));
+				builder.setToken(preferences.getString("Token", ""));
+				builder.setClientInfo(cinfo);
+				ClientInfoRequest request = builder.build();
+				byte[] by = HttpUtil.sendHttps(request.toByteArray(),
+						Urlinterface.Client, "PUT");
+				if (by != null && by.length > 0) {
+					ClientInfoResponse response = ClientInfoResponse
+							.parseFrom(by);
+					Log.i("MyReceiver", response.getIsSucceed() + "/"
+							+ response.getErrorCode());
+					handler.sendEmptyMessage(5);
+				}
+			} catch (InvalidProtocolBufferException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 	/**
 	 * 下载apk文件
 	 */
@@ -689,7 +745,7 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		 */
 		StatService.onPause(this);
 	}
-	
+
 	/**
 	 * 获得本地存储的 个人信息
 	 */
@@ -709,13 +765,15 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		String mobile = preferences.getString("profile_mobile", "");// 手机号码
 		String email = preferences.getString("profile_email", "");// 邮箱
 		String birthday = preferences.getString("profile_birthday", "");// 生日
-		Boolean isAuthentication = preferences
-				.getBoolean("profile_isAuthentication", false);//
+		Boolean isAuthentication = preferences.getBoolean(
+				"profile_isAuthentication", false);//
 		String fuzhi = preferences.getString("profile_fuZhi", "");// 生日
 		profilePojo = new ProfilePojo(profile_userid, name, nickName, gender,
-				tileUrl, isProvider, lisence, mobile, email, birthday,isAuthentication,fuzhi);
+				tileUrl, isProvider, lisence, mobile, email, birthday,
+				isAuthentication, fuzhi);
 		return profilePojo;
 	}
+
 	private void putProfile(ProfilePojo pro) {
 		SharedPreferences preferences = getActivity().getSharedPreferences(
 				Urlinterface.SHARED, Context.MODE_PRIVATE);
@@ -733,16 +791,16 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		editor.putBoolean("profile_isAuthentication", pro.getIsAuthentication());
 		editor.putString("profile_fuZhi", pro.getFuZhi());
 		editor.commit();
-		dataNumber=1;
+		dataNumber = 1;
 
 	}
-	
+
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 		switch (resultCode) {
 		case -11:
-			profilePojo =getProfilePojo();
+			profilePojo = getProfilePojo();
 			handler.sendEmptyMessage(0);
 			break;
 		default:

@@ -54,28 +54,28 @@ public class BlockManagementDisplayActivity extends Activity {
 				prodialog.dismiss();
 				Toast.makeText(getApplicationContext(), "恢复成功",
 						Toast.LENGTH_SHORT).show();
-			
+
 				Intent intent2 = new Intent();
 
 				BlockManagementDisplayActivity.this.setResult(-11, intent2);
 				// 关闭当前activity
 				BlockManagementDisplayActivity.this.finish();
-				
+
 				break;
 			case 1:
-				 prodialog.dismiss();
+				prodialog.dismiss();
 				Toast.makeText(getApplicationContext(), "恢复失败",
 						Toast.LENGTH_SHORT).show();
 				break;
 			case 6:
-				 prodialog.dismiss();
+				prodialog.dismiss();
 				Toast.makeText(getApplicationContext(), "请求失败",
 						Toast.LENGTH_SHORT).show();
 				break;
 
 			case 7:
-				 prodialog.dismiss();
-				Toast.makeText(getApplicationContext(), "网络错误",
+				prodialog.dismiss();
+				Toast.makeText(getApplicationContext(), R.string.no_internet,
 						Toast.LENGTH_SHORT).show();
 				break;
 			}
@@ -86,6 +86,7 @@ public class BlockManagementDisplayActivity extends Activity {
 	SharedPreferences preferences;
 	int user_id = -1;
 	String Token = "";
+
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -100,13 +101,14 @@ public class BlockManagementDisplayActivity extends Activity {
 		Token = preferences.getString("Token", "");
 		Intent intent = getIntent();//
 		contactId = intent.getIntExtra("contactId", -1);
-//		for (int i = 0; i < db.queryContactList(user_id).size(); i++) {
-//			if (db.queryContactList(user_id).get(i).getContactId() == contactId) {
-//				contact = db.queryContactList(user_id).get(i);
-//				break;
-//			}
-//		}
-		contact= db.queryContact(user_id, contactId);
+		// for (int i = 0; i < db.queryContactList(user_id).size(); i++) {
+		// if (db.queryContactList(user_id).get(i).getContactId() == contactId)
+		// {
+		// contact = db.queryContactList(user_id).get(i);
+		// break;
+		// }
+		// }
+		contact = db.queryContact(user_id, contactId);
 		setRelatedData();
 
 	}
@@ -144,12 +146,14 @@ public class BlockManagementDisplayActivity extends Activity {
 		// 设置头像
 		String face_str = contact.getUserface_url();
 		if (face_str.length() > 4) {
-			face_str=Urlinterface.IP+face_str;
-			File f = new File(Urlinterface.head_pic, contact.getContactId()+"");
+			face_str = Urlinterface.IP + face_str;
+			File f = new File(Urlinterface.head_pic, contact.getContactId()
+					+ "");
 			if (f.exists()) {
 				Log.i("linshi------------", "加载本地图片");
 				Drawable dra = new BitmapDrawable(
-						BitmapFactory.decodeFile(Urlinterface.head_pic + contact.getContactId()));
+						BitmapFactory.decodeFile(Urlinterface.head_pic
+								+ contact.getContactId()));
 				block_display_userface.setImageDrawable(dra);
 			} else {
 				block_display_userface.setImageResource(R.drawable.moren);
@@ -186,18 +190,24 @@ public class BlockManagementDisplayActivity extends Activity {
 		// 接收此人消息
 		block_display_restore.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				prodialog = new ProgressDialog(BlockManagementDisplayActivity.this);
-				prodialog.setMessage("正在恢复...");
-				prodialog.setCanceledOnTouchOutside(false);
-				prodialog.show();
-				Thread thread = new Thread(new BlockContact());
-				thread.start();
+				if (FuXunTools.isConnect(BlockManagementDisplayActivity.this)) {
+					prodialog = new ProgressDialog(
+							BlockManagementDisplayActivity.this);
+					prodialog.setMessage("正在恢复...");
+					prodialog.setCanceledOnTouchOutside(false);
+					prodialog.show();
+					Thread thread = new Thread(new BlockContact());
+					thread.start();
+				} else {
+					Toast.makeText(BlockManagementDisplayActivity.this,
+							R.string.no_internet, Toast.LENGTH_SHORT).show();
+				}
 
 			}
 		});
 
 	}
-	
+
 	/**
 	 * 
 	 * 恢复联系人到通讯录
@@ -233,7 +243,7 @@ public class BlockManagementDisplayActivity extends Activity {
 				} else {
 					handler.sendEmptyMessage(6);
 				}
-				
+
 				//
 			} catch (Exception e) {
 				handler.sendEmptyMessage(7);

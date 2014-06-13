@@ -96,6 +96,7 @@ public class TalkActivity extends Fragment {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				db.clearTalkMesCount(fx.getUser_id(), fx.getUser_id());
+				sp.edit().putString("contact_id", "").commit();
 				intent.putExtra("contact_id", list.get(arg2).getContact_id());
 				intent.setClass(getActivity(), ChatActivity.class);
 				startActivity(intent);
