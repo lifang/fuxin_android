@@ -62,5 +62,6 @@
     <string name="agreement_title">服务网用户注册协议</string>
     <string name="no_change">个人信息没有任何变化！</string>
     <string name="no_internet">网络异常</string>
+    <string name="talk_nickname">设置备注</string>
 
 </resources>

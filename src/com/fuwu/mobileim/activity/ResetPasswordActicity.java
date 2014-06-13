@@ -70,6 +70,9 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 					if (errorString == null) {
 						Toast.makeText(ResetPasswordActicity.this,
 								"短信发送失败,请重试", Toast.LENGTH_SHORT).show();
+					} else if (errorString.equals("ExistingUserYes")) {
+						Toast.makeText(ResetPasswordActicity.this, "手机已被注册",
+								Toast.LENGTH_SHORT).show();
 					} else {
 						Toast.makeText(ResetPasswordActicity.this, errorString,
 								Toast.LENGTH_SHORT).show();
@@ -230,7 +233,7 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 		case R.id.phone_ok:
 			if (phone_btn) {
 				String phone = phone_text.getText().toString();
-				if (phone.equals("") || FuXunTools.isMobileNO(phone)) {
+				if (phone.equals("") || !FuXunTools.isMobileNO(phone)) {
 					phone_tag.setVisibility(View.VISIBLE);
 				} else {
 					phone_tag.setVisibility(View.GONE);
@@ -301,6 +304,9 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 		btnYes.setText("找回密码成功");
 		final TextView del = (TextView) view.findViewById(R.id.del_talk);
 		del.setText("确定");
+		RelativeLayout layout = (RelativeLayout) view
+				.findViewById(R.id.nick_layout);
+		layout.setVisibility(View.GONE);
 		// 设置对话框显示的View
 		// 点击确定是的监听
 		final MyDialog builder = new MyDialog(ResetPasswordActicity.this, 0,

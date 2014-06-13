@@ -21,12 +21,14 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fuwu.mobileim.R;
+import com.fuwu.mobileim.activity.SettingsActivity.getProfile;
 import com.fuwu.mobileim.model.Models.ChangeProfileRequest;
 import com.fuwu.mobileim.model.Models.ChangeProfileResponse;
 import com.fuwu.mobileim.pojo.ProfilePojo;
@@ -114,10 +116,13 @@ public class MyInformationActivity extends Activity {
 		my_info_back.setOnClickListener(listener1);// 给返回按钮设置监听
 		my_info_confirm = (ImageButton) findViewById(R.id.my_info_confirm);
 		my_info_confirm.setOnClickListener(listener2);// 给保存按钮设置监听
-
-		profilePojo = fxApplication.getProfilePojo();// 获得全局变量中的个人信息
-
-		init();
+		Intent intent = getIntent();
+		int dataNumber = intent.getIntExtra("dataNumber", -1);
+		if (dataNumber==1) {
+			profilePojo = getProfilePojo();// 获得全局变量中的个人信息
+			init();
+		}
+		
 	}
 
 	/**
@@ -142,10 +147,9 @@ public class MyInformationActivity extends Activity {
 					+ "");
 			if (f.exists()) {
 				Log.i("linshi------------", "加载本地图片");
-				Drawable dra = new BitmapDrawable(
-						BitmapFactory.decodeFile(Urlinterface.head_pic
-								+ profilePojo.getUserId()));
-				myinfo_userface.setImageDrawable(dra);
+				ImageCacheUtil.IMAGE_CACHE.get(
+						Urlinterface.head_pic + profilePojo.getUserId(),
+						myinfo_userface);
 			} else {
 				FuXunTools.set_bk(profilePojo.getUserId(), face_str,
 						myinfo_userface);
@@ -213,12 +217,19 @@ public class MyInformationActivity extends Activity {
 						Toast.LENGTH_SHORT).show();
 
 			} else {
-				prodialog = new ProgressDialog(MyInformationActivity.this);
-				prodialog.setMessage("正在修改...");
-				prodialog.setCanceledOnTouchOutside(false);
-				prodialog.show();
-				Thread thread = new Thread(new modifyProfile());
-				thread.start();
+				
+				if (FuXunTools.isConnect(MyInformationActivity.this)) {
+					prodialog = new ProgressDialog(MyInformationActivity.this);
+					prodialog.setMessage("正在修改...");
+					prodialog.setCanceledOnTouchOutside(false);
+					prodialog.show();
+					Thread thread = new Thread(new modifyProfile());
+					thread.start();
+				} else {
+					Toast.makeText(MyInformationActivity.this, R.string.no_internet,
+							Toast.LENGTH_SHORT).show();
+				}
+				
 			}
 		}
 	};
@@ -259,7 +270,7 @@ public class MyInformationActivity extends Activity {
 								+ res.getProfile().getTileUrl());
 						profilePojo.setTileUrl(res.getProfile().getTileUrl());
 						profilePojo.setNickName(res.getProfile().getNickName());
-						fxApplication.setProfilePojo(profilePojo);
+						putProfile(profilePojo);
 						handler.sendEmptyMessage(0);
 					} else {
 						handler.sendEmptyMessage(1);
@@ -297,10 +308,6 @@ public class MyInformationActivity extends Activity {
 			buf = bundle.getByteArray("buf");
 			Log.i("linshi", buf.length + "--size");
 			Bitmap b = BitmapFactory.decodeByteArray(buf, 0, buf.length);
-
-			// BitmapFactory.Options options = new BitmapFactory.Options();
-			// options.inSampleSize = 1;// 7就代表容量变为以前容量的1/7
-			// bm = BitmapFactory.decodeFile(uri, options);
 			myinfo_userface.setImageDrawable(new BitmapDrawable(b));
 
 			break;
@@ -309,6 +316,53 @@ public class MyInformationActivity extends Activity {
 
 		}
 		super.onActivityResult(requestCode, resultCode, data);
+
+	}
+	/**
+	 * 获得本地存储的 个人信息
+	 */
+	private ProfilePojo getProfilePojo() {
+
+		SharedPreferences preferences = getSharedPreferences(
+				Urlinterface.SHARED, Context.MODE_PRIVATE);
+
+		int profile_userid = preferences.getInt("profile_userid", -1);
+		String name = preferences.getString("profile_name", "");// 名称
+		String nickName = preferences.getString("profile_nickName", "");// 昵称
+		int gender = preferences.getInt("profile_gender", -1);// 性别
+		String tileUrl = preferences.getString("profile_tileUrl", "");// 头像
+		Boolean isProvider = preferences
+				.getBoolean("profile_isProvider", false);//
+		String lisence = preferences.getString("profile_lisence", "");// 行业认证
+		String mobile = preferences.getString("profile_mobile", "");// 手机号码
+		String email = preferences.getString("profile_email", "");// 邮箱
+		String birthday = preferences.getString("profile_birthday", "");// 生日
+		Boolean isAuthentication = preferences
+				.getBoolean("profile_isAuthentication", false);//
+		String fuzhi = preferences.getString("profile_fuZhi", "");// 生日
+		profilePojo = new ProfilePojo(profile_userid, name, nickName, gender,
+				tileUrl, isProvider, lisence, mobile, email, birthday,isAuthentication,fuzhi);
+		return profilePojo;
+	}
+	
+	
+	private void putProfile(ProfilePojo pro) {
+		SharedPreferences preferences = getSharedPreferences(
+				Urlinterface.SHARED, Context.MODE_PRIVATE);
+		Editor editor = preferences.edit();
+		editor.putInt("profile_userid", pro.getUserId());
+		editor.putString("profile_name", pro.getName());
+		editor.putString("profile_nickName", pro.getNickName());
+		editor.putInt("profile_gender", pro.getGender());
+		editor.putString("profile_tileUrl", pro.getTileUrl());
+		editor.putBoolean("profile_isProvider", pro.getIsProvider());
+		editor.putString("profile_lisence", pro.getLisence());
+		editor.putString("profile_mobile", pro.getMobile());
+		editor.putString("profile_email", pro.getEmail());
+		editor.putString("profile_birthday", pro.getBirthday());
+		editor.putBoolean("profile_isAuthentication", pro.getIsAuthentication());
+		editor.putString("profile_fuZhi", pro.getFuZhi());
+		editor.commit();
 
 	}
 

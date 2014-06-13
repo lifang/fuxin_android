@@ -73,6 +73,7 @@ public class LoginActivity extends Activity implements OnClickListener,
 		}
 	};
 
+	@SuppressWarnings("deprecation")
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
@@ -83,11 +84,11 @@ public class LoginActivity extends Activity implements OnClickListener,
 		findViewById(R.id.login_btn).setOnClickListener(this);
 		Display display = getWindowManager().getDefaultDisplay();
 		int width = display.getWidth();
-		int a = display.getHeight();
-		Log.i("linshi", "display.getHeight()xdisplay.getWidth():" + a + "x"
-				+ width);
+		int height = display.getHeight();
+		Log.i("linshi", "display.getHeight()xdisplay.getWidth():" + height
+				+ "x" + width);
 		fx.setWidth(width);
-		fx.setHight(a);
+		fx.setHeight(height);
 		initialize();// 初始化
 		// 百度统计
 		StatService.setOn(this, StatService.EXCEPTION_LOG);
@@ -116,9 +117,13 @@ public class LoginActivity extends Activity implements OnClickListener,
 		// user_text.setText("18913536561");
 		// user_text.setText("15862373890");
 		// user_text.setText("18711111120");
-		 pwd_text.setText("123123");
+		// pwd_text.setText("111111");
 		if (!user.equals("null")) {
 			user_text.setText(user);
+		}
+		String pwd_str = spf.getString("pwd", "");
+		if (!pwd_str.equals("")) {
+			pwd_text.setText(pwd_str);
 		}
 	}
 
@@ -182,6 +187,7 @@ public class LoginActivity extends Activity implements OnClickListener,
 								.commit();
 						spf.edit().putString("Token", response.getToken())
 								.commit();
+						spf.edit().putString("pwd", pwd).commit();
 						handler.sendEmptyMessage(0);
 					} else {
 						Log.i("Max", "errorCode:" + response.getErrorCode());

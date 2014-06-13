@@ -125,14 +125,14 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 
 			String str = FuXunTools.toNumber(contact.getSource());
 			if (FuXunTools.isExist(str, 0, 1)) {
-				viewHolder.contact_gou.setVisibility(View.VISIBLE);
-			} else {
-				viewHolder.contact_gou.setVisibility(View.GONE);
-			}
-			if (FuXunTools.isExist(str, 2, 3)) {
 				viewHolder.contact_yue.setVisibility(View.VISIBLE);
 			} else {
 				viewHolder.contact_yue.setVisibility(View.GONE);
+			}
+			if (FuXunTools.isExist(str, 2, 3)) {
+				viewHolder.contact_gou.setVisibility(View.VISIBLE);
+			} else {
+				viewHolder.contact_gou.setVisibility(View.GONE);
 			}
 
 		} else {

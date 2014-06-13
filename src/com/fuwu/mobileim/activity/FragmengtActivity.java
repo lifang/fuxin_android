@@ -33,6 +33,7 @@ import android.text.TextWatcher;
 import android.text.style.AbsoluteSizeSpan;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -56,6 +57,7 @@ import com.fuwu.mobileim.model.Models.ContactRequest;
 import com.fuwu.mobileim.model.Models.ContactResponse;
 import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.util.DBManager;
+import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.Urlinterface;
@@ -94,6 +96,7 @@ public class FragmengtActivity extends FragmentActivity {
 	private int user_number1 = 0;
 	private int user_number2 = 0;
 	private SharedPreferences spf;
+	int version;
 	private Handler handler = new Handler() {
 		/*
 		 * (non-Javadoc)
@@ -157,7 +160,8 @@ public class FragmengtActivity extends FragmentActivity {
 		list.add(new TalkActivity());
 		list.add(new ContactActivity());
 		list.add(new SettingsActivity());
-
+		String release = android.os.Build.VERSION.RELEASE; // android系统版本号
+		version = Integer.parseInt(release.substring(0, 1));
 		FragmentViewPagerAdapter adapter = new FragmentViewPagerAdapter(list,
 				vp, this.getSupportFragmentManager());
 		adapter.setOnExtraPageChangeListener(new FragmentViewPagerAdapter.OnExtraPageChangeListener() {
@@ -185,14 +189,19 @@ public class FragmengtActivity extends FragmentActivity {
 		mReuRequstReceiver = new RequstReceiver();
 		fxApplication.getActivityList().add(this);
 		searchMethod();
-
+		Display display = getWindowManager().getDefaultDisplay();
+		int width = display.getWidth();
+		int a = display.getHeight();
+		Log.i("linshi", "display.getHeight()xdisplay.getWidth():" + a + "x"
+				+ width);
+		fxApplication.setWidth(width);
+		fxApplication.setHeight(a);
 		changeTitleStyle();
 		setEdittextListening();
 		InitImageView();
 
 		Log.i("Max",
 				fxApplication.getToken() + "/" + fxApplication.getUser_id());
-		// contactInformation();
 		contactInformation();
 
 		// 个推SDK初始化
@@ -211,15 +220,21 @@ public class FragmengtActivity extends FragmentActivity {
 		contactsList = db.queryContactList(fxApplication.getUser_id());
 		Log.i("11", contactsList.size() + "-----------1");
 		if (contactsList.size() == 0) {
+			if (FuXunTools.isConnect(this)) {
 			prodialog = new ProgressDialog(FragmengtActivity.this);
 			prodialog.setMessage("正在加载数据，请稍后...");
 			prodialog.setCanceledOnTouchOutside(false);
 			prodialog.show();
 			Thread thread = new Thread(new getContacts());
 			thread.start();
+			} else {
+				Toast.makeText(FragmengtActivity.this, R.string.no_internet,
+						Toast.LENGTH_SHORT).show();
+			}
 		} else {
 			Log.i("Ax", "加载本地联系人");
 		}
+			
 	}
 
 	/**

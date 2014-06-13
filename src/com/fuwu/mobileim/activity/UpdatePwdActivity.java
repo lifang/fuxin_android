@@ -75,6 +75,9 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 					if (errorString == null) {
 						Toast.makeText(UpdatePwdActivity.this, "短信发送失败,请重试",
 								Toast.LENGTH_SHORT).show();
+					} else if (errorString.equals("ExistingUserYes")) {
+						Toast.makeText(UpdatePwdActivity.this, "手机已被注册",
+								Toast.LENGTH_SHORT).show();
 					} else {
 						Toast.makeText(UpdatePwdActivity.this, errorString,
 								Toast.LENGTH_SHORT).show();
@@ -326,6 +329,9 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 		btnYes.setText("修改密码成功");
 		final TextView del = (TextView) view.findViewById(R.id.del_talk);
 		del.setText("确定");
+		RelativeLayout layout = (RelativeLayout) view
+				.findViewById(R.id.nick_layout);
+		layout.setVisibility(View.GONE);
 		// 设置对话框显示的View
 		// 点击确定是的监听
 		final MyDialog builder = new MyDialog(UpdatePwdActivity.this, 0, view,

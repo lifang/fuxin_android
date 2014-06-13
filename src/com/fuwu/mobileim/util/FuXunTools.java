@@ -37,6 +37,7 @@ import android.widget.ImageView;
 
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.pojo.ContactPojo;
+import com.fuwu.mobileim.view.CharacterParser;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
@@ -45,6 +46,8 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 public class FuXunTools {
+	private static CharacterParser characterParser = CharacterParser
+			.getInstance();
 	private static Bitmap bm = null;
 	protected static ImageLoader imageLoader = ImageLoader.getInstance();
 	static DisplayImageOptions options = new DisplayImageOptions.Builder()
@@ -95,6 +98,7 @@ public class FuXunTools {
 
 		Pattern p = Pattern.compile("^[1][34578][0-9]{9}$");
 		Matcher m = p.matcher(mobiles);
+		Log.i("Max", m.matches()+"");
 		return m.matches();
 	}
 
@@ -321,7 +325,7 @@ public class FuXunTools {
 							bm.compress(Bitmap.CompressFormat.PNG, 60, out);
 							out.flush();
 							out.close();
-							
+
 							Log.i("linshi", "已经保存");
 						}
 					}
@@ -383,5 +387,34 @@ public class FuXunTools {
 			Log.v("error", e.toString());
 		}
 		return false;
+	}
+
+	public static String getSortKey(String customName, String name) {
+
+		String sortKey = null;
+		if (customName != null && customName.length() > 0) {
+			sortKey = findSortKey(customName);
+		} else {
+			sortKey = findSortKey(name);
+		}
+		return sortKey;
+	}
+
+	/**
+	 * 获得首字母
+	 */
+	public static String findSortKey(String str) {
+		if (str.length() > 0) {
+			String pinyin = characterParser.getSelling(str);
+			String sortString = pinyin.substring(0, 1).toUpperCase();
+			// 正则表达式，判断首字母是否是英文字母
+			if (sortString.matches("[A-Z]")) {
+				return sortString.toUpperCase();
+			} else {
+				return "#";
+			}
+		} else {
+			return "#";
+		}
 	}
 }

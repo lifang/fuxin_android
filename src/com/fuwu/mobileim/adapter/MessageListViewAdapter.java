@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -21,7 +22,6 @@ import android.os.Message;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ImageSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,6 +33,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.activity.ZoomImageActivity;
 import com.fuwu.mobileim.model.Models.ChangeContactDetailRequest;
@@ -191,9 +192,6 @@ public class MessageListViewAdapter extends BaseAdapter {
 			holder.sendImg.setVisibility(View.VISIBLE);
 			holder.sendImg.setImageBitmap(ImageUtil.createImageThumbnail(
 					Urlinterface.SDCARD + mp.getContent(), 720));
-			if (position == list.size() - 1) {
-				Log.i("FuWu", "listviewMP:" + mp.getContent());
-			}
 			// ImageCacheUtil.IMAGE_CACHE.get("/sdcard/fuXun/" +
 			// mp.getContent(),
 			// holder.sendImg);
@@ -241,14 +239,14 @@ public class MessageListViewAdapter extends BaseAdapter {
 		FuXunTools.set_img(cp.getContactId(), img);
 		String str = FuXunTools.toNumber(cp.getSource());
 		if (FuXunTools.isExist(str, 0, 1)) {
-			img_gou.setVisibility(View.VISIBLE);
-		} else {
-			img_gou.setVisibility(View.GONE);
-		}
-		if (FuXunTools.isExist(str, 2, 3)) {
 			img_yue.setVisibility(View.VISIBLE);
 		} else {
 			img_yue.setVisibility(View.GONE);
+		}
+		if (FuXunTools.isExist(str, 2, 3)) {
+			img_gou.setVisibility(View.VISIBLE);
+		} else {
+			img_gou.setVisibility(View.GONE);
 		}
 		name.setText("" + cp.getName());
 		rem.setText("备注:" + cp.getCustomName());

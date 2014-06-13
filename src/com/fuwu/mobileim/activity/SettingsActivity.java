@@ -56,6 +56,7 @@ import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
+import com.fuwu.mobileim.util.ImageCacheUtil;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CircularImage;
 
@@ -84,6 +85,7 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 	private int progress;
 	private String fileurl = "";
 	private DBManager db;
+	int dataNumber=0;  //  0 数据没加载完，1 数据加载完
 	private Handler handler = new Handler() {
 		/*
 		 * (non-Javadoc)
@@ -93,7 +95,8 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 0:
-				fxApplication.setProfilePojo(profilePojo);
+//				fxApplication.setProfilePojo(profilePojo);
+				putProfile(profilePojo);
 				setData();
 				break;
 			case 6:
@@ -137,6 +140,7 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 			}
 		}
 	};
+	SharedPreferences preferences;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -145,7 +149,8 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		fxApplication = (FxApplication) getActivity().getApplication();
 		db = new DBManager(getActivity());
 		adapter = new SettingBottomAdapter();
-
+		preferences = getActivity().getSharedPreferences(Urlinterface.SHARED,
+				Context.MODE_PRIVATE);
 		listview = (ListView) rootView.findViewById(R.id.setting_listview);
 		listview.setDivider(null);
 		listview.setAdapter(adapter);
@@ -159,41 +164,18 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 			}
 		});
 		init();
-
-		SharedPreferences preferences = getActivity().getSharedPreferences(
-				Urlinterface.SHARED, Context.MODE_PRIVATE);
-
-		int profile_userid = preferences.getInt("profile_userid", -1);
-		// if (profile_userid != -1
-		// && profile_userid == fxApplication.getUser_id()) {
-		// Log.i("linshi------------", "profileprofileprofileprofile本地shuju");
-		//
-		// profilePojo = getProfilePojo();
-		// handler.sendEmptyMessage(0);
-		//
-		// } else {
-		Thread thread = new Thread(new getProfile());
-		thread.start();
-		// }
+		if (FuXunTools.isConnect(getActivity())) {
+			Thread thread = new Thread(new getProfile());
+			thread.start();
+		} else {
+			Toast.makeText(getActivity(), R.string.no_internet,
+					Toast.LENGTH_SHORT).show();
+		}
 
 		return rootView;
 	}
 
-	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-		switch (resultCode) {
-		case -11:
-			profilePojo = fxApplication.getProfilePojo();
-			handler.sendEmptyMessage(0);
-			break;
-		default:
-			break;
-
-		}
-		super.onActivityResult(requestCode, resultCode, data);
-
-	}
 
 	/**
 	 * 
@@ -205,9 +187,11 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 	class getProfile implements Runnable {
 		public void run() {
 			try {
+				int user_id = preferences.getInt("user_id", -1);
+				String Token = preferences.getString("Token", "");
 				ProfileRequest.Builder builder = ProfileRequest.newBuilder();
-				builder.setUserId(fxApplication.getUser_id());
-				builder.setToken(fxApplication.getToken());
+				builder.setUserId(user_id);
+				builder.setToken(Token);
 				ProfileRequest response = builder.build();
 
 				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
@@ -278,15 +262,15 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 				.findViewById(R.id.certification_two);// 验证2
 		certification_three = (ImageView) rootView
 				.findViewById(R.id.certification_three);// 验证3
-		LayoutParams param = (LayoutParams) a_layout.getLayoutParams();
-		param.leftMargin = 40;
-		param.topMargin = 50;
-		RelativeLayout setting_relativeLayout1 = (RelativeLayout) rootView
-				.findViewById(R.id.setting_relativeLayout1);
-		LayoutParams param2 = (LayoutParams) setting_relativeLayout1
-				.getLayoutParams();
-		param2.leftMargin = 30;
-		param2.topMargin = 38;
+		// LayoutParams param = (LayoutParams) a_layout.getLayoutParams();
+		// param.leftMargin = 40;
+		// param.topMargin = 50;
+		// RelativeLayout setting_relativeLayout1 = (RelativeLayout) rootView
+		// .findViewById(R.id.setting_relativeLayout1);
+		// LayoutParams param2 = (LayoutParams) setting_relativeLayout1
+		// .getLayoutParams();
+		// param2.leftMargin = 30;
+		// param2.topMargin = 38;
 		setting_top.setOnClickListener(listener1);// 给个人信息部分设置监听
 	}
 
@@ -301,19 +285,17 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		// 设置头像
 		String face_str = profilePojo.getTileUrl();
 		Log.i("Ax", "profilePojo.getTileUrl()" + profilePojo.getTileUrl());
-		if (face_str.length() > 4) {
-			// File f = new File(Urlinterface.head_pic, profilePojo.getUserId()
-			// + "");
-			// if (f.exists()) {
-			Log.i("linshi------------", "加载本地图片");
-			// Drawable dra = new BitmapDrawable(
-			// BitmapFactory.decodeFile(Urlinterface.head_pic
-			// + profilePojo.getUserId()));
-			// setting_userface.setImageDrawable(dra);
-			// } else {
-			FuXunTools.set_bk(profilePojo.getUserId(), face_str,
-					setting_userface);
-			// }
+		if (face_str != null && face_str.length() > 4) {
+			File f = new File(Urlinterface.head_pic, profilePojo.getUserId()
+					+ "");
+			if (f.exists()) {
+				Log.i("linshi------------", "加载本地图片");
+				ImageCacheUtil.IMAGE_CACHE.get(Urlinterface.head_pic
+						+ profilePojo.getUserId(), setting_userface);
+			} else {
+				FuXunTools.set_bk(profilePojo.getUserId(), face_str,
+						setting_userface);
+			}
 		} else {
 			setting_userface.setImageResource(R.drawable.moren);
 		}
@@ -359,6 +341,7 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 			// Toast.makeText(getActivity().getApplication(), "跳到个人信息页面",
 			// Toast.LENGTH_LONG).show();
 			Intent intent = new Intent();
+			intent.putExtra("dataNumber", dataNumber);
 			intent.setClass(getActivity(), MyInformationActivity.class);
 			startActivityForResult(intent, 0);
 		}
@@ -402,15 +385,15 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		// Toast.LENGTH_LONG).show();
 		// break;
 		case 5:// 退出登录
+			SharedPreferences preferences = getActivity().getSharedPreferences(
+					Urlinterface.SHARED, Context.MODE_PRIVATE);
+			Editor editor = preferences.edit();
+			editor.putString("pwd", "");
+			editor.commit();
 			intent.setClass(getActivity(), LoginActivity.class);
 			startActivity(intent);
 			clearActivity();
 			fxApplication.initData();
-			SharedPreferences preferences = getActivity().getSharedPreferences(
-					Urlinterface.SHARED, Context.MODE_PRIVATE);
-			Editor editor = preferences.edit();
-			editor.putInt("profile_userid", -1);
-			editor.commit();
 			break;
 		default:
 			break;
@@ -516,7 +499,8 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 					public void onClick(DialogInterface dialog, int which) {
 						// Toast.makeText(getActivity().getApplication(),
 						// "清除全部聊天记录", Toast.LENGTH_LONG).show();
-						db.delMessage(fxApplication.getUser_id());
+						int user_id = preferences.getInt("user_id", -1);
+						db.delMessage(user_id);
 					}
 				})
 				.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -545,23 +529,20 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 
 				ClientInfo.Builder pb = ClientInfo.newBuilder();
 				// pb.setDeviceId(tm.getDeviceId());
-				SharedPreferences preferences = getActivity()
-						.getSharedPreferences(Urlinterface.SHARED,
-								Context.MODE_PRIVATE);
 				String deviceId = preferences.getString("clientid", "");
+				int user_id = preferences.getInt("user_id", -1);
+				String Token = preferences.getString("Token", "");
 				pb.setDeviceId(deviceId);
-				int profile_userid = preferences.getInt("profile_userid", -1);
-				String name = preferences.getString("profile_name", "");// 名称
 				pb.setOSVersion(release);
-				pb.setUserId(profilePojo.getUserId());
+				pb.setUserId(user_id);
 				pb.setChannel(0);
 				pb.setClientVersion(Urlinterface.current_version + "");
 				pb.setIsPushEnable(true);
 				Log.i("linshi", "-----------------");
 				ClientInfoRequest.Builder builder = ClientInfoRequest
 						.newBuilder();
-				builder.setUserId(fxApplication.getUser_id());
-				builder.setToken(fxApplication.getToken());
+				builder.setUserId(user_id);
+				builder.setToken(Token);
 				builder.setClientInfo(pb);
 				ClientInfoRequest response = builder.build();
 
@@ -715,5 +696,68 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		 * 不能与StatService.onPageStart一级onPageEnd函数交叉使用
 		 */
 		StatService.onPause(this);
+	}
+	
+	/**
+	 * 获得本地存储的 个人信息
+	 */
+	private ProfilePojo getProfilePojo() {
+
+		SharedPreferences preferences = getActivity().getSharedPreferences(
+				Urlinterface.SHARED, Context.MODE_PRIVATE);
+
+		int profile_userid = preferences.getInt("profile_userid", -1);
+		String name = preferences.getString("profile_name", "");// 名称
+		String nickName = preferences.getString("profile_nickName", "");// 昵称
+		int gender = preferences.getInt("profile_gender", -1);// 性别
+		String tileUrl = preferences.getString("profile_tileUrl", "");// 头像
+		Boolean isProvider = preferences
+				.getBoolean("profile_isProvider", false);//
+		String lisence = preferences.getString("profile_lisence", "");// 行业认证
+		String mobile = preferences.getString("profile_mobile", "");// 手机号码
+		String email = preferences.getString("profile_email", "");// 邮箱
+		String birthday = preferences.getString("profile_birthday", "");// 生日
+		Boolean isAuthentication = preferences
+				.getBoolean("profile_isAuthentication", false);//
+		String fuzhi = preferences.getString("profile_fuZhi", "");// 生日
+		profilePojo = new ProfilePojo(profile_userid, name, nickName, gender,
+				tileUrl, isProvider, lisence, mobile, email, birthday,isAuthentication,fuzhi);
+		return profilePojo;
+	}
+	private void putProfile(ProfilePojo pro) {
+		SharedPreferences preferences = getActivity().getSharedPreferences(
+				Urlinterface.SHARED, Context.MODE_PRIVATE);
+		Editor editor = preferences.edit();
+		editor.putInt("profile_userid", pro.getUserId());
+		editor.putString("profile_name", pro.getName());
+		editor.putString("profile_nickName", pro.getNickName());
+		editor.putInt("profile_gender", pro.getGender());
+		editor.putString("profile_tileUrl", pro.getTileUrl());
+		editor.putBoolean("profile_isProvider", pro.getIsProvider());
+		editor.putString("profile_lisence", pro.getLisence());
+		editor.putString("profile_mobile", pro.getMobile());
+		editor.putString("profile_email", pro.getEmail());
+		editor.putString("profile_birthday", pro.getBirthday());
+		editor.putBoolean("profile_isAuthentication", pro.getIsAuthentication());
+		editor.putString("profile_fuZhi", pro.getFuZhi());
+		editor.commit();
+		dataNumber=1;
+
+	}
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+		switch (resultCode) {
+		case -11:
+			profilePojo =getProfilePojo();
+			handler.sendEmptyMessage(0);
+			break;
+		default:
+			break;
+
+		}
+		super.onActivityResult(requestCode, resultCode, data);
+
 	}
 }
