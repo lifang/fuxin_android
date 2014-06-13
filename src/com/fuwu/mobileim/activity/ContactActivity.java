@@ -44,6 +44,10 @@ import com.fuwu.mobileim.view.SideBar.OnTouchingLetterChangedListener;
 import com.fuwu.mobileim.view.XListView;
 import com.fuwu.mobileim.view.XListView.IXListViewListener;
 
+/**
+ * @作者 丁作强
+ * @时间 2014-6-13 上午11:31:19
+ */
 public class ContactActivity extends Fragment implements IXListViewListener {
 
 	private DBManager db;
@@ -86,11 +90,6 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 	int user_id = 0;
 	int version = 0;
 	private Handler handler = new Handler() {
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see android.os.Handler#handleMessage(android.os.Message)
-		 */
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 0:
@@ -121,7 +120,6 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 					for (int i = 0; i < contactsList.size(); i++) {
 						db.modifyContact(user_id, contactsList.get(i));
 						String url = contactsList.get(i).getUserface_url();
-
 					}
 					FuXunTools.getBitmap(contactsList);
 				}
@@ -141,7 +139,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 						.show();
 				break;
 			case 7:
-				Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT)
+				Toast.makeText(getActivity(),  R.string.no_internet, Toast.LENGTH_SHORT)
 						.show();
 				break;
 			}
@@ -205,7 +203,6 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 				} else {
 					builder.setTimeStamp(timeStamp);
 				}
-
 				Log.i("1", "User_id:" + fxApplication.getUser_id() + "--Token"
 						+ fxApplication.getToken() + "--timeStamp:" + timeStamp);
 
@@ -222,17 +219,17 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 						String customName = res.getContacts(i).getCustomName();
 						String sortKey = null;
 						if (customName != null && customName.length() > 0) {
-							sortKey = findSortKey(customName);
+							sortKey = FuXunTools.findSortKey(customName);
 						} else {
-							sortKey = findSortKey(name);
+							sortKey = FuXunTools.findSortKey(name);
 						}
 						String userface_url = res.getContacts(i).getTileUrl();
 						int sex = res.getContacts(i).getGender().getNumber();
 						int source = res.getContacts(i).getSource();
 						String lastContactTime = res.getContacts(i)
 								.getLastContactTime();// 2014-05-27 11:42:18
-						Boolean isblocked = res.getContacts(i).getIsBlocked();
-						Boolean isprovider = res.getContacts(i).getIsProvider();
+						boolean isblocked = res.getContacts(i).getIsBlocked();
+						boolean isprovider = res.getContacts(i).getIsProvider();
 						int isBlocked = -1, isProvider = -1;
 						if (isblocked == true) {
 							isBlocked = 1;
@@ -266,8 +263,6 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 				Message msg = new Message();// 创建Message 对象
 				msg.what = 1;
 				handler.sendMessage(msg);
-
-				// handler.sendEmptyMessage(0);
 			} catch (Exception e) {
 				// prodialog.dismiss();
 				// handler.sendEmptyMessage(7);
@@ -335,31 +330,17 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 					int position, long id) {
 
 				Intent intent = new Intent();
-				intent.putExtra("contact_id", contactsList.get(position - 1)
+				SharedPreferences preferences = getActivity().getSharedPreferences(
+						Urlinterface.SHARED, Context.MODE_PRIVATE);
+				Editor editor = preferences.edit();
+				editor.putInt("contact_id", contactsList.get(position - 1)
 						.getContactId());
+				editor.commit();
 				intent.setClass(getActivity(), ChatActivity.class);
 				startActivity(intent);
 			}
 		});
 
-	}
-
-	/**
-	 * 获得首字母
-	 */
-	private String findSortKey(String str) {
-		if (str.length() > 0) {
-			String pinyin = characterParser.getSelling(str);
-			String sortString = pinyin.substring(0, 1).toUpperCase();
-			// 正则表达式，判断首字母是否是英文字母
-			if (sortString.matches("[A-Z]")) {
-				return sortString.toUpperCase();
-			} else {
-				return "#";
-			}
-		} else {
-			return "#";
-		}
 	}
 
 	/**
@@ -374,9 +355,9 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		int width0 = 4; // 边框宽度
 		int width1 = 20; // 外部边框距左右边界距离
 		int hight0 = 70; // 外部边框高度
-		if (width == 720) {
+		if (height==1280&&width == 720) {
 			hight0 = 70;
-		} else if (width == 480) {
+		} else if (height==854&&width == 480) {
 			hight0 = 45;
 		}
 		int hight1 = hight0 - width0 * 2; // button高度
@@ -477,7 +458,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			for (int i = 0; i < contactsList1.size(); i++) {
 				String str = FuXunTools.toNumber(contactsList1.get(i)
 						.getSource());
-				if (FuXunTools.isExist(str, 0, 1)) {
+				if (FuXunTools.isExist(str, 2, 3)) {
 					contactsList.add(contactsList1.get(i));
 				}
 			}
@@ -495,11 +476,10 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			setButtonColor(buttonNumber);
 			contactsList.clear();
 			contactsList1 = db.queryContactList(user_id);
-
 			for (int i = 0; i < contactsList1.size(); i++) {
 				String str = FuXunTools.toNumber(contactsList1.get(i)
 						.getSource());
-				if (FuXunTools.isExist(str, 2, 3)) {
+				if (FuXunTools.isExist(str, 0, 1)) {
 					contactsList.add(contactsList1.get(i));
 				}
 			}
@@ -517,7 +497,6 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			} else {
 				btnList.get(i).setTextColor(
 						this.getResources().getColor(R.color.red_block));
-
 			}
 		}
 		btnList.get(0).setBackgroundResource(R.drawable.left_shape_white);
@@ -573,7 +552,6 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 	}
 
 	public void onRefresh() {
-		// TODO Auto-generated method stub
 		if (buttonNumber == 0) {
 			if (FuXunTools.isConnect(getActivity())) {
 				contactsList = new ArrayList<ContactPojo>();
@@ -586,8 +564,6 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		} else {
 			onLoad();
 		}
-		Log.i("linshi", "1111111111111111111111111111");
-
 	}
 
 }

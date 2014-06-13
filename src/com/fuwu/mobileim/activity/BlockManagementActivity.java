@@ -63,8 +63,8 @@ public class BlockManagementActivity extends Activity {
 				Toast.makeText(getApplicationContext(), "恢复成功",
 						Toast.LENGTH_SHORT).show();
 
-				db.modifyContactBlock(0, user_id,
-						list.get(index).getContactId());
+				db.modifyContactBlock(0, user_id, list.get(index)
+						.getContactId());
 				list.remove(index);
 				clvAdapter.notifyDataSetChanged();
 				break;
@@ -79,8 +79,8 @@ public class BlockManagementActivity extends Activity {
 					db = new DBManager(BlockManagementActivity.this);
 				}
 
-				db.modifyContactBlock(0,user_id,
-						list.get(index).getContactId());
+				db.modifyContactBlock(0, user_id, list.get(index)
+						.getContactId());
 				list.remove(index);
 				clvAdapter.notifyDataSetChanged();
 				break;
@@ -92,7 +92,7 @@ public class BlockManagementActivity extends Activity {
 
 			case 7:
 				prodialog.dismiss();
-				Toast.makeText(getApplicationContext(), "网络错误",
+				Toast.makeText(getApplicationContext(), R.string.no_internet,
 						Toast.LENGTH_SHORT).show();
 				break;
 			}
@@ -235,21 +235,17 @@ public class BlockManagementActivity extends Activity {
 			restore.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
 					index = arg0;
-					// if (ExerciseBookTool.isConnect(HomepageAllActivity.this))
-					// {
-					prodialog = new ProgressDialog(BlockManagementActivity.this);
-					prodialog.setMessage("正在恢复...");
-					prodialog.setCanceledOnTouchOutside(false);
-					prodialog.show();
-					Thread thread = new Thread(new BlockContact());
-					thread.start();
-					// } else {
-					// handler.sendEmptyMessage(7);
-					// }
-
-					// Toast.makeText(getApplicationContext(), "恢复",
-					// Toast.LENGTH_SHORT).show();
-
+					if (FuXunTools.isConnect(BlockManagementActivity.this)) {
+						prodialog = new ProgressDialog(
+								BlockManagementActivity.this);
+						prodialog.setMessage("正在恢复...");
+						prodialog.setCanceledOnTouchOutside(false);
+						prodialog.show();
+						Thread thread = new Thread(new BlockContact());
+						thread.start();
+					} else {
+						handler.sendEmptyMessage(7);
+					}
 				}
 			});
 

@@ -143,7 +143,7 @@ public class FragmengtActivity extends FragmentActivity {
 				break;
 			case 7:
 				prodialog.dismiss();
-				Toast.makeText(getApplicationContext(), "网络错误",
+				Toast.makeText(getApplicationContext(),  R.string.no_internet,
 						Toast.LENGTH_SHORT).show();
 				break;
 			}
@@ -285,7 +285,7 @@ public class FragmengtActivity extends FragmentActivity {
 							Log.i("linshi", "----1");
 							FileOutputStream out = new FileOutputStream(f);
 							Log.i("linshi", "----6");
-							bm.compress(Bitmap.CompressFormat.PNG, 60, out);
+							bm.compress(Bitmap.CompressFormat.PNG, 80, out);
 							out.flush();
 							out.close();
 							Log.i("linshi", "已经保存");
@@ -533,9 +533,15 @@ public class FragmengtActivity extends FragmentActivity {
 					@Override
 					public void onItemClick(AdapterView<?> parent, View view,
 							int position, long id) {
+						SharedPreferences preferences = getSharedPreferences(
+								Urlinterface.SHARED, Context.MODE_PRIVATE);
+						Editor editor = preferences.edit();
+						editor.putInt("contact_id", contactsList.get(position - 1)
+								.getContactId());
+						editor.commit();
 						Intent intent = new Intent();
-						intent.putExtra("contact_id", contactsList
-								.get(position).getContactId());
+//						intent.putExtra("contact_id", contactsList
+//								.get(position).getContactId());
 						intent.setClass(FragmengtActivity.this,
 								ChatActivity.class);
 						startActivity(intent);

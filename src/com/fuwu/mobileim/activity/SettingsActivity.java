@@ -104,7 +104,7 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 						.show();
 				break;
 			case 7:
-				Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT)
+				Toast.makeText(getActivity(),  R.string.no_internet, Toast.LENGTH_SHORT)
 						.show();
 				break;
 			case 8:
@@ -347,9 +347,12 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		Intent intent = new Intent();
 		switch (num) {
 		case 0:// 新版本检测
+			if (FuXunTools.isConnect(getActivity())) {
 			new VersionChecking().start();
-			// Toast.makeText(getActivity().getApplication(), "新版本检测",
-			// Toast.LENGTH_LONG).show();
+			} else {
+				Toast.makeText(getActivity(), R.string.no_internet,
+						Toast.LENGTH_SHORT).show();
+			}
 			break;
 		case 1:// 清除全部聊天记录
 				// Toast.makeText(getActivity().getApplication(), "清除全部聊天记录",
