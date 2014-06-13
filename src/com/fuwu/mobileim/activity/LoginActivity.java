@@ -1,12 +1,10 @@
 package com.fuwu.mobileim.activity;
 
 import java.io.File;
-import java.net.URL;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
@@ -88,8 +86,8 @@ public class LoginActivity extends Activity implements OnClickListener,
 		Display display = getWindowManager().getDefaultDisplay();
 		int width = display.getWidth();
 		int height = display.getHeight();
-		Log.i("linshi", "display.getHeight()xdisplay.getWidth():" + height + "x"
-				+ width);
+		Log.i("linshi", "display.getHeight()xdisplay.getWidth():" + height
+				+ "x" + width);
 		fx.setWidth(width);
 		fx.setHeight(height);
 		initialize();// 初始化
