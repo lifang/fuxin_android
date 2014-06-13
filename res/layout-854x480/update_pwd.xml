@@ -177,9 +177,9 @@
                         android:layout_height="35dp"
                         android:layout_alignParentRight="true"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/login_btn"
+                        android:background="@drawable/touming_btn"
                         android:text="@string/phone_ok"
-                        android:textColor="@color/white"
+                        android:textColor="@color/system_textColor"
                         android:textSize="16sp" />
 
                     <TextView
@@ -223,9 +223,9 @@
                     android:layout_height="35dp"
                     android:layout_alignParentRight="true"
                     android:layout_alignTop="@id/yz"
-                    android:background="@drawable/regist_btn"
+                    android:background="@drawable/touming_btn2"
                     android:text="@string/yz_send"
-                    android:textColor="@color/white"
+                    android:textColor="@color/qianhui"
                     android:textSize="16sp" />
 
                 <TextView

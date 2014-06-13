@@ -9,9 +9,10 @@
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:ellipsize="end"
         android:gravity="center_vertical"
-        android:paddingLeft="20dp"
+        android:padding="15dp"
+        android:singleLine="true"
         android:text="马龙"
         android:textColor="#469AD3"
         android:textSize="18dp" />
@@ -19,17 +20,22 @@
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dp"
-        android:background="@color/red" />
+        android:background="@color/system_textColor" />
 
     <RelativeLayout
+        android:id="@+id/nick_layout"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:padding="10dp" >
 
         <TextView
             android:id="@+id/nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
+            android:layout_centerVertical="true"
+            android:paddingLeft="5dp"
             android:text="@string/talk_nickname"
             android:textColor="@color/black"
             android:textSize="16dp" />
@@ -37,21 +43,23 @@
         <EditText
             android:id="@+id/info_nickname"
             android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@id/info_remText"
-            android:layout_toRightOf="@id/info_remText"
+            android:layout_height="34dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/nickname"
             android:background="@drawable/chat_info_edit_style"
+            android:ellipsize="end"
+            android:gravity="center"
             android:maxLength="32"
             android:singleLine="true"
             android:text="小学生" />
 
         <Button
             android:id="@+id/info_nickname_ok"
-            android:layout_width="42dp"
+            android:layout_width="60dp"
             android:layout_height="34dp"
             android:layout_alignParentRight="true"
             android:layout_below="@id/info_img"
-            android:layout_marginTop="8dp"
             android:background="@drawable/touming_btn"
             android:text="确定" />
     </RelativeLayout>
@@ -59,15 +67,14 @@
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dp"
-        android:background="@color/red" />
+        android:background="@color/system_textColor" />
 
     <TextView
         android:id="@+id/del_talk"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:gravity="center_vertical"
-        android:paddingLeft="20dp"
+        android:padding="15dp"
         android:text="@string/delate"
         android:textColor="@color/black"
         android:textSize="16dp" />

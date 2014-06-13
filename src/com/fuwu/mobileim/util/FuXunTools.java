@@ -46,7 +46,8 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 public class FuXunTools {
-	private static CharacterParser characterParser = CharacterParser.getInstance();
+	private static CharacterParser characterParser = CharacterParser
+			.getInstance();
 	private static Bitmap bm = null;
 	protected static ImageLoader imageLoader = ImageLoader.getInstance();
 	static DisplayImageOptions options = new DisplayImageOptions.Builder()
@@ -97,6 +98,7 @@ public class FuXunTools {
 
 		Pattern p = Pattern.compile("^[1][34578][0-9]{9}$");
 		Matcher m = p.matcher(mobiles);
+		Log.i("Max", m.matches()+"");
 		return m.matches();
 	}
 
@@ -323,7 +325,7 @@ public class FuXunTools {
 							bm.compress(Bitmap.CompressFormat.PNG, 60, out);
 							out.flush();
 							out.close();
-							
+
 							Log.i("linshi", "已经保存");
 						}
 					}
@@ -386,19 +388,18 @@ public class FuXunTools {
 		}
 		return false;
 	}
-	
-	public static String getSortKey(String customName,String name){
-		
+
+	public static String getSortKey(String customName, String name) {
+
 		String sortKey = null;
-		if (customName != null
-				&& customName.length() > 0) {
+		if (customName != null && customName.length() > 0) {
 			sortKey = findSortKey(customName);
 		} else {
 			sortKey = findSortKey(name);
 		}
 		return sortKey;
 	}
-	
+
 	/**
 	 * 获得首字母
 	 */

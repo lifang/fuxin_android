@@ -16,15 +16,21 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.adapter.TalkListViewAdapter;
+import com.fuwu.mobileim.model.Models.ChangeContactDetailRequest;
+import com.fuwu.mobileim.model.Models.ChangeContactDetailResponse;
+import com.fuwu.mobileim.model.Models.Contact;
 import com.fuwu.mobileim.pojo.TalkPojo;
 import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FxApplication;
+import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.MyDialog;
 
@@ -40,6 +46,9 @@ public class TalkActivity extends Fragment {
 	private View rootView;
 	private int contact_id;
 	private FxApplication fx;
+	private int uid;
+	private String token;
+	private String CustomName;
 	@SuppressLint("HandlerLeak")
 	private SharedPreferences sp;
 	private Handler handler = new Handler() {
@@ -59,6 +68,16 @@ public class TalkActivity extends Fragment {
 			case 4:
 				clvAdapter.notifyDataSetChanged();
 				break;
+			case 5:
+				Toast.makeText(getActivity(), "修改备注成功", Toast.LENGTH_SHORT)
+						.show();
+				db.updateContactRem(uid, contact_id, CustomName);
+				handler.sendEmptyMessage(2);
+				break;
+			case 6:
+				Toast.makeText(getActivity(), "修改备注失败", Toast.LENGTH_SHORT)
+						.show();
+				break;
 			}
 		}
 	};
@@ -69,6 +88,8 @@ public class TalkActivity extends Fragment {
 		rootView = inflater.inflate(R.layout.talk, container, false);
 		fx = (FxApplication) getActivity().getApplication();
 		sp = getActivity().getSharedPreferences(Urlinterface.SHARED, 0);
+		uid = sp.getInt("user_id", 0);
+		token = sp.getString("Token", "");
 		initData();
 		mListView = (ListView) rootView.findViewById(R.id.talk_listview);
 		mListView.setOnItemClickListener(new OnItemClickListener() {
@@ -90,7 +111,7 @@ public class TalkActivity extends Fragment {
 			}
 		});
 		clvAdapter = new TalkListViewAdapter(getActivity(), list, fx.options);
-		// mListView.setAdapter(clvAdapter);
+		mListView.setAdapter(clvAdapter);
 		return rootView;
 	}
 
@@ -100,6 +121,16 @@ public class TalkActivity extends Fragment {
 		final TextView btnYes = (TextView) view.findViewById(R.id.name);
 		btnYes.setText(list.get(item).getNick_name());
 		final TextView del = (TextView) view.findViewById(R.id.del_talk);
+		final EditText nickname = (EditText) view
+				.findViewById(R.id.info_nickname);
+		nickname.setText(list.get(item).getNick_name());
+		Button ok = (Button) view.findViewById(R.id.info_nickname_ok);
+		ok.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View arg0) {
+				CustomName = nickname.getText().toString();
+				new Thread(new UpdateContactRem()).start();
+			}
+		});
 		// 设置对话框显示的View
 		// 点击确定是的监听
 		final MyDialog builder = new MyDialog(getActivity(), 0, view,
@@ -111,6 +142,36 @@ public class TalkActivity extends Fragment {
 			}
 		});
 		builder.show();
+	}
+
+	class UpdateContactRem extends Thread {
+		public void run() {
+			try {
+				ChangeContactDetailRequest.Builder builder = ChangeContactDetailRequest
+						.newBuilder();
+				builder.setUserId(uid);
+				builder.setToken(token);
+				Contact.Builder cb = Contact.newBuilder();
+				cb.setContactId(contact_id);
+				cb.setCustomName(CustomName);
+				builder.setContact(cb);
+				ChangeContactDetailRequest response = builder.build();
+				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
+						Urlinterface.ContactDetail, "PUT");
+				if (by != null && by.length > 0) {
+					ChangeContactDetailResponse res = ChangeContactDetailResponse
+							.parseFrom(by);
+					if (res.getIsSucceed()) {
+						handler.sendEmptyMessage(5);
+					} else {
+						handler.sendEmptyMessage(6);
+					}
+				} else {
+					handler.sendEmptyMessage(2);
+				}
+			} catch (Exception e) {
+			}
+		}
 	}
 
 	// 获取对话列表
@@ -128,7 +189,7 @@ public class TalkActivity extends Fragment {
 		if (!db.isOpen()) {
 			db = new DBManager(getActivity());
 		}
-		list = db.queryTalkList(sp.getInt("user_id", 0));
+		list = db.queryTalkList(uid);
 	}
 
 	public boolean delTalkData() {

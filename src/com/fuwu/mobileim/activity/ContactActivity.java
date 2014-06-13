@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,14 +21,12 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fuwu.mobileim.R;
-import com.fuwu.mobileim.activity.FragmengtActivity.getContacts;
 import com.fuwu.mobileim.adapter.ContactAdapter;
 import com.fuwu.mobileim.model.Models.ContactRequest;
 import com.fuwu.mobileim.model.Models.ContactResponse;
@@ -151,6 +148,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		}
 	};
 	SharedPreferences preferences;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -162,8 +160,8 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		db = new DBManager(getActivity());
 		String release = android.os.Build.VERSION.RELEASE; // android系统版本号
 		version = Integer.parseInt(release.substring(0, 1));
-		 preferences = getActivity().getSharedPreferences(
-				Urlinterface.SHARED, Context.MODE_PRIVATE);
+		preferences = getActivity().getSharedPreferences(Urlinterface.SHARED,
+				Context.MODE_PRIVATE);
 
 		user_id = preferences.getInt("user_id", -1);
 		longDataComparator = new LongDataComparator();
@@ -201,8 +199,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 						.getString("contactTimeStamp", "");
 				ContactRequest.Builder builder = ContactRequest.newBuilder();
 				builder.setUserId(user_id);
-				builder.setToken(preferences
-						.getString("Token", ""));
+				builder.setToken(preferences.getString("Token", ""));
 				if (timeStamp.equals("")) {
 
 				} else {
@@ -577,16 +574,16 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 
 	public void onRefresh() {
 		// TODO Auto-generated method stub
-		if (buttonNumber==0) {
-		if (FuXunTools.isConnect(getActivity())) {
-			contactsList = new ArrayList<ContactPojo>();
-			Thread thread = new Thread(new getContacts2());
-			thread.start();	
+		if (buttonNumber == 0) {
+			if (FuXunTools.isConnect(getActivity())) {
+				contactsList = new ArrayList<ContactPojo>();
+				Thread thread = new Thread(new getContacts2());
+				thread.start();
 			} else {
 				Toast.makeText(getActivity(), R.string.no_internet,
 						Toast.LENGTH_SHORT).show();
 			}
-		}else {
+		} else {
 			onLoad();
 		}
 		Log.i("linshi", "1111111111111111111111111111");
