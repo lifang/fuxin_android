@@ -5,19 +5,12 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
-import android.content.Context;
-
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.pojo.ProfilePojo;
-import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 /**
@@ -77,12 +70,11 @@ public class FxApplication extends Application {
 		ValidateCode.put("SendError", "短信服务出错，发送失败");
 
 		options = new DisplayImageOptions.Builder()
-				.showImageOnLoading(R.drawable.test)
-				.showImageForEmptyUri(R.drawable.test)
+				.showImageOnLoading(R.drawable.moren)
+				.showImageForEmptyUri(R.drawable.moren)
 				.showImageOnFail(R.drawable.test).cacheInMemory(true)
 				.cacheOnDisk(false).considerExifParams(true)
 				.displayer(new RoundedBitmapDisplayer(20)).build();
-		initImageLoader(getApplicationContext());
 		mApplication = this;
 		initFaceMap();
 	}
@@ -109,23 +101,6 @@ public class FxApplication extends Application {
 
 	public void setActivityList() {
 		this.activityList = new LinkedList<Activity>();
-	}
-
-	public static void initImageLoader(Context context) {
-		// This configuration tuning is custom. You can tune every option, you
-		// may tune some of them,
-		// or you can create default configuration by
-		// ImageLoaderConfiguration.createDefault(this);
-		// method.
-		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
-				context).threadPriority(Thread.NORM_PRIORITY - 2)
-				.denyCacheImageMultipleSizesInMemory()
-				.diskCacheFileNameGenerator(new Md5FileNameGenerator())
-				.tasksProcessingOrder(QueueProcessingType.LIFO)
-				.writeDebugLogs() // Remove for release app
-				.build();
-		// Initialize ImageLoader with configuration.
-		ImageLoader.getInstance().init(config);
 	}
 
 	public Map<String, Integer> getFaceMap() {

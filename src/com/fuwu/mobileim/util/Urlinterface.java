@@ -5,6 +5,8 @@ import android.os.Environment;
 public interface Urlinterface {
 	static final String head_pic = Environment.getExternalStorageDirectory()
 			.getPath() + "/fuXun/head_pic/";
+	static final String SDCARD = Environment.getExternalStorageDirectory()
+			.getPath() + "/fuXun/";
 	static final String WebViewUrl = "https://118.242.18.189/resource/static/public/doc/app%20agreement.html";
 	// static final String WebViewUrl =
 	// "https://i.fuwu.com/resource/static/public/doc/app%20agreement.html";

@@ -183,7 +183,7 @@ public class MessageListViewAdapter extends BaseAdapter {
 					Intent intent = new Intent();
 					intent.setClass(mContext, ZoomImageActivity.class);
 					intent.putExtra("image_path",
-							"/sdcard/fuXun/" + mp.getContent());
+							Urlinterface.SDCARD + mp.getContent());
 					mContext.startActivity(intent);
 					// showBigImage("/sdcard/fuXun/" + mp.getContent());
 				}
@@ -191,7 +191,7 @@ public class MessageListViewAdapter extends BaseAdapter {
 			holder.mes.setVisibility(View.GONE);
 			holder.sendImg.setVisibility(View.VISIBLE);
 			holder.sendImg.setImageBitmap(ImageUtil.createImageThumbnail(
-					"/sdcard/fuXun/" + mp.getContent(), 720));
+					Urlinterface.SDCARD + mp.getContent(), 720));
 			// ImageCacheUtil.IMAGE_CACHE.get("/sdcard/fuXun/" +
 			// mp.getContent(),
 			// holder.sendImg);
@@ -239,14 +239,14 @@ public class MessageListViewAdapter extends BaseAdapter {
 		FuXunTools.set_img(cp.getContactId(), img);
 		String str = FuXunTools.toNumber(cp.getSource());
 		if (FuXunTools.isExist(str, 0, 1)) {
-			img_gou.setVisibility(View.VISIBLE);
-		} else {
-			img_gou.setVisibility(View.GONE);
-		}
-		if (FuXunTools.isExist(str, 2, 3)) {
 			img_yue.setVisibility(View.VISIBLE);
 		} else {
 			img_yue.setVisibility(View.GONE);
+		}
+		if (FuXunTools.isExist(str, 2, 3)) {
+			img_gou.setVisibility(View.VISIBLE);
+		} else {
+			img_gou.setVisibility(View.GONE);
 		}
 		name.setText("" + cp.getName());
 		rem.setText("备注:" + cp.getCustomName());

@@ -84,6 +84,11 @@ public class TimeUtil {
 		return result;
 	}
 
+	public static String getCurrentTime() {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		return format.format(new Date(System.currentTimeMillis()));
+	}
+
 	public static long getLongTime(String time) {
 		if (time == null || time.equals("")) {
 			return 0;

@@ -85,67 +85,86 @@
             android:value="true" />
 
         <activity
+            android:screenOrientation="portrait"
             android:name="com.fuwu.mobileim.activity.MainActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name="com.fuwu.mobileim.activity.TalkActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name="com.fuwu.mobileim.activity.AddressBookActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name="com.fuwu.mobileim.activity.SettingsActivity"
             android:launchMode="singleTop" >
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name="com.fuwu.mobileim.activity.ContactActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name="com.fuwu.mobileim.activity.LoginActivity"
             android:launchMode="singleTop" >
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name="com.fuwu.mobileim.activity.BlockManagementActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name="com.fuwu.mobileim.activity.BlockManagementDisplayActivity"
             android:theme="@style/Dialog" />
         <activity
+            android:screenOrientation="portrait"
             android:name="com.fuwu.mobileim.activity.RegistActivity"
             android:launchMode="singleTop" >
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name="com.fuwu.mobileim.activity.BackPwdActicity"
             android:launchMode="singleTop" />
           <activity
+              android:screenOrientation="portrait"
             android:name="com.fuwu.mobileim.activity.ZoomImageActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name="com.fuwu.mobileim.activity.SystemPushActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name="com.fuwu.mobileim.activity.UpdatePwdActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name="com.fuwu.mobileim.activity.MyInformationActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name="com.fuwu.mobileim.activity.ChatActivity"
             android:launchMode="singleTop" />
 
         <service android:name="com.fuwu.mobileim.activity.RequstService" />
 
         <activity
+            android:screenOrientation="portrait"
             android:name="com.fuwu.mobileim.activity.FragmengtActivity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name="com.fuwu.mobileim.activity.ResetPasswordActicity"
             android:launchMode="singleTop" />
         <activity
+            android:screenOrientation="portrait"
             android:name="com.fuwu.mobileim.activity.PushSettingActivity"
             android:launchMode="singleTop" >
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name="com.fuwu.mobileim.activity.WelcomeActivity"
             android:launchMode="singleTop" >
             <intent-filter>
@@ -155,6 +174,7 @@
             </intent-filter>
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name="com.fuwu.mobileim.activity.AgreementActivity"
             android:launchMode="singleTop" >
         </activity>
