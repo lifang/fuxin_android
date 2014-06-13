@@ -11,8 +11,8 @@
 
         <com.fuwu.mobileim.view.CircularImage
             android:id="@+id/block_face"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="19dip"
             android:src="@drawable/moren" />

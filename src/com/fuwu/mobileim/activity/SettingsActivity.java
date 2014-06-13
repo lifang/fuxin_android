@@ -286,16 +286,8 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		String face_str = profilePojo.getTileUrl();
 		Log.i("Ax", "profilePojo.getTileUrl()" + profilePojo.getTileUrl());
 		if (face_str != null && face_str.length() > 4) {
-			File f = new File(Urlinterface.head_pic, profilePojo.getUserId()
-					+ "");
-			if (f.exists()) {
-				Log.i("linshi------------", "加载本地图片");
-				ImageCacheUtil.IMAGE_CACHE.get(Urlinterface.head_pic
-						+ profilePojo.getUserId(), setting_userface);
-			} else {
 				FuXunTools.set_bk(profilePojo.getUserId(), face_str,
 						setting_userface);
-			}
 		} else {
 			setting_userface.setImageResource(R.drawable.moren);
 		}

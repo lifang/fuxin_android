@@ -221,12 +221,12 @@ public class FragmengtActivity extends FragmentActivity {
 		Log.i("11", contactsList.size() + "-----------1");
 		if (contactsList.size() == 0) {
 			if (FuXunTools.isConnect(this)) {
-			prodialog = new ProgressDialog(FragmengtActivity.this);
-			prodialog.setMessage("正在加载数据，请稍后...");
-			prodialog.setCanceledOnTouchOutside(false);
-			prodialog.show();
-			Thread thread = new Thread(new getContacts());
-			thread.start();
+				prodialog = new ProgressDialog(FragmengtActivity.this);
+				prodialog.setMessage("正在加载数据，请稍后...");
+				prodialog.setCanceledOnTouchOutside(false);
+				prodialog.show();
+				Thread thread = new Thread(new getContacts());
+				thread.start();
 			} else {
 				Toast.makeText(FragmengtActivity.this, R.string.no_internet,
 						Toast.LENGTH_SHORT).show();
@@ -234,7 +234,7 @@ public class FragmengtActivity extends FragmentActivity {
 		} else {
 			Log.i("Ax", "加载本地联系人");
 		}
-			
+
 	}
 
 	/**
@@ -613,9 +613,17 @@ public class FragmengtActivity extends FragmentActivity {
 		contactsList = new ArrayList<ContactPojo>();
 		if (et.length() > 0) {
 			for (int i = 0; i < SourceDateList.size(); i++) {
-				if (SourceDateList.get(i).getName().indexOf(et) != -1) {
-					contactsList.add(SourceDateList.get(i));
+				String str = SourceDateList.get(i).getCustomName();
+				if (str.length() > 0) {
+					if (str.indexOf(et) != -1) {
+						contactsList.add(SourceDateList.get(i));
+					}
+				} else {
+					if (SourceDateList.get(i).getName().indexOf(et) != -1) {
+						contactsList.add(SourceDateList.get(i));
+					}
 				}
+
 			}
 		}
 

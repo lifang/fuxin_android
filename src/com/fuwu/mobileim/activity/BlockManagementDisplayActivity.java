@@ -100,12 +100,13 @@ public class BlockManagementDisplayActivity extends Activity {
 		Token = preferences.getString("Token", "");
 		Intent intent = getIntent();//
 		contactId = intent.getIntExtra("contactId", -1);
-		for (int i = 0; i < db.queryContactList(user_id).size(); i++) {
-			if (db.queryContactList(user_id).get(i).getContactId() == contactId) {
-				contact = db.queryContactList(user_id).get(i);
-				break;
-			}
-		}
+//		for (int i = 0; i < db.queryContactList(user_id).size(); i++) {
+//			if (db.queryContactList(user_id).get(i).getContactId() == contactId) {
+//				contact = db.queryContactList(user_id).get(i);
+//				break;
+//			}
+//		}
+		contact= db.queryContact(user_id, contactId);
 		setRelatedData();
 
 	}
@@ -171,14 +172,14 @@ public class BlockManagementDisplayActivity extends Activity {
 		// 设置交易订阅
 		String str = FuXunTools.toNumber(contact.getSource());
 		if (FuXunTools.isExist(str, 0, 1)) {
-			block_display_gou.setVisibility(View.VISIBLE);
-		} else {
-			block_display_gou.setVisibility(View.GONE);
-		}
-		if (FuXunTools.isExist(str, 2, 3)) {
 			block_display_yue.setVisibility(View.VISIBLE);
 		} else {
 			block_display_yue.setVisibility(View.GONE);
+		}
+		if (FuXunTools.isExist(str, 2, 3)) {
+			block_display_gou.setVisibility(View.VISIBLE);
+		} else {
+			block_display_gou.setVisibility(View.GONE);
 		}
 		// 设置备注
 		block_display_notename.setText(contact.getName());
