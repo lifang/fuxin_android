@@ -549,7 +549,7 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 				pb.setDeviceId(deviceId);
 				pb.setOSVersion(release);
 				pb.setUserId(user_id);
-				pb.setChannel(0);
+				pb.setChannel(10000);
 				pb.setClientVersion(Urlinterface.current_version + "");
 				pb.setIsPushEnable(true);
 				Log.i("linshi", "-----------------");
