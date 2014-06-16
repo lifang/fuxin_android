@@ -39,6 +39,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
+                android:maxWidth="200dp"
+                android:singleLine="true"
                 android:textColor="#333333"
                 android:textSize="17dp" />
 
@@ -46,7 +48,7 @@
                 android:id="@+id/setting_sex_item"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="4dp"
                 android:layout_toRightOf="@+id/setting_teachername" />
 

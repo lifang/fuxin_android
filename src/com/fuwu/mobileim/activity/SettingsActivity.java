@@ -97,7 +97,7 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 			case 0:
 //				fxApplication.setProfilePojo(profilePojo);
 				putProfile(profilePojo);
-				setData();
+//				setData();
 				break;
 			case 6:
 				Toast.makeText(getActivity(), "请求失败", Toast.LENGTH_SHORT)
