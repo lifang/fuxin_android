@@ -88,9 +88,6 @@ public class TalkActivity extends Fragment {
 		rootView = inflater.inflate(R.layout.talk, container, false);
 		fx = (FxApplication) getActivity().getApplication();
 		sp = getActivity().getSharedPreferences(Urlinterface.SHARED, 0);
-		uid = sp.getInt("user_id", 0);
-		token = sp.getString("Token", "");
-		initData();
 		mListView = (ListView) rootView.findViewById(R.id.talk_listview);
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
@@ -201,10 +198,12 @@ public class TalkActivity extends Fragment {
 	}
 
 	public void onStart() {
+		uid = sp.getInt("user_id", 0);
+		token = sp.getString("Token", "");
 		handler.sendEmptyMessage(2);
 		super.onStart();
 	}
-	
+
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
