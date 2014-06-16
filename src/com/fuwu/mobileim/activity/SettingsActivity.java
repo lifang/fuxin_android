@@ -98,7 +98,7 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 			case 0:
 				// fxApplication.setProfilePojo(profilePojo);
 				putProfile(profilePojo);
-//				setData();
+				setData();
 				break;
 			case 5:
 				prodialog.dismiss();
