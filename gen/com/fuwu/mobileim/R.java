@@ -979,8 +979,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int block_face=0x7f09002b;
         public static final int block_management_back=0x7f090028;
         public static final int block_management_listView=0x7f090029;
-        public static final int block_name=0x7f09002c;
-        public static final int block_restore=0x7f09002d;
+        public static final int block_name=0x7f09002d;
+        public static final int block_restore=0x7f09002c;
         public static final int both=0x7f090013;
         public static final int bottom=0x7f09001e;
         public static final int button_all=0x7f090067;

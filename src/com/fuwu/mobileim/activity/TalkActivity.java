@@ -129,7 +129,7 @@ public class TalkActivity extends Fragment {
 		ok.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View arg0) {
 				CustomName = nickname.getText().toString();
-				new Thread(new UpdateContactRem()).start();
+				new UpdateContactRem().start();
 			}
 		});
 		// 设置对话框显示的View

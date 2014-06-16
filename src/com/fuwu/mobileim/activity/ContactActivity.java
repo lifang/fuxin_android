@@ -420,7 +420,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			contactsList = db.queryContactList(user_id);
 			Collections.sort(contactsList, pinyinComparator);
 			xListView.setAdapter(adapter1);
-			adapter1.notifyDataSetChanged();
+			adapter1.updateListView(contactsList);
 		}
 	};
 	// 最近

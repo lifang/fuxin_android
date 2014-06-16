@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.telephony.gsm.SmsMessage;
 import android.util.Base64;
 import android.util.Log;
 
@@ -20,6 +19,7 @@ import com.fuwu.mobileim.model.Models.ClientInfo.OSType;
 import com.fuwu.mobileim.model.Models.ClientInfoRequest;
 import com.fuwu.mobileim.model.Models.ClientInfoResponse;
 import com.fuwu.mobileim.model.Models.MessagePush;
+import com.fuwu.mobileim.model.Models.PushRequest;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.igexin.sdk.PushConsts;
 
@@ -55,12 +55,12 @@ public class PushReceiver extends BroadcastReceiver {
 						byte[] byteArray = Base64.decode(data, Base64.DEFAULT);
 						Log.i("Max", byteArray.toString());
 						try {
-							MessagePush mp = MessagePush.parseFrom(byteArray);
-							// Log.i("Max", "222");
-							// PushRequest pr =
-							// PushRequest.parseFrom(byteArray);
-							// Log.i("Max", "收到推送");
-							// MessagePush mp = pr.getMessagePush();
+							// MessagePush mp =
+							// MessagePush.parseFrom(byteArray);
+							Log.i("Max", "222");
+							PushRequest pr = PushRequest.parseFrom(byteArray);
+							Log.i("Max", "收到推送");
+							MessagePush mp = pr.getMessagePush();
 							MyNotification("福务网",
 									mp.getSenderName() + ":" + mp.getContent(),
 									context, intent, mp.getSendTime());

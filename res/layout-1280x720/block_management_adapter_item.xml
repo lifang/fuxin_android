@@ -17,16 +17,6 @@
             android:layout_marginLeft="19dip"
             android:src="@drawable/moren" />
 
-        <TextView
-            android:id="@+id/block_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="70dp"
-            android:text="叮叮叮"
-            android:textColor="#333333"
-            android:textSize="19dp" />
-
         <Button
             android:id="@+id/block_restore"
             android:layout_width="80dp"
@@ -36,6 +26,19 @@
             android:layout_marginRight="17dp"
             android:background="@drawable/restore_button_shape"
             android:text="@string/restore"
+            android:textSize="19dp" />
+
+        <TextView
+            android:id="@+id/block_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toLeftOf="@+id/block_restore"
+            android:layout_toRightOf="@+id/block_face"
+            android:singleLine="true"
+            android:text="叮叮叮"
+            android:textColor="#333333"
             android:textSize="19dp" />
     </RelativeLayout>
 
