@@ -199,7 +199,9 @@ public class DBManager {
 				mp.setLisence(c.getString(c.getColumnIndex("lisence")));
 				mp.setName(c.getString(c.getColumnIndex("name")));
 				mp.setSex(c.getInt(c.getColumnIndex("sex")));
-				String sortKey =FuXunTools.getSortKey(c.getString(c.getColumnIndex("customName")),c.getString(c.getColumnIndex("name")));
+				String sortKey = FuXunTools.getSortKey(
+						c.getString(c.getColumnIndex("customName")),
+						c.getString(c.getColumnIndex("name")));
 				mp.setSortKey(sortKey);
 				// mp.setSortKey(c.getString(c.getColumnIndex("sortKey")));
 				mp.setSource(c.getInt(c.getColumnIndex("source")));
@@ -434,7 +436,5 @@ public class DBManager {
 	public boolean isOpen() {
 		return db.isOpen();
 	}
-
-
 
 }
