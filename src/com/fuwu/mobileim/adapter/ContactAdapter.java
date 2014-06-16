@@ -2,15 +2,20 @@ package com.fuwu.mobileim.adapter;
 
 import java.io.File;
 import java.util.List;
+
 import android.content.Context;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
+import android.widget.LinearLayout.LayoutParams;
+
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.util.FuXunTools;
@@ -72,7 +77,7 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 					.findViewById(R.id.contact_user_face);
 			viewHolder.contact_gou = (ImageView) view
 					.findViewById(R.id.contact_gou);
-			viewHolder.contact_yue = (ImageView) view
+			viewHolder.contact_yue = (LinearLayout) view
 					.findViewById(R.id.contact_yue);
 
 			view.setTag(viewHolder);
@@ -124,15 +129,20 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 		if (num == 1) { // num =1时 ，代表全部，，要判断是否 购买和订阅
 
 			String str = FuXunTools.toNumber(contact.getSource());
-			if (FuXunTools.isExist(str, 0, 1)) {
-				viewHolder.contact_yue.setVisibility(View.VISIBLE);
-			} else {
-				viewHolder.contact_yue.setVisibility(View.GONE);
-			}
+		
 			if (FuXunTools.isExist(str, 2, 3)) {
 				viewHolder.contact_gou.setVisibility(View.VISIBLE);
 			} else {
 				viewHolder.contact_gou.setVisibility(View.GONE);
+				LayoutParams param = (LayoutParams) viewHolder.contact_yue.getLayoutParams();
+				param.leftMargin = 0;
+				param.gravity=Gravity.CENTER_VERTICAL;
+			}
+			if (FuXunTools.isExist(str, 0, 1)) {
+				viewHolder.contact_yue.setVisibility(View.VISIBLE);
+			} else {
+				viewHolder.contact_yue.setVisibility(View.GONE);
+				
 			}
 
 		} else {
@@ -155,7 +165,7 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 		TextView contact_name; // 名称
 		CircularImage contact_user_face; // 头像
 		ImageView contact_gou; // 购
-		ImageView contact_yue; // 阅
+		LinearLayout contact_yue; // 阅
 	}
 
 	/**
