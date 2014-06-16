@@ -119,7 +119,8 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 				} else {
 					for (int i = 0; i < contactsList.size(); i++) {
 						db.modifyContact(user_id, contactsList.get(i));
-						String url = contactsList.get(i).getUserface_url();
+						db.updateContactRem(user_id,contactsList.get(i).getContactId(),contactsList.get(i).getCustomName());
+
 					}
 					FuXunTools.getBitmap(contactsList);
 				}
