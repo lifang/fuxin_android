@@ -90,7 +90,7 @@ public class FragmengtActivity extends FragmentActivity {
 	private TextView menu_talk, menu_address_book, menu_settings;
 	private CharacterParser characterParser;
 	private DBManager db;
-	private List<ContactPojo> contactsList = new ArrayList<ContactPojo>();; // 联系人arraylist数组
+	private List<ContactPojo> contactsLists = new ArrayList<ContactPojo>();; // 联系人arraylist数组
 	private ProgressDialog prodialog;
 	private static Bitmap bm = null;
 	private int user_number1 = 0;
@@ -108,10 +108,10 @@ public class FragmengtActivity extends FragmentActivity {
 			case 0:// 调用加载头像的方法
 				prodialog.dismiss();
 
-				for (int i = 0; i < contactsList.size(); i++) {
-					String face_str = contactsList.get(i).getUserface_url();
+				for (int i = 0; i < contactsLists.size(); i++) {
+					String face_str = contactsLists.get(i).getUserface_url();
 					db.addContact(fxApplication.getUser_id(),
-							contactsList.get(i));
+							contactsLists.get(i));
 					if (face_str.length() > 4) {
 						user_number2 = user_number2 + 1;
 					}
@@ -126,7 +126,7 @@ public class FragmengtActivity extends FragmentActivity {
 				break;
 			case 1:
 				user_number1 = user_number1 + 1;
-				if (user_number1 == contactsList.size()) {
+				if (user_number1 == contactsLists.size()) {
 					prodialog.dismiss();
 				}
 				list.get(1).onStart();
@@ -217,9 +217,9 @@ public class FragmengtActivity extends FragmentActivity {
 		// 实例化汉字转拼音类
 		characterParser = CharacterParser.getInstance();
 		db = new DBManager(this);
-		contactsList = db.queryContactList(fxApplication.getUser_id());
-		Log.i("11", contactsList.size() + "-----------1");
-		if (contactsList.size() == 0) {
+		contactsLists = db.queryContactList(fxApplication.getUser_id());
+		Log.i("11", contactsLists.size() + "-----------1");
+		if (contactsLists.size() == 0) {
 			if (FuXunTools.isConnect(this)) {
 				prodialog = new ProgressDialog(FragmengtActivity.this);
 				prodialog.setMessage("正在加载数据，请稍后...");
@@ -245,10 +245,10 @@ public class FragmengtActivity extends FragmentActivity {
 	private void getUserBitmap() {
 		ExecutorService singleThreadExecutor = Executors
 				.newSingleThreadExecutor();
-		for (int i = 0; i < contactsList.size(); i++) {
+		for (int i = 0; i < contactsLists.size(); i++) {
 			final int index = i;
-			final int contactId = contactsList.get(i).getContactId();
-			final String url = contactsList.get(i).getUserface_url();
+			final int contactId = contactsLists.get(i).getContactId();
+			final String url = contactsLists.get(i).getUserface_url();
 			singleThreadExecutor.execute(new Runnable() {
 
 				@Override
@@ -369,7 +369,7 @@ public class FragmengtActivity extends FragmentActivity {
 									sortKey, name, customName, userface_url,
 									sex, source, lastContactTime, isBlocked,
 									isProvider, lisence, individualResume);
-							contactsList.add(coPojo);
+							contactsLists.add(coPojo);
 
 						}
 
@@ -492,9 +492,9 @@ public class FragmengtActivity extends FragmentActivity {
 
 		switch (width) {
 		case 480:
-			style2.setSpan(new AbsoluteSizeSpan(30), 0, 3,
+			style2.setSpan(new AbsoluteSizeSpan(27), 0, 3,
 					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-			style2.setSpan(new AbsoluteSizeSpan(20), 3, tv_str.length(),
+			style2.setSpan(new AbsoluteSizeSpan(18), 3, tv_str.length(),
 					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 			tv.setText(style2);
 			break;
@@ -536,11 +536,11 @@ public class FragmengtActivity extends FragmentActivity {
 						SharedPreferences preferences = getSharedPreferences(
 								Urlinterface.SHARED, Context.MODE_PRIVATE);
 						Editor editor = preferences.edit();
-						editor.putInt("contact_id", contactsList.get(position)
+						editor.putInt("contact_id", contactsLists.get(position)
 								.getContactId());
 						editor.commit();
 						Intent intent = new Intent();
-						intent.putExtra("contact_id", contactsList
+						intent.putExtra("contact_id", contactsLists
 								.get(position).getContactId());
 						intent.setClass(FragmengtActivity.this,
 								ChatActivity.class);
@@ -616,24 +616,24 @@ public class FragmengtActivity extends FragmentActivity {
 	}
 
 	public List<ContactPojo> findSimilarContacts(String et) {
-		contactsList = new ArrayList<ContactPojo>();
+		contactsLists = new ArrayList<ContactPojo>();
 		if (et.length() > 0) {
 			for (int i = 0; i < SourceDateList.size(); i++) {
 				String str = SourceDateList.get(i).getCustomName();
 				if (str.length() > 0) {
 					if (str.indexOf(et) != -1) {
-						contactsList.add(SourceDateList.get(i));
+						contactsLists.add(SourceDateList.get(i));
 					}
 				} else {
 					if (SourceDateList.get(i).getName().indexOf(et) != -1) {
-						contactsList.add(SourceDateList.get(i));
+						contactsLists.add(SourceDateList.get(i));
 					}
 				}
 
 			}
 		}
 
-		return contactsList;
+		return contactsLists;
 	}
 
 	class menuOnclick implements OnClickListener {

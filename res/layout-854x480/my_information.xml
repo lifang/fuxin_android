@@ -6,13 +6,13 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="50dip"
+        android:layout_height="40dip"
         android:background="@color/red_block" >
 
         <ImageButton
             android:id="@+id/my_info_back"
-            android:layout_width="38dip"
-            android:layout_height="38dip"
+            android:layout_width="30dip"
+            android:layout_height="30dip"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dip"
             android:background="@drawable/back" />
@@ -24,12 +24,12 @@
             android:layout_centerVertical="true"
             android:text="@string/my_info"
             android:textColor="#ffffff"
-            android:textSize="19dp" />
+            android:textSize="17dp" />
 
         <ImageButton
             android:id="@+id/my_info_confirm"
-            android:layout_width="40dip"
-            android:layout_height="40dip"
+            android:layout_width="30dip"
+            android:layout_height="30dip"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10.0dip"
@@ -49,12 +49,12 @@
             android:layout_marginLeft="17dp"
             android:text="@string/my_info_userface"
             android:textColor="@color/text_color"
-            android:textSize="17dp" />
+            android:textSize="16dp" />
 
         <com.fuwu.mobileim.view.CircularImage
             android:id="@+id/myinfo_userface"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="17dp"
@@ -71,7 +71,7 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="50dip"
+        android:layout_height="46dip"
         android:background="@color/white"
         android:focusable="true"
         android:focusableInTouchMode="true" >
@@ -84,7 +84,7 @@
             android:layout_marginLeft="17dp"
             android:text="@string/my_info_nickname"
             android:textColor="@color/text_color"
-            android:textSize="17dp" />
+            android:textSize="16dp" />
 
         <EditText
             android:id="@+id/myinfo_nickname"
@@ -99,7 +99,7 @@
             android:maxLength="32"
             android:singleLine="true"
             android:textColor="#333333"
-            android:textSize="17dp" />
+            android:textSize="16dp" />
 
         <View
             android:layout_width="fill_parent"
@@ -113,7 +113,7 @@
      <RelativeLayout
          android:id="@+id/fuzhi_layout"
         android:layout_width="fill_parent"
-        android:layout_height="50dip"
+        android:layout_height="46dip"
         android:background="@color/white" >
 
         <TextView
@@ -124,7 +124,7 @@
             android:layout_marginLeft="17dp"
             android:text="@string/my_info_fuzhi"
             android:textColor="#999999"
-            android:textSize="17dp" />
+            android:textSize="16dp" />
 
         <TextView
             android:id="@+id/myinfo_fuzhi"
@@ -137,7 +137,7 @@
             android:gravity="right"
             android:singleLine="true"
             android:textColor="#999999"
-            android:textSize="17dp" />
+            android:textSize="16dp" />
 
         <View
             android:layout_width="fill_parent"
@@ -150,7 +150,7 @@
     
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="50dip"
+        android:layout_height="46dip"
         android:background="@color/white" >
 
         <TextView
@@ -161,7 +161,7 @@
             android:layout_marginLeft="17dp"
             android:text="@string/my_info_certification"
             android:textColor="#999999"
-            android:textSize="17dp" />
+            android:textSize="16dp" />
 
         <TextView
             android:id="@+id/myinfo_certification"
@@ -174,7 +174,7 @@
             android:gravity="right"
             android:singleLine="true"
             android:textColor="#999999"
-            android:textSize="17dp" />
+            android:textSize="16dp" />
 
         <View
             android:layout_width="fill_parent"
@@ -187,7 +187,7 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="50dip"
+        android:layout_height="46dip"
         android:background="@color/white" >
 
         <TextView
@@ -197,7 +197,7 @@
             android:layout_marginLeft="17dp"
             android:text="@string/my_info_mobile"
             android:textColor="#999999"
-            android:textSize="17dp" />
+            android:textSize="16dp" />
 
         <TextView
             android:id="@+id/myinfo_mobile"
@@ -207,7 +207,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="17dp"
             android:textColor="#999999"
-            android:textSize="17dp" />
+            android:textSize="16dp" />
 
         <View
             android:layout_width="fill_parent"
@@ -220,7 +220,7 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="50dip"
+        android:layout_height="46dip"
         android:background="@color/white" >
 
         <TextView
@@ -231,7 +231,7 @@
             android:layout_marginLeft="17dp"
             android:text="@string/my_info_email"
             android:textColor="#999999"
-            android:textSize="17dp" />
+            android:textSize="16dp" />
 
         <TextView
             android:id="@+id/myinfo_email"
@@ -243,7 +243,7 @@
             android:layout_toRightOf="@+id/myinfo_e"
             android:gravity="right"
             android:textColor="#999999"
-            android:textSize="17dp" />
+            android:textSize="16dp" />
 
         <View
             android:layout_width="fill_parent"
@@ -256,7 +256,7 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="50dip"
+        android:layout_height="46dip"
         android:background="@color/white" >
 
         <TextView
@@ -266,7 +266,7 @@
             android:layout_marginLeft="17dp"
             android:text="@string/my_info_birthday"
             android:textColor="#999999"
-            android:textSize="17dp" />
+            android:textSize="16dp" />
 
         <TextView
             android:id="@+id/myinfo_birthday"
@@ -276,7 +276,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="17dp"
             android:textColor="#999999"
-            android:textSize="17dp" />
+            android:textSize="16dp" />
 
         <View
             android:layout_width="fill_parent"
@@ -289,7 +289,7 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="50dip"
+        android:layout_height="46dip"
         android:background="@color/white" >
 
         <TextView
@@ -299,7 +299,7 @@
             android:layout_marginLeft="17dp"
             android:text="@string/my_info_sex"
             android:textColor="#999999"
-            android:textSize="17dp" />
+            android:textSize="16dp" />
 
         <TextView
             android:id="@+id/myinfo_sex"
@@ -310,7 +310,7 @@
             android:layout_marginRight="17dp"
             android:text=""
             android:textColor="#999999"
-            android:textSize="17dp" />
+            android:textSize="16dp" />
 
         <View
             android:layout_width="fill_parent"

@@ -174,6 +174,11 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 
 			}
 		});
+		int user_id = preferences.getInt("user_id", -1);
+		File f = new File(Urlinterface.head_pic, user_id + "");
+		if (f.exists()) {
+			f.delete();
+		}
 		init();
 		if (FuXunTools.isConnect(getActivity())) {
 			Thread thread = new Thread(new getProfile());
@@ -296,8 +301,16 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		String face_str = profilePojo.getTileUrl();
 		Log.i("Ax", "profilePojo.getTileUrl()" + profilePojo.getTileUrl());
 		if (face_str != null && face_str.length() > 4) {
+			File f = new File(Urlinterface.head_pic, profilePojo.getUserId() + "");
+			if (f.exists()) {
+				ImageCacheUtil.IMAGE_CACHE.get(
+						Urlinterface.head_pic + profilePojo.getUserId(),
+						setting_userface);
+			}else {
 				FuXunTools.set_bk(profilePojo.getUserId(), face_str,
 						setting_userface);
+			}
+				
 		} else {
 			setting_userface.setImageResource(R.drawable.moren);
 		}

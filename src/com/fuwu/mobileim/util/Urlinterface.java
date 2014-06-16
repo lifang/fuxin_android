@@ -25,6 +25,7 @@ public interface Urlinterface {
 	// static final String IP = "https://118.242.18.189/IMApiMock/";
 	// 获得联系人
 	static final String getContacts = IP + "api/Contact";
+	static final String getContactDetail = IP + "api/Contact";
 	// 注册
 	static final String REGIST = IP + "api/Register";
 	// 短信验证
@@ -45,7 +46,7 @@ public interface Urlinterface {
 	static final String getProfile = IP + "api/Profile";
 	// 是否屏蔽 联系人 put
 	static final String BlockContact = IP + "api/Contact";
-	// 修改联系人备注
+	// 获取联系人详细信息
 	static final String ContactDetail = IP + "api/ContactDetail";
 	//
 	static final String Client = IP + "api/Client";

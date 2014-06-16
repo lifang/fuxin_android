@@ -101,13 +101,7 @@ public class BlockManagementDisplayActivity extends Activity {
 		Token = preferences.getString("Token", "");
 		Intent intent = getIntent();//
 		contactId = intent.getIntExtra("contactId", -1);
-		// for (int i = 0; i < db.queryContactList(user_id).size(); i++) {
-		// if (db.queryContactList(user_id).get(i).getContactId() == contactId)
-		// {
-		// contact = db.queryContactList(user_id).get(i);
-		// break;
-		// }
-		// }
+	
 		contact = db.queryContact(user_id, contactId);
 		setRelatedData();
 
@@ -118,7 +112,7 @@ public class BlockManagementDisplayActivity extends Activity {
 		Display d = m.getDefaultDisplay(); // 为获取屏幕宽、高
 
 		android.view.WindowManager.LayoutParams p = getWindow().getAttributes(); // 获取对话框当前的参数值
-		p.height = (int) (d.getHeight() * s); // 高度设置
+//		p.height = (int) (d.getHeight() * s); // 高度设置
 		p.width = (int) (d.getWidth() * 0.9); // 宽度设置
 		p.alpha = 1.0f; // 设置本 身透明度
 		p.dimAmount = 0.8f; // 设置黑暗度
