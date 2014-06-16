@@ -93,10 +93,6 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 0:
-				db = new DBManager(getActivity());
-				if (!db.isOpen()) {
-					db = new DBManager(getActivity());
-				}
 				contactsList = db.queryContactList(user_id);
 				//
 				// 根据a-z进行排序源数据
@@ -109,17 +105,21 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 				onLoad();
 				break;
 			case 1:
-				db = new DBManager(getActivity());
-				if (!db.isOpen()) {
-					db = new DBManager(getActivity());
-				}
 				if (contactsList.size() == 0) {
 					Toast.makeText(getActivity(), "没有数据更新", Toast.LENGTH_SHORT)
 							.show();
 				} else {
 					for (int i = 0; i < contactsList.size(); i++) {
 						db.modifyContact(user_id, contactsList.get(i));
-
+						String customName = contactsList.get(i).getCustomName();
+						if (customName.length() > 0) {
+							db.updateTalkRem(user_id, contactsList.get(i)
+									.getContactId(), customName);
+						} else {
+							String customName2 = contactsList.get(i).getName();
+							db.updateTalkRem(user_id, contactsList.get(i)
+									.getContactId(), customName2);
+						}
 					}
 					FuXunTools.getBitmap(contactsList);
 				}
@@ -139,8 +139,8 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 						.show();
 				break;
 			case 7:
-				Toast.makeText(getActivity(),  R.string.no_internet, Toast.LENGTH_SHORT)
-						.show();
+				Toast.makeText(getActivity(), R.string.no_internet,
+						Toast.LENGTH_SHORT).show();
 				break;
 			}
 		}
@@ -285,15 +285,15 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			public void onTouchingLetterChanged(String s) {
 				sideBar.setTextView(sectionToastText);
 				sideBar.setRelativeLayout(sectionToastLayout);
-				float alphabetHeight = sideBar.getHeight()-50;
+				float alphabetHeight = sideBar.getHeight() - 50;
 				int pos = getPositionForAlphabet(s);
-				float y = (pos * 100 / 27f) * alphabetHeight / 100+10;
-//				if (pos>=26) {
-//					 y = (26 * 100 / 27f) * alphabetHeight / 100;
-//				}
+				float y = (pos * 100 / 27f) * alphabetHeight / 100 + 10;
+				// if (pos>=26) {
+				// y = (26 * 100 / 27f) * alphabetHeight / 100;
+				// }
 				LayoutParams param = (LayoutParams) sectionToastLayout
 						.getLayoutParams();
-//				param.rightMargin = 50;
+				// param.rightMargin = 50;
 				param.topMargin = (int) y;
 				// sectionToastText.setText(s);
 				// 该字母首次出现的位置
@@ -330,15 +330,16 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 					int position, long id) {
 
 				Intent intent = new Intent();
-				SharedPreferences preferences = getActivity().getSharedPreferences(
-						Urlinterface.SHARED, Context.MODE_PRIVATE);
+				SharedPreferences preferences = getActivity()
+						.getSharedPreferences(Urlinterface.SHARED,
+								Context.MODE_PRIVATE);
 				Editor editor = preferences.edit();
 				editor.putInt("contact_id", contactsList.get(position - 1)
 						.getContactId());
 				editor.commit();
-				intent.putExtra("contact_id", contactsList
-						.get(position-1).getContactId());
-				intent.setClass(getActivity(), ChatActivity.class);
+				intent.putExtra("contact_id", contactsList.get(position - 1)
+						.getContactId());
+				intent.setClass(getActivity(), ContactInfoActivity.class);
 				startActivity(intent);
 			}
 		});
@@ -357,9 +358,9 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		int width0 = 4; // 边框宽度
 		int width1 = 20; // 外部边框距左右边界距离
 		int hight0 = 70; // 外部边框高度
-		if (height==1280&&width == 720) {
+		if (height == 1280 && width == 720) {
 			hight0 = 70;
-		} else if (height==854&&width == 480) {
+		} else if (height == 854 && width == 480) {
 			hight0 = 45;
 		}
 		int hight1 = hight0 - width0 * 2; // button高度
@@ -565,6 +566,14 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			}
 		} else {
 			onLoad();
+		}
+	}
+	
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		if (db != null) {
+			db.closeDB();
 		}
 	}
 

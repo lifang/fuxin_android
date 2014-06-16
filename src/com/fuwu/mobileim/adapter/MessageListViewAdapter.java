@@ -74,9 +74,6 @@ public class MessageListViewAdapter extends BaseAdapter {
 			super.handleMessage(msg);
 			switch (msg.what) {
 			case 1:
-				if (!db.isOpen()) {
-					db = new DBManager(mContext);
-				}
 				String str = remInfo.getText().toString();
 				cp.setCustomName(str);
 				db.updateContactRem(user_id, cp.getContactId(), str);
@@ -125,6 +122,12 @@ public class MessageListViewAdapter extends BaseAdapter {
 	public void updMessageList(List<MessagePojo> list) {
 		this.list = list;
 		notifyDataSetChanged();
+	}
+
+	public void closeDB() {
+		if (db != null) {
+			db.closeDB();
+		}
 	}
 
 	@Override

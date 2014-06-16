@@ -749,16 +749,6 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		startActivity(i);
 	}
 
-	public void onPause() {
-		super.onPause();
-
-		/**
-		 * 页面结束（每个Activity中都需要添加，如果有继承的父Activity中已经添加了该调用，那么子Activity中务必不能添加）
-		 * 不能与StatService.onPageStart一级onPageEnd函数交叉使用
-		 */
-		StatService.onPause(this);
-	}
-
 	/**
 	 * 获得本地存储的 个人信息
 	 */
@@ -822,5 +812,13 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		}
 		super.onActivityResult(requestCode, resultCode, data);
 
+	}
+	
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		if (db != null) {
+			db.closeDB();
+		}
 	}
 }

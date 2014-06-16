@@ -14,6 +14,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -98,6 +99,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 	private int currentPage = 0;
 	private boolean isFaceShow = false;;
 	private boolean isPlusShow = false;;
+	private String token;
 	private String sendTime;
 	private List<String> keys;
 	private List<MessagePojo> list;
@@ -120,6 +122,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 	private DBManager db;
 	private ContactPojo cp;
 	private TalkPojo tp;
+	private SharedPreferences sp;
 	private RequstReceiver mReuRequstReceiver;
 	private ExecutorService sendMessageExecutor = Executors
 			.newSingleThreadExecutor();
@@ -185,23 +188,26 @@ public class ChatActivity extends Activity implements OnClickListener,
 		db = new DBManager(this);
 		fx = (FxApplication) getApplication();
 		mReuRequstReceiver = new RequstReceiver();
-		Intent intent = getIntent();
+		// Intent intent = getIntent();
 		DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
 		height = displayMetrics.heightPixels;
 		Set<String> keySet = FxApplication.getInstance().getFaceMap().keySet();
 		keys = new ArrayList<String>();
 		keys.addAll(keySet);
-		user_id = fx.getUser_id();
-		// contact_id = user_id;
-		contact_id = intent.getIntExtra("contact_id", 0);
+
+		sp = getSharedPreferences(Urlinterface.SHARED, Context.MODE_PRIVATE);
+		user_id = sp.getInt("user_id", 1);
+		contact_id = sp.getInt("contact_id", 1);
+		token = sp.getString("Token", "token");
+
+		// user_id = fx.getUser_id();
+		// // contact_id = user_id;
+		// contact_id = intent.getIntExtra("contact_id", 0);
 		cp = db.queryContact(user_id, contact_id);
 		updateMessageData();
 	}
 
 	public void updateMessageData() {
-		if (!db.isOpen()) {
-			db = new DBManager(this);
-		}
 		mMesCount = db.getMesCount(user_id, contact_id);
 		db.clearTalkMesCount(user_id, contact_id);
 		list = db.queryMessageList(user_id, contact_id,
@@ -270,7 +276,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 		pd.setCanceledOnTouchOutside(false);
 		pd.setMessage("正在发送图片...");
 		mMessageAdapter = new MessageListViewAdapter(getResources(), this,
-				list, cp, user_id, fx.getToken());
+				list, cp, user_id, token);
 		mListView.setAdapter(mMessageAdapter);
 		mListView.setOnTouchListener(this);
 		mListView.setSelection(list.size() - 1);
@@ -470,7 +476,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 				BlockContactRequest.Builder builder = BlockContactRequest
 						.newBuilder();
 				builder.setUserId(user_id);
-				builder.setToken(fx.getToken());
+				builder.setToken(token);
 				builder.setContactId(contact_id);
 				builder.setIsBlocked(true);
 				BlockContactRequest response = builder.build();
@@ -515,7 +521,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 				handler.sendEmptyMessage(1);
 				SendMessageRequest.Builder builder = SendMessageRequest
 						.newBuilder();
-				builder.setToken(fx.getToken());
+				builder.setToken(token);
 				builder.setUserId(user_id);
 				com.fuwu.mobileim.model.Models.Message.Builder mes = com.fuwu.mobileim.model.Models.Message
 						.newBuilder();
@@ -727,6 +733,15 @@ public class ChatActivity extends Activity implements OnClickListener,
 	}
 
 	@Override
+	protected void onStart() {
+		super.onStart();
+		sp = getSharedPreferences(Urlinterface.SHARED, Context.MODE_PRIVATE);
+		user_id = sp.getInt("user_id", 1);
+		contact_id = sp.getInt("contact_id", 1);
+		token = sp.getString("Token", "token");
+	}
+
+	@Override
 	protected void onResume() {
 		super.onResume();
 		if (!db.isOpen()) {
@@ -780,6 +795,15 @@ public class ChatActivity extends Activity implements OnClickListener,
 		} else {
 			handler.sendEmptyMessage(8);
 		}
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		if (db != null) {
+			db.closeDB();
+		}
+		mMessageAdapter.closeDB();
 	}
 
 	@Override

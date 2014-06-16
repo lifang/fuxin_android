@@ -123,5 +123,5 @@ public class FragmentViewPagerAdapter extends PagerAdapter implements
 		public void onExtraPageScrollStateChanged(int i) {
 		}
 	}
-
+	
 }
