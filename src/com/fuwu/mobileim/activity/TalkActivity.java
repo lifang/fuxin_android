@@ -96,7 +96,8 @@ public class TalkActivity extends Fragment {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				db.clearTalkMesCount(fx.getUser_id(), fx.getUser_id());
-				sp.edit().putString("contact_id", "").commit();
+				sp.edit().putInt("contact_id", list.get(arg2).getContact_id())
+						.commit();
 				intent.putExtra("contact_id", list.get(arg2).getContact_id());
 				intent.setClass(getActivity(), ChatActivity.class);
 				startActivity(intent);
@@ -187,16 +188,10 @@ public class TalkActivity extends Fragment {
 	}
 
 	public void updateTalkData() {
-		if (!db.isOpen()) {
-			db = new DBManager(getActivity());
-		}
 		list = db.queryTalkList(uid);
 	}
 
 	public boolean delTalkData() {
-		if (!db.isOpen()) {
-			db = new DBManager(getActivity());
-		}
 		return db.delTalk(fx.getUser_id(), contact_id);
 	}
 
@@ -205,17 +200,17 @@ public class TalkActivity extends Fragment {
 		updateTalkData();
 	}
 
-	public void onResume() {
-		super.onResume();
-	}
-
-	public void onPause() {
-		super.onPause();
-	}
-
 	public void onStart() {
 		handler.sendEmptyMessage(2);
 		super.onStart();
+	}
+	
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		if (db != null) {
+			db.closeDB();
+		}
 	}
 
 }
