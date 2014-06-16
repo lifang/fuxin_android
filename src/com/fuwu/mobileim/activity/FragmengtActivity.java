@@ -143,7 +143,7 @@ public class FragmengtActivity extends FragmentActivity {
 				break;
 			case 7:
 				prodialog.dismiss();
-				Toast.makeText(getApplicationContext(),  R.string.no_internet,
+				Toast.makeText(getApplicationContext(), R.string.no_internet,
 						Toast.LENGTH_SHORT).show();
 				break;
 			}
@@ -540,8 +540,8 @@ public class FragmengtActivity extends FragmentActivity {
 								.getContactId());
 						editor.commit();
 						Intent intent = new Intent();
-						intent.putExtra("contact_id", contactsLists
-								.get(position).getContactId());
+						intent.putExtra("contact_id",
+								contactsLists.get(position).getContactId());
 						intent.setClass(FragmengtActivity.this,
 								ChatActivity.class);
 						startActivity(intent);
