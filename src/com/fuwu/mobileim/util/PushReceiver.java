@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.telephony.gsm.SmsMessage;
 import android.util.Base64;
 import android.util.Log;
 
@@ -33,7 +34,6 @@ public class PushReceiver extends BroadcastReceiver {
 		sf = context.getSharedPreferences(Urlinterface.SHARED, 0);
 		Bundle bundle = intent.getExtras();
 		Log.d("GetuiSdkDemo", "onReceive() action=" + bundle.getInt("action"));
-
 		switch (bundle.getInt(PushConsts.CMD_ACTION)) {
 		case PushConsts.GET_MSG_DATA:
 			// 获取透传（payload）数据
@@ -51,10 +51,16 @@ public class PushReceiver extends BroadcastReceiver {
 						} else {
 							intent.setClass(context, FragmengtActivity.class); // 点击该通知后要跳转的Activity
 						}
+						Log.i("Max", "1111");
 						byte[] byteArray = Base64.decode(data, Base64.DEFAULT);
+						Log.i("Max", byteArray.toString());
 						try {
 							MessagePush mp = MessagePush.parseFrom(byteArray);
-							Log.i("MyReceiver", new String(byteArray));
+							// Log.i("Max", "222");
+							// PushRequest pr =
+							// PushRequest.parseFrom(byteArray);
+							// Log.i("Max", "收到推送");
+							// MessagePush mp = pr.getMessagePush();
 							MyNotification("福务网",
 									mp.getSenderName() + ":" + mp.getContent(),
 									context, intent, mp.getSendTime());
@@ -71,7 +77,7 @@ public class PushReceiver extends BroadcastReceiver {
 			// 获取ClientID(CID)
 			clientid = bundle.getString("clientid");
 			Log.i("MyReceiver", "clientid=>" + clientid);
-			if (sf.getString("clientid", "null").equals("null")) {
+			if (sf.getString("clientid", "").equals("")) {
 				new Thread(new ClientID_Post()).start();
 			}
 			/*
@@ -140,8 +146,9 @@ public class PushReceiver extends BroadcastReceiver {
 							.parseFrom(by);
 					if (response.getIsSucceed()) {
 						sf.edit().putString("clientid", clientid).commit();
-						Log.i("MyReceiver", response.getIsSucceed() + "/"
-								+ response.getErrorCode());
+						Log.i("Max",
+								response.getIsSucceed() + "/"
+										+ response.getErrorCode());
 					}
 				}
 			} catch (Exception e) {

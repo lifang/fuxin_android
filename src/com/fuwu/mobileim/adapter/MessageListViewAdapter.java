@@ -4,24 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.PorterDuff.Mode;
-import android.graphics.PorterDuffXfermode;
-import android.graphics.Rect;
 import android.os.Handler;
 import android.os.Message;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,12 +27,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.activity.ZoomImageActivity;
 import com.fuwu.mobileim.model.Models.ChangeContactDetailRequest;
 import com.fuwu.mobileim.model.Models.ChangeContactDetailResponse;
 import com.fuwu.mobileim.model.Models.Contact;
+import com.fuwu.mobileim.model.Models.ContactDetailRequest;
+import com.fuwu.mobileim.model.Models.ContactDetailResponse;
 import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.pojo.MessagePojo;
 import com.fuwu.mobileim.util.DBManager;
@@ -65,10 +60,13 @@ public class MessageListViewAdapter extends BaseAdapter {
 	private LayoutInflater mInflater;
 	private List<MessagePojo> list = new ArrayList<MessagePojo>();
 	private ContactPojo cp;
+	private ContactPojo contactDetail;
 	private DBManager db;
 	private TextView rem;
 	private EditText remInfo;
 	private Button ok;
+	private ProgressDialog pd;
+	private boolean flag = false;;
 	private Handler handler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
@@ -83,11 +81,21 @@ public class MessageListViewAdapter extends BaseAdapter {
 				db.updateContactRem(user_id, cp.getContactId(), str);
 				remInfo.setText(str);
 				rem.setText("备注:" + str);
-				ok.setText("编辑");
 				Toast.makeText(mContext, "修改备注成功!", 0).show();
 				break;
 			case 2:
 				Toast.makeText(mContext, "修改备注失败!", 0).show();
+				break;
+			case 3:
+				pd.dismiss();
+				showLoginDialog();
+				break;
+			case 4:
+				pd.dismiss();
+				Toast.makeText(mContext, "获取联系人详细信息失败!", 0).show();
+				break;
+			case 8:
+				Toast.makeText(mContext, "网络异常", 0).show();
 				break;
 			}
 		}
@@ -104,6 +112,8 @@ public class MessageListViewAdapter extends BaseAdapter {
 		this.user_id = user_id;
 		this.token = token;
 		db = new DBManager(mContext);
+		pd = new ProgressDialog(mContext);
+		pd.setMessage("正在加载详细信息...");
 	}
 
 	public void updMessage(MessagePojo cp) {
@@ -166,7 +176,17 @@ public class MessageListViewAdapter extends BaseAdapter {
 			holder.img.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					showLoginDialog();
+					if (FuXunTools.isConnect(mContext)) {
+						if (!flag) {
+							flag = true;
+							pd.show();
+							new GetContactDetail().start();
+						} else {
+							handler.sendEmptyMessage(3);
+						}
+					} else {
+						handler.sendEmptyMessage(8);
+					}
 				}
 			});
 		} else {
@@ -185,18 +205,13 @@ public class MessageListViewAdapter extends BaseAdapter {
 					intent.putExtra("image_path",
 							Urlinterface.SDCARD + mp.getContent());
 					mContext.startActivity(intent);
-					// showBigImage("/sdcard/fuXun/" + mp.getContent());
 				}
 			});
 			holder.mes.setVisibility(View.GONE);
 			holder.sendImg.setVisibility(View.VISIBLE);
 			holder.sendImg.setImageBitmap(ImageUtil.createImageThumbnail(
 					Urlinterface.SDCARD + mp.getContent(), 720));
-			// ImageCacheUtil.IMAGE_CACHE.get("/sdcard/fuXun/" +
-			// mp.getContent(),
-			// holder.sendImg);
 		}
-
 		return convertView;
 	}
 
@@ -206,22 +221,6 @@ public class MessageListViewAdapter extends BaseAdapter {
 		public TextView order;
 		public ImageView img;
 		public ImageView sendImg;
-	}
-
-	public void showBigImage(String path) {
-		LayoutInflater inflater = LayoutInflater.from(mContext);
-		View imgEntryView = inflater.inflate(R.layout.chat_dialog, null); // 加载自定义的布局文件
-		final AlertDialog dialog = new AlertDialog.Builder(mContext).create();
-		ImageView img = (ImageView) imgEntryView.findViewById(R.id.zoom_image);
-		ImageCacheUtil.IMAGE_CACHE.get(path, img);
-		dialog.setView(imgEntryView); // 自定义dialog
-		dialog.show();
-		// 点击布局文件（也可以理解为点击大图）后关闭dialog，这里的dialog不需要按钮
-		imgEntryView.setOnClickListener(new OnClickListener() {
-			public void onClick(View paramView) {
-				dialog.cancel();
-			}
-		});
 	}
 
 	private void showLoginDialog() {
@@ -236,8 +235,10 @@ public class MessageListViewAdapter extends BaseAdapter {
 		ImageView img_yue = (ImageView) view.findViewById(R.id.info_yueIcon);
 		ok = (Button) view.findViewById(R.id.info_ok);
 		// 设置头像
-		FuXunTools.set_img(cp.getContactId(), img);
-		String str = FuXunTools.toNumber(cp.getSource());
+		// FuXunTools.set_img(cp.getContactId(), img);
+		ImageCacheUtil.IMAGE_CACHE.get(
+				Urlinterface.head_pic + contactDetail.getContactId(), img);
+		String str = FuXunTools.toNumber(contactDetail.getSource());
 		if (FuXunTools.isExist(str, 0, 1)) {
 			img_yue.setVisibility(View.VISIBLE);
 		} else {
@@ -248,11 +249,11 @@ public class MessageListViewAdapter extends BaseAdapter {
 		} else {
 			img_gou.setVisibility(View.GONE);
 		}
-		name.setText("" + cp.getName());
-		rem.setText("备注:" + cp.getCustomName());
-		remInfo.setText("" + cp.getCustomName());
-		lisence.setText("" + cp.getLisence());
-		sign.setText("" + cp.getIndividualResume());
+		name.setText("" + contactDetail.getName());
+		rem.setText("备注:" + contactDetail.getCustomName());
+		remInfo.setText("" + contactDetail.getCustomName());
+		lisence.setText("" + contactDetail.getLisence());
+		sign.setText("" + contactDetail.getIndividualResume());
 		remInfo.setOnFocusChangeListener(new OnFocusChangeListener() {
 			public void onFocusChange(View v, boolean hasFocus) {
 				ok.setText("确定");
@@ -263,7 +264,11 @@ public class MessageListViewAdapter extends BaseAdapter {
 			public void onClick(View v) {
 				String str = remInfo.getText().toString();
 				if (str != null && !str.equals("")) {
-					new UpdateContactRem().start();
+					if (FuXunTools.isConnect(mContext)) {
+						new UpdateContactRem().start();
+					} else {
+						handler.sendEmptyMessage(8);
+					}
 				}
 			}
 		});
@@ -302,55 +307,67 @@ public class MessageListViewAdapter extends BaseAdapter {
 		}
 	}
 
-	public Bitmap toRoundBitmap(Bitmap bitmap) {
-		int width = bitmap.getWidth();
-		int height = bitmap.getHeight();
-		float roundPx;
-		float left, top, right, bottom, dst_left, dst_top, dst_right, dst_bottom;
-		if (width <= height) {
-			roundPx = width / 2;
-			left = 0;
-			top = 0;
-			right = width;
-			bottom = width;
-			height = width;
-			dst_left = 0;
-			dst_top = 0;
-			dst_right = width;
-			dst_bottom = width;
-		} else {
-			roundPx = height / 2;
-			float clip = (width - height) / 2;
-			left = clip;
-			right = width - clip;
-			top = 0;
-			bottom = height;
-			width = height;
-			dst_left = 0;
-			dst_top = 0;
-			dst_right = height;
-			dst_bottom = height;
+	class GetContactDetail extends Thread {
+		public void run() {
+			try {
+				ContactDetailRequest.Builder builder = ContactDetailRequest
+						.newBuilder();
+				builder.setUserId(user_id);
+				builder.setContactId(cp.getContactId());
+				builder.setToken(token);
+				ContactDetailRequest response = builder.build();
+				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
+						Urlinterface.ContactDetail, "POST");
+				if (by != null && by.length > 0) {
+					ContactDetailResponse res = ContactDetailResponse
+							.parseFrom(by);
+					if (res.getIsSucceed()) {
+						Contact contact = res.getContact();
+						int contactId = contact.getContactId();
+						String name = contact.getName();
+						String customName = contact.getCustomName();
+						String sortKey = "";
+						if (customName != null && customName.length() > 0) {
+							sortKey = FuXunTools.findSortKey(customName);
+						} else {
+							sortKey = FuXunTools.findSortKey(name);
+						}
+						String userface_url = contact.getTileUrl();
+						int sex = contact.getGender().getNumber();
+						int source = contact.getSource();
+						String lastContactTime = contact.getLastContactTime();
+						boolean isblocked = contact.getIsBlocked();
+						boolean isprovider = contact.getIsProvider();
+						int isBlocked = -1, isProvider = -1;
+						if (isblocked == true) {
+							isBlocked = 1;
+						} else if (isblocked == false) {
+							isBlocked = 0;
+						}
+						if (isprovider == true) {
+							isProvider = 1;
+						} else if (isprovider == false) {
+							isProvider = 0;
+						}
+						String lisence = contact.getLisence();
+						String individualResume = contact.getIndividualResume();
+						String fuzhi = contact.getFuzhi();
+						contactDetail = new ContactPojo(contactId, sortKey,
+								name, customName, userface_url, sex, source,
+								lastContactTime, isBlocked, isProvider,
+								lisence, individualResume);
+						contactDetail.setFuzhi(fuzhi);
+						handler.sendEmptyMessage(3);
+						Log.i("FuWu", "contact:" + contactDetail.toString());
+					} else {
+						handler.sendEmptyMessage(4);
+					}
+				} else {
+					handler.sendEmptyMessage(4);
+				}
+			} catch (Exception e) {
+			}
 		}
-
-		Bitmap output = Bitmap.createBitmap(width, height, Config.ARGB_8888);
-		Canvas canvas = new Canvas(output);
-
-		final int color = 0xff424242;
-		final Paint paint = new Paint();
-		final Rect src = new Rect((int) left, (int) top, (int) right,
-				(int) bottom);
-		final Rect dst = new Rect((int) dst_left, (int) dst_top,
-				(int) dst_right, (int) dst_bottom);
-		paint.setAntiAlias(true);// 设置画笔无锯齿
-
-		canvas.drawARGB(0, 0, 0, 0); // 填充整个Canvas
-		paint.setColor(color);
-
-		canvas.drawCircle(roundPx, roundPx, roundPx, paint);
-
-		paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
-		canvas.drawBitmap(bitmap, src, dst, paint);
-		return output;
 	}
 
 	private CharSequence convertNormalStringToSpannableString(String message) {

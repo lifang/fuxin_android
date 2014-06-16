@@ -1,9 +1,5 @@
 package com.fuwu.mobileim.util;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-import android.os.Message;
 import android.util.Log;
 
 import com.fuwu.mobileim.model.Models.ContactRequest;
@@ -19,8 +15,8 @@ public class ContactUtil {
 		public void run() {
 			try {
 				ContactRequest.Builder builder = ContactRequest.newBuilder();
-//				builder.setUserId(fxApplication.getUser_id());
-//				builder.setToken(fxApplication.getToken());
+				// builder.setUserId(fxApplication.getUser_id());
+				// builder.setToken(fxApplication.getToken());
 				ContactRequest response = builder.build();
 
 				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
