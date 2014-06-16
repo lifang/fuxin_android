@@ -25,6 +25,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.fuwu.mobileim.R;
@@ -73,9 +74,6 @@ public class MessageListViewAdapter extends BaseAdapter {
 			super.handleMessage(msg);
 			switch (msg.what) {
 			case 1:
-				if (!db.isOpen()) {
-					db = new DBManager(mContext);
-				}
 				String str = remInfo.getText().toString();
 				cp.setCustomName(str);
 				db.updateContactRem(user_id, cp.getContactId(), str);
@@ -124,6 +122,12 @@ public class MessageListViewAdapter extends BaseAdapter {
 	public void updMessageList(List<MessagePojo> list) {
 		this.list = list;
 		notifyDataSetChanged();
+	}
+
+	public void closeDB() {
+		if (db != null) {
+			db.closeDB();
+		}
 	}
 
 	@Override
@@ -228,14 +232,18 @@ public class MessageListViewAdapter extends BaseAdapter {
 		TextView name = (TextView) view.findViewById(R.id.info_name);
 		rem = (TextView) view.findViewById(R.id.info_rem);
 		remInfo = (EditText) view.findViewById(R.id.info_remInfo);
+		View fzLine = view.findViewById(R.id.info_fzLine);
+		View rzLine = view.findViewById(R.id.info_rzLine);
+		LinearLayout fz = (LinearLayout) view.findViewById(R.id.info_fz);
+		LinearLayout rz = (LinearLayout) view.findViewById(R.id.info_rz);
+		LinearLayout jj = (LinearLayout) view.findViewById(R.id.info_jj);
 		TextView lisence = (TextView) view.findViewById(R.id.info_lisence);
 		TextView sign = (TextView) view.findViewById(R.id.info_sign);
+		TextView fuzhi = (TextView) view.findViewById(R.id.info_fuzhi);
 		ImageView img = (ImageView) view.findViewById(R.id.info_img);
 		ImageView img_gou = (ImageView) view.findViewById(R.id.info_gouIcon);
 		ImageView img_yue = (ImageView) view.findViewById(R.id.info_yueIcon);
 		ok = (Button) view.findViewById(R.id.info_ok);
-		// 设置头像
-		// FuXunTools.set_img(cp.getContactId(), img);
 		ImageCacheUtil.IMAGE_CACHE.get(
 				Urlinterface.head_pic + contactDetail.getContactId(), img);
 		String str = FuXunTools.toNumber(contactDetail.getSource());
@@ -249,11 +257,19 @@ public class MessageListViewAdapter extends BaseAdapter {
 		} else {
 			img_gou.setVisibility(View.GONE);
 		}
+		if (contactDetail.getIsProvider() == 0) {
+			fz.setVisibility(View.GONE);
+			rz.setVisibility(View.GONE);
+			jj.setVisibility(View.GONE);
+			fzLine.setVisibility(View.GONE);
+			rzLine.setVisibility(View.GONE);
+		}
 		name.setText("" + contactDetail.getName());
 		rem.setText("备注:" + contactDetail.getCustomName());
 		remInfo.setText("" + contactDetail.getCustomName());
 		lisence.setText("" + contactDetail.getLisence());
 		sign.setText("" + contactDetail.getIndividualResume());
+		fuzhi.setText("" + contactDetail.getFuzhi());
 		remInfo.setOnFocusChangeListener(new OnFocusChangeListener() {
 			public void onFocusChange(View v, boolean hasFocus) {
 				ok.setText("确定");

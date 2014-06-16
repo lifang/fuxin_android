@@ -160,6 +160,7 @@ public class FragmengtActivity extends FragmentActivity {
 		list.add(new TalkActivity());
 		list.add(new ContactActivity());
 		list.add(new SettingsActivity());
+		db = new DBManager(this);
 		String release = android.os.Build.VERSION.RELEASE; // android系统版本号
 		version = Integer.parseInt(release.substring(0, 1));
 		FragmentViewPagerAdapter adapter = new FragmentViewPagerAdapter(list,
@@ -216,7 +217,6 @@ public class FragmengtActivity extends FragmentActivity {
 	private void contactInformation() {
 		// 实例化汉字转拼音类
 		characterParser = CharacterParser.getInstance();
-		db = new DBManager(this);
 		contactsLists = db.queryContactList(fxApplication.getUser_id());
 		Log.i("11", contactsLists.size() + "-----------1");
 		if (contactsLists.size() == 0) {
