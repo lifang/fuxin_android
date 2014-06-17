@@ -29,7 +29,7 @@
             android:layout_centerVertical="true"
             android:text="详细信息"
             android:textColor="#ffffff"
-            android:textSize="18dp" />
+            android:textSize="20dp" />
     </RelativeLayout>
 
     <com.fuwu.mobileim.view.CircularImage
@@ -48,16 +48,21 @@
         android:layout_alignTop="@id/info_img"
         android:layout_marginLeft="10dp"
         android:layout_toRightOf="@id/info_img"
+        android:maxWidth="200dp"
+        android:singleLine="true"
         android:textColor="#000000"
-        android:textSize="18dp" />
+        android:textSize="19dp" />
 
     <TextView
         android:id="@+id/info_rem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/info_img"
-        android:layout_alignLeft="@id/info_name"
-        android:text="备注:" />
+        android:layout_below="@id/info_name"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/info_img"
+        android:layout_marginTop="-4dp"
+        android:text="备注:"
+        android:textSize="17dp" />
 
     <ImageView
         android:id="@+id/info_yueIcon"
@@ -66,6 +71,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignTop="@id/info_img"
         android:layout_marginRight="15dp"
+        android:visibility="gone"
         android:src="@drawable/yue" />
 
     <ImageView
@@ -75,15 +81,24 @@
         android:layout_alignParentRight="true"
         android:layout_alignTop="@id/info_img"
         android:layout_marginRight="45dp"
+        android:visibility="gone"
         android:src="@drawable/gou" />
+
+    <ImageView
+        android:id="@+id/info_sex"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/info_img"
+        android:layout_marginRight="75dp" />
 
     <View
         android:id="@+id/info_bzLine"
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:layout_below="@id/info_img"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:layout_marginTop="5dp"
         android:background="#cccccc" />
 
@@ -93,8 +108,8 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/info_remText"
         android:layout_below="@id/info_bzLine"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:layout_marginTop="10dp"
         android:gravity="center_vertical"
         android:orientation="horizontal" >
@@ -104,12 +119,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="认证行业 : "
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:textSize="19dp" />
 
         <TextView
             android:id="@+id/info_lisence"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:gravity="right"
+            android:textSize="19dp" />
     </LinearLayout>
 
     <View
@@ -117,19 +136,19 @@
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:layout_below="@id/info_rz"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:layout_marginTop="10dp"
         android:background="#cccccc" />
 
     <LinearLayout
         android:id="@+id/info_fz"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/info_remText"
         android:layout_below="@id/info_rzLine"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:layout_marginTop="10dp"
         android:gravity="center_vertical"
         android:orientation="horizontal" >
@@ -139,32 +158,35 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="福        指 : "
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:textSize="19dp" />
 
         <TextView
             android:id="@+id/info_fuzhi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:textSize="19dp" />
     </LinearLayout>
 
     <View
-        android:id="@+id/info_rzLine2"
+        android:id="@+id/info_fzLine"
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:layout_below="@id/info_fz"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:layout_marginTop="10dp"
         android:background="#cccccc" />
 
     <LinearLayout
-        android:id="@+id/info_jjLinear"
+        android:id="@+id/info_jj"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/info_remText"
-        android:layout_below="@id/info_rzLine2"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_below="@id/info_fzLine"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:layout_marginTop="10dp"
         android:gravity="center_vertical"
         android:orientation="horizontal" >
@@ -174,22 +196,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="个人简介 : "
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:textSize="19dp" />
 
         <TextView
             android:id="@+id/info_sign"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="19dp" />
     </LinearLayout>
 
     <Button
         android:id="@+id/info_sendBtn"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
-        android:layout_below="@id/info_jjLinear"
+        android:layout_below="@id/info_jj"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="80dp"
         android:background="@drawable/login_btn"
         android:text="发送消息"
         android:textColor="@color/white"

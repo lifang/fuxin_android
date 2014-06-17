@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
+import android.webkit.WebView.FindListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -243,6 +244,7 @@ public class MessageListViewAdapter extends BaseAdapter {
 		ImageView img = (ImageView) view.findViewById(R.id.info_img);
 		ImageView img_gou = (ImageView) view.findViewById(R.id.info_gouIcon);
 		ImageView img_yue = (ImageView) view.findViewById(R.id.info_yueIcon);
+		ImageView sexView =(ImageView) view.findViewById(R.id.info_sex);
 		ok = (Button) view.findViewById(R.id.info_ok);
 		ImageCacheUtil.IMAGE_CACHE.get(
 				Urlinterface.head_pic + contactDetail.getContactId(), img);
@@ -264,6 +266,15 @@ public class MessageListViewAdapter extends BaseAdapter {
 			fzLine.setVisibility(View.GONE);
 			rzLine.setVisibility(View.GONE);
 		}
+		int sex = cp.getSex();
+		if (sex == 0) {// 男
+			sexView.setImageResource(R.drawable.nan);
+		} else if (sex == 1) {// 女
+			sexView.setImageResource(R.drawable.nv);
+		} else {
+			sexView.setVisibility(View.GONE);
+		}
+		
 		name.setText("" + contactDetail.getName());
 		rem.setText("备注:" + contactDetail.getCustomName());
 		remInfo.setText("" + contactDetail.getCustomName());
