@@ -188,6 +188,9 @@ public class TalkActivity extends Fragment {
 	}
 
 	public void updateTalkData() {
+		if (!db.isOpen()) {
+			db = new DBManager(getActivity());
+		}
 		list = db.queryTalkList(uid);
 	}
 
