@@ -97,8 +97,8 @@ public class ChatActivity extends Activity implements OnClickListener,
 	private int contact_id = 1;
 	private float height = 0;
 	private int currentPage = 0;
-	private boolean isFaceShow = false;;
-	private boolean isPlusShow = false;;
+	private boolean isFaceShow = false;
+	private boolean isPlusShow = false;
 	private String token;
 	private String sendTime;
 	private List<String> keys;
@@ -154,7 +154,8 @@ public class ChatActivity extends Activity implements OnClickListener,
 				Toast.makeText(getApplicationContext(), "屏蔽联系人失败!", 0).show();
 				break;
 			case 5:
-				Toast.makeText(getApplicationContext(), "发送失败!", 0).show();
+				Toast.makeText(getApplicationContext(), "您的帐号已在别处登录,请重新登录!", 0)
+						.show();
 				break;
 			case 6:
 				mMessageAdapter.updMessage(mp);
@@ -466,8 +467,9 @@ public class ChatActivity extends Activity implements OnClickListener,
 		menuWindow.update();
 		menuWindow.setBackgroundDrawable(new BitmapDrawable());
 		// 设置layout在PopupWindow中显示的位置
+		int h = (int) height * 145 / 1280;
 		menuWindow.showAtLocation(this.findViewById(R.id.chat_main),
-				Gravity.TOP | Gravity.RIGHT, 0, 140);
+				Gravity.TOP | Gravity.RIGHT, 0, h);
 	}
 
 	class BlockContact extends Thread {

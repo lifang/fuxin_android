@@ -177,6 +177,7 @@ public class LoginActivity extends Activity implements OnClickListener,
 					AuthenticationResponse response = AuthenticationResponse
 							.parseFrom(by);
 					if (response.getIsSucceed()) {
+						Log.i("Max", response.getUserId() + "-id");
 						fx.setUser_id(response.getUserId());
 						fx.setToken(response.getToken());
 						spf.edit().putInt("user_id", response.getUserId())
