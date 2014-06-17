@@ -33,6 +33,7 @@ import com.fuwu.mobileim.util.Urlinterface;
 public class ContactInfoActivity extends Activity implements OnClickListener {
 
 	private TextView name;
+	private TextView rem;
 	private View fzLine;
 	private View rzLine;
 	private LinearLayout fz;
@@ -73,6 +74,7 @@ public class ContactInfoActivity extends Activity implements OnClickListener {
 		findViewById(R.id.info_sendBtn).setOnClickListener(this);
 		findViewById(R.id.contact_info_back).setOnClickListener(this);
 		name = (TextView) findViewById(R.id.info_name);
+		rem = (TextView) findViewById(R.id.info_rem);
 		fzLine = findViewById(R.id.info_fzLine);
 		rzLine = findViewById(R.id.info_rzLine);
 		fz = (LinearLayout) findViewById(R.id.info_fz);
@@ -93,6 +95,7 @@ public class ContactInfoActivity extends Activity implements OnClickListener {
 
 		pd = new ProgressDialog(this);
 		pd.setMessage("正在加载详细信息...");
+		pd.setCanceledOnTouchOutside(false);
 		pd.show();
 
 		new GetContactDetail().start();
@@ -128,6 +131,7 @@ public class ContactInfoActivity extends Activity implements OnClickListener {
 		}
 
 		name.setText("" + cp.getName());
+		rem.setText("备注:" + cp.getCustomName());
 		lisence.setText("" + cp.getLisence());
 		sign.setText("" + cp.getIndividualResume());
 		fuzhi.setText("" + cp.getFuzhi());
