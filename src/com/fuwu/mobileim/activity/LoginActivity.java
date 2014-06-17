@@ -57,7 +57,7 @@ public class LoginActivity extends Activity implements OnClickListener,
 				if (!error_code.equals("")) {
 					String errorString = fx.error_map.get(error_code);
 					if (errorString == null) {
-						Toast.makeText(LoginActivity.this, "登陆失败",
+						Toast.makeText(LoginActivity.this, "登录失败",
 								Toast.LENGTH_SHORT).show();
 					} else {
 						Toast.makeText(LoginActivity.this, errorString,
@@ -149,7 +149,7 @@ public class LoginActivity extends Activity implements OnClickListener,
 							Toast.LENGTH_SHORT).show();
 				} else {
 					prodialog = new ProgressDialog(LoginActivity.this);
-					prodialog.setMessage("努力登陆中..");
+					prodialog.setMessage("努力登录中..");
 					prodialog.setCanceledOnTouchOutside(false);
 					prodialog.show();
 					new Thread(new Login_Post()).start();
@@ -195,7 +195,7 @@ public class LoginActivity extends Activity implements OnClickListener,
 						handler.sendEmptyMessage(1);
 					}
 				} else {
-					Toast.makeText(LoginActivity.this, "登陆失败",
+					Toast.makeText(LoginActivity.this, "登录失败",
 							Toast.LENGTH_SHORT).show();
 				}
 			} catch (Exception e) {
