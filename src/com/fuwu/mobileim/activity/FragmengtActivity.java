@@ -543,7 +543,7 @@ public class FragmengtActivity extends FragmentActivity {
 						intent.putExtra("contact_id",
 								contactsLists.get(position).getContactId());
 						intent.setClass(FragmengtActivity.this,
-								ChatActivity.class);
+								ContactInfoActivity.class);
 						startActivity(intent);
 						contact_search_edittext.setText("");
 					}

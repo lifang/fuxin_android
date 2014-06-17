@@ -339,7 +339,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 				editor.commit();
 				intent.putExtra("contact_id", contactsList.get(position - 1)
 						.getContactId());
-//				intent.setClass(getActivity(), ContactInfoActivity.class);
+				intent.setClass(getActivity(), ContactInfoActivity.class);
 				startActivity(intent);
 			}
 		});
