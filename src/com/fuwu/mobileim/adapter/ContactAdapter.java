@@ -132,6 +132,8 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 		
 			if (FuXunTools.isExist(str, 2, 3)) {
 				viewHolder.contact_gou.setVisibility(View.VISIBLE);
+				LayoutParams param = (LayoutParams) viewHolder.contact_yue.getLayoutParams();
+				param.leftMargin = 10;
 			} else {
 				viewHolder.contact_gou.setVisibility(View.GONE);
 				LayoutParams param = (LayoutParams) viewHolder.contact_yue.getLayoutParams();
