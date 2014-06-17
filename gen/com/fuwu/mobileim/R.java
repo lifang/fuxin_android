@@ -1072,7 +1072,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int info_fuzhiText=0x7f090054;
         public static final int info_fz=0x7f090053;
         public static final int info_fzLine=0x7f090052;
-        public static final int info_gouIcon=0x7f09004d;
+        public static final int info_gouIcon=0x7f09004e;
         public static final int info_img=0x7f090049;
         public static final int info_jj=0x7f09005b;
         public static final int info_lisence=0x7f090059;
@@ -1087,10 +1087,10 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int info_rz=0x7f090057;
         public static final int info_rzLine=0x7f09005a;
         public static final int info_sendBtn=0x7f09007a;
-        public static final int info_sex=0x7f09004e;
+        public static final int info_sex=0x7f09004c;
         public static final int info_sign=0x7f09005d;
         public static final int info_signText=0x7f09005c;
-        public static final int info_yueIcon=0x7f09004c;
+        public static final int info_yueIcon=0x7f09004d;
         public static final int inputBar=0x7f09003d;
         public static final int item_thicklines=0x7f090110;
         public static final int large_image=0x7f090047;

@@ -24,6 +24,7 @@ import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.pojo.MessagePojo;
 import com.fuwu.mobileim.pojo.TalkPojo;
 import com.fuwu.mobileim.util.DBManager;
+import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.ImageUtil;
@@ -41,19 +42,19 @@ public class RequstService extends Service {
 	ExecutorService fixedThreadPool = Executors.newFixedThreadPool(2);
 	private DBManager db;
 	private FxApplication fx;
+	private Context context;
 
-	@Override
 	public IBinder onBind(Intent intent) {
 		return binder;
 	}
 
-	@Override
 	public void onCreate() {
 		super.onCreate();
 	}
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
+		context = this;
 		// 防止intent为null时异常
 		if (intent != null) {
 			if (!scheduledThreadPool.isShutdown()) {
@@ -136,74 +137,80 @@ public class RequstService extends Service {
 		public void run() {
 			super.run();
 			try {
-				MessageRequest.Builder builder = MessageRequest.newBuilder();
-				Log.i("Ax", "timeStamp:" + getTimeStamp());
-				builder.setUserId(fx.getUser_id());
-				builder.setToken(fx.getToken());
-				builder.setTimeStamp(getTimeStamp());
-				Log.i("Ax",
-						"user_id:" + fx.getUser_id() + "--token:"
-								+ fx.getToken());
-				MessageRequest response = builder.build();
-				byte[] b = HttpUtil.sendHttps(response.toByteArray(),
-						Urlinterface.Message, "POST");
-				if (b != null && b.length > 0) {
-					MessageResponse mr = MessageResponse.parseFrom(b);
-					setTimeStamp(mr.getTimeStamp());
-					int contactCount = mr.getMessageListsCount();
-					for (int i = 0; i < contactCount; i++) {
-						MessageList mes = mr.getMessageLists(i);
-						int mesCount = mes.getMessagesCount();
-						List<MessagePojo> list = new ArrayList<MessagePojo>();
-						Log.i("Ax", "messageCount:" + mesCount);
-						for (int j = mesCount - 1; j >= 0; j--) {
-							Message m = mes.getMessages(j);
-							MessagePojo mp = null;
-							int user_id = m.getUserId();
-							int contact_id = m.getContactId();
-							String time = "";
-							Log.i("Ax", "sendTime:" + m.getSendTime());
-							if (TimeUtil.isFiveMin(
-									db.getLastTime(user_id, contact_id),
-									m.getSendTime())) {
-								time = m.getSendTime();
-							}
-							if (m.getContentType() == ContentType.Text) {
-								mp = new MessagePojo(user_id, contact_id, time,
-										m.getContent(), 0, 1);
-								Log.i("FuWu", "serviceMP:" + mp.toString());
-								list.add(mp);
-							} else {
-								fixedThreadPool
-										.execute(new DownloadImageThread(
-												user_id, contact_id, time, m
-														.getContent(), fx
-														.getToken()));
-							}
-							// 对话列表
-							if (j == 0) {
-								String str = m.getContent();
-								if (m.getContentType() == ContentType.Image) {
-									str = "[图片]";
+				if (!FuXunTools.isApplicationBroughtToBackground(context)) {
+					MessageRequest.Builder builder = MessageRequest
+							.newBuilder();
+					Log.i("Ax", "timeStamp:" + getTimeStamp());
+					builder.setUserId(fx.getUser_id());
+					builder.setToken(fx.getToken());
+					builder.setTimeStamp(getTimeStamp());
+					Log.i("Ax",
+							"user_id:" + fx.getUser_id() + "--token:"
+									+ fx.getToken());
+					MessageRequest response = builder.build();
+					byte[] b = HttpUtil.sendHttps(response.toByteArray(),
+							Urlinterface.Message, "POST");
+					if (b != null && b.length > 0) {
+						MessageResponse mr = MessageResponse.parseFrom(b);
+						setTimeStamp(mr.getTimeStamp());
+						int contactCount = mr.getMessageListsCount();
+						for (int i = 0; i < contactCount; i++) {
+							MessageList mes = mr.getMessageLists(i);
+							int mesCount = mes.getMessagesCount();
+							List<MessagePojo> list = new ArrayList<MessagePojo>();
+							Log.i("Ax", "messageCount:" + mesCount);
+							for (int j = mesCount - 1; j >= 0; j--) {
+								Message m = mes.getMessages(j);
+								MessagePojo mp = null;
+								int user_id = m.getUserId();
+								int contact_id = m.getContactId();
+								String time = "";
+								Log.i("Ax", "sendTime:" + m.getSendTime());
+								if (TimeUtil.isFiveMin(
+										db.getLastTime(user_id, contact_id),
+										m.getSendTime())) {
+									time = m.getSendTime();
 								}
-								ContactPojo cp = db.queryContact(user_id,
-										contact_id);
-								String name = cp.getName();
-								if (cp.getCustomName() != null
-										&& !cp.getCustomName().equals("")) {
-									name = cp.getCustomName();
+								if (m.getContentType() == ContentType.Text) {
+									mp = new MessagePojo(user_id, contact_id,
+											time, m.getContent(), 0, 1);
+									Log.i("FuWu", "serviceMP:" + mp.toString());
+									list.add(mp);
+								} else {
+									fixedThreadPool
+											.execute(new DownloadImageThread(
+													user_id, contact_id, time,
+													m.getContent(), fx
+															.getToken()));
 								}
-								TalkPojo tp = new TalkPojo(user_id, contact_id,
-										name, cp.getUserface_url(), str,
-										m.getSendTime(), mesCount);
-								db.addTalk(tp);
+								// 对话列表
+								if (j == 0) {
+									String str = m.getContent();
+									if (m.getContentType() == ContentType.Image) {
+										str = "[图片]";
+									}
+									ContactPojo cp = db.queryContact(user_id,
+											contact_id);
+									String name = cp.getName();
+									if (cp.getCustomName() != null
+											&& !cp.getCustomName().equals("")) {
+										name = cp.getCustomName();
+									}
+									TalkPojo tp = new TalkPojo(user_id,
+											contact_id, name,
+											cp.getUserface_url(), str,
+											m.getSendTime(), mesCount);
+									db.addTalk(tp);
+								}
 							}
+							db.addMessageList(list);
 						}
-						db.addMessageList(list);
+						Intent intnet = new Intent(
+								"com.comdosoft.fuxun.REQUEST_ACTION");
+						sendBroadcast(intnet);
 					}
-					Intent intnet = new Intent(
-							"com.comdosoft.fuxun.REQUEST_ACTION");
-					sendBroadcast(intnet);
+				} else {
+					Log.i("Max", "后台运行");
 				}
 			} catch (InvalidProtocolBufferException e) {
 				Log.i("FuWu", "RequstServiceError:" + e.toString());
