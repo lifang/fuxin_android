@@ -620,16 +620,10 @@ public class FragmengtActivity extends FragmentActivity {
 		if (et.length() > 0) {
 			for (int i = 0; i < SourceDateList.size(); i++) {
 				String str = SourceDateList.get(i).getCustomName();
-				if (str.length() > 0) {
-					if (str.indexOf(et) != -1) {
-						contactsLists.add(SourceDateList.get(i));
-					}
-				} else {
-					if (SourceDateList.get(i).getName().indexOf(et) != -1) {
-						contactsLists.add(SourceDateList.get(i));
-					}
+				String str2 = SourceDateList.get(i).getName();
+				if (str.indexOf(et) != -1 || str2.indexOf(et) != -1) {
+					contactsLists.add(SourceDateList.get(i));
 				}
-
 			}
 		}
 

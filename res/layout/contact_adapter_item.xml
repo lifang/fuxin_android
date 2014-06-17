@@ -52,12 +52,12 @@
             android:id="@+id/contact_yue"
             android:layout_width="25dp"
             android:layout_height="15dp"
-            android:layout_marginLeft="10dp" >
+             android:layout_gravity="center_vertical"
+             >
 
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="15dp"
-                android:layout_gravity="center_vertical"
                 android:background="@drawable/yue" />
         </LinearLayout>
     </LinearLayout>
