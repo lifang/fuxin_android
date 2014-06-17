@@ -11,13 +11,13 @@
     <RelativeLayout
         android:id="@+id/block_con"
         android:layout_width="fill_parent"
-        android:layout_height="50dip"
+        android:layout_height="40dip"
         android:background="@color/red_block" >
 
         <ImageButton
             android:id="@+id/contact_info_back"
-            android:layout_width="40dip"
-            android:layout_height="40dip"
+            android:layout_width="30dip"
+            android:layout_height="30dip"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10.0dip"
             android:background="@drawable/back" />
@@ -29,16 +29,16 @@
             android:layout_centerVertical="true"
             android:text="详细信息"
             android:textColor="#ffffff"
-            android:textSize="20dp" />
+            android:textSize="16dp" />
     </RelativeLayout>
 
     <com.fuwu.mobileim.view.CircularImage
         android:id="@+id/info_img"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
         android:layout_below="@+id/block_con"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
         android:src="@drawable/moren" />
 
     <TextView
@@ -51,41 +51,43 @@
         android:maxWidth="200dp"
         android:singleLine="true"
         android:textColor="#000000"
-        android:textSize="19dp" />
+        android:textSize="16dp" />
 
     <TextView
         android:id="@+id/info_rem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/info_name"
-        android:layout_marginTop="1dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="-4dp"
         android:layout_toRightOf="@id/info_img"
         android:text="备注:"
-        android:textSize="17dp" />
+        android:textSize="14dp" />
 
     <ImageView
         android:id="@+id/info_yueIcon"
-        android:layout_width="26dp"
-        android:layout_height="15dp"
+        android:layout_width="23dp"
+        android:layout_height="13.8dp"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@id/info_img"
         android:layout_marginRight="15dp"
-        android:src="@drawable/yue" />
+        android:src="@drawable/yue"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/info_gouIcon"
-        android:layout_width="26dp"
-        android:layout_height="15dp"
+        android:layout_width="23dp"
+        android:layout_height="13.8dp"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@id/info_img"
         android:layout_marginRight="45dp"
-        android:src="@drawable/gou" />
+        android:src="@drawable/gou"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/info_sex"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@id/info_img"
         android:layout_marginRight="75dp" />
@@ -95,8 +97,8 @@
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:layout_below="@id/info_img"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:layout_marginTop="5dp"
         android:background="#cccccc" />
 
@@ -106,8 +108,8 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/info_remText"
         android:layout_below="@id/info_bzLine"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:layout_marginTop="10dp"
         android:gravity="center_vertical"
         android:orientation="horizontal" >
@@ -118,13 +120,15 @@
             android:layout_height="wrap_content"
             android:text="认证行业 : "
             android:textColor="#000000"
-            android:textSize="19dp" />
+            android:textSize="16dp" />
 
         <TextView
             android:id="@+id/info_lisence"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="19dp" />
+            android:gravity="right"
+            android:singleLine="true"
+            android:textSize="16dp" />
     </LinearLayout>
 
     <View
@@ -132,19 +136,19 @@
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:layout_below="@id/info_rz"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:layout_marginTop="10dp"
         android:background="#cccccc" />
 
     <LinearLayout
         android:id="@+id/info_fz"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/info_remText"
         android:layout_below="@id/info_rzLine"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:layout_marginTop="10dp"
         android:gravity="center_vertical"
         android:orientation="horizontal" >
@@ -155,33 +159,34 @@
             android:layout_height="wrap_content"
             android:text="福        指 : "
             android:textColor="#000000"
-            android:textSize="19dp" />
+            android:textSize="16dp" />
 
         <TextView
             android:id="@+id/info_fuzhi"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textSize="19dp" />
+            android:gravity="right"
+            android:textSize="16dp" />
     </LinearLayout>
 
     <View
-        android:id="@+id/info_rzLine2"
+        android:id="@+id/info_fzLine"
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:layout_below="@id/info_fz"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:layout_marginTop="10dp"
         android:background="#cccccc" />
 
     <LinearLayout
-        android:id="@+id/info_jjLinear"
+        android:id="@+id/info_jj"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/info_remText"
-        android:layout_below="@id/info_rzLine2"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_below="@id/info_fzLine"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:layout_marginTop="10dp"
         android:gravity="center_vertical"
         android:orientation="horizontal" >
@@ -192,26 +197,26 @@
             android:layout_height="wrap_content"
             android:text="个人简介 : "
             android:textColor="#000000"
-            android:textSize="19dp" />
+            android:textSize="16dp" />
 
         <TextView
             android:id="@+id/info_sign"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="19dp" />
+            android:textSize="16dp" />
     </LinearLayout>
 
     <Button
         android:id="@+id/info_sendBtn"
         android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:layout_below="@id/info_jjLinear"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="50dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/info_jj"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="80dp"
         android:background="@drawable/login_btn"
         android:text="发送消息"
         android:textColor="@color/white"
-        android:textSize="18sp" />
+        android:textSize="16sp" />
 
 </RelativeLayout>

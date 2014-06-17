@@ -6,7 +6,7 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="80dp"
+        android:layout_height="60dp"
         android:paddingBottom="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="20dp"
@@ -14,13 +14,13 @@
 
         <RelativeLayout
             android:id="@+id/layout"
-            android:layout_width="55dp"
-            android:layout_height="55dp" >
+            android:layout_width="45dp"
+            android:layout_height="45dp" >
 
             <com.fuwu.mobileim.view.CircularImage
                 android:id="@+id/head"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:scaleType="centerCrop"
@@ -50,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="5dp"
             android:layout_toRightOf="@id/layout"
             android:orientation="vertical" >
 
@@ -58,8 +58,8 @@
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#469AD3"
-                android:textSize="18dp" />
+                android:textColor="#333333"
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/content"
@@ -69,7 +69,7 @@
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:textColor="#999999"
-                android:textSize="16dp" />
+                android:textSize="14dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -90,6 +90,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/fuhao"
                 android:textColor="#DDDDDD"
+                android:layout_marginTop="2dp"
                 android:textSize="22dp" />
         </LinearLayout>
     </RelativeLayout>

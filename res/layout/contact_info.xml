@@ -58,9 +58,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/info_name"
-        android:layout_marginTop="1dp"
         android:layout_marginLeft="10dp"
         android:layout_toRightOf="@id/info_img"
+        android:layout_marginTop="-4dp"
         android:text="备注:"
         android:textSize="17dp" />
 
@@ -71,6 +71,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignTop="@id/info_img"
         android:layout_marginRight="15dp"
+        android:visibility="gone"
         android:src="@drawable/yue" />
 
     <ImageView
@@ -80,6 +81,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignTop="@id/info_img"
         android:layout_marginRight="45dp"
+        android:visibility="gone"
         android:src="@drawable/gou" />
 
     <ImageView
@@ -95,8 +97,8 @@
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:layout_below="@id/info_img"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:layout_marginTop="5dp"
         android:background="#cccccc" />
 
@@ -106,8 +108,8 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/info_remText"
         android:layout_below="@id/info_bzLine"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:layout_marginTop="10dp"
         android:gravity="center_vertical"
         android:orientation="horizontal" >
@@ -124,6 +126,8 @@
             android:id="@+id/info_lisence"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:gravity="right"
             android:textSize="19dp" />
     </LinearLayout>
 
@@ -132,19 +136,19 @@
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:layout_below="@id/info_rz"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:layout_marginTop="10dp"
         android:background="#cccccc" />
 
     <LinearLayout
         android:id="@+id/info_fz"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/info_remText"
         android:layout_below="@id/info_rzLine"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:layout_marginTop="10dp"
         android:gravity="center_vertical"
         android:orientation="horizontal" >
@@ -159,29 +163,30 @@
 
         <TextView
             android:id="@+id/info_fuzhi"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:gravity="right"
             android:textSize="19dp" />
     </LinearLayout>
 
     <View
-        android:id="@+id/info_rzLine2"
+        android:id="@+id/info_fzLine"
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:layout_below="@id/info_fz"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:layout_marginTop="10dp"
         android:background="#cccccc" />
 
     <LinearLayout
-        android:id="@+id/info_jjLinear"
+        android:id="@+id/info_jj"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/info_remText"
-        android:layout_below="@id/info_rzLine2"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_below="@id/info_fzLine"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:layout_marginTop="10dp"
         android:gravity="center_vertical"
         android:orientation="horizontal" >
@@ -205,10 +210,10 @@
         android:id="@+id/info_sendBtn"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
-        android:layout_below="@id/info_jjLinear"
+        android:layout_below="@id/info_jj"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="80dp"
         android:background="@drawable/login_btn"
         android:text="发送消息"
         android:textColor="@color/white"

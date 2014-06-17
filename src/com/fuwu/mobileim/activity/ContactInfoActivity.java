@@ -32,19 +32,32 @@ import com.fuwu.mobileim.util.Urlinterface;
  */
 public class ContactInfoActivity extends Activity implements OnClickListener {
 
-	ContactPojo cp;
-	int user_id;
-	int contact_id;
-	String token;
-	ProgressDialog pd;
-	Handler handler = new Handler() {
+	private TextView name;
+	private View fzLine;
+	private View rzLine;
+	private LinearLayout fz;
+	private LinearLayout rz;
+	private LinearLayout jj;
+	private TextView lisence;
+	private TextView sign;
+	private TextView fuzhi;
+	private ImageView img;
+	private ImageView img_gou;
+	private ImageView img_yue;
+	private ImageView sexView;
+	private ContactPojo cp;
+	private int user_id;
+	private int contact_id;
+	private String token;
+	private ProgressDialog pd;
+	private Handler handler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
 			pd.dismiss();
 			switch (msg.what) {
 			case 1:
-				initView();
+				updateData();
 				break;
 			case 2:
 				Toast.makeText(getApplicationContext(), "获取详细信息失败!", 0).show();
@@ -59,6 +72,19 @@ public class ContactInfoActivity extends Activity implements OnClickListener {
 		setContentView(R.layout.contact_info);
 		findViewById(R.id.info_sendBtn).setOnClickListener(this);
 		findViewById(R.id.contact_info_back).setOnClickListener(this);
+		name = (TextView) findViewById(R.id.info_name);
+		fzLine = findViewById(R.id.info_fzLine);
+		rzLine = findViewById(R.id.info_rzLine);
+		fz = (LinearLayout) findViewById(R.id.info_fz);
+		rz = (LinearLayout) findViewById(R.id.info_rz);
+		jj = (LinearLayout) findViewById(R.id.info_jj);
+		lisence = (TextView) findViewById(R.id.info_lisence);
+		sign = (TextView) findViewById(R.id.info_sign);
+		fuzhi = (TextView) findViewById(R.id.info_fuzhi);
+		img = (ImageView) findViewById(R.id.info_img);
+		img_gou = (ImageView) findViewById(R.id.info_gouIcon);
+		img_yue = (ImageView) findViewById(R.id.info_yueIcon);
+		sexView = (ImageView) findViewById(R.id.info_sex);
 		SharedPreferences sp = getSharedPreferences(Urlinterface.SHARED,
 				Context.MODE_PRIVATE);
 		user_id = sp.getInt("user_id", 1);
@@ -72,21 +98,8 @@ public class ContactInfoActivity extends Activity implements OnClickListener {
 		new GetContactDetail().start();
 	}
 
-	public void initView() {
-		TextView name = (TextView) findViewById(R.id.info_name);
-		View fzLine = findViewById(R.id.info_fzLine);
-		View rzLine = findViewById(R.id.info_rzLine);
-		LinearLayout fz = (LinearLayout) findViewById(R.id.info_fz);
-		LinearLayout rz = (LinearLayout) findViewById(R.id.info_rz);
-		LinearLayout jj = (LinearLayout) findViewById(R.id.info_jj);
-		TextView lisence = (TextView) findViewById(R.id.info_lisence);
-		TextView sign = (TextView) findViewById(R.id.info_sign);
-		TextView fuzhi = (TextView) findViewById(R.id.info_fuzhi);
-		ImageView img = (ImageView) findViewById(R.id.info_img);
-		ImageView img_gou = (ImageView) findViewById(R.id.info_gouIcon);
-		ImageView img_yue = (ImageView) findViewById(R.id.info_yueIcon);
+	public void updateData() {
 		ImageCacheUtil.IMAGE_CACHE.get(Urlinterface.head_pic + contact_id, img);
-
 		String str = FuXunTools.toNumber(cp.getSource());
 		if (FuXunTools.isExist(str, 0, 1)) {
 			img_yue.setVisibility(View.VISIBLE);
@@ -105,6 +118,15 @@ public class ContactInfoActivity extends Activity implements OnClickListener {
 			fzLine.setVisibility(View.GONE);
 			rzLine.setVisibility(View.GONE);
 		}
+		int sex = cp.getSex();
+		if (sex == 0) {// 男
+			sexView.setImageResource(R.drawable.nan);
+		} else if (sex == 1) {// 女
+			sexView.setImageResource(R.drawable.nv);
+		} else {
+			sexView.setVisibility(View.GONE);
+		}
+
 		name.setText("" + cp.getName());
 		lisence.setText("" + cp.getLisence());
 		sign.setText("" + cp.getIndividualResume());
