@@ -107,7 +107,7 @@ public class FragmengtActivity extends FragmentActivity {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 0:// 
-				prodialog.dismiss();
+//				prodialog.dismiss();
 
 				for (int i = 0; i < contactsLists.size(); i++) {
 					String face_str = contactsLists.get(i).getUserface_url();
@@ -118,7 +118,7 @@ public class FragmengtActivity extends FragmentActivity {
 					}
 				}
 				if (user_number2 > 0) {
-//					getUserBitmap(); 
+					getUserBitmap(); 
 				} else {
 					prodialog.dismiss();
 				}
@@ -129,8 +129,9 @@ public class FragmengtActivity extends FragmentActivity {
 				user_number1 = user_number1 + 1;
 				if (user_number1 == contactsLists.size()) {
 					prodialog.dismiss();
+					list.get(1).onStart();
 				}
-				list.get(1).onStart();
+				
 				break;
 			case 5:
 				prodialog.dismiss();
