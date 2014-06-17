@@ -235,10 +235,11 @@ public class ChatActivity extends Activity implements OnClickListener,
 		mBack.setOnClickListener(this);
 		mOther.setOnClickListener(this);
 		mListView.setXListViewListener(this);
-		mBack.setImageBitmap(ImageUtil.getBitmapScale(height, R.drawable.back,
-				getResources()));
-		mOther.setImageBitmap(ImageUtil.getBitmapScale(height,
-				R.drawable.other, getResources()));
+		// mBack.setImageBitmap(ImageUtil.getBitmapScale(height,
+		// R.drawable.back,
+		// getResources()));
+		// mOther.setImageBitmap(ImageUtil.getBitmapScale(height,
+		// R.drawable.other, getResources()));
 		mFaceBtn.setImageBitmap(ImageUtil.getBitmapScale(height,
 				R.drawable.face, getResources()));
 		mFaceBtn.setOnTouchListener(new OnTouchListener() {

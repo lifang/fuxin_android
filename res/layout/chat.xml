@@ -12,12 +12,11 @@
 
         <ImageButton
             android:id="@+id/chat_back"
-            android:layout_width="50dip"
-            android:layout_height="50dip"
-            android:background="@android:color/transparent"
-            android:paddingLeft="5.0dip"
-            android:paddingRight="5.0dip"
-            android:src="@drawable/back" />
+            android:layout_width="40dip"
+            android:layout_height="40dip"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10.0dip"
+            android:background="@drawable/back" />
 
         <TextView
             android:id="@+id/chat_name"
@@ -25,19 +24,17 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="赵同学"
             android:textColor="#ffffff"
             android:textSize="18dp" />
 
         <ImageButton
             android:id="@+id/chat_other"
-            android:layout_width="50dip"
-            android:layout_height="50dip"
+            android:layout_width="40dip"
+            android:layout_height="40dip"
             android:layout_alignParentRight="true"
-            android:background="@android:color/transparent"
-            android:paddingLeft="5.0dip"
-            android:paddingRight="5.0dip"
-            android:src="@drawable/other" />
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dip"
+            android:background="@drawable/other" />
     </RelativeLayout>
 
     <FrameLayout

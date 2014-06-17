@@ -3,18 +3,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-
-        <TextView
-            android:id="@+id/contact_sort_key"
-            android:layout_width="fill_parent"
-            android:layout_height="20dip"
-            android:gravity="center_vertical"
-            android:background="#F4F4F4"
-            android:text="sdfsf"
-            android:paddingLeft="13.34dp"
-            android:textColor="@color/text_color"
-            android:textSize="13dp" />
-
+    <TextView
+        android:id="@+id/contact_sort_key"
+        android:layout_width="fill_parent"
+        android:layout_height="20dip"
+        android:background="#F4F4F4"
+        android:gravity="center_vertical"
+        android:paddingLeft="13.34dp"
+        android:text="sdfsf"
+        android:textColor="@color/text_color"
+        android:textSize="13dp" />
 
     <LinearLayout
         android:id="@+id/name_layout"
@@ -24,7 +22,7 @@
         android:background="#FFFFFF" >
 
         <com.fuwu.mobileim.view.CircularImage
-             android:id="@+id/contact_user_face"
+            android:id="@+id/contact_user_face"
             android:layout_width="38dp"
             android:layout_height="38dp"
             android:layout_gravity="center_vertical"
@@ -37,8 +35,8 @@
             android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:textColor="#333333"
             android:singleLine="true"
+            android:textColor="#333333"
             android:textSize="16dp" />
 
         <ImageView
@@ -49,13 +47,18 @@
             android:layout_marginLeft="5dp"
             android:background="@drawable/gou" />
 
-        <ImageView
+        <LinearLayout
             android:id="@+id/contact_yue"
             android:layout_width="23dp"
             android:layout_height="13.8dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="5dp"
-            android:background="@drawable/yue" />
+            android:layout_marginLeft="5dp" >
+
+            <ImageView
+                android:layout_width="23dp"
+                android:layout_height="13.8dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/yue" />
+        </LinearLayout>
     </LinearLayout>
 
     <View

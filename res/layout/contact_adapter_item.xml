@@ -48,13 +48,18 @@
             android:layout_marginLeft="15dp"
             android:background="@drawable/gou" />
 
-        <ImageView
+        <LinearLayout
             android:id="@+id/contact_yue"
             android:layout_width="25dp"
             android:layout_height="15dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="15dp"
-            android:background="@drawable/yue" />
+            android:layout_marginLeft="10dp" >
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/yue" />
+        </LinearLayout>
     </LinearLayout>
 
     <View

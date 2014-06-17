@@ -90,6 +90,7 @@ public class TalkActivity extends Fragment {
 		sp = getActivity().getSharedPreferences(Urlinterface.SHARED, 0);
 		uid = sp.getInt("user_id", 0);
 		token = sp.getString("Token", "");
+		db = new DBManager(getActivity());
 		mListView = (ListView) rootView.findViewById(R.id.talk_listview);
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
