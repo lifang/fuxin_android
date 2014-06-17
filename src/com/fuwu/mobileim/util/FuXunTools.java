@@ -5,7 +5,6 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -36,7 +35,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.fuwu.mobileim.R;
-import com.fuwu.mobileim.pojo.ContactPojo;
+import com.fuwu.mobileim.pojo.ShortContactPojo;
 import com.fuwu.mobileim.view.CharacterParser;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -281,7 +280,7 @@ public class FuXunTools {
 	/*
 	 * 获得头像并以个人的id 作为文件名，保存到 /fuXun/head_pic/ 中
 	 */
-	public static void getBitmap(final List<ContactPojo> contactsList) {
+	public static void getBitmap(final List<ShortContactPojo> contactsList) {
 
 		Thread thread = new Thread() {
 			public void run() {

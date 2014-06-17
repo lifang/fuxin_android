@@ -56,6 +56,7 @@ import com.fuwu.mobileim.adapter.FragmentViewPagerAdapter;
 import com.fuwu.mobileim.model.Models.ContactRequest;
 import com.fuwu.mobileim.model.Models.ContactResponse;
 import com.fuwu.mobileim.pojo.ContactPojo;
+import com.fuwu.mobileim.pojo.ShortContactPojo;
 import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
@@ -79,7 +80,7 @@ public class FragmengtActivity extends FragmentActivity {
 	private ListView contacts_search_listview;// 搜索到的内容 listview
 	private LinearLayout contacts_search_linearLayout;// 搜索 内容显示部分
 	private FxApplication fxApplication;
-	private List<ContactPojo> SourceDateList;
+	private List<ShortContactPojo> SourceDateList;
 	private ContactAdapter adapter;
 	private ImageView cursor;
 	private RequstReceiver mReuRequstReceiver;
@@ -90,7 +91,7 @@ public class FragmengtActivity extends FragmentActivity {
 	private TextView menu_talk, menu_address_book, menu_settings;
 	private CharacterParser characterParser;
 	private DBManager db;
-	private List<ContactPojo> contactsLists = new ArrayList<ContactPojo>();; // 联系人arraylist数组
+	private List<ShortContactPojo> contactsLists = new ArrayList<ShortContactPojo>(); // 联系人arraylist数组
 	private ProgressDialog prodialog;
 	private static Bitmap bm = null;
 	private int user_number1 = 0;
@@ -105,7 +106,7 @@ public class FragmengtActivity extends FragmentActivity {
 		 */
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
-			case 0:// 调用加载头像的方法
+			case 0:// 
 				prodialog.dismiss();
 
 				for (int i = 0; i < contactsLists.size(); i++) {
@@ -117,7 +118,7 @@ public class FragmengtActivity extends FragmentActivity {
 					}
 				}
 				if (user_number2 > 0) {
-					getUserBitmap();
+//					getUserBitmap(); 
 				} else {
 					prodialog.dismiss();
 				}
@@ -365,10 +366,9 @@ public class FragmengtActivity extends FragmentActivity {
 							String lisence = res.getContacts(i).getLisence();
 							String individualResume = res.getContacts(i)
 									.getIndividualResume();
-							ContactPojo coPojo = new ContactPojo(contactId,
+							ShortContactPojo coPojo = new ShortContactPojo(contactId,
 									sortKey, name, customName, userface_url,
-									sex, source, lastContactTime, isBlocked,
-									isProvider, lisence, individualResume);
+									sex, source, lastContactTime, isBlocked);
 							contactsLists.add(coPojo);
 
 						}
@@ -615,8 +615,8 @@ public class FragmengtActivity extends FragmentActivity {
 		});
 	}
 
-	public List<ContactPojo> findSimilarContacts(String et) {
-		contactsLists = new ArrayList<ContactPojo>();
+	public List<ShortContactPojo> findSimilarContacts(String et) {
+		contactsLists = new ArrayList<ShortContactPojo>();
 		if (et.length() > 0) {
 			for (int i = 0; i < SourceDateList.size(); i++) {
 				String str = SourceDateList.get(i).getCustomName();

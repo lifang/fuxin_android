@@ -30,7 +30,7 @@ import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.adapter.ContactAdapter;
 import com.fuwu.mobileim.model.Models.ContactRequest;
 import com.fuwu.mobileim.model.Models.ContactResponse;
-import com.fuwu.mobileim.pojo.ContactPojo;
+import com.fuwu.mobileim.pojo.ShortContactPojo;
 import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
@@ -58,7 +58,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 	private ContactAdapter adapter1, adapter2;
 	private View rootView;
 	private int user_number1 = 0;
-	List<ContactPojo> contactsList1 = new ArrayList<ContactPojo>();
+	List<ShortContactPojo> contactsList1 = new ArrayList<ShortContactPojo>();
 	/**
 	 * 弹出式分组的布局
 	 */
@@ -68,7 +68,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 	 * 汉字转换成拼音的类
 	 */
 	private CharacterParser characterParser;
-	private List<ContactPojo> contactsList = new ArrayList<ContactPojo>();; // 联系人arraylist数组
+	private List<ShortContactPojo> contactsList = new ArrayList<ShortContactPojo>();; // 联系人arraylist数组
 
 	/**
 	 * 根据拼音来排列ListView里面的数据类
@@ -244,10 +244,9 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 						String lisence = res.getContacts(i).getLisence();
 						String individualResume = res.getContacts(i)
 								.getIndividualResume();
-						ContactPojo coPojo = new ContactPojo(contactId,
+						ShortContactPojo coPojo = new ShortContactPojo(contactId,
 								sortKey, name, customName, userface_url, sex,
-								source, lastContactTime, isBlocked, isProvider,
-								lisence, individualResume);
+								source, lastContactTime, isBlocked);
 						contactsList.add(coPojo);
 
 					}
@@ -557,7 +556,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 	public void onRefresh() {
 		if (buttonNumber == 0) {
 			if (FuXunTools.isConnect(getActivity())) {
-				contactsList = new ArrayList<ContactPojo>();
+				contactsList = new ArrayList<ShortContactPojo>();
 				Thread thread = new Thread(new getContacts2());
 				thread.start();
 			} else {
