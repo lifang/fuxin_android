@@ -2,15 +2,18 @@ package com.fuwu.mobileim.util;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+
 import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.pojo.MessagePojo;
 import com.fuwu.mobileim.pojo.PushPojo;
 import com.fuwu.mobileim.pojo.TalkPojo;
+import com.fuwu.mobileim.pojo.ShortContactPojo;
 
 public class DBManager {
 	private DBHelper helper;
@@ -144,25 +147,23 @@ public class DBManager {
 		}
 	}
 
-	// 联系人id，首字母,昵称，备注,头像,性别,交易订阅,最近联系时间,是否屏蔽，是不是 福师，认证，个人简介
-	public void addContact(int userId, ContactPojo cp) {
+	// 联系人id，首字母,昵称，备注,头像,性别,交易订阅,最近联系时间,是否屏蔽，
+	public void addContact(int userId, ShortContactPojo cp) {
 		db.beginTransaction();
 		try {
 			db.execSQL(
-					"INSERT INTO contact VALUES(null,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+					"INSERT INTO contact VALUES(null,?,?,?,?,?,?,?,?,?,?)",
 					new Object[] { cp.getContactId(), cp.getSortKey(),
 							cp.getName(), cp.getCustomName(),
 							cp.getUserface_url(), cp.getSex(), cp.getSource(),
-							cp.getLastContactTime(), cp.getIsBlocked(),
-							cp.getIsProvider(), cp.getLisence(),
-							cp.getIndividualResume(), userId });
+							cp.getLastContactTime(), cp.getIsBlocked(), userId });
 			db.setTransactionSuccessful();
 		} finally {
 			db.endTransaction();
 		}
 	}
 
-	public boolean modifyContact(int userId, ContactPojo mp) {
+	public boolean modifyContact(int userId, ShortContactPojo mp) {
 		boolean flag = true;
 		db.beginTransaction();
 		try {
@@ -190,23 +191,19 @@ public class DBManager {
 		return flag;
 	}
 
-	public List<ContactPojo> queryContactList(int user_id) {
-		ArrayList<ContactPojo> cpList = new ArrayList<ContactPojo>();
+	public List<ShortContactPojo> queryContactList(int user_id) {
+		ArrayList<ShortContactPojo> cpList = new ArrayList<ShortContactPojo>();
 		Cursor c = null;
 		try {
 			c = queryContactCursor(user_id);
 			while (c.moveToNext()) {
 
-				ContactPojo mp = new ContactPojo();
+				ShortContactPojo mp = new ShortContactPojo();
 				mp.setContactId(c.getInt(c.getColumnIndex("contactId")));
 				mp.setCustomName(c.getString(c.getColumnIndex("customName")));
-				mp.setIndividualResume(c.getString(c
-						.getColumnIndex("individualResume")));
 				mp.setIsBlocked(c.getInt(c.getColumnIndex("isBlocked")));
-				mp.setIsProvider(c.getInt(c.getColumnIndex("isProvider")));
 				mp.setLastContactTime(c.getString(c
 						.getColumnIndex("lastContactTime")));
-				mp.setLisence(c.getString(c.getColumnIndex("lisence")));
 				mp.setName(c.getString(c.getColumnIndex("name")));
 				mp.setSex(c.getInt(c.getColumnIndex("sex")));
 				String sortKey = FuXunTools.getSortKey(

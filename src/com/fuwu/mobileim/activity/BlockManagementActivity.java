@@ -31,9 +31,9 @@ import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.model.Models.BlockContactRequest;
 import com.fuwu.mobileim.model.Models.BlockContactResponse;
 import com.fuwu.mobileim.pojo.ContactPojo;
+import com.fuwu.mobileim.pojo.ShortContactPojo;
 import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FuXunTools;
-import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CircularImage;
@@ -45,7 +45,7 @@ public class BlockManagementActivity extends Activity {
 	private ListView mListView;
 	private myListViewAdapter clvAdapter;
 	private ImageButton block_management_back;// 返回按钮
-	private List<ContactPojo> list = new ArrayList<ContactPojo>();
+	private List<ShortContactPojo> list = new ArrayList<ShortContactPojo>();
 	private Handler handler = new Handler() {
 		/*
 		 * (non-Javadoc)
@@ -111,7 +111,7 @@ public class BlockManagementActivity extends Activity {
 		user_id = preferences.getInt("user_id", -1);
 		Token = preferences.getString("Token", "");
 		// 获得被屏蔽的联系人
-		List<ContactPojo> contactsList = db.queryContactList(user_id);
+		List<ShortContactPojo> contactsList = db.queryContactList(user_id);
 		for (int i = 0; i < contactsList.size(); i++) {
 			if (contactsList.get(i).getIsBlocked() == 1) {
 				list.add(contactsList.get(i));
@@ -202,7 +202,7 @@ public class BlockManagementActivity extends Activity {
 		}
 
 		public View getView(final int arg0, View arg1, ViewGroup arg2) {
-			final ContactPojo contact = list.get(arg0);
+			final ShortContactPojo contact = list.get(arg0);
 			RelativeLayout layout = null;
 			if (arg1 == null) {
 				layout = (RelativeLayout) LayoutInflater.from(
