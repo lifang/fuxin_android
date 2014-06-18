@@ -1,6 +1,7 @@
 package com.fuwu.mobileim.activity;
 
 import java.io.File;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -16,8 +17,11 @@ import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.Toast;
+
 import com.baidu.mobstat.StatService;
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.model.Models.AuthenticationRequest;
@@ -32,7 +36,7 @@ import com.fuwu.mobileim.view.CircularImage;
  * 作者: 张秀楠 时间：2014-5-23 下午4:34:03
  */
 public class LoginActivity extends Activity implements OnClickListener,
-		Urlinterface {
+		OnFocusChangeListener, Urlinterface {
 	public EditText user_text;
 	public EditText pwd_text;
 	private String user;
@@ -46,14 +50,16 @@ public class LoginActivity extends Activity implements OnClickListener,
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
 			Intent intent = new Intent();
-			prodialog.dismiss();
+
 			switch (msg.what) {
 			case 0:
+				prodialog.dismiss();
 				intent.setClass(LoginActivity.this, FragmengtActivity.class);
 				startActivity(intent);
 				LoginActivity.this.finish();
 				break;
 			case 1:
+				prodialog.dismiss();
 				if (!error_code.equals("")) {
 					String errorString = fx.error_map.get(error_code);
 					if (errorString == null) {
@@ -66,12 +72,18 @@ public class LoginActivity extends Activity implements OnClickListener,
 				}
 				break;
 			case 2:
+				prodialog.dismiss();
 				Toast.makeText(LoginActivity.this, "网络连接异常", Toast.LENGTH_SHORT)
 						.show();
+				break;
+			case 3:
+				scrol.fullScroll(ScrollView.FOCUS_DOWN);
+				pwd_text.requestFocus();
 				break;
 			}
 		}
 	};
+	private ScrollView scrol;
 
 	@SuppressWarnings("deprecation")
 	protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +111,8 @@ public class LoginActivity extends Activity implements OnClickListener,
 	public void initialize() {
 		user_text = (EditText) findViewById(R.id.user);
 		pwd_text = (EditText) findViewById(R.id.pwd);
+		scrol = (ScrollView) findViewById(R.id.scrol);
+		pwd_text.setOnFocusChangeListener(this);
 		CircularImage head = (CircularImage) findViewById(R.id.head);
 		int uid = spf.getInt("user_id", 0);
 		Log.i("fx", Urlinterface.head_pic + uid);
@@ -223,5 +237,11 @@ public class LoginActivity extends Activity implements OnClickListener,
 		 * 不能与StatService.onPageStart一级onPageEnd函数交叉使用
 		 */
 		StatService.onPause(this);
+	}
+
+	public void onFocusChange(View arg0, boolean arg1) {
+		if (arg1) {
+			handler.sendEmptyMessage(3);
+		}
 	}
 }

@@ -6,6 +6,7 @@ import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Toast;
 
 import com.baidu.mobstat.StatService;
 import com.fuwu.mobileim.R;
@@ -34,9 +35,9 @@ public class PushSettingActivity extends Activity implements OnClickListener,
 		pushsetting_sound = (SlipButton) findViewById(R.id.pushsetting_sound);
 		pushsetting_music = (SlipButton) findViewById(R.id.pushsetting_music);
 		pushsetting_shake = (SlipButton) findViewById(R.id.pushsetting_shake);
-		pushsetting_sound.setCheck(sf.getBoolean("pushsetting_sound", false));
-		pushsetting_music.setCheck(sf.getBoolean("pushsetting_music", false));
-		pushsetting_shake.setCheck(sf.getBoolean("pushsetting_shake", false));
+		pushsetting_sound.setCheck(sf.getBoolean("pushsetting_sound", true));
+		pushsetting_music.setCheck(sf.getBoolean("pushsetting_music", true));
+		pushsetting_shake.setCheck(sf.getBoolean("pushsetting_shake", true));
 		pushsetting_sound.setOnChangedListener(this);
 		pushsetting_music.setOnChangedListener(this);
 		pushsetting_shake.setOnChangedListener(this);
@@ -48,36 +49,36 @@ public class PushSettingActivity extends Activity implements OnClickListener,
 
 	public void onChanged(boolean checkState, View v) {
 		String key = "";
-		boolean values = false;
+		String content = "";
 		switch (v.getId()) {
 		case R.id.pushsetting_music:
 			key = "pushsetting_music";
 			if (checkState) {
-				values = true;
+				content = "您打开了声音开关";
 			} else {
-				values = false;
+				content = "您关闭了声音开关";
 			}
 			break;
 		case R.id.pushsetting_shake:
 			key = "pushsetting_shake";
 			if (checkState) {
-				values = true;
+				content = "您打开了震动开关";
 			} else {
-				values = false;
+				content = "您关闭了震动开关";
 			}
 			break;
 		case R.id.pushsetting_sound:
 			key = "pushsetting_sound";
 			if (checkState) {
-				values = true;
+				content = "您打开了接受推送开关";
 			} else {
-				values = false;
+				content = "您关闭了接受推送开关";
 			}
 			break;
 		}
-
+		Toast.makeText(this, content, Toast.LENGTH_SHORT).show();
 		Editor editor = sf.edit();
-		editor.putBoolean(key, values);
+		editor.putBoolean(key, checkState);
 		editor.commit();
 	}
 

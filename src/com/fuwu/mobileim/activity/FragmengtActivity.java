@@ -268,7 +268,7 @@ public class FragmengtActivity extends FragmentActivity {
 
 						BitmapFactory.Options options = new BitmapFactory.Options();
 						options.inJustDecodeBounds = false;
-						options.inSampleSize = 1;
+						options.inSampleSize = 2;
 						bm = BitmapFactory.decodeStream(is, null, options);
 						Log.i("linshi", bm.getWidth() + "---" + bm.getHeight());
 						is.close();

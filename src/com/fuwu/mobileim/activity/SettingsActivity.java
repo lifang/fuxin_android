@@ -11,9 +11,9 @@ import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -40,16 +40,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.baidu.mobstat.StatService;
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.model.Models.ClientInfo;
+import com.fuwu.mobileim.model.Models.ClientInfo.OSType;
 import com.fuwu.mobileim.model.Models.ClientInfoRequest;
 import com.fuwu.mobileim.model.Models.ClientInfoResponse;
 import com.fuwu.mobileim.model.Models.ProfileRequest;
 import com.fuwu.mobileim.model.Models.ProfileResponse;
-import com.fuwu.mobileim.model.Models.UnAuthenticationRequest;
-import com.fuwu.mobileim.model.Models.UnAuthenticationResponse;
-import com.fuwu.mobileim.model.Models.ClientInfo.OSType;
 import com.fuwu.mobileim.pojo.ProfilePojo;
 import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FuXunTools;

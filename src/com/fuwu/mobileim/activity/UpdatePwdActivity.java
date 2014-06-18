@@ -14,6 +14,7 @@ import android.view.View.OnFocusChangeListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,6 +57,7 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 	private FxApplication fx;
 	private String error_code;
 	private ProgressDialog prodialog;
+	private ScrollView scrol;
 	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
@@ -106,6 +108,10 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 				Toast.makeText(UpdatePwdActivity.this, "请求超时",
 						Toast.LENGTH_SHORT).show();
 				break;
+			case 5:
+				scrol.fullScroll(ScrollView.FOCUS_DOWN);
+				yz_text.requestFocus();
+				break;
 			}
 		}
 	};
@@ -128,7 +134,8 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 		old_pwd.setOnFocusChangeListener(this);
 		new_pwd.setOnFocusChangeListener(this);
 		new_pwds.setOnFocusChangeListener(this);
-
+		yz_text.setOnFocusChangeListener(this);
+		scrol = (ScrollView) findViewById(R.id.scrol);
 		validate_time = (RelativeLayout) findViewById(R.id.validate_time);
 		old_pwd_tag = (TextView) findViewById(R.id.old_pwd_tag);
 		new_pwd_tag = (TextView) findViewById(R.id.new_pwd_tag);
@@ -320,6 +327,10 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 				break;
 			}
 			regist_btnOver();
+		} else {
+			if (arg0.getId() == R.id.yz) {
+				handler.sendEmptyMessage(5);
+			}
 		}
 	}
 
