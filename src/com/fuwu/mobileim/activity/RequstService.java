@@ -6,6 +6,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -15,13 +16,14 @@ import android.graphics.Bitmap;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
+
 import com.fuwu.mobileim.model.Models.Message;
 import com.fuwu.mobileim.model.Models.Message.ContentType;
 import com.fuwu.mobileim.model.Models.MessageList;
 import com.fuwu.mobileim.model.Models.MessageRequest;
 import com.fuwu.mobileim.model.Models.MessageResponse;
-import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.pojo.MessagePojo;
+import com.fuwu.mobileim.pojo.ShortContactPojo;
 import com.fuwu.mobileim.pojo.TalkPojo;
 import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FuXunTools;
@@ -189,7 +191,7 @@ public class RequstService extends Service {
 									if (m.getContentType() == ContentType.Image) {
 										str = "[图片]";
 									}
-									ContactPojo cp = db.queryContact(user_id,
+									ShortContactPojo cp = db.queryContact(user_id,
 											contact_id);
 									String name = cp.getName();
 									if (cp.getCustomName() != null

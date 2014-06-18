@@ -223,24 +223,25 @@ public class DBManager {
 		return cpList;
 	}
 
-	public ContactPojo queryContact(int user_id, int contact_id) {
+	public ShortContactPojo queryContact(int user_id, int contact_id) {
 		Cursor c = null;
-		ContactPojo mp = new ContactPojo();
+		ShortContactPojo mp = new ShortContactPojo();
 		try {
 			c = queryContactCursor(user_id, contact_id);
 			if (c.moveToNext()) {
+				
 				mp.setContactId(c.getInt(c.getColumnIndex("contactId")));
 				mp.setCustomName(c.getString(c.getColumnIndex("customName")));
-				mp.setIndividualResume(c.getString(c
-						.getColumnIndex("individualResume")));
 				mp.setIsBlocked(c.getInt(c.getColumnIndex("isBlocked")));
-				mp.setIsProvider(c.getInt(c.getColumnIndex("isProvider")));
 				mp.setLastContactTime(c.getString(c
 						.getColumnIndex("lastContactTime")));
-				mp.setLisence(c.getString(c.getColumnIndex("lisence")));
 				mp.setName(c.getString(c.getColumnIndex("name")));
 				mp.setSex(c.getInt(c.getColumnIndex("sex")));
-				mp.setSortKey(c.getString(c.getColumnIndex("sortKey")));
+				String sortKey = FuXunTools.getSortKey(
+						c.getString(c.getColumnIndex("customName")),
+						c.getString(c.getColumnIndex("name")));
+				mp.setSortKey(sortKey);
+				// mp.setSortKey(c.getString(c.getColumnIndex("sortKey")));
 				mp.setSource(c.getInt(c.getColumnIndex("source")));
 				mp.setUserface_url(c.getString(c.getColumnIndex("userface_url")));
 			}

@@ -108,6 +108,7 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 				fxApplication.initData();
 				break;
 			case 6:
+				
 				Toast.makeText(getActivity(), "请求失败", Toast.LENGTH_SHORT)
 						.show();
 				break;
@@ -116,7 +117,7 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 						Toast.LENGTH_SHORT).show();
 				break;
 			case 8:
-
+				prodialog.dismiss();
 				Builder builder = new Builder(getActivity());
 				builder.setTitle("提示");
 				builder.setMessage("检测到新版本,您需要更新吗？");
@@ -142,6 +143,7 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 				// 安装文件
 				installApk();
 			case 11:
+				prodialog.dismiss();
 				Toast.makeText(getActivity(), "当前已是最新版本", Toast.LENGTH_SHORT)
 						.show();
 				break;
@@ -368,6 +370,10 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		switch (num) {
 		case 0:// 新版本检测
 			if (FuXunTools.isConnect(getActivity())) {
+				prodialog = new ProgressDialog(getActivity());
+				prodialog.setMessage("正在检测新版本，请稍后..");
+				prodialog.setCanceledOnTouchOutside(false);
+				prodialog.show();
 				new VersionChecking().start();
 			} else {
 				Toast.makeText(getActivity(), R.string.no_internet,
@@ -572,6 +578,7 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 						}
 
 					} else {
+						prodialog.dismiss();
 						handler.sendEmptyMessage(6);
 					}
 				} else {
@@ -579,6 +586,7 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 				}
 				//
 			} catch (Exception e) {
+				prodialog.dismiss();
 				handler.sendEmptyMessage(7);
 			}
 		}

@@ -29,10 +29,11 @@ import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.model.Models.BlockContactRequest;
 import com.fuwu.mobileim.model.Models.BlockContactResponse;
 import com.fuwu.mobileim.pojo.ContactPojo;
+import com.fuwu.mobileim.pojo.ShortContactPojo;
 import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FuXunTools;
-import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
+import com.fuwu.mobileim.util.ImageCacheUtil;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CircularImage;
 
@@ -82,7 +83,7 @@ public class BlockManagementDisplayActivity extends Activity {
 		}
 	};
 	private int contactId = -1;
-	private ContactPojo contact;
+	private ShortContactPojo contact;
 	SharedPreferences preferences;
 	int user_id = -1;
 	String Token = "";
@@ -139,24 +140,27 @@ public class BlockManagementDisplayActivity extends Activity {
 
 		// 设置头像
 		String face_str = contact.getUserface_url();
-		if (face_str.length() > 4) {
-			face_str = Urlinterface.IP + face_str;
+		if (face_str!=null&&face_str.length() > 4) {
 			File f = new File(Urlinterface.head_pic, contact.getContactId()
 					+ "");
 			if (f.exists()) {
 				Log.i("linshi------------", "加载本地图片");
-				Drawable dra = new BitmapDrawable(
-						BitmapFactory.decodeFile(Urlinterface.head_pic
-								+ contact.getContactId()));
-				block_display_userface.setImageDrawable(dra);
+				ImageCacheUtil.IMAGE_CACHE.get(
+						Urlinterface.head_pic + contact.getContactId(),
+						block_display_userface);
 			} else {
-				block_display_userface.setImageResource(R.drawable.moren);
+				FuXunTools.set_bk(contact.getContactId(), face_str,
+						block_display_userface);
 			}
 		}
 
 		// 设置昵称
-		block_display_name.setText(contact.getName());
-
+		String customname = contact.getCustomName();
+		if (customname != null && customname.length() > 0) {
+			block_display_name.setText(customname);
+		} else {
+			block_display_name.setText(contact.getName());
+		}
 		// 设置性别
 		int sex = contact.getSex();
 		if (sex == 0) { // 男
