@@ -43,7 +43,7 @@ public class PushReceiver extends BroadcastReceiver {
 				String data = new String(payload);
 				Log.i("MyReceiver", data);
 				// true表示后台运行 false表示前台
-				if (!sf.getBoolean("pushsetting_sound", false)) {
+				if (sf.getBoolean("pushsetting_sound", true)) {
 					if (FuXunTools.isApplicationBroughtToBackground(context)) {
 
 						if (sf.getString("Token", "null").equals("null")) {
@@ -104,11 +104,11 @@ public class PushReceiver extends BroadcastReceiver {
 				TimeUtil.getLongTime(time));
 
 		// notification.defaults = Notification.DEFAULT_LIGHTS;
-		if (!sf.getBoolean("pushsetting_music", false)) {
+		if (sf.getBoolean("pushsetting_music", true)) {
 			notification.defaults |= Notification.DEFAULT_SOUND;// 声音
 
 		}
-		if (!sf.getBoolean("pushsetting_shake", false)) {
+		if (sf.getBoolean("pushsetting_shake", true)) {
 			notification.defaults |= Notification.DEFAULT_VIBRATE;// 震动
 		}
 		// notification.defaults |= Notification.DEFAULT_LIGHTS;

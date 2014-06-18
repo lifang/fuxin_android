@@ -166,7 +166,7 @@ public class FuXunTools {
 					options.inJustDecodeBounds = false;
 					// options.outWidth = 159;
 					// options.outHeight = 159;
-					options.inSampleSize = 1;
+					options.inSampleSize = 2;
 					bm = BitmapFactory.decodeStream(is, null, options);
 					Log.i("linshi", bm.getWidth() + "---" + bm.getHeight());
 					is.close();

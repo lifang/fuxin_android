@@ -30,10 +30,10 @@
             android:textSize="18sp" />
     </RelativeLayout>
 
-    <ScrollView
+     <ScrollView
+        android:id="@+id/scrol"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
-
+        android:layout_height="fill_parent" >
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
