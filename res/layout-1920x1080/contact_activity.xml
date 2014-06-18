@@ -96,9 +96,10 @@
 
     <RelativeLayout
         android:id="@+id/section_toast_layout"
-        android:layout_width="70dip"
-        android:layout_height="70dip"
+        android:layout_width="55dip"
+        android:layout_height="55dip"
         android:layout_alignParentRight="true"
+        android:layout_marginRight="25dp"
         android:background="@drawable/section_toast"
         android:visibility="gone" >
 
@@ -108,7 +109,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:textColor="#fff"
-            android:textSize="25sp" />
+            android:textSize="22sp" />
     </RelativeLayout>
 
 </RelativeLayout>
