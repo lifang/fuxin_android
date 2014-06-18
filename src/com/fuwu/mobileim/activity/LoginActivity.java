@@ -77,8 +77,11 @@ public class LoginActivity extends Activity implements OnClickListener,
 						.show();
 				break;
 			case 3:
-				scrol.fullScroll(ScrollView.FOCUS_DOWN);
-				pwd_text.requestFocus();
+				// scrol.fullScroll(ScrollView.FOCUS_DOWN);
+				scrol.scrollTo(0, 700);
+				Log.i("Max", "=-=-");
+				// pwd_text.setFocusable(true);
+				// pwd_text.setFocusableInTouchMode(true);
 				break;
 			}
 		}

@@ -99,8 +99,7 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 				}
 				break;
 			case 5:
-				scrol.fullScroll(ScrollView.FOCUS_DOWN);
-				yz_text.requestFocus();
+				scrol.scrollTo(0, 500);
 				break;
 			}
 		}

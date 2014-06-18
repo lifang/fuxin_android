@@ -109,8 +109,7 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 						Toast.LENGTH_SHORT).show();
 				break;
 			case 5:
-				scrol.fullScroll(ScrollView.FOCUS_DOWN);
-				yz_text.requestFocus();
+				scrol.scrollTo(0, 500);
 				break;
 			}
 		}
