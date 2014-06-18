@@ -12,12 +12,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
-import android.widget.LinearLayout.LayoutParams;
 
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.pojo.ContactPojo;
+import com.fuwu.mobileim.pojo.ShortContactPojo;
 import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.ImageCacheUtil;
 import com.fuwu.mobileim.util.Urlinterface;
@@ -30,11 +31,11 @@ import com.fuwu.mobileim.view.CircularImage;
  * @时间 2014-5-22 下午4:39:09
  */
 public class ContactAdapter extends BaseAdapter implements SectionIndexer {
-	private List<ContactPojo> list = null;
+	private List<ShortContactPojo> list = null;
 	private Context mContext;
 	private int num = -1;
 
-	public ContactAdapter(Context mContext, List<ContactPojo> list, int num) {
+	public ContactAdapter(Context mContext, List<ShortContactPojo> list, int num) {
 		this.mContext = mContext;
 		this.list = list;
 		this.num = num;
@@ -45,7 +46,7 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 	 * 
 	 * @param list
 	 */
-	public void updateListView(List<ContactPojo> list) {
+	public void updateListView(List<ShortContactPojo> list) {
 		this.list = list;
 		notifyDataSetChanged();
 	}
@@ -64,7 +65,7 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 
 	public View getView(final int position, View view, ViewGroup arg2) {
 		ViewHolder viewHolder = null;
-		final ContactPojo contact = list.get(position);
+		final ShortContactPojo contact = list.get(position);
 		if (view == null) {
 			viewHolder = new ViewHolder();
 			view = LayoutInflater.from(mContext).inflate(
