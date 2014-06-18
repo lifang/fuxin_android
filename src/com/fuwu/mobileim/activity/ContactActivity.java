@@ -244,9 +244,10 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 						String lisence = res.getContacts(i).getLisence();
 						String individualResume = res.getContacts(i)
 								.getIndividualResume();
-						ShortContactPojo coPojo = new ShortContactPojo(contactId,
-								sortKey, name, customName, userface_url, sex,
-								source, lastContactTime, isBlocked);
+						ShortContactPojo coPojo = new ShortContactPojo(
+								contactId, sortKey, name, customName,
+								userface_url, sex, source, lastContactTime,
+								isBlocked);
 						contactsList.add(coPojo);
 
 					}
@@ -357,19 +358,29 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		int width0 = 4; // 边框宽度
 		int width1 = 20; // 外部边框距左右边界距离
 		int hight0 = 70; // 外部边框高度
-		if (height == 1280 && width == 720) {
-			hight0 = 70;
-		} else if (height == 854 && width == 480) {
-			hight0 = 45;
-		}
-		int hight1 = hight0 - width0 * 2; // button高度
 		LinearLayout a_layout = (LinearLayout) rootView
 				.findViewById(R.id.a_layout);
 		LayoutParams param = (LayoutParams) a_layout.getLayoutParams();
-		param.leftMargin = 20;
-		param.rightMargin = 21;
 		param.topMargin = 10;
 		param.bottomMargin = 10;
+		param.leftMargin = width1;
+		param.rightMargin = width1;
+		if (height == 1280 && width == 720) {
+			hight0 = 70;
+			param.leftMargin = width1;
+			param.rightMargin = width1;
+		} else if (height == 854 && width == 480) {
+			hight0 = 45;
+			param.leftMargin = width1 + 1;
+			param.rightMargin = width1;
+		} else if (height == 1920 && width == 1080) {
+			width1 = 40; // 外部边框距左右边界距离
+			hight0 = 100;
+			param.leftMargin = width1;
+			param.rightMargin = width1 + 1;
+		}
+		int hight1 = hight0 - width0 * 2; // button高度
+
 		param.height = hight0;
 
 		view1 = (Button) rootView.findViewById(R.id.view_1);
@@ -567,7 +578,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			onLoad();
 		}
 	}
-	
+
 	@Override
 	public void onDestroy() {
 		super.onDestroy();

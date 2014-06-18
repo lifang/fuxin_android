@@ -1,8 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/display_linear"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:id="@+id/display_linear"
-     android:background="@drawable/shape"
+    android:background="@drawable/shape"
     android:orientation="vertical" >
 
     <RelativeLayout
@@ -17,11 +17,10 @@
             android:id="@+id/block_display_userface"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="15dp"
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/moren"
-            />
+            android:src="@drawable/moren" />
 
         <RelativeLayout
             android:id="@+id/relativeLayout1"
@@ -35,8 +34,8 @@
                 android:id="@+id/block_display_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="叮叮叮"
-                android:maxWidth="140dp"
+                android:maxWidth="160dp"
+                android:text=""
                 android:textColor="#333333"
                 android:textSize="19dp" />
 
@@ -44,35 +43,36 @@
                 android:id="@+id/block_display_sex_item"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
-                android:layout_marginLeft="6dp"
-                android:layout_marginTop="3dp"
                 android:layout_alignTop="@+id/block_display_name"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="3dp"
                 android:layout_toRightOf="@+id/block_display_name"
                 android:background="@drawable/nv" />
 
             <ImageView
                 android:id="@+id/block_display_gou"
-                android:layout_width="58px"
-                android:layout_height="35px"
-                android:layout_alignTop="@+id/block_display_sex_item"
-                android:layout_marginRight="100px"
+                android:layout_width="26dp"
+                android:layout_height="15dp"
                 android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/block_display_sex_item"
+                android:layout_marginRight="45dp"
                 android:background="@drawable/gou" />
 
             <ImageView
                 android:id="@+id/block_display_yue"
-                android:layout_width="58px"
-                android:layout_height="35px"
-                android:layout_alignTop="@+id/block_display_sex_item"
-                android:layout_marginRight="30px"
+                android:layout_width="26dp"
+                android:layout_height="15dp"
                 android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/block_display_sex_item"
+                android:layout_marginRight="15dp"
                 android:background="@drawable/yue" />
-             <TextView
+
+            <TextView
                 android:id="@+id/block_display_notename"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/block_display_name"
-                android:text="叮叮叮"
+                android:text=""
                 android:textColor="#CCCCCC"
                 android:textSize="17dp" />
         </RelativeLayout>
@@ -88,9 +88,8 @@
         android:id="@+id/block_display_restore"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
+        android:background="@drawable/button_bottom_shape"
         android:text="@string/receive_mess"
-        android:textSize="19dp"
-        android:background="@drawable/button_bottom_shape" 
-        />
+        android:textSize="19dp" />
 
 </LinearLayout>

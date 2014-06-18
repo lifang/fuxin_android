@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -28,6 +29,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.activity.ZoomImageActivity;
 import com.fuwu.mobileim.model.Models.ChangeContactDetailRequest;
@@ -37,6 +39,7 @@ import com.fuwu.mobileim.model.Models.ContactDetailRequest;
 import com.fuwu.mobileim.model.Models.ContactDetailResponse;
 import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.pojo.MessagePojo;
+import com.fuwu.mobileim.pojo.ShortContactPojo;
 import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
@@ -60,7 +63,7 @@ public class MessageListViewAdapter extends BaseAdapter {
 	private Resources res;
 	private LayoutInflater mInflater;
 	private List<MessagePojo> list = new ArrayList<MessagePojo>();
-	private ContactPojo cp;
+	private ShortContactPojo cp;
 	private ContactPojo contactDetail;
 	private DBManager db;
 	private TextView rem;
@@ -100,7 +103,7 @@ public class MessageListViewAdapter extends BaseAdapter {
 	};
 
 	public MessageListViewAdapter(Resources res, Context mContext,
-			List<MessagePojo> list, ContactPojo cp, int user_id, String token) {
+			List<MessagePojo> list, ShortContactPojo cp, int user_id, String token) {
 		super();
 		this.mContext = mContext;
 		this.res = res;

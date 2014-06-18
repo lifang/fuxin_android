@@ -3,18 +3,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-
-        <TextView
-            android:id="@+id/contact_sort_key"
-            android:layout_width="fill_parent"
-            android:layout_height="23dip"
-            android:gravity="center_vertical"
-            android:background="#F4F4F4"
-            android:text="sdfsf"
-            android:paddingLeft="20dp"
-            android:textColor="@color/text_color"
-            android:textSize="15dp" />
-
+    <TextView
+        android:id="@+id/contact_sort_key"
+        android:layout_width="fill_parent"
+        android:layout_height="23dip"
+        android:background="#F4F4F4"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:text="sdfsf"
+        android:textColor="@color/text_color"
+        android:textSize="15dp" />
 
     <LinearLayout
         android:id="@+id/name_layout"
@@ -24,7 +22,7 @@
         android:background="#FFFFFF" >
 
         <com.fuwu.mobileim.view.CircularImage
-             android:id="@+id/contact_user_face"
+            android:id="@+id/contact_user_face"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="center_vertical"
@@ -34,30 +32,32 @@
 
         <TextView
             android:id="@+id/contact_name"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:textColor="#333333"
+            android:singleLine="true"
             android:textSize="18dp" />
 
         <ImageView
             android:id="@+id/contact_gou"
-            android:layout_width="25dp"
+            android:layout_width="26dp"
             android:layout_height="15dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="0dp"
             android:background="@drawable/gou" />
 
         <LinearLayout
             android:id="@+id/contact_yue"
-            android:layout_width="25dp"
+            android:layout_width="26dp"
             android:layout_height="15dp"
-             android:layout_gravity="center_vertical"
-             >
+            android:layout_gravity="center_vertical"
+            >
 
             <ImageView
-                android:layout_width="25dp"
+                android:layout_width="26dp"
                 android:layout_height="15dp"
+                android:layout_gravity="center_vertical"
                 android:background="@drawable/yue" />
         </LinearLayout>
     </LinearLayout>
