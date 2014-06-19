@@ -5,8 +5,10 @@ import java.io.File;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -15,11 +17,15 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.Display;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
+import android.view.View.OnKeyListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.ScrollView;
+import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.Toast;
 
 import com.baidu.mobstat.StatService;
@@ -45,6 +51,7 @@ public class LoginActivity extends Activity implements OnClickListener,
 	private ProgressDialog prodialog;
 	private String error_code;
 	private SharedPreferences spf;
+	private LinearLayout layout;
 	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
@@ -77,16 +84,25 @@ public class LoginActivity extends Activity implements OnClickListener,
 						.show();
 				break;
 			case 3:
-				// scrol.fullScroll(ScrollView.FOCUS_DOWN);
-				scrol.scrollTo(0, 700);
-				Log.i("Max", "=-=-");
+				LayoutParams params = new LayoutParams(
+						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+				params.setMargins(0, -200, 0, 0);
+				layout.setLayoutParams(params);
+				// pwd_text.setFocusable(true);
+				// pwd_text.setFocusableInTouchMode(true);
+				break;
+			case 4:
+				pwd_text.clearFocus();
+				LayoutParams params2 = new LayoutParams(
+						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+				params2.setMargins(0, 0, 0, 0);
+				layout.setLayoutParams(params2);
 				// pwd_text.setFocusable(true);
 				// pwd_text.setFocusableInTouchMode(true);
 				break;
 			}
 		}
 	};
-	private ScrollView scrol;
 
 	@SuppressWarnings("deprecation")
 	protected void onCreate(Bundle savedInstanceState) {
@@ -114,8 +130,10 @@ public class LoginActivity extends Activity implements OnClickListener,
 	public void initialize() {
 		user_text = (EditText) findViewById(R.id.user);
 		pwd_text = (EditText) findViewById(R.id.pwd);
-		scrol = (ScrollView) findViewById(R.id.scrol);
+		layout = (LinearLayout) findViewById(R.id.layout);
+		layout.setOnClickListener(this);
 		pwd_text.setOnFocusChangeListener(this);
+		user_text.setOnFocusChangeListener(this);
 		CircularImage head = (CircularImage) findViewById(R.id.head);
 		int uid = spf.getInt("user_id", 0);
 		Log.i("fx", Urlinterface.head_pic + uid);
@@ -142,6 +160,7 @@ public class LoginActivity extends Activity implements OnClickListener,
 		if (!pwd_str.equals("")) {
 			pwd_text.setText(pwd_str);
 		}
+
 	}
 
 	public void onClick(View v) {
@@ -176,6 +195,9 @@ public class LoginActivity extends Activity implements OnClickListener,
 				Toast.makeText(LoginActivity.this, R.string.no_internet,
 						Toast.LENGTH_SHORT).show();
 			}
+		case R.id.layout:
+			handler.sendEmptyMessage(4);
+			break;
 		}
 	}
 
@@ -243,8 +265,40 @@ public class LoginActivity extends Activity implements OnClickListener,
 	}
 
 	public void onFocusChange(View arg0, boolean arg1) {
-		if (arg1) {
-			handler.sendEmptyMessage(3);
+		switch (arg0.getId()) {
+		case R.id.user:
+			if (arg1) {
+				handler.sendEmptyMessage(3);
+			}
+			break;
+
+		case R.id.pwd:
+			if (arg1) {
+				handler.sendEmptyMessage(3);
+			} else {
+				handler.sendEmptyMessage(4);
+			}
+			break;
 		}
+
+	}
+
+	public boolean dispatchKeyEvent(KeyEvent event) {
+		if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+			/* 隐藏软键盘 */
+			InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+			if (inputMethodManager.isActive()) {
+				inputMethodManager.hideSoftInputFromWindow(LoginActivity.this
+						.getCurrentFocus().getWindowToken(), 0);
+			}
+			handler.sendEmptyMessage(4);
+			return true;
+		}
+		return super.dispatchKeyEvent(event);
+	}
+
+	public void onConfigurationChanged(Configuration newConfig) {
+		Log.i("Max", "隐藏");
+		super.onConfigurationChanged(newConfig);
 	}
 }
