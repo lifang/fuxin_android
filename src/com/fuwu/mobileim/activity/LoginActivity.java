@@ -93,7 +93,6 @@ public class LoginActivity extends Activity implements OnClickListener,
 					item = -200;
 					break;
 				}
-				Log.i("Max", item + "-" + fx.getHeight());
 				KeyboardLayout.LayoutParams params = new KeyboardLayout.LayoutParams(
 						KeyboardLayout.LayoutParams.WRAP_CONTENT,
 						KeyboardLayout.LayoutParams.WRAP_CONTENT);
@@ -145,11 +144,9 @@ public class LoginActivity extends Activity implements OnClickListener,
 			public void onKeyBoardStateChange(int state) {
 				switch (state) {
 				case KeyboardLayout.KEYBOARD_STATE_HIDE:
-					Log.i("Max", "隐藏");
 					handler.sendEmptyMessage(4);
 					break;
 				case KeyboardLayout.KEYBOARD_STATE_SHOW:
-					Log.i("Max", "弹起");
 					break;
 				}
 			}
@@ -158,7 +155,6 @@ public class LoginActivity extends Activity implements OnClickListener,
 		user_text.setOnFocusChangeListener(this);
 		CircularImage head = (CircularImage) findViewById(R.id.head);
 		int uid = spf.getInt("user_id", 0);
-		Log.i("fx", Urlinterface.head_pic + uid);
 		if (uid != 0) {
 			File file = new File(Urlinterface.head_pic, uid + "");
 			if (file.exists()) {
@@ -235,7 +231,6 @@ public class LoginActivity extends Activity implements OnClickListener,
 					AuthenticationResponse response = AuthenticationResponse
 							.parseFrom(by);
 					if (response.getIsSucceed()) {
-						Log.i("Max", response.getUserId() + "-id");
 						fx.setUser_id(response.getUserId());
 						fx.setToken(response.getToken());
 						spf.edit().putInt("user_id", response.getUserId())
@@ -259,7 +254,6 @@ public class LoginActivity extends Activity implements OnClickListener,
 				}
 			} catch (Exception e) {
 				handler.sendEmptyMessage(2);
-				Log.i("error", e.toString());
 			}
 		}
 	}
