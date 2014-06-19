@@ -28,6 +28,7 @@ public class PushReceiver extends BroadcastReceiver {
 	public Intent intent = new Intent();
 	public SharedPreferences sf;
 	public String clientid;
+	public static int item = 0;
 
 	public void onReceive(Context context, Intent intent) {
 		fx = (FxApplication) context.getApplicationContext();
@@ -118,7 +119,8 @@ public class PushReceiver extends BroadcastReceiver {
 		PendingIntent contentItent = PendingIntent.getActivity(context, 0,
 				startIntent, 0);
 		notification.setLatestEventInfo(context, title, content, contentItent);
-		nm.notify(0, notification);
+		item += 1;
+		nm.notify(item, notification);
 	}
 
 	// 发送ClientID
@@ -144,7 +146,7 @@ public class PushReceiver extends BroadcastReceiver {
 				builder.setClientInfo(cinfo);
 				Log.i("error", "5");
 				ClientInfoRequest request = builder.build();
-				
+
 				byte[] by = HttpUtil.sendHttps(request.toByteArray(),
 						Urlinterface.Client, "PUT");
 				Log.i("error", "6");
