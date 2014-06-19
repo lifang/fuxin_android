@@ -5,10 +5,8 @@ import java.io.File;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -17,15 +15,11 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.Display;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
-import android.view.View.OnKeyListener;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
 import android.widget.Toast;
 
 import com.baidu.mobstat.StatService;
@@ -35,6 +29,8 @@ import com.fuwu.mobileim.model.Models.AuthenticationResponse;
 import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
+import com.fuwu.mobileim.util.KeyboardLayout;
+import com.fuwu.mobileim.util.KeyboardLayout.onKybdsChangeListener;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CircularImage;
 
@@ -52,6 +48,7 @@ public class LoginActivity extends Activity implements OnClickListener,
 	private String error_code;
 	private SharedPreferences spf;
 	private LinearLayout layout;
+	private KeyboardLayout keyboardLayout1;
 	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
@@ -84,21 +81,32 @@ public class LoginActivity extends Activity implements OnClickListener,
 						.show();
 				break;
 			case 3:
-				LayoutParams params = new LayoutParams(
-						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-				params.setMargins(0, -200, 0, 0);
+				int item = 0;
+				switch (fx.getHeight()) {
+				case 1920:
+					item = -400;
+					break;
+				case 854:
+					item = -250;
+					break;
+				case 1280:
+					item = -200;
+					break;
+				}
+				Log.i("Max", item + "-" + fx.getHeight());
+				KeyboardLayout.LayoutParams params = new KeyboardLayout.LayoutParams(
+						KeyboardLayout.LayoutParams.WRAP_CONTENT,
+						KeyboardLayout.LayoutParams.WRAP_CONTENT);
+				params.setMargins(0, item, 0, 0);
 				layout.setLayoutParams(params);
-				// pwd_text.setFocusable(true);
-				// pwd_text.setFocusableInTouchMode(true);
 				break;
 			case 4:
 				pwd_text.clearFocus();
-				LayoutParams params2 = new LayoutParams(
-						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+				KeyboardLayout.LayoutParams params2 = new KeyboardLayout.LayoutParams(
+						KeyboardLayout.LayoutParams.WRAP_CONTENT,
+						KeyboardLayout.LayoutParams.WRAP_CONTENT);
 				params2.setMargins(0, 0, 0, 0);
 				layout.setLayoutParams(params2);
-				// pwd_text.setFocusable(true);
-				// pwd_text.setFocusableInTouchMode(true);
 				break;
 			}
 		}
@@ -131,7 +139,21 @@ public class LoginActivity extends Activity implements OnClickListener,
 		user_text = (EditText) findViewById(R.id.user);
 		pwd_text = (EditText) findViewById(R.id.pwd);
 		layout = (LinearLayout) findViewById(R.id.layout);
-		layout.setOnClickListener(this);
+		keyboardLayout1 = (KeyboardLayout) findViewById(R.id.keyboardLayout1);
+		keyboardLayout1.setOnkbdStateListener(new onKybdsChangeListener() {
+
+			public void onKeyBoardStateChange(int state) {
+				switch (state) {
+				case KeyboardLayout.KEYBOARD_STATE_HIDE:
+					Log.i("Max", "隐藏");
+					handler.sendEmptyMessage(4);
+					break;
+				case KeyboardLayout.KEYBOARD_STATE_SHOW:
+					Log.i("Max", "弹起");
+					break;
+				}
+			}
+		});
 		pwd_text.setOnFocusChangeListener(this);
 		user_text.setOnFocusChangeListener(this);
 		CircularImage head = (CircularImage) findViewById(R.id.head);
@@ -195,9 +217,6 @@ public class LoginActivity extends Activity implements OnClickListener,
 				Toast.makeText(LoginActivity.this, R.string.no_internet,
 						Toast.LENGTH_SHORT).show();
 			}
-		case R.id.layout:
-			handler.sendEmptyMessage(4);
-			break;
 		}
 	}
 
@@ -275,30 +294,9 @@ public class LoginActivity extends Activity implements OnClickListener,
 		case R.id.pwd:
 			if (arg1) {
 				handler.sendEmptyMessage(3);
-			} else {
-				handler.sendEmptyMessage(4);
 			}
 			break;
 		}
 
-	}
-
-	public boolean dispatchKeyEvent(KeyEvent event) {
-		if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-			/* 隐藏软键盘 */
-			InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-			if (inputMethodManager.isActive()) {
-				inputMethodManager.hideSoftInputFromWindow(LoginActivity.this
-						.getCurrentFocus().getWindowToken(), 0);
-			}
-			handler.sendEmptyMessage(4);
-			return true;
-		}
-		return super.dispatchKeyEvent(event);
-	}
-
-	public void onConfigurationChanged(Configuration newConfig) {
-		Log.i("Max", "隐藏");
-		super.onConfigurationChanged(newConfig);
 	}
 }

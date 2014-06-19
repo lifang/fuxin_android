@@ -125,22 +125,29 @@ public class PushReceiver extends BroadcastReceiver {
 	class ClientID_Post implements Runnable {
 		public void run() {
 			try {
+				Log.i("error", "1");
 				ClientInfo.Builder cinfo = ClientInfo.newBuilder();
 				cinfo.setDeviceId(clientid);
 				cinfo.setOsType(OSType.Android);
+				Log.i("error", "2");
 				cinfo.setOSVersion(android.os.Build.VERSION.RELEASE);
 				cinfo.setUserId(fx.getUser_id());
 				cinfo.setChannel(10000);
+				Log.i("error", "3");
 				cinfo.setClientVersion(Urlinterface.current_version + "");
 				cinfo.setIsPushEnable(true);
 				ClientInfoRequest.Builder builder = ClientInfoRequest
 						.newBuilder();
+				Log.i("error", "4");
 				builder.setUserId(fx.getUser_id());
 				builder.setToken(fx.getToken());
 				builder.setClientInfo(cinfo);
+				Log.i("error", "5");
 				ClientInfoRequest request = builder.build();
+				
 				byte[] by = HttpUtil.sendHttps(request.toByteArray(),
 						Urlinterface.Client, "PUT");
+				Log.i("error", "6");
 				if (by != null && by.length > 0) {
 					ClientInfoResponse response = ClientInfoResponse
 							.parseFrom(by);
@@ -153,6 +160,7 @@ public class PushReceiver extends BroadcastReceiver {
 				}
 			} catch (Exception e) {
 				Log.i("error", e.toString());
+				e.printStackTrace();
 			}
 		}
 	}
