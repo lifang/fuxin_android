@@ -4,9 +4,9 @@ import android.os.Environment;
 
 public interface Urlinterface {
 	static final String head_pic = Environment.getExternalStorageDirectory()
-			.getPath() + "/fuXun/head_pic/";
+			.getPath() + "/fuwu/";
 	static final String SDCARD = Environment.getExternalStorageDirectory()
-			.getPath() + "/fuXun/";
+			.getPath() + "/fuwu/";
 	static final String WebViewUrl = "https://118.242.18.189/resource/static/public/doc/app%20agreement.html";
 	// static final String WebViewUrl =
 	// "https://i.fuwu.com/resource/static/public/doc/app%20agreement.html";
@@ -21,7 +21,7 @@ public interface Urlinterface {
 	// static final String IP = "https://192.168.1.161/IMApi/";
 	// static final String IP = "https://118.242.18.189/IMApi/";
 
-	static String filename = "fuxin.apk";
+	static String filename = "fuwu.apk";
 	// static final String IP = "https://118.242.18.189/IMApiMock/";
 	// 获得联系人
 	static final String getContacts = IP + "api/Contact";

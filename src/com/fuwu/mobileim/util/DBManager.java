@@ -105,7 +105,18 @@ public class DBManager {
 			db.endTransaction();
 		}
 	}
+	public void updateContactlastContactTime(int user_id, int contact_id, String time) {
+		db.beginTransaction();
+		try {
+			db.execSQL(
+					"update contact set lastContactTime = ? where userId = ? and contactId = ?",
+					new Object[] { time, user_id + "", contact_id + "" });
 
+			db.setTransactionSuccessful();
+		} finally {
+			db.endTransaction();
+		}
+	}
 	public void updateTalkRem(int user_id, int contact_id, String rem) {
 		db.beginTransaction();
 		try {
