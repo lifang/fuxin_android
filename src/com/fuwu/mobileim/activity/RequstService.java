@@ -36,6 +36,7 @@ public class RequstService extends Service {
 
 	// private static final String TAG = "Ax";
 	private SharedPreferences sp;
+	private int time = 25;
 	private IBinder binder = new RequstService.RequstBinder();
 	private ScheduledExecutorService scheduledThreadPool = Executors
 			.newScheduledThreadPool(2);
@@ -62,7 +63,7 @@ public class RequstService extends Service {
 				sp = getSharedPreferences("FuXin", Context.MODE_PRIVATE);
 				db = new DBManager(this);
 				scheduledThreadPool.scheduleAtFixedRate(new RequstThread(), 0,
-						10, TimeUnit.SECONDS);
+						time, TimeUnit.SECONDS);
 			}
 		}
 		return START_STICKY;
@@ -73,7 +74,7 @@ public class RequstService extends Service {
 		// 返回本地服务
 		RequstService getService() {
 			return RequstService.this;
-		}
+		} 
 	}
 
 	public void setTimeStamp(String time) {
@@ -216,12 +217,12 @@ public class RequstService extends Service {
 				Log.i("FuWu", "RequstServiceError:" + e.toString());
 				if (scheduledThreadPool.isShutdown()) {
 					scheduledThreadPool.scheduleAtFixedRate(new RequstThread(),
-							0, 10, TimeUnit.SECONDS);
+							0, time, TimeUnit.SECONDS);
 				}
 			} finally {
 				if (scheduledThreadPool.isShutdown()) {
 					scheduledThreadPool.scheduleAtFixedRate(new RequstThread(),
-							0, 10, TimeUnit.SECONDS);
+							0, time, TimeUnit.SECONDS);
 				}
 			}
 		}
