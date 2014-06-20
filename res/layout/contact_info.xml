@@ -62,6 +62,7 @@
         android:layout_toRightOf="@id/info_img"
         android:layout_marginTop="-4dp"
         android:text="备注:"
+	 android:maxWidth="150dp"
         android:singleLine="true"
         android:textSize="17dp" />
 

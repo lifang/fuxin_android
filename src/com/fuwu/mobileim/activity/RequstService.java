@@ -204,6 +204,9 @@ public class RequstService extends Service {
 											cp.getUserface_url(), str,
 											m.getSendTime(), mesCount);
 									db.addTalk(tp);
+									db.updateContactlastContactTime(user_id,
+											contact_id,
+											TimeUtil.getCurrentTime());
 								}
 							}
 							db.addMessageList(list);

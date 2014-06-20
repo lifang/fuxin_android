@@ -41,6 +41,7 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.inputmethod.InputMethodManager;
@@ -63,21 +64,30 @@ import com.fuwu.mobileim.adapter.FacePageAdapter;
 import com.fuwu.mobileim.adapter.MessageListViewAdapter;
 import com.fuwu.mobileim.model.Models.BlockContactRequest;
 import com.fuwu.mobileim.model.Models.BlockContactResponse;
+import com.fuwu.mobileim.model.Models.ChangeContactDetailRequest;
+import com.fuwu.mobileim.model.Models.ChangeContactDetailResponse;
+import com.fuwu.mobileim.model.Models.Contact;
+import com.fuwu.mobileim.model.Models.ContactDetailRequest;
+import com.fuwu.mobileim.model.Models.ContactDetailResponse;
 import com.fuwu.mobileim.model.Models.Message.ContentType;
 import com.fuwu.mobileim.model.Models.Message.ImageType;
 import com.fuwu.mobileim.model.Models.SendMessageRequest;
 import com.fuwu.mobileim.model.Models.SendMessageResponse;
+import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.pojo.MessagePojo;
 import com.fuwu.mobileim.pojo.ShortContactPojo;
 import com.fuwu.mobileim.pojo.TalkPojo;
+import com.fuwu.mobileim.util.ContactCache;
 import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
+import com.fuwu.mobileim.util.ImageCacheUtil;
 import com.fuwu.mobileim.util.ImageUtil;
 import com.fuwu.mobileim.util.TimeUtil;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CirclePageIndicator;
+import com.fuwu.mobileim.view.MyDialog;
 import com.fuwu.mobileim.view.XListView;
 import com.fuwu.mobileim.view.XListView.IXListViewListener;
 import com.google.protobuf.ByteString;
@@ -123,6 +133,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 	private MessageListViewAdapter mMessageAdapter;
 	private DBManager db;
 	private ShortContactPojo cp;
+	private ContactPojo contactDetail;
 	private TalkPojo tp;
 	private SharedPreferences sp;
 	private RequstReceiver mReuRequstReceiver;
@@ -164,6 +175,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 				mListView.setSelection(list.size() - 1);
 				db.addMessage(mp);
 				db.addTalk(tp);
+				db.updateContactlastContactTime(user_id, contact_id, TimeUtil.getCurrentTime());
 				break;
 			case 7:
 				Intent intent = new Intent();
@@ -172,6 +184,22 @@ public class ChatActivity extends Activity implements OnClickListener,
 				break;
 			case 8:
 				Toast.makeText(getApplicationContext(), "网络异常", 0).show();
+				break;
+			case 9:
+				pd.dismiss();
+				pd.setMessage("正在发送图片...");
+				Toast.makeText(getApplicationContext(), "获取联系人失败", 0).show();
+				break;
+			case 10:
+				Toast.makeText(getApplicationContext(), "修改备注成功!", 0).show();
+				break;
+			case 11:
+				Toast.makeText(getApplicationContext(), "修改备注失败!", 0).show();
+				break;
+			case 12:
+				pd.dismiss();
+				pd.setMessage("正在发送图片...");
+				showContactDialog();
 				break;
 			}
 		}
@@ -462,6 +490,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 		View view = getLayoutInflater().inflate(R.layout.chat_other, null);
 		view.findViewById(R.id.chatset_clear).setOnClickListener(this);
 		view.findViewById(R.id.chatset_block).setOnClickListener(this);
+		view.findViewById(R.id.chatset_beizhu).setOnClickListener(this);
 		menuWindow = new PopupWindow(view, LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT);
 		menuWindow.setFocusable(true);
@@ -472,6 +501,176 @@ public class ChatActivity extends Activity implements OnClickListener,
 		int h = (int) height * 145 / 1280;
 		menuWindow.showAtLocation(this.findViewById(R.id.chat_main),
 				Gravity.TOP | Gravity.RIGHT, 0, h);
+	}
+
+	private void showContactDialog() {
+		View view = getLayoutInflater().inflate(R.layout.chat_info, null);
+		TextView name = (TextView) view.findViewById(R.id.info_name);
+		TextView rem = (TextView) view.findViewById(R.id.info_rem);
+		final EditText remInfo = (EditText) view
+				.findViewById(R.id.info_remInfo);
+		View fzLine = view.findViewById(R.id.info_fzLine);
+		View rzLine = view.findViewById(R.id.info_rzLine);
+		LinearLayout fz = (LinearLayout) view.findViewById(R.id.info_fz);
+		LinearLayout rz = (LinearLayout) view.findViewById(R.id.info_rz);
+		LinearLayout jj = (LinearLayout) view.findViewById(R.id.info_jj);
+		TextView lisence = (TextView) view.findViewById(R.id.info_lisence);
+		TextView sign = (TextView) view.findViewById(R.id.info_sign);
+		TextView fuzhi = (TextView) view.findViewById(R.id.info_fuzhi);
+		ImageView img = (ImageView) view.findViewById(R.id.info_img);
+		ImageView img_gou = (ImageView) view.findViewById(R.id.info_gouIcon);
+		ImageView img_yue = (ImageView) view.findViewById(R.id.info_yueIcon);
+		ImageView sexView = (ImageView) view.findViewById(R.id.info_sex);
+		final Button ok = (Button) view.findViewById(R.id.info_ok);
+		ImageCacheUtil.IMAGE_CACHE.get(Urlinterface.head_pic + contact_id, img);
+		String str = FuXunTools.toNumber(contactDetail.getSource());
+		if (FuXunTools.isExist(str, 0, 1)) {
+			img_yue.setVisibility(View.VISIBLE);
+		} else {
+			img_yue.setVisibility(View.GONE);
+		}
+		if (FuXunTools.isExist(str, 2, 3)) {
+			img_gou.setVisibility(View.VISIBLE);
+		} else {
+			img_gou.setVisibility(View.GONE);
+		}
+		if (contactDetail.getIsProvider() == 0) {
+			fz.setVisibility(View.GONE);
+			rz.setVisibility(View.GONE);
+			jj.setVisibility(View.GONE);
+			fzLine.setVisibility(View.GONE);
+			rzLine.setVisibility(View.GONE);
+		}
+		int sex = cp.getSex();
+		if (sex == 0) {// 男
+			sexView.setImageResource(R.drawable.nan);
+		} else if (sex == 1) {// 女
+			sexView.setImageResource(R.drawable.nv);
+		} else {
+			sexView.setVisibility(View.GONE);
+		}
+
+		name.setText("" + contactDetail.getName());
+		rem.setText("备注:" + contactDetail.getCustomName());
+		remInfo.setText("" + contactDetail.getCustomName());
+		lisence.setText("" + contactDetail.getLisence());
+		sign.setText("" + contactDetail.getIndividualResume());
+		fuzhi.setText("" + contactDetail.getFuzhi());
+		remInfo.setOnFocusChangeListener(new OnFocusChangeListener() {
+			public void onFocusChange(View v, boolean hasFocus) {
+				ok.setText("确定");
+			}
+		});
+		final MyDialog builder = new MyDialog(this, 1, view, R.style.mydialog);
+		ok.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				String str = remInfo.getText().toString();
+				if (str != null && !str.equals("")) {
+					if (FuXunTools.isConnect(ChatActivity.this)) {
+						builder.dismiss();
+						new UpdateContactRem().start();
+					} else {
+						handler.sendEmptyMessage(8);
+					}
+				}
+			}
+		});
+		builder.show();
+	}
+
+	class UpdateContactRem extends Thread {
+		public void run() {
+			try {
+				ChangeContactDetailRequest.Builder builder = ChangeContactDetailRequest
+						.newBuilder();
+				builder.setUserId(user_id);
+				builder.setToken(token);
+				Contact.Builder cb = Contact.newBuilder();
+				cb.setContactId(cp.getContactId());
+				cb.setCustomName(cp.getCustomName());
+				builder.setContact(cb);
+				ChangeContactDetailRequest response = builder.build();
+				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
+						Urlinterface.ContactDetail, "PUT");
+				if (by != null && by.length > 0) {
+					ChangeContactDetailResponse res = ChangeContactDetailResponse
+							.parseFrom(by);
+					if (res.getIsSucceed()) {
+						handler.sendEmptyMessage(10);
+					} else {
+						handler.sendEmptyMessage(11);
+					}
+				} else {
+					handler.sendEmptyMessage(11);
+				}
+			} catch (Exception e) {
+			}
+		}
+	}
+
+	class GetContactDetail extends Thread {
+		public void run() {
+			try {
+				ContactDetailRequest.Builder builder = ContactDetailRequest
+						.newBuilder();
+				builder.setUserId(user_id);
+				builder.setContactId(cp.getContactId());
+				builder.setToken(token);
+				ContactDetailRequest response = builder.build();
+				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
+						Urlinterface.ContactDetail, "POST");
+				if (by != null && by.length > 0) {
+					ContactDetailResponse res = ContactDetailResponse
+							.parseFrom(by);
+					if (res.getIsSucceed()) {
+						Contact contact = res.getContact();
+						int contactId = contact.getContactId();
+						String name = contact.getName();
+						String customName = contact.getCustomName();
+						String sortKey = "";
+						if (customName != null && customName.length() > 0) {
+							sortKey = FuXunTools.findSortKey(customName);
+						} else {
+							sortKey = FuXunTools.findSortKey(name);
+						}
+						String userface_url = contact.getTileUrl();
+						int sex = contact.getGender().getNumber();
+						int source = contact.getSource();
+						String lastContactTime = contact.getLastContactTime();
+						boolean isblocked = contact.getIsBlocked();
+						boolean isprovider = contact.getIsProvider();
+						int isBlocked = -1, isProvider = -1;
+						if (isblocked == true) {
+							isBlocked = 1;
+						} else if (isblocked == false) {
+							isBlocked = 0;
+						}
+						if (isprovider == true) {
+							isProvider = 1;
+						} else if (isprovider == false) {
+							isProvider = 0;
+						}
+						String lisence = contact.getLisence();
+						String individualResume = contact.getIndividualResume();
+						String fuzhi = contact.getFuzhi();
+						contactDetail = new ContactPojo(contactId, sortKey,
+								name, customName, userface_url, sex, source,
+								lastContactTime, isBlocked, isProvider,
+								lisence, individualResume);
+						contactDetail.setFuzhi(fuzhi);
+						ContactCache.cp = contactDetail;
+						handler.sendEmptyMessage(12);
+						Log.i("FuWu", "contact:" + contactDetail.toString());
+					} else {
+						handler.sendEmptyMessage(9);
+					}
+				} else {
+					handler.sendEmptyMessage(9);
+				}
+			} catch (Exception e) {
+			}
+		}
 	}
 
 	class BlockContact extends Thread {
@@ -696,10 +895,22 @@ public class ChatActivity extends Activity implements OnClickListener,
 			}
 			break;
 		case R.id.chat_back:
+			ContactCache.flag = false;
 			this.finish();
 			break;
 		case R.id.chat_other:
 			menu_press();
+			break;
+		case R.id.chatset_beizhu:
+			if (!ContactCache.flag) {
+				ContactCache.flag = true;
+				pd.setMessage("正在加载详细信息...");
+				pd.show();
+				new GetContactDetail().start();
+			} else {
+				contactDetail = ContactCache.cp;
+				showContactDialog();
+			}
 			break;
 		}
 	}
