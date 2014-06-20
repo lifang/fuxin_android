@@ -143,6 +143,7 @@ public class TalkActivity extends Fragment {
 				builder.dismiss();
 			}
 		});
+		builder.setCanceledOnTouchOutside(true);// 点击其他区域不消失
 		builder.show();
 	}
 
