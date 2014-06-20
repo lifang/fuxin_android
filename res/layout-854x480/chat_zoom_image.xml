@@ -6,13 +6,13 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="50dip"
+        android:layout_height="40dip"
         android:background="#d11b21" >
 
         <ImageButton
             android:id="@+id/chat_back"
-            android:layout_width="40dip"
-            android:layout_height="40dip"
+            android:layout_width="30dip"
+            android:layout_height="30dip"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dip"
             android:background="@android:color/transparent"

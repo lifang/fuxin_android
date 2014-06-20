@@ -175,6 +175,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 				mListView.setSelection(list.size() - 1);
 				db.addMessage(mp);
 				db.addTalk(tp);
+				db.updateContactlastContactTime(user_id, contact_id, TimeUtil.getCurrentTime());
 				break;
 			case 7:
 				Intent intent = new Intent();

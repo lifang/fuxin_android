@@ -56,8 +56,10 @@
 
             <TextView
                 android:id="@+id/name"
-                android:layout_width="wrap_content"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
+              	android:ellipsize="end"
+                android:singleLine="true"
                 android:textColor="#333333"
                 android:textSize="16dp" />
 
@@ -88,9 +90,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
                 android:text="@string/fuhao"
                 android:textColor="#DDDDDD"
-                android:layout_marginTop="2dp"
                 android:textSize="22dp" />
         </LinearLayout>
     </RelativeLayout>

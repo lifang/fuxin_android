@@ -117,12 +117,15 @@ public class FragmengtActivity extends FragmentActivity {
 						user_number2 = user_number2 + 1;
 					}
 				}
+				Intent i = new Intent();
+				i.setClass(FragmengtActivity.this, RequstService.class);
+				startService(i);
 				if (user_number2 > 0) {
 					getUserBitmap();
 				} else {
 					prodialog.dismiss();
 				}
-				list.get(1).onStart();
+				 list.get(1).onStart();
 
 				break;
 			case 1:
@@ -183,9 +186,6 @@ public class FragmengtActivity extends FragmentActivity {
 				}
 			}
 		});
-		Intent i = new Intent();
-		i.setClass(this, RequstService.class);
-		startService(i);
 
 		contact_search = (ImageView) findViewById(R.id.contact_search);
 		fxApplication = (FxApplication) getApplication();
@@ -235,6 +235,9 @@ public class FragmengtActivity extends FragmentActivity {
 			}
 		} else {
 			Log.i("Ax", "加载本地联系人");
+			Intent i = new Intent();
+			i.setClass(this, RequstService.class);
+			startService(i);
 		}
 
 	}
