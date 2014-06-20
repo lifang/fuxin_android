@@ -34,6 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/info_img"
         android:layout_alignLeft="@id/info_name"
+        android:singleLine="true"
         android:text="备注:" />
 
     <ImageView
