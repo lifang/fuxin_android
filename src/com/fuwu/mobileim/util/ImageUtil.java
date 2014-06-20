@@ -146,7 +146,11 @@ public class ImageUtil {
 
 	public static void saveBitmap(String bitName, String jpgType, Bitmap mBitmap) {
 		try {
-			File f = new File("/sdcard/FuXun/" + bitName + "." + jpgType);
+			File file = new File(Urlinterface.SDCARD);
+			if (!file.exists()) {
+				file.mkdirs();
+			}
+			File f = new File(Urlinterface.SDCARD + bitName + "." + jpgType);
 			f.createNewFile();
 			FileOutputStream fOut = null;
 			fOut = new FileOutputStream(f);

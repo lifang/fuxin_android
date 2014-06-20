@@ -19,11 +19,13 @@
             android:background="@drawable/back" />
 
         <TextView
+            android:maxWidth="200dp"
             android:id="@+id/chat_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
+            android:singleLine="true"
             android:textColor="#ffffff"
             android:textSize="18dp" />
 

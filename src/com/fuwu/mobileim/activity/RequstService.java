@@ -39,7 +39,6 @@ public class RequstService extends Service {
 	// private static final String TAG = "Ax";
 	private int time = 25;
 	private SharedPreferences sp;
-	private int time = 25;
 	private IBinder binder = new RequstService.RequstBinder();
 	private ScheduledExecutorService scheduledThreadPool = Executors
 			.newScheduledThreadPool(2);

@@ -24,6 +24,8 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
+            android:maxWidth="200dp"
+            android:singleLine="true"
             android:textColor="#ffffff"
             android:textSize="17dp" />
 
