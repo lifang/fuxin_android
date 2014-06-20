@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.fuwu.mobileim.util.KeyboardLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/keyboardLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FAFAFA"
-    android:orientation="vertical"
-     >
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical" >
 
-    <ScrollView
-        android:id="@+id/scrol"
+    <LinearLayout
+        android:id="@+id/layout"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:scrollbars="vertical" >
+        android:orientation="vertical" >
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -148,6 +150,6 @@
                     android:textSize="16sp" />
             </RelativeLayout>
         </LinearLayout>
-    </ScrollView>
+    </LinearLayout>
 
-</LinearLayout>
+</com.fuwu.mobileim.util.KeyboardLayout>

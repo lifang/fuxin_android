@@ -28,6 +28,7 @@ public class PushReceiver extends BroadcastReceiver {
 	public Intent intent = new Intent();
 	public SharedPreferences sf;
 	public String clientid;
+	public static int item = 0;
 
 	public void onReceive(Context context, Intent intent) {
 		fx = (FxApplication) context.getApplicationContext();
@@ -118,29 +119,37 @@ public class PushReceiver extends BroadcastReceiver {
 		PendingIntent contentItent = PendingIntent.getActivity(context, 0,
 				startIntent, 0);
 		notification.setLatestEventInfo(context, title, content, contentItent);
-		nm.notify(0, notification);
+		item += 1;
+		nm.notify(item, notification);
 	}
 
 	// 发送ClientID
 	class ClientID_Post implements Runnable {
 		public void run() {
 			try {
+				Log.i("error", "1");
 				ClientInfo.Builder cinfo = ClientInfo.newBuilder();
 				cinfo.setDeviceId(clientid);
 				cinfo.setOsType(OSType.Android);
+				Log.i("error", "2");
 				cinfo.setOSVersion(android.os.Build.VERSION.RELEASE);
 				cinfo.setUserId(fx.getUser_id());
 				cinfo.setChannel(10000);
+				Log.i("error", "3");
 				cinfo.setClientVersion(Urlinterface.current_version + "");
 				cinfo.setIsPushEnable(true);
 				ClientInfoRequest.Builder builder = ClientInfoRequest
 						.newBuilder();
+				Log.i("error", "4");
 				builder.setUserId(fx.getUser_id());
 				builder.setToken(fx.getToken());
 				builder.setClientInfo(cinfo);
+				Log.i("error", "5");
 				ClientInfoRequest request = builder.build();
+
 				byte[] by = HttpUtil.sendHttps(request.toByteArray(),
 						Urlinterface.Client, "PUT");
+				Log.i("error", "6");
 				if (by != null && by.length > 0) {
 					ClientInfoResponse response = ClientInfoResponse
 							.parseFrom(by);
@@ -153,6 +162,7 @@ public class PushReceiver extends BroadcastReceiver {
 				}
 			} catch (Exception e) {
 				Log.i("error", e.toString());
+				e.printStackTrace();
 			}
 		}
 	}

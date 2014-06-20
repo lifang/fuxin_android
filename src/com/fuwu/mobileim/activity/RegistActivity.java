@@ -110,8 +110,7 @@ public class RegistActivity extends Activity implements OnClickListener,
 						.show();
 				break;
 			case 5:
-				scrol.fullScroll(ScrollView.FOCUS_DOWN);
-				yz_text.requestFocus();
+				scrol.scrollTo(0, 700);
 				break;
 			}
 		}

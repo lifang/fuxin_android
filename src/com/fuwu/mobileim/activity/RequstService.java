@@ -37,6 +37,7 @@ import com.google.protobuf.InvalidProtocolBufferException;
 public class RequstService extends Service {
 
 	// private static final String TAG = "Ax";
+	private int time = 25;
 	private SharedPreferences sp;
 	private IBinder binder = new RequstService.RequstBinder();
 	private ScheduledExecutorService scheduledThreadPool = Executors
@@ -64,7 +65,7 @@ public class RequstService extends Service {
 				sp = getSharedPreferences("FuXin", Context.MODE_PRIVATE);
 				db = new DBManager(this);
 				scheduledThreadPool.scheduleAtFixedRate(new RequstThread(), 0,
-						10, TimeUnit.SECONDS);
+						time, TimeUnit.SECONDS);
 			}
 		}
 		return START_STICKY;
@@ -191,8 +192,8 @@ public class RequstService extends Service {
 									if (m.getContentType() == ContentType.Image) {
 										str = "[图片]";
 									}
-									ShortContactPojo cp = db.queryContact(user_id,
-											contact_id);
+									ShortContactPojo cp = db.queryContact(
+											user_id, contact_id);
 									String name = cp.getName();
 									if (cp.getCustomName() != null
 											&& !cp.getCustomName().equals("")) {
@@ -211,19 +212,17 @@ public class RequstService extends Service {
 								"com.comdosoft.fuxun.REQUEST_ACTION");
 						sendBroadcast(intnet);
 					}
-				} else {
-					Log.i("Max", "后台运行");
 				}
 			} catch (InvalidProtocolBufferException e) {
 				Log.i("FuWu", "RequstServiceError:" + e.toString());
 				if (scheduledThreadPool.isShutdown()) {
 					scheduledThreadPool.scheduleAtFixedRate(new RequstThread(),
-							0, 10, TimeUnit.SECONDS);
+							0, time, TimeUnit.SECONDS);
 				}
 			} finally {
 				if (scheduledThreadPool.isShutdown()) {
 					scheduledThreadPool.scheduleAtFixedRate(new RequstThread(),
-							0, 10, TimeUnit.SECONDS);
+							0, time, TimeUnit.SECONDS);
 				}
 			}
 		}

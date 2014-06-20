@@ -102,6 +102,7 @@
             android:launchMode="singleTop" />
         <activity
             android:name="com.fuwu.mobileim.activity.LoginActivity"
+            android:configChanges="keyboardHidden"
             android:launchMode="singleTop" >
         </activity>
         <activity
@@ -159,6 +160,10 @@
             android:name="com.fuwu.mobileim.activity.ContactInfoActivity"
             android:launchMode="singleTop" >
         </activity>
+        <activity
+            android:name="com.fuwu.mobileim.activity.ZoomImageActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <!-- 个推SDK配置开始 -->
         <!-- 配置的第三方参数属性 -->
         <meta-data

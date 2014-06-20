@@ -19,7 +19,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.widget.EditText;
-import android.widget.ScrollView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.baidu.mobstat.StatService;
@@ -29,6 +29,8 @@ import com.fuwu.mobileim.model.Models.AuthenticationResponse;
 import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
+import com.fuwu.mobileim.util.KeyboardLayout;
+import com.fuwu.mobileim.util.KeyboardLayout.onKybdsChangeListener;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CircularImage;
 
@@ -45,6 +47,8 @@ public class LoginActivity extends Activity implements OnClickListener,
 	private ProgressDialog prodialog;
 	private String error_code;
 	private SharedPreferences spf;
+	private LinearLayout layout;
+	private KeyboardLayout keyboardLayout1;
 	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
@@ -77,13 +81,35 @@ public class LoginActivity extends Activity implements OnClickListener,
 						.show();
 				break;
 			case 3:
-				scrol.fullScroll(ScrollView.FOCUS_DOWN);
-				pwd_text.requestFocus();
+				int item = 0;
+				switch (fx.getHeight()) {
+				case 1920:
+					item = -400;
+					break;
+				case 854:
+					item = -250;
+					break;
+				case 1280:
+					item = -200;
+					break;
+				}
+				KeyboardLayout.LayoutParams params = new KeyboardLayout.LayoutParams(
+						KeyboardLayout.LayoutParams.WRAP_CONTENT,
+						KeyboardLayout.LayoutParams.WRAP_CONTENT);
+				params.setMargins(0, item, 0, 0);
+				layout.setLayoutParams(params);
+				break;
+			case 4:
+				pwd_text.clearFocus();
+				KeyboardLayout.LayoutParams params2 = new KeyboardLayout.LayoutParams(
+						KeyboardLayout.LayoutParams.WRAP_CONTENT,
+						KeyboardLayout.LayoutParams.WRAP_CONTENT);
+				params2.setMargins(0, 0, 0, 0);
+				layout.setLayoutParams(params2);
 				break;
 			}
 		}
 	};
-	private ScrollView scrol;
 
 	@SuppressWarnings("deprecation")
 	protected void onCreate(Bundle savedInstanceState) {
@@ -111,11 +137,24 @@ public class LoginActivity extends Activity implements OnClickListener,
 	public void initialize() {
 		user_text = (EditText) findViewById(R.id.user);
 		pwd_text = (EditText) findViewById(R.id.pwd);
-		scrol = (ScrollView) findViewById(R.id.scrol);
+		layout = (LinearLayout) findViewById(R.id.layout);
+		keyboardLayout1 = (KeyboardLayout) findViewById(R.id.keyboardLayout1);
+		keyboardLayout1.setOnkbdStateListener(new onKybdsChangeListener() {
+
+			public void onKeyBoardStateChange(int state) {
+				switch (state) {
+				case KeyboardLayout.KEYBOARD_STATE_HIDE:
+					handler.sendEmptyMessage(4);
+					break;
+				case KeyboardLayout.KEYBOARD_STATE_SHOW:
+					break;
+				}
+			}
+		});
 		pwd_text.setOnFocusChangeListener(this);
+		user_text.setOnFocusChangeListener(this);
 		CircularImage head = (CircularImage) findViewById(R.id.head);
 		int uid = spf.getInt("user_id", 0);
-		Log.i("fx", Urlinterface.head_pic + uid);
 		if (uid != 0) {
 			File file = new File(Urlinterface.head_pic, uid + "");
 			if (file.exists()) {
@@ -139,6 +178,7 @@ public class LoginActivity extends Activity implements OnClickListener,
 		if (!pwd_str.equals("")) {
 			pwd_text.setText(pwd_str);
 		}
+
 	}
 
 	public void onClick(View v) {
@@ -191,7 +231,6 @@ public class LoginActivity extends Activity implements OnClickListener,
 					AuthenticationResponse response = AuthenticationResponse
 							.parseFrom(by);
 					if (response.getIsSucceed()) {
-						Log.i("Max", response.getUserId() + "-id");
 						fx.setUser_id(response.getUserId());
 						fx.setToken(response.getToken());
 						spf.edit().putInt("user_id", response.getUserId())
@@ -215,7 +254,6 @@ public class LoginActivity extends Activity implements OnClickListener,
 				}
 			} catch (Exception e) {
 				handler.sendEmptyMessage(2);
-				Log.i("error", e.toString());
 			}
 		}
 	}
@@ -240,8 +278,19 @@ public class LoginActivity extends Activity implements OnClickListener,
 	}
 
 	public void onFocusChange(View arg0, boolean arg1) {
-		if (arg1) {
-			handler.sendEmptyMessage(3);
+		switch (arg0.getId()) {
+		case R.id.user:
+			if (arg1) {
+				handler.sendEmptyMessage(3);
+			}
+			break;
+
+		case R.id.pwd:
+			if (arg1) {
+				handler.sendEmptyMessage(3);
+			}
+			break;
 		}
+
 	}
 }
