@@ -170,7 +170,9 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		// TODO Auto-generated method stub
 		super.onStart();
 		Log.i("11", "-----------");
-		handler.sendEmptyMessage(0);
+		if (buttonNumber==0) {
+			handler.sendEmptyMessage(0);
+		}
 	}
 
 	/**
