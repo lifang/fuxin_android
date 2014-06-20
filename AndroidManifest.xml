@@ -102,7 +102,7 @@
             android:launchMode="singleTop" />
         <activity
             android:name="com.fuwu.mobileim.activity.LoginActivity"
-            android:configChanges="keyboardHidden"
+            android:windowSoftInputMode="adjustResize"
             android:launchMode="singleTop" >
         </activity>
         <activity

@@ -140,7 +140,6 @@ public class LoginActivity extends Activity implements OnClickListener,
 		layout = (LinearLayout) findViewById(R.id.layout);
 		keyboardLayout1 = (KeyboardLayout) findViewById(R.id.keyboardLayout1);
 		keyboardLayout1.setOnkbdStateListener(new onKybdsChangeListener() {
-
 			public void onKeyBoardStateChange(int state) {
 				switch (state) {
 				case KeyboardLayout.KEYBOARD_STATE_HIDE:
