@@ -13,7 +13,7 @@
         >
 
         <Button
-            android:id="@+id/button_all"
+            android:id="@+id/button_recently"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -21,24 +21,8 @@
             android:background="@drawable/left_shape_red"
             android:textSize="17dp" 
             android:layout_marginLeft="1dp"
-            android:text="@string/button_all" />
-
-        <Button
-            android:id="@+id/view_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@color/address_book_buttoncolor_red" />
-
-        <Button
-            android:id="@+id/button_recently"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textColor="@color/red_block"
-            android:background="@drawable/middle_shape_white"
-            android:textSize="17dp" 
             android:text="@string/button_recently" />
+
 
         <Button
             android:id="@+id/view_2"
@@ -86,30 +70,5 @@
         android:scrollbars="none" >
     </com.fuwu.mobileim.view.XListView>
 
-    <com.fuwu.mobileim.view.SideBar
-        android:id="@+id/sidrbar"
-        android:layout_width="30.0dip"
-        android:layout_height="fill_parent"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/a_layout"
-        android:layout_gravity="right|center" />
-
-    <RelativeLayout
-        android:id="@+id/section_toast_layout"
-        android:layout_width="55dip"
-        android:layout_height="55dip"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="25dp"
-        android:background="@drawable/section_toast"
-        android:visibility="gone" >
-
-        <TextView
-            android:id="@+id/section_toast_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:textColor="#fff"
-            android:textSize="22sp" />
-    </RelativeLayout>
 
 </RelativeLayout>

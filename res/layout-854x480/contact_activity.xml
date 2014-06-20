@@ -13,31 +13,15 @@
         android:paddingLeft="2dp" >
 
         <Button
-            android:id="@+id/button_all"
+            android:id="@+id/button_recently"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@drawable/left_shape_red"
-            android:text="@string/button_all"
+            android:text="@string/button_recently"
             android:textColor="@color/white"
             android:textSize="15dp" />
 
-        <Button
-            android:id="@+id/view_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@color/address_book_buttoncolor_red" />
-
-        <Button
-            android:id="@+id/button_recently"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/middle_shape_white"
-            android:text="@string/button_recently"
-            android:textColor="@color/red_block"
-            android:textSize="15dp" />
 
         <Button
             android:id="@+id/view_2"
@@ -84,30 +68,5 @@
         android:scrollbars="none" >
     </com.fuwu.mobileim.view.XListView>
 
-    <com.fuwu.mobileim.view.SideBar
-        android:id="@+id/sidrbar"
-        android:layout_width="30.0dip"
-        android:layout_height="fill_parent"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/a_layout"
-        android:layout_gravity="right|center" />
-
-    <RelativeLayout
-        android:id="@+id/section_toast_layout"
-        android:layout_width="44dip"
-        android:layout_height="44dip"
-        android:layout_alignParentRight="true"
-        android:background="@drawable/section_toast"
-        android:layout_marginRight="25dp"
-        android:visibility="gone" >
-
-        <TextView
-            android:id="@+id/section_toast_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:textColor="#fff"
-            android:textSize="16dp" />
-    </RelativeLayout>
 
 </RelativeLayout>
