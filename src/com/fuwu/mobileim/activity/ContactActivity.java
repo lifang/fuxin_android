@@ -1,13 +1,22 @@
 package com.fuwu.mobileim.activity;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -122,15 +131,16 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 						}
 					}
 					FuXunTools.getBitmap(contactsList);
-				}
-				contactsList = db.queryContactList(user_id);
+					contactsList = db.queryContactList(user_id);
 
-				// 根据a-z进行排序源数据
-				if (contactsList.size() > 1) { // 2个以上进行排序
-					Collections.sort(contactsList, pinyinComparator);
+					// 根据a-z进行排序源数据
+					if (contactsList.size() > 1) { // 2个以上进行排序
+						Collections.sort(contactsList, pinyinComparator);
+					}
+					xListView.setAdapter(adapter1);
+					adapter1.updateListView(contactsList);
 				}
-				xListView.setAdapter(adapter1);
-				adapter1.updateListView(contactsList);
+				
 				onLoad();
 				break;
 
@@ -186,90 +196,192 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 	 * 
 	 */
 
-	class getContacts2 implements Runnable {
-		public void run() {
-			try {
-				SharedPreferences preferences = getActivity()
-						.getSharedPreferences(Urlinterface.SHARED,
-								Context.MODE_PRIVATE);
+//	class getContacts2 implements Runnable {
+//		public void run() {
+//			try {
+//				SharedPreferences preferences = getActivity()
+//						.getSharedPreferences(Urlinterface.SHARED,
+//								Context.MODE_PRIVATE);
+//
+//				String timeStamp = preferences
+//						.getString("contactTimeStamp", "");
+//				ContactRequest.Builder builder = ContactRequest.newBuilder();
+//				builder.setUserId(user_id);
+//				builder.setToken(preferences.getString("Token", ""));
+//				if (timeStamp.equals("")) {
+//
+//				} else {
+//					builder.setTimeStamp(timeStamp);
+//				}
+//				Log.i("1", "User_id:" + fxApplication.getUser_id() + "--Token"
+//						+ fxApplication.getToken() + "--timeStamp:" + timeStamp);
+//
+//				ContactRequest response = builder.build();
+//
+//				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
+//						Urlinterface.getContacts, "POST");
+//				if (by != null && by.length > 0) {
+//					contactsList.clear();
+//					ContactResponse res = ContactResponse.parseFrom(by);
+//					for (int i = 0; i < res.getContactsCount(); i++) {
+//						int contactId = res.getContacts(i).getContactId();
+//						String name = res.getContacts(i).getName();
+//						String customName = res.getContacts(i).getCustomName();
+//						String sortKey = null;
+//						if (customName != null && customName.length() > 0) {
+//							sortKey = FuXunTools.findSortKey(customName);
+//						} else {
+//							sortKey = FuXunTools.findSortKey(name);
+//						}
+//						String userface_url = res.getContacts(i).getTileUrl();
+//						int sex = res.getContacts(i).getGender().getNumber();
+//						int source = res.getContacts(i).getSource();
+//						String lastContactTime = res.getContacts(i)
+//								.getLastContactTime();// 2014-05-27 11:42:18
+//						boolean isblocked = res.getContacts(i).getIsBlocked();
+//						boolean isprovider = res.getContacts(i).getIsProvider();
+//						int isBlocked = -1, isProvider = -1;
+//						if (isblocked == true) {
+//							isBlocked = 1;
+//						} else if (isblocked == false) {
+//							isBlocked = 0;
+//						}
+//						if (isprovider == true) {
+//							isProvider = 1;
+//						} else if (isprovider == false) {
+//							isProvider = 0;
+//						}
+//						String lisence = res.getContacts(i).getLisence();
+//						String individualResume = res.getContacts(i)
+//								.getIndividualResume();
+//						ShortContactPojo coPojo = new ShortContactPojo(
+//								contactId, sortKey, name, customName,
+//								userface_url, sex, source, lastContactTime,
+//								isBlocked);
+//						contactsList.add(coPojo);
+//
+//					}
+//
+//					SharedPreferences preferences2 = getActivity()
+//							.getSharedPreferences(Urlinterface.SHARED,
+//									Context.MODE_PRIVATE);
+//					Editor editor = preferences2.edit();
+//					editor.putString("contactTimeStamp", res.getTimeStamp());
+//
+//					editor.commit();
+//				}
+//				Message msg = new Message();// 创建Message 对象
+//				msg.what = 1;
+//				handler.sendMessage(msg);
+//			} catch (Exception e) {
+//				// prodialog.dismiss();
+//				// handler.sendEmptyMessage(7);
+//				onLoad();
+//			}
+//		}
+//	}
 
-				String timeStamp = preferences
-						.getString("contactTimeStamp", "");
-				ContactRequest.Builder builder = ContactRequest.newBuilder();
-				builder.setUserId(user_id);
-				builder.setToken(preferences.getString("Token", ""));
-				if (timeStamp.equals("")) {
+	
+	private void getContacts2() {
+		ExecutorService singleThreadExecutor = Executors
+				.newSingleThreadExecutor();
+			singleThreadExecutor.execute(new Runnable() {
 
-				} else {
-					builder.setTimeStamp(timeStamp);
-				}
-				Log.i("1", "User_id:" + fxApplication.getUser_id() + "--Token"
-						+ fxApplication.getToken() + "--timeStamp:" + timeStamp);
+				@Override
+				public void run() {
+					try {
+						SharedPreferences preferences = getActivity()
+								.getSharedPreferences(Urlinterface.SHARED,
+										Context.MODE_PRIVATE);
 
-				ContactRequest response = builder.build();
+						String timeStamp = preferences
+								.getString("contactTimeStamp", "");
+						ContactRequest.Builder builder = ContactRequest.newBuilder();
+						builder.setUserId(user_id);
+						builder.setToken(preferences.getString("Token", ""));
+						if (timeStamp.equals("")) {
 
-				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
-						Urlinterface.getContacts, "POST");
-				if (by != null && by.length > 0) {
-					contactsList.clear();
-					ContactResponse res = ContactResponse.parseFrom(by);
-					for (int i = 0; i < res.getContactsCount(); i++) {
-						int contactId = res.getContacts(i).getContactId();
-						String name = res.getContacts(i).getName();
-						String customName = res.getContacts(i).getCustomName();
-						String sortKey = null;
-						if (customName != null && customName.length() > 0) {
-							sortKey = FuXunTools.findSortKey(customName);
 						} else {
-							sortKey = FuXunTools.findSortKey(name);
+							builder.setTimeStamp(timeStamp);
 						}
-						String userface_url = res.getContacts(i).getTileUrl();
-						int sex = res.getContacts(i).getGender().getNumber();
-						int source = res.getContacts(i).getSource();
-						String lastContactTime = res.getContacts(i)
-								.getLastContactTime();// 2014-05-27 11:42:18
-						boolean isblocked = res.getContacts(i).getIsBlocked();
-						boolean isprovider = res.getContacts(i).getIsProvider();
-						int isBlocked = -1, isProvider = -1;
-						if (isblocked == true) {
-							isBlocked = 1;
-						} else if (isblocked == false) {
-							isBlocked = 0;
-						}
-						if (isprovider == true) {
-							isProvider = 1;
-						} else if (isprovider == false) {
-							isProvider = 0;
-						}
-						String lisence = res.getContacts(i).getLisence();
-						String individualResume = res.getContacts(i)
-								.getIndividualResume();
-						ShortContactPojo coPojo = new ShortContactPojo(contactId,
-								sortKey, name, customName, userface_url, sex,
-								source, lastContactTime, isBlocked);
-						contactsList.add(coPojo);
+						Log.i("1", "User_id:" + fxApplication.getUser_id() + "--Token"
+								+ fxApplication.getToken() + "--timeStamp:" + timeStamp);
 
+						ContactRequest response = builder.build();
+
+						byte[] by = HttpUtil.sendHttps(response.toByteArray(),
+								Urlinterface.getContacts, "POST");
+						if (by != null && by.length > 0) {
+							
+							ContactResponse res = ContactResponse.parseFrom(by);
+							if (res.getContactsCount()>0) {
+								contactsList.clear();
+							}
+							for (int i = 0; i < res.getContactsCount(); i++) {
+								int contactId = res.getContacts(i).getContactId();
+								String name = res.getContacts(i).getName();
+								String customName = res.getContacts(i).getCustomName();
+								String sortKey = null;
+								if (customName != null && customName.length() > 0) {
+									sortKey = FuXunTools.findSortKey(customName);
+								} else {
+									sortKey = FuXunTools.findSortKey(name);
+								}
+								String userface_url = res.getContacts(i).getTileUrl();
+								int sex = res.getContacts(i).getGender().getNumber();
+								int source = res.getContacts(i).getSource();
+								String lastContactTime = res.getContacts(i)
+										.getLastContactTime();// 2014-05-27 11:42:18
+								boolean isblocked = res.getContacts(i).getIsBlocked();
+								boolean isprovider = res.getContacts(i).getIsProvider();
+								int isBlocked = -1, isProvider = -1;
+								if (isblocked == true) {
+									isBlocked = 1;
+								} else if (isblocked == false) {
+									isBlocked = 0;
+								}
+								if (isprovider == true) {
+									isProvider = 1;
+								} else if (isprovider == false) {
+									isProvider = 0;
+								}
+								String lisence = res.getContacts(i).getLisence();
+								String individualResume = res.getContacts(i)
+										.getIndividualResume();
+								ShortContactPojo coPojo = new ShortContactPojo(
+										contactId, sortKey, name, customName,
+										userface_url, sex, source, lastContactTime,
+										isBlocked);
+								contactsList.add(coPojo);
+
+							}
+							
+							
+
+							SharedPreferences preferences2 = getActivity()
+									.getSharedPreferences(Urlinterface.SHARED,
+											Context.MODE_PRIVATE);
+							Editor editor = preferences2.edit();
+							editor.putString("contactTimeStamp", res.getTimeStamp());
+
+							editor.commit();
+						}
+						Message msg = new Message();// 创建Message 对象
+						msg.what = 1;
+						handler.sendMessage(msg);
+					} catch (Exception e) {
+						// prodialog.dismiss();
+						// handler.sendEmptyMessage(7);
+						onLoad();
 					}
 
-					SharedPreferences preferences2 = getActivity()
-							.getSharedPreferences(Urlinterface.SHARED,
-									Context.MODE_PRIVATE);
-					Editor editor = preferences2.edit();
-					editor.putString("contactTimeStamp", res.getTimeStamp());
-
-					editor.commit();
 				}
-				Message msg = new Message();// 创建Message 对象
-				msg.what = 1;
-				handler.sendMessage(msg);
-			} catch (Exception e) {
-				// prodialog.dismiss();
-				// handler.sendEmptyMessage(7);
-				onLoad();
-			}
-		}
+			});
 	}
 
+	
+	
+	
 	private void initViews() {
 
 		sectionToastLayout = (RelativeLayout) rootView
@@ -357,19 +469,29 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		int width0 = 4; // 边框宽度
 		int width1 = 20; // 外部边框距左右边界距离
 		int hight0 = 70; // 外部边框高度
-		if (height == 1280 && width == 720) {
-			hight0 = 70;
-		} else if (height == 854 && width == 480) {
-			hight0 = 45;
-		}
-		int hight1 = hight0 - width0 * 2; // button高度
 		LinearLayout a_layout = (LinearLayout) rootView
 				.findViewById(R.id.a_layout);
 		LayoutParams param = (LayoutParams) a_layout.getLayoutParams();
-		param.leftMargin = 20;
-		param.rightMargin = 21;
 		param.topMargin = 10;
 		param.bottomMargin = 10;
+		param.leftMargin = width1;
+		param.rightMargin = width1;
+		if (height == 1280 && width == 720) {
+			hight0 = 70;
+			param.leftMargin = width1;
+			param.rightMargin = width1;
+		} else if (height == 854 && width == 480) {
+			hight0 = 45;
+			param.leftMargin = width1 + 1;
+			param.rightMargin = width1;
+		} else if (height == 1920 && width == 1080) {
+			width1 = 40; // 外部边框距左右边界距离
+			hight0 = 100;
+			param.leftMargin = width1;
+			param.rightMargin = width1 + 1;
+		}
+		int hight1 = hight0 - width0 * 2; // button高度
+
 		param.height = hight0;
 
 		view1 = (Button) rootView.findViewById(R.id.view_1);
@@ -556,9 +678,10 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 	public void onRefresh() {
 		if (buttonNumber == 0) {
 			if (FuXunTools.isConnect(getActivity())) {
-				contactsList = new ArrayList<ShortContactPojo>();
-				Thread thread = new Thread(new getContacts2());
-				thread.start();
+				
+//				Thread thread = new Thread(new getContacts2());
+//				thread.start();
+				getContacts2();
 			} else {
 				Toast.makeText(getActivity(), R.string.no_internet,
 						Toast.LENGTH_SHORT).show();
@@ -567,7 +690,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			onLoad();
 		}
 	}
-	
+
 	@Override
 	public void onDestroy() {
 		super.onDestroy();

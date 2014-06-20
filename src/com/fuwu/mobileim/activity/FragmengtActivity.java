@@ -106,8 +106,8 @@ public class FragmengtActivity extends FragmentActivity {
 		 */
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
-			case 0:// 
-//				prodialog.dismiss();
+			case 0://
+					// prodialog.dismiss();
 
 				for (int i = 0; i < contactsLists.size(); i++) {
 					String face_str = contactsLists.get(i).getUserface_url();
@@ -118,7 +118,7 @@ public class FragmengtActivity extends FragmentActivity {
 					}
 				}
 				if (user_number2 > 0) {
-					getUserBitmap(); 
+					getUserBitmap();
 				} else {
 					prodialog.dismiss();
 				}
@@ -131,7 +131,7 @@ public class FragmengtActivity extends FragmentActivity {
 					prodialog.dismiss();
 					list.get(1).onStart();
 				}
-				
+
 				break;
 			case 5:
 				prodialog.dismiss();
@@ -268,7 +268,7 @@ public class FragmengtActivity extends FragmentActivity {
 
 						BitmapFactory.Options options = new BitmapFactory.Options();
 						options.inJustDecodeBounds = false;
-						options.inSampleSize = 1;
+						options.inSampleSize = 2;
 						bm = BitmapFactory.decodeStream(is, null, options);
 						Log.i("linshi", bm.getWidth() + "---" + bm.getHeight());
 						is.close();
@@ -367,9 +367,10 @@ public class FragmengtActivity extends FragmentActivity {
 							String lisence = res.getContacts(i).getLisence();
 							String individualResume = res.getContacts(i)
 									.getIndividualResume();
-							ShortContactPojo coPojo = new ShortContactPojo(contactId,
-									sortKey, name, customName, userface_url,
-									sex, source, lastContactTime, isBlocked);
+							ShortContactPojo coPojo = new ShortContactPojo(
+									contactId, sortKey, name, customName,
+									userface_url, sex, source, lastContactTime,
+									isBlocked);
 							contactsLists.add(coPojo);
 
 						}
@@ -486,28 +487,37 @@ public class FragmengtActivity extends FragmentActivity {
 	 * 改变“褔务网v1.0” 的 样式
 	 */
 	public void changeTitleStyle() {
-		int width = fxApplication.getWidth();
+		Display display = getWindowManager().getDefaultDisplay();
+		int width = display.getWidth();
+		int height = display.getHeight();
+
 		TextView tv = (TextView) findViewById(R.id.contact_title);
 		String tv_str = (String) tv.getText().toString();
 		SpannableStringBuilder style2 = new SpannableStringBuilder(tv_str);
 
-		switch (width) {
-		case 480:
-			style2.setSpan(new AbsoluteSizeSpan(27), 0, 3,
-					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-			style2.setSpan(new AbsoluteSizeSpan(18), 3, tv_str.length(),
-					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-			tv.setText(style2);
-			break;
-
-		default:
+		if (height == 1280 && width == 720) {
 			style2.setSpan(new AbsoluteSizeSpan(40), 0, 3,
 					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 			style2.setSpan(new AbsoluteSizeSpan(25), 3, tv_str.length(),
 					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-			tv.setText(style2);
-			break;
+		} else if (height == 854 && width == 480) {
+			style2.setSpan(new AbsoluteSizeSpan(27), 0, 3,
+					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+			style2.setSpan(new AbsoluteSizeSpan(18), 3, tv_str.length(),
+					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+		} else if (height == 1920 && width == 1080) {
+			style2.setSpan(new AbsoluteSizeSpan(60), 0, 3,
+					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+			style2.setSpan(new AbsoluteSizeSpan(37), 3, tv_str.length(),
+					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+		} else {
+			style2.setSpan(new AbsoluteSizeSpan(40), 0, 3,
+					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+			style2.setSpan(new AbsoluteSizeSpan(25), 3, tv_str.length(),
+					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 		}
+
+		tv.setText(style2);
 
 	}
 

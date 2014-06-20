@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -54,6 +55,7 @@ import android.widget.PopupWindow;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.baidu.mobstat.StatService;
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.adapter.FaceAdapter;
@@ -65,8 +67,8 @@ import com.fuwu.mobileim.model.Models.Message.ContentType;
 import com.fuwu.mobileim.model.Models.Message.ImageType;
 import com.fuwu.mobileim.model.Models.SendMessageRequest;
 import com.fuwu.mobileim.model.Models.SendMessageResponse;
-import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.pojo.MessagePojo;
+import com.fuwu.mobileim.pojo.ShortContactPojo;
 import com.fuwu.mobileim.pojo.TalkPojo;
 import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FuXunTools;
@@ -120,7 +122,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 	private PopupWindow menuWindow;
 	private MessageListViewAdapter mMessageAdapter;
 	private DBManager db;
-	private ContactPojo cp;
+	private ShortContactPojo cp;
 	private TalkPojo tp;
 	private SharedPreferences sp;
 	private RequstReceiver mReuRequstReceiver;

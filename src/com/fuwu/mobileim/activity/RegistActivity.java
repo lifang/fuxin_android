@@ -17,6 +17,7 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,6 +58,7 @@ public class RegistActivity extends Activity implements OnClickListener,
 	public RelativeLayout validate_time;
 	private String error_code;
 	private FxApplication fx;
+	private ScrollView scrol;
 	private ProgressDialog prodialog;
 	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler() {
@@ -107,6 +109,9 @@ public class RegistActivity extends Activity implements OnClickListener,
 				Toast.makeText(RegistActivity.this, "请求超时", Toast.LENGTH_SHORT)
 						.show();
 				break;
+			case 5:
+				scrol.scrollTo(0, 700);
+				break;
 			}
 		}
 	};
@@ -127,10 +132,11 @@ public class RegistActivity extends Activity implements OnClickListener,
 		pwds_text = (EditText) findViewById(R.id.pwds);
 		phone_text = (EditText) findViewById(R.id.phone);
 		yz_text = (EditText) findViewById(R.id.yz);
+		scrol = (ScrollView) findViewById(R.id.scrol);
 		name_text.setOnFocusChangeListener(this);
 		pwd_text.setOnFocusChangeListener(this);
 		pwds_text.setOnFocusChangeListener(this);
-
+		yz_text.setOnFocusChangeListener(this);
 		validate_time = (RelativeLayout) findViewById(R.id.validate_time);
 		name_tag = (TextView) findViewById(R.id.name_tag);
 		pwd_tag = (TextView) findViewById(R.id.pwd_tag);
@@ -339,6 +345,10 @@ public class RegistActivity extends Activity implements OnClickListener,
 				break;
 			}
 			regist_btnOver();
+		} else {
+			if (arg0.getId() == R.id.yz) {
+				handler.sendEmptyMessage(5);
+			}
 		}
 	}
 

@@ -35,6 +35,7 @@ import com.fuwu.mobileim.pojo.ShortContactPojo;
 import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.HttpUtil;
+import com.fuwu.mobileim.util.ImageCacheUtil;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CircularImage;
 
@@ -215,22 +216,25 @@ public class BlockManagementActivity extends Activity {
 					.findViewById(R.id.block_face);
 			// 设置头像
 			String face_str = contact.getUserface_url();
-			if (face_str.length() > 4) {
-				face_str = Urlinterface.IP + face_str;
+			if (face_str != null && face_str.length() > 4) {
 				File f = new File(Urlinterface.head_pic, contact.getContactId()
 						+ "");
 				if (f.exists()) {
 					Log.i("linshi------------", "加载本地图片");
-					Drawable dra = new BitmapDrawable(
-							BitmapFactory.decodeFile(Urlinterface.head_pic
-									+ contact.getContactId()));
-					head.setImageDrawable(dra);
+					ImageCacheUtil.IMAGE_CACHE.get(Urlinterface.head_pic
+							+ contact.getContactId(), head);
 				} else {
-					head.setImageResource(R.drawable.moren);
+					FuXunTools.set_bk(contact.getContactId(), face_str, head);
 				}
 			}
 			TextView name = (TextView) layout.findViewById(R.id.block_name);
-			name.setText(contact.getName());
+
+			String customname = contact.getCustomName();
+			if (customname != null && customname.length() > 0) {
+				name.setText(customname);
+			} else {
+				name.setText(contact.getName());
+			}
 			Button restore = (Button) layout.findViewById(R.id.block_restore);
 			restore.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {

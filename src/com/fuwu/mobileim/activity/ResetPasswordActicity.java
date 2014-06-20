@@ -14,6 +14,7 @@ import android.view.View.OnFocusChangeListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,6 +53,7 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 	private FxApplication fx;
 	@SuppressLint("HandlerLeak")
 	private String error_code;
+	private ScrollView scrol;
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
@@ -96,6 +98,9 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 					}
 				}
 				break;
+			case 5:
+				scrol.scrollTo(0, 500);
+				break;
 			}
 		}
 	};
@@ -117,7 +122,8 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 		yz_text = (EditText) findViewById(R.id.yz);
 		pwd_text.setOnFocusChangeListener(this);
 		pwds_text.setOnFocusChangeListener(this);
-
+		yz_text.setOnFocusChangeListener(this);
+		scrol = (ScrollView) findViewById(R.id.scrol);
 		validate_time = (RelativeLayout) findViewById(R.id.validate_time);
 		pwd_tag = (TextView) findViewById(R.id.pwd_tag);
 		pwds_tag = (TextView) findViewById(R.id.pwds_tag);
@@ -295,6 +301,10 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 				break;
 			}
 			regist_btnOver();
+		} else {
+			if (v.getId() == R.id.yz) {
+				handler.sendEmptyMessage(5);
+			}
 		}
 	}
 
