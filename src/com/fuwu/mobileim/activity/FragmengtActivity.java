@@ -508,7 +508,7 @@ public class FragmengtActivity extends FragmentActivity {
 					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 			style2.setSpan(new AbsoluteSizeSpan(18), 3, tv_str.length(),
 					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-		} else if (height == 1920 && width == 1080) {
+		} else if (height >= 1750&&height <= 1920&& width == 1080) {
 			style2.setSpan(new AbsoluteSizeSpan(60), 0, 3,
 					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 			style2.setSpan(new AbsoluteSizeSpan(37), 3, tv_str.length(),

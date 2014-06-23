@@ -170,7 +170,10 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		// TODO Auto-generated method stub
 		super.onStart();
 		Log.i("11", "-----------");
-		handler.sendEmptyMessage(0);
+		if (buttonNumber==0) {
+			handler.sendEmptyMessage(0);
+		}
+		
 	}
 
 	/**
@@ -341,11 +344,11 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			width0 = 2;
 			param.leftMargin = width1;
 			param.rightMargin = width1-1;
-		} else if (height == 1920 && width == 1080) {
+		} else if (height >= 1750&&height <= 1920 && width == 1080) {
 			width1 = 40; // 外部边框距左右边界距离
 			hight0 = 100;
 			param.leftMargin = width1;
-			param.rightMargin = width1 + 1;
+			param.rightMargin = width1;
 		}
 		int hight1 = hight0 - width0 * 2; // button高度
 
