@@ -42,8 +42,6 @@ public class ZoomImageActivity extends Activity {
 		WindowManager manager = getWindowManager();
 		window_width = manager.getDefaultDisplay().getWidth();
 		window_height = manager.getDefaultDisplay().getHeight();
-		mBack.setImageBitmap(ImageUtil.getBitmapScale(window_height,
-				R.drawable.back, getResources()));
 		dragImageView = (DragImageView) findViewById(R.id.chat_zoom_image);
 		ImageCacheUtil.IMAGE_CACHE.get(path, dragImageView);
 		// 设置图片
