@@ -23,8 +23,7 @@
         android:layout_alignTop="@id/info_img"
         android:layout_marginLeft="10dp"
         android:layout_toRightOf="@id/info_img"
-        android:maxWidth="170dp"
-        android:singleLine="true"
+        android:maxWidth="200dp"
         android:textColor="#000000"
         android:textSize="18dp" />
 
@@ -34,45 +33,37 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/info_img"
         android:layout_alignLeft="@id/info_name"
+        android:maxWidth="150dp"
         android:singleLine="true"
         android:text="备注:" />
 
     <ImageView
         android:id="@+id/info_sex"
-        android:layout_width="17dp"
-        android:layout_height="17dp"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_alignTop="@id/info_img"
         android:layout_marginTop="3dp"
         android:layout_toRightOf="@+id/info_name" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true" >
-
-        <ImageView
-            android:id="@+id/info_gouIcon"
-            android:layout_width="23dp"
-            android:layout_height="13.8dp"
-            android:layout_alignTop="@id/info_img"
-            android:layout_marginTop="5dp"
-            android:src="@drawable/gou" />
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/info_img"
+        android:layout_marginTop="3dp" >
 
         <ImageView
             android:id="@+id/info_yueIcon"
-            android:layout_width="23dp"
-            android:layout_height="13.8dp"
-            android:layout_alignTop="@id/info_img"
-            android:layout_marginTop="5dp"
+            android:layout_width="30dp"
+            android:layout_height="17dp"
             android:src="@drawable/yue" />
-    </LinearLayout>
 
-    <ImageView
-        android:id="@+id/info_sex"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@id/info_img"
-        android:layout_marginRight="75dp" />
+        <ImageView
+            android:id="@+id/info_gouIcon"
+            android:layout_width="30dp"
+            android:layout_height="17dp"
+            android:src="@drawable/gou" />
+    </LinearLayout>
 
     <View
         android:layout_width="fill_parent"

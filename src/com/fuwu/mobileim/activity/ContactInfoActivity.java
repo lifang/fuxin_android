@@ -204,6 +204,7 @@ public class ContactInfoActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.info_sendBtn:
+			this.finish();
 			Intent intent = new Intent();
 			intent.setClass(ContactInfoActivity.this, ChatActivity.class);
 			startActivity(intent);

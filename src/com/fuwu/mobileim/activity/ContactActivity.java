@@ -91,6 +91,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 0:
+				contactsList = new ArrayList<ShortContactPojo>();
 				contactsList1 = db.queryContactList(user_id);
 				Collections.sort(contactsList1, longDataComparator);
 				if (contactsList1.size() > 20) { // 20个以上进行排序
@@ -173,7 +174,6 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		if (buttonNumber==0) {
 			handler.sendEmptyMessage(0);
 		}
-		
 	}
 
 	/**

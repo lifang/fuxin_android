@@ -40,6 +40,7 @@ import com.fuwu.mobileim.model.Models.ContactDetailResponse;
 import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.pojo.MessagePojo;
 import com.fuwu.mobileim.pojo.ShortContactPojo;
+import com.fuwu.mobileim.util.ContactCache;
 import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
@@ -70,7 +71,6 @@ public class MessageListViewAdapter extends BaseAdapter {
 	private EditText remInfo;
 	private Button ok;
 	private ProgressDialog pd;
-	private boolean flag = false;;
 	private Handler handler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
@@ -89,7 +89,7 @@ public class MessageListViewAdapter extends BaseAdapter {
 				break;
 			case 3:
 				pd.dismiss();
-				showLoginDialog();
+				showContactDialog();
 				break;
 			case 4:
 				pd.dismiss();
@@ -103,7 +103,8 @@ public class MessageListViewAdapter extends BaseAdapter {
 	};
 
 	public MessageListViewAdapter(Resources res, Context mContext,
-			List<MessagePojo> list, ShortContactPojo cp, int user_id, String token) {
+			List<MessagePojo> list, ShortContactPojo cp, int user_id,
+			String token) {
 		super();
 		this.mContext = mContext;
 		this.res = res;
@@ -184,11 +185,12 @@ public class MessageListViewAdapter extends BaseAdapter {
 				@Override
 				public void onClick(View v) {
 					if (FuXunTools.isConnect(mContext)) {
-						if (!flag) {
-							flag = true;
+						if (!ContactCache.flag) {
+							ContactCache.flag = true;
 							pd.show();
 							new GetContactDetail().start();
 						} else {
+							contactDetail = ContactCache.cp;
 							handler.sendEmptyMessage(3);
 						}
 					} else {
@@ -230,7 +232,7 @@ public class MessageListViewAdapter extends BaseAdapter {
 		public ImageView sendImg;
 	}
 
-	private void showLoginDialog() {
+	private void showContactDialog() {
 		View view = mInflater.inflate(R.layout.chat_info, null);
 		TextView name = (TextView) view.findViewById(R.id.info_name);
 		rem = (TextView) view.findViewById(R.id.info_rem);
@@ -246,7 +248,7 @@ public class MessageListViewAdapter extends BaseAdapter {
 		ImageView img = (ImageView) view.findViewById(R.id.info_img);
 		ImageView img_gou = (ImageView) view.findViewById(R.id.info_gouIcon);
 		ImageView img_yue = (ImageView) view.findViewById(R.id.info_yueIcon);
-		ImageView sexView =(ImageView) view.findViewById(R.id.info_sex);
+		ImageView sexView = (ImageView) view.findViewById(R.id.info_sex);
 		ok = (Button) view.findViewById(R.id.info_ok);
 		ImageCacheUtil.IMAGE_CACHE.get(
 				Urlinterface.head_pic + contactDetail.getContactId(), img);
@@ -276,7 +278,7 @@ public class MessageListViewAdapter extends BaseAdapter {
 		} else {
 			sexView.setVisibility(View.GONE);
 		}
-		
+
 		name.setText("" + contactDetail.getName());
 		rem.setText("备注:" + contactDetail.getCustomName());
 		remInfo.setText("" + contactDetail.getCustomName());
@@ -288,12 +290,15 @@ public class MessageListViewAdapter extends BaseAdapter {
 				ok.setText("确定");
 			}
 		});
+		final MyDialog builder = new MyDialog(mContext, 1, view,
+				R.style.mydialog);
 		ok.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				String str = remInfo.getText().toString();
 				if (str != null && !str.equals("")) {
 					if (FuXunTools.isConnect(mContext)) {
+						builder.dismiss();
 						new UpdateContactRem().start();
 					} else {
 						handler.sendEmptyMessage(8);
@@ -301,8 +306,6 @@ public class MessageListViewAdapter extends BaseAdapter {
 				}
 			}
 		});
-		final MyDialog builder = new MyDialog(mContext, 1, view,
-				R.style.mydialog);
 		builder.show();
 	}
 
@@ -386,6 +389,7 @@ public class MessageListViewAdapter extends BaseAdapter {
 								lastContactTime, isBlocked, isProvider,
 								lisence, individualResume);
 						contactDetail.setFuzhi(fuzhi);
+						ContactCache.cp = contactDetail;
 						handler.sendEmptyMessage(3);
 						Log.i("FuWu", "contact:" + contactDetail.toString());
 					} else {

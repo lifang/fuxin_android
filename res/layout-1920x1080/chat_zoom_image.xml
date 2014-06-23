@@ -15,8 +15,8 @@
             android:layout_height="40dip"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dip"
-            android:background="@android:color/transparent"
-            android:src="@drawable/back" />
+             android:background="@drawable/back"
+             />
     </RelativeLayout>
 
     <com.fuwu.mobileim.view.DragImageView

@@ -59,10 +59,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/info_name"
         android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@id/info_img"
         android:layout_marginTop="1dp"
-        android:text="备注:"
+        android:layout_toRightOf="@id/info_img"
+        android:maxWidth="150dp"
         android:singleLine="true"
+        android:text="备注:"
         android:textSize="14dp" />
 
     <ImageView
@@ -72,8 +73,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignTop="@id/info_img"
         android:layout_marginRight="15dp"
-        android:visibility="gone"
-        android:src="@drawable/yue" />
+        android:src="@drawable/yue"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/info_gouIcon"
@@ -82,18 +83,17 @@
         android:layout_alignParentRight="true"
         android:layout_alignTop="@id/info_img"
         android:layout_marginRight="45dp"
-        android:visibility="gone"
-        android:src="@drawable/gou" />
+        android:src="@drawable/gou"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/info_sex"
         android:layout_width="16dp"
         android:layout_height="16dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_toRightOf="@id/info_name"
         android:layout_alignTop="@id/info_name"
-        />
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@id/info_name" />
 
     <View
         android:id="@+id/info_bzLine"
@@ -129,8 +129,8 @@
             android:id="@+id/info_lisence"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:singleLine="true"
             android:gravity="right"
+            android:singleLine="true"
             android:textSize="19dp" />
     </LinearLayout>
 
