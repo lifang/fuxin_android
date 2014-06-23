@@ -19,6 +19,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.os.Bundle;
 import android.os.Handler;
@@ -35,6 +36,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
@@ -188,6 +190,22 @@ public class FragmengtActivity extends FragmentActivity {
 		});
 
 		contact_search = (ImageView) findViewById(R.id.contact_search);
+		contact_search.setOnTouchListener(new View.OnTouchListener()
+		{
+		    @Override             
+		    public boolean onTouch(View v, MotionEvent event)
+		    {              
+		        if(event.getAction()==MotionEvent.ACTION_DOWN)
+		        {                
+		        	contact_search.getBackground().setAlpha(70);//设置图片透明度0~255，0完全透明，255不透明                    imgButton.invalidate();             
+		        }              
+		        else if (event.getAction() == MotionEvent.ACTION_UP) 
+		        {                  
+		        	contact_search.getBackground().setAlpha(255);//还原图片 
+		        }               
+		        return false;         
+		    }     
+		});
 		fxApplication = (FxApplication) getApplication();
 		mReuRequstReceiver = new RequstReceiver();
 		fxApplication.getActivityList().add(this);
