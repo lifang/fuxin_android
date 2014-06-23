@@ -111,7 +111,7 @@ public class FragmengtActivity extends FragmentActivity {
 
 				for (int i = 0; i < contactsLists.size(); i++) {
 					String face_str = contactsLists.get(i).getUserface_url();
-					db.addContact(fxApplication.getUser_id(),
+					db.addContact(spf.getInt("user_id", 0),
 							contactsLists.get(i));
 					if (face_str.length() > 4) {
 						user_number2 = user_number2 + 1;
@@ -125,7 +125,7 @@ public class FragmengtActivity extends FragmentActivity {
 				} else {
 					prodialog.dismiss();
 				}
-				 list.get(1).onStart();
+				list.get(1).onStart();
 
 				break;
 			case 1:
@@ -203,8 +203,6 @@ public class FragmengtActivity extends FragmentActivity {
 		setEdittextListening();
 		InitImageView();
 
-		Log.i("Max",
-				fxApplication.getToken() + "/" + fxApplication.getUser_id());
 		contactInformation();
 
 		// 个推SDK初始化
@@ -219,7 +217,7 @@ public class FragmengtActivity extends FragmentActivity {
 	private void contactInformation() {
 		// 实例化汉字转拼音类
 		characterParser = CharacterParser.getInstance();
-		contactsLists = db.queryContactList(fxApplication.getUser_id());
+		contactsLists = db.queryContactList(spf.getInt("user_id", 0));
 		Log.i("11", contactsLists.size() + "-----------1");
 		if (contactsLists.size() == 0) {
 			if (FuXunTools.isConnect(this)) {
@@ -316,12 +314,12 @@ public class FragmengtActivity extends FragmentActivity {
 	class getContacts implements Runnable {
 		public void run() {
 			try {
+				Log.i("Max",
+						spf.getInt("user_id", 0) + "/"
+								+ spf.getString("Token", "null"));
 				ContactRequest.Builder builder = ContactRequest.newBuilder();
-				builder.setUserId(fxApplication.getUser_id());
-				builder.setToken(fxApplication.getToken());
-				Log.i("Ax", "User_id:" + fxApplication.getUser_id() + "--Token"
-						+ fxApplication.getToken());
-				Log.i("Ax", "加载网络联系人---");
+				builder.setUserId(spf.getInt("user_id", 0));
+				builder.setToken(spf.getString("Token", "null"));
 				ContactRequest response = builder.build();
 
 				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
@@ -382,9 +380,8 @@ public class FragmengtActivity extends FragmentActivity {
 								Urlinterface.SHARED, Context.MODE_PRIVATE);
 						Editor editor = preferences.edit();
 						editor.putString("contactTimeStamp", res.getTimeStamp());
-
 						editor.commit();
-
+						Log.i("Max", contactsLists.size() + "");
 						Message msg = new Message();// 创建Message 对象
 						msg.what = 0;
 						handler.sendMessage(msg);
@@ -397,7 +394,6 @@ public class FragmengtActivity extends FragmentActivity {
 				}
 
 			} catch (Exception e) {
-				// prodialog.dismiss();
 				handler.sendEmptyMessage(7);
 			}
 		}
@@ -508,7 +504,7 @@ public class FragmengtActivity extends FragmentActivity {
 					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 			style2.setSpan(new AbsoluteSizeSpan(18), 3, tv_str.length(),
 					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-		} else if (height >= 1750&&height <= 1920&& width == 1080) {
+		} else if (height >= 1750 && height <= 1920 && width == 1080) {
 			style2.setSpan(new AbsoluteSizeSpan(60), 0, 3,
 					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 			style2.setSpan(new AbsoluteSizeSpan(37), 3, tv_str.length(),
@@ -582,7 +578,7 @@ public class FragmengtActivity extends FragmentActivity {
 			main_search.setAnimation(translateAnimation); // 设置动画效果
 			translateAnimation.startNow(); // 启动动画
 			// 模拟
-			SourceDateList = db.queryContactList(fxApplication.getUser_id());
+			SourceDateList = db.queryContactList(spf.getInt("user_id", 0));
 		}
 	};
 	/*
