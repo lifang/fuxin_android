@@ -92,6 +92,9 @@ public class LoginActivity extends Activity implements OnClickListener,
 				case 1280:
 					item = -200;
 					break;
+				case 800:
+					item = -290;
+					break;
 				}
 				KeyboardLayout.LayoutParams params = new KeyboardLayout.LayoutParams(
 						KeyboardLayout.LayoutParams.WRAP_CONTENT,
@@ -125,6 +128,8 @@ public class LoginActivity extends Activity implements OnClickListener,
 		int height = display.getHeight();
 		Log.i("linshi", "display.getHeight()xdisplay.getWidth():" + height
 				+ "x" + width);
+		// Toast.makeText(this, width + "/" + height,
+		// Toast.LENGTH_SHORT).show();
 		fx.setWidth(width);
 		fx.setHeight(height);
 		initialize();// 初始化

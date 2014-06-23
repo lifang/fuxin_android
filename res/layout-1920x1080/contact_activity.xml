@@ -20,7 +20,7 @@
             android:textColor="@color/white"
             android:background="@drawable/left_shape_red"
             android:textSize="17dp" 
-            android:layout_marginLeft="1dp"
+            android:layout_marginLeft="4px"
             android:text="@string/button_recently" />
 
 
