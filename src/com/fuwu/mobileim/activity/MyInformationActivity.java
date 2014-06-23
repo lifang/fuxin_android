@@ -14,21 +14,20 @@ import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fuwu.mobileim.R;
-import com.fuwu.mobileim.activity.SettingsActivity.getProfile;
 import com.fuwu.mobileim.model.Models.ChangeProfileRequest;
 import com.fuwu.mobileim.model.Models.ChangeProfileResponse;
 import com.fuwu.mobileim.pojo.ProfilePojo;
@@ -40,7 +39,7 @@ import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CircularImage;
 import com.google.protobuf.ByteString;
 
-public class MyInformationActivity extends Activity {
+public class MyInformationActivity extends Activity implements OnTouchListener {
 	byte[] buf = null;
 	private ProgressDialog prodialog;
 	private ImageButton my_info_back;// 返回按钮
@@ -112,9 +111,11 @@ public class MyInformationActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.my_information);
 		fxApplication = (FxApplication) getApplication();
-		my_info_back = (ImageButton) findViewById(R.id.my_info_back);
-		my_info_back.setOnClickListener(listener1);// 给返回按钮设置监听
+		findViewById(R.id.my_info_back).setOnTouchListener(this);
+		findViewById(R.id.my_info_back).setOnClickListener(listener1);// 给返回按钮设置监听
+
 		my_info_confirm = (ImageButton) findViewById(R.id.my_info_confirm);
+		my_info_confirm.setOnTouchListener(this);
 		my_info_confirm.setOnClickListener(listener2);// 给保存按钮设置监听
 		Intent intent = getIntent();
 		int dataNumber = intent.getIntExtra("dataNumber", -1);
@@ -364,6 +365,33 @@ public class MyInformationActivity extends Activity {
 		editor.putString("profile_fuZhi", pro.getFuZhi());
 		editor.commit();
 
+	}
+
+	@Override
+	public boolean onTouch(View v, MotionEvent event) {
+
+		if (event.getAction() == MotionEvent.ACTION_DOWN) {
+			switch (v.getId()) {
+			case R.id.my_info_back:
+				Log.i("linshi", "onTouchonTouchonTouchonTouch--my_info_back");
+				findViewById(R.id.my_info_back).getBackground().setAlpha(70);
+				break;
+			case R.id.my_info_confirm:
+				findViewById(R.id.my_info_confirm).getBackground().setAlpha(70);
+				break;
+			}
+		} else if (event.getAction() == MotionEvent.ACTION_UP) {
+			switch (v.getId()) {
+			case R.id.my_info_back:
+				findViewById(R.id.my_info_back).getBackground().setAlpha(255);
+				break;
+			case R.id.my_info_confirm:
+				findViewById(R.id.my_info_confirm).getBackground().setAlpha(255);
+				break;
+			}
+		}
+
+		return false;
 	}
 
 }
