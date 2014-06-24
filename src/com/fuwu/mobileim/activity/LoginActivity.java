@@ -97,7 +97,10 @@ public class LoginActivity extends Activity implements OnClickListener,
 						item = -290;
 						break;
 					case 960:
-						item = -280;
+						item = -290;
+						break;
+					default:
+						item = -250;
 						break;
 					}
 				}

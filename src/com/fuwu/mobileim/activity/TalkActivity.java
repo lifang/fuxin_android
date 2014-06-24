@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -49,6 +50,8 @@ public class TalkActivity extends Fragment {
 	private int uid;
 	private String token;
 	private String CustomName;
+	private MyDialog builder;
+	private ProgressDialog prodialog;
 	@SuppressLint("HandlerLeak")
 	private SharedPreferences sp;
 	private Handler handler = new Handler() {
@@ -69,9 +72,11 @@ public class TalkActivity extends Fragment {
 				clvAdapter.notifyDataSetChanged();
 				break;
 			case 5:
+				prodialog.dismiss();
 				Toast.makeText(getActivity(), "修改备注成功", Toast.LENGTH_SHORT)
 						.show();
 				db.updateContactRem(uid, contact_id, CustomName);
+				builder.dismiss();
 				handler.sendEmptyMessage(2);
 				break;
 			case 6:
@@ -129,14 +134,18 @@ public class TalkActivity extends Fragment {
 		Button ok = (Button) view.findViewById(R.id.info_nickname_ok);
 		ok.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View arg0) {
+				prodialog = new ProgressDialog(getActivity());
+				prodialog.setMessage("努力修改中..");
+				prodialog.setCanceledOnTouchOutside(false);
+				prodialog.show();
 				CustomName = nickname.getText().toString();
 				new UpdateContactRem().start();
+
 			}
 		});
 		// 设置对话框显示的View
 		// 点击确定是的监听
-		final MyDialog builder = new MyDialog(getActivity(), 0, view,
-				R.style.mydialog);
+		builder = new MyDialog(getActivity(), 0, view, R.style.mydialog);
 		del.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View arg0) {
 				new Thread(new DeleteDB()).start();
