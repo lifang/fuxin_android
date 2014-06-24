@@ -44,7 +44,6 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 	private ProgressDialog prodialog;
 	private ImageButton my_info_back;// 返回按钮
 	private ImageButton my_info_confirm;// 保存按钮
-	private FxApplication fxApplication;
 	private ProfilePojo profilePojo;
 	private CircularImage myinfo_userface;
 	private EditText myinfo_nickname;
@@ -106,14 +105,14 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 			}
 		}
 	};
-
+	SharedPreferences preferences;
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.my_information);
-		fxApplication = (FxApplication) getApplication();
 		findViewById(R.id.my_info_back).setOnTouchListener(this);
 		findViewById(R.id.my_info_back).setOnClickListener(listener1);// 给返回按钮设置监听
-
+		preferences = getSharedPreferences(Urlinterface.SHARED,
+				Context.MODE_PRIVATE);
 		my_info_confirm = (ImageButton) findViewById(R.id.my_info_confirm);
 		my_info_confirm.setOnTouchListener(this);
 		my_info_confirm.setOnClickListener(listener2);// 给保存按钮设置监听
@@ -245,11 +244,13 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 			try {
 
 				String nickname_str = myinfo_nickname.getText().toString();
-
+				int user_id = preferences.getInt("user_id", -1);
+				String Token = preferences.getString("Token", "");
+				
 				ChangeProfileRequest.Builder builder = ChangeProfileRequest
 						.newBuilder();
-				builder.setUserId(fxApplication.getUser_id());
-				builder.setToken(fxApplication.getToken());
+				builder.setUserId(user_id);
+				builder.setToken(Token);
 				if (!profilePojo.getNickName().equals(nickname_str)) {
 					builder.setNickName(nickname_str);
 				}

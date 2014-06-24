@@ -63,6 +63,7 @@ import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
+import com.fuwu.mobileim.util.ImageCacheUtil;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CharacterParser;
 import com.igexin.sdk.PushManager;
@@ -164,6 +165,7 @@ public class FragmengtActivity extends FragmentActivity {
 		getButton();
 		spf = getSharedPreferences(Urlinterface.SHARED, 0);
 		vp = (ViewPager) findViewById(R.id.main_viewPager);
+		ImageCacheUtil.IMAGE_CACHE.clear();
 		list.add(new TalkActivity());
 		list.add(new ContactActivity());
 		list.add(new SettingsActivity());
