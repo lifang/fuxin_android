@@ -63,6 +63,7 @@ import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
+import com.fuwu.mobileim.util.ImageCacheUtil;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CharacterParser;
 import com.igexin.sdk.PushManager;
@@ -165,6 +166,7 @@ public class FragmengtActivity extends FragmentActivity {
 		getButton();
 		spf = getSharedPreferences(Urlinterface.SHARED, 0);
 		vp = (ViewPager) findViewById(R.id.main_viewPager);
+		ImageCacheUtil.IMAGE_CACHE.clear();
 		list.add(new TalkActivity());
 		list.add(new ContactActivity());
 		list.add(new SettingsActivity());
@@ -510,22 +512,14 @@ public class FragmengtActivity extends FragmentActivity {
 		if (height == 1280 && width == 720) {
 			style2.setSpan(new AbsoluteSizeSpan(40), 0, 3,
 					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-			style2.setSpan(new AbsoluteSizeSpan(25), 3, tv_str.length(),
-					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 		} else if (height == 854 && width == 480) {
 			style2.setSpan(new AbsoluteSizeSpan(27), 0, 3,
-					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-			style2.setSpan(new AbsoluteSizeSpan(18), 3, tv_str.length(),
 					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 		} else if (height >= 1750 && height <= 1920 && width == 1080) {
 			style2.setSpan(new AbsoluteSizeSpan(60), 0, 3,
 					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-			style2.setSpan(new AbsoluteSizeSpan(37), 3, tv_str.length(),
-					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 		} else {
 			style2.setSpan(new AbsoluteSizeSpan(40), 0, 3,
-					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-			style2.setSpan(new AbsoluteSizeSpan(25), 3, tv_str.length(),
 					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 		}
 
