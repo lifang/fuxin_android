@@ -100,6 +100,8 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 			case 5:
 				prodialog.dismiss();
 				Intent intent = new Intent();
+				preferences.edit().putInt("user_id", 0).commit();
+				preferences.edit().putString("Token", "null").commit();
 				preferences.edit().putString("pwd", "").commit();
 				preferences.edit().putString("clientid", "").commit();
 				intent.setClass(getActivity(), LoginActivity.class);
@@ -108,7 +110,7 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 				fxApplication.initData();
 				break;
 			case 6:
-				
+
 				Toast.makeText(getActivity(), "请求失败", Toast.LENGTH_SHORT)
 						.show();
 				break;
@@ -247,7 +249,8 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 				// handler.sendEmptyMessage(0);
 			} catch (Exception e) {
 				// prodialog.dismiss();
-				Log.i("Max", e.toString());
+				e.printStackTrace();
+				Log.i("error", e.toString());
 				handler.sendEmptyMessage(7);
 			}
 		}
@@ -406,11 +409,22 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		// Toast.LENGTH_LONG).show();
 		// break;
 		case 5:// 退出登录
-			prodialog = new ProgressDialog(getActivity());
-			prodialog.setMessage("努力退出中..");
-			prodialog.setCanceledOnTouchOutside(false);
-			prodialog.show();
-			new Thread(new UnAuthentication()).start();
+			if (FuXunTools.isConnect(getActivity())) {
+				prodialog = new ProgressDialog(getActivity());
+				prodialog.setMessage("努力退出中..");
+				prodialog.setCanceledOnTouchOutside(false);
+				prodialog.show();
+				new Thread(new UnAuthentication()).start();
+			} else {
+				preferences.edit().putInt("user_id", 0).commit();
+				preferences.edit().putString("Token", "null").commit();
+				preferences.edit().putString("pwd", "").commit();
+				preferences.edit().putString("clientid", "").commit();
+				intent.setClass(getActivity(), LoginActivity.class);
+				startActivity(intent);
+				clearActivity();
+				fxApplication.initData();
+			}
 			break;
 		default:
 			break;
