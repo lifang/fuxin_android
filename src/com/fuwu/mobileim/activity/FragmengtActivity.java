@@ -158,6 +158,7 @@ public class FragmengtActivity extends FragmentActivity {
 		}
 	};
 
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
@@ -175,7 +176,6 @@ public class FragmengtActivity extends FragmentActivity {
 		FragmentViewPagerAdapter adapter = new FragmentViewPagerAdapter(list,
 				vp, this.getSupportFragmentManager());
 		adapter.setOnExtraPageChangeListener(new FragmentViewPagerAdapter.OnExtraPageChangeListener() {
-			@Override
 			public void onExtraPageSelected(int i) {
 				super.onExtraPageSelected(i);
 				if (i == 0) {
@@ -192,21 +192,17 @@ public class FragmengtActivity extends FragmentActivity {
 		});
 
 		contact_search = (ImageView) findViewById(R.id.contact_search);
-		contact_search.setOnTouchListener(new View.OnTouchListener()
-		{
-		    @Override             
-		    public boolean onTouch(View v, MotionEvent event)
-		    {              
-		        if(event.getAction()==MotionEvent.ACTION_DOWN)
-		        {                
-		        	contact_search.getBackground().setAlpha(70);//设置图片透明度0~255，0完全透明，255不透明                    imgButton.invalidate();             
-		        }              
-		        else if (event.getAction() == MotionEvent.ACTION_UP) 
-		        {                  
-		        	contact_search.getBackground().setAlpha(255);//还原图片 
-		        }               
-		        return false;         
-		    }     
+		contact_search.setOnTouchListener(new View.OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				if (event.getAction() == MotionEvent.ACTION_DOWN) {
+					contact_search.getBackground().setAlpha(70);// 设置图片透明度0~255，0完全透明，255不透明
+																// imgButton.invalidate();
+				} else if (event.getAction() == MotionEvent.ACTION_UP) {
+					contact_search.getBackground().setAlpha(255);// 还原图片
+				}
+				return false;
+			}
 		});
 		fxApplication = (FxApplication) getApplication();
 		mReuRequstReceiver = new RequstReceiver();
@@ -214,6 +210,7 @@ public class FragmengtActivity extends FragmentActivity {
 		searchMethod();
 		Display display = getWindowManager().getDefaultDisplay();
 		int width = display.getWidth();
+
 		int a = display.getHeight();
 		Log.i("linshi", "display.getHeight()xdisplay.getWidth():" + a + "x"
 				+ width);
@@ -222,7 +219,7 @@ public class FragmengtActivity extends FragmentActivity {
 		changeTitleStyle();
 		setEdittextListening();
 		InitImageView();
-
+		Log.i("Max", spf.getString("Token", "-nullToken"));
 		contactInformation();
 
 		// 个推SDK初始化
@@ -269,7 +266,6 @@ public class FragmengtActivity extends FragmentActivity {
 		ExecutorService singleThreadExecutor = Executors
 				.newSingleThreadExecutor();
 		for (int i = 0; i < contactsLists.size(); i++) {
-			final int index = i;
 			final int contactId = contactsLists.get(i).getContactId();
 			final String url = contactsLists.get(i).getUserface_url();
 			singleThreadExecutor.execute(new Runnable() {
@@ -316,7 +312,6 @@ public class FragmengtActivity extends FragmentActivity {
 						}
 						handler.sendEmptyMessage(1);
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
 						handler.sendEmptyMessage(1);
 					}
 				}
@@ -692,9 +687,7 @@ public class FragmengtActivity extends FragmentActivity {
 
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			spf.edit().putString("Token", "null").commit();
 			System.exit(0);
-
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);

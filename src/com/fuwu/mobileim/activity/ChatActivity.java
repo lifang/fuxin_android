@@ -1,13 +1,13 @@
 package com.fuwu.mobileim.activity;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -111,6 +111,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 	private int currentPage = 0;
 	private boolean isFaceShow = false;
 	private boolean isPlusShow = false;
+	private String customName;
 	private String token;
 	private String sendTime;
 	private List<String> keys;
@@ -167,15 +168,16 @@ public class ChatActivity extends Activity implements OnClickListener,
 				Toast.makeText(getApplicationContext(), "屏蔽联系人失败!", 0).show();
 				break;
 			case 5:
-				Toast.makeText(getApplicationContext(), "您的帐号已在别处登录,请重新登录!", 0)
-						.show();
+				Toast.makeText(getApplicationContext(), "消息发送失败!", 0).show();
 				break;
 			case 6:
 				mMessageAdapter.updMessage(mp);
 				mListView.setSelection(list.size() - 1);
 				db.addMessage(mp);
 				db.addTalk(tp);
-				db.updateContactlastContactTime(user_id, contact_id, TimeUtil.getCurrentTime());
+				db.updateContactlastContactTime(user_id, contact_id,
+						TimeUtil.getCurrentTime());
+				Toast.makeText(getApplicationContext(), "消息发送成功!", 0).show();
 				break;
 			case 7:
 				Intent intent = new Intent();
@@ -187,18 +189,20 @@ public class ChatActivity extends Activity implements OnClickListener,
 				break;
 			case 9:
 				pd.dismiss();
-				pd.setMessage("正在发送图片...");
 				Toast.makeText(getApplicationContext(), "获取联系人失败", 0).show();
 				break;
 			case 10:
+				db.updateContactRem(user_id, cp.getContactId(), customName);
+				mName.setText(customName);
+				ContactCache.cp.setCustomName(customName);
 				Toast.makeText(getApplicationContext(), "修改备注成功!", 0).show();
 				break;
 			case 11:
 				Toast.makeText(getApplicationContext(), "修改备注失败!", 0).show();
 				break;
 			case 12:
+				ContactCache.flag = true;
 				pd.dismiss();
-				pd.setMessage("正在发送图片...");
 				showContactDialog();
 				break;
 			}
@@ -264,6 +268,8 @@ public class ChatActivity extends Activity implements OnClickListener,
 		msgEt.setOnClickListener(this);
 		msgEt.addTextChangedListener(this);
 		mBack.setOnClickListener(this);
+		mBack.setOnTouchListener(this);
+		mOther.setOnTouchListener(this);
 		mOther.setOnClickListener(this);
 		mListView.setXListViewListener(this);
 		// mBack.setImageBitmap(ImageUtil.getBitmapScale(height,
@@ -452,6 +458,10 @@ public class ChatActivity extends Activity implements OnClickListener,
 					} else {
 						Intent takephoto = new Intent(
 								MediaStore.ACTION_IMAGE_CAPTURE);
+						takephoto.putExtra(
+								MediaStore.EXTRA_OUTPUT,
+								Uri.fromFile(new File(Urlinterface.SDCARD
+										+ "camera.jpg")));
 						startActivityForResult(takephoto, 2);
 					}
 				} else {
@@ -565,11 +575,11 @@ public class ChatActivity extends Activity implements OnClickListener,
 		ok.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				String str = remInfo.getText().toString();
-				if (str != null && !str.equals("")) {
+				customName = remInfo.getText().toString();
+				if (customName != null && !customName.equals("")) {
 					if (FuXunTools.isConnect(ChatActivity.this)) {
-						builder.dismiss();
 						new UpdateContactRem().start();
+						builder.dismiss();
 					} else {
 						handler.sendEmptyMessage(8);
 					}
@@ -588,7 +598,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 				builder.setToken(token);
 				Contact.Builder cb = Contact.newBuilder();
 				cb.setContactId(cp.getContactId());
-				cb.setCustomName(cp.getCustomName());
+				cb.setCustomName(customName);
 				builder.setContact(cb);
 				ChangeContactDetailRequest response = builder.build();
 				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
@@ -788,7 +798,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 	class LoadImage extends Thread {
 		private String path;
 
-		public LoadImage(String path) {
+		public LoadImage(String path, int type) {
 			super();
 			this.path = path;
 		}
@@ -859,6 +869,8 @@ public class ChatActivity extends Activity implements OnClickListener,
 				} else {
 					if (FuXunTools.isConnect(this)) {
 						handler.sendEmptyMessage(1);
+						pd.setMessage("正在发送消息...");
+						pd.show();
 						sendMessageExecutor.execute(new SendMessageThread(null,
 								str, 1));
 					} else {
@@ -903,7 +915,6 @@ public class ChatActivity extends Activity implements OnClickListener,
 			break;
 		case R.id.chatset_beizhu:
 			if (!ContactCache.flag) {
-				ContactCache.flag = true;
 				pd.setMessage("正在加载详细信息...");
 				pd.show();
 				new GetContactDetail().start();
@@ -917,6 +928,25 @@ public class ChatActivity extends Activity implements OnClickListener,
 
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
+		if (event.getAction() == MotionEvent.ACTION_DOWN) {
+			switch (v.getId()) {
+			case R.id.chat_back:
+				findViewById(R.id.chat_back).getBackground().setAlpha(70);
+				break;
+			case R.id.chat_other:
+				findViewById(R.id.chat_other).getBackground().setAlpha(70);
+				break;
+			}
+		} else if (event.getAction() == MotionEvent.ACTION_UP) {
+			switch (v.getId()) {
+			case R.id.chat_back:
+				findViewById(R.id.chat_back).getBackground().setAlpha(255);
+				break;
+			case R.id.chat_other:
+				findViewById(R.id.chat_other).getBackground().setAlpha(255);
+				break;
+			}
+		}
 		if (isFaceShow) {
 			faceLinearLayout.setVisibility(View.GONE);
 		}
@@ -981,6 +1011,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 		super.onActivityResult(requestCode, resultCode, data);
 		if (FuXunTools.isConnect(this)) {
 			if (resultCode == RESULT_OK) {
+				pd.setMessage("正在发送图片...");
 				switch (requestCode) {
 				case 1:
 					pd.show();
@@ -991,20 +1022,13 @@ public class ChatActivity extends Activity implements OnClickListener,
 							.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
 					cursor.moveToFirst();
 					String path = cursor.getString(column_index);
-					loadImageExecutor.execute(new LoadImage(path));
+					loadImageExecutor.execute(new LoadImage(path, 1));
 					break;
 				case 2:
 					pd.show();
-					Bundle bundle = data.getExtras();
-					if (bundle != null) {
-						Bitmap bitmap = (Bitmap) bundle.get("data");
-						String file = System.currentTimeMillis() + "";
-						ImageUtil.saveBitmap(file, "JPG", bitmap);
-						mp = new MessagePojo(user_id, contact_id, "", file
-								+ ".jpg", 1, 2);
-						sendMessageExecutor.execute(new SendMessageThread(
-								Bitmap2Bytes(bitmap), null, 2));
-					}
+					// String file = System.currentTimeMillis() + "";
+					loadImageExecutor.execute(new LoadImage(Urlinterface.SDCARD
+							+ "camera.jpg", 1));
 					break;
 				}
 			}

@@ -2,14 +2,11 @@ package com.fuwu.mobileim.util;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-
-import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.pojo.MessagePojo;
 import com.fuwu.mobileim.pojo.PushPojo;
 import com.fuwu.mobileim.pojo.TalkPojo;
@@ -105,7 +102,9 @@ public class DBManager {
 			db.endTransaction();
 		}
 	}
-	public void updateContactlastContactTime(int user_id, int contact_id, String time) {
+
+	public void updateContactlastContactTime(int user_id, int contact_id,
+			String time) {
 		db.beginTransaction();
 		try {
 			db.execSQL(
@@ -117,6 +116,7 @@ public class DBManager {
 			db.endTransaction();
 		}
 	}
+
 	public void updateTalkRem(int user_id, int contact_id, String rem) {
 		db.beginTransaction();
 		try {
@@ -240,7 +240,7 @@ public class DBManager {
 		try {
 			c = queryContactCursor(user_id, contact_id);
 			if (c.moveToNext()) {
-				
+
 				mp.setContactId(c.getInt(c.getColumnIndex("contactId")));
 				mp.setCustomName(c.getString(c.getColumnIndex("customName")));
 				mp.setIsBlocked(c.getInt(c.getColumnIndex("isBlocked")));
@@ -308,6 +308,21 @@ public class DBManager {
 		try {
 			c = queryMessageCountCursor(user_id, contact_id);
 			count = c.getCount();
+		} catch (Exception e) {
+		} finally {
+			c.close();
+		}
+		return count;
+	}
+
+	public int queryMessageCount(int user_id) {
+		int count = 0;
+		Cursor c = null;
+		try {
+			c = queryTalkCursor(user_id);
+			while (c.moveToNext()) {
+				count = count + c.getInt(c.getColumnIndex("mes_count"));
+			}
 		} catch (Exception e) {
 		} finally {
 			c.close();

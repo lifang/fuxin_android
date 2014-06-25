@@ -87,7 +87,7 @@ public class LoginActivity extends Activity implements OnClickListener,
 				} else if (fx.getHeight() < 1280 && fx.getHeight() >= 1170) {
 					item = -290;
 				} else if (fx.getHeight() == 1280) {
-					item = -220;
+					item = -200;
 				} else {
 					switch (fx.getHeight()) {
 					case 854:
@@ -95,6 +95,12 @@ public class LoginActivity extends Activity implements OnClickListener,
 						break;
 					case 800:
 						item = -290;
+						break;
+					case 960:
+						item = -290;
+						break;
+					default:
+						item = -250;
 						break;
 					}
 				}
