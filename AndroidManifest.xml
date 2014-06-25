@@ -13,6 +13,10 @@
     </uses-permission>
     <!-- 在SDCard中创建于删除文件的权限 -->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <!-- 在SDCard中写入数据的权限 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -51,7 +55,7 @@
         <!-- 您从百度网站获取的APP KEY -->
         <meta-data
             android:name="BaiduMobAd_STAT_ID"
-            android:value="bb1fb374ff" />
+            android:value="af5e84066a" />
         <!-- 渠道商编号 -->
         <meta-data
             android:name="BaiduMobAd_CHANNEL"
@@ -102,8 +106,8 @@
             android:launchMode="singleTop" />
         <activity
             android:name="com.fuwu.mobileim.activity.LoginActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustResize" >
         </activity>
         <activity
             android:name="com.fuwu.mobileim.activity.BlockManagementActivity"

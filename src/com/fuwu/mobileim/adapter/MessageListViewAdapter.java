@@ -57,6 +57,7 @@ import com.fuwu.mobileim.view.MyDialog;
  */
 public class MessageListViewAdapter extends BaseAdapter {
 
+	public String customName;
 	private int user_id;
 	private String token;
 	public static final Pattern EMOTION_URL = Pattern.compile("\\[(\\S+?)\\]");
@@ -77,11 +78,11 @@ public class MessageListViewAdapter extends BaseAdapter {
 			super.handleMessage(msg);
 			switch (msg.what) {
 			case 1:
-				String str = remInfo.getText().toString();
-				cp.setCustomName(str);
-				db.updateContactRem(user_id, cp.getContactId(), str);
-				remInfo.setText(str);
-				rem.setText("备注:" + str);
+				cp.setCustomName(customName);
+				db.updateContactRem(user_id, cp.getContactId(), customName);
+				remInfo.setText(customName);
+				rem.setText("备注:" + customName);
+				ContactCache.cp.setCustomName(customName);
 				Toast.makeText(mContext, "修改备注成功!", 0).show();
 				break;
 			case 2:
@@ -232,7 +233,7 @@ public class MessageListViewAdapter extends BaseAdapter {
 		public ImageView sendImg;
 	}
 
-	private void showContactDialog() {
+	public void showContactDialog() {
 		View view = mInflater.inflate(R.layout.chat_info, null);
 		TextView name = (TextView) view.findViewById(R.id.info_name);
 		rem = (TextView) view.findViewById(R.id.info_rem);
@@ -295,11 +296,11 @@ public class MessageListViewAdapter extends BaseAdapter {
 		ok.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				String str = remInfo.getText().toString();
-				if (str != null && !str.equals("")) {
+				customName = remInfo.getText().toString();
+				if (customName != null && !customName.equals("")) {
 					if (FuXunTools.isConnect(mContext)) {
-						builder.dismiss();
 						new UpdateContactRem().start();
+						builder.dismiss();
 					} else {
 						handler.sendEmptyMessage(8);
 					}
@@ -318,7 +319,7 @@ public class MessageListViewAdapter extends BaseAdapter {
 				builder.setToken(token);
 				Contact.Builder cb = Contact.newBuilder();
 				cb.setContactId(cp.getContactId());
-				cb.setCustomName(cp.getCustomName());
+				cb.setCustomName(customName);
 				builder.setContact(cb);
 				ChangeContactDetailRequest response = builder.build();
 				byte[] by = HttpUtil.sendHttps(response.toByteArray(),

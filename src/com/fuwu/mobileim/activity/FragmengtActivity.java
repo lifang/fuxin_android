@@ -55,7 +55,6 @@ import com.fuwu.mobileim.adapter.ContactAdapter;
 import com.fuwu.mobileim.adapter.FragmentViewPagerAdapter;
 import com.fuwu.mobileim.model.Models.ContactRequest;
 import com.fuwu.mobileim.model.Models.ContactResponse;
-import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.pojo.ShortContactPojo;
 import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FuXunTools;
@@ -72,6 +71,8 @@ import com.igexin.sdk.PushManager;
 public class FragmengtActivity extends FragmentActivity {
 	private ViewPager vp;
 	private List<Fragment> list = new ArrayList<Fragment>();
+	private LinearLayout countLinear;
+	private TextView countText;
 	private ImageView contact_search; // 搜索功能 图标
 	private RelativeLayout main_search;// 搜索框全部
 	private TextView contact_search_edittext;// 搜索框输入框
@@ -125,8 +126,7 @@ public class FragmengtActivity extends FragmentActivity {
 				} else {
 					prodialog.dismiss();
 				}
-				 list.get(1).onStart();
-
+				list.get(1).onStart();
 				break;
 			case 1:
 				user_number1 = user_number1 + 1;
@@ -134,7 +134,6 @@ public class FragmengtActivity extends FragmentActivity {
 					prodialog.dismiss();
 					list.get(1).onStart();
 				}
-
 				break;
 			case 5:
 				prodialog.dismiss();
@@ -151,6 +150,15 @@ public class FragmengtActivity extends FragmentActivity {
 				Toast.makeText(getApplicationContext(), R.string.no_internet,
 						Toast.LENGTH_SHORT).show();
 				break;
+			case 8:
+				int count = db.queryMessageCount(fxApplication.getUser_id());
+				if (count > 0) {
+					countLinear.setVisibility(View.VISIBLE);
+					countText.setText(count + "");
+				} else {
+					countLinear.setVisibility(View.GONE);
+				}
+				break;
 			}
 		}
 	};
@@ -162,6 +170,8 @@ public class FragmengtActivity extends FragmentActivity {
 		getButton();
 		spf = getSharedPreferences(Urlinterface.SHARED, 0);
 		vp = (ViewPager) findViewById(R.id.main_viewPager);
+		countLinear = (LinearLayout) findViewById(R.id.main_countLinear);
+		countText = (TextView) findViewById(R.id.main_count);
 		list.add(new TalkActivity());
 		list.add(new ContactActivity());
 		list.add(new SettingsActivity());
@@ -207,6 +217,7 @@ public class FragmengtActivity extends FragmentActivity {
 				fxApplication.getToken() + "/" + fxApplication.getUser_id());
 		contactInformation();
 
+		handler.sendEmptyMessage(8);
 		// 个推SDK初始化
 		PushManager.getInstance().initialize(this.getApplicationContext());
 	}
@@ -665,6 +676,7 @@ public class FragmengtActivity extends FragmentActivity {
 		super.onResume();
 		registerReceiver(mReuRequstReceiver, new IntentFilter(
 				"com.comdosoft.fuxun.REQUEST_ACTION"));
+		handler.sendEmptyMessage(8);
 		StatService.onResume(this);
 	}
 
@@ -678,6 +690,7 @@ public class FragmengtActivity extends FragmentActivity {
 	class RequstReceiver extends BroadcastReceiver {
 		@Override
 		public void onReceive(Context context, Intent intent) {
+			handler.sendEmptyMessage(8);
 			list.get(0).onStart();
 		}
 	}
