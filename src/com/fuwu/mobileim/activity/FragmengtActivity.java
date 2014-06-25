@@ -219,7 +219,7 @@ public class FragmengtActivity extends FragmentActivity {
 		changeTitleStyle();
 		setEdittextListening();
 		InitImageView();
-
+		Log.i("Max", spf.getString("Token", "-nullToken"));
 		contactInformation();
 
 		// 个推SDK初始化
@@ -687,9 +687,7 @@ public class FragmengtActivity extends FragmentActivity {
 
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			spf.edit().putString("Token", "null").commit();
 			System.exit(0);
-
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
