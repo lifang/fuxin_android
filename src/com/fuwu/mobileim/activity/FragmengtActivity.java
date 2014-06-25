@@ -75,6 +75,8 @@ import com.igexin.sdk.PushManager;
 public class FragmengtActivity extends FragmentActivity {
 	private ViewPager vp;
 	private List<Fragment> list = new ArrayList<Fragment>();
+	private LinearLayout countLinear;
+	private TextView countText;
 	private ImageView contact_search; // 搜索功能 图标
 	private RelativeLayout main_search;// 搜索框全部
 	private TextView contact_search_edittext;// 搜索框输入框
@@ -154,6 +156,15 @@ public class FragmengtActivity extends FragmentActivity {
 				Toast.makeText(getApplicationContext(), R.string.no_internet,
 						Toast.LENGTH_SHORT).show();
 				break;
+			case 8:
+				int count = db.queryMessageCount(fxApplication.getUser_id());
+				if (count > 0) {
+					countLinear.setVisibility(View.VISIBLE);
+					countText.setText(count + "");
+				} else {
+					countLinear.setVisibility(View.GONE);
+				}
+				break;
 			}
 		}
 	};
@@ -163,6 +174,8 @@ public class FragmengtActivity extends FragmentActivity {
 		super.onCreate(arg0);
 		setContentView(R.layout.main);
 		getButton();
+		countLinear = (LinearLayout) findViewById(R.id.main_countLinear);
+		countText = (TextView) findViewById(R.id.main_count);
 		spf = getSharedPreferences(Urlinterface.SHARED, 0);
 		vp = (ViewPager) findViewById(R.id.main_viewPager);
 		ImageCacheUtil.IMAGE_CACHE.clear();
@@ -227,6 +240,7 @@ public class FragmengtActivity extends FragmentActivity {
 
 		// 个推SDK初始化
 		PushManager.getInstance().initialize(this.getApplicationContext());
+		handler.sendEmptyMessage(8);
 	}
 
 	/**
@@ -686,6 +700,7 @@ public class FragmengtActivity extends FragmentActivity {
 	class RequstReceiver extends BroadcastReceiver {
 		@Override
 		public void onReceive(Context context, Intent intent) {
+			handler.sendEmptyMessage(8);
 			list.get(0).onStart();
 		}
 	}

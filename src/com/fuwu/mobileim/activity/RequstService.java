@@ -55,7 +55,6 @@ public class RequstService extends Service {
 		super.onCreate();
 	}
 
-	
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
@@ -64,6 +63,7 @@ public class RequstService extends Service {
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		context = this;
+		Log.i("FuWu", "startServer-------------");
 		// 防止intent为null时异常
 		if (intent != null) {
 			if (!scheduledThreadPool.isShutdown()) {
@@ -146,7 +146,9 @@ public class RequstService extends Service {
 		public void run() {
 			super.run();
 			try {
+				Log.i("FuWu", "runRequstThread----------------1");
 				if (!FuXunTools.isApplicationBroughtToBackground(context)) {
+					Log.i("FuWu", "runRequstThread----------------2");
 					MessageRequest.Builder builder = MessageRequest
 							.newBuilder();
 					Log.i("Ax", "timeStamp:" + getTimeStamp());
