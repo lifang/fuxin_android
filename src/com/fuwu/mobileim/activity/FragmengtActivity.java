@@ -19,7 +19,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.Matrix;
 import android.os.Bundle;
 import android.os.Handler;
@@ -57,7 +56,6 @@ import com.fuwu.mobileim.adapter.ContactAdapter;
 import com.fuwu.mobileim.adapter.FragmentViewPagerAdapter;
 import com.fuwu.mobileim.model.Models.ContactRequest;
 import com.fuwu.mobileim.model.Models.ContactResponse;
-import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.pojo.ShortContactPojo;
 import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FuXunTools;
@@ -73,8 +71,12 @@ import com.igexin.sdk.PushManager;
  * @时间 创建时间：2014-5-27 下午6:36:44
  */
 public class FragmengtActivity extends FragmentActivity {
+	private int user_id;
+	private String token;
 	private ViewPager vp;
 	private List<Fragment> list = new ArrayList<Fragment>();
+	private LinearLayout countLinear;
+	private TextView countText;
 	private ImageView contact_search; // 搜索功能 图标
 	private RelativeLayout main_search;// 搜索框全部
 	private TextView contact_search_edittext;// 搜索框输入框
@@ -154,17 +156,29 @@ public class FragmengtActivity extends FragmentActivity {
 				Toast.makeText(getApplicationContext(), R.string.no_internet,
 						Toast.LENGTH_SHORT).show();
 				break;
+			case 8:
+				int count = db.queryMessageCount(user_id);
+				if (count > 0) {
+					countLinear.setVisibility(View.VISIBLE);
+					countText.setText(count + "");
+				} else {
+					countLinear.setVisibility(View.GONE);
+				}
+				break;
 			}
 		}
 	};
 
-	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		setContentView(R.layout.main);
 		getButton();
+		countLinear = (LinearLayout) findViewById(R.id.main_countLinear);
+		countText = (TextView) findViewById(R.id.main_count);
 		spf = getSharedPreferences(Urlinterface.SHARED, 0);
+		user_id = spf.getInt("user_id", 0);
+		token = spf.getString("Token", "");
 		vp = (ViewPager) findViewById(R.id.main_viewPager);
 		ImageCacheUtil.IMAGE_CACHE.clear();
 		list.add(new TalkActivity());
@@ -176,6 +190,7 @@ public class FragmengtActivity extends FragmentActivity {
 		FragmentViewPagerAdapter adapter = new FragmentViewPagerAdapter(list,
 				vp, this.getSupportFragmentManager());
 		adapter.setOnExtraPageChangeListener(new FragmentViewPagerAdapter.OnExtraPageChangeListener() {
+			@Override
 			public void onExtraPageSelected(int i) {
 				super.onExtraPageSelected(i);
 				if (i == 0) {
@@ -210,7 +225,6 @@ public class FragmengtActivity extends FragmentActivity {
 		searchMethod();
 		Display display = getWindowManager().getDefaultDisplay();
 		int width = display.getWidth();
-
 		int a = display.getHeight();
 		Log.i("linshi", "display.getHeight()xdisplay.getWidth():" + a + "x"
 				+ width);
@@ -219,11 +233,12 @@ public class FragmengtActivity extends FragmentActivity {
 		changeTitleStyle();
 		setEdittextListening();
 		InitImageView();
-		Log.i("Max", spf.getString("Token", "-nullToken"));
+
 		contactInformation();
 
 		// 个推SDK初始化
 		PushManager.getInstance().initialize(this.getApplicationContext());
+		handler.sendEmptyMessage(8);
 	}
 
 	/**
@@ -266,6 +281,7 @@ public class FragmengtActivity extends FragmentActivity {
 		ExecutorService singleThreadExecutor = Executors
 				.newSingleThreadExecutor();
 		for (int i = 0; i < contactsLists.size(); i++) {
+			final int index = i;
 			final int contactId = contactsLists.get(i).getContactId();
 			final String url = contactsLists.get(i).getUserface_url();
 			singleThreadExecutor.execute(new Runnable() {
@@ -312,6 +328,7 @@ public class FragmengtActivity extends FragmentActivity {
 						}
 						handler.sendEmptyMessage(1);
 					} catch (Exception e) {
+						// TODO Auto-generated catch block
 						handler.sendEmptyMessage(1);
 					}
 				}
@@ -668,6 +685,7 @@ public class FragmengtActivity extends FragmentActivity {
 		super.onResume();
 		registerReceiver(mReuRequstReceiver, new IntentFilter(
 				"com.comdosoft.fuxun.REQUEST_ACTION"));
+		handler.sendEmptyMessage(8);
 		StatService.onResume(this);
 	}
 
@@ -681,6 +699,7 @@ public class FragmengtActivity extends FragmentActivity {
 	class RequstReceiver extends BroadcastReceiver {
 		@Override
 		public void onReceive(Context context, Intent intent) {
+			handler.sendEmptyMessage(8);
 			list.get(0).onStart();
 		}
 	}
@@ -688,6 +707,7 @@ public class FragmengtActivity extends FragmentActivity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			System.exit(0);
+
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);

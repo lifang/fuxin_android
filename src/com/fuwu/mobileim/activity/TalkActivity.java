@@ -11,7 +11,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.view.KeyEvent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,12 +47,12 @@ public class TalkActivity extends Fragment {
 	private DBManager db;
 	private View rootView;
 	private int contact_id;
-	private FxApplication fx;
 	private int uid;
 	private String token;
 	private String CustomName;
 	private MyDialog builder;
 	private ProgressDialog prodialog;
+	private FxApplication fx;
 	@SuppressLint("HandlerLeak")
 	private SharedPreferences sp;
 	private Handler handler = new Handler() {
@@ -101,7 +101,9 @@ public class TalkActivity extends Fragment {
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				db.clearTalkMesCount(fx.getUser_id(), fx.getUser_id());
+				Log.i("Max", "uid->" + uid + "    contact_id->"
+						+ list.get(arg2).getContact_id());
+				db.clearTalkMesCount(uid, list.get(arg2).getContact_id());
 				sp.edit().putInt("contact_id", list.get(arg2).getContact_id())
 						.commit();
 				intent.putExtra("contact_id", list.get(arg2).getContact_id());
@@ -206,7 +208,7 @@ public class TalkActivity extends Fragment {
 	}
 
 	public boolean delTalkData() {
-		return db.delTalk(fx.getUser_id(), contact_id);
+		return db.delTalk(uid, contact_id);
 	}
 
 	public void onStart() {
@@ -214,7 +216,6 @@ public class TalkActivity extends Fragment {
 		super.onStart();
 	}
 
-	@Override
 	public void onDestroy() {
 		super.onDestroy();
 		if (db != null) {
