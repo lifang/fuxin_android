@@ -17,7 +17,6 @@ import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import com.fuwu.mobileim.R;
-import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.pojo.ShortContactPojo;
 import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.ImageCacheUtil;
@@ -99,10 +98,9 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 				ImageCacheUtil.IMAGE_CACHE.get(
 						Urlinterface.head_pic + contact.getContactId(),
 						viewHolder.contact_user_face);
-				// Drawable dra = new BitmapDrawable(
-				// BitmapFactory.decodeFile(Urlinterface.head_pic +
-				// contact.getContactId()));
-				// viewHolder.contact_user_face.setImageDrawable(dra);
+//				 viewHolder.contact_user_face.setImageDrawable(new BitmapDrawable(
+//				 BitmapFactory.decodeFile(Urlinterface.head_pic +
+//				 contact.getContactId())));
 			} else {
 				FuXunTools.set_bk(contact.getContactId(), face_str,
 						viewHolder.contact_user_face);
