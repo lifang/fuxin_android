@@ -77,7 +77,11 @@ public class TalkListViewAdapter extends BaseAdapter {
 		if (list.get(arg0).getMes_count() == 0) {
 			holder.statics.setVisibility(View.GONE);
 		} else {
-			holder.size.setText(list.get(arg0).getMes_count() + "");
+			if (list.get(arg0).getMes_count() > 99) {
+				holder.size.setText(99 + "");
+			} else {
+				holder.size.setText(list.get(arg0).getMes_count() + "");
+			}
 			holder.statics.setVisibility(View.VISIBLE);
 		}
 		String names = list.get(arg0).getNick_name();

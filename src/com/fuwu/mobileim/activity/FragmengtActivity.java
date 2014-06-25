@@ -73,6 +73,8 @@ import com.igexin.sdk.PushManager;
  * @时间 创建时间：2014-5-27 下午6:36:44
  */
 public class FragmengtActivity extends FragmentActivity {
+	private int user_id;
+	private String token;
 	private ViewPager vp;
 	private List<Fragment> list = new ArrayList<Fragment>();
 	private LinearLayout countLinear;
@@ -157,7 +159,9 @@ public class FragmengtActivity extends FragmentActivity {
 						Toast.LENGTH_SHORT).show();
 				break;
 			case 8:
-				int count = db.queryMessageCount(fxApplication.getUser_id());
+				int count = db.queryMessageCount(user_id);
+				Log.i("FuWu", "id:--" + user_id);
+				Log.i("FuWu", "count:--" + count);
 				if (count > 0) {
 					countLinear.setVisibility(View.VISIBLE);
 					countText.setText(count + "");
@@ -177,6 +181,8 @@ public class FragmengtActivity extends FragmentActivity {
 		countLinear = (LinearLayout) findViewById(R.id.main_countLinear);
 		countText = (TextView) findViewById(R.id.main_count);
 		spf = getSharedPreferences(Urlinterface.SHARED, 0);
+		user_id = spf.getInt("user_id", 0);
+		token = spf.getString("Token", "");
 		vp = (ViewPager) findViewById(R.id.main_viewPager);
 		ImageCacheUtil.IMAGE_CACHE.clear();
 		list.add(new TalkActivity());
@@ -205,21 +211,17 @@ public class FragmengtActivity extends FragmentActivity {
 		});
 
 		contact_search = (ImageView) findViewById(R.id.contact_search);
-		contact_search.setOnTouchListener(new View.OnTouchListener()
-		{
-		    @Override             
-		    public boolean onTouch(View v, MotionEvent event)
-		    {              
-		        if(event.getAction()==MotionEvent.ACTION_DOWN)
-		        {                
-		        	contact_search.getBackground().setAlpha(70);//设置图片透明度0~255，0完全透明，255不透明                    imgButton.invalidate();             
-		        }              
-		        else if (event.getAction() == MotionEvent.ACTION_UP) 
-		        {                  
-		        	contact_search.getBackground().setAlpha(255);//还原图片 
-		        }               
-		        return false;         
-		    }     
+		contact_search.setOnTouchListener(new View.OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				if (event.getAction() == MotionEvent.ACTION_DOWN) {
+					contact_search.getBackground().setAlpha(70);// 设置图片透明度0~255，0完全透明，255不透明
+																// imgButton.invalidate();
+				} else if (event.getAction() == MotionEvent.ACTION_UP) {
+					contact_search.getBackground().setAlpha(255);// 还原图片
+				}
+				return false;
+			}
 		});
 		fxApplication = (FxApplication) getApplication();
 		mReuRequstReceiver = new RequstReceiver();
@@ -687,6 +689,7 @@ public class FragmengtActivity extends FragmentActivity {
 		super.onResume();
 		registerReceiver(mReuRequstReceiver, new IntentFilter(
 				"com.comdosoft.fuxun.REQUEST_ACTION"));
+		handler.sendEmptyMessage(8);
 		StatService.onResume(this);
 	}
 
