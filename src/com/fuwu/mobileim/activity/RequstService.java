@@ -55,6 +55,12 @@ public class RequstService extends Service {
 		super.onCreate();
 	}
 
+	
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+	}
+
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		context = this;

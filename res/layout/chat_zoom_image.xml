@@ -4,27 +4,42 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="50dip"
-        android:background="#d11b21" >
-
-        <ImageButton
-            android:id="@+id/chat_back"
-            android:layout_width="40dip"
-            android:layout_height="40dip"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dip"
-            android:background="@drawable/back" />
-    </RelativeLayout>
-
     <com.fuwu.mobileim.view.DragImageView
         android:id="@+id/chat_zoom_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_gravity="center"
-        android:scaleType="fitXY" />
+        android:scaleType="fitCenter" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dip"
+        android:layout_alignParentTop="true"
+        android:background="#d11b21"
+        android:gravity="center_vertical" >
+
+        <ImageButton
+            android:id="@+id/chat_back"
+            android:layout_width="40dip"
+            android:layout_height="40dip"
+            android:layout_marginLeft="10dip"
+            android:background="@drawable/back" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:layout_alignParentBottom="true"
+        android:background="#32373c"
+        android:gravity="center" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="图片已保存在相册的fuwu文件夹中"
+            android:textColor="#656769" />
+    </LinearLayout>
 
 </RelativeLayout>
