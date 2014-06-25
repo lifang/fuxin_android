@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/title"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:background="@color/red" >
+
+        <ImageView
+            android:id="@+id/exit"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/update_title"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/scrol"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical"
+            android:padding="20dp" >
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <EditText
+                    android:id="@+id/old_pwd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@null"
+                    android:hint="请填写原密码"
+                    android:inputType="textPassword"
+                    android:textColor="#333333"
+                    android:textColorHint="@color/qianhui" />
+
+                <TextView
+                    android:id="@+id/old_pwd_tag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:text="!"
+                    android:textColor="@color/red"
+                    android:textSize="20sp"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="#DBDBDB" />
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <EditText
+                    android:id="@+id/new_pwd"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@null"
+                    android:hint="输入新密码"
+                    android:inputType="textPassword"
+                    android:textColor="#333333"
+                    android:textColorHint="@color/qianhui" />
+
+                <TextView
+                    android:id="@+id/new_pwd_tag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:text="!"
+                    android:textColor="@color/red"
+                    android:textSize="20sp"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="#DBDBDB" />
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <EditText
+                    android:id="@+id/new_pwds"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@null"
+                    android:hint="确认新密码"
+                    android:inputType="textPassword"
+                    android:textColor="#333333"
+                    android:textColorHint="@color/qianhui" />
+
+                <TextView
+                    android:id="@+id/new_pwds_tag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:text="!"
+                    android:textColor="@color/red"
+                    android:textSize="20sp"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="10dp"
+                android:background="#DBDBDB" />
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <RelativeLayout
+                    android:id="@+id/view"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" >
+
+                    <EditText
+                        android:id="@+id/phone"
+                        android:layout_width="150dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@null"
+                        android:gravity="center_vertical"
+                        android:hint="输入手机号码"
+                        android:inputType="phone"
+                        android:textColor="#333333"
+                        android:textColorHint="@color/qianhui" />
+
+                    <Button
+                        android:id="@+id/phone_ok"
+                        android:layout_width="80dp"
+                        android:layout_height="35dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/touming_btn"
+                        android:text="@string/phone_ok"
+                        android:textColor="@color/system_textColor"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/phone_tag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toLeftOf="@id/phone_ok"
+                        android:gravity="center"
+                        android:text="@string/regist_error"
+                        android:textColor="@color/red"
+                        android:textSize="16sp"
+                        android:visibility="gone" />
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="1dp"
+                        android:layout_below="@id/phone_ok"
+                        android:layout_marginTop="10dp"
+                        android:background="#DBDBDB" />
+                </RelativeLayout>
+
+                <EditText
+                    android:id="@+id/yz"
+                    android:layout_width="150dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@id/view"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="输入验证码"
+                    android:inputType="text"
+                    android:textColor="#333333"
+                    android:textColorHint="@color/qianhui" />
+
+                <Button
+                    android:id="@+id/yz_send"
+                    android:layout_width="80dp"
+                    android:layout_height="35dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignTop="@id/yz"
+                    android:background="@drawable/touming_btn2"
+                    android:text="@string/yz_send"
+                    android:textColor="@color/qianhui"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/yz_tag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_alignTop="@id/yz"
+                    android:layout_toLeftOf="@id/yz_send"
+                    android:gravity="center"
+                    android:text="@string/yz_error"
+                    android:textColor="@color/red"
+                    android:textSize="16sp"
+                    android:visibility="gone" />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/yz_send"
+                    android:layout_marginTop="10dp"
+                    android:background="#DBDBDB" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/validate_time"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:visibility="gone" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/validate"
+                    android:textColor="@color/qianhui"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/validate2"
+                    android:textColor="@color/qianhui"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/update_over"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/regist_btn"
+                android:text="@string/regist_over"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

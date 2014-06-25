@@ -19,6 +19,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.os.Bundle;
 import android.os.Handler;
@@ -35,6 +36,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
@@ -55,11 +57,13 @@ import com.fuwu.mobileim.adapter.ContactAdapter;
 import com.fuwu.mobileim.adapter.FragmentViewPagerAdapter;
 import com.fuwu.mobileim.model.Models.ContactRequest;
 import com.fuwu.mobileim.model.Models.ContactResponse;
+import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.pojo.ShortContactPojo;
 import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
+import com.fuwu.mobileim.util.ImageCacheUtil;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CharacterParser;
 import com.igexin.sdk.PushManager;
@@ -71,8 +75,6 @@ import com.igexin.sdk.PushManager;
 public class FragmengtActivity extends FragmentActivity {
 	private ViewPager vp;
 	private List<Fragment> list = new ArrayList<Fragment>();
-	private LinearLayout countLinear;
-	private TextView countText;
 	private ImageView contact_search; // 搜索功能 图标
 	private RelativeLayout main_search;// 搜索框全部
 	private TextView contact_search_edittext;// 搜索框输入框
@@ -112,7 +114,7 @@ public class FragmengtActivity extends FragmentActivity {
 
 				for (int i = 0; i < contactsLists.size(); i++) {
 					String face_str = contactsLists.get(i).getUserface_url();
-					db.addContact(fxApplication.getUser_id(),
+					db.addContact(spf.getInt("user_id", 0),
 							contactsLists.get(i));
 					if (face_str.length() > 4) {
 						user_number2 = user_number2 + 1;
@@ -127,6 +129,7 @@ public class FragmengtActivity extends FragmentActivity {
 					prodialog.dismiss();
 				}
 				list.get(1).onStart();
+
 				break;
 			case 1:
 				user_number1 = user_number1 + 1;
@@ -134,6 +137,7 @@ public class FragmengtActivity extends FragmentActivity {
 					prodialog.dismiss();
 					list.get(1).onStart();
 				}
+
 				break;
 			case 5:
 				prodialog.dismiss();
@@ -150,15 +154,6 @@ public class FragmengtActivity extends FragmentActivity {
 				Toast.makeText(getApplicationContext(), R.string.no_internet,
 						Toast.LENGTH_SHORT).show();
 				break;
-			case 8:
-				int count = db.queryMessageCount(fxApplication.getUser_id());
-				if (count > 0) {
-					countLinear.setVisibility(View.VISIBLE);
-					countText.setText(count + "");
-				} else {
-					countLinear.setVisibility(View.GONE);
-				}
-				break;
 			}
 		}
 	};
@@ -170,8 +165,7 @@ public class FragmengtActivity extends FragmentActivity {
 		getButton();
 		spf = getSharedPreferences(Urlinterface.SHARED, 0);
 		vp = (ViewPager) findViewById(R.id.main_viewPager);
-		countLinear = (LinearLayout) findViewById(R.id.main_countLinear);
-		countText = (TextView) findViewById(R.id.main_count);
+		ImageCacheUtil.IMAGE_CACHE.clear();
 		list.add(new TalkActivity());
 		list.add(new ContactActivity());
 		list.add(new SettingsActivity());
@@ -198,6 +192,22 @@ public class FragmengtActivity extends FragmentActivity {
 		});
 
 		contact_search = (ImageView) findViewById(R.id.contact_search);
+		contact_search.setOnTouchListener(new View.OnTouchListener()
+		{
+		    @Override             
+		    public boolean onTouch(View v, MotionEvent event)
+		    {              
+		        if(event.getAction()==MotionEvent.ACTION_DOWN)
+		        {                
+		        	contact_search.getBackground().setAlpha(70);//设置图片透明度0~255，0完全透明，255不透明                    imgButton.invalidate();             
+		        }              
+		        else if (event.getAction() == MotionEvent.ACTION_UP) 
+		        {                  
+		        	contact_search.getBackground().setAlpha(255);//还原图片 
+		        }               
+		        return false;         
+		    }     
+		});
 		fxApplication = (FxApplication) getApplication();
 		mReuRequstReceiver = new RequstReceiver();
 		fxApplication.getActivityList().add(this);
@@ -213,11 +223,8 @@ public class FragmengtActivity extends FragmentActivity {
 		setEdittextListening();
 		InitImageView();
 
-		Log.i("Max",
-				fxApplication.getToken() + "/" + fxApplication.getUser_id());
 		contactInformation();
 
-		handler.sendEmptyMessage(8);
 		// 个推SDK初始化
 		PushManager.getInstance().initialize(this.getApplicationContext());
 	}
@@ -230,7 +237,7 @@ public class FragmengtActivity extends FragmentActivity {
 	private void contactInformation() {
 		// 实例化汉字转拼音类
 		characterParser = CharacterParser.getInstance();
-		contactsLists = db.queryContactList(fxApplication.getUser_id());
+		contactsLists = db.queryContactList(spf.getInt("user_id", 0));
 		Log.i("11", contactsLists.size() + "-----------1");
 		if (contactsLists.size() == 0) {
 			if (FuXunTools.isConnect(this)) {
@@ -327,12 +334,12 @@ public class FragmengtActivity extends FragmentActivity {
 	class getContacts implements Runnable {
 		public void run() {
 			try {
+				Log.i("Max",
+						spf.getInt("user_id", 0) + "/"
+								+ spf.getString("Token", "null"));
 				ContactRequest.Builder builder = ContactRequest.newBuilder();
-				builder.setUserId(fxApplication.getUser_id());
-				builder.setToken(fxApplication.getToken());
-				Log.i("Ax", "User_id:" + fxApplication.getUser_id() + "--Token"
-						+ fxApplication.getToken());
-				Log.i("Ax", "加载网络联系人---");
+				builder.setUserId(spf.getInt("user_id", 0));
+				builder.setToken(spf.getString("Token", "null"));
 				ContactRequest response = builder.build();
 
 				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
@@ -393,9 +400,8 @@ public class FragmengtActivity extends FragmentActivity {
 								Urlinterface.SHARED, Context.MODE_PRIVATE);
 						Editor editor = preferences.edit();
 						editor.putString("contactTimeStamp", res.getTimeStamp());
-
 						editor.commit();
-
+						Log.i("Max", contactsLists.size() + "");
 						Message msg = new Message();// 创建Message 对象
 						msg.what = 0;
 						handler.sendMessage(msg);
@@ -408,7 +414,6 @@ public class FragmengtActivity extends FragmentActivity {
 				}
 
 			} catch (Exception e) {
-				// prodialog.dismiss();
 				handler.sendEmptyMessage(7);
 			}
 		}
@@ -512,22 +517,14 @@ public class FragmengtActivity extends FragmentActivity {
 		if (height == 1280 && width == 720) {
 			style2.setSpan(new AbsoluteSizeSpan(40), 0, 3,
 					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-			style2.setSpan(new AbsoluteSizeSpan(25), 3, tv_str.length(),
-					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 		} else if (height == 854 && width == 480) {
 			style2.setSpan(new AbsoluteSizeSpan(27), 0, 3,
 					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-			style2.setSpan(new AbsoluteSizeSpan(18), 3, tv_str.length(),
-					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-		} else if (height == 1920 && width == 1080) {
+		} else if (height >= 1750 && height <= 1920 && width == 1080) {
 			style2.setSpan(new AbsoluteSizeSpan(60), 0, 3,
-					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-			style2.setSpan(new AbsoluteSizeSpan(37), 3, tv_str.length(),
 					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 		} else {
 			style2.setSpan(new AbsoluteSizeSpan(40), 0, 3,
-					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-			style2.setSpan(new AbsoluteSizeSpan(25), 3, tv_str.length(),
 					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 		}
 
@@ -593,7 +590,7 @@ public class FragmengtActivity extends FragmentActivity {
 			main_search.setAnimation(translateAnimation); // 设置动画效果
 			translateAnimation.startNow(); // 启动动画
 			// 模拟
-			SourceDateList = db.queryContactList(fxApplication.getUser_id());
+			SourceDateList = db.queryContactList(spf.getInt("user_id", 0));
 		}
 	};
 	/*
@@ -676,7 +673,6 @@ public class FragmengtActivity extends FragmentActivity {
 		super.onResume();
 		registerReceiver(mReuRequstReceiver, new IntentFilter(
 				"com.comdosoft.fuxun.REQUEST_ACTION"));
-		handler.sendEmptyMessage(8);
 		StatService.onResume(this);
 	}
 
@@ -690,7 +686,6 @@ public class FragmengtActivity extends FragmentActivity {
 	class RequstReceiver extends BroadcastReceiver {
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			handler.sendEmptyMessage(8);
 			list.get(0).onStart();
 		}
 	}

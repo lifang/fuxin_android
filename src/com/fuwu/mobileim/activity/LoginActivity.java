@@ -82,16 +82,21 @@ public class LoginActivity extends Activity implements OnClickListener,
 				break;
 			case 3:
 				int item = 0;
-				switch (fx.getHeight()) {
-				case 1920:
+				if (fx.getHeight() <= 1920 && fx.getHeight() >= 1750) {
 					item = -400;
-					break;
-				case 854:
-					item = -250;
-					break;
-				case 1280:
-					item = -200;
-					break;
+				} else if (fx.getHeight() < 1280 && fx.getHeight() >= 1170) {
+					item = -290;
+				} else if (fx.getHeight() == 1280) {
+					item = -220;
+				} else {
+					switch (fx.getHeight()) {
+					case 854:
+						item = -250;
+						break;
+					case 800:
+						item = -290;
+						break;
+					}
 				}
 				KeyboardLayout.LayoutParams params = new KeyboardLayout.LayoutParams(
 						KeyboardLayout.LayoutParams.WRAP_CONTENT,
@@ -123,14 +128,22 @@ public class LoginActivity extends Activity implements OnClickListener,
 		Display display = getWindowManager().getDefaultDisplay();
 		int width = display.getWidth();
 		int height = display.getHeight();
-		Log.i("linshi", "display.getHeight()xdisplay.getWidth():" + height
-				+ "x" + width);
+		Log.i("linshi", "getHeight().getWidth():" + height + "x" + width);
+		// Toast.makeText(this, width + "/" + height,
+		// Toast.LENGTH_SHORT).show();
 		fx.setWidth(width);
 		fx.setHeight(height);
 		initialize();// 初始化
 		// 百度统计
 		StatService.setOn(this, StatService.EXCEPTION_LOG);
-
+		int id = spf.getInt("user_id", 0);
+		String tken = spf.getString("Token", "null");
+		if (id != 0 || !tken.equals("null")) {
+			Intent intent = new Intent();
+			intent.setClass(LoginActivity.this, FragmengtActivity.class);
+			startActivity(intent);
+			LoginActivity.this.finish();
+		}
 	}
 
 	// 初始化

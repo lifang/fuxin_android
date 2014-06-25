@@ -9,14 +9,13 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -30,7 +29,6 @@ import android.widget.Toast;
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.model.Models.BlockContactRequest;
 import com.fuwu.mobileim.model.Models.BlockContactResponse;
-import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.pojo.ShortContactPojo;
 import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FuXunTools;
@@ -39,7 +37,7 @@ import com.fuwu.mobileim.util.ImageCacheUtil;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CircularImage;
 
-public class BlockManagementActivity extends Activity {
+public class BlockManagementActivity extends Activity  {
 	private DBManager db;
 	private ProgressDialog prodialog;
 	private int index = -1;
@@ -120,6 +118,22 @@ public class BlockManagementActivity extends Activity {
 		}
 
 		block_management_back = (ImageButton) findViewById(R.id.block_management_back);
+		block_management_back.setOnTouchListener(new View.OnTouchListener()
+		{
+		    @Override             
+		    public boolean onTouch(View v, MotionEvent event)
+		    {              
+		        if(event.getAction()==MotionEvent.ACTION_DOWN)
+		        {                
+		        	block_management_back.getBackground().setAlpha(70);//设置图片透明度0~255，0完全透明，255不透明                    imgButton.invalidate();             
+		        }              
+		        else if (event.getAction() == MotionEvent.ACTION_UP) 
+		        {                  
+		        	block_management_back.getBackground().setAlpha(255);//还原图片 
+		        }               
+		        return false;         
+		    }     
+		});
 		mListView = (ListView) findViewById(R.id.block_management_listView);
 		mListView.setDivider(null);
 		clvAdapter = new myListViewAdapter(this);
@@ -235,7 +249,7 @@ public class BlockManagementActivity extends Activity {
 			} else {
 				name.setText(contact.getName());
 			}
-			Button restore = (Button) layout.findViewById(R.id.block_restore);
+			final Button restore = (Button) layout.findViewById(R.id.block_restore);
 			restore.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
 					index = arg0;
@@ -252,7 +266,24 @@ public class BlockManagementActivity extends Activity {
 					}
 				}
 			});
-
+			restore.setOnTouchListener(new View.OnTouchListener()
+			{
+			    @Override             
+			    public boolean onTouch(View v, MotionEvent event)
+			    {              
+			        if(event.getAction()==MotionEvent.ACTION_DOWN)
+			        {                
+			        	restore.getBackground().setAlpha(70);//设置图片透明度0~255，0完全透明，255不透明                    imgButton.invalidate();             
+			        	restore.setTextColor(Color.GRAY);
+			        }              
+			        else if (event.getAction() == MotionEvent.ACTION_UP) 
+			        {                  
+			        	restore.getBackground().setAlpha(255);//还原图片 
+			        	restore.setTextColor(Color.BLACK);
+			        }               
+			        return false;         
+			    }     
+			});
 			layout.setOnClickListener(new View.OnClickListener() {
 
 				@Override
@@ -268,6 +299,8 @@ public class BlockManagementActivity extends Activity {
 		}
 	}
 
+	
+	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -283,5 +316,7 @@ public class BlockManagementActivity extends Activity {
 		super.onActivityResult(requestCode, resultCode, data);
 
 	}
+
+
 
 }

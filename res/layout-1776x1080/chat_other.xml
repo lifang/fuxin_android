@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="125dp"
+        android:layout_height="78dp"
+        android:background="@drawable/t"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingTop="7dp" >
+
+        <TextView
+            android:id="@+id/chatset_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="清除聊天记录"
+            android:textColor="#ffffff"
+            android:textSize="18dp" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:layout_marginTop="4dp"
+            android:background="#000000" />
+
+        <TextView
+            android:id="@+id/chatset_block"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:gravity="center_horizontal"
+            android:text="屏蔽此人"
+            android:textColor="#ffffff"
+            android:textSize="18dp" />
+    </LinearLayout>
+
+</LinearLayout>

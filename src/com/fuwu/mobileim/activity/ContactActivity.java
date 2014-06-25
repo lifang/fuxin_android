@@ -63,7 +63,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 	private FxApplication fxApplication;
 	private XListView xListView;// 可上拉刷新 的 listview ，
 	private TextView dialog;
-	private ContactAdapter adapter2;
+	private ContactAdapter  adapter2;
 	private View rootView;
 	private int user_number1 = 0;
 	List<ShortContactPojo> contactsList1 = new ArrayList<ShortContactPojo>();
@@ -126,7 +126,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 						}
 					}
 					FuXunTools.getBitmap(contactsList);
-
+						
 				}
 				switchButton(buttonNumber);
 				onLoad();
@@ -171,7 +171,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		// TODO Auto-generated method stub
 		super.onStart();
 		Log.i("11", "-----------");
-		if (buttonNumber == 0) {
+		if (buttonNumber==0) {
 			handler.sendEmptyMessage(0);
 		}
 	}
@@ -182,6 +182,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 	 * 
 	 * 
 	 */
+
 
 	private void getContacts2() {
 		ExecutorService singleThreadExecutor = Executors
@@ -286,6 +287,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 	}
 
 	private void initViews() {
+
 		xListView = (XListView) rootView
 				.findViewById(R.id.contacts_list_view_refresh);
 		xListView.setDivider(null);
@@ -335,18 +337,18 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		if (height == 1280 && width == 720) {
 			hight0 = 70;
 			param.leftMargin = width1;
-			param.rightMargin = width1 + 1;
+			param.rightMargin = width1+1;
 		} else if (height == 854 && width == 480) {
 			hight0 = 45;
 			width1 = 18;
 			width0 = 2;
 			param.leftMargin = width1;
-			param.rightMargin = width1 - 1;
-		} else if (height == 1920 && width == 1080) {
+			param.rightMargin = width1-1;
+		} else if (height >= 1750&&height <= 1920 && width == 1080) {
 			width1 = 40; // 外部边框距左右边界距离
 			hight0 = 100;
 			param.leftMargin = width1;
-			param.rightMargin = width1 + 1;
+			param.rightMargin = width1;
 		}
 		int hight1 = hight0 - width0 * 2; // button高度
 
@@ -408,8 +410,9 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		}
 	};
 
+	
 	private void switchButton(int buttonNumber) {
-
+		
 		switch (buttonNumber) {
 		case 0:
 			setButtonColor(buttonNumber);
@@ -426,7 +429,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 					contactsList.add(contactsList1.get(i));
 				}
 			}
-			// Collections.sort(contactsList, pinyinComparator);
+//			Collections.sort(contactsList, pinyinComparator);
 			xListView.setAdapter(adapter2);
 			adapter2.updateListView(contactsList);
 			break;
@@ -457,8 +460,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 					contactsList.add(contactsList1.get(i));
 				}
 			}
-			Log.i("linshi",
-					"----1-----2-----3---------------------------------");
+			Log.i("linshi", "----1-----2-----3---------------------------------");
 			Collections.sort(contactsList, longDataComparator);
 			xListView.setAdapter(adapter2);
 			adapter2.updateListView(contactsList);
@@ -467,9 +469,10 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		default:
 			break;
 		}
-
+		
+		
 	}
-
+	
 	private void setButtonColor(int buttonNumber) {
 		for (int i = 0; i < btnList.size(); i++) {
 			if (buttonNumber == i) {
@@ -519,15 +522,15 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 	}
 
 	public void onRefresh() {
-		if (FuXunTools.isConnect(getActivity())) {
+			if (FuXunTools.isConnect(getActivity())) {
 
-			// Thread thread = new Thread(new getContacts2());
-			// thread.start();
-			getContacts2();
-		} else {
-			Toast.makeText(getActivity(), R.string.no_internet,
-					Toast.LENGTH_SHORT).show();
-		}
+				// Thread thread = new Thread(new getContacts2());
+				// thread.start();
+				getContacts2();
+			} else {
+				Toast.makeText(getActivity(), R.string.no_internet,
+						Toast.LENGTH_SHORT).show();
+			}
 	}
 
 	@Override
