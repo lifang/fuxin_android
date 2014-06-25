@@ -697,7 +697,6 @@ public class FragmengtActivity extends FragmentActivity {
 	}
 
 	class RequstReceiver extends BroadcastReceiver {
-		@Override
 		public void onReceive(Context context, Intent intent) {
 			handler.sendEmptyMessage(8);
 			list.get(0).onStart();
@@ -707,7 +706,6 @@ public class FragmengtActivity extends FragmentActivity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			System.exit(0);
-
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
