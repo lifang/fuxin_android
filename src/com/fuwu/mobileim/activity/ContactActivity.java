@@ -44,6 +44,7 @@ import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
+import com.fuwu.mobileim.util.ImageCacheUtil;
 import com.fuwu.mobileim.util.LongDataComparator;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CharacterParser;
@@ -157,7 +158,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		version = Integer.parseInt(release.substring(0, 1));
 		preferences = getActivity().getSharedPreferences(Urlinterface.SHARED,
 				Context.MODE_PRIVATE);
-
+		ImageCacheUtil.IMAGE_CACHE.clear();
 		user_id = preferences.getInt("user_id", -1);
 		longDataComparator = new LongDataComparator();
 		// 实例化汉字转拼音类

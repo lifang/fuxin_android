@@ -1,56 +1,69 @@
 package com.fuwu.mobileim.activity;
 
+import java.io.File;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fuwu.mobileim.R;
+import com.fuwu.mobileim.activity.BlockManagementActivity.BlockContact;
+import com.fuwu.mobileim.model.Models.BlockContactRequest;
+import com.fuwu.mobileim.model.Models.BlockContactResponse;
+import com.fuwu.mobileim.model.Models.ChangeContactDetailRequest;
+import com.fuwu.mobileim.model.Models.ChangeContactDetailResponse;
 import com.fuwu.mobileim.model.Models.Contact;
 import com.fuwu.mobileim.model.Models.ContactDetailRequest;
 import com.fuwu.mobileim.model.Models.ContactDetailResponse;
 import com.fuwu.mobileim.pojo.ContactPojo;
+import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.ImageCacheUtil;
 import com.fuwu.mobileim.util.Urlinterface;
+import com.fuwu.mobileim.view.SlipButton;
+import com.fuwu.mobileim.view.SlipButton.OnChangedListener;
 
 /**
  * @作者 马龙
  * @时间 创建时间：2014-6-16 下午5:30:51
  */
-public class ContactInfoActivity extends Activity implements OnClickListener {
-
+public class ContactInfoActivity extends Activity implements OnClickListener,
+		OnChangedListener {
+	private SlipButton personal_info_shielding;
 	private TextView name;
-	private TextView rem;
-	private View fzLine;
-	private View rzLine;
-	private LinearLayout fz;
-	private LinearLayout rz;
-	private LinearLayout jj;
+	private EditText rem;
 	private TextView lisence;
 	private TextView sign;
 	private TextView fuzhi;
 	private ImageView img;
+	private ImageView sexView;
 	private ImageView img_gou;
 	private ImageView img_yue;
-	private ImageView sexView;
 	private ContactPojo cp;
+	private Button info_ok;
 	private int user_id;
 	private int contact_id;
+	private RelativeLayout personal_info_relativeLayout5;
 	private String token;
 	private ProgressDialog pd;
+	private DBManager db;
+	private boolean shielding;
 	private Handler handler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
@@ -63,6 +76,48 @@ public class ContactInfoActivity extends Activity implements OnClickListener {
 			case 2:
 				Toast.makeText(getApplicationContext(), "获取详细信息失败!", 0).show();
 				break;
+			case 3:
+				String str = rem.getText().toString();
+				db.updateContactRem(user_id, cp.getContactId(), str);
+				Toast.makeText(getApplicationContext(), "修改备注成功!", 0).show();
+				break;
+			case 4:
+				Toast.makeText(getApplicationContext(), "修改备注失败!", 0).show();
+				break;
+			case 6:
+				Toast.makeText(getApplicationContext(), "请求失败",
+						Toast.LENGTH_SHORT).show();
+				break;
+			case 7:
+				Toast.makeText(getApplicationContext(), R.string.no_internet,
+						Toast.LENGTH_SHORT).show();
+				break;
+			case 8:
+				Toast.makeText(getApplicationContext(), "网络异常", 0).show();
+				break;
+			case 9:
+				Toast.makeText(getApplicationContext(), "请求成功",
+						Toast.LENGTH_SHORT).show();
+				db = new DBManager(ContactInfoActivity.this);
+				if (!db.isOpen()) {
+					db = new DBManager(ContactInfoActivity.this);
+				}
+				if (shielding) {
+					db.modifyContactBlock(1, user_id, contact_id);
+				} else {
+					db.modifyContactBlock(0, user_id, contact_id);
+				}
+				break;
+			case 10:
+				personal_info_shielding.setCheck(!shielding);
+				Toast.makeText(getApplicationContext(), "请求失败",
+						Toast.LENGTH_SHORT).show();
+				break;
+			case 11:
+				personal_info_shielding.setCheck(!shielding);
+				Toast.makeText(getApplicationContext(),R.string.no_internet,
+						Toast.LENGTH_SHORT).show();
+				break;
 			}
 		}
 	};
@@ -70,23 +125,42 @@ public class ContactInfoActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.contact_info);
+		setContentView(R.layout.personal_info);
+		db = new DBManager(this);
 		findViewById(R.id.info_sendBtn).setOnClickListener(this);
 		findViewById(R.id.contact_info_back).setOnClickListener(this);
+		findViewById(R.id.info_ok).setOnClickListener(this);
+		personal_info_shielding = (SlipButton) findViewById(R.id.personal_info_shielding);
+
+		personal_info_shielding.setOnChangedListener(this);
 		name = (TextView) findViewById(R.id.info_name);
-		rem = (TextView) findViewById(R.id.info_rem);
-		fzLine = findViewById(R.id.info_fzLine);
-		rzLine = findViewById(R.id.info_rzLine);
-		fz = (LinearLayout) findViewById(R.id.info_fz);
-		rz = (LinearLayout) findViewById(R.id.info_rz);
-		jj = (LinearLayout) findViewById(R.id.info_jj);
+		rem = (EditText) findViewById(R.id.info_rem);
 		lisence = (TextView) findViewById(R.id.info_lisence);
 		sign = (TextView) findViewById(R.id.info_sign);
 		fuzhi = (TextView) findViewById(R.id.info_fuzhi);
-		img = (ImageView) findViewById(R.id.info_img);
 		img_gou = (ImageView) findViewById(R.id.info_gouIcon);
 		img_yue = (ImageView) findViewById(R.id.info_yueIcon);
-		sexView = (ImageView) findViewById(R.id.info_sex);
+		img = (ImageView) findViewById(R.id.info_img); // 头像
+		sexView = (ImageView) findViewById(R.id.info_sex);// 性别
+		info_ok = (Button) findViewById(R.id.info_ok);// 编辑
+		personal_info_relativeLayout5 = (RelativeLayout) findViewById(R.id.personal_info_relativeLayout5);
+		info_ok.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				String str = rem.getText().toString();
+				if (str != null && !str.equals("")) {
+					if (FuXunTools.isConnect(ContactInfoActivity.this)) {
+						pd = new ProgressDialog(ContactInfoActivity.this);
+						pd.setMessage("正在发送请求...");
+						pd.setCanceledOnTouchOutside(false);
+						pd.show();
+						new UpdateContactRem().start();
+					} else {
+						handler.sendEmptyMessage(7);
+					}
+				}
+			}
+		});
 		SharedPreferences sp = getSharedPreferences(Urlinterface.SHARED,
 				Context.MODE_PRIVATE);
 		user_id = sp.getInt("user_id", 1);
@@ -102,7 +176,25 @@ public class ContactInfoActivity extends Activity implements OnClickListener {
 	}
 
 	public void updateData() {
-		ImageCacheUtil.IMAGE_CACHE.get(Urlinterface.head_pic + contact_id, img);
+		// ImageCacheUtil.IMAGE_CACHE.get(Urlinterface.head_pic + contact_id,
+		// img);
+		int isblock = cp.getIsBlocked();
+		if (isblock == 1) {
+			personal_info_shielding.setCheck(true);
+		}
+		String face_str = cp.getUserface_url();
+		if (face_str != null && face_str.length() > 4) {
+			File f = new File(Urlinterface.head_pic, contact_id + "");
+			if (f.exists()) {
+				ImageCacheUtil.IMAGE_CACHE.get(Urlinterface.head_pic
+						+ contact_id, img);
+			} else {
+				FuXunTools.set_bk(contact_id, face_str, img);
+			}
+
+		} else {
+			img.setImageResource(R.drawable.moren);
+		}
 		String str = FuXunTools.toNumber(cp.getSource());
 		if (FuXunTools.isExist(str, 0, 1)) {
 			img_yue.setVisibility(View.VISIBLE);
@@ -115,11 +207,7 @@ public class ContactInfoActivity extends Activity implements OnClickListener {
 			img_gou.setVisibility(View.GONE);
 		}
 		if (cp.getIsProvider() == 0) {
-			fz.setVisibility(View.GONE);
-			rz.setVisibility(View.GONE);
-			jj.setVisibility(View.GONE);
-			fzLine.setVisibility(View.GONE);
-			rzLine.setVisibility(View.GONE);
+			personal_info_relativeLayout5.setVisibility(View.GONE);
 		}
 		int sex = cp.getSex();
 		if (sex == 0) {// 男
@@ -129,9 +217,8 @@ public class ContactInfoActivity extends Activity implements OnClickListener {
 		} else {
 			sexView.setVisibility(View.GONE);
 		}
-
 		name.setText("" + cp.getName());
-		rem.setText("备注:" + cp.getCustomName());
+		rem.setText("" + cp.getCustomName());
 		lisence.setText("" + cp.getLisence());
 		sign.setText("" + cp.getIndividualResume());
 		fuzhi.setText("" + cp.getFuzhi());
@@ -200,6 +287,37 @@ public class ContactInfoActivity extends Activity implements OnClickListener {
 		}
 	}
 
+	class UpdateContactRem extends Thread {
+		public void run() {
+			try {
+				ChangeContactDetailRequest.Builder builder = ChangeContactDetailRequest
+						.newBuilder();
+				builder.setUserId(user_id);
+				builder.setToken(token);
+				Contact.Builder cb = Contact.newBuilder();
+				cb.setContactId(cp.getContactId());
+				String str = rem.getText().toString();
+				cb.setCustomName(str);
+				builder.setContact(cb);
+				ChangeContactDetailRequest response = builder.build();
+				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
+						Urlinterface.ContactDetail, "PUT");
+				if (by != null && by.length > 0) {
+					ChangeContactDetailResponse res = ChangeContactDetailResponse
+							.parseFrom(by);
+					if (res.getIsSucceed()) {
+						handler.sendEmptyMessage(3);
+					} else {
+						handler.sendEmptyMessage(4);
+					}
+				} else {
+					handler.sendEmptyMessage(4);
+				}
+			} catch (Exception e) {
+			}
+		}
+	}
+
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -212,6 +330,76 @@ public class ContactInfoActivity extends Activity implements OnClickListener {
 		case R.id.contact_info_back:
 			this.finish();
 			break;
+		}
+	}
+
+	@Override
+	public void onChanged(boolean checkState, View v) {
+		switch (v.getId()) {
+		case R.id.personal_info_shielding:
+			if (checkState) {
+
+				if (FuXunTools.isConnect(ContactInfoActivity.this)) {
+					pd = new ProgressDialog(this);
+					pd.setMessage("正在屏蔽联系人...");
+					pd.setCanceledOnTouchOutside(false);
+					pd.show();
+					shielding = true;
+					Thread thread = new Thread(new BlockContact());
+					thread.start();
+				} else {
+					handler.sendEmptyMessage(11);
+				}
+
+			} else {
+
+				if (FuXunTools.isConnect(ContactInfoActivity.this)) {
+					pd = new ProgressDialog(this);
+					pd.setMessage("取消屏蔽...");
+					pd.setCanceledOnTouchOutside(false);
+					pd.show();
+					shielding = false;
+					Thread thread = new Thread(new BlockContact());
+					thread.start();
+				} else {
+					handler.sendEmptyMessage(11);
+				}
+			}
+			break;
+		}
+	}
+
+	class BlockContact implements Runnable {
+		public void run() {
+			try {
+
+				BlockContactRequest.Builder builder = BlockContactRequest
+						.newBuilder();
+				builder.setUserId(user_id);
+				builder.setToken(token);
+				builder.setContactId(contact_id);
+				builder.setIsBlocked(shielding);
+
+				BlockContactRequest response = builder.build();
+
+				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
+						Urlinterface.BlockContact, "PUT");
+				if (by != null && by.length > 0) {
+
+					BlockContactResponse res = BlockContactResponse
+							.parseFrom(by);
+					if (res.getIsSucceed()) {
+						handler.sendEmptyMessage(9);
+					} else {
+						handler.sendEmptyMessage(10);
+					}
+				} else {
+					handler.sendEmptyMessage(10);
+				}
+				//
+			} catch (Exception e) {
+				handler.sendEmptyMessage(10);
+			}
 		}
 	}
 
