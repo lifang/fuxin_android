@@ -99,6 +99,8 @@ public class TalkListViewAdapter extends BaseAdapter {
 			ImageCacheUtil.IMAGE_CACHE.get(
 					Urlinterface.head_pic + list.get(arg0).getContact_id(),
 					holder.head);
+		} else {
+			holder.head.setImageResource(R.drawable.moren);
 		}
 		// FuXunTools.set_img(list.get(arg0).getContact_id(), holder.head);
 		return arg1;
