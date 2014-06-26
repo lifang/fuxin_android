@@ -14,6 +14,7 @@ import android.util.Log;
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.activity.FragmengtActivity;
 import com.fuwu.mobileim.activity.LoginActivity;
+import com.fuwu.mobileim.activity.RequstService;
 import com.fuwu.mobileim.model.Models.ClientInfo;
 import com.fuwu.mobileim.model.Models.ClientInfo.OSType;
 import com.fuwu.mobileim.model.Models.ClientInfoRequest;
@@ -46,7 +47,9 @@ public class PushReceiver extends BroadcastReceiver {
 				// true表示后台运行 false表示前台
 				if (sf.getBoolean("pushsetting_sound", true)) {
 					if (FuXunTools.isApplicationBroughtToBackground(context)) {
-
+						Intent i = new Intent();
+						i.setClass(context, RequstService.class);
+						context.startService(i);
 						if (sf.getString("Token", "null").equals("null")) {
 							intent.setClass(context, LoginActivity.class); // 点击该通知后要跳转的Activity
 						} else {

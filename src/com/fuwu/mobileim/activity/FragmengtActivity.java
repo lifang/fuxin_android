@@ -163,6 +163,7 @@ public class FragmengtActivity extends FragmentActivity {
 				Log.i("FuWu", "id:--" + user_id);
 				Log.i("FuWu", "count:--" + count);
 				if (count > 0) {
+					count = count > 99 ? 99 : count;
 					countLinear.setVisibility(View.VISIBLE);
 					countText.setText(count + "");
 				} else {
@@ -710,7 +711,7 @@ public class FragmengtActivity extends FragmentActivity {
 
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			spf.edit().putString("Token", "null").commit();
+			// spf.edit().putString("Token", "null").commit();
 			System.exit(0);
 
 			return true;

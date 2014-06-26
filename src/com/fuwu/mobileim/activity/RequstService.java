@@ -147,6 +147,7 @@ public class RequstService extends Service {
 		public void run() {
 			super.run();
 			try {
+				Log.i("FuWu", "startServer--------");
 				if (!FuXunTools.isApplicationBroughtToBackground(context)) {
 					MessageRequest.Builder builder = MessageRequest
 							.newBuilder();
