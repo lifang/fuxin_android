@@ -163,11 +163,11 @@ public class DBManager {
 		db.beginTransaction();
 		try {
 			db.execSQL(
-					"INSERT INTO contact VALUES(null,?,?,?,?,?,?,?,?,?,?)",
+					"INSERT INTO contact VALUES(null,?,?,?,?,?,?,?,?,?,?,?,?)",
 					new Object[] { cp.getContactId(), cp.getSortKey(),
 							cp.getName(), cp.getCustomName(),
 							cp.getUserface_url(), cp.getSex(), cp.getSource(),
-							cp.getLastContactTime(), cp.getIsBlocked(), userId });
+							cp.getLastContactTime(), cp.getIsBlocked(),cp.getOrderTime(),cp.getSubscribeTime(), userId });
 			db.setTransactionSuccessful();
 		} finally {
 			db.endTransaction();
@@ -224,6 +224,8 @@ public class DBManager {
 				// mp.setSortKey(c.getString(c.getColumnIndex("sortKey")));
 				mp.setSource(c.getInt(c.getColumnIndex("source")));
 				mp.setUserface_url(c.getString(c.getColumnIndex("userface_url")));
+				mp.setOrderTime(c.getString(c.getColumnIndex("orderTime")));
+				mp.setSubscribeTime(c.getString(c.getColumnIndex("subscribeTime")));
 				cpList.add(mp);
 
 			}
@@ -255,6 +257,8 @@ public class DBManager {
 				// mp.setSortKey(c.getString(c.getColumnIndex("sortKey")));
 				mp.setSource(c.getInt(c.getColumnIndex("source")));
 				mp.setUserface_url(c.getString(c.getColumnIndex("userface_url")));
+				mp.setOrderTime(c.getString(c.getColumnIndex("orderTime")));
+				mp.setSubscribeTime(c.getString(c.getColumnIndex("subscribeTime")));
 			}
 		} catch (Exception e) {
 		} finally {
