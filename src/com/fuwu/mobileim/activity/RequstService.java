@@ -35,12 +35,14 @@ import com.google.protobuf.InvalidProtocolBufferException;
 
 public class RequstService extends Service {
 
-	private int time = 25;
+	private boolean flag = false;
+	private int time = 10;
 	private SharedPreferences sp;
 	private IBinder binder = new RequstService.RequstBinder();
 	private ScheduledExecutorService scheduledThreadPool = Executors
 			.newScheduledThreadPool(2);
-	ExecutorService fixedThreadPool = Executors.newFixedThreadPool(2);
+	private ExecutorService fixedThreadPool = Executors.newFixedThreadPool(2);
+	private ExecutorService pushThreadPool = Executors.newFixedThreadPool(2);
 	private DBManager db;
 	private Context context;
 	private int user_id;
@@ -64,14 +66,19 @@ public class RequstService extends Service {
 		context = this;
 		// 防止intent为null时异常
 		if (intent != null) {
-			if (!scheduledThreadPool.isShutdown()) {
-				sp = getSharedPreferences(Urlinterface.SHARED,
-						Context.MODE_PRIVATE);
-				user_id = sp.getInt("user_id", 0);
-				token = sp.getString("Token", "");
-				db = new DBManager(this);
-				scheduledThreadPool.scheduleAtFixedRate(new RequstThread(), 0,
-						time, TimeUnit.SECONDS);
+			sp = getSharedPreferences(Urlinterface.SHARED, Context.MODE_PRIVATE);
+			user_id = sp.getInt("user_id", 0);
+			token = sp.getString("Token", "");
+			db = new DBManager(this);
+			Log.i("FuWu", "type---" + intent.getIntExtra("type", 0));
+			if (intent.getIntExtra("type", 0) == 1) {
+				flag = true;
+				pushThreadPool.execute(new RequstThread());
+			} else {
+				if (!scheduledThreadPool.isShutdown()) {
+					scheduledThreadPool.scheduleAtFixedRate(new RequstThread(),
+							0, time, TimeUnit.SECONDS);
+				}
 			}
 		}
 		return START_STICKY;
@@ -146,14 +153,19 @@ public class RequstService extends Service {
 		public void run() {
 			super.run();
 			try {
-				if (!FuXunTools.isApplicationBroughtToBackground(context)) {
+				Log.i("FuWu", "startServer--------");
+				if (flag
+						|| !FuXunTools
+								.isApplicationBroughtToBackground(context)) {
+					Log.i("FuWu", "RunServer--------" + flag);
+					flag = false;
 					MessageRequest.Builder builder = MessageRequest
 							.newBuilder();
 					Log.i("Ax", "timeStamp:" + getTimeStamp());
 					builder.setUserId(user_id);
 					builder.setToken(token);
 					builder.setTimeStamp(getTimeStamp());
-					Log.i("FuWu", "user_id:" + user_id + "--token:" + token);
+					Log.i("Ax", "user_id:" + user_id + "--token:" + token);
 					MessageRequest response = builder.build();
 					byte[] b = HttpUtil.sendHttps(response.toByteArray(),
 							Urlinterface.Message, "POST");

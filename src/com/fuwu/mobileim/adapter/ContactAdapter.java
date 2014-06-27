@@ -2,7 +2,6 @@ package com.fuwu.mobileim.adapter;
 
 import java.io.File;
 import java.util.List;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -18,7 +17,6 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
-
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.pojo.ShortContactPojo;
 import com.fuwu.mobileim.util.FuXunTools;
@@ -36,7 +34,7 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 	private List<ShortContactPojo> list = null;
 	private Context mContext;
 	private int num = -1;
-	private Bitmap bitmap=null;
+	private Bitmap bitmap = null;
 
 	public ContactAdapter(Context mContext, List<ShortContactPojo> list, int num) {
 		this.mContext = mContext;
@@ -98,43 +96,47 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 		String ContactId = ""+contact.getContactId();
 		Log.i("linshi2", "加载头像---ContactId："+ContactId);
 		if (face_str.length() > 4) {
-			
-//			if (ImageCacheUtil.IMAGE_CACHE.get(ContactId)==null) {
-//				bitmap=null;
-//			}else {
-//				bitmap = ImageCacheUtil.IMAGE_CACHE.get(ContactId).getData();
-//			}
-//			if (bitmap==null) {
-//				Bitmap b = BitmapFactory.decodeFile(Urlinterface.head_pic
-//						+ contact.getContactId());
-//				ImageCacheUtil.IMAGE_CACHE.put(ContactId, b);
-//				viewHolder.contact_user_face.setImageBitmap(b);
-//			}else {
-//				viewHolder.contact_user_face.setImageBitmap(bitmap);
-//			}
-			
-			
-			
+
+			// if (ImageCacheUtil.IMAGE_CACHE.get(ContactId)==null) {
+			// bitmap=null;
+			// }else {
+			// bitmap = ImageCacheUtil.IMAGE_CACHE.get(ContactId).getData();
+			// }
+			// if (bitmap==null) {
+			// Bitmap b = BitmapFactory.decodeFile(Urlinterface.head_pic
+			// + contact.getContactId());
+			// ImageCacheUtil.IMAGE_CACHE.put(ContactId, b);
+			// viewHolder.contact_user_face.setImageBitmap(b);
+			// }else {
+			// viewHolder.contact_user_face.setImageBitmap(bitmap);
+			// }
+
 			File f = new File(Urlinterface.head_pic, contact.getContactId()
 					+ "");
 			if (f.exists()) {
 				Log.i("linshi------------", "加载本地图片");
+				ImageCacheUtil.IMAGE_CACHE.get(
+						Urlinterface.head_pic + contact.getContactId(),
+						viewHolder.contact_user_face);
+				// }
 				if (position == 0) {
-//					viewHolder.contact_user_face
-//							.setImageDrawable(new BitmapDrawable(BitmapFactory
-//									.decodeFile(Urlinterface.head_pic
-//											+ contact.getContactId())));
-					if (ImageCacheUtil.IMAGE_CACHE.get(ContactId)==null) {
-						bitmap=null;
-					}else {
-						bitmap = ImageCacheUtil.IMAGE_CACHE.get(ContactId).getData();
+					// viewHolder.contact_user_face
+					// .setImageDrawable(new BitmapDrawable(BitmapFactory
+					// .decodeFile(Urlinterface.head_pic
+					// + contact.getContactId())));
+					if (ImageCacheUtil.IMAGE_CACHE.get(ContactId) == null) {
+						bitmap = null;
+					} else {
+						bitmap = ImageCacheUtil.IMAGE_CACHE.get(ContactId)
+								.getData();
 					}
-					if (bitmap==null) {
-						Bitmap b = BitmapFactory.decodeFile(Urlinterface.head_pic
-								+ contact.getContactId());
+					if (bitmap == null) {
+						Bitmap b = BitmapFactory
+								.decodeFile(Urlinterface.head_pic
+										+ contact.getContactId());
 						ImageCacheUtil.IMAGE_CACHE.put(ContactId, b);
 						viewHolder.contact_user_face.setImageBitmap(b);
-					}else {
+					} else {
 						viewHolder.contact_user_face.setImageBitmap(bitmap);
 					}
 				} else {
@@ -233,22 +235,6 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 		}
 
 		return -1;
-	}
-
-	/**
-	 * 提取英文的首字母，非英文字母用#代替。
-	 * 
-	 * @param str
-	 * @return
-	 */
-	private String getAlpha(String str) {
-		String sortStr = str.trim().substring(0, 1).toUpperCase();
-		// 正则表达式，判断首字母是否是英文字母
-		if (sortStr.matches("[A-Z]")) {
-			return sortStr;
-		} else {
-			return "#";
-		}
 	}
 
 	/**

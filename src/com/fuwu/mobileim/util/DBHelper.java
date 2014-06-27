@@ -29,12 +29,12 @@ public class DBHelper extends SQLiteOpenHelper {
 		// 联系人表: 联系人id，首字母,昵称，备注,头像,性别,交易订阅,最近联系时间,是否屏蔽
 		db.execSQL("CREATE TABLE IF NOT EXISTS contact"
 				+ "(id INTEGER PRIMARY KEY AUTOINCREMENT,contactId INTEGER,sortKey VARCHAR, name VARCHAR, customName VARCHAR,userface_url VARCHAR,sex INTEGER,source INTEGER,lastContactTime VARCHAR,isBlocked INTEGER,userId INTEGER,orderTime VARCHAR,subscribeTime VARCHAR)");
-		// 
+		//
 		db.execSQL("CREATE TABLE IF NOT EXISTS push"
 				+ "(id INTEGER PRIMARY KEY AUTOINCREMENT,content VARCHAR,url VARCHAR,time VARCHAR,status INTEGER,userId INTEGER)");
-	
-		 Log.i("xinye", "#############数据库创建了##############:" + DATABASE_VERSION);
-			
+
+		Log.i("xinye", "#############数据库创建了##############:" + DATABASE_VERSION);
+
 	}
 
 	// 如果DATABASE_VERSION值被改为2,系统发现现有数据库版本不同,即会调用onUpgrade
@@ -42,7 +42,6 @@ public class DBHelper extends SQLiteOpenHelper {
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		db.execSQL("ALTER TABLE contact ADD orderTime VARCHAR");
 		db.execSQL("ALTER TABLE contact ADD subscribeTime VARCHAR");
-		 Log.i("xinye", "#############数据库升级了##############:" + DATABASE_VERSION);
-			
+		Log.i("xinye", "#############数据库升级了##############:" + DATABASE_VERSION);
 	}
 }

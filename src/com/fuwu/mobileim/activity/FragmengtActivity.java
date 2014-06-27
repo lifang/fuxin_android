@@ -159,6 +159,7 @@ public class FragmengtActivity extends FragmentActivity {
 			case 8:
 				int count = db.queryMessageCount(user_id);
 				if (count > 0) {
+					count = count > 99 ? 99 : count;
 					countLinear.setVisibility(View.VISIBLE);
 					countText.setText(count + "");
 				} else {
@@ -456,8 +457,6 @@ public class FragmengtActivity extends FragmentActivity {
 
 	/**
 	 * 获得button 以及设置监听
-	 * 
-	 * 
 	 */
 	private void getButton() {
 		menu_talk = (TextView) findViewById(R.id.menu_talk);
@@ -473,8 +472,6 @@ public class FragmengtActivity extends FragmentActivity {
 
 	/**
 	 * 改变文本 的颜色
-	 * 
-	 * 
 	 */
 	private void changeColor(int buttonNumber) {
 
@@ -566,8 +563,6 @@ public class FragmengtActivity extends FragmentActivity {
 		contacts_search_listview.setDivider(null);
 		contacts_search_listview
 				.setOnItemClickListener(new OnItemClickListener() {
-
-					@Override
 					public void onItemClick(AdapterView<?> parent, View view,
 							int position, long id) {
 						SharedPreferences preferences = getSharedPreferences(
@@ -592,7 +587,6 @@ public class FragmengtActivity extends FragmentActivity {
 	 * 搜索按妞
 	 */
 	private View.OnClickListener listener1 = new View.OnClickListener() {
-		@Override
 		public void onClick(View v) {
 			vp.setVisibility(View.GONE);
 			main_search.setVisibility(View.VISIBLE);
@@ -612,7 +606,6 @@ public class FragmengtActivity extends FragmentActivity {
 	 * 清空搜索框
 	 */
 	private View.OnClickListener listener2 = new View.OnClickListener() {
-		@Override
 		public void onClick(View v) {
 			contact_search_edittext.setText("");
 		}
@@ -621,7 +614,6 @@ public class FragmengtActivity extends FragmentActivity {
 	 * 取消
 	 */
 	private View.OnClickListener listener3 = new View.OnClickListener() {
-		@Override
 		public void onClick(View v) {
 			vp.setVisibility(View.VISIBLE);
 			main_search.setVisibility(View.GONE);
@@ -663,7 +655,6 @@ public class FragmengtActivity extends FragmentActivity {
 				}
 			}
 		}
-
 		return contactsLists;
 	}
 
@@ -675,7 +666,6 @@ public class FragmengtActivity extends FragmentActivity {
 			this.index = index;
 		}
 
-		@Override
 		public void onClick(View v) {
 			if (index != currIndex) {
 				changeLocation(index);
@@ -683,7 +673,6 @@ public class FragmengtActivity extends FragmentActivity {
 		}
 	}
 
-	@Override
 	protected void onResume() {
 		super.onResume();
 		registerReceiver(mReuRequstReceiver, new IntentFilter(
@@ -692,7 +681,6 @@ public class FragmengtActivity extends FragmentActivity {
 		StatService.onResume(this);
 	}
 
-	@Override
 	protected void onPause() {
 		super.onPause();
 		unregisterReceiver(mReuRequstReceiver);
@@ -708,6 +696,7 @@ public class FragmengtActivity extends FragmentActivity {
 
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			// spf.edit().putString("Token", "null").commit();
 			System.exit(0);
 			return true;
 		}

@@ -1,5 +1,6 @@
 package com.fuwu.mobileim.util;
 
+import android.R.menu;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -14,6 +15,7 @@ import android.util.Log;
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.activity.FragmengtActivity;
 import com.fuwu.mobileim.activity.LoginActivity;
+import com.fuwu.mobileim.activity.RequstService;
 import com.fuwu.mobileim.model.Models.ClientInfo;
 import com.fuwu.mobileim.model.Models.ClientInfo.OSType;
 import com.fuwu.mobileim.model.Models.ClientInfoRequest;
@@ -46,19 +48,18 @@ public class PushReceiver extends BroadcastReceiver {
 				// true表示后台运行 false表示前台
 				if (sf.getBoolean("pushsetting_sound", true)) {
 					if (FuXunTools.isApplicationBroughtToBackground(context)) {
-
+						Intent i = new Intent();
+						i.putExtra("type", 1);
+						i.setClass(context, RequstService.class);
+						context.startService(i);
 						if (sf.getString("Token", "null").equals("null")) {
 							intent.setClass(context, LoginActivity.class); // 点击该通知后要跳转的Activity
 						} else {
 							intent.setClass(context, FragmengtActivity.class); // 点击该通知后要跳转的Activity
 						}
-						Log.i("Max", "1111");
 						byte[] byteArray = Base64.decode(data, Base64.DEFAULT);
 						Log.i("Max", byteArray.toString());
 						try {
-							// MessagePush mp =
-							// MessagePush.parseFrom(byteArray);
-							Log.i("Max", "222");
 							PushRequest pr = PushRequest.parseFrom(byteArray);
 							Log.i("Max", "收到推送");
 							MessagePush mp = pr.getMessagePush();

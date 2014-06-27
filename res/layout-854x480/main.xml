@@ -118,11 +118,11 @@
                     <TextView
                         android:id="@+id/menu_talk"
                         android:layout_width="wrap_content"
-                        android:layout_height="40dp"
+                        android:layout_height="30dp"
                         android:gravity="center"
                         android:text="@string/talk"
                         android:textColor="@color/red_block"
-                        android:textSize="20dp" />
+                        android:textSize="17dp" />
 
                     <LinearLayout
                         android:id="@+id/main_countLinear"
