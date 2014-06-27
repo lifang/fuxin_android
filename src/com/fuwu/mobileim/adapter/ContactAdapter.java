@@ -40,6 +40,7 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 		this.mContext = mContext;
 		this.list = list;
 		this.num = num;
+		
 	}
 
 	/**
@@ -92,7 +93,8 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 
 		// 设置头像
 		String face_str = contact.getUserface_url();
-		String ContactId = "" + contact.getContactId();
+		String ContactId = ""+contact.getContactId();
+		Log.i("linshi2", "加载头像---ContactId："+ContactId);
 		if (face_str.length() > 4) {
 
 			// if (ImageCacheUtil.IMAGE_CACHE.get(ContactId)==null) {
