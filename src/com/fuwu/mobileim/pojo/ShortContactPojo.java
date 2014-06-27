@@ -16,14 +16,18 @@ public class ShortContactPojo {
 	private int source;  //  是否交易 是否订阅
 	private String lastContactTime; //最近联系时间
 	private int isBlocked; //是否屏蔽   1 --屏蔽    0--没屏蔽
-	
+	private String orderTime; //最后产生订单时间
+	private String subscribeTime; //最后订阅时间
 	public ShortContactPojo() {
 	}
 	
 	
+
+
 	public ShortContactPojo(int contactId, String sortKey, String name,
 			String customName, String userface_url, int sex, int source,
-			String lastContactTime, int isBlocked) {
+			String lastContactTime, int isBlocked, String orderTime,
+			String subscribeTime) {
 		super();
 		this.contactId = contactId;
 		this.sortKey = sortKey;
@@ -34,9 +38,29 @@ public class ShortContactPojo {
 		this.source = source;
 		this.lastContactTime = lastContactTime;
 		this.isBlocked = isBlocked;
-	
+		this.orderTime = orderTime;
+		this.subscribeTime = subscribeTime;
 	}
-	
+
+
+	public String getOrderTime() {
+		return orderTime;
+	}
+
+
+	public void setOrderTime(String orderTime) {
+		this.orderTime = orderTime;
+	}
+
+
+	public String getSubscribeTime() {
+		return subscribeTime;
+	}
+
+
+	public void setSubscribeTime(String subscribeTime) {
+		this.subscribeTime = subscribeTime;
+	}
 
 
 	public int getContactId() {

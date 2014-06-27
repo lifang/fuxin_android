@@ -3,6 +3,9 @@ package com.fuwu.mobileim.adapter;
 import java.io.File;
 import java.util.List;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -31,6 +34,7 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 	private List<ShortContactPojo> list = null;
 	private Context mContext;
 	private int num = -1;
+	private Bitmap bitmap = null;
 
 	public ContactAdapter(Context mContext, List<ShortContactPojo> list, int num) {
 		this.mContext = mContext;
@@ -88,7 +92,23 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 
 		// 设置头像
 		String face_str = contact.getUserface_url();
+		String ContactId = "" + contact.getContactId();
 		if (face_str.length() > 4) {
+
+			// if (ImageCacheUtil.IMAGE_CACHE.get(ContactId)==null) {
+			// bitmap=null;
+			// }else {
+			// bitmap = ImageCacheUtil.IMAGE_CACHE.get(ContactId).getData();
+			// }
+			// if (bitmap==null) {
+			// Bitmap b = BitmapFactory.decodeFile(Urlinterface.head_pic
+			// + contact.getContactId());
+			// ImageCacheUtil.IMAGE_CACHE.put(ContactId, b);
+			// viewHolder.contact_user_face.setImageBitmap(b);
+			// }else {
+			// viewHolder.contact_user_face.setImageBitmap(bitmap);
+			// }
+
 			File f = new File(Urlinterface.head_pic, contact.getContactId()
 					+ "");
 			if (f.exists()) {
@@ -97,6 +117,31 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 						Urlinterface.head_pic + contact.getContactId(),
 						viewHolder.contact_user_face);
 				// }
+				if (position == 0) {
+					// viewHolder.contact_user_face
+					// .setImageDrawable(new BitmapDrawable(BitmapFactory
+					// .decodeFile(Urlinterface.head_pic
+					// + contact.getContactId())));
+					if (ImageCacheUtil.IMAGE_CACHE.get(ContactId) == null) {
+						bitmap = null;
+					} else {
+						bitmap = ImageCacheUtil.IMAGE_CACHE.get(ContactId)
+								.getData();
+					}
+					if (bitmap == null) {
+						Bitmap b = BitmapFactory
+								.decodeFile(Urlinterface.head_pic
+										+ contact.getContactId());
+						ImageCacheUtil.IMAGE_CACHE.put(ContactId, b);
+						viewHolder.contact_user_face.setImageBitmap(b);
+					} else {
+						viewHolder.contact_user_face.setImageBitmap(bitmap);
+					}
+				} else {
+					ImageCacheUtil.IMAGE_CACHE.get(Urlinterface.head_pic
+							+ contact.getContactId(),
+							viewHolder.contact_user_face);
+				}
 
 			} else {
 				FuXunTools.set_bk(contact.getContactId(), face_str,

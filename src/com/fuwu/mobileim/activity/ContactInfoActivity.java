@@ -7,13 +7,14 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -22,7 +23,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fuwu.mobileim.R;
-import com.fuwu.mobileim.activity.BlockManagementActivity.BlockContact;
 import com.fuwu.mobileim.model.Models.BlockContactRequest;
 import com.fuwu.mobileim.model.Models.BlockContactResponse;
 import com.fuwu.mobileim.model.Models.ChangeContactDetailRequest;
@@ -43,7 +43,7 @@ import com.fuwu.mobileim.view.SlipButton.OnChangedListener;
  * @作者 马龙
  * @时间 创建时间：2014-6-16 下午5:30:51
  */
-public class ContactInfoActivity extends Activity implements OnClickListener,
+public class ContactInfoActivity extends Activity implements OnClickListener,OnTouchListener,
 		OnChangedListener {
 	private SlipButton personal_info_shielding;
 	private TextView name;
@@ -129,6 +129,7 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 		db = new DBManager(this);
 		findViewById(R.id.info_sendBtn).setOnClickListener(this);
 		findViewById(R.id.contact_info_back).setOnClickListener(this);
+		findViewById(R.id.contact_info_back).setOnTouchListener(this);
 		findViewById(R.id.info_ok).setOnClickListener(this);
 		personal_info_shielding = (SlipButton) findViewById(R.id.personal_info_shielding);
 
@@ -141,6 +142,7 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 		img_gou = (ImageView) findViewById(R.id.info_gouIcon);
 		img_yue = (ImageView) findViewById(R.id.info_yueIcon);
 		img = (ImageView) findViewById(R.id.info_img); // 头像
+		img.setOnClickListener(listener);
 		sexView = (ImageView) findViewById(R.id.info_sex);// 性别
 		info_ok = (Button) findViewById(R.id.info_ok);// 编辑
 		personal_info_relativeLayout5 = (RelativeLayout) findViewById(R.id.personal_info_relativeLayout5);
@@ -175,6 +177,19 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 		new GetContactDetail().start();
 	}
 
+	
+	
+	private View.OnClickListener listener = new View.OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			Intent intent = new Intent();
+			intent.putExtra("image_path", Urlinterface.head_pic
+					+ contact_id);
+			intent.setClass(ContactInfoActivity.this, ComtactZoomImageActivity.class);
+			startActivity(intent);
+		}
+	};
 	public void updateData() {
 		// ImageCacheUtil.IMAGE_CACHE.get(Urlinterface.head_pic + contact_id,
 		// img);
@@ -401,6 +416,25 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 				handler.sendEmptyMessage(10);
 			}
 		}
+	}
+
+	@Override
+	public boolean onTouch(View v, MotionEvent event) {
+		if (event.getAction() == MotionEvent.ACTION_DOWN) {
+			switch (v.getId()) {
+			case R.id.contact_info_back:
+				Log.i("linshi", "onTouchonTouchonTouchonTouch--my_info_back");
+				findViewById(R.id.contact_info_back).getBackground().setAlpha(70);
+				break;
+			}
+		} else if (event.getAction() == MotionEvent.ACTION_UP) {
+			switch (v.getId()) {
+			case R.id.contact_info_back:
+				findViewById(R.id.contact_info_back).getBackground().setAlpha(255);
+				break;
+			}
+		}
+		return false;
 	}
 
 }
