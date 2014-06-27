@@ -2,7 +2,6 @@ package com.fuwu.mobileim.adapter;
 
 import java.io.File;
 import java.util.List;
-
 import android.content.Context;
 import android.util.Log;
 import android.view.Gravity;
@@ -15,9 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
-
 import com.fuwu.mobileim.R;
-import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.pojo.ShortContactPojo;
 import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.ImageCacheUtil;
@@ -99,10 +96,8 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 				ImageCacheUtil.IMAGE_CACHE.get(
 						Urlinterface.head_pic + contact.getContactId(),
 						viewHolder.contact_user_face);
-				// Drawable dra = new BitmapDrawable(
-				// BitmapFactory.decodeFile(Urlinterface.head_pic +
-				// contact.getContactId()));
-				// viewHolder.contact_user_face.setImageDrawable(dra);
+				// }
+
 			} else {
 				FuXunTools.set_bk(contact.getContactId(), face_str,
 						viewHolder.contact_user_face);
@@ -130,22 +125,24 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 		if (num == 1) { // num =1时 ，代表全部，，要判断是否 购买和订阅
 
 			String str = FuXunTools.toNumber(contact.getSource());
-		
+
 			if (FuXunTools.isExist(str, 2, 3)) {
 				viewHolder.contact_gou.setVisibility(View.VISIBLE);
-				LayoutParams param = (LayoutParams) viewHolder.contact_yue.getLayoutParams();
+				LayoutParams param = (LayoutParams) viewHolder.contact_yue
+						.getLayoutParams();
 				param.leftMargin = 10;
 			} else {
 				viewHolder.contact_gou.setVisibility(View.GONE);
-				LayoutParams param = (LayoutParams) viewHolder.contact_yue.getLayoutParams();
+				LayoutParams param = (LayoutParams) viewHolder.contact_yue
+						.getLayoutParams();
 				param.leftMargin = 0;
-				param.gravity=Gravity.CENTER_VERTICAL;
+				param.gravity = Gravity.CENTER_VERTICAL;
 			}
 			if (FuXunTools.isExist(str, 0, 1)) {
 				viewHolder.contact_yue.setVisibility(View.VISIBLE);
 			} else {
 				viewHolder.contact_yue.setVisibility(View.GONE);
-				
+
 			}
 
 		} else {
@@ -191,22 +188,6 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 		}
 
 		return -1;
-	}
-
-	/**
-	 * 提取英文的首字母，非英文字母用#代替。
-	 * 
-	 * @param str
-	 * @return
-	 */
-	private String getAlpha(String str) {
-		String sortStr = str.trim().substring(0, 1).toUpperCase();
-		// 正则表达式，判断首字母是否是英文字母
-		if (sortStr.matches("[A-Z]")) {
-			return sortStr;
-		} else {
-			return "#";
-		}
 	}
 
 	/**

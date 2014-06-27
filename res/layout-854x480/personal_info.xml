@@ -90,8 +90,8 @@
                     android:layout_width="30dp"
                     android:layout_height="17dp"
                     android:layout_centerVertical="true"
-                    android:visibility="gone"
-                    android:src="@drawable/gou" />
+                    android:src="@drawable/gou"
+                    android:visibility="gone" />
 
                 <ImageView
                     android:id="@+id/info_yueIcon"
@@ -99,9 +99,9 @@
                     android:layout_height="17dp"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="19dp"
-                    android:visibility="gone"
                     android:layout_toRightOf="@+id/info_gouIcon"
-                    android:src="@drawable/yue" />
+                    android:src="@drawable/yue"
+                    android:visibility="gone" />
             </RelativeLayout>
         </RelativeLayout>
     </RelativeLayout>
@@ -132,7 +132,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="57dp"
+            android:layout_marginRight="62dp"
             android:layout_toRightOf="@+id/personal_info_customName"
             android:background="@null"
             android:gravity="center"
@@ -147,7 +147,7 @@
             android:layout_width="42dp"
             android:layout_height="34dp"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="7dp"
+            android:layout_marginRight="17dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/chat_bottombar_btn_selector"
             android:text="编辑" />
@@ -264,7 +264,7 @@
 
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="50dip"
+            android:layout_height="fill_parent"
             android:layout_below="@+id/personal_info_fz"
             android:background="#E4E4E4" >
 
@@ -272,23 +272,32 @@
                 android:id="@+id/info_sign_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_marginLeft="17dp"
+                android:layout_marginTop="10dp"
                 android:text="个人简介"
                 android:textColor="#333333"
                 android:textSize="19dp" />
 
-            <TextView
-                android:id="@+id/info_sign"
+            <ScrollView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="17dp"
                 android:layout_toRightOf="@+id/info_sign_text"
-                android:text=""
-                android:textColor="#333333"
-                android:textSize="17dp" />
+                android:cacheColorHint="#00000000"
+                android:fadingEdge="none"
+                android:listSelector="#00000000"
+                android:scrollbars="none" >
+
+                <TextView
+                    android:id="@+id/info_sign"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="#333333"
+                    android:textSize="19dp" />
+            </ScrollView>
         </RelativeLayout>
     </RelativeLayout>
 

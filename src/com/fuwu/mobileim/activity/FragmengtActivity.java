@@ -19,7 +19,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.Matrix;
 import android.os.Bundle;
 import android.os.Handler;
@@ -57,7 +56,6 @@ import com.fuwu.mobileim.adapter.ContactAdapter;
 import com.fuwu.mobileim.adapter.FragmentViewPagerAdapter;
 import com.fuwu.mobileim.model.Models.ContactRequest;
 import com.fuwu.mobileim.model.Models.ContactResponse;
-import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.pojo.ShortContactPojo;
 import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FuXunTools;
@@ -160,8 +158,6 @@ public class FragmengtActivity extends FragmentActivity {
 				break;
 			case 8:
 				int count = db.queryMessageCount(user_id);
-				Log.i("FuWu", "id:--" + user_id);
-				Log.i("FuWu", "count:--" + count);
 				if (count > 0) {
 					count = count > 99 ? 99 : count;
 					countLinear.setVisibility(View.VISIBLE);
@@ -702,7 +698,6 @@ public class FragmengtActivity extends FragmentActivity {
 	}
 
 	class RequstReceiver extends BroadcastReceiver {
-		@Override
 		public void onReceive(Context context, Intent intent) {
 			handler.sendEmptyMessage(8);
 			list.get(0).onStart();
@@ -713,7 +708,6 @@ public class FragmengtActivity extends FragmentActivity {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			// spf.edit().putString("Token", "null").commit();
 			System.exit(0);
-
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);

@@ -48,6 +48,7 @@ public class PushReceiver extends BroadcastReceiver {
 				if (sf.getBoolean("pushsetting_sound", true)) {
 					if (FuXunTools.isApplicationBroughtToBackground(context)) {
 						Intent i = new Intent();
+						i.putExtra("type", 1);
 						i.setClass(context, RequstService.class);
 						context.startService(i);
 						if (sf.getString("Token", "null").equals("null")) {
