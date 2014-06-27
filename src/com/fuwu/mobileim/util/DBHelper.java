@@ -1,14 +1,22 @@
 package com.fuwu.mobileim.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fuwu.mobileim.pojo.VersionPojo;
+
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 
 public class DBHelper extends SQLiteOpenHelper {
 
 	private static final String DATABASE_NAME = "fuxun.db";
 	private static final int DATABASE_VERSION = 2;
+	private VersionPojo vPojo;
+	private List<VersionPojo> list_version;
 
 	public DBHelper(Context context) {
 		// CursorFactory设置为null,使用默认值
@@ -38,10 +46,22 @@ public class DBHelper extends SQLiteOpenHelper {
 	}
 
 	// 如果DATABASE_VERSION值被改为2,系统发现现有数据库版本不同,即会调用onUpgrade
-	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		db.execSQL("ALTER TABLE contact ADD orderTime VARCHAR");
-		db.execSQL("ALTER TABLE contact ADD subscribeTime VARCHAR");
+		update_db();
+		for (int j = 0; j < list_version.size(); j++) {
+			VersionPojo pojo = list_version.get(j);
+			if (pojo.getVersion() > oldVersion) {
+				db.execSQL(pojo.getSql_str());
+			}
+		}
 		Log.i("xinye", "#############数据库升级了##############:" + DATABASE_VERSION);
+	}
+
+	public void update_db() {
+		list_version = new ArrayList<VersionPojo>();
+		list_version.add(new VersionPojo(2,
+				"ALTER TABLE contact ADD orderTime VARCHAR"));
+		list_version.add(new VersionPojo(2,
+				"ALTER TABLE contact ADD subscribeTime VARCHAR"));
 	}
 }
