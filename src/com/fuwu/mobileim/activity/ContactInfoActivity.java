@@ -2,6 +2,7 @@ package com.fuwu.mobileim.activity;
 
 import java.io.File;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -14,7 +15,9 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
 import android.view.View.OnTouchListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -43,8 +46,8 @@ import com.fuwu.mobileim.view.SlipButton.OnChangedListener;
  * @作者 马龙
  * @时间 创建时间：2014-6-16 下午5:30:51
  */
-public class ContactInfoActivity extends Activity implements OnClickListener,OnTouchListener,
-		OnChangedListener {
+public class ContactInfoActivity extends Activity implements OnClickListener,
+		OnTouchListener, OnChangedListener {
 	private SlipButton personal_info_shielding;
 	private TextView name;
 	private EditText rem;
@@ -77,6 +80,23 @@ public class ContactInfoActivity extends Activity implements OnClickListener,OnT
 				Toast.makeText(getApplicationContext(), "获取详细信息失败!", 0).show();
 				break;
 			case 3:
+				
+				InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+				boolean isOpen = imm.isActive();
+				if (isOpen) {
+					imm.hideSoftInputFromWindow(ContactInfoActivity.this
+							.getCurrentFocus().getWindowToken(),
+							InputMethodManager.HIDE_NOT_ALWAYS);
+				}
+				findViewById(R.id.personal_info_customName).setFocusable(
+						true);
+				findViewById(R.id.personal_info_customName)
+						.setFocusableInTouchMode(true);
+				findViewById(R.id.personal_info_customName)
+				.requestFocus();
+				info_ok.setClickable(false);
+				info_ok.setTextColor(getResources().getColor(
+						R.color.system_textColor2));
 				String str = rem.getText().toString();
 				db.updateContactRem(user_id, cp.getContactId(), str);
 				Toast.makeText(getApplicationContext(), "修改备注成功!", 0).show();
@@ -115,7 +135,7 @@ public class ContactInfoActivity extends Activity implements OnClickListener,OnT
 				break;
 			case 11:
 				personal_info_shielding.setCheck(!shielding);
-				Toast.makeText(getApplicationContext(),R.string.no_internet,
+				Toast.makeText(getApplicationContext(), R.string.no_internet,
 						Toast.LENGTH_SHORT).show();
 				break;
 			}
@@ -131,11 +151,13 @@ public class ContactInfoActivity extends Activity implements OnClickListener,OnT
 		findViewById(R.id.contact_info_back).setOnClickListener(this);
 		findViewById(R.id.contact_info_back).setOnTouchListener(this);
 		findViewById(R.id.info_ok).setOnClickListener(this);
+		// findViewById(R.id.info_rem).setOnClickListener(this);
 		personal_info_shielding = (SlipButton) findViewById(R.id.personal_info_shielding);
 
 		personal_info_shielding.setOnChangedListener(this);
 		name = (TextView) findViewById(R.id.info_name);
 		rem = (EditText) findViewById(R.id.info_rem);
+
 		lisence = (TextView) findViewById(R.id.info_lisence);
 		sign = (TextView) findViewById(R.id.info_sign);
 		fuzhi = (TextView) findViewById(R.id.info_fuzhi);
@@ -144,23 +166,17 @@ public class ContactInfoActivity extends Activity implements OnClickListener,OnT
 		img = (ImageView) findViewById(R.id.info_img); // 头像
 		img.setOnClickListener(listener);
 		sexView = (ImageView) findViewById(R.id.info_sex);// 性别
-		info_ok = (Button) findViewById(R.id.info_ok);// 编辑
+		info_ok = (Button) findViewById(R.id.info_ok);// 保存
+		info_ok.setClickable(false);
 		personal_info_relativeLayout5 = (RelativeLayout) findViewById(R.id.personal_info_relativeLayout5);
-		info_ok.setOnClickListener(new OnClickListener() {
+		rem.setOnFocusChangeListener(new OnFocusChangeListener() {
+
+			@SuppressLint("ResourceAsColor")
 			@Override
-			public void onClick(View v) {
-				String str = rem.getText().toString();
-				if (str != null && !str.equals("")) {
-					if (FuXunTools.isConnect(ContactInfoActivity.this)) {
-						pd = new ProgressDialog(ContactInfoActivity.this);
-						pd.setMessage("正在发送请求...");
-						pd.setCanceledOnTouchOutside(false);
-						pd.show();
-						new UpdateContactRem().start();
-					} else {
-						handler.sendEmptyMessage(7);
-					}
-				}
+			public void onFocusChange(View v, boolean hasFocus) {
+				// TODO Auto-generated method stub
+				info_ok.setClickable(true);
+				info_ok.setTextColor(getResources().getColor(R.color.red_block));
 			}
 		});
 		SharedPreferences sp = getSharedPreferences(Urlinterface.SHARED,
@@ -177,19 +193,18 @@ public class ContactInfoActivity extends Activity implements OnClickListener,OnT
 		new GetContactDetail().start();
 	}
 
-	
-	
 	private View.OnClickListener listener = new View.OnClickListener() {
 
 		@Override
 		public void onClick(View v) {
 			Intent intent = new Intent();
-			intent.putExtra("image_path", Urlinterface.head_pic
-					+ contact_id);
-			intent.setClass(ContactInfoActivity.this, ComtactZoomImageActivity.class);
+			intent.putExtra("image_path", Urlinterface.head_pic + contact_id);
+			intent.setClass(ContactInfoActivity.this,
+					ComtactZoomImageActivity.class);
 			startActivity(intent);
 		}
 	};
+
 	public void updateData() {
 		// ImageCacheUtil.IMAGE_CACHE.get(Urlinterface.head_pic + contact_id,
 		// img);
@@ -345,6 +360,23 @@ public class ContactInfoActivity extends Activity implements OnClickListener,OnT
 		case R.id.contact_info_back:
 			this.finish();
 			break;
+		case R.id.info_rem:
+			rem.setFocusable(true);
+			break;
+		case R.id.info_ok:
+			String str = rem.getText().toString();
+			if (str != null && !str.equals("")) {
+				if (FuXunTools.isConnect(ContactInfoActivity.this)) {
+					pd = new ProgressDialog(ContactInfoActivity.this);
+					pd.setMessage("正在发送请求...");
+					pd.setCanceledOnTouchOutside(false);
+					pd.show();
+					new UpdateContactRem().start();
+				} else {
+					handler.sendEmptyMessage(7);
+				}
+			}
+			break;
 		}
 	}
 
@@ -424,13 +456,15 @@ public class ContactInfoActivity extends Activity implements OnClickListener,OnT
 			switch (v.getId()) {
 			case R.id.contact_info_back:
 				Log.i("linshi", "onTouchonTouchonTouchonTouch--my_info_back");
-				findViewById(R.id.contact_info_back).getBackground().setAlpha(70);
+				findViewById(R.id.contact_info_back).getBackground().setAlpha(
+						70);
 				break;
 			}
 		} else if (event.getAction() == MotionEvent.ACTION_UP) {
 			switch (v.getId()) {
 			case R.id.contact_info_back:
-				findViewById(R.id.contact_info_back).getBackground().setAlpha(255);
+				findViewById(R.id.contact_info_back).getBackground().setAlpha(
+						255);
 				break;
 			}
 		}
