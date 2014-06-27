@@ -159,6 +159,7 @@ public class FragmengtActivity extends FragmentActivity {
 			case 8:
 				int count = db.queryMessageCount(user_id);
 				if (count > 0) {
+					count = count > 99 ? 99 : count;
 					countLinear.setVisibility(View.VISIBLE);
 					countText.setText(count + "");
 				} else {
@@ -400,10 +401,13 @@ public class FragmengtActivity extends FragmentActivity {
 							String lisence = res.getContacts(i).getLisence();
 							String individualResume = res.getContacts(i)
 									.getIndividualResume();
+							String orderTime = res.getContacts(i).getOrderTime();
+							String subscribeTime = res.getContacts(i)
+									.getSubscribeTime();
 							ShortContactPojo coPojo = new ShortContactPojo(
 									contactId, sortKey, name, customName,
 									userface_url, sex, source, lastContactTime,
-									isBlocked);
+									isBlocked,orderTime,subscribeTime);
 							contactsLists.add(coPojo);
 
 						}
@@ -682,7 +686,7 @@ public class FragmengtActivity extends FragmentActivity {
 		unregisterReceiver(mReuRequstReceiver);
 		StatService.onPause(this);
 	}
-
+ 
 	class RequstReceiver extends BroadcastReceiver {
 		public void onReceive(Context context, Intent intent) {
 			handler.sendEmptyMessage(8);
@@ -692,6 +696,7 @@ public class FragmengtActivity extends FragmentActivity {
 
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			// spf.edit().putString("Token", "null").commit();
 			System.exit(0);
 			return true;
 		}

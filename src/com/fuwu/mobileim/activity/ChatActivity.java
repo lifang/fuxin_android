@@ -18,9 +18,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -31,10 +29,7 @@ import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.Editable;
-import android.text.Spannable;
-import android.text.SpannableString;
 import android.text.TextWatcher;
-import android.text.style.ImageSpan;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
@@ -180,9 +175,9 @@ public class ChatActivity extends Activity implements OnClickListener,
 				Toast.makeText(getApplicationContext(), "消息发送成功!", 0).show();
 				break;
 			case 7:
-				Intent intent = new Intent();
-				intent.setClass(ChatActivity.this, RequstService.class);
-				startService(intent);
+				// Intent intent = new Intent();
+				// intent.setClass(ChatActivity.this, RequstService.class);
+				// startService(intent);
 				break;
 			case 8:
 				Toast.makeText(getApplicationContext(), "网络异常", 0).show();
@@ -382,41 +377,41 @@ public class ChatActivity extends Activity implements OnClickListener,
 				} else {
 					int count = currentPage * FxApplication.NUM + arg2;
 					// 下面这部分，在EditText中显示表情
-					Bitmap bitmap = BitmapFactory.decodeResource(
-							getResources(), (Integer) FxApplication
-									.getInstance().getFaceMap().values()
-									.toArray()[count]);
-					if (bitmap != null) {
-						int rawHeigh = bitmap.getHeight();
-						int rawWidth = bitmap.getHeight();
-						int newHeight = 40;
-						int newWidth = 40;
-						// 计算缩放因子
-						float heightScale = ((float) newHeight) / rawHeigh;
-						float widthScale = ((float) newWidth) / rawWidth;
-						// 新建立矩阵
-						Matrix matrix = new Matrix();
-						matrix.postScale(heightScale, widthScale);
-						Bitmap newBitmap = Bitmap.createBitmap(bitmap, 0, 0,
-								rawWidth, rawHeigh, matrix, true);
-						ImageSpan imageSpan = new ImageSpan(ChatActivity.this,
-								newBitmap);
-						String emojiStr = keys.get(count);
-						SpannableString spannableString = new SpannableString(
-								emojiStr);
-						spannableString.setSpan(imageSpan,
-								emojiStr.indexOf('['),
-								emojiStr.indexOf(']') + 1,
-								Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-						msgEt.append(spannableString);
-					} else {
-						String ori = msgEt.getText().toString();
-						int index = msgEt.getSelectionStart();
-						StringBuilder stringBuilder = new StringBuilder(ori);
-						stringBuilder.insert(index, keys.get(count));
-						msgEt.setText(stringBuilder.toString());
-						msgEt.setSelection(index + keys.get(count).length());
-					}
+					// Bitmap bitmap = BitmapFactory.decodeResource(
+					// getResources(), (Integer) FxApplication
+					// .getInstance().getFaceMap().values()
+					// .toArray()[count]);
+					// if (bitmap != null) {
+					// int rawHeigh = bitmap.getHeight();
+					// int rawWidth = bitmap.getHeight();
+					// int newHeight = 40;
+					// int newWidth = 40;
+					// // 计算缩放因子
+					// float heightScale = ((float) newHeight) / rawHeigh;
+					// float widthScale = ((float) newWidth) / rawWidth;
+					// // 新建立矩阵
+					// Matrix matrix = new Matrix();
+					// matrix.postScale(heightScale, widthScale);
+					// Bitmap newBitmap = Bitmap.createBitmap(bitmap, 0, 0,
+					// rawWidth, rawHeigh, matrix, true);
+					// ImageSpan imageSpan = new ImageSpan(ChatActivity.this,
+					// newBitmap);
+					// String emojiStr = keys.get(count);
+					// SpannableString spannableString = new SpannableString(
+					// emojiStr);
+					// spannableString.setSpan(imageSpan,
+					// emojiStr.indexOf('['),
+					// emojiStr.indexOf(']') + 1,
+					// Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+					// msgEt.append(spannableString);
+					// } else {
+					String ori = msgEt.getText().toString();
+					int index = msgEt.getSelectionStart();
+					StringBuilder stringBuilder = new StringBuilder(ori);
+					stringBuilder.insert(index, keys.get(count));
+					msgEt.setText(stringBuilder.toString());
+					msgEt.setSelection(index + keys.get(count).length());
+					// }
 				}
 			}
 		});

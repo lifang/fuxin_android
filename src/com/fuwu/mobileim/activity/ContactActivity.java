@@ -1,10 +1,5 @@
 package com.fuwu.mobileim.activity;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -30,7 +25,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,11 +40,10 @@ import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.ImageCacheUtil;
 import com.fuwu.mobileim.util.LongDataComparator;
+import com.fuwu.mobileim.util.OrderTimeLongDataComparator;
+import com.fuwu.mobileim.util.SubscribeTimeLongDataComparator;
 import com.fuwu.mobileim.util.Urlinterface;
-import com.fuwu.mobileim.view.CharacterParser;
-import com.fuwu.mobileim.view.PinyinComparator;
 import com.fuwu.mobileim.view.SideBar;
-import com.fuwu.mobileim.view.SideBar.OnTouchingLetterChangedListener;
 import com.fuwu.mobileim.view.XListView;
 import com.fuwu.mobileim.view.XListView.IXListViewListener;
 
@@ -68,18 +61,20 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 	private View rootView;
 	private int user_number1 = 0;
 	List<ShortContactPojo> contactsList1 = new ArrayList<ShortContactPojo>();
-	/**
-	 * 汉字转换成拼音的类
-	 */
+
 	private List<ShortContactPojo> contactsList = new ArrayList<ShortContactPojo>();; // 联系人arraylist数组
 
 	/**
-	 * 根据拼音来排列ListView里面的数据类
+	 * 根据最近联系时间来排列ListView里面的数据类
 	 */
 	private LongDataComparator longDataComparator;
 	/**
-	 * 定义字母表的排序规则
+	 * 根据最后产生订单时间来排列ListView里面的数据类
 	 */
+	private OrderTimeLongDataComparator orderTimeLongDataComparator;	/**
+	 * 根据最后订阅时间来排列ListView里面的数据类
+	 */
+	private SubscribeTimeLongDataComparator subscribeTimeLongDataComparator;
 	private Button button_recently, button_trading, button_subscription;
 	private Button view2, view3;
 	int width;
@@ -161,7 +156,8 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		ImageCacheUtil.IMAGE_CACHE.clear();
 		user_id = preferences.getInt("user_id", -1);
 		longDataComparator = new LongDataComparator();
-		// 实例化汉字转拼音类
+		orderTimeLongDataComparator = new OrderTimeLongDataComparator();
+		subscribeTimeLongDataComparator=new SubscribeTimeLongDataComparator();
 		initViews();
 		setButton();
 		return rootView;
@@ -174,6 +170,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		Log.i("11", "-----------");
 		if (buttonNumber==0) {
 			handler.sendEmptyMessage(0);
+			switchButton(buttonNumber);
 		}
 	}
 
@@ -258,10 +255,13 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 							String lisence = res.getContacts(i).getLisence();
 							String individualResume = res.getContacts(i)
 									.getIndividualResume();
+							String orderTime = res.getContacts(i).getOrderTime();
+							String subscribeTime = res.getContacts(i)
+									.getSubscribeTime();
 							ShortContactPojo coPojo = new ShortContactPojo(
 									contactId, sortKey, name, customName,
 									userface_url, sex, source, lastContactTime,
-									isBlocked);
+									isBlocked,orderTime,subscribeTime);
 							contactsList.add(coPojo);
 
 						}
@@ -430,7 +430,13 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 					contactsList.add(contactsList1.get(i));
 				}
 			}
-//			Collections.sort(contactsList, pinyinComparator);
+//			if (contactsList.size()!=0) {
+//				String contactId = ""+ contactsList.get(0).getContactId();
+//			Bitmap b = BitmapFactory.decodeFile(Urlinterface.head_pic
+//					+ contactId);
+//			ImageCacheUtil.IMAGE_CACHE.put(contactId, b);
+//			}
+			
 			xListView.setAdapter(adapter2);
 			adapter2.updateListView(contactsList);
 			break;
@@ -438,7 +444,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			setButtonColor(buttonNumber);
 			contactsList.clear();
 			contactsList1 = db.queryContactList(user_id);
-
+			if (contactsList1.size()!=0) {
 			for (int i = 0; i < contactsList1.size(); i++) {
 				String str = FuXunTools.toNumber(contactsList1.get(i)
 						.getSource());
@@ -446,15 +452,20 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 					contactsList.add(contactsList1.get(i));
 				}
 			}
-			Collections.sort(contactsList, longDataComparator);
+			Collections.sort(contactsList, orderTimeLongDataComparator);
+			}
 			xListView.setAdapter(adapter2);
 			adapter2.updateListView(contactsList);
 			break;
 		case 2:
 			setButtonColor(buttonNumber);
 			contactsList.clear();
+			int a=contactsList.size();
+			Log.i("linshi1", "----1-----2-----3-------contactsList.size()---"+a);
 			contactsList1 = db.queryContactList(user_id);
+			if (contactsList1.size()!=0) {
 			for (int i = 0; i < contactsList1.size(); i++) {
+				Log.i("linshi1", "----1-----2-----3-------contactsList1.get(i).getSubscribeTime().---"+contactsList1.get(0).getSubscribeTime());
 				String str = FuXunTools.toNumber(contactsList1.get(i)
 						.getSource());
 				if (FuXunTools.isExist(str, 0, 1)) {
@@ -462,7 +473,8 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 				}
 			}
 			Log.i("linshi", "----1-----2-----3---------------------------------");
-			Collections.sort(contactsList, longDataComparator);
+			Collections.sort(contactsList, subscribeTimeLongDataComparator);
+			}
 			xListView.setAdapter(adapter2);
 			adapter2.updateListView(contactsList);
 			break;
@@ -527,6 +539,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 
 				// Thread thread = new Thread(new getContacts2());
 				// thread.start();
+				ImageCacheUtil.IMAGE_CACHE.clear();
 				getContacts2();
 			} else {
 				Toast.makeText(getActivity(), R.string.no_internet,
