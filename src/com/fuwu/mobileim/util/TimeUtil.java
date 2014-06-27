@@ -90,7 +90,7 @@ public class TimeUtil {
 	}
 
 	public static long getLongTime(String time) {
-		if (time == null || time.equals("")) {
+		if (time == null || time.equals("")||time.equals("null")) {
 			return 0;
 		}
 		try {

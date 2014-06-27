@@ -193,7 +193,7 @@
     <RelativeLayout
         android:id="@+id/personal_info_relativeLayout5"
         android:layout_width="fill_parent"
-        android:layout_height="200dip"
+        android:layout_height="210dip"
         android:layout_below="@+id/personal_info_relativeLayout4"
         android:layout_marginTop="10dp"
         android:background="@color/white"
@@ -295,6 +295,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="20dp"
+                android:layout_marginBottom="10dp"
                 android:layout_toRightOf="@+id/info_sign_text"
                 android:cacheColorHint="#00000000"
                 android:fadingEdge="none"

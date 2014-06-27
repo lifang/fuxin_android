@@ -10,6 +10,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -59,9 +61,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 	private View rootView;
 	private int user_number1 = 0;
 	List<ShortContactPojo> contactsList1 = new ArrayList<ShortContactPojo>();
-	/**
-	 * 汉字转换成拼音的类
-	 */
+
 	private List<ShortContactPojo> contactsList = new ArrayList<ShortContactPojo>();; // 联系人arraylist数组
 
 	/**
@@ -170,6 +170,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		Log.i("11", "-----------");
 		if (buttonNumber==0) {
 			handler.sendEmptyMessage(0);
+			switchButton(buttonNumber);
 		}
 	}
 
@@ -429,7 +430,13 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 					contactsList.add(contactsList1.get(i));
 				}
 			}
-//			Collections.sort(contactsList, pinyinComparator);
+//			if (contactsList.size()!=0) {
+//				String contactId = ""+ contactsList.get(0).getContactId();
+//			Bitmap b = BitmapFactory.decodeFile(Urlinterface.head_pic
+//					+ contactId);
+//			ImageCacheUtil.IMAGE_CACHE.put(contactId, b);
+//			}
+			
 			xListView.setAdapter(adapter2);
 			adapter2.updateListView(contactsList);
 			break;
@@ -437,7 +444,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			setButtonColor(buttonNumber);
 			contactsList.clear();
 			contactsList1 = db.queryContactList(user_id);
-
+			if (contactsList1.size()!=0) {
 			for (int i = 0; i < contactsList1.size(); i++) {
 				String str = FuXunTools.toNumber(contactsList1.get(i)
 						.getSource());
@@ -446,14 +453,19 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 				}
 			}
 			Collections.sort(contactsList, orderTimeLongDataComparator);
+			}
 			xListView.setAdapter(adapter2);
 			adapter2.updateListView(contactsList);
 			break;
 		case 2:
 			setButtonColor(buttonNumber);
 			contactsList.clear();
+			int a=contactsList.size();
+			Log.i("linshi1", "----1-----2-----3-------contactsList.size()---"+a);
 			contactsList1 = db.queryContactList(user_id);
+			if (contactsList1.size()!=0) {
 			for (int i = 0; i < contactsList1.size(); i++) {
+				Log.i("linshi1", "----1-----2-----3-------contactsList1.get(i).getSubscribeTime().---"+contactsList1.get(0).getSubscribeTime());
 				String str = FuXunTools.toNumber(contactsList1.get(i)
 						.getSource());
 				if (FuXunTools.isExist(str, 0, 1)) {
@@ -462,6 +474,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			}
 			Log.i("linshi", "----1-----2-----3---------------------------------");
 			Collections.sort(contactsList, subscribeTimeLongDataComparator);
+			}
 			xListView.setAdapter(adapter2);
 			adapter2.updateListView(contactsList);
 			break;
@@ -526,6 +539,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 
 				// Thread thread = new Thread(new getContacts2());
 				// thread.start();
+				ImageCacheUtil.IMAGE_CACHE.clear();
 				getContacts2();
 			} else {
 				Toast.makeText(getActivity(), R.string.no_internet,

@@ -167,7 +167,7 @@ public class DBManager {
 					new Object[] { cp.getContactId(), cp.getSortKey(),
 							cp.getName(), cp.getCustomName(),
 							cp.getUserface_url(), cp.getSex(), cp.getSource(),
-							cp.getLastContactTime(), cp.getIsBlocked(),cp.getOrderTime(),cp.getSubscribeTime(), userId });
+							cp.getLastContactTime(), cp.getIsBlocked(), userId,cp.getOrderTime(),cp.getSubscribeTime() });
 			db.setTransactionSuccessful();
 		} finally {
 			db.endTransaction();
