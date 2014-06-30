@@ -1,5 +1,7 @@
 package com.fuwu.mobileim.activity;
 
+import java.io.File;
+
 import android.app.Activity;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -12,15 +14,17 @@ import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import com.fuwu.mobileim.R;
+import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.ImageCacheUtil;
+import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.DragImageView;
-
 
 /**
  * @作者 丁作强
  * @时间 2014-6-26 下午3:23:18
  */
-public class ComtactZoomImageActivity extends Activity implements OnTouchListener {
+public class ComtactZoomImageActivity extends Activity implements
+		OnTouchListener {
 	private ImageView mBack;
 	private int window_width, window_height;// 控件宽度
 	private int state_height;// 状态栏的高度
@@ -45,7 +49,14 @@ public class ComtactZoomImageActivity extends Activity implements OnTouchListene
 		window_width = manager.getDefaultDisplay().getWidth();
 		window_height = manager.getDefaultDisplay().getHeight();
 		dragImageView = (DragImageView) findViewById(R.id.chat_zoom_image);
-		ImageCacheUtil.IMAGE_CACHE.get(path, dragImageView);
+
+		File f = new File(path);
+		if (f.exists()) {
+			ImageCacheUtil.IMAGE_CACHE.get(path, dragImageView);
+		} else {
+			dragImageView.setImageResource(R.drawable.moren);
+		}
+
 		// 设置图片
 		dragImageView.setmActivity(this);// 注入Activity.
 		/** 测量状态栏高度 **/

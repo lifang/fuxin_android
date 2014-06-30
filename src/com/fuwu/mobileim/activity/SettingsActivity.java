@@ -269,6 +269,7 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 				.findViewById(R.id.setting_userface0);
 		setting_userface = (CircularImage) rootView
 				.findViewById(R.id.setting_userface);// 头像
+		setting_userface.setOnClickListener(listener2);
 		nickName = (TextView) rootView.findViewById(R.id.setting_teachername);// 昵称
 
 		setting_sex_item = (ImageView) rootView
@@ -364,6 +365,17 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		}
 	};
 
+	private View.OnClickListener listener2 = new View.OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			Intent intent = new Intent();
+			intent.putExtra("image_path", Urlinterface.head_pic + preferences.getInt("user_id", -1));
+			intent.setClass(getActivity(),
+					ComtactZoomImageActivity.class);
+			startActivity(intent);
+		}
+	};
 	/**
 	 * 跳转到功能页面
 	 * 

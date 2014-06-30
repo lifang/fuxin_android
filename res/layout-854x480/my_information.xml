@@ -37,8 +37,9 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/myinfo_userface_layout"
         android:layout_width="fill_parent"
-        android:layout_height="50dip"
+        android:layout_height="90dip"
         android:layout_marginTop="13dp"
         android:background="@color/white" >
 
@@ -53,8 +54,8 @@
 
         <com.fuwu.mobileim.view.CircularImage
             android:id="@+id/myinfo_userface"
-            android:layout_width="38dp"
-            android:layout_height="38dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="17dp"

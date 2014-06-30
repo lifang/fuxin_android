@@ -48,6 +48,7 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 	private CircularImage myinfo_userface;
 	private EditText myinfo_nickname;
 	private RelativeLayout fuzhi_layout;
+	private RelativeLayout myinfo_userface_layout;
 	private TextView myinfo_certification, myinfo_mobile, myinfo_email,
 			myinfo_birthday, myinfo_sex, myinfo_fuzhi;
 	String uri;
@@ -129,6 +130,7 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 	 * 获得相关组件 并设置数据
 	 */
 	private void init() {
+		myinfo_userface_layout=(RelativeLayout) findViewById(R.id.myinfo_userface_layout);
 		fuzhi_layout = (RelativeLayout) findViewById(R.id.fuzhi_layout);
 		myinfo_userface = (CircularImage) findViewById(R.id.myinfo_userface);// 头像
 		myinfo_nickname = (EditText) findViewById(R.id.myinfo_nickname);// 昵称
@@ -138,7 +140,8 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 		myinfo_birthday = (TextView) findViewById(R.id.myinfo_birthday); // 生日
 		myinfo_sex = (TextView) findViewById(R.id.myinfo_sex); // 性别
 		myinfo_fuzhi = (TextView) findViewById(R.id.myinfo_fuzhi); // 福值
-		myinfo_userface.setOnClickListener(listener);
+		myinfo_userface.setOnClickListener(listener3);
+		myinfo_userface_layout.setOnClickListener(listener);
 		// 设置头像
 		String face_str = profilePojo.getTileUrl();
 		Log.i("linshi1", "修改前----" + face_str);
@@ -297,7 +300,17 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 		}
 	};
 
+	private View.OnClickListener listener3 = new View.OnClickListener() {
 
+		@Override
+		public void onClick(View v) {
+			Intent intent = new Intent();
+			intent.putExtra("image_path", Urlinterface.head_pic + preferences.getInt("user_id", -1));
+			intent.setClass(MyInformationActivity.this,
+					ComtactZoomImageActivity.class);
+			startActivity(intent);
+		}
+	};
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
