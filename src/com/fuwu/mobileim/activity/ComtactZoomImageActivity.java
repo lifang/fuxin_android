@@ -3,7 +3,9 @@ package com.fuwu.mobileim.activity;
 import java.io.File;
 
 import android.app.Activity;
+import android.graphics.BitmapFactory;
 import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -52,7 +54,9 @@ public class ComtactZoomImageActivity extends Activity implements
 
 		File f = new File(path);
 		if (f.exists()) {
-			ImageCacheUtil.IMAGE_CACHE.get(path, dragImageView);
+//			ImageCacheUtil.IMAGE_CACHE.get(path, dragImageView);
+			dragImageView.setImageDrawable(new BitmapDrawable(
+					BitmapFactory.decodeFile(path)));
 		} else {
 			dragImageView.setImageResource(R.drawable.moren);
 		}
