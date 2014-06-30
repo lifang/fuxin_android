@@ -184,7 +184,7 @@ public class FuXunTools {
 						Log.i("linshi", "----1");
 						FileOutputStream out = new FileOutputStream(f);
 						Log.i("linshi", "----6");
-						bm.compress(Bitmap.CompressFormat.PNG, 60, out);
+						bm.compress(Bitmap.CompressFormat.PNG, 90, out);
 						out.flush();
 						out.close();
 						Log.i("linshi", "已经保存");
@@ -321,7 +321,7 @@ public class FuXunTools {
 							Log.i("linshi", "----1");
 							FileOutputStream out = new FileOutputStream(f);
 							Log.i("linshi", "----6");
-							bm.compress(Bitmap.CompressFormat.PNG, 60, out);
+							bm.compress(Bitmap.CompressFormat.PNG, 90, out);
 							out.flush();
 							out.close();
 
