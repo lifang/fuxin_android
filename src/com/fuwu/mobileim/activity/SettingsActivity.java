@@ -19,6 +19,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -52,7 +54,6 @@ import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
-import com.fuwu.mobileim.util.ImageCacheUtil;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CircularImage;
 import com.google.protobuf.InvalidProtocolBufferException;
@@ -269,6 +270,7 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 				.findViewById(R.id.setting_userface0);
 		setting_userface = (CircularImage) rootView
 				.findViewById(R.id.setting_userface);// 头像
+		setting_userface.setOnClickListener(listener2);
 		nickName = (TextView) rootView.findViewById(R.id.setting_teachername);// 昵称
 
 		setting_sex_item = (ImageView) rootView
@@ -306,8 +308,9 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 			File f = new File(Urlinterface.head_pic, profilePojo.getUserId()
 					+ "");
 			if (f.exists()) {
-				ImageCacheUtil.IMAGE_CACHE.get(Urlinterface.head_pic
-						+ profilePojo.getUserId(), setting_userface);
+				setting_userface.setImageDrawable(new BitmapDrawable(
+				 BitmapFactory.decodeFile(Urlinterface.head_pic +
+						 profilePojo.getUserId())));
 			} else {
 				FuXunTools.set_bk(profilePojo.getUserId(), face_str,
 						setting_userface);
@@ -364,6 +367,17 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		}
 	};
 
+	private View.OnClickListener listener2 = new View.OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			Intent intent = new Intent();
+			intent.putExtra("image_path", Urlinterface.head_pic + preferences.getInt("user_id", -1));
+			intent.setClass(getActivity(),
+					ComtactZoomImageActivity.class);
+			startActivity(intent);
+		}
+	};
 	/**
 	 * 跳转到功能页面
 	 * 
