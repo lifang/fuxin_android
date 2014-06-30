@@ -76,7 +76,7 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 						ByteArrayOutputStream stream1 = new ByteArrayOutputStream();
 						Bitmap b = BitmapFactory.decodeByteArray(buf, 0,
 								buf.length);
-						b.compress(Bitmap.CompressFormat.JPEG, 90, stream);
+						b.compress(Bitmap.CompressFormat.PNG, 90, stream);
 						byte[] buf2 = stream1.toByteArray(); // 将图片流以字符串形式存储下来
 						stream.write(buf2);
 						stream.close();

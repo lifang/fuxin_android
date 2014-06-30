@@ -193,7 +193,7 @@ public class SettingPhoto extends Activity implements Urlinterface {
 				file.createNewFile();
 				FileOutputStream stream = new FileOutputStream(file);
 				ByteArrayOutputStream stream1 = new ByteArrayOutputStream();
-				photo.compress(Bitmap.CompressFormat.JPEG, 90, stream);
+				photo.compress(Bitmap.CompressFormat.PNG, 90, stream);
 				byte[] buf = stream1.toByteArray(); // 将图片流以字符串形式存储下来
 				// byte[] buf = s.getBytes();
 				stream.write(buf);
