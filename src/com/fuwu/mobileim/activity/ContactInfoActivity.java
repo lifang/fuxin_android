@@ -80,7 +80,7 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 				Toast.makeText(getApplicationContext(), "获取详细信息失败!", 0).show();
 				break;
 			case 3:
-				
+
 				InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 				boolean isOpen = imm.isActive();
 				if (isOpen) {
@@ -88,12 +88,10 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 							.getCurrentFocus().getWindowToken(),
 							InputMethodManager.HIDE_NOT_ALWAYS);
 				}
-				findViewById(R.id.personal_info_customName).setFocusable(
-						true);
+				findViewById(R.id.personal_info_customName).setFocusable(true);
 				findViewById(R.id.personal_info_customName)
 						.setFocusableInTouchMode(true);
-				findViewById(R.id.personal_info_customName)
-				.requestFocus();
+				findViewById(R.id.personal_info_customName).requestFocus();
 				info_ok.setClickable(false);
 				info_ok.setTextColor(getResources().getColor(
 						R.color.system_textColor2));
@@ -216,8 +214,13 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 		if (face_str != null && face_str.length() > 4) {
 			File f = new File(Urlinterface.head_pic, contact_id + "");
 			if (f.exists()) {
+				img.setTag(Urlinterface.head_pic + contact_id);
 				ImageCacheUtil.IMAGE_CACHE.get(Urlinterface.head_pic
 						+ contact_id, img);
+				if (!ImageCacheUtil.IMAGE_CACHE.get(
+						Urlinterface.head_pic + contact_id, img)) {
+					img.setImageDrawable(null);
+				}
 			} else {
 				FuXunTools.set_bk(contact_id, face_str, img);
 			}

@@ -31,6 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fuwu.mobileim.R;
+import com.fuwu.mobileim.activity.ContactInfoActivity;
 import com.fuwu.mobileim.activity.ZoomImageActivity;
 import com.fuwu.mobileim.model.Models.ChangeContactDetailRequest;
 import com.fuwu.mobileim.model.Models.ChangeContactDetailResponse;
@@ -180,28 +181,41 @@ public class MessageListViewAdapter extends BaseAdapter {
 			holder.time.setVisibility(View.VISIBLE);
 		}
 		if (mp.getIsComMeg() == 0) {
-			ImageCacheUtil.IMAGE_CACHE.get(
-					Urlinterface.head_pic + cp.getContactId(), holder.img);
+			holder.img.setTag(Urlinterface.head_pic + cp.getContactId());
+			if (!ImageCacheUtil.IMAGE_CACHE.get(
+					Urlinterface.head_pic + cp.getContactId(), holder.img)) {
+				holder.img.setImageDrawable(null);
+			}
+			// ImageCacheUtil.IMAGE_CACHE.get(
+			// Urlinterface.head_pic + cp.getContactId(), holder.img);
 			holder.img.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					if (FuXunTools.isConnect(mContext)) {
-						if (!ContactCache.flag) {
-							ContactCache.flag = true;
-							pd.show();
-							new GetContactDetail().start();
-						} else {
-							contactDetail = ContactCache.cp;
-							handler.sendEmptyMessage(3);
-						}
-					} else {
-						handler.sendEmptyMessage(8);
-					}
+					Intent i = new Intent();
+					i.setClass(mContext, ContactInfoActivity.class);
+					mContext.startActivity(i);
+					// if (FuXunTools.isConnect(mContext)) {
+					// if (!ContactCache.flag) {
+					// ContactCache.flag = true;
+					// pd.show();
+					// new GetContactDetail().start();
+					// } else {
+					// contactDetail = ContactCache.cp;
+					// handler.sendEmptyMessage(3);
+					// }
+					// } else {
+					// handler.sendEmptyMessage(8);
+					// }
 				}
 			});
 		} else {
-			ImageCacheUtil.IMAGE_CACHE.get(Urlinterface.head_pic + user_id,
-					holder.img);
+			holder.img.setTag(Urlinterface.head_pic + user_id);
+			if (!ImageCacheUtil.IMAGE_CACHE.get(
+					Urlinterface.head_pic + user_id, holder.img)) {
+				holder.img.setImageDrawable(null);
+			}
+			// ImageCacheUtil.IMAGE_CACHE.get(Urlinterface.head_pic + user_id,
+			// holder.img);
 		}
 		if (mp.getMsgType() == 1) {
 			holder.mes.setText(convertNormalStringToSpannableString(mp

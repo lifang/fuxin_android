@@ -97,9 +97,16 @@ public class TalkListViewAdapter extends BaseAdapter {
 		File f = new File(Urlinterface.head_pic, list.get(arg0).getContact_id()
 				+ "");
 		if (f.exists()) {
-			ImageCacheUtil.IMAGE_CACHE.get(
-					Urlinterface.head_pic + list.get(arg0).getContact_id(),
-					holder.head);
+			holder.head.setTag(Urlinterface.head_pic
+					+ list.get(arg0).getContact_id());
+			// if not in cache, restore default
+			if (!ImageCacheUtil.IMAGE_CACHE.get(Urlinterface.head_pic
+					+ list.get(arg0).getContact_id(), holder.head)) {
+				holder.head.setImageDrawable(null);
+			}
+			// ImageCacheUtil.IMAGE_CACHE.get(
+			// Urlinterface.head_pic + list.get(arg0).getContact_id(),
+			// holder.head);
 		} else {
 			holder.head.setImageResource(R.drawable.moren);
 		}

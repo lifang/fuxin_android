@@ -494,8 +494,8 @@ public class ChatActivity extends Activity implements OnClickListener,
 	public void menu_press() {
 		View view = getLayoutInflater().inflate(R.layout.chat_other, null);
 		view.findViewById(R.id.chatset_clear).setOnClickListener(this);
-		view.findViewById(R.id.chatset_block).setOnClickListener(this);
-		view.findViewById(R.id.chatset_beizhu).setOnClickListener(this);
+//		view.findViewById(R.id.chatset_block).setOnClickListener(this);
+//		view.findViewById(R.id.chatset_beizhu).setOnClickListener(this);
 		menuWindow = new PopupWindow(view, LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT);
 		menuWindow.setFocusable(true);
@@ -891,16 +891,16 @@ public class ChatActivity extends Activity implements OnClickListener,
 				menuWindow.dismiss();
 			}
 			break;
-		case R.id.chatset_block:
-			if (FuXunTools.isConnect(this)) {
-				new BlockContact().start();
-			} else {
-				handler.sendEmptyMessage(8);
-			}
-			if (menuWindow.isShowing()) {
-				menuWindow.dismiss();
-			}
-			break;
+//		case R.id.chatset_block:
+//			if (FuXunTools.isConnect(this)) {
+//				new BlockContact().start();
+//			} else {
+//				handler.sendEmptyMessage(8);
+//			}
+//			if (menuWindow.isShowing()) {
+//				menuWindow.dismiss();
+//			}
+//			break;
 		case R.id.chat_back:
 			ContactCache.flag = false;
 			this.finish();
@@ -908,16 +908,20 @@ public class ChatActivity extends Activity implements OnClickListener,
 		case R.id.chat_other:
 			menu_press();
 			break;
-		case R.id.chatset_beizhu:
-			if (!ContactCache.flag) {
-				pd.setMessage("正在加载详细信息...");
-				pd.show();
-				new GetContactDetail().start();
-			} else {
-				contactDetail = ContactCache.cp;
-				showContactDialog();
-			}
-			break;
+//		case R.id.chatset_beizhu:
+//			// if (!ContactCache.flag) {
+//			// ContactCache.flag = true;
+//			// pd.setMessage("正在加载详细信息...");
+//			// pd.show();
+//			// new GetContactDetail().start();
+//			// } else {
+//			// contactDetail = ContactCache.cp;
+//			// showContactDialog();
+//			// }
+//			Intent i = new Intent();
+//			i.setClass(this, ContactInfoActivity.class);
+//			startActivity(i);
+//			break;
 		}
 	}
 

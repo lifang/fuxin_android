@@ -62,6 +62,7 @@ import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.ImageCacheUtil;
+import com.fuwu.mobileim.util.ImageUtil;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CharacterParser;
 import com.igexin.sdk.PushManager;
@@ -401,13 +402,14 @@ public class FragmengtActivity extends FragmentActivity {
 							String lisence = res.getContacts(i).getLisence();
 							String individualResume = res.getContacts(i)
 									.getIndividualResume();
-							String orderTime = res.getContacts(i).getOrderTime();
+							String orderTime = res.getContacts(i)
+									.getOrderTime();
 							String subscribeTime = res.getContacts(i)
 									.getSubscribeTime();
 							ShortContactPojo coPojo = new ShortContactPojo(
 									contactId, sortKey, name, customName,
 									userface_url, sex, source, lastContactTime,
-									isBlocked,orderTime,subscribeTime);
+									isBlocked, orderTime, subscribeTime);
 							contactsLists.add(coPojo);
 
 						}
@@ -686,7 +688,7 @@ public class FragmengtActivity extends FragmentActivity {
 		unregisterReceiver(mReuRequstReceiver);
 		StatService.onPause(this);
 	}
- 
+
 	class RequstReceiver extends BroadcastReceiver {
 		public void onReceive(Context context, Intent intent) {
 			handler.sendEmptyMessage(8);

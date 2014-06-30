@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.util.ImageCacheUtil;
+import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.DragImageView;
 
 /**
@@ -32,6 +33,7 @@ public class ZoomImageActivity extends Activity implements OnTouchListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.chat_zoom_image);
 		mBack = (ImageView) findViewById(R.id.chat_back);
+		mBack.setOnTouchListener(this);
 		mBack.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -44,7 +46,11 @@ public class ZoomImageActivity extends Activity implements OnTouchListener {
 		window_width = manager.getDefaultDisplay().getWidth();
 		window_height = manager.getDefaultDisplay().getHeight();
 		dragImageView = (DragImageView) findViewById(R.id.chat_zoom_image);
-		ImageCacheUtil.IMAGE_CACHE.get(path, dragImageView);
+		dragImageView.setTag(path);
+		if (!ImageCacheUtil.IMAGE_CACHE.get(path, dragImageView)) {
+			dragImageView.setImageDrawable(null);
+		}
+		// ImageCacheUtil.IMAGE_CACHE.get(path, dragImageView);
 		// 设置图片
 		dragImageView.setmActivity(this);// 注入Activity.
 		/** 测量状态栏高度 **/
