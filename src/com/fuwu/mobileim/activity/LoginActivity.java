@@ -88,7 +88,9 @@ public class LoginActivity extends Activity implements OnClickListener,
 					item = -290;
 				} else if (fx.getHeight() == 1280) {
 					item = -200;
-				} else {
+				} else if (fx.getHeight() == 480){
+					item = -200;
+				}else {
 					switch (fx.getHeight()) {
 					case 854:
 						item = -250;
