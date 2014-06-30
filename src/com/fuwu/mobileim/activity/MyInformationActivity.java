@@ -118,12 +118,14 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 		my_info_confirm = (ImageButton) findViewById(R.id.my_info_confirm);
 		my_info_confirm.setOnTouchListener(this);
 		my_info_confirm.setOnClickListener(listener2);// 给保存按钮设置监听
-		Intent intent = getIntent();
-		int dataNumber = intent.getIntExtra("dataNumber", -1);
-		if (dataNumber == 1) {
-			profilePojo = getProfilePojo();// 获得全局变量中的个人信息
-			init();
-		}
+//		Intent intent = getIntent();
+//		int dataNumber = intent.getIntExtra("dataNumber", -1);
+//		if (dataNumber == 1) {
+//			profilePojo = getProfilePojo();// 获得全局变量中的个人信息
+//			init();
+//		}
+		profilePojo = getProfilePojo();// 获得全局变量中的个人信息
+		init();
 
 	}
 

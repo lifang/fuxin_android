@@ -229,15 +229,22 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 			img.setImageResource(R.drawable.moren);
 		}
 		String str = FuXunTools.toNumber(cp.getSource());
-		if (FuXunTools.isExist(str, 0, 1)) {
-			img_yue.setVisibility(View.VISIBLE);
-		} else {
-			img_yue.setVisibility(View.GONE);
-		}
+	
 		if (FuXunTools.isExist(str, 2, 3)) {
 			img_gou.setVisibility(View.VISIBLE);
+			if (FuXunTools.isExist(str, 0, 1)) {
+				img_yue.setVisibility(View.VISIBLE);
+			} else {
+				img_yue.setVisibility(View.GONE);
+			}
 		} else {
-			img_gou.setVisibility(View.GONE);
+			if (FuXunTools.isExist(str, 0, 1)) {
+				img_gou.setImageResource(R.drawable.yue);
+				img_gou.setVisibility(View.VISIBLE);
+			} else {
+				img_gou.setVisibility(View.GONE);
+			}
+			img_yue.setVisibility(View.GONE);
 		}
 		if (cp.getIsProvider() == 0) {
 			personal_info_relativeLayout5.setVisibility(View.GONE);

@@ -415,4 +415,59 @@ public class FuXunTools {
 			return "#";
 		}
 	}
+	
+	
+	public static void getBitmap_url(final String url,final int id) {
+
+		Thread thread = new Thread() {
+			public void run() {
+				try {
+
+						URL myurl = new URL(url);
+						// 获得连接
+						HttpURLConnection conn = (HttpURLConnection) myurl
+								.openConnection();
+						conn.setConnectTimeout(6000);// 设置超时
+						conn.setDoInput(true);
+						conn.setUseCaches(false);// 不缓存
+						conn.connect();
+						InputStream is = conn.getInputStream();// 获得图片的数据流
+						// bm =decodeSampledBitmapFromStream(is,150,150);
+
+						BitmapFactory.Options options = new BitmapFactory.Options();
+						options.inJustDecodeBounds = false;
+						options.inSampleSize = 1;
+						bm = BitmapFactory.decodeStream(is, null, options);
+						Log.i("linshi", bm.getWidth() + "---" + bm.getHeight());
+						is.close();
+						if (bm != null) {
+							Log.i("linshi",
+									bm.getWidth() + "---2---" + bm.getHeight());
+							File f = new File(Urlinterface.head_pic,
+									id + "");
+
+							if (f.exists()) {
+								f.delete();
+							}
+							if (!f.getParentFile().exists()) {
+								f.getParentFile().mkdirs();
+							}
+							Log.i("linshi", "----1");
+							FileOutputStream out = new FileOutputStream(f);
+							Log.i("linshi", "----6");
+							bm.compress(Bitmap.CompressFormat.PNG, 90, out);
+							out.flush();
+							out.close();
+
+							Log.i("linshi", "已经保存");
+						}
+				} catch (Exception e) {
+					Log.i("linshi", "发生异常");
+					// Log.i("linshi", url);
+				}
+			}
+		};
+		thread.start();
+	}
+	
 }

@@ -182,13 +182,15 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 			f.delete();
 		}
 		init();
-		if (FuXunTools.isConnect(getActivity())) {
-			Thread thread = new Thread(new getProfile());
-			thread.start();
-		} else {
-			Toast.makeText(getActivity(), R.string.no_internet,
-					Toast.LENGTH_SHORT).show();
-		}
+//		if (FuXunTools.isConnect(getActivity())) {
+//			Thread thread = new Thread(new getProfile());
+//			thread.start();
+//		} else {
+//			Toast.makeText(getActivity(), R.string.no_internet,
+//					Toast.LENGTH_SHORT).show();
+//		}
+		profilePojo = getProfilePojo();
+		setData();
 
 		return rootView;
 	}
@@ -361,7 +363,7 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 			// Toast.makeText(getActivity().getApplication(), "跳到个人信息页面",
 			// Toast.LENGTH_LONG).show();
 			Intent intent = new Intent();
-			intent.putExtra("dataNumber", dataNumber);
+//			intent.putExtra("dataNumber", dataNumber);
 			intent.setClass(getActivity(), MyInformationActivity.class);
 			startActivityForResult(intent, 0);
 		}
@@ -837,7 +839,8 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		switch (resultCode) {
 		case -11:
 			profilePojo = getProfilePojo();
-			handler.sendEmptyMessage(0);
+//			handler.sendEmptyMessage(0);
+			setData();
 			break;
 		default:
 			break;
