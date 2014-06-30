@@ -284,7 +284,6 @@ public class FuXunTools {
 
 		Thread thread = new Thread() {
 			public void run() {
-				Drawable face_drawable;
 				try {
 					for (int i = 0; i < contactsList.size(); i++) {
 

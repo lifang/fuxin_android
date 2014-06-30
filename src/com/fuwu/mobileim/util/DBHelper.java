@@ -37,6 +37,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 	}
 
+	// 1 2 3  2.1 2.2 3.1 3.2 3.3
 	// 如果DATABASE_VERSION值被改为2,系统发现现有数据库版本不同,即会调用onUpgrade
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
