@@ -101,7 +101,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 				}
 
 				xListView.setAdapter(adapter2);
-				adapter2.updateListView(contactsList);
+//				adapter2.updateListView(contactsList);
 				onLoad();
 				break;
 			case 1:
@@ -437,7 +437,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 //			ImageCacheUtil.IMAGE_CACHE.put(contactId, b);
 //			}
 			
-			xListView.setAdapter(adapter2);
+//			xListView.setAdapter(adapter2);
 			adapter2.updateListView(contactsList);
 			break;
 		case 1:
@@ -454,7 +454,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			}
 			Collections.sort(contactsList, orderTimeLongDataComparator);
 			}
-			xListView.setAdapter(adapter2);
+//			xListView.setAdapter(adapter2);
 			adapter2.updateListView(contactsList);
 			break;
 		case 2:
@@ -475,7 +475,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			Log.i("linshi", "----1-----2-----3---------------------------------");
 			Collections.sort(contactsList, subscribeTimeLongDataComparator);
 			}
-			xListView.setAdapter(adapter2);
+//			xListView.setAdapter(adapter2);
 			adapter2.updateListView(contactsList);
 			break;
 
