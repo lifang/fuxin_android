@@ -3,13 +3,12 @@ package com.fuwu.mobileim.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fuwu.mobileim.pojo.VersionPojo;
-
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.ArrayAdapter;
+
+import com.fuwu.mobileim.pojo.VersionPojo;
 
 public class DBHelper extends SQLiteOpenHelper {
 
@@ -45,7 +44,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 	}
 
-	// 1 2 3  2.1 2.2 3.1 3.2 3.3
+	// 1 2 3 2.1 2.2 3.1 3.2 3.3
 	// 如果DATABASE_VERSION值被改为2,系统发现现有数据库版本不同,即会调用onUpgrade
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		update_db();

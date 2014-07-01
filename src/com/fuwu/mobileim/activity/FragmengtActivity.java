@@ -52,17 +52,20 @@ import android.widget.Toast;
 
 import com.baidu.mobstat.StatService;
 import com.fuwu.mobileim.R;
+import com.fuwu.mobileim.activity.SettingsActivity.getProfile;
 import com.fuwu.mobileim.adapter.ContactAdapter;
 import com.fuwu.mobileim.adapter.FragmentViewPagerAdapter;
 import com.fuwu.mobileim.model.Models.ContactRequest;
 import com.fuwu.mobileim.model.Models.ContactResponse;
+import com.fuwu.mobileim.model.Models.ProfileRequest;
+import com.fuwu.mobileim.model.Models.ProfileResponse;
+import com.fuwu.mobileim.pojo.ProfilePojo;
 import com.fuwu.mobileim.pojo.ShortContactPojo;
 import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.ImageCacheUtil;
-import com.fuwu.mobileim.util.ImageUtil;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CharacterParser;
 import com.igexin.sdk.PushManager;
@@ -72,6 +75,7 @@ import com.igexin.sdk.PushManager;
  * @时间 创建时间：2014-5-27 下午6:36:44
  */
 public class FragmengtActivity extends FragmentActivity {
+	private ProfilePojo profilePojo = new ProfilePojo();
 	private int user_id;
 	private String token;
 	private ViewPager vp;
@@ -103,6 +107,7 @@ public class FragmengtActivity extends FragmentActivity {
 	private int user_number1 = 0;
 	private int user_number2 = 0;
 	private SharedPreferences spf;
+	int dataNumber = 0; // 0 数据没加载完，1 数据加载完
 	int version;
 	private Handler handler = new Handler() {
 		/*
@@ -123,24 +128,33 @@ public class FragmengtActivity extends FragmentActivity {
 						user_number2 = user_number2 + 1;
 					}
 				}
-				Intent i = new Intent();
-				i.setClass(FragmengtActivity.this, RequstService.class);
-				startService(i);
+				
 				if (user_number2 > 0) {
 					getUserBitmap();
 				} else {
-					prodialog.dismiss();
+					getProfile();
 				}
-				list.get(1).onStart();
+				
 
 				break;
 			case 1:
 				user_number1 = user_number1 + 1;
 				if (user_number1 == contactsLists.size()) {
-					prodialog.dismiss();
-					list.get(1).onStart();
+					getProfile();
 				}
-
+				break;
+			case 2:
+				fxApplication.setUser_exit(true);
+				putProfile(profilePojo);
+				getBitmap_url(profilePojo.getTileUrl(), profilePojo.getUserId());// 加载个人头像
+				
+				break;
+			case 3:
+				prodialog.dismiss();
+				Intent i = new Intent();
+				i.setClass(FragmengtActivity.this, RequstService.class);
+				startService(i);
+				list.get(1).onStart();
 				break;
 			case 5:
 				prodialog.dismiss();
@@ -267,13 +281,34 @@ public class FragmengtActivity extends FragmentActivity {
 			}
 		} else {
 			Log.i("Ax", "加载本地联系人");
-			Intent i = new Intent();
-			i.setClass(this, RequstService.class);
-			startService(i);
+			if (spf.getString("profile_user", "").equals(user_id+"")) {
+				Intent i = new Intent();
+				i.setClass(this, RequstService.class);
+				startService(i);
+			}else {
+				if (FuXunTools.isConnect(this)) {
+					prodialog =new ProgressDialog(FragmengtActivity.this);
+					prodialog.setMessage("正在加载数据，请稍后2...");
+					prodialog.setCanceledOnTouchOutside(false);
+					prodialog.show();
+					getProfile();
+				} else {
+					Toast.makeText(FragmengtActivity.this, R.string.no_internet,
+							Toast.LENGTH_SHORT).show();
+				}
+			}
+
+
 		}
 
 	}
 
+	private void getProfile(){
+		
+		Thread thread = new Thread(new getProfile());
+		thread.start();
+		
+	}
 	/**
 	 * 加载联系人头像，并保存到本地
 	 * 
@@ -646,6 +681,146 @@ public class FragmengtActivity extends FragmentActivity {
 		});
 	}
 
+	/**
+	 * 
+	 * 获得个人详细信息
+	 * 
+	 * 
+	 */
+
+	class getProfile implements Runnable {
+		public void run() {
+			try {
+				int user_id = spf.getInt("user_id", -1);
+				String Token = spf.getString("Token", "");
+				ProfileRequest.Builder builder = ProfileRequest.newBuilder();
+				builder.setUserId(user_id);
+				builder.setToken(Token);
+				ProfileRequest response = builder.build();
+
+				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
+						Urlinterface.PROFILE, "POST");
+				if (by != null && by.length > 0) {
+
+					ProfileResponse res = ProfileResponse.parseFrom(by);
+					if (res.getIsSucceed()) {
+						int userId = res.getProfile().getUserId();// 用户id
+						String name = res.getProfile().getName();// 名称
+						String nickName = res.getProfile().getNickName();// 昵称
+						int gender = res.getProfile().getGender().getNumber();// 性别
+						String tileUrl = res.getProfile().getTileUrl();// 头像
+						Boolean isProvider = res.getProfile().getIsProvider();//
+						String lisence = res.getProfile().getLisence();// 行业认证
+						String mobile = res.getProfile().getMobilePhoneNum();// 手机号码
+						String email = res.getProfile().getEmail();// 邮箱
+						String birthday = res.getProfile().getBirthday();// 生日
+						Boolean isAuthentication = res.getProfile()
+								.getIsAuthentication();// 实名认证
+						String fuzhi = res.getProfile().getFuzhi();// 福值
+						profilePojo = new ProfilePojo(userId, name, nickName,
+								gender, tileUrl, isProvider, lisence, mobile,
+								email, birthday, isAuthentication, fuzhi);
+						Log.i("linshi", "  --nickName" + nickName
+								+ "  --gender" + gender + "  --tileUrl"
+								+ tileUrl + "  --lisence" + lisence
+								+ "  --mobile" + mobile + "  --email" + email
+								+ "  birthday--" + birthday);
+						Log.i("linshi------------",
+								"profileprofileprofileprofile网络shuju");
+						Message msg = new Message();// 创建Message 对象
+						msg.what = 2;
+						handler.sendMessage(msg);
+					} else {
+						handler.sendEmptyMessage(3);
+					}
+				}else {
+					handler.sendEmptyMessage(3);
+				}
+
+				// handler.sendEmptyMessage(0);
+			} catch (Exception e) {
+				// prodialog.dismiss();
+				Log.i("error", e.toString());
+				handler.sendEmptyMessage(7);
+			}
+		}
+	}
+
+	private void putProfile(ProfilePojo pro) {
+		SharedPreferences preferences = getSharedPreferences(
+				Urlinterface.SHARED, Context.MODE_PRIVATE);
+		Editor editor = preferences.edit();
+		editor.putInt("profile_userid", pro.getUserId());
+		editor.putString("profile_name", pro.getName());
+		editor.putString("profile_nickName", pro.getNickName());
+		editor.putInt("profile_gender", pro.getGender());
+		editor.putString("profile_tileUrl", pro.getTileUrl());
+		editor.putBoolean("profile_isProvider", pro.getIsProvider());
+		editor.putString("profile_lisence", pro.getLisence());
+		editor.putString("profile_mobile", pro.getMobile());
+		editor.putString("profile_email", pro.getEmail());
+		editor.putString("profile_birthday", pro.getBirthday());
+		editor.putBoolean("profile_isAuthentication", pro.getIsAuthentication());
+		editor.putString("profile_fuZhi", pro.getFuZhi());
+		editor.putString("profile_user", pro.getUserId()+"");//  用于判断本地是否有当前用户的信息
+		editor.commit();
+		dataNumber = 1;
+
+	}
+	
+	public  void getBitmap_url(final String url,final int id) {
+
+		Thread thread = new Thread() {
+			public void run() {
+				try {
+
+						URL myurl = new URL(url);
+						// 获得连接
+						HttpURLConnection conn = (HttpURLConnection) myurl
+								.openConnection();
+						conn.setConnectTimeout(6000);// 设置超时
+						conn.setDoInput(true);
+						conn.setUseCaches(false);// 不缓存
+						conn.connect();
+						InputStream is = conn.getInputStream();// 获得图片的数据流
+						// bm =decodeSampledBitmapFromStream(is,150,150);
+
+						BitmapFactory.Options options = new BitmapFactory.Options();
+						options.inJustDecodeBounds = false;
+						options.inSampleSize = 1;
+						bm = BitmapFactory.decodeStream(is, null, options);
+						Log.i("linshi", bm.getWidth() + "---" + bm.getHeight());
+						is.close();
+						if (bm != null) {
+							Log.i("linshi",
+									bm.getWidth() + "---2---" + bm.getHeight());
+							File f = new File(Urlinterface.head_pic,
+									id + "");
+
+							if (f.exists()) {
+								f.delete();
+							}
+							if (!f.getParentFile().exists()) {
+								f.getParentFile().mkdirs();
+							}
+							Log.i("linshi", "----1");
+							FileOutputStream out = new FileOutputStream(f);
+							Log.i("linshi", "----6");
+							bm.compress(Bitmap.CompressFormat.PNG, 90, out);
+							out.flush();
+							out.close();
+
+							Log.i("linshi", "已经保存");
+						}
+						handler.sendEmptyMessage(3);
+				} catch (Exception e) {
+					Log.i("linshi", "发生异常");
+					handler.sendEmptyMessage(3);
+				}
+			}
+		};
+		thread.start();
+	}
 	public List<ShortContactPojo> findSimilarContacts(String et) {
 		contactsLists = new ArrayList<ShortContactPojo>();
 		if (et.length() > 0) {
