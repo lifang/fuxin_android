@@ -144,7 +144,7 @@ public class FragmengtActivity extends FragmentActivity {
 				}
 				break;
 			case 2:
-				
+				fxApplication.setUser_exit(true);
 				putProfile(profilePojo);
 				getBitmap_url(profilePojo.getTileUrl(), profilePojo.getUserId());// 加载个人头像
 				
@@ -281,30 +281,30 @@ public class FragmengtActivity extends FragmentActivity {
 			}
 		} else {
 			Log.i("Ax", "加载本地联系人");
-			
-			if (FuXunTools.isConnect(this)) {
-				prodialog =new ProgressDialog(FragmengtActivity.this);
-				prodialog.setMessage("正在加载数据，请稍后...");
-				prodialog.setCanceledOnTouchOutside(false);
-				prodialog.show();
-				getProfile();
-			} else {
-				Toast.makeText(FragmengtActivity.this, R.string.no_internet,
-						Toast.LENGTH_SHORT).show();
+			if (spf.getString("profile_user", "").equals(user_id+"")) {
+				Intent i = new Intent();
+				i.setClass(this, RequstService.class);
+				startService(i);
+			}else {
+				if (FuXunTools.isConnect(this)) {
+					prodialog =new ProgressDialog(FragmengtActivity.this);
+					prodialog.setMessage("正在加载数据，请稍后2...");
+					prodialog.setCanceledOnTouchOutside(false);
+					prodialog.show();
+					getProfile();
+				} else {
+					Toast.makeText(FragmengtActivity.this, R.string.no_internet,
+							Toast.LENGTH_SHORT).show();
+				}
 			}
-			Intent i = new Intent();
-			i.setClass(this, RequstService.class);
-			startService(i);
+
+
 		}
 
 	}
 
 	private void getProfile(){
 		
-//		prodialog = new ProgressDialog(FragmengtActivity.this);
-//		prodialog.setMessage("正在加载数据，请稍后...");
-//		prodialog.setCanceledOnTouchOutside(false);
-//		prodialog.show();
 		Thread thread = new Thread(new getProfile());
 		thread.start();
 		
@@ -731,14 +731,15 @@ public class FragmengtActivity extends FragmentActivity {
 						msg.what = 2;
 						handler.sendMessage(msg);
 					} else {
-
+						handler.sendEmptyMessage(3);
 					}
+				}else {
+					handler.sendEmptyMessage(3);
 				}
 
 				// handler.sendEmptyMessage(0);
 			} catch (Exception e) {
 				// prodialog.dismiss();
-				e.printStackTrace();
 				Log.i("error", e.toString());
 				handler.sendEmptyMessage(7);
 			}
@@ -761,6 +762,7 @@ public class FragmengtActivity extends FragmentActivity {
 		editor.putString("profile_birthday", pro.getBirthday());
 		editor.putBoolean("profile_isAuthentication", pro.getIsAuthentication());
 		editor.putString("profile_fuZhi", pro.getFuZhi());
+		editor.putString("profile_user", pro.getUserId()+"");//  用于判断本地是否有当前用户的信息
 		editor.commit();
 		dataNumber = 1;
 

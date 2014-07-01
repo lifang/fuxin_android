@@ -32,7 +32,7 @@ public class FxApplication extends Application {
 	private List<Activity> activityList = new LinkedList<Activity>();
 	private int width = 0; // 屏幕宽度
 	private int height = 0; // 屏幕宽度
-
+	private boolean user_exit = false;
 	public synchronized static FxApplication getInstance() {
 		return mApplication;
 	}
@@ -77,6 +77,14 @@ public class FxApplication extends Application {
 				.displayer(new RoundedBitmapDisplayer(20)).build();
 		mApplication = this;
 		initFaceMap();
+	}
+
+	public boolean getUser_exit() {
+		return user_exit;
+	}
+
+	public void setUser_exit(boolean user_exit) {
+		this.user_exit = user_exit;
 	}
 
 	public int getWidth() {
