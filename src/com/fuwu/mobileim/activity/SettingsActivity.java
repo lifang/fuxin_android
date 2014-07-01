@@ -177,10 +177,10 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 			}
 		});
 		int user_id = preferences.getInt("user_id", -1);
-		File f = new File(Urlinterface.head_pic, user_id + "");
-		if (f.exists()) {
-			f.delete();
-		}
+//		File f = new File(Urlinterface.head_pic, user_id + "");
+//		if (f.exists()) {
+//			f.delete();
+//		}
 		init();
 //		if (FuXunTools.isConnect(getActivity())) {
 //			Thread thread = new Thread(new getProfile());
