@@ -1,6 +1,5 @@
 package com.fuwu.mobileim.util;
 
-import android.R.menu;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -30,11 +29,15 @@ public class PushReceiver extends BroadcastReceiver {
 	public Intent intent = new Intent();
 	public SharedPreferences sf;
 	public String clientid;
-	public static int item = 0;
+	public Context mContext;
+	private NotificationManager nm;
 
 	public void onReceive(Context context, Intent intent) {
+		mContext = context;
 		fx = (FxApplication) context.getApplicationContext();
 		sf = context.getSharedPreferences(Urlinterface.SHARED, 0);
+		nm = (NotificationManager) context
+				.getSystemService(android.content.Context.NOTIFICATION_SERVICE);
 		Bundle bundle = intent.getExtras();
 		Log.d("GetuiSdkDemo", "onReceive() action=" + bundle.getInt("action"));
 		switch (bundle.getInt(PushConsts.CMD_ACTION)) {
@@ -65,7 +68,8 @@ public class PushReceiver extends BroadcastReceiver {
 							MessagePush mp = pr.getMessagePush();
 							MyNotification("福务网",
 									mp.getSenderName() + ":" + mp.getContent(),
-									context, intent, mp.getSendTime());
+									context, intent, mp.getSendTime(),
+									mp.getSenderId());
 						} catch (InvalidProtocolBufferException e) {
 							e.printStackTrace();
 						}
@@ -89,22 +93,23 @@ public class PushReceiver extends BroadcastReceiver {
 			 * ，都能进行一次关联绑定
 			 */
 			break;
+		case Urlinterface.Receiver_code:
+			Log.i("Max", "删除通知uid:" + sf.getInt("contact_id", 0));
+			clearNotification(sf.getInt("contact_id", 0));
+			break;
 		default:
 			break;
 		}
 	}
 
 	// 自定义通知
-	@SuppressWarnings("deprecation")
 	public void MyNotification(String title, String content, Context context,
-			Intent startIntent, String time) {
+			Intent startIntent, String time, int uid) {
 		// 1.得到NotificationManager
-		NotificationManager nm = (NotificationManager) context
-				.getSystemService(android.content.Context.NOTIFICATION_SERVICE);
 		// 2.实例化一个通知，指定图标、概要、时间
 		Notification notification = new Notification(R.drawable.moren, "福务网",
 				TimeUtil.getLongTime(time));
-
+		Log.i("Max", uid + "");
 		// notification.defaults = Notification.DEFAULT_LIGHTS;
 		if (sf.getBoolean("pushsetting_music", true)) {
 			notification.defaults |= Notification.DEFAULT_SOUND;// 声音
@@ -120,8 +125,13 @@ public class PushReceiver extends BroadcastReceiver {
 		PendingIntent contentItent = PendingIntent.getActivity(context, 0,
 				startIntent, 0);
 		notification.setLatestEventInfo(context, title, content, contentItent);
-		item += 1;
-		nm.notify(item, notification);
+		nm.notify(uid, notification);
+	}
+
+	// 删除通知
+	private void clearNotification(int uid) {
+		// 启动后删除之前我们定义的通知
+		nm.cancel(uid);
 	}
 
 	// 发送ClientID
@@ -167,4 +177,5 @@ public class PushReceiver extends BroadcastReceiver {
 			}
 		}
 	}
+
 }

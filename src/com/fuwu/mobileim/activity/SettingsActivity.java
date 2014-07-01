@@ -51,6 +51,7 @@ import com.fuwu.mobileim.model.Models.ProfileRequest;
 import com.fuwu.mobileim.model.Models.ProfileResponse;
 import com.fuwu.mobileim.pojo.ProfilePojo;
 import com.fuwu.mobileim.util.DBManager;
+import com.fuwu.mobileim.util.ExitService;
 import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
@@ -182,13 +183,15 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 			f.delete();
 		}
 		init();
-		if (FuXunTools.isConnect(getActivity())) {
-			Thread thread = new Thread(new getProfile());
-			thread.start();
-		} else {
-			Toast.makeText(getActivity(), R.string.no_internet,
-					Toast.LENGTH_SHORT).show();
-		}
+		// if (FuXunTools.isConnect(getActivity())) {
+		// Thread thread = new Thread(new getProfile());
+		// thread.start();
+		// } else {
+		// Toast.makeText(getActivity(), R.string.no_internet,
+		// Toast.LENGTH_SHORT).show();
+		// }
+		profilePojo = getProfilePojo();
+		setData();
 
 		return rootView;
 	}
@@ -309,8 +312,8 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 					+ "");
 			if (f.exists()) {
 				setting_userface.setImageDrawable(new BitmapDrawable(
-				 BitmapFactory.decodeFile(Urlinterface.head_pic +
-						 profilePojo.getUserId())));
+						BitmapFactory.decodeFile(Urlinterface.head_pic
+								+ profilePojo.getUserId())));
 			} else {
 				FuXunTools.set_bk(profilePojo.getUserId(), face_str,
 						setting_userface);
@@ -361,7 +364,7 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 			// Toast.makeText(getActivity().getApplication(), "跳到个人信息页面",
 			// Toast.LENGTH_LONG).show();
 			Intent intent = new Intent();
-			intent.putExtra("dataNumber", dataNumber);
+			// intent.putExtra("dataNumber", dataNumber);
 			intent.setClass(getActivity(), MyInformationActivity.class);
 			startActivityForResult(intent, 0);
 		}
@@ -372,12 +375,13 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		@Override
 		public void onClick(View v) {
 			Intent intent = new Intent();
-			intent.putExtra("image_path", Urlinterface.head_pic + preferences.getInt("user_id", -1));
-			intent.setClass(getActivity(),
-					ComtactZoomImageActivity.class);
+			intent.putExtra("image_path",
+					Urlinterface.head_pic + preferences.getInt("user_id", -1));
+			intent.setClass(getActivity(), ComtactZoomImageActivity.class);
 			startActivity(intent);
 		}
 	};
+
 	/**
 	 * 跳转到功能页面
 	 * 
@@ -423,22 +427,19 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		// Toast.LENGTH_LONG).show();
 		// break;
 		case 5:// 退出登录
-			if (FuXunTools.isConnect(getActivity())) {
-				prodialog = new ProgressDialog(getActivity());
-				prodialog.setMessage("努力退出中..");
-				prodialog.setCanceledOnTouchOutside(false);
-				prodialog.show();
-				new Thread(new UnAuthentication()).start();
-			} else {
-				preferences.edit().putInt("user_id", 0).commit();
-				preferences.edit().putString("Token", "null").commit();
-				preferences.edit().putString("pwd", "").commit();
-				preferences.edit().putString("clientid", "").commit();
-				intent.setClass(getActivity(), LoginActivity.class);
-				startActivity(intent);
-				clearActivity();
-				fxApplication.initData();
-			}
+			preferences.edit().putInt("exit_user_id", preferences.getInt("user_id",0)).commit();
+			preferences.edit().putString("exit_Token", preferences.getString("Token","null")).commit();
+			preferences.edit().putString("exit_clientid",preferences.getString("clientid","")).commit();
+			intent.setClass(getActivity(), ExitService.class);
+			getActivity().startService(intent);
+			preferences.edit().putInt("user_id", 0).commit();
+			preferences.edit().putString("Token", "null").commit();
+			preferences.edit().putString("pwd", "").commit();
+			preferences.edit().putString("clientid", "").commit();
+			intent.setClass(getActivity(), LoginActivity.class);
+			startActivity(intent);
+			clearActivity();
+			fxApplication.initData();
 			break;
 		default:
 			break;
@@ -837,7 +838,8 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		switch (resultCode) {
 		case -11:
 			profilePojo = getProfilePojo();
-			handler.sendEmptyMessage(0);
+			// handler.sendEmptyMessage(0);
+			setData();
 			break;
 		default:
 			break;
