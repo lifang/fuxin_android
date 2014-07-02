@@ -114,22 +114,30 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 				Toast.makeText(getApplicationContext(), "网络异常", 0).show();
 				break;
 			case 9:
-				Toast.makeText(getApplicationContext(), "请求成功",
-						Toast.LENGTH_SHORT).show();
+				
 				db = new DBManager(ContactInfoActivity.this);
 				if (!db.isOpen()) {
 					db = new DBManager(ContactInfoActivity.this);
 				}
 				if (shielding) {
+					Toast.makeText(getApplicationContext(), "屏蔽成功",
+							Toast.LENGTH_SHORT).show();
 					db.modifyContactBlock(1, user_id, contact_id);
 				} else {
+					Toast.makeText(getApplicationContext(), "取消屏蔽成功",
+							Toast.LENGTH_SHORT).show();
 					db.modifyContactBlock(0, user_id, contact_id);
 				}
 				break;
 			case 10:
+				if (shielding) {
+					Toast.makeText(getApplicationContext(), "屏蔽失败",
+							Toast.LENGTH_SHORT).show();
+				} else {
+					Toast.makeText(getApplicationContext(), "取消屏蔽失败",
+							Toast.LENGTH_SHORT).show();
+				}
 				personal_info_shielding.setCheck(!shielding);
-				Toast.makeText(getApplicationContext(), "请求失败",
-						Toast.LENGTH_SHORT).show();
 				break;
 			case 11:
 				personal_info_shielding.setCheck(!shielding);
