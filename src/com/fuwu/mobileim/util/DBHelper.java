@@ -39,9 +39,7 @@ public class DBHelper extends SQLiteOpenHelper {
 		//
 		db.execSQL("CREATE TABLE IF NOT EXISTS push"
 				+ "(id INTEGER PRIMARY KEY AUTOINCREMENT,content VARCHAR,url VARCHAR,time VARCHAR,status INTEGER,userId INTEGER)");
-
 		Log.i("xinye", "#############数据库创建了##############:" + DATABASE_VERSION);
-
 	}
 
 	// 1 2 3 2.1 2.2 3.1 3.2 3.3
