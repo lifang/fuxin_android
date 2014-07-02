@@ -30,6 +30,8 @@ import android.widget.Toast;
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.model.Models.ChangeProfileRequest;
 import com.fuwu.mobileim.model.Models.ChangeProfileResponse;
+import com.fuwu.mobileim.model.Models.ProfileRequest;
+import com.fuwu.mobileim.model.Models.ProfileResponse;
 import com.fuwu.mobileim.pojo.ProfilePojo;
 import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
@@ -76,7 +78,7 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 						ByteArrayOutputStream stream1 = new ByteArrayOutputStream();
 						Bitmap b = BitmapFactory.decodeByteArray(buf, 0,
 								buf.length);
-						b.compress(Bitmap.CompressFormat.JPEG, 90, stream);
+						b.compress(Bitmap.CompressFormat.PNG, 90, stream);
 						byte[] buf2 = stream1.toByteArray(); // 将图片流以字符串形式存储下来
 						stream.write(buf2);
 						stream.close();
@@ -91,6 +93,12 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 				prodialog.dismiss();
 				Toast.makeText(getApplicationContext(), "修改失败",
 						Toast.LENGTH_SHORT).show();
+				break;
+			case 2:
+				prodialog.dismiss();
+				fxApplication.setUser_exit(true);
+				putProfile(profilePojo);
+				init();
 				break;
 			case 6:
 				prodialog.dismiss();
@@ -107,7 +115,7 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 		}
 	};
 	SharedPreferences preferences;
-
+	private FxApplication fxApplication;
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.my_information);
@@ -115,15 +123,33 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 		findViewById(R.id.my_info_back).setOnClickListener(listener1);// 给返回按钮设置监听
 		preferences = getSharedPreferences(Urlinterface.SHARED,
 				Context.MODE_PRIVATE);
+		fxApplication = (FxApplication) getApplication();
 		my_info_confirm = (ImageButton) findViewById(R.id.my_info_confirm);
 		my_info_confirm.setOnTouchListener(this);
 		my_info_confirm.setOnClickListener(listener2);// 给保存按钮设置监听
-		Intent intent = getIntent();
-		int dataNumber = intent.getIntExtra("dataNumber", -1);
-		if (dataNumber == 1) {
+//		Intent intent = getIntent();
+//		int dataNumber = intent.getIntExtra("dataNumber", -1);
+//		if (dataNumber == 1) {
+//			profilePojo = getProfilePojo();// 获得全局变量中的个人信息
+//			init();
+//		}
+		if (fxApplication.getUser_exit()) {
 			profilePojo = getProfilePojo();// 获得全局变量中的个人信息
 			init();
+		}else {
+			if (FuXunTools.isConnect(this)) {
+				prodialog =new ProgressDialog(MyInformationActivity.this);
+				prodialog.setMessage("正在加载数据，请稍后...");
+				prodialog.setCanceledOnTouchOutside(false);
+				prodialog.show();
+				Thread thread = new Thread(new getProfile());
+				thread.start();
+			} else {
+				Toast.makeText(MyInformationActivity.this, R.string.no_internet,
+						Toast.LENGTH_SHORT).show();
+			}
 		}
+
 
 	}
 
@@ -380,8 +406,73 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 		editor.putString("profile_birthday", pro.getBirthday());
 		editor.putBoolean("profile_isAuthentication", pro.getIsAuthentication());
 		editor.putString("profile_fuZhi", pro.getFuZhi());
+		editor.putString("profile_user", pro.getUserId()+"");//  用于判断本地是否有当前用户的信息
 		editor.commit();
 
+	}
+	
+	/**
+	 * 
+	 * 获得个人详细信息
+	 * 
+	 * 
+	 */
+
+	class getProfile implements Runnable {
+		public void run() {
+			try {
+				int user_id = preferences.getInt("user_id", -1);
+				String Token = preferences.getString("Token", "");
+				ProfileRequest.Builder builder = ProfileRequest.newBuilder();
+				builder.setUserId(user_id);
+				builder.setToken(Token);
+				ProfileRequest response = builder.build();
+
+				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
+						Urlinterface.PROFILE, "POST");
+				if (by != null && by.length > 0) {
+
+					ProfileResponse res = ProfileResponse.parseFrom(by);
+					if (res.getIsSucceed()) {
+						int userId = res.getProfile().getUserId();// 用户id
+						String name = res.getProfile().getName();// 名称
+						String nickName = res.getProfile().getNickName();// 昵称
+						int gender = res.getProfile().getGender().getNumber();// 性别
+						String tileUrl = res.getProfile().getTileUrl();// 头像
+						Boolean isProvider = res.getProfile().getIsProvider();//
+						String lisence = res.getProfile().getLisence();// 行业认证
+						String mobile = res.getProfile().getMobilePhoneNum();// 手机号码
+						String email = res.getProfile().getEmail();// 邮箱
+						String birthday = res.getProfile().getBirthday();// 生日
+						Boolean isAuthentication = res.getProfile()
+								.getIsAuthentication();// 实名认证
+						String fuzhi = res.getProfile().getFuzhi();// 福值
+						profilePojo = new ProfilePojo(userId, name, nickName,
+								gender, tileUrl, isProvider, lisence, mobile,
+								email, birthday, isAuthentication, fuzhi);
+						Log.i("linshi", "  --nickName" + nickName
+								+ "  --gender" + gender + "  --tileUrl"
+								+ tileUrl + "  --lisence" + lisence
+								+ "  --mobile" + mobile + "  --email" + email
+								+ "  birthday--" + birthday);
+						Log.i("linshi------------",
+								"profileprofileprofileprofile网络shuju");
+						Message msg = new Message();// 创建Message 对象
+						msg.what = 2;
+						handler.sendMessage(msg);
+					} else {
+						handler.sendEmptyMessage(6);
+					}
+				}else {
+					handler.sendEmptyMessage(6);
+				}
+
+			} catch (Exception e) {
+				// prodialog.dismiss();
+				Log.i("error", e.toString());
+				handler.sendEmptyMessage(7);
+			}
+		}
 	}
 
 	@Override

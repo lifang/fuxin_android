@@ -15,10 +15,8 @@ import android.view.ViewTreeObserver;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.WindowManager;
 import android.widget.ImageView;
+
 import com.fuwu.mobileim.R;
-import com.fuwu.mobileim.util.FuXunTools;
-import com.fuwu.mobileim.util.ImageCacheUtil;
-import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.DragImageView;
 
 /**

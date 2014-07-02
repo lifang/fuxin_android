@@ -167,8 +167,8 @@ public class SettingPhoto extends Activity implements Urlinterface {
 		intent.putExtra("aspectX", 1);
 		intent.putExtra("aspectY", 1);
 		// outputX outputY 是裁剪图片宽高
-		intent.putExtra("outputX", 500);
-		intent.putExtra("outputY", 500);
+		intent.putExtra("outputX", 180);
+		intent.putExtra("outputY", 180);
 		intent.putExtra("return-data", true);
 		startActivityForResult(intent, 3);
 	}
@@ -193,7 +193,7 @@ public class SettingPhoto extends Activity implements Urlinterface {
 				file.createNewFile();
 				FileOutputStream stream = new FileOutputStream(file);
 				ByteArrayOutputStream stream1 = new ByteArrayOutputStream();
-				photo.compress(Bitmap.CompressFormat.JPEG, 90, stream);
+				photo.compress(Bitmap.CompressFormat.PNG, 90, stream);
 				byte[] buf = stream1.toByteArray(); // 将图片流以字符串形式存储下来
 				// byte[] buf = s.getBytes();
 				stream.write(buf);

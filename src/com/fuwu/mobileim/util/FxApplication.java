@@ -5,9 +5,11 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
+
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.pojo.ProfilePojo;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -32,12 +34,13 @@ public class FxApplication extends Application {
 	private List<Activity> activityList = new LinkedList<Activity>();
 	private int width = 0; // 屏幕宽度
 	private int height = 0; // 屏幕宽度
-
+	private boolean user_exit = false;
 	public synchronized static FxApplication getInstance() {
 		return mApplication;
 	}
 
 	public void initData() {
+		user_exit = false;
 		profilePojo = new ProfilePojo();
 	}
 
@@ -77,6 +80,14 @@ public class FxApplication extends Application {
 				.displayer(new RoundedBitmapDisplayer(20)).build();
 		mApplication = this;
 		initFaceMap();
+	}
+
+	public boolean getUser_exit() {
+		return user_exit;
+	}
+
+	public void setUser_exit(boolean user_exit) {
+		this.user_exit = user_exit;
 	}
 
 	public int getWidth() {

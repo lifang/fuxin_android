@@ -44,19 +44,18 @@ import android.widget.Toast;
 
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.model.Models.ClientInfo;
-import com.fuwu.mobileim.model.Models.ClientInfo.OSType;
 import com.fuwu.mobileim.model.Models.ClientInfoRequest;
 import com.fuwu.mobileim.model.Models.ClientInfoResponse;
 import com.fuwu.mobileim.model.Models.ProfileRequest;
 import com.fuwu.mobileim.model.Models.ProfileResponse;
 import com.fuwu.mobileim.pojo.ProfilePojo;
 import com.fuwu.mobileim.util.DBManager;
+import com.fuwu.mobileim.util.ExitService;
 import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CircularImage;
-import com.google.protobuf.InvalidProtocolBufferException;
 
 /**
  * @作者 丁作强
@@ -177,18 +176,16 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 			}
 		});
 		int user_id = preferences.getInt("user_id", -1);
-		File f = new File(Urlinterface.head_pic, user_id + "");
-		if (f.exists()) {
-			f.delete();
-		}
+
+		
 		init();
-		if (FuXunTools.isConnect(getActivity())) {
-			Thread thread = new Thread(new getProfile());
-			thread.start();
-		} else {
-			Toast.makeText(getActivity(), R.string.no_internet,
-					Toast.LENGTH_SHORT).show();
+		
+		if (preferences.getString("profile_user", "").equals(user_id+"")) {
+			profilePojo = getProfilePojo();
+			setData();
 		}
+		
+
 
 		return rootView;
 	}
@@ -309,8 +306,8 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 					+ "");
 			if (f.exists()) {
 				setting_userface.setImageDrawable(new BitmapDrawable(
-				 BitmapFactory.decodeFile(Urlinterface.head_pic +
-						 profilePojo.getUserId())));
+						BitmapFactory.decodeFile(Urlinterface.head_pic
+								+ profilePojo.getUserId())));
 			} else {
 				FuXunTools.set_bk(profilePojo.getUserId(), face_str,
 						setting_userface);
@@ -361,7 +358,7 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 			// Toast.makeText(getActivity().getApplication(), "跳到个人信息页面",
 			// Toast.LENGTH_LONG).show();
 			Intent intent = new Intent();
-			intent.putExtra("dataNumber", dataNumber);
+			// intent.putExtra("dataNumber", dataNumber);
 			intent.setClass(getActivity(), MyInformationActivity.class);
 			startActivityForResult(intent, 0);
 		}
@@ -372,12 +369,13 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		@Override
 		public void onClick(View v) {
 			Intent intent = new Intent();
-			intent.putExtra("image_path", Urlinterface.head_pic + preferences.getInt("user_id", -1));
-			intent.setClass(getActivity(),
-					ComtactZoomImageActivity.class);
+			intent.putExtra("image_path",
+					Urlinterface.head_pic + preferences.getInt("user_id", -1));
+			intent.setClass(getActivity(), ComtactZoomImageActivity.class);
 			startActivity(intent);
 		}
 	};
+
 	/**
 	 * 跳转到功能页面
 	 * 
@@ -423,24 +421,27 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		// Toast.LENGTH_LONG).show();
 		// break;
 		case 5:// 退出登录
-			if (FuXunTools.isConnect(getActivity())) {
-				prodialog = new ProgressDialog(getActivity());
-				prodialog.setMessage("努力退出中..");
-				prodialog.setCanceledOnTouchOutside(false);
-				prodialog.show();
-				new Thread(new UnAuthentication()).start();
-			} else {
-				preferences.edit().putInt("user_id", 0).commit();
-				preferences.edit().putString("Token", "null").commit();
-				preferences.edit().putString("pwd", "").commit();
-				preferences.edit().putString("clientid", "").commit();
-				intent.setClass(getActivity(), LoginActivity.class);
-				startActivity(intent);
-				clearActivity();
-				fxApplication.initData();
-			}
-			break;
-		default:
+			preferences.edit()
+					.putInt("exit_user_id", preferences.getInt("user_id", 0))
+					.commit();
+			preferences
+					.edit()
+					.putString("exit_Token",
+							preferences.getString("Token", "null")).commit();
+			preferences
+					.edit()
+					.putString("exit_clientid",
+							preferences.getString("clientid", "")).commit();
+			intent.setClass(getActivity(), ExitService.class);
+			getActivity().startService(intent);
+			preferences.edit().putInt("user_id", 0).commit();
+			preferences.edit().putString("Token", "null").commit();
+			preferences.edit().putString("pwd", "").commit();
+			preferences.edit().putString("clientid", "").commit();
+			intent.setClass(getActivity(), LoginActivity.class);
+			startActivity(intent);
+			clearActivity();
+			fxApplication.initData();
 			break;
 		}
 	}
@@ -712,53 +713,6 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		}
 	};
 
-	// 退出登陆
-	class UnAuthentication implements Runnable {
-		public void run() {
-			try {
-				// UnAuthenticationRequest.Builder builder =
-				// UnAuthenticationRequest
-				// .newBuilder();
-				// builder.setUserId(preferences.getInt("user_id", 0));
-				// builder.setToken(preferences.getString("Token", ""));
-				// UnAuthenticationRequest request = builder.build();
-				// byte[] by = HttpUtil.sendHttps(request.toByteArray(),
-				// Urlinterface.LOGIN, "POST");
-				// if (by != null && by.length > 0) {
-				// UnAuthenticationResponse response = UnAuthenticationResponse
-				// .parseFrom(by);
-				// Log.i("Max", response.getIsSucceed() + "");
-				// handler.sendEmptyMessage(5);
-				// }
-				ClientInfo.Builder cinfo = ClientInfo.newBuilder();
-				cinfo.setDeviceId(preferences.getString("clientid", ""));
-				cinfo.setOsType(OSType.Android);
-				cinfo.setOSVersion(android.os.Build.VERSION.RELEASE);
-				cinfo.setUserId(preferences.getInt("user_id", 0));
-				cinfo.setChannel(10000);
-				cinfo.setClientVersion(Urlinterface.current_version + "");
-				cinfo.setIsPushEnable(false);
-				ClientInfoRequest.Builder builder = ClientInfoRequest
-						.newBuilder();
-				builder.setUserId(preferences.getInt("user_id", 0));
-				builder.setToken(preferences.getString("Token", ""));
-				builder.setClientInfo(cinfo);
-				ClientInfoRequest request = builder.build();
-				byte[] by = HttpUtil.sendHttps(request.toByteArray(),
-						Urlinterface.Client, "PUT");
-				if (by != null && by.length > 0) {
-					ClientInfoResponse response = ClientInfoResponse
-							.parseFrom(by);
-					Log.i("MyReceiver", response.getIsSucceed() + "/"
-							+ response.getErrorCode());
-					handler.sendEmptyMessage(5);
-				}
-			} catch (InvalidProtocolBufferException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
 	/**
 	 * 下载apk文件
 	 */
@@ -837,7 +791,8 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		switch (resultCode) {
 		case -11:
 			profilePojo = getProfilePojo();
-			handler.sendEmptyMessage(0);
+			// handler.sendEmptyMessage(0);
+			setData();
 			break;
 		default:
 			break;
