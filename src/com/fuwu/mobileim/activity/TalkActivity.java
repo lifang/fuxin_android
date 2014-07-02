@@ -33,8 +33,10 @@ import com.fuwu.mobileim.pojo.TalkPojo;
 import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
+import com.fuwu.mobileim.util.PushReceiver;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.MyDialog;
+import com.igexin.sdk.PushConsts;
 
 /**
  * 作者: 张秀楠 时间：2014-5-23 下午4:34:44
@@ -103,9 +105,13 @@ public class TalkActivity extends Fragment {
 					long arg3) {
 				Log.i("Max", "uid->" + uid + "    contact_id->"
 						+ list.get(arg2).getContact_id());
-				db.clearTalkMesCount(uid, list.get(arg2).getContact_id());
 				sp.edit().putInt("contact_id", list.get(arg2).getContact_id())
-						.commit();
+				.commit();
+				Intent intent = new Intent(getActivity(),PushReceiver.class);
+				intent.putExtra(PushConsts.CMD_ACTION, Urlinterface.Receiver_code);
+				getActivity().sendBroadcast(intent); 
+				
+				db.clearTalkMesCount(uid, list.get(arg2).getContact_id());
 				intent.putExtra("contact_id", list.get(arg2).getContact_id());
 				intent.setClass(getActivity(), ChatActivity.class);
 				startActivity(intent);

@@ -278,6 +278,9 @@
             android:name="com.fuwu.mobileim.activity.ComtactZoomImageActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
+
+        <!-- 个推download模块配置 -->
+        <service android:name="com.fuwu.mobileim.util.ExitService" />
     </application>
 
 </manifest>

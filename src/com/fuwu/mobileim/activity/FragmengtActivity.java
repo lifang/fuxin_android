@@ -52,7 +52,6 @@ import android.widget.Toast;
 
 import com.baidu.mobstat.StatService;
 import com.fuwu.mobileim.R;
-import com.fuwu.mobileim.activity.SettingsActivity.getProfile;
 import com.fuwu.mobileim.adapter.ContactAdapter;
 import com.fuwu.mobileim.adapter.FragmentViewPagerAdapter;
 import com.fuwu.mobileim.model.Models.ContactRequest;

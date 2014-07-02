@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -145,9 +144,9 @@ public class BlockManagementDisplayActivity extends Activity {
 					+ "");
 			if (f.exists()) {
 				Log.i("linshi------------", "加载本地图片");
-				ImageCacheUtil.IMAGE_CACHE.get(
-						Urlinterface.head_pic + contact.getContactId(),
-						block_display_userface);
+				block_display_userface.setImageDrawable(new BitmapDrawable(
+						BitmapFactory.decodeFile(Urlinterface.head_pic
+								+ contact.getContactId())));
 			} else {
 				FuXunTools.set_bk(contact.getContactId(), face_str,
 						block_display_userface);

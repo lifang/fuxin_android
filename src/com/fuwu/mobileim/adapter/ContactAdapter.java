@@ -2,6 +2,7 @@ package com.fuwu.mobileim.adapter;
 
 import java.io.File;
 import java.util.List;
+
 import android.content.Context;
 import android.util.Log;
 import android.view.Gravity;
@@ -14,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
+
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.pojo.ShortContactPojo;
 import com.fuwu.mobileim.util.FuXunTools;

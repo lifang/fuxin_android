@@ -16,6 +16,7 @@ public interface Urlinterface {
 	static final String tag = "FuXun";
 	static final String SHARED = "FuXun";
 	static final String current_version = "1.0.0.0";// 应用版本号
+	static final int Receiver_code = 8888;
 	// static final String IP = "https://118.242.18.189/IMApi/";
 	static final String IP = "https://i.fuwu.com/IMApi/";
 	// static final String IP = "https://192.168.1.161/IMApi/";

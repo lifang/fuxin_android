@@ -5,9 +5,11 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
+
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.pojo.ProfilePojo;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
