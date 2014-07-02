@@ -9,7 +9,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -233,12 +235,15 @@ public class BlockManagementActivity extends Activity  {
 			if (face_str != null && face_str.length() > 4) {
 				File f = new File(Urlinterface.head_pic, contact.getContactId()
 						+ "");
+				
 				if (f.exists()) {
 					Log.i("linshi------------", "加载本地图片");
-					ImageCacheUtil.IMAGE_CACHE.get(Urlinterface.head_pic
-							+ contact.getContactId(), head);
+					head.setImageDrawable(new BitmapDrawable(
+							BitmapFactory.decodeFile(Urlinterface.head_pic
+									+ contact.getContactId())));
 				} else {
-					FuXunTools.set_bk(contact.getContactId(), face_str, head);
+					FuXunTools.set_bk(contact.getContactId(), face_str,
+							head);
 				}
 			}
 			TextView name = (TextView) layout.findViewById(R.id.block_name);

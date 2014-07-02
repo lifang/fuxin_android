@@ -2,15 +2,17 @@ package com.fuwu.mobileim.util;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+
 import com.fuwu.mobileim.pojo.MessagePojo;
 import com.fuwu.mobileim.pojo.PushPojo;
-import com.fuwu.mobileim.pojo.TalkPojo;
 import com.fuwu.mobileim.pojo.ShortContactPojo;
+import com.fuwu.mobileim.pojo.TalkPojo;
 
 public class DBManager {
 	private DBHelper helper;

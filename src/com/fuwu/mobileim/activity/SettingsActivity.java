@@ -176,20 +176,16 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 			}
 		});
 		int user_id = preferences.getInt("user_id", -1);
-		// File f = new File(Urlinterface.head_pic, user_id + "");
-		// if (f.exists()) {
-		// f.delete();
-		// }
+
+		
 		init();
-		// if (FuXunTools.isConnect(getActivity())) {
-		// Thread thread = new Thread(new getProfile());
-		// thread.start();
-		// } else {
-		// Toast.makeText(getActivity(), R.string.no_internet,
-		// Toast.LENGTH_SHORT).show();
-		// }
-		profilePojo = getProfilePojo();
-		setData();
+		
+		if (preferences.getString("profile_user", "").equals(user_id+"")) {
+			profilePojo = getProfilePojo();
+			setData();
+		}
+		
+
 
 		return rootView;
 	}
