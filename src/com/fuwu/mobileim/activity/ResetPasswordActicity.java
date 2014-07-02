@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -54,6 +55,8 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 	@SuppressLint("HandlerLeak")
 	private String error_code;
 	private ScrollView scrol;
+	private ProgressDialog prodialog;
+	private SharedPreferences spf;
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
@@ -72,7 +75,7 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 					if (errorString == null) {
 						Toast.makeText(ResetPasswordActicity.this,
 								"短信发送失败,请重试", Toast.LENGTH_SHORT).show();
-					} else if (errorString.equals("ExistingUserYes")) {
+					} else if (error_code.equals("ExistingUserYes")) {
 						Toast.makeText(ResetPasswordActicity.this, "手机已被注册",
 								Toast.LENGTH_SHORT).show();
 					} else {
@@ -104,12 +107,12 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 			}
 		}
 	};
-	private ProgressDialog prodialog;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.resetpassword);
 		fx = (FxApplication) getApplication();
+		spf = getSharedPreferences(Urlinterface.SHARED, 0);
 		initialize();
 	}
 
@@ -119,6 +122,7 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 		pwd_text = (EditText) findViewById(R.id.pwd);
 		pwds_text = (EditText) findViewById(R.id.pwds);
 		phone_text = (EditText) findViewById(R.id.phone);
+		phone_text.setText(spf.getString("phone", ""));
 		yz_text = (EditText) findViewById(R.id.yz);
 		pwd_text.setOnFocusChangeListener(this);
 		pwds_text.setOnFocusChangeListener(this);

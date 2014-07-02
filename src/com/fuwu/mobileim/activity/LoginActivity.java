@@ -88,9 +88,9 @@ public class LoginActivity extends Activity implements OnClickListener,
 					item = -290;
 				} else if (fx.getHeight() == 1280) {
 					item = -200;
-				} else if (fx.getHeight() == 480){
+				} else if (fx.getHeight() == 480) {
 					item = -200;
-				}else {
+				} else {
 					switch (fx.getHeight()) {
 					case 854:
 						item = -250;
@@ -124,7 +124,6 @@ public class LoginActivity extends Activity implements OnClickListener,
 		}
 	};
 
-	@SuppressWarnings("deprecation")
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
@@ -178,7 +177,6 @@ public class LoginActivity extends Activity implements OnClickListener,
 		if (uid != 0) {
 			File file = new File(Urlinterface.head_pic, uid + "");
 			if (file.exists()) {
-				@SuppressWarnings("deprecation")
 				Drawable dra = new BitmapDrawable(
 						BitmapFactory.decodeFile(Urlinterface.head_pic + uid));
 				head.setImageDrawable(dra);
