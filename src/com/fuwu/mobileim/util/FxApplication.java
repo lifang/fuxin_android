@@ -38,6 +38,7 @@ public class FxApplication extends Application {
 	}
 
 	public void initData() {
+		user_exit = false;
 		profilePojo = new ProfilePojo();
 	}
 
