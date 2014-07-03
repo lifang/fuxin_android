@@ -11,9 +11,10 @@ import android.view.ViewTreeObserver;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.fuwu.mobileim.R;
-import com.fuwu.mobileim.util.ImageCacheUtil;
+import com.fuwu.mobileim.util.ImageUtil;
 import com.fuwu.mobileim.view.DragImageView;
 
 /**
@@ -40,16 +41,24 @@ public class ZoomImageActivity extends Activity implements OnTouchListener {
 				finish();
 			}
 		});
+		findViewById(R.id.save_btn).setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Toast.makeText(getApplicationContext(), "图片已存到相册的fuwu文件夹中", 0)
+						.show();
+			}
+		});
 
 		String path = getIntent().getStringExtra("image_path");
 		WindowManager manager = getWindowManager();
 		window_width = manager.getDefaultDisplay().getWidth();
 		window_height = manager.getDefaultDisplay().getHeight();
 		dragImageView = (DragImageView) findViewById(R.id.chat_zoom_image);
-		dragImageView.setTag(path);
-		if (!ImageCacheUtil.IMAGE_CACHE.get(path, dragImageView)) {
-			dragImageView.setImageDrawable(null);
-		}
+		// dragImageView.setTag(path);
+		// if (!ImageCacheUtil.IMAGE_CACHE.get(path, dragImageView)) {
+		// dragImageView.setImageDrawable(null);
+		// }
+		dragImageView.setImageBitmap(ImageUtil.getLoacalBitmap(path));
 		// ImageCacheUtil.IMAGE_CACHE.get(path, dragImageView);
 		// 设置图片
 		dragImageView.setmActivity(this);// 注入Activity.
