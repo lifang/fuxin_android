@@ -149,7 +149,6 @@ public class TalkActivity extends Fragment {
 				prodialog.show();
 				CustomName = nickname.getText().toString();
 				new UpdateContactRem().start();
-
 			}
 		});
 		// 设置对话框显示的View

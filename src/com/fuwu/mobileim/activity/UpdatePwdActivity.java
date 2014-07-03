@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -58,6 +59,7 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 	private String error_code;
 	private ProgressDialog prodialog;
 	private ScrollView scrol;
+	private SharedPreferences spf;
 	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
@@ -77,7 +79,7 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 					if (errorString == null) {
 						Toast.makeText(UpdatePwdActivity.this, "短信发送失败,请重试",
 								Toast.LENGTH_SHORT).show();
-					} else if (errorString.equals("ExistingUserYes")) {
+					} else if (error_code.equals("ExistingUserYes")) {
 						Toast.makeText(UpdatePwdActivity.this, "手机已被注册",
 								Toast.LENGTH_SHORT).show();
 					} else {
@@ -119,6 +121,7 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.update_pwd);
 		fx = (FxApplication) getApplication();
+		spf = getSharedPreferences(Urlinterface.SHARED, 0);
 		initialize();
 	}
 
@@ -129,6 +132,7 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 		new_pwd = (EditText) findViewById(R.id.new_pwd);
 		new_pwds = (EditText) findViewById(R.id.new_pwds);
 		phone_text = (EditText) findViewById(R.id.phone);
+		phone_text.setText(spf.getString("phone", ""));
 		yz_text = (EditText) findViewById(R.id.yz);
 		old_pwd.setOnFocusChangeListener(this);
 		new_pwd.setOnFocusChangeListener(this);
