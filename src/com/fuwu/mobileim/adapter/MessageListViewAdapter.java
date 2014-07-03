@@ -27,6 +27,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -162,6 +163,10 @@ public class MessageListViewAdapter extends BaseAdapter {
 				convertView = mInflater.inflate(R.layout.chat_item_left, null);
 			} else {
 				convertView = mInflater.inflate(R.layout.chat_item_right, null);
+				holder.load = (ProgressBar) convertView
+						.findViewById(R.id.loadingcircle);
+				holder.sendFail = (ImageView) convertView
+						.findViewById(R.id.sendfail);
 			}
 			holder.time = (TextView) convertView
 					.findViewById(R.id.chat_datetime);
@@ -194,21 +199,15 @@ public class MessageListViewAdapter extends BaseAdapter {
 					Intent i = new Intent();
 					i.setClass(mContext, ContactInfoActivity.class);
 					mContext.startActivity(i);
-					// if (FuXunTools.isConnect(mContext)) {
-					// if (!ContactCache.flag) {
-					// ContactCache.flag = true;
-					// pd.show();
-					// new GetContactDetail().start();
-					// } else {
-					// contactDetail = ContactCache.cp;
-					// handler.sendEmptyMessage(3);
-					// }
-					// } else {
-					// handler.sendEmptyMessage(8);
-					// }
 				}
 			});
 		} else {
+			if (mp.getStatus() == 0) {
+				holder.load.setVisibility(View.GONE);
+			} else if (mp.getStatus() == 2) {
+				holder.load.setVisibility(View.GONE);
+				holder.sendFail.setVisibility(View.VISIBLE);
+			}
 			holder.img.setTag(Urlinterface.head_pic + user_id);
 			if (!ImageCacheUtil.IMAGE_CACHE.get(
 					Urlinterface.head_pic + user_id, holder.img)) {
@@ -245,6 +244,8 @@ public class MessageListViewAdapter extends BaseAdapter {
 		public TextView order;
 		public ImageView img;
 		public ImageView sendImg;
+		public ProgressBar load;
+		public ImageView sendFail;
 	}
 
 	public void showContactDialog() {

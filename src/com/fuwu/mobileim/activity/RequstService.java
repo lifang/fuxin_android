@@ -36,7 +36,7 @@ import com.google.protobuf.InvalidProtocolBufferException;
 public class RequstService extends Service {
 
 	private boolean flag = false;
-	private int time = 10;
+	private int time = 25;
 	private SharedPreferences sp;
 	private IBinder binder = new RequstService.RequstBinder();
 	private ScheduledExecutorService scheduledThreadPool = Executors

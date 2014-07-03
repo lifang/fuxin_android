@@ -69,7 +69,7 @@
                     android:layout_marginRight="20dp"
                     android:text="!"
                     android:textColor="@color/red"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:visibility="gone" />
             </RelativeLayout>
 
@@ -104,7 +104,7 @@
                     android:layout_marginRight="20dp"
                     android:text="!"
                     android:textColor="@color/red"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:visibility="gone" />
             </RelativeLayout>
 
@@ -139,7 +139,7 @@
                     android:layout_marginRight="20dp"
                     android:text="!"
                     android:textColor="@color/red"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:visibility="gone" />
             </RelativeLayout>
 
@@ -181,7 +181,7 @@
                         android:background="@drawable/touming_btn"
                         android:text="@string/phone_ok"
                         android:textColor="@color/system_textColor"
-                        android:textSize="16sp" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/phone_tag"
@@ -192,7 +192,7 @@
                         android:gravity="center"
                         android:text="@string/regist_error"
                         android:textColor="@color/red"
-                        android:textSize="16sp"
+                        android:textSize="14sp"
                         android:visibility="gone" />
 
                     <View
@@ -227,7 +227,7 @@
                     android:background="@drawable/touming_btn2"
                     android:text="@string/yz_send"
                     android:textColor="@color/qianhui"
-                    android:textSize="16sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/yz_tag"
@@ -238,7 +238,7 @@
                     android:gravity="center"
                     android:text="@string/yz_error"
                     android:textColor="@color/red"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:visibility="gone" />
 
                 <View
@@ -263,7 +263,7 @@
                     android:layout_marginLeft="10dp"
                     android:text="@string/validate"
                     android:textColor="@color/qianhui"
-                    android:textSize="16sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -271,7 +271,7 @@
                     android:layout_alignParentRight="true"
                     android:text="@string/validate2"
                     android:textColor="@color/qianhui"
-                    android:textSize="16sp" />
+                    android:textSize="14sp" />
             </RelativeLayout>
 
             <LinearLayout
@@ -294,16 +294,17 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:text="@string/agreement"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/xy"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/agreement2"
-                    android:textColor="@color/red"
-                    android:textSize="16sp" />
+                    android:textSize="14sp" />
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/xy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/agreement2"
+                android:layout_marginLeft="40dp"
+                android:textColor="@color/red"
+                android:textSize="14sp" />
 
             <Button
                 android:id="@+id/regist_over"
@@ -313,7 +314,7 @@
                 android:background="@drawable/regist_btn"
                 android:text="@string/regist_over"
                 android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
         </LinearLayout>
     </ScrollView>
 

@@ -13,10 +13,6 @@
     </uses-permission>
     <!-- 在SDCard中创建于删除文件的权限 -->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-    <uses-permission android:name="android.permission.CAMERA" />
-
-    <uses-feature android:name="android.hardware.camera" />
-    <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <!-- 在SDCard中写入数据的权限 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -44,6 +40,13 @@
 
     <!-- 百度统计权限 -->
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+
+    <!-- 读取sim卡 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 添加程序接收短信的权限 -->
+    <uses-permission android:name="android.permission.SEND_SMS" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
 
     <application
         android:name="com.fuwu.mobileim.util.FxApplication"
@@ -278,9 +281,6 @@
             android:name="com.fuwu.mobileim.activity.ComtactZoomImageActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-
-        <!-- 个推download模块配置 -->
-        <service android:name="com.fuwu.mobileim.util.ExitService" />
     </application>
 
 </manifest>

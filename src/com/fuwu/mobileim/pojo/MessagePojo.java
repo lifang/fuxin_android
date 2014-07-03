@@ -18,6 +18,7 @@ public class MessagePojo {
 	private String content;// 消息内容
 	private int isComMeg = 0;// 0接收/1发送 消息
 	private int msgType;
+	private int status = 0;
 
 	public MessagePojo() {
 	}
@@ -31,6 +32,14 @@ public class MessagePojo {
 		this.content = content;
 		this.isComMeg = isComMeg;
 		this.msgType = msgType;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
 	}
 
 	public int getUserId() {
