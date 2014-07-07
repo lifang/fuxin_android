@@ -61,7 +61,7 @@
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:textColor="#333333"
-                android:textSize="18dp" />
+                android:textSize="17sp" />
 
             <TextView
                 android:id="@+id/content"
@@ -71,7 +71,7 @@
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:textColor="#999999"
-                android:textSize="16dp" />
+                android:textSize="17sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -85,14 +85,8 @@
             <TextView
                 android:id="@+id/dath"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/fuhao"
-                android:textColor="#DDDDDD"
-                android:textSize="22dp" />
+                android:textSize="17sp" />
         </LinearLayout>
     </RelativeLayout>
 

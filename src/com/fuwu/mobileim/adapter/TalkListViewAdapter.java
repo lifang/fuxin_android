@@ -113,7 +113,6 @@ public class TalkListViewAdapter extends BaseAdapter {
 		}
 		// FuXunTools.set_img(list.get(arg0).getContact_id(), holder.head);
 		return arg1;
-
 	}
 
 	static final class ViewHolder {
