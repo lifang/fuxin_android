@@ -27,7 +27,7 @@
             android:maxWidth="200dp"
             android:singleLine="true"
             android:textColor="#ffffff"
-            android:textSize="17dp" />
+            android:textSize="16sp" />
 
         <ImageButton
             android:id="@+id/chat_other"
