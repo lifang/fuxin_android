@@ -24,9 +24,15 @@ public class WelcomeActivity extends Activity {
 		// 创建电话管理
 		TelephonyManager tm = (TelephonyManager) this
 				.getSystemService(Context.TELEPHONY_SERVICE);
-		String phoneId = tm.getLine1Number();
-		String str = phoneId.substring(3, phoneId.length());
-		spf.edit().putString("phone", str).commit();
+		try {
+			String phoneId = tm.getLine1Number();
+			if (!phoneId.equals("")) {
+				String str = phoneId.substring(3, phoneId.length());
+				spf.edit().putString("phone", str).commit();
+			}
+		} catch (Exception e) {
+		}
+
 		// if (spf.getBoolean("welcome", true)) {
 		new Handler().postDelayed(new Runnable() {
 			public void run() {

@@ -58,7 +58,8 @@
                     android:hint="请填写原密码"
                     android:inputType="textPassword"
                     android:textColor="#333333"
-                    android:textColorHint="@color/qianhui" />
+                    android:textColorHint="@color/qianhui"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/old_pwd_tag"
@@ -69,7 +70,7 @@
                     android:layout_marginRight="20dp"
                     android:text="!"
                     android:textColor="@color/red"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     android:visibility="gone" />
             </RelativeLayout>
 
@@ -93,7 +94,8 @@
                     android:hint="输入新密码"
                     android:inputType="textPassword"
                     android:textColor="#333333"
-                    android:textColorHint="@color/qianhui" />
+                    android:textColorHint="@color/qianhui"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/new_pwd_tag"
@@ -104,7 +106,7 @@
                     android:layout_marginRight="20dp"
                     android:text="!"
                     android:textColor="@color/red"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     android:visibility="gone" />
             </RelativeLayout>
 
@@ -128,7 +130,8 @@
                     android:hint="确认新密码"
                     android:inputType="textPassword"
                     android:textColor="#333333"
-                    android:textColorHint="@color/qianhui" />
+                    android:textColorHint="@color/qianhui"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/new_pwds_tag"
@@ -139,7 +142,7 @@
                     android:layout_marginRight="20dp"
                     android:text="!"
                     android:textColor="@color/red"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     android:visibility="gone" />
             </RelativeLayout>
 
@@ -170,7 +173,8 @@
                         android:hint="输入手机号码"
                         android:inputType="phone"
                         android:textColor="#333333"
-                        android:textColorHint="@color/qianhui" />
+                        android:textColorHint="@color/qianhui"
+                        android:textSize="16sp" />
 
                     <Button
                         android:id="@+id/phone_ok"
@@ -216,7 +220,8 @@
                     android:hint="输入验证码"
                     android:inputType="text"
                     android:textColor="#333333"
-                    android:textColorHint="@color/qianhui" />
+                    android:textColorHint="@color/qianhui"
+                    android:textSize="16sp" />
 
                 <Button
                     android:id="@+id/yz_send"
@@ -282,7 +287,7 @@
                 android:background="@drawable/regist_btn"
                 android:text="@string/regist_over"
                 android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
         </LinearLayout>
     </ScrollView>
 

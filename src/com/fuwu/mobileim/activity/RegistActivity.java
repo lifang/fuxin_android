@@ -3,11 +3,15 @@ package com.fuwu.mobileim.activity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.telephony.SmsMessage;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -62,6 +66,8 @@ public class RegistActivity extends Activity implements OnClickListener,
 	private ScrollView scrol;
 	private ProgressDialog prodialog;
 	private SharedPreferences spf;
+	private IntentFilter filter = null;
+	public static final String ACTION = "android.provider.Telephony.SMS_RECEIVED";
 	@SuppressLint("HandlerLeak")
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
@@ -302,6 +308,12 @@ public class RegistActivity extends Activity implements OnClickListener,
 		case R.id.yz_send:
 			if (FuXunTools.isConnect(this)) {
 				if (!phone_btn) {
+					if (filter == null) {
+						filter = new IntentFilter();
+					}
+					filter.addAction(ACTION);
+					filter.setPriority(Integer.MAX_VALUE);
+					registerReceiver(myReceiver, filter);
 					new Thread(new ValidateCode_Post()).start();
 					validate_time.setVisibility(View.VISIBLE);
 				}
@@ -359,6 +371,36 @@ public class RegistActivity extends Activity implements OnClickListener,
 	public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
 		regist_btnOver();
 	}
+
+	// 短信拦截
+	private BroadcastReceiver myReceiver = new BroadcastReceiver() {
+		public void onReceive(Context context, Intent intent) {
+			String action = intent.getAction();
+			Log.i("Max", "2222");
+			if (action.equals("android.provider.Telephony.SMS_RECEIVED")) {
+				Bundle bundle = intent.getExtras();
+				if (bundle != null) {
+					Object[] object = (Object[]) bundle.get("pdus");
+					SmsMessage[] messages = new SmsMessage[object.length];
+					for (int i = 0; i < object.length; i++) {
+						messages[i] = SmsMessage
+								.createFromPdu((byte[]) object[i]);
+					}
+					SmsMessage message = messages[0];
+					String phone = message.getDisplayOriginatingAddress();
+					if (phone.equals("1069022905555")) {
+						String content = message.getMessageBody();
+						String code = content.substring(17, 23);
+						Log.i("Max", code);
+						if (!code.equals("")) {
+							yz_text.setText(code);
+						}
+						unregisterReceiver(myReceiver);
+					}
+				}
+			}
+		}
+	};
 
 	public void onResume() {
 		super.onResume();

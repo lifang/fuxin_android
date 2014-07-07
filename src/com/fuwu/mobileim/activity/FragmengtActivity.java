@@ -287,7 +287,7 @@ public class FragmengtActivity extends FragmentActivity {
 			}else {
 				if (FuXunTools.isConnect(this)) {
 					prodialog =new ProgressDialog(FragmengtActivity.this);
-					prodialog.setMessage("正在加载数据，请稍后2...");
+					prodialog.setMessage("正在加载数据，请稍后...");
 					prodialog.setCanceledOnTouchOutside(false);
 					prodialog.show();
 					getProfile();

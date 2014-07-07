@@ -87,7 +87,7 @@ public class BlockManagementActivity extends Activity  {
 				break;
 			case 6:
 				prodialog.dismiss();
-				Toast.makeText(getApplicationContext(), "请求失败",
+				Toast.makeText(getApplicationContext(), "恢复失败",
 						Toast.LENGTH_SHORT).show();
 				break;
 

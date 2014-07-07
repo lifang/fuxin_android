@@ -43,6 +43,10 @@
 
     <!-- 读取sim卡 -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 添加程序接收短信的权限 -->
+    <uses-permission android:name="android.permission.SEND_SMS" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
 
     <application
         android:name="com.fuwu.mobileim.util.FxApplication"

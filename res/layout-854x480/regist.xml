@@ -58,7 +58,8 @@
                     android:hint="输入昵称,建议6到8个字符"
                     android:inputType="text"
                     android:textColor="#333333"
-                    android:textColorHint="@color/qianhui" />
+                    android:textColorHint="@color/qianhui"
+                    android:textSize="17sp" />
 
                 <TextView
                     android:id="@+id/name_tag"
@@ -93,7 +94,8 @@
                     android:hint="输入密码"
                     android:inputType="textPassword"
                     android:textColor="#333333"
-                    android:textColorHint="@color/qianhui" />
+                    android:textColorHint="@color/qianhui"
+                    android:textSize="17sp" />
 
                 <TextView
                     android:id="@+id/pwd_tag"
@@ -128,7 +130,8 @@
                     android:hint="确认密码"
                     android:inputType="textPassword"
                     android:textColor="#333333"
-                    android:textColorHint="@color/qianhui" />
+                    android:textColorHint="@color/qianhui"
+                    android:textSize="17sp" />
 
                 <TextView
                     android:id="@+id/pwds_tag"
@@ -170,7 +173,8 @@
                         android:hint="输入手机号码"
                         android:inputType="phone"
                         android:textColor="#333333"
-                        android:textColorHint="@color/qianhui" />
+                        android:textColorHint="@color/qianhui"
+                        android:textSize="17sp" />
 
                     <Button
                         android:id="@+id/phone_ok"
@@ -181,7 +185,7 @@
                         android:background="@drawable/touming_btn"
                         android:text="@string/phone_ok"
                         android:textColor="@color/system_textColor"
-                        android:textSize="16sp" />
+                        android:textSize="17sp" />
 
                     <TextView
                         android:id="@+id/phone_tag"
@@ -192,7 +196,7 @@
                         android:gravity="center"
                         android:text="@string/regist_error"
                         android:textColor="@color/red"
-                        android:textSize="16sp"
+                        android:textSize="17sp"
                         android:visibility="gone" />
 
                     <View
@@ -216,7 +220,8 @@
                     android:hint="输入验证码"
                     android:inputType="text"
                     android:textColor="#333333"
-                    android:textColorHint="@color/qianhui" />
+                    android:textColorHint="@color/qianhui"
+                    android:textSize="16sp" />
 
                 <Button
                     android:id="@+id/yz_send"
@@ -295,15 +300,16 @@
                     android:layout_marginLeft="5dp"
                     android:text="@string/agreement"
                     android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/xy"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/agreement2"
-                    android:textColor="@color/red"
-                    android:textSize="16sp" />
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/xy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:text="@string/agreement2"
+                android:textColor="@color/red"
+                android:textSize="16sp" />
 
             <Button
                 android:id="@+id/regist_over"
@@ -313,7 +319,7 @@
                 android:background="@drawable/regist_btn"
                 android:text="@string/regist_over"
                 android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
         </LinearLayout>
     </ScrollView>
 
