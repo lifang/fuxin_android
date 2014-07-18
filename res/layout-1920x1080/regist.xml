@@ -57,6 +57,7 @@
                     android:background="@null"
                     android:hint="输入昵称,建议6到8个字符"
                     android:inputType="text"
+                     android:textSize="17sp" 
                     android:textColor="#333333"
                     android:textColorHint="@color/qianhui" />
 
@@ -93,6 +94,7 @@
                     android:hint="输入密码"
                     android:inputType="textPassword"
                     android:textColor="#333333"
+                     android:textSize="17sp" 
                     android:textColorHint="@color/qianhui" />
 
                 <TextView
@@ -127,6 +129,7 @@
                     android:background="@null"
                     android:hint="确认密码"
                     android:inputType="textPassword"
+                     android:textSize="17sp" 
                     android:textColor="#333333"
                     android:textColorHint="@color/qianhui" />
 
@@ -166,6 +169,7 @@
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="10dp"
                         android:background="@null"
+                         android:textSize="17sp" 
                         android:gravity="center_vertical"
                         android:hint="输入手机号码"
                         android:inputType="phone"
@@ -181,7 +185,7 @@
                         android:background="@drawable/touming_btn"
                         android:text="@string/phone_ok"
                         android:textColor="@color/system_textColor"
-                        android:textSize="16sp" />
+                        android:textSize="17sp" />
 
                     <TextView
                         android:id="@+id/phone_tag"
@@ -192,7 +196,7 @@
                         android:gravity="center"
                         android:text="@string/regist_error"
                         android:textColor="@color/red"
-                        android:textSize="16sp"
+                        android:textSize="17sp"
                         android:visibility="gone" />
 
                     <View
@@ -213,6 +217,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@null"
                     android:gravity="center_vertical"
+                     android:textSize="17sp" 
                     android:hint="输入验证码"
                     android:inputType="text"
                     android:textColor="#333333"
@@ -227,7 +232,7 @@
                     android:background="@drawable/touming_btn2"
                     android:text="@string/yz_send"
                     android:textColor="@color/qianhui"
-                    android:textSize="16sp" />
+                    android:textSize="17sp" />
 
                 <TextView
                     android:id="@+id/yz_tag"
@@ -238,7 +243,7 @@
                     android:gravity="center"
                     android:text="@string/yz_error"
                     android:textColor="@color/red"
-                    android:textSize="16sp"
+                    android:textSize="17sp"
                     android:visibility="gone" />
 
                 <View
@@ -263,7 +268,7 @@
                     android:layout_marginLeft="10dp"
                     android:text="@string/validate"
                     android:textColor="@color/qianhui"
-                    android:textSize="16sp" />
+                    android:textSize="17sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -271,7 +276,7 @@
                     android:layout_alignParentRight="true"
                     android:text="@string/validate2"
                     android:textColor="@color/qianhui"
-                    android:textSize="16sp" />
+                    android:textSize="17sp" />
             </RelativeLayout>
 
             <LinearLayout
@@ -313,7 +318,7 @@
                 android:background="@drawable/regist_btn"
                 android:text="@string/regist_over"
                 android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
         </LinearLayout>
     </ScrollView>
 
