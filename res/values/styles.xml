@@ -18,7 +18,7 @@
         <!-- 设置无边框 -->
         <item name="android:windowNoTitle">true</item>
         <!-- 设置无标题 -->
-        <item name="android:windowBackground">@drawable/shape</item>
+        <item name="android:windowBackground">@drawable/block_display_shape</item>
         <!-- 设置完全透明 -->
         <item name="android:backgroundDimEnabled">true</item>
         <!-- 设置屏幕变暗 -->

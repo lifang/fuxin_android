@@ -26,7 +26,7 @@
             android:layout_toRightOf="@+id/setting_adapter_item_iv"
             android:text="aaaaaaaaa"
             android:textColor="@color/text_color"
-            android:textSize="19dp" />
+            android:textSize="18sp" />
 
         <RelativeLayout
             android:id="@+id/notice_sign"

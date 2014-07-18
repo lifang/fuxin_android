@@ -6,7 +6,7 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="65dp"
+        android:layout_height="60dp"
         android:paddingBottom="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="20dp"
@@ -14,8 +14,8 @@
 
         <RelativeLayout
             android:id="@+id/layout"
-            android:layout_width="55dp"
-            android:layout_height="55dp" >
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
 
             <com.fuwu.mobileim.view.CircularImage
                 android:id="@+id/head"
@@ -23,6 +23,8 @@
                 android:layout_height="40dp"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
+                                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/moren" />
 
@@ -71,7 +73,7 @@
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:textColor="#999999"
-                android:textSize="17sp" />
+                android:textSize="15sp" />
         </LinearLayout>
 
         <LinearLayout

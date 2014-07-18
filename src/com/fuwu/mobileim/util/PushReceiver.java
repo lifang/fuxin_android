@@ -19,8 +19,6 @@ import com.fuwu.mobileim.model.Models.ClientInfo;
 import com.fuwu.mobileim.model.Models.ClientInfo.OSType;
 import com.fuwu.mobileim.model.Models.ClientInfoRequest;
 import com.fuwu.mobileim.model.Models.ClientInfoResponse;
-import com.fuwu.mobileim.model.Models.MessagePush;
-import com.fuwu.mobileim.model.Models.PushRequest;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.igexin.sdk.PushConsts;
 
@@ -31,7 +29,7 @@ public class PushReceiver extends BroadcastReceiver {
 	public String clientid;
 	public Context mContext;
 	private NotificationManager nm;
-
+	private int TID = 8888;
 	public void onReceive(Context context, Intent intent) {
 		mContext = context;
 		fx = (FxApplication) context.getApplicationContext();
@@ -63,14 +61,15 @@ public class PushReceiver extends BroadcastReceiver {
 						byte[] byteArray = Base64.decode(data, Base64.DEFAULT);
 						Log.i("Max", byteArray.toString());
 						try {
-							PushRequest pr = PushRequest.parseFrom(byteArray);
-							Log.i("Max", "收到推送");
-							MessagePush mp = pr.getMessagePush();
-							MyNotification("福务网",
-									mp.getSenderName() + ":" + mp.getContent(),
-									context, intent, mp.getSendTime(),
-									mp.getSenderId());
-						} catch (InvalidProtocolBufferException e) {
+//							PushRequest pr = PushRequest.parseFrom(byteArray);
+//							Log.i("Max", "收到推送");
+//							MessagePush mp = pr.getMessagePush();
+//							MyNotification("福务网",
+//									mp.getSenderName() + ":" + mp.getContent(),
+//									context, intent, mp.getSendTime());
+							MyNotification("福务网",byteArray.toString(),context,intent);
+							
+						} catch (Exception e) {
 							e.printStackTrace();
 						}
 					} else {
@@ -95,7 +94,7 @@ public class PushReceiver extends BroadcastReceiver {
 			break;
 		case Urlinterface.Receiver_code:
 			Log.i("Max", "删除通知uid:" + sf.getInt("contact_id", 0));
-			clearNotification(sf.getInt("contact_id", 0));
+			clearNotification();
 			break;
 		default:
 			break;
@@ -104,12 +103,11 @@ public class PushReceiver extends BroadcastReceiver {
 
 	// 自定义通知
 	public void MyNotification(String title, String content, Context context,
-			Intent startIntent, String time, int uid) {
+			Intent startIntent) {
 		// 1.得到NotificationManager
 		// 2.实例化一个通知，指定图标、概要、时间
 		Notification notification = new Notification(R.drawable.moren, "福务网",
-				TimeUtil.getLongTime(time));
-		Log.i("Max", uid + "");
+				System.currentTimeMillis());
 		// notification.defaults = Notification.DEFAULT_LIGHTS;
 		if (sf.getBoolean("pushsetting_music", true)) {
 			notification.defaults |= Notification.DEFAULT_SOUND;// 声音
@@ -125,13 +123,13 @@ public class PushReceiver extends BroadcastReceiver {
 		PendingIntent contentItent = PendingIntent.getActivity(context, 0,
 				startIntent, 0);
 		notification.setLatestEventInfo(context, title, content, contentItent);
-		nm.notify(uid, notification);
+		nm.notify(TID, notification);
 	}
 
 	// 删除通知
-	private void clearNotification(int uid) {
+	private void clearNotification() {
 		// 启动后删除之前我们定义的通知
-		nm.cancel(uid);
+		nm.cancel(TID);
 	}
 
 	// 发送ClientID

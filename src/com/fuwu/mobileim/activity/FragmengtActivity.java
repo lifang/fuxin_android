@@ -10,9 +10,12 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -54,6 +57,7 @@ import com.baidu.mobstat.StatService;
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.adapter.ContactAdapter;
 import com.fuwu.mobileim.adapter.FragmentViewPagerAdapter;
+import com.fuwu.mobileim.adapter.SearchContactAdapter;
 import com.fuwu.mobileim.model.Models.ContactRequest;
 import com.fuwu.mobileim.model.Models.ContactResponse;
 import com.fuwu.mobileim.model.Models.ProfileRequest;
@@ -90,7 +94,7 @@ public class FragmengtActivity extends FragmentActivity {
 	private LinearLayout contacts_search_linearLayout;// 搜索 内容显示部分
 	private FxApplication fxApplication;
 	private List<ShortContactPojo> SourceDateList;
-	private ContactAdapter adapter;
+	private SearchContactAdapter adapter;
 	private ImageView cursor;
 	private RequstReceiver mReuRequstReceiver;
 	private int offset = 0;
@@ -179,6 +183,19 @@ public class FragmengtActivity extends FragmentActivity {
 				} else {
 					countLinear.setVisibility(View.GONE);
 				}
+				break;
+			case 9:
+				prodialog.dismiss();
+				new Handler().postDelayed(new Runnable() {
+					public void run() {
+						Intent intent = new Intent(FragmengtActivity.this,
+								LoginActivity.class);
+						startActivity(intent);
+						FragmengtActivity.this.finish();
+					}
+				}, 3500);
+				Toast.makeText(getApplicationContext(), "您的账号已在其他手机登陆",
+						Toast.LENGTH_LONG).show();
 				break;
 			}
 		}
@@ -294,6 +311,9 @@ public class FragmengtActivity extends FragmentActivity {
 				} else {
 					Toast.makeText(FragmengtActivity.this, R.string.no_internet,
 							Toast.LENGTH_SHORT).show();
+					Intent i = new Intent();
+					i.setClass(this, RequstService.class);
+					startService(i);
 				}
 			}
 
@@ -458,7 +478,13 @@ public class FragmengtActivity extends FragmentActivity {
 						msg.what = 0;
 						handler.sendMessage(msg);
 					} else {
-						handler.sendEmptyMessage(5);
+						int ErrorCode = res.getErrorCode().getNumber();
+						if (ErrorCode==2001) {
+							handler.sendEmptyMessage(9);
+						}else {
+							handler.sendEmptyMessage(5);	
+						}
+						
 					}
 
 				} else {
@@ -666,8 +692,8 @@ public class FragmengtActivity extends FragmentActivity {
 			public void onTextChanged(CharSequence s, int start, int before,
 					int count) {
 				String content = contact_search_edittext.getText().toString();
-				adapter = new ContactAdapter(FragmengtActivity.this,
-						findSimilarContacts(content), -1);
+				adapter = new SearchContactAdapter(FragmengtActivity.this,
+						findSimilarContacts(content));
 				contacts_search_listview.setAdapter(adapter);
 			}
 
@@ -716,9 +742,12 @@ public class FragmengtActivity extends FragmentActivity {
 						Boolean isAuthentication = res.getProfile()
 								.getIsAuthentication();// 实名认证
 						String fuzhi = res.getProfile().getFuzhi();// 福值
+						String location = res.getProfile().getLocation();// 所在地
+						String description = res.getProfile().getDescription();// 福师简介
+
 						profilePojo = new ProfilePojo(userId, name, nickName,
 								gender, tileUrl, isProvider, lisence, mobile,
-								email, birthday, isAuthentication, fuzhi);
+								email, birthday, isAuthentication, fuzhi,location,description);
 						Log.i("linshi", "  --nickName" + nickName
 								+ "  --gender" + gender + "  --tileUrl"
 								+ tileUrl + "  --lisence" + lisence
@@ -730,7 +759,14 @@ public class FragmengtActivity extends FragmentActivity {
 						msg.what = 2;
 						handler.sendMessage(msg);
 					} else {
-						handler.sendEmptyMessage(3);
+						
+						int ErrorCode = res.getErrorCode().getNumber();
+						if (ErrorCode==2001) {
+							handler.sendEmptyMessage(9);
+						}else {
+							handler.sendEmptyMessage(3);	
+						}
+						
 					}
 				}else {
 					handler.sendEmptyMessage(3);
@@ -761,10 +797,11 @@ public class FragmengtActivity extends FragmentActivity {
 		editor.putString("profile_birthday", pro.getBirthday());
 		editor.putBoolean("profile_isAuthentication", pro.getIsAuthentication());
 		editor.putString("profile_fuZhi", pro.getFuZhi());
+		editor.putString("profile_location", pro.getLocation());
+		editor.putString("profile_description", pro.getDescription());
 		editor.putString("profile_user", pro.getUserId()+"");//  用于判断本地是否有当前用户的信息
 		editor.commit();
 		dataNumber = 1;
-
 	}
 	
 	public  void getBitmap_url(final String url,final int id) {
@@ -873,7 +910,29 @@ public class FragmengtActivity extends FragmentActivity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			// spf.edit().putString("Token", "null").commit();
-			System.exit(0);
+			Dialog dialog = new AlertDialog.Builder(FragmengtActivity.this)
+					.setTitle("提示")
+					.setMessage("您确认要退出应用么?")
+					.setPositiveButton("确认",
+							new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+
+									System.exit(0);
+								}
+							})
+					.setNegativeButton("取消",
+							new DialogInterface.OnClickListener() {
+
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+									dialog.dismiss();
+								}
+							}).create();
+			dialog.show();
+
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);

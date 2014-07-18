@@ -4,25 +4,36 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,20 +50,18 @@ import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.ImageCacheUtil;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CircularImage;
+import com.fuwu.mobileim.view.MyDialog;
 import com.google.protobuf.ByteString;
 
 public class MyInformationActivity extends Activity implements OnTouchListener {
 	byte[] buf = null;
 	private ProgressDialog prodialog;
 	private ImageButton my_info_back;// 返回按钮
-	private ImageButton my_info_confirm;// 保存按钮
 	private ProfilePojo profilePojo;
-	private CircularImage myinfo_userface;
-	private EditText myinfo_nickname;
-	private RelativeLayout fuzhi_layout;
-	private RelativeLayout myinfo_userface_layout;
+	private ImageView myinfo_userface, myinfo_modifynickname;
 	private TextView myinfo_certification, myinfo_mobile, myinfo_email,
-			myinfo_birthday, myinfo_sex, myinfo_fuzhi;
+			myinfo_birthday, myinfo_fuzhi, myinfo_location, myinfo_sign,
+			myinfo_nickname, myinfo_name;
 	String uri;
 	Bitmap bm = null;
 	private Handler handler = new Handler() {
@@ -78,13 +87,13 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 						ByteArrayOutputStream stream1 = new ByteArrayOutputStream();
 						Bitmap b = BitmapFactory.decodeByteArray(buf, 0,
 								buf.length);
+						myinfo_userface.setImageDrawable(new BitmapDrawable(
+								FuXunTools.createRoundConerImage(b)));
 						b.compress(Bitmap.CompressFormat.PNG, 90, stream);
 						byte[] buf2 = stream1.toByteArray(); // 将图片流以字符串形式存储下来
 						stream.write(buf2);
 						stream.close();
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
 					}
 				}
 				buf = null;
@@ -111,11 +120,25 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 				Toast.makeText(getApplicationContext(), "网络错误",
 						Toast.LENGTH_SHORT).show();
 				break;
+			case 9:
+				prodialog.dismiss();
+				new Handler().postDelayed(new Runnable() {
+					public void run() {
+						Intent intent = new Intent(MyInformationActivity.this,
+								LoginActivity.class);
+						startActivity(intent);
+						clearActivity();
+					}
+				}, 3500);
+				Toast.makeText(getApplicationContext(), "您的账号已在其他手机登陆",
+						Toast.LENGTH_LONG).show();
+				break;
 			}
 		}
 	};
 	SharedPreferences preferences;
 	private FxApplication fxApplication;
+
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.my_information);
@@ -124,32 +147,23 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 		preferences = getSharedPreferences(Urlinterface.SHARED,
 				Context.MODE_PRIVATE);
 		fxApplication = (FxApplication) getApplication();
-		my_info_confirm = (ImageButton) findViewById(R.id.my_info_confirm);
-		my_info_confirm.setOnTouchListener(this);
-		my_info_confirm.setOnClickListener(listener2);// 给保存按钮设置监听
-//		Intent intent = getIntent();
-//		int dataNumber = intent.getIntExtra("dataNumber", -1);
-//		if (dataNumber == 1) {
-//			profilePojo = getProfilePojo();// 获得全局变量中的个人信息
-//			init();
-//		}
+		fxApplication.getActivityList().add(this);
 		if (fxApplication.getUser_exit()) {
-			profilePojo = getProfilePojo();// 获得全局变量中的个人信息
+			profilePojo = getProfilePojo();// 获得本地中的个人信息
 			init();
-		}else {
+		} else {
 			if (FuXunTools.isConnect(this)) {
-				prodialog =new ProgressDialog(MyInformationActivity.this);
+				prodialog = new ProgressDialog(MyInformationActivity.this);
 				prodialog.setMessage("正在加载数据，请稍后...");
 				prodialog.setCanceledOnTouchOutside(false);
 				prodialog.show();
 				Thread thread = new Thread(new getProfile());
 				thread.start();
 			} else {
-				Toast.makeText(MyInformationActivity.this, R.string.no_internet,
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(MyInformationActivity.this,
+						R.string.no_internet, Toast.LENGTH_SHORT).show();
 			}
 		}
-
 
 	}
 
@@ -157,18 +171,19 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 	 * 获得相关组件 并设置数据
 	 */
 	private void init() {
-		myinfo_userface_layout = (RelativeLayout) findViewById(R.id.myinfo_userface_layout);
-		fuzhi_layout = (RelativeLayout) findViewById(R.id.fuzhi_layout);
-		myinfo_userface = (CircularImage) findViewById(R.id.myinfo_userface);// 头像
-		myinfo_nickname = (EditText) findViewById(R.id.myinfo_nickname);// 昵称
+		myinfo_modifynickname = (ImageView) findViewById(R.id.myinfo_modifynickname);// 画笔
+		myinfo_userface = (ImageView) findViewById(R.id.myinfo_userface);// 头像
+		myinfo_name = (TextView) findViewById(R.id.myinfo_name);// 名称
+		myinfo_nickname = (TextView) findViewById(R.id.myinfo_nickname);// 昵称
 		myinfo_certification = (TextView) findViewById(R.id.myinfo_certification); // 行业认证
 		myinfo_mobile = (TextView) findViewById(R.id.myinfo_mobile); // 手机
 		myinfo_email = (TextView) findViewById(R.id.myinfo_email); // 邮箱
 		myinfo_birthday = (TextView) findViewById(R.id.myinfo_birthday); // 生日
-		myinfo_sex = (TextView) findViewById(R.id.myinfo_sex); // 性别
 		myinfo_fuzhi = (TextView) findViewById(R.id.myinfo_fuzhi); // 福值
-		myinfo_userface.setOnClickListener(listener3);
-		myinfo_userface_layout.setOnClickListener(listener);
+		myinfo_sign = (TextView) findViewById(R.id.myinfo_sign); // 个人简介
+		myinfo_location = (TextView) findViewById(R.id.myinfo_location); // 所在地
+		myinfo_userface.setOnClickListener(listener);
+		myinfo_modifynickname.setOnClickListener(listener3);
 		// 设置头像
 		String face_str = profilePojo.getTileUrl();
 		Log.i("linshi1", "修改前----" + face_str);
@@ -177,26 +192,76 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 					+ "");
 			if (f.exists()) {
 				Log.i("linshi------------", "加载本地图片");
-				myinfo_userface.setImageDrawable(new BitmapDrawable(
-						BitmapFactory.decodeFile(Urlinterface.head_pic
-								+ profilePojo.getUserId())));
+				myinfo_userface.setImageDrawable(new BitmapDrawable(FuXunTools
+						.createRoundConerImage(BitmapFactory
+								.decodeFile(Urlinterface.head_pic
+										+ profilePojo.getUserId()))));
 			} else {
-				FuXunTools.set_bk(profilePojo.getUserId(), face_str,
-						myinfo_userface);
+				FuXunTools.set_bk_createRoundConerImage(
+						profilePojo.getUserId(), face_str, myinfo_userface);
 			}
 		} else {
-			myinfo_userface.setImageResource(R.drawable.moren);
+			Drawable drawable = getResources().getDrawable(R.drawable.moren);
+			BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+			Bitmap bitmap = bitmapDrawable.getBitmap();
+			myinfo_userface.setImageDrawable(new BitmapDrawable(FuXunTools
+					.createRoundConerImage(bitmap)));
 		}
-		// 设置昵称
-		myinfo_nickname.setText(profilePojo.getNickName());
-
-		// 设置福值
-		if (profilePojo.getIsProvider()) {
-			myinfo_fuzhi.setText(profilePojo.getFuZhi());
+		// 设置名称
+		String nameStr = profilePojo.getName();
+		if (nameStr != null && nameStr.length() > 0 && !nameStr.equals("null")) {
+			myinfo_name.setText(nameStr);
 		} else {
-			fuzhi_layout.setVisibility(View.GONE);
+			myinfo_name.setText(profilePojo.getNickName());
 		}
 
+		// 昵称
+		myinfo_nickname.setText(profilePojo.getNickName());
+		// 认证
+
+		// 设置实名认证
+		Boolean str1_ = profilePojo.getIsAuthentication();
+		// 设置邮箱认证
+		String str2_ = profilePojo.getEmail();
+		// 设置手机验证
+		String str3_ = profilePojo.getMobile();
+		if (str1_) {// 设置实名认证
+			findViewById(R.id.info_certification_name).setBackgroundResource(
+					R.drawable.certification11);
+		} else {
+			findViewById(R.id.info_certification_name).setBackgroundResource(
+					R.drawable.certification1);
+		}
+		if (str2_ != null && !("").equals(str2_)) {// 设置邮箱认证
+			findViewById(R.id.info_certification_email).setBackgroundResource(
+					R.drawable.certification21);
+		} else {
+			findViewById(R.id.info_certification_email).setBackgroundResource(
+					R.drawable.certification2);
+		}
+		if (str3_ != null && !("").equals(str3_)) {// 设置手机验证
+			findViewById(R.id.info_certification_mobile).setBackgroundResource(
+					R.drawable.certification31);
+		} else {
+			findViewById(R.id.info_certification_mobile).setBackgroundResource(
+					R.drawable.certification3);
+		}
+		// 设置福值
+		String fuzhiStr = profilePojo.getFuZhi();
+		if ("".equals(fuzhiStr)) {
+			fuzhiStr = "0";
+		}
+		fuzhiStr = fuzhiStr + "/5.0";
+		int index = fuzhiStr.indexOf("/");
+		SpannableStringBuilder mSpannableStringBuilder = new SpannableStringBuilder(
+				fuzhiStr);
+		mSpannableStringBuilder.setSpan(new ForegroundColorSpan(Color.RED), 0,
+				index, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+		ForegroundColorSpan span_1 = new ForegroundColorSpan(Color.argb(255,
+				153, 153, 153));
+		mSpannableStringBuilder.setSpan(span_1, index, fuzhiStr.length(),
+				Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+		myinfo_fuzhi.setText(mSpannableStringBuilder);
 		// 设置认证行业
 		String str1 = profilePojo.getLisence();
 		myinfo_certification.setText(str1);
@@ -209,17 +274,16 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 		myinfo_email.setText(str2);
 		// 生日
 		myinfo_birthday.setText(profilePojo.getBirthday());
-		// 设置性别
-		myinfo_sex.setText("");
-		int sex = profilePojo.getGender();
-		if (sex == 0) {// 男
-			myinfo_sex.setText("男");
-		} else if (sex == 1) {// 女
-			myinfo_sex.setText("女");
-		} else if (sex == 2) {
-			myinfo_sex.setText("保密");
+		//
+		// 设置个人简介
+		myinfo_sign.setText(profilePojo.getDescription());
+		// 设置所在地
+		myinfo_location.setText(profilePojo.getLocation());
+		if (profilePojo.getIsProvider()) {
+			findViewById(R.id.myinfo_hangye_layout).setVisibility(View.VISIBLE);
+			findViewById(R.id.myinfo_fuzhi_layout).setVisibility(View.VISIBLE);
+			findViewById(R.id.myinfo_gerenjianjie_layout).setVisibility(View.VISIBLE);
 		}
-
 	}
 
 	private View.OnClickListener listener1 = new View.OnClickListener() {
@@ -228,39 +292,6 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 			Intent intent2 = new Intent();
 			MyInformationActivity.this.setResult(-11, intent2);
 			MyInformationActivity.this.finish();
-		}
-	};
-
-	private View.OnClickListener listener2 = new View.OnClickListener() {
-		@Override
-		public void onClick(View v) {
-
-			String nickname_str = myinfo_nickname.getText().toString();
-
-			String kongge = nickname_str.replaceAll(" ", "");
-			if (nickname_str.length() == 0 || kongge.equals("")) {
-				Toast.makeText(getApplicationContext(), R.string.edit_null,
-						Toast.LENGTH_SHORT).show();
-			} else if (profilePojo.getNickName().equals(nickname_str)
-					&& buf == null) {
-				Toast.makeText(getApplicationContext(), R.string.no_change,
-						Toast.LENGTH_SHORT).show();
-
-			} else {
-
-				if (FuXunTools.isConnect(MyInformationActivity.this)) {
-					prodialog = new ProgressDialog(MyInformationActivity.this);
-					prodialog.setMessage("正在修改...");
-					prodialog.setCanceledOnTouchOutside(false);
-					prodialog.show();
-					Thread thread = new Thread(new modifyProfile());
-					thread.start();
-				} else {
-					Toast.makeText(MyInformationActivity.this,
-							R.string.no_internet, Toast.LENGTH_SHORT).show();
-				}
-
-			}
 		}
 	};
 
@@ -273,7 +304,6 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 		public void run() {
 			try {
 
-				String nickname_str = myinfo_nickname.getText().toString();
 				int user_id = preferences.getInt("user_id", -1);
 				String Token = preferences.getString("Token", "");
 
@@ -281,9 +311,6 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 						.newBuilder();
 				builder.setUserId(user_id);
 				builder.setToken(Token);
-				if (!profilePojo.getNickName().equals(nickname_str)) {
-					builder.setNickName(nickname_str);
-				}
 				if (buf != null) {
 					builder.setContentType("jpg");
 					builder.setTiles(ByteString.copyFrom(buf));
@@ -301,11 +328,15 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 						Log.i("linshi1", "修改后---"
 								+ res.getProfile().getTileUrl());
 						profilePojo.setTileUrl(res.getProfile().getTileUrl());
-						profilePojo.setNickName(nickname_str);
 						putProfile(profilePojo);
 						handler.sendEmptyMessage(0);
 					} else {
-						handler.sendEmptyMessage(1);
+						int ErrorCode = res.getErrorCode().getNumber();
+						if (ErrorCode == 2001) {
+							handler.sendEmptyMessage(9);
+						} else {
+							handler.sendEmptyMessage(1);
+						}
 					}
 				} else {
 					handler.sendEmptyMessage(6);
@@ -328,31 +359,51 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 	};
 
 	private View.OnClickListener listener3 = new View.OnClickListener() {
-
+		// 修改昵称
 		@Override
 		public void onClick(View v) {
 			Intent intent = new Intent();
-			intent.putExtra("image_path",
-					Urlinterface.head_pic + preferences.getInt("user_id", -1));
+			intent.putExtra("nickName", profilePojo.getNickName());
 			intent.setClass(MyInformationActivity.this,
-					ComtactZoomImageActivity.class);
-			startActivity(intent);
+					ModifyNickNameActivity.class);
+			startActivityForResult(intent, 0);
 		}
 	};
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+		Bundle bundle;
 		switch (resultCode) {
 		case -11:
 
-			Bundle bundle = data.getExtras();
+			bundle = data.getExtras();
 			uri = bundle.getString("uri");
 			buf = bundle.getByteArray("buf");
 			Log.i("linshi", buf.length + "--size");
-			Bitmap b = BitmapFactory.decodeByteArray(buf, 0, buf.length);
-			myinfo_userface.setImageDrawable(new BitmapDrawable(b));
+			// Bitmap b = BitmapFactory.decodeByteArray(buf, 0, buf.length);
+			// myinfo_userface.setImageDrawable(new BitmapDrawable(FuXunTools
+			// .createRoundConerImage(b)));
+			if (FuXunTools.isConnect(MyInformationActivity.this)) {
+				prodialog = new ProgressDialog(MyInformationActivity.this);
+				prodialog.setMessage("正在修改...");
+				prodialog.setCanceledOnTouchOutside(false);
+				prodialog.show();
+				Thread thread = new Thread(new modifyProfile());
+				thread.start();
+			} else {
+				Toast.makeText(MyInformationActivity.this,
+						R.string.no_internet, Toast.LENGTH_SHORT).show();
+			}
 
+			break;
+		case -12:
+			bundle = data.getExtras();
+			String nickName = bundle.getString("nickName");
+			if (nickName != null && !nickName.equals(profilePojo.getNickName())) {
+				profilePojo.setNickName(nickName);
+				putProfile(profilePojo);
+				init();
+			}
 			break;
 		default:
 			break;
@@ -382,11 +433,13 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 		String email = preferences.getString("profile_email", "");// 邮箱
 		String birthday = preferences.getString("profile_birthday", "");// 生日
 		Boolean isAuthentication = preferences.getBoolean(
-				"profile_isAuthentication", false);//
-		String fuzhi = preferences.getString("profile_fuZhi", "");// 生日
+				"profile_isAuthentication", false);// 实名认证
+		String fuzhi = preferences.getString("profile_fuZhi", "");// 福指
+		String location = preferences.getString("profile_location", "");// 所在地
+		String description = preferences.getString("profile_description", "");// 福师简介
 		profilePojo = new ProfilePojo(profile_userid, name, nickName, gender,
 				tileUrl, isProvider, lisence, mobile, email, birthday,
-				isAuthentication, fuzhi);
+				isAuthentication, fuzhi, location, description);
 		return profilePojo;
 	}
 
@@ -406,11 +459,12 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 		editor.putString("profile_birthday", pro.getBirthday());
 		editor.putBoolean("profile_isAuthentication", pro.getIsAuthentication());
 		editor.putString("profile_fuZhi", pro.getFuZhi());
-		editor.putString("profile_user", pro.getUserId()+"");//  用于判断本地是否有当前用户的信息
+		editor.putString("profile_location", pro.getLocation());
+		editor.putString("profile_description", pro.getDescription());
 		editor.commit();
 
 	}
-	
+
 	/**
 	 * 
 	 * 获得个人详细信息
@@ -447,9 +501,13 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 						Boolean isAuthentication = res.getProfile()
 								.getIsAuthentication();// 实名认证
 						String fuzhi = res.getProfile().getFuzhi();// 福值
+						String location = res.getProfile().getLocation();// 所在地
+						String description = res.getProfile().getDescription();// 福师简介
+
 						profilePojo = new ProfilePojo(userId, name, nickName,
 								gender, tileUrl, isProvider, lisence, mobile,
-								email, birthday, isAuthentication, fuzhi);
+								email, birthday, isAuthentication, fuzhi,
+								location, description);
 						Log.i("linshi", "  --nickName" + nickName
 								+ "  --gender" + gender + "  --tileUrl"
 								+ tileUrl + "  --lisence" + lisence
@@ -463,7 +521,7 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 					} else {
 						handler.sendEmptyMessage(6);
 					}
-				}else {
+				} else {
 					handler.sendEmptyMessage(6);
 				}
 
@@ -484,23 +542,56 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 				Log.i("linshi", "onTouchonTouchonTouchonTouch--my_info_back");
 				findViewById(R.id.my_info_back).getBackground().setAlpha(70);
 				break;
-			case R.id.my_info_confirm:
-				findViewById(R.id.my_info_confirm).getBackground().setAlpha(70);
-				break;
 			}
 		} else if (event.getAction() == MotionEvent.ACTION_UP) {
 			switch (v.getId()) {
 			case R.id.my_info_back:
 				findViewById(R.id.my_info_back).getBackground().setAlpha(255);
 				break;
-			case R.id.my_info_confirm:
-				findViewById(R.id.my_info_confirm).getBackground()
-						.setAlpha(255);
-				break;
 			}
 		}
 
 		return false;
+	}
+
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			// spf.edit().putString("Token", "null").commit();
+			Dialog dialog = new AlertDialog.Builder(MyInformationActivity.this)
+					.setTitle("提示")
+					.setMessage("您确认要退出应用么?")
+					.setPositiveButton("确认",
+							new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+
+									clearActivity();
+								}
+							})
+					.setNegativeButton("取消",
+							new DialogInterface.OnClickListener() {
+
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+									dialog.dismiss();
+								}
+							}).create();
+			dialog.show();
+
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+
+	// 关闭界面
+	public void clearActivity() {
+		List<Activity> activityList = fxApplication.getActivityList();
+		for (int i = 0; i < activityList.size(); i++) {
+			activityList.get(i).finish();
+		}
+		fxApplication.setActivityList();
 	}
 
 }

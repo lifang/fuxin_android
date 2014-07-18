@@ -1,35 +1,40 @@
-﻿    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/set_photolayout"
+﻿<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/set_photolayout"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/photo_shape"
+    android:layout_margin="10dp"
+    android:orientation="vertical" >
+
+    <Button
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="#e0000000"
-        
-        android:orientation="vertical"
-        >
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:onClick="set_lookphoto"
+        android:text="@string/lookphoto"
+        android:textColor="@color/text_color"
+        android:textSize="20sp" />
 
-        <Button
-            android:id="@+id/paizhaoshangchuan"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:background="@color/red_block"
-            android:gravity="center"
-            android:onClick="set_paizhaoshangchuan"
-            android:text="@string/takephoto"
-            android:textColor="#FFFFFF"
-            android:textSize="21dp" />
+    <Button
+        android:id="@+id/paizhaoshangchuan"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:onClick="set_paizhaoshangchuan"
+        android:text="@string/takephoto"
+        android:textColor="@color/text_color"
+        android:textSize="20sp" />
 
-        <Button
-            android:id="@+id/congxiangce"
-             android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:layout_below="@+id/paizhaoshangchuan"
-            android:background="@color/red_block"
-            android:layout_marginTop="20dp"
-            android:layout_centerHorizontal="true"
-            android:onClick="set_congxiangce"
-            android:text="@string/fromphotostore"
-            android:textColor="#FFFFFF"
-            android:textSize="21dp" />
-    </RelativeLayout>
+    <Button
+        android:id="@+id/congxiangce"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:onClick="set_congxiangce"
+        android:text="@string/fromphotostore"
+        android:textColor="@color/text_color"
+        android:textSize="20sp" />
+
+</LinearLayout>

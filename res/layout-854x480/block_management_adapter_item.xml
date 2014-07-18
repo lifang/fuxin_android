@@ -26,20 +26,20 @@
             android:layout_marginRight="17dp"
             android:background="@drawable/restore_button_shape"
             android:text="@string/restore"
-            android:textSize="15dp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/block_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="叮叮叮"
+            android:text=""
             android:singleLine="true"
              android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/block_face"
             android:layout_toLeftOf="@+id/block_restore"
             android:textColor="#333333"
-            android:textSize="17dp" />
+            android:textSize="17sp" />
     </RelativeLayout>
 
     <View

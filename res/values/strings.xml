@@ -38,7 +38,7 @@
     <string name="validate2">180秒内有效</string>
     <string name="update_title">修改密码</string>
     <string name="yzm_error">验证码错误！</string>
-    <string name="receive_mess">恢复接收此人消息</string>
+    <string name="receive_mess">恢复收听此人</string>
     <string name="my_info">我的信息</string>
     <string name="my_info_userface">头像：</string>
     <string name="my_info_nickname">昵称：</string>
@@ -48,6 +48,7 @@
     <string name="my_info_mobile">手机号码：</string>
     <string name="my_info_email">邮箱：</string>
     <string name="my_info_birthday">生日：</string>
+    <string name="my_info_location">所在地：</string>
     <string name="my_info_sex">性别：</string>
     <string name="pushsetting">消息推送</string>
     <string name="pushsetting_ing">消息主动推送</string>
@@ -58,11 +59,14 @@
     <string name="xlistview_header_hint_loading">正在加载...</string>
     <string name="edit_null">昵称不能为空！</string>
     <string name="takephoto">拍照上传</string>
-    <string name="fromphotostore">从相册选择</string>
+    <string name="lookphoto">查看头像</string>
+    <string name="fromphotostore">相册上传</string>
     <string name="agreement_title">福务网用户注册协议</string>
     <string name="no_change">个人信息没有任何变化！</string>
     <string name="no_internet">网络异常</string>
     <string name="talk_nickname">设置备注</string>
     <string name="personal_info">个人信息</string>
+    <string name="set_customname">设置备注</string>
+    <string name="modify_nickname">修改昵称</string>
 
 </resources>

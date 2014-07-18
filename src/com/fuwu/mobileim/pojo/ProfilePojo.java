@@ -8,13 +8,15 @@ public class ProfilePojo {
 	private int gender;// 性别
 	private String tileUrl;// 头像
 	private boolean isProvider;// 福师
-	private String lisence;// 行业认证
+	private String lisence;// 行业认证（纯汉字）
 	private String mobile;// 手机号码
 	private String email;// 邮箱
 	private String birthday;// 生日
 	private boolean isAuthentication;// 实名认证
 	private String fuZhi;// 福值
-	
+	private String location;//  //所在地
+	private String description;// 福师简介
+//	private String lisences;// 行业认证（非纯汉字，小图标）
 	public ProfilePojo() {
 	}
 
@@ -37,6 +39,44 @@ public class ProfilePojo {
 	}
 
 	
+	public ProfilePojo(int userId, String name, String nickName, int gender,
+			String tileUrl, boolean isProvider, String lisence, String mobile,
+			String email, String birthday, boolean isAuthentication,
+			String fuZhi,  String location, String description) {
+		super();
+		this.userId = userId;
+		this.name = name;
+		this.nickName = nickName;
+		this.gender = gender;
+		this.tileUrl = tileUrl;
+		this.isProvider = isProvider;
+		this.lisence = lisence;
+		this.mobile = mobile;
+		this.email = email;
+		this.birthday = birthday;
+		this.isAuthentication = isAuthentication;
+		this.fuZhi = fuZhi;
+		this.location = location;
+		this.description = description;
+	}
+
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public String getFuZhi() {
 		return fuZhi;
 	}

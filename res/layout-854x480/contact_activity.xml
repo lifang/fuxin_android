@@ -20,7 +20,7 @@
             android:background="@drawable/left_shape_red"
             android:text="@string/button_recently"
             android:textColor="@color/white"
-            android:textSize="15dp" />
+            android:textSize="16sp" />
 
 
         <Button
@@ -38,7 +38,7 @@
             android:background="@drawable/middle_shape_white"
             android:text="@string/button_trading"
             android:textColor="@color/red_block"
-            android:textSize="15dp" />
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/view_3"
@@ -55,7 +55,7 @@
             android:background="@drawable/right_shape_white"
             android:text="@string/button_subscription"
             android:textColor="@color/red_block"
-            android:textSize="15dp" />
+            android:textSize="16sp" />
     </LinearLayout>
 
 

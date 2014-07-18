@@ -1,15 +1,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/display_linear"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/shape"
+    android:id="@+id/display_linear"
+     android:background="@drawable/block_display_shape"
     android:orientation="vertical" >
 
     <RelativeLayout
         android:id="@+id/display_top"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape"
+        android:background="@drawable/block_display_shape"
         android:gravity="center_vertical"
         android:orientation="vertical" >
 
@@ -17,64 +17,30 @@
             android:id="@+id/block_display_userface"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_gravity="center_vertical"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="15dp"
-            android:src="@drawable/moren" />
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/moren"
+            />
 
         <RelativeLayout
             android:id="@+id/relativeLayout1"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/block_display_userface"
+            android:layout_height="40dp"
             android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="15dp"
+            android:gravity="center_vertical" 
             android:layout_toRightOf="@+id/block_display_userface" >
 
             <TextView
                 android:id="@+id/block_display_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxWidth="160dp"
                 android:text=""
+                android:layout_gravity="center_vertical"
                 android:textColor="#333333"
-                android:textSize="19dp" />
-
-            <ImageView
-                android:id="@+id/block_display_sex_item"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:layout_alignTop="@+id/block_display_name"
-                android:layout_marginLeft="3dp"
-                android:layout_marginTop="3dp"
-                android:layout_toRightOf="@+id/block_display_name"
-                android:background="@drawable/nv" />
-
-            <ImageView
-                android:id="@+id/block_display_gou"
-                android:layout_width="26dp"
-                android:layout_height="15dp"
-                android:layout_alignParentRight="true"
-                android:layout_alignTop="@+id/block_display_sex_item"
-                android:layout_marginRight="45dp"
-                android:background="@drawable/gou" />
-
-            <ImageView
-                android:id="@+id/block_display_yue"
-                android:layout_width="26dp"
-                android:layout_height="15dp"
-                android:layout_alignParentRight="true"
-                android:layout_alignTop="@+id/block_display_sex_item"
-                android:layout_marginRight="15dp"
-                android:background="@drawable/yue" />
-
-            <TextView
-                android:id="@+id/block_display_notename"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/block_display_name"
-                android:text=""
-                android:textColor="#CCCCCC"
-                android:textSize="17dp" />
+                android:textSize="19sp" />
         </RelativeLayout>
     </RelativeLayout>
 
@@ -88,8 +54,9 @@
         android:id="@+id/block_display_restore"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
-        android:background="@drawable/button_bottom_shape"
         android:text="@string/receive_mess"
-        android:textSize="19dp" />
+        android:textSize="18sp"
+        android:background="@drawable/button_bottom_shape" 
+        />
 
 </LinearLayout>

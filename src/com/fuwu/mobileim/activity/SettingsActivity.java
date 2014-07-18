@@ -35,6 +35,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -69,9 +70,8 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 	private View rootView;
 	private Profile profile;
 	private ProfilePojo profilePojo = new ProfilePojo();
-	private TextView nickName;
-	private ImageView setting_sex_item, certification_one, certification_two,
-			certification_three;
+	private TextView name;
+	private Button setting_exitBtn;
 	/* 更新进度条 */
 	private ProgressBar mProgress;
 	private Dialog DownloadDialog;
@@ -94,8 +94,8 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 			switch (msg.what) {
 			case 0:
 				// fxApplication.setProfilePojo(profilePojo);
-				putProfile(profilePojo);
-				setData();
+//				putProfile(profilePojo);
+//				setData();
 				break;
 			case 5:
 				prodialog.dismiss();
@@ -149,6 +149,19 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 				Toast.makeText(getActivity(), "当前已是最新版本", Toast.LENGTH_SHORT)
 						.show();
 				break;
+			case 12:
+				prodialog.dismiss();
+				new Handler().postDelayed(new Runnable() {
+					public void run() {
+						Intent intent = new Intent(getActivity(),
+								LoginActivity.class);
+						startActivity(intent);
+						getActivity().finish();
+					}
+				}, 3500);
+				Toast.makeText(getActivity(), "您的账号已在其他手机登陆", Toast.LENGTH_LONG)
+						.show();
+				break;
 			}
 		}
 	};
@@ -177,82 +190,16 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		});
 		int user_id = preferences.getInt("user_id", -1);
 
-		
-		init();
-		
-		if (preferences.getString("profile_user", "").equals(user_id+"")) {
+		if (preferences.getString("profile_user", "").equals(user_id + "")) {
+			init();
 			profilePojo = getProfilePojo();
 			setData();
 		}
-		
-
 
 		return rootView;
 	}
 
-	/**
-	 * 
-	 * 获得个人详细信息
-	 * 
-	 * 
-	 */
-
-	class getProfile implements Runnable {
-		public void run() {
-			try {
-				int user_id = preferences.getInt("user_id", -1);
-				String Token = preferences.getString("Token", "");
-				ProfileRequest.Builder builder = ProfileRequest.newBuilder();
-				builder.setUserId(user_id);
-				builder.setToken(Token);
-				ProfileRequest response = builder.build();
-
-				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
-						Urlinterface.PROFILE, "POST");
-				if (by != null && by.length > 0) {
-
-					ProfileResponse res = ProfileResponse.parseFrom(by);
-					if (res.getIsSucceed()) {
-						int userId = res.getProfile().getUserId();// 用户id
-						String name = res.getProfile().getName();// 名称
-						String nickName = res.getProfile().getNickName();// 昵称
-						int gender = res.getProfile().getGender().getNumber();// 性别
-						String tileUrl = res.getProfile().getTileUrl();// 头像
-						Boolean isProvider = res.getProfile().getIsProvider();//
-						String lisence = res.getProfile().getLisence();// 行业认证
-						String mobile = res.getProfile().getMobilePhoneNum();// 手机号码
-						String email = res.getProfile().getEmail();// 邮箱
-						String birthday = res.getProfile().getBirthday();// 生日
-						Boolean isAuthentication = res.getProfile()
-								.getIsAuthentication();// 实名认证
-						String fuzhi = res.getProfile().getFuzhi();// 福值
-						profilePojo = new ProfilePojo(userId, name, nickName,
-								gender, tileUrl, isProvider, lisence, mobile,
-								email, birthday, isAuthentication, fuzhi);
-						Log.i("linshi", "  --nickName" + nickName
-								+ "  --gender" + gender + "  --tileUrl"
-								+ tileUrl + "  --lisence" + lisence
-								+ "  --mobile" + mobile + "  --email" + email
-								+ "  birthday--" + birthday);
-						Log.i("linshi------------",
-								"profileprofileprofileprofile网络shuju");
-						Message msg = new Message();// 创建Message 对象
-						msg.what = 0;
-						handler.sendMessage(msg);
-					} else {
-
-					}
-				}
-
-				// handler.sendEmptyMessage(0);
-			} catch (Exception e) {
-				// prodialog.dismiss();
-				e.printStackTrace();
-				Log.i("error", e.toString());
-				handler.sendEmptyMessage(7);
-			}
-		}
-	}
+	
 
 	/**
 	 * 
@@ -267,34 +214,17 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 				.findViewById(R.id.setting_userface0);
 		setting_userface = (CircularImage) rootView
 				.findViewById(R.id.setting_userface);// 头像
-		setting_userface.setOnClickListener(listener2);
-		nickName = (TextView) rootView.findViewById(R.id.setting_teachername);// 昵称
+		// setting_userface.setOnClickListener(listener2);
+		name = (TextView) rootView.findViewById(R.id.setting_name);// 显示级别为：备注名>真实姓名>昵称
 
-		setting_sex_item = (ImageView) rootView
-				.findViewById(R.id.setting_sex_item);// 性别
-		certification_one = (ImageView) rootView
-				.findViewById(R.id.certification_one);// 验证1
-		certification_two = (ImageView) rootView
-				.findViewById(R.id.certification_two);// 验证2
-		certification_three = (ImageView) rootView
-				.findViewById(R.id.certification_three);// 验证3
-		// LayoutParams param = (LayoutParams) a_layout.getLayoutParams();
-		// param.leftMargin = 40;
-		// param.topMargin = 50;
-		// RelativeLayout setting_relativeLayout1 = (RelativeLayout) rootView
-		// .findViewById(R.id.setting_relativeLayout1);
-		// LayoutParams param2 = (LayoutParams) setting_relativeLayout1
-		// .getLayoutParams();
-		// param2.leftMargin = 30;
-		// param2.topMargin = 38;
+		setting_exitBtn = (Button) rootView.findViewById(R.id.setting_exitBtn);// 退出账户
+		setting_exitBtn.setOnClickListener(listener0);// 给退出账户 设置监听
 		setting_top.setOnClickListener(listener1);// 给个人信息部分设置监听
 	}
 
 	/**
 	 * 
 	 * 设置对应的数据信息
-	 * 
-	 * 
 	 */
 	private void setData() {
 
@@ -316,42 +246,46 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		} else {
 			setting_userface.setImageResource(R.drawable.moren);
 		}
-		// 设置昵称
-		nickName.setText(profilePojo.getNickName());
-		// 设置性别
-		int sex = profilePojo.getGender();
-		if (sex == 0) {// 男
-			setting_sex_item.setImageResource(R.drawable.nan);
-		} else if (sex == 1) {// 女
-			setting_sex_item.setImageResource(R.drawable.nv);
-		} else {
-			setting_sex_item.setVisibility(View.GONE);
-		}
-		// 设置行业认证
-		Boolean str1 = profilePojo.getIsAuthentication();
-		if (str1) {
-			certification_one.setVisibility(View.VISIBLE);
-		} else {
-			certification_one.setVisibility(View.GONE);
-		}
+		// 设置名称 昵称 显示级别为：备注名>真实姓名>昵称
 
-		// 设置邮箱认证
-		String str2 = profilePojo.getEmail();
-		if (str2 != null && !("").equals(str2)) {
-			certification_two.setVisibility(View.VISIBLE);
+		String namestr = profilePojo.getName();
+		if (namestr != null && namestr.length() > 0) {
+			name.setText(namestr);
 		} else {
-			certification_two.setVisibility(View.GONE);
-		}
-		// 设置手机验证
-		String str3 = profilePojo.getMobile();
-		if (str2 != null && !("").equals(str3)) {
-			certification_three.setVisibility(View.VISIBLE);
-		} else {
-			certification_three.setVisibility(View.GONE);
+			name.setText(profilePojo.getNickName());
 		}
 
 	}
 
+	private View.OnClickListener listener0 = new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			preferences.edit()
+					.putInt("exit_user_id", preferences.getInt("user_id", 0))
+					.commit();
+			preferences
+					.edit()
+					.putString("exit_Token",
+							preferences.getString("Token", "null")).commit();
+			preferences
+					.edit()
+					.putString("exit_clientid",
+							preferences.getString("clientid", "")).commit();
+			Intent intent = new Intent();
+			intent.setClass(getActivity(), ExitService.class);
+			getActivity().startService(intent);
+			preferences.edit().putInt("user_id", 0).commit();
+			preferences.edit().putString("Token", "null").commit();
+			preferences.edit().putString("pwd", "").commit();
+			preferences.edit().putString("clientid", "").commit();
+			preferences.edit().putString("profile_user", "").commit();
+
+			intent.setClass(getActivity(), LoginActivity.class);
+			startActivity(intent);
+			clearActivity();
+			fxApplication.initData();
+		}
+	};
 	private View.OnClickListener listener1 = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
@@ -421,27 +355,7 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		// Toast.LENGTH_LONG).show();
 		// break;
 		case 5:// 退出登录
-			preferences.edit()
-					.putInt("exit_user_id", preferences.getInt("user_id", 0))
-					.commit();
-			preferences
-					.edit()
-					.putString("exit_Token",
-							preferences.getString("Token", "null")).commit();
-			preferences
-					.edit()
-					.putString("exit_clientid",
-							preferences.getString("clientid", "")).commit();
-			intent.setClass(getActivity(), ExitService.class);
-			getActivity().startService(intent);
-			preferences.edit().putInt("user_id", 0).commit();
-			preferences.edit().putString("Token", "null").commit();
-			preferences.edit().putString("pwd", "").commit();
-			preferences.edit().putString("clientid", "").commit();
-			intent.setClass(getActivity(), LoginActivity.class);
-			startActivity(intent);
-			clearActivity();
-			fxApplication.initData();
+
 			break;
 		}
 	}
@@ -450,11 +364,10 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 
 		private int[] icon = new int[] { R.drawable.setting_image1,
 				R.drawable.setting_image2, R.drawable.setting_image3,
-				R.drawable.setting_image4, R.drawable.setting_image5,
-				R.drawable.setting_image7 }; // icon
-												// 集合
+				R.drawable.setting_image4, R.drawable.setting_image5 }; // icon
+		// 集合
 		private String[] titleArr = new String[] { "新版本检测", "清除全部聊天记录", "消息推送",
-				"修改密码", "屏蔽管理", "退出登录" }; //
+				"修改密码", "屏蔽管理" }; //
 
 		public int getCount() {
 			return titleArr.length;
@@ -513,6 +426,7 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 				viewHolder.view.setVisibility(View.GONE);
 				viewHolder.re.setVisibility(View.GONE);
 			}
+			viewHolder.view.setVisibility(View.GONE);
 			return view;
 		}
 
@@ -756,34 +670,17 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		String email = preferences.getString("profile_email", "");// 邮箱
 		String birthday = preferences.getString("profile_birthday", "");// 生日
 		Boolean isAuthentication = preferences.getBoolean(
-				"profile_isAuthentication", false);//
-		String fuzhi = preferences.getString("profile_fuZhi", "");// 生日
+				"profile_isAuthentication", false);// 实名认证
+		String fuzhi = preferences.getString("profile_fuZhi", "");// 福指
+		String location = preferences.getString("profile_location", "");// 所在地
+		String description = preferences.getString("profile_description", "");// 福师简介
 		profilePojo = new ProfilePojo(profile_userid, name, nickName, gender,
 				tileUrl, isProvider, lisence, mobile, email, birthday,
-				isAuthentication, fuzhi);
+				isAuthentication, fuzhi, location, description);
 		return profilePojo;
 	}
 
-	private void putProfile(ProfilePojo pro) {
-		SharedPreferences preferences = getActivity().getSharedPreferences(
-				Urlinterface.SHARED, Context.MODE_PRIVATE);
-		Editor editor = preferences.edit();
-		editor.putInt("profile_userid", pro.getUserId());
-		editor.putString("profile_name", pro.getName());
-		editor.putString("profile_nickName", pro.getNickName());
-		editor.putInt("profile_gender", pro.getGender());
-		editor.putString("profile_tileUrl", pro.getTileUrl());
-		editor.putBoolean("profile_isProvider", pro.getIsProvider());
-		editor.putString("profile_lisence", pro.getLisence());
-		editor.putString("profile_mobile", pro.getMobile());
-		editor.putString("profile_email", pro.getEmail());
-		editor.putString("profile_birthday", pro.getBirthday());
-		editor.putBoolean("profile_isAuthentication", pro.getIsAuthentication());
-		editor.putString("profile_fuZhi", pro.getFuZhi());
-		editor.commit();
-		dataNumber = 1;
 
-	}
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
