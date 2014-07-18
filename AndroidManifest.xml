@@ -275,12 +275,22 @@
         <activity
             android:name="com.fuwu.mobileim.activity.SettingPhoto"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent" >
+           android:theme="@style/Dialog"  >
         </activity>
         <activity
             android:name="com.fuwu.mobileim.activity.ComtactZoomImageActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
+         <activity
+            android:name="com.fuwu.mobileim.activity.OpenInputMethod"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent" >
+        </activity>
+        <activity
+            android:name="com.fuwu.mobileim.activity.ModifyNickNameActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent" >
+        </activity>
     </application>
 
 </manifest>

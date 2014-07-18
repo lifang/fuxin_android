@@ -7,7 +7,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -16,8 +18,10 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.baidu.mobstat.StatService;
@@ -39,13 +43,18 @@ public class SettingPhoto extends Activity implements Urlinterface {
 			+ IMAGE_FILE_NAME;
 	/* 头像名称 */
 	private static final String IMAGE_FILE_NAME = "faceImage.jpg";
-
+	SharedPreferences preferences;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);// 去掉标题栏
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.settingphoto);
+		Setwindow(0.19f);// 设置窗口化
+		preferences = getSharedPreferences(Urlinterface.SHARED,
+				Context.MODE_PRIVATE);
 		File file = new File(photoStr);
 		if (file.exists()) {
 			file.delete();
@@ -56,6 +65,33 @@ public class SettingPhoto extends Activity implements Urlinterface {
 		}
 	}
 
+	public void Setwindow(float s) {
+		WindowManager m = getWindowManager();
+		Display d = m.getDefaultDisplay(); // 为获取屏幕宽、高
+
+		android.view.WindowManager.LayoutParams p = getWindow().getAttributes(); // 获取对话框当前的参数值
+//		p.height = (int) (d.getHeight() * s); // 高度设置
+		p.width = (int) (d.getWidth() * 0.9); // 宽度设置
+		p.alpha = 1.0f; // 设置本 身透明度
+		p.dimAmount = 0.8f; // 设置黑暗度
+		p.y = -150; // 设置位置
+		getWindow().setAttributes(p); // 设置生效
+
+	}
+	
+	/**
+	 * 拍照上传
+	 */
+	public void set_lookphoto(View v) {
+
+		Intent intent = new Intent();
+		intent.putExtra("image_path",
+				Urlinterface.head_pic + preferences.getInt("user_id", -1));
+		intent.setClass(SettingPhoto.this,
+				ComtactZoomImageActivity.class);
+		startActivity(intent);
+
+	}
 	/**
 	 * 拍照上传
 	 */

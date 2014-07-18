@@ -50,7 +50,7 @@
             android:layout_marginLeft="17dp"
             android:text="@string/my_info_userface"
             android:textColor="@color/text_color"
-            android:textSize="16dp" />
+            android:textSize="16sp" />
 
         <com.fuwu.mobileim.view.CircularImage
             android:id="@+id/myinfo_userface"
@@ -85,7 +85,7 @@
             android:layout_marginLeft="17dp"
             android:text="@string/my_info_nickname"
             android:textColor="@color/text_color"
-            android:textSize="16dp" />
+            android:textSize="16sp" />
 
         <EditText
             android:id="@+id/myinfo_nickname"
@@ -100,7 +100,7 @@
             android:maxLength="32"
             android:singleLine="true"
             android:textColor="#333333"
-            android:textSize="16dp" />
+            android:textSize="16sp" />
 
         <View
             android:layout_width="fill_parent"
@@ -125,7 +125,7 @@
             android:layout_marginLeft="17dp"
             android:text="@string/my_info_fuzhi"
             android:textColor="#999999"
-            android:textSize="16dp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/myinfo_fuzhi"
@@ -138,7 +138,7 @@
             android:gravity="right"
             android:singleLine="true"
             android:textColor="#999999"
-            android:textSize="16dp" />
+            android:textSize="16sp" />
 
         <View
             android:layout_width="fill_parent"
@@ -162,7 +162,7 @@
             android:layout_marginLeft="17dp"
             android:text="@string/my_info_certification"
             android:textColor="#999999"
-            android:textSize="16dp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/myinfo_certification"
@@ -175,7 +175,7 @@
             android:gravity="right"
             android:singleLine="true"
             android:textColor="#999999"
-            android:textSize="16dp" />
+            android:textSize="16sp" />
 
         <View
             android:layout_width="fill_parent"
@@ -198,7 +198,7 @@
             android:layout_marginLeft="17dp"
             android:text="@string/my_info_mobile"
             android:textColor="#999999"
-            android:textSize="16dp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/myinfo_mobile"
@@ -208,7 +208,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="17dp"
             android:textColor="#999999"
-            android:textSize="16dp" />
+            android:textSize="16sp" />
 
         <View
             android:layout_width="fill_parent"
@@ -232,7 +232,7 @@
             android:layout_marginLeft="17dp"
             android:text="@string/my_info_email"
             android:textColor="#999999"
-            android:textSize="16dp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/myinfo_email"
@@ -244,7 +244,7 @@
             android:layout_toRightOf="@+id/myinfo_e"
             android:gravity="right"
             android:textColor="#999999"
-            android:textSize="16dp" />
+            android:textSize="16sp" />
 
         <View
             android:layout_width="fill_parent"
@@ -267,7 +267,7 @@
             android:layout_marginLeft="17dp"
             android:text="@string/my_info_birthday"
             android:textColor="#999999"
-            android:textSize="16dp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/myinfo_birthday"
@@ -277,7 +277,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="17dp"
             android:textColor="#999999"
-            android:textSize="16dp" />
+            android:textSize="16sp" />
 
         <View
             android:layout_width="fill_parent"
@@ -300,7 +300,7 @@
             android:layout_marginLeft="17dp"
             android:text="@string/my_info_sex"
             android:textColor="#999999"
-            android:textSize="16dp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/myinfo_sex"
@@ -311,7 +311,7 @@
             android:layout_marginRight="17dp"
             android:text=""
             android:textColor="#999999"
-            android:textSize="16dp" />
+            android:textSize="16sp" />
 
         <View
             android:layout_width="fill_parent"

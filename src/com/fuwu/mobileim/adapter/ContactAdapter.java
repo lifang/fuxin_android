@@ -4,15 +4,12 @@ import java.io.File;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
@@ -32,12 +29,10 @@ import com.fuwu.mobileim.view.CircularImage;
 public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 	private List<ShortContactPojo> list = null;
 	private Context mContext;
-	private int num = -1;
 
-	public ContactAdapter(Context mContext, List<ShortContactPojo> list, int num) {
+	public ContactAdapter(Context mContext, List<ShortContactPojo> list) {
 		this.mContext = mContext;
 		this.list = list;
-		this.num = num;
 	}
 
 	/**
@@ -71,14 +66,10 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 					R.layout.contact_adapter_item, null);
 			viewHolder.contact_name = (TextView) view
 					.findViewById(R.id.contact_name);
-			viewHolder.contact_sort_key = (TextView) view
-					.findViewById(R.id.contact_sort_key);
+//			FuXunTools.changeFonts_one(viewHolder.contact_name, mContext);
+
 			viewHolder.contact_user_face = (CircularImage) view
 					.findViewById(R.id.contact_user_face);
-			viewHolder.contact_gou = (ImageView) view
-					.findViewById(R.id.contact_gou);
-			viewHolder.contact_yue = (LinearLayout) view
-					.findViewById(R.id.contact_yue);
 
 			view.setTag(viewHolder);
 		} else {
@@ -94,20 +85,6 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 		Log.i("linshi2", "加载头像---ContactId：" + ContactId);
 		if (face_str.length() > 4) {
 
-			// if (ImageCacheUtil.IMAGE_CACHE.get(ContactId)==null) {
-			// bitmap=null;
-			// }else {
-			// bitmap = ImageCacheUtil.IMAGE_CACHE.get(ContactId).getData();
-			// }
-			// if (bitmap==null) {
-			// Bitmap b = BitmapFactory.decodeFile(Urlinterface.head_pic
-			// + contact.getContactId());
-			// ImageCacheUtil.IMAGE_CACHE.put(ContactId, b);
-			// viewHolder.contact_user_face.setImageBitmap(b);
-			// }else {
-			// viewHolder.contact_user_face.setImageBitmap(bitmap);
-			// }
-
 			File f = new File(Urlinterface.head_pic, contact.getContactId()
 					+ "");
 			if (f.exists()) {
@@ -120,36 +97,6 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 						+ contact.getContactId(), viewHolder.contact_user_face)) {
 					viewHolder.contact_user_face.setImageDrawable(null);
 				}
-				// ImageCacheUtil.IMAGE_CACHE.get(
-				// Urlinterface.head_pic + contact.getContactId(),
-				// viewHolder.contact_user_face);
-
-				// }
-				// if (position == 0) {
-				// // viewHolder.contact_user_face
-				// // .setImageDrawable(new BitmapDrawable(BitmapFactory
-				// // .decodeFile(Urlinterface.head_pic
-				// // + contact.getContactId())));
-				// if (ImageCacheUtil.IMAGE_CACHE.get(ContactId) == null) {
-				// bitmap = null;
-				// } else {
-				// bitmap = ImageCacheUtil.IMAGE_CACHE.get(ContactId)
-				// .getData();
-				// }
-				// if (bitmap == null) {
-				// Bitmap b = BitmapFactory
-				// .decodeFile(Urlinterface.head_pic
-				// + contact.getContactId());
-				// ImageCacheUtil.IMAGE_CACHE.put(ContactId, b);
-				// viewHolder.contact_user_face.setImageBitmap(b);
-				// } else {
-				// viewHolder.contact_user_face.setImageBitmap(bitmap);
-				// }
-				// } else {
-				// ImageCacheUtil.IMAGE_CACHE.get(
-				// Urlinterface.head_pic + contact.getContactId(),
-				// viewHolder.contact_user_face);
-				// }
 
 			} else {
 				FuXunTools.set_bk(contact.getContactId(), face_str,
@@ -159,51 +106,9 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 			viewHolder.contact_user_face.setImageResource(R.drawable.moren);
 		}
 
-		// 根据position获取分类的首字母的Char ascii值
-		int section = getSectionForPosition(position);
-
-		if (num != -1) { // 搜索时传值-1 ，不分组
-			// 如果当前位置等于该分类首字母的Char的位置 ，则认为是第一次出现
-			if (position == getPositionForSection(section)) {
-				viewHolder.contact_sort_key.setVisibility(View.VISIBLE);
-				viewHolder.contact_sort_key.setText(contact.getSortKey()
-						+ "  [" + getNumber(contact.getSortKey()) + "人]");
-			} else {
-				viewHolder.contact_sort_key.setVisibility(View.GONE);
-			}
-		} else {
-			viewHolder.contact_sort_key.setVisibility(View.GONE);
-		}
-
-		if (num == 1) { // num =1时 ，代表全部，，要判断是否 购买和订阅
-
-			String str = FuXunTools.toNumber(contact.getSource());
-
-			if (FuXunTools.isExist(str, 2, 3)) {
-				viewHolder.contact_gou.setVisibility(View.VISIBLE);
-				LayoutParams param = (LayoutParams) viewHolder.contact_yue
-						.getLayoutParams();
-				param.leftMargin = 10;
-			} else {
-				viewHolder.contact_gou.setVisibility(View.GONE);
-				LayoutParams param = (LayoutParams) viewHolder.contact_yue
-						.getLayoutParams();
-				param.leftMargin = 0;
-				param.gravity = Gravity.CENTER_VERTICAL;
-			}
-			if (FuXunTools.isExist(str, 0, 1)) {
-				viewHolder.contact_yue.setVisibility(View.VISIBLE);
-			} else {
-				viewHolder.contact_yue.setVisibility(View.GONE);
-
-			}
-
-		} else {
-			viewHolder.contact_gou.setVisibility(View.GONE);
-			viewHolder.contact_yue.setVisibility(View.GONE);
-		}
 		String customname = contact.getCustomName();
-		if (customname != null && customname.length() > 0) {
+		if (customname != null && customname.length() > 0
+				&& !customname.equals("null")) {
 			viewHolder.contact_name.setText(customname);
 		} else {
 			viewHolder.contact_name.setText(contact.getName());
@@ -214,11 +119,8 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 	}
 
 	final static class ViewHolder {
-		TextView contact_sort_key; // 分组关键字
 		TextView contact_name; // 名称
 		CircularImage contact_user_face; // 头像
-		ImageView contact_gou; // 购
-		LinearLayout contact_yue; // 阅
 	}
 
 	/**

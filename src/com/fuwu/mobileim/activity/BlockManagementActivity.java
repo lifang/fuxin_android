@@ -34,6 +34,7 @@ import com.fuwu.mobileim.model.Models.BlockContactResponse;
 import com.fuwu.mobileim.pojo.ShortContactPojo;
 import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FuXunTools;
+import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.ImageCacheUtil;
 import com.fuwu.mobileim.util.Urlinterface;
@@ -92,9 +93,21 @@ public class BlockManagementActivity extends Activity  {
 				break;
 
 			case 7:
-				prodialog.dismiss();
 				Toast.makeText(getApplicationContext(), R.string.no_internet,
 						Toast.LENGTH_SHORT).show();
+				break;
+			case 9:
+				prodialog.dismiss();
+				new Handler().postDelayed(new Runnable() {
+					public void run() {
+						Intent intent = new Intent(BlockManagementActivity.this,
+								LoginActivity.class);
+						startActivity(intent);
+						clearActivity();
+					}
+				}, 3500);
+				Toast.makeText(getApplicationContext(), "您的账号已在其他手机登陆",
+						Toast.LENGTH_LONG).show();
 				break;
 			}
 		}
@@ -102,11 +115,13 @@ public class BlockManagementActivity extends Activity  {
 	SharedPreferences preferences;
 	int user_id = -1;
 	String Token = "";
-
+	private FxApplication fxApplication;
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.block_management);
 		db = new DBManager(this);
+		fxApplication = (FxApplication) getApplication();
+		fxApplication.getActivityList().add(this);
 		preferences = getSharedPreferences(Urlinterface.SHARED,
 				Context.MODE_PRIVATE);
 		user_id = preferences.getInt("user_id", -1);
@@ -178,14 +193,19 @@ public class BlockManagementActivity extends Activity  {
 					if (res.getIsSucceed()) {
 						handler.sendEmptyMessage(0);
 					} else {
-						handler.sendEmptyMessage(1);
+						int ErrorCode = res.getErrorCode().getNumber();
+						if (ErrorCode==2001) {
+							handler.sendEmptyMessage(9);
+						}else {
+							handler.sendEmptyMessage(1);	
+						}
 					}
 				} else {
 					handler.sendEmptyMessage(6);
 				}
 				//
 			} catch (Exception e) {
-				handler.sendEmptyMessage(7);
+				handler.sendEmptyMessage(6);
 			}
 		}
 	}
@@ -322,6 +342,14 @@ public class BlockManagementActivity extends Activity  {
 
 	}
 
+	// 关闭界面
+			public void clearActivity() {
+				List<Activity> activityList = fxApplication.getActivityList();
+				for (int i = 0; i < activityList.size(); i++) {
+					activityList.get(i).finish();
+				}
+				fxApplication.setActivityList();
+			}
 
 
 }

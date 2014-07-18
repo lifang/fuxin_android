@@ -111,7 +111,7 @@
                 <TextView
                     android:id="@+id/menu_talk"
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"
+                    android:layout_height="35dp"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="@string/talk"
@@ -121,7 +121,7 @@
                 <TextView
                     android:id="@+id/menu_address_book"
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"
+                    android:layout_height="35dp"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="@string/address_book"
@@ -131,7 +131,7 @@
                 <TextView
                     android:id="@+id/menu_settings"
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"
+                    android:layout_height="35dp"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="@string/settings"

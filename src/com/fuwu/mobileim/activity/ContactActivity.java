@@ -78,6 +78,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 	private Button view2, view3;
 	int width;
 	private int buttonNumber = 0;
+	private int index = 0; // 记录 数组下标
 	private List<Button> btnList = new ArrayList<Button>();
 	SideBar b;
 	int user_id = 0;
@@ -135,6 +136,19 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 				Toast.makeText(getActivity(), R.string.no_internet,
 						Toast.LENGTH_SHORT).show();
 				break;
+			case 9:
+				onLoad();
+				new Handler().postDelayed(new Runnable() {
+					public void run() {
+						Intent intent = new Intent(getActivity(),
+								LoginActivity.class);
+						startActivity(intent);
+						getActivity().finish();
+					}
+				}, 3500);
+				Toast.makeText(getActivity(), "您的账号已在其他手机登陆", Toast.LENGTH_LONG)
+						.show();
+				break;
 			}
 		}
 	};
@@ -145,8 +159,10 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			Bundle savedInstanceState) {
 		rootView = inflater
 				.inflate(R.layout.contact_activity, container, false);
+		ViewGroup vg = (ViewGroup)rootView. findViewById(R.id.contact_layout_main);
+//		FuXunTools.changeFonts(vg, getActivity());
 		fxApplication = (FxApplication) getActivity().getApplication();
-		adapter2 = new ContactAdapter(getActivity(), contactsList, -1);
+		adapter2 = new ContactAdapter(getActivity(), contactsList);
 		db = new DBManager(getActivity());
 		String release = android.os.Build.VERSION.RELEASE; // android系统版本号
 		version = Integer.parseInt(release.substring(0, 1));
@@ -165,10 +181,10 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 	public void onStart() {
 		super.onStart();
 		Log.i("Test", "onStart");
-		if (buttonNumber == 0) {
-			handler.sendEmptyMessage(0);
-			switchButton(0);
-		}
+//		if (buttonNumber == 0) {
+//			handler.sendEmptyMessage(0);
+//		}
+		switchButton(buttonNumber);
 	}
 
 	/**
@@ -212,68 +228,83 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 					if (by != null && by.length > 0) {
 
 						ContactResponse res = ContactResponse.parseFrom(by);
-						if (res.getContactsCount() > 0) {
-							contactsList.clear();
-						}
-						for (int i = 0; i < res.getContactsCount(); i++) {
-							int contactId = res.getContacts(i).getContactId();
-							String name = res.getContacts(i).getName();
-							String customName = res.getContacts(i)
-									.getCustomName();
-							String sortKey = null;
-							if (customName != null && customName.length() > 0) {
-								sortKey = FuXunTools.findSortKey(customName);
+						contactsList.clear();
+						if (res.getIsSucceed()) {
+							for (int i = 0; i < res.getContactsCount(); i++) {
+								int contactId = res.getContacts(i)
+										.getContactId();
+								String name = res.getContacts(i).getName();
+								String customName = res.getContacts(i)
+										.getCustomName();
+								String sortKey = null;
+								if (customName != null
+										&& customName.length() > 0) {
+									sortKey = FuXunTools
+											.findSortKey(customName);
+								} else {
+									sortKey = FuXunTools.findSortKey(name);
+								}
+								String userface_url = res.getContacts(i)
+										.getTileUrl();
+								int sex = res.getContacts(i).getGender()
+										.getNumber();
+								int source = res.getContacts(i).getSource();
+								String lastContactTime = res.getContacts(i)
+										.getLastContactTime();// 2014-05-27
+																// 11:42:18
+								boolean isblocked = res.getContacts(i)
+										.getIsBlocked();
+								boolean isprovider = res.getContacts(i)
+										.getIsProvider();
+								int isBlocked = -1, isProvider = -1;
+								if (isblocked == true) {
+									isBlocked = 1;
+								} else if (isblocked == false) {
+									isBlocked = 0;
+								}
+								if (isprovider == true) {
+									isProvider = 1;
+								} else if (isprovider == false) {
+									isProvider = 0;
+								}
+								String lisence = res.getContacts(i)
+										.getLisence();
+								String individualResume = res.getContacts(i)
+										.getIndividualResume();
+								String orderTime = res.getContacts(i)
+										.getOrderTime();
+								String subscribeTime = res.getContacts(i)
+										.getSubscribeTime();
+								ShortContactPojo coPojo = new ShortContactPojo(
+										contactId, sortKey, name, customName,
+										userface_url, sex, source,
+										lastContactTime, isBlocked, orderTime,
+										subscribeTime);
+								contactsList.add(coPojo);
+
+							}
+
+							SharedPreferences preferences2 = getActivity()
+									.getSharedPreferences(Urlinterface.SHARED,
+											Context.MODE_PRIVATE);
+							Editor editor = preferences2.edit();
+							editor.putString("contactTimeStamp",
+									res.getTimeStamp());
+
+							editor.commit();
+							Message msg = new Message();// 创建Message 对象
+							msg.what = 1;
+							handler.sendMessage(msg);
+						} else {
+							int ErrorCode = res.getErrorCode().getNumber();
+							if (ErrorCode == 2001) {
+								handler.sendEmptyMessage(9);
 							} else {
-								sortKey = FuXunTools.findSortKey(name);
+								handler.sendEmptyMessage(1);
 							}
-							String userface_url = res.getContacts(i)
-									.getTileUrl();
-							int sex = res.getContacts(i).getGender()
-									.getNumber();
-							int source = res.getContacts(i).getSource();
-							String lastContactTime = res.getContacts(i)
-									.getLastContactTime();// 2014-05-27 11:42:18
-							boolean isblocked = res.getContacts(i)
-									.getIsBlocked();
-							boolean isprovider = res.getContacts(i)
-									.getIsProvider();
-							int isBlocked = -1, isProvider = -1;
-							if (isblocked == true) {
-								isBlocked = 1;
-							} else if (isblocked == false) {
-								isBlocked = 0;
-							}
-							if (isprovider == true) {
-								isProvider = 1;
-							} else if (isprovider == false) {
-								isProvider = 0;
-							}
-							String lisence = res.getContacts(i).getLisence();
-							String individualResume = res.getContacts(i)
-									.getIndividualResume();
-							String orderTime = res.getContacts(i)
-									.getOrderTime();
-							String subscribeTime = res.getContacts(i)
-									.getSubscribeTime();
-							ShortContactPojo coPojo = new ShortContactPojo(
-									contactId, sortKey, name, customName,
-									userface_url, sex, source, lastContactTime,
-									isBlocked, orderTime, subscribeTime);
-							contactsList.add(coPojo);
-
 						}
-
-						SharedPreferences preferences2 = getActivity()
-								.getSharedPreferences(Urlinterface.SHARED,
-										Context.MODE_PRIVATE);
-						Editor editor = preferences2.edit();
-						editor.putString("contactTimeStamp", res.getTimeStamp());
-
-						editor.commit();
 					}
-					Message msg = new Message();// 创建Message 对象
-					msg.what = 1;
-					handler.sendMessage(msg);
+
 				} catch (Exception e) {
 					// prodialog.dismiss();
 					// handler.sendEmptyMessage(7);
@@ -308,8 +339,10 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 						.getContactId());
 				intent.setClass(getActivity(), ContactInfoActivity.class);
 				startActivity(intent);
+				index = position - 1;
 			}
 		});
+		xListView.setAdapter(adapter2);
 
 	}
 
@@ -388,6 +421,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		@Override
 		public void onClick(View v) {
 			buttonNumber = 0;
+			index = 0;
 			switchButton(buttonNumber);
 		}
 	};
@@ -396,6 +430,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		@Override
 		public void onClick(View v) {
 			buttonNumber = 1;
+			index = 0;
 			switchButton(buttonNumber);
 		}
 	};
@@ -404,6 +439,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		@Override
 		public void onClick(View v) {
 			buttonNumber = 2;
+			index = 0;
 			switchButton(buttonNumber);
 		}
 	};
@@ -433,8 +469,8 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			// ImageCacheUtil.IMAGE_CACHE.put(contactId, b);
 			// }
 
-			// xListView.setAdapter(adapter2);
 			adapter2.updateListView(contactsList);
+			xListView.setSelection(index);
 			break;
 		case 1:
 			setButtonColor(buttonNumber);
@@ -450,8 +486,8 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 				}
 				Collections.sort(contactsList, orderTimeLongDataComparator);
 			}
-			// xListView.setAdapter(adapter2);
 			adapter2.updateListView(contactsList);
+			xListView.setSelection(index);
 			break;
 		case 2:
 			setButtonColor(buttonNumber);
@@ -475,8 +511,8 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 						"----1-----2-----3---------------------------------");
 				Collections.sort(contactsList, subscribeTimeLongDataComparator);
 			}
-			// xListView.setAdapter(adapter2);
 			adapter2.updateListView(contactsList);
+			xListView.setSelection(index);
 			break;
 
 		default:

@@ -21,6 +21,7 @@ public class ContactPojo {
     private String lisence; // 认证
     private String individualResume ; //  个人简介
     private String fuzhi;
+    private String location;
 	public ContactPojo() {
 	}
 	
@@ -44,6 +45,39 @@ public class ContactPojo {
 		this.individualResume = individualResume;
 	}
 	
+
+	public ContactPojo(int contactId, String sortKey, String name,
+			String customName, String userface_url, int sex, int source,
+			String lastContactTime, int isBlocked, int isProvider,
+			String lisence, String individualResume, String fuzhi,
+			String location) {
+		super();
+		this.contactId = contactId;
+		this.sortKey = sortKey;
+		this.name = name;
+		this.customName = customName;
+		this.userface_url = userface_url;
+		this.sex = sex;
+		this.source = source;
+		this.lastContactTime = lastContactTime;
+		this.isBlocked = isBlocked;
+		this.isProvider = isProvider;
+		this.lisence = lisence;
+		this.individualResume = individualResume;
+		this.fuzhi = fuzhi;
+		this.location = location;
+	}
+
+
+	public String getLocation() {
+		return location;
+	}
+
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
 
 	public String getFuzhi() {
 		return fuzhi;

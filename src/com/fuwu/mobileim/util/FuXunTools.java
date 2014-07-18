@@ -11,18 +11,23 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningTaskInfo;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
@@ -32,7 +37,11 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.pojo.ShortContactPojo;
@@ -97,7 +106,7 @@ public class FuXunTools {
 
 		Pattern p = Pattern.compile("^[1][34578][0-9]{9}$");
 		Matcher m = p.matcher(mobiles);
-		Log.i("Max", m.matches()+"");
+		Log.i("Max", m.matches() + "");
 		return m.matches();
 	}
 
@@ -195,6 +204,86 @@ public class FuXunTools {
 						Message msg = new Message();// 创建Message 对象
 						msg.what = 0;
 						msg.obj = face_drawable;
+						mHandler.sendMessage(msg);
+
+					}
+
+				} catch (Exception e) {
+					Log.i("linshi", "发生异常");
+					// Log.i("linshi", url);
+				}
+
+			}
+		};
+
+		thread.start();
+
+	}
+
+	public static void set_bk_createRoundConerImage(final int contactId,
+			final String url, final ImageView imageView) {
+
+		final Handler mHandler = new Handler() {
+			public void handleMessage(android.os.Message msg) {
+				switch (msg.what) {
+				case 0:
+					Bitmap bitmap = (Bitmap) msg.obj;
+					imageView.setImageDrawable(new BitmapDrawable(
+							createRoundConerImage(bitmap)));
+					break;
+				default:
+					break;
+				}
+			}
+		};
+
+		Thread thread = new Thread() {
+			public void run() {
+				try {
+					Log.i("linshi------------", url);
+					URL myurl = new URL(url);
+					// 获得连接
+					HttpURLConnection conn = (HttpURLConnection) myurl
+							.openConnection();
+					conn.setConnectTimeout(6000);// 设置超时
+					conn.setDoInput(true);
+					conn.setUseCaches(false);// 不缓存
+					conn.connect();
+					InputStream is = conn.getInputStream();// 获得图片的数据流
+					// bm =decodeSampledBitmapFromStream(is,150,150);
+
+					BitmapFactory.Options options = new BitmapFactory.Options();
+					options.inJustDecodeBounds = false;
+					// options.outWidth = 159;
+					// options.outHeight = 159;
+					options.inSampleSize = 2;
+					bm = BitmapFactory.decodeStream(is, null, options);
+					Log.i("linshi", bm.getWidth() + "---" + bm.getHeight());
+					is.close();
+					if (bm != null) {
+						Log.i("linshi",
+								bm.getWidth() + "---2---" + bm.getHeight());
+						File f = new File(Urlinterface.head_pic, contactId + "");
+
+						if (f.exists()) {
+							f.delete();
+						}
+						if (!f.getParentFile().exists()) {
+							f.getParentFile().mkdirs();
+						}
+						Log.i("linshi", "----1");
+						FileOutputStream out = new FileOutputStream(f);
+						Log.i("linshi", "----6");
+						bm.compress(Bitmap.CompressFormat.PNG, 90, out);
+						out.flush();
+						out.close();
+						Log.i("linshi", "已经保存");
+						Log.i("linshi", "----6");
+						Log.i("linshi", "已经保存2");
+
+						Message msg = new Message();// 创建Message 对象
+						msg.what = 0;
+						msg.obj = bm;
 						mHandler.sendMessage(msg);
 
 					}
@@ -415,52 +504,50 @@ public class FuXunTools {
 			return "#";
 		}
 	}
-	
-	
-	public static void getBitmap_url(final String url,final int id) {
+
+	public static void getBitmap_url(final String url, final int id) {
 
 		Thread thread = new Thread() {
 			public void run() {
 				try {
 
-						URL myurl = new URL(url);
-						// 获得连接
-						HttpURLConnection conn = (HttpURLConnection) myurl
-								.openConnection();
-						conn.setConnectTimeout(6000);// 设置超时
-						conn.setDoInput(true);
-						conn.setUseCaches(false);// 不缓存
-						conn.connect();
-						InputStream is = conn.getInputStream();// 获得图片的数据流
-						// bm =decodeSampledBitmapFromStream(is,150,150);
+					URL myurl = new URL(url);
+					// 获得连接
+					HttpURLConnection conn = (HttpURLConnection) myurl
+							.openConnection();
+					conn.setConnectTimeout(6000);// 设置超时
+					conn.setDoInput(true);
+					conn.setUseCaches(false);// 不缓存
+					conn.connect();
+					InputStream is = conn.getInputStream();// 获得图片的数据流
+					// bm =decodeSampledBitmapFromStream(is,150,150);
 
-						BitmapFactory.Options options = new BitmapFactory.Options();
-						options.inJustDecodeBounds = false;
-						options.inSampleSize = 1;
-						bm = BitmapFactory.decodeStream(is, null, options);
-						Log.i("linshi", bm.getWidth() + "---" + bm.getHeight());
-						is.close();
-						if (bm != null) {
-							Log.i("linshi",
-									bm.getWidth() + "---2---" + bm.getHeight());
-							File f = new File(Urlinterface.head_pic,
-									id + "");
+					BitmapFactory.Options options = new BitmapFactory.Options();
+					options.inJustDecodeBounds = false;
+					options.inSampleSize = 1;
+					bm = BitmapFactory.decodeStream(is, null, options);
+					Log.i("linshi", bm.getWidth() + "---" + bm.getHeight());
+					is.close();
+					if (bm != null) {
+						Log.i("linshi",
+								bm.getWidth() + "---2---" + bm.getHeight());
+						File f = new File(Urlinterface.head_pic, id + "");
 
-							if (f.exists()) {
-								f.delete();
-							}
-							if (!f.getParentFile().exists()) {
-								f.getParentFile().mkdirs();
-							}
-							Log.i("linshi", "----1");
-							FileOutputStream out = new FileOutputStream(f);
-							Log.i("linshi", "----6");
-							bm.compress(Bitmap.CompressFormat.PNG, 90, out);
-							out.flush();
-							out.close();
-
-							Log.i("linshi", "已经保存");
+						if (f.exists()) {
+							f.delete();
 						}
+						if (!f.getParentFile().exists()) {
+							f.getParentFile().mkdirs();
+						}
+						Log.i("linshi", "----1");
+						FileOutputStream out = new FileOutputStream(f);
+						Log.i("linshi", "----6");
+						bm.compress(Bitmap.CompressFormat.PNG, 90, out);
+						out.flush();
+						out.close();
+
+						Log.i("linshi", "已经保存");
+					}
 				} catch (Exception e) {
 					Log.i("linshi", "发生异常");
 					// Log.i("linshi", url);
@@ -469,5 +556,115 @@ public class FuXunTools {
 		};
 		thread.start();
 	}
-	
+
+	/**
+	 * 根据原图添加圆角
+	 * 
+	 * @param source
+	 * @return
+	 */
+	public static Bitmap createRoundConerImage(Bitmap source) {
+		int width = source.getWidth();
+		int height = source.getHeight();
+		final Paint paint = new Paint();
+		paint.setAntiAlias(true);
+		Bitmap target = Bitmap.createBitmap(width, height, Config.ARGB_8888);
+		Canvas canvas = new Canvas(target);
+		RectF rect = new RectF(0, 0, width, height);
+		canvas.drawRoundRect(rect, 10f, 10f, paint);
+		paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+		canvas.drawBitmap(source, 0, 0, paint);
+		return target;
+	}
+
+	/**
+	* Get root content view.
+	* @param act
+	* @return
+	*/
+	public static ViewGroup getContentView(Activity act){
+	ViewGroup systemContent = (ViewGroup)act.getWindow().getDecorView().findViewById(android.R.id.content);
+	ViewGroup content = null;
+	if(systemContent.getChildCount() > 0 && systemContent.getChildAt(0) instanceof ViewGroup){
+	content = (ViewGroup)systemContent.getChildAt(0);
+	}
+	return content;
+	}
+
+
+
+//	/**
+//	 * 适用于包含多个组件的 view
+//	 * */
+//	public static void changeFonts(ViewGroup root, Activity act) {
+//
+//		Typeface tf = Typeface.createFromAsset(act.getAssets(), "fonts/FZLTHJW.TTF");
+//
+//		for (int i = 0; i < root.getChildCount(); i++) {
+//			View v = root.getChildAt(i);
+//			if (v instanceof TextView) {
+//				((TextView) v).setTypeface(tf);
+//			} else if (v instanceof Button) {
+//				((Button) v).setTypeface(tf);
+//			} else if (v instanceof EditText) {
+//				((EditText) v).setTypeface(tf);
+//			} else if (v instanceof ViewGroup) {
+//				changeFonts((ViewGroup) v, act);
+//			}
+//		}
+//	}
+//	/**
+//	 * 适用于包含多个组件的 view
+//	 * */
+//	public static void changeFonts(ViewGroup root, Context act) {
+//
+//		Typeface tf = Typeface.createFromAsset(act.getAssets(), "fonts/FZLTHJW.TTF");
+//
+//		for (int i = 0; i < root.getChildCount(); i++) {
+//			View v = root.getChildAt(i);
+//			if (v instanceof TextView) {
+//				((TextView) v).setTypeface(tf);
+//			} else if (v instanceof Button) {
+//				((Button) v).setTypeface(tf);
+//			} else if (v instanceof EditText) {
+//				((EditText) v).setTypeface(tf);
+//			} else if (v instanceof ViewGroup) {
+//				changeFonts((ViewGroup) v, act);
+//			}
+//		}
+//	}
+//	/**
+//	 * 适用于单个组件
+//	 * */
+//	public static void changeFonts_one(View v, Activity act) {
+//
+//		Typeface tf = Typeface.createFromAsset(act.getAssets(), "fonts/FZLTHJW.TTF");
+//
+//		if (v instanceof TextView) {
+//			((TextView) v).setTypeface(tf);
+//		} else if (v instanceof Button) {
+//			((Button) v).setTypeface(tf);
+//		} else if (v instanceof EditText) {
+//			((EditText) v).setTypeface(tf);
+//		} else if (v instanceof ViewGroup) {
+//			changeFonts_one((ViewGroup) v, act);
+//		}
+//	}
+//	/**
+//	 * 适用于单个组件
+//	 * */
+//	public static void changeFonts_one(View v, Context act) {
+//
+//		Typeface tf = Typeface.createFromAsset(act.getAssets(), "fonts/FZLTHJW.TTF");
+//
+//		if (v instanceof TextView) {
+//			((TextView) v).setTypeface(tf);
+//		} else if (v instanceof Button) {
+//			((Button) v).setTypeface(tf);
+//		} else if (v instanceof EditText) {
+//			((EditText) v).setTypeface(tf);
+//		} else if (v instanceof ViewGroup) {
+//			changeFonts_one((ViewGroup) v, act);
+//		}
+//	}
 }
