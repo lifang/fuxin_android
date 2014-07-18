@@ -10,7 +10,7 @@
         android:background="@drawable/t"
         android:gravity="center"
         android:orientation="vertical"
-        android:paddingTop="6dp" >
+        android:paddingTop="7dp" >
 
         <TextView
             android:id="@+id/personal_info_other_moifyCustomname"
@@ -19,8 +19,10 @@
             android:gravity="center_horizontal"
             android:text="修改备注"
             android:textColor="#ffffff"
+            android:layout_marginTop="10dp"
             android:textSize="18dp" />
-        <TextView
+
+        <TextView
             android:id="@+id/personal_info_other_shielding"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,6 +30,7 @@
             android:text="屏蔽此人"
             android:layout_marginTop="10dp"
             android:textColor="#ffffff"
+            android:layout_marginBottom="10dp"
             android:textSize="18dp" />
     </LinearLayout>
 

@@ -27,7 +27,7 @@
             android:layout_centerVertical="true"
             android:singleLine="true"
             android:textColor="#ffffff"
-            android:textSize="18dp" />
+            android:textSize="18sp" />
 
         <ImageButton
             android:id="@+id/chat_other"

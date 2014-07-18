@@ -19,7 +19,7 @@
             android:gravity="center_horizontal"
             android:text="清除聊天记录"
             android:textColor="#ffffff"
-            android:textSize="18dp" />
+            android:textSize="18sp" />
     </LinearLayout>
 
 </LinearLayout>
