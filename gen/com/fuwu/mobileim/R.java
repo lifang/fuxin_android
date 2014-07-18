@@ -953,18 +953,19 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int shadow_right=0x7f0200b9;
         public static final int sidebar_background=0x7f0200ba;
         public static final int t=0x7f0200bb;
-        public static final int talk_dialog=0x7f0200bc;
-        public static final int test=0x7f0200bd;
-        public static final int testhead=0x7f0200be;
-        public static final int touming_btn=0x7f0200bf;
-        public static final int touming_btn2=0x7f0200c0;
-        public static final int touxiang=0x7f0200c1;
-        public static final int trans=0x7f0200c7;
-        public static final int xlistview_arrow=0x7f0200c2;
-        public static final int y3=0x7f0200c3;
-        public static final int yuan=0x7f0200c4;
-        public static final int yue=0x7f0200c5;
-        public static final int yue_icon=0x7f0200c6;
+        public static final int t_bg=0x7f0200bc;
+        public static final int talk_dialog=0x7f0200bd;
+        public static final int test=0x7f0200be;
+        public static final int testhead=0x7f0200bf;
+        public static final int touming_btn=0x7f0200c0;
+        public static final int touming_btn2=0x7f0200c1;
+        public static final int touxiang=0x7f0200c2;
+        public static final int trans=0x7f0200c8;
+        public static final int xlistview_arrow=0x7f0200c3;
+        public static final int y3=0x7f0200c4;
+        public static final int yuan=0x7f0200c5;
+        public static final int yue=0x7f0200c6;
+        public static final int yue_icon=0x7f0200c7;
     }
     public static final class id {
         public static final int a_layout=0x7f080065;
