@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.util.Urlinterface;

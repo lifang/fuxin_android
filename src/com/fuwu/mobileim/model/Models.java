@@ -3450,6 +3450,60 @@ public final class Models {
      */
     com.google.protobuf.ByteString
         getSubscribeTimeBytes();
+
+    // optional string location = 16;
+    /**
+     * <code>optional string location = 16;</code>
+     *
+     * <pre>
+     *所在地
+     * </pre>
+     */
+    boolean hasLocation();
+    /**
+     * <code>optional string location = 16;</code>
+     *
+     * <pre>
+     *所在地
+     * </pre>
+     */
+    java.lang.String getLocation();
+    /**
+     * <code>optional string location = 16;</code>
+     *
+     * <pre>
+     *所在地
+     * </pre>
+     */
+    com.google.protobuf.ByteString
+        getLocationBytes();
+
+    // optional string centerLink = 17;
+    /**
+     * <code>optional string centerLink = 17;</code>
+     *
+     * <pre>
+     *福师介绍中心链接
+     * </pre>
+     */
+    boolean hasCenterLink();
+    /**
+     * <code>optional string centerLink = 17;</code>
+     *
+     * <pre>
+     *福师介绍中心链接
+     * </pre>
+     */
+    java.lang.String getCenterLink();
+    /**
+     * <code>optional string centerLink = 17;</code>
+     *
+     * <pre>
+     *福师介绍中心链接
+     * </pre>
+     */
+    com.google.protobuf.ByteString
+        getCenterLinkBytes();
   }
   /**
    * Protobuf type {@code Com.Fuwu.MobileIM.Model.Contact}
@@ -3581,6 +3635,16 @@ public final class Models {
             case 122: {
               bitField0_ |= 0x00004000;
               subscribeTime_ = input.readBytes();
+              break;
+            }
+            case 130: {
+              bitField0_ |= 0x00008000;
+              location_ = input.readBytes();
+              break;
+            }
+            case 138: {
+              bitField0_ |= 0x00010000;
+              centerLink_ = input.readBytes();
               break;
             }
           }
@@ -4280,6 +4344,116 @@ public final class Models {
       }
     }
 
+    // optional string location = 16;
+    public static final int LOCATION_FIELD_NUMBER = 16;
+    private java.lang.Object location_;
+    /**
+     * <code>optional string location = 16;</code>
+     *
+     * <pre>
+     *所在地
+     * </pre>
+     */
+    public boolean hasLocation() {
+      return ((bitField0_ & 0x00008000) == 0x00008000);
+    }
+    /**
+     * <code>optional string location = 16;</code>
+     *
+     * <pre>
+     *所在地
+     * </pre>
+     */
+    public java.lang.String getLocation() {
+      java.lang.Object ref = location_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          location_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string location = 16;</code>
+     *
+     * <pre>
+     *所在地
+     * </pre>
+     */
+    public com.google.protobuf.ByteString
+        getLocationBytes() {
+      java.lang.Object ref = location_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        location_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    // optional string centerLink = 17;
+    public static final int CENTERLINK_FIELD_NUMBER = 17;
+    private java.lang.Object centerLink_;
+    /**
+     * <code>optional string centerLink = 17;</code>
+     *
+     * <pre>
+     *福师介绍中心链接
+     * </pre>
+     */
+    public boolean hasCenterLink() {
+      return ((bitField0_ & 0x00010000) == 0x00010000);
+    }
+    /**
+     * <code>optional string centerLink = 17;</code>
+     *
+     * <pre>
+     *福师介绍中心链接
+     * </pre>
+     */
+    public java.lang.String getCenterLink() {
+      java.lang.Object ref = centerLink_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          centerLink_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string centerLink = 17;</code>
+     *
+     * <pre>
+     *福师介绍中心链接
+     * </pre>
+     */
+    public com.google.protobuf.ByteString
+        getCenterLinkBytes() {
+      java.lang.Object ref = centerLink_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        centerLink_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private void initFields() {
       contactId_ = 0;
       name_ = "";
@@ -4296,6 +4470,8 @@ public final class Models {
       fuzhi_ = "";
       orderTime_ = "";
       subscribeTime_ = "";
+      location_ = "";
+      centerLink_ = "";
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -4353,6 +4529,12 @@ public final class Models {
       }
       if (((bitField0_ & 0x00004000) == 0x00004000)) {
         output.writeBytes(15, getSubscribeTimeBytes());
+      }
+      if (((bitField0_ & 0x00008000) == 0x00008000)) {
+        output.writeBytes(16, getLocationBytes());
+      }
+      if (((bitField0_ & 0x00010000) == 0x00010000)) {
+        output.writeBytes(17, getCenterLinkBytes());
       }
       getUnknownFields().writeTo(output);
     }
@@ -4422,6 +4604,14 @@ public final class Models {
       if (((bitField0_ & 0x00004000) == 0x00004000)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(15, getSubscribeTimeBytes());
+      }
+      if (((bitField0_ & 0x00008000) == 0x00008000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(16, getLocationBytes());
+      }
+      if (((bitField0_ & 0x00010000) == 0x00010000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(17, getCenterLinkBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -4569,6 +4759,10 @@ public final class Models {
         bitField0_ = (bitField0_ & ~0x00002000);
         subscribeTime_ = "";
         bitField0_ = (bitField0_ & ~0x00004000);
+        location_ = "";
+        bitField0_ = (bitField0_ & ~0x00008000);
+        centerLink_ = "";
+        bitField0_ = (bitField0_ & ~0x00010000);
         return this;
       }
 
@@ -4657,6 +4851,14 @@ public final class Models {
           to_bitField0_ |= 0x00004000;
         }
         result.subscribeTime_ = subscribeTime_;
+        if (((from_bitField0_ & 0x00008000) == 0x00008000)) {
+          to_bitField0_ |= 0x00008000;
+        }
+        result.location_ = location_;
+        if (((from_bitField0_ & 0x00010000) == 0x00010000)) {
+          to_bitField0_ |= 0x00010000;
+        }
+        result.centerLink_ = centerLink_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -4736,6 +4938,16 @@ public final class Models {
         if (other.hasSubscribeTime()) {
           bitField0_ |= 0x00004000;
           subscribeTime_ = other.subscribeTime_;
+          onChanged();
+        }
+        if (other.hasLocation()) {
+          bitField0_ |= 0x00008000;
+          location_ = other.location_;
+          onChanged();
+        }
+        if (other.hasCenterLink()) {
+          bitField0_ |= 0x00010000;
+          centerLink_ = other.centerLink_;
           onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
@@ -5737,6 +5949,202 @@ public final class Models {
         return this;
       }
 
+      // optional string location = 16;
+      private java.lang.Object location_ = "";
+      /**
+       * <code>optional string location = 16;</code>
+       *
+       * <pre>
+       *所在地
+       * </pre>
+       */
+      public boolean hasLocation() {
+        return ((bitField0_ & 0x00008000) == 0x00008000);
+      }
+      /**
+       * <code>optional string location = 16;</code>
+       *
+       * <pre>
+       *所在地
+       * </pre>
+       */
+      public java.lang.String getLocation() {
+        java.lang.Object ref = location_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          location_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string location = 16;</code>
+       *
+       * <pre>
+       *所在地
+       * </pre>
+       */
+      public com.google.protobuf.ByteString
+          getLocationBytes() {
+        java.lang.Object ref = location_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          location_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string location = 16;</code>
+       *
+       * <pre>
+       *所在地
+       * </pre>
+       */
+      public Builder setLocation(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00008000;
+        location_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string location = 16;</code>
+       *
+       * <pre>
+       *所在地
+       * </pre>
+       */
+      public Builder clearLocation() {
+        bitField0_ = (bitField0_ & ~0x00008000);
+        location_ = getDefaultInstance().getLocation();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string location = 16;</code>
+       *
+       * <pre>
+       *所在地
+       * </pre>
+       */
+      public Builder setLocationBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00008000;
+        location_ = value;
+        onChanged();
+        return this;
+      }
+
+      // optional string centerLink = 17;
+      private java.lang.Object centerLink_ = "";
+      /**
+       * <code>optional string centerLink = 17;</code>
+       *
+       * <pre>
+       *福师介绍中心链接
+       * </pre>
+       */
+      public boolean hasCenterLink() {
+        return ((bitField0_ & 0x00010000) == 0x00010000);
+      }
+      /**
+       * <code>optional string centerLink = 17;</code>
+       *
+       * <pre>
+       *福师介绍中心链接
+       * </pre>
+       */
+      public java.lang.String getCenterLink() {
+        java.lang.Object ref = centerLink_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          centerLink_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string centerLink = 17;</code>
+       *
+       * <pre>
+       *福师介绍中心链接
+       * </pre>
+       */
+      public com.google.protobuf.ByteString
+          getCenterLinkBytes() {
+        java.lang.Object ref = centerLink_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          centerLink_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string centerLink = 17;</code>
+       *
+       * <pre>
+       *福师介绍中心链接
+       * </pre>
+       */
+      public Builder setCenterLink(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00010000;
+        centerLink_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string centerLink = 17;</code>
+       *
+       * <pre>
+       *福师介绍中心链接
+       * </pre>
+       */
+      public Builder clearCenterLink() {
+        bitField0_ = (bitField0_ & ~0x00010000);
+        centerLink_ = getDefaultInstance().getCenterLink();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string centerLink = 17;</code>
+       *
+       * <pre>
+       *福师介绍中心链接
+       * </pre>
+       */
+      public Builder setCenterLinkBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00010000;
+        centerLink_ = value;
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:Com.Fuwu.MobileIM.Model.Contact)
     }
 
@@ -6508,6 +6916,24 @@ public final class Models {
      */
     com.google.protobuf.ByteString
         getTimeStampBytes();
+
+    // optional .Com.Fuwu.MobileIM.Model.ContactResponse.ErrorCodeType errorCode = 4;
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.ContactResponse.ErrorCodeType errorCode = 4;</code>
+     *
+     * <pre>
+     *错误代码（枚举）
+     * </pre>
+     */
+    boolean hasErrorCode();
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.ContactResponse.ErrorCodeType errorCode = 4;</code>
+     *
+     * <pre>
+     *错误代码（枚举）
+     * </pre>
+     */
+    com.fuwu.mobileim.model.Models.ContactResponse.ErrorCodeType getErrorCode();
   }
   /**
    * Protobuf type {@code Com.Fuwu.MobileIM.Model.ContactResponse}
@@ -6578,6 +7004,17 @@ public final class Models {
               timeStamp_ = input.readBytes();
               break;
             }
+            case 32: {
+              int rawValue = input.readEnum();
+              com.fuwu.mobileim.model.Models.ContactResponse.ErrorCodeType value = com.fuwu.mobileim.model.Models.ContactResponse.ErrorCodeType.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(4, rawValue);
+              } else {
+                bitField0_ |= 0x00000004;
+                errorCode_ = value;
+              }
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -6618,6 +7055,87 @@ public final class Models {
     @java.lang.Override
     public com.google.protobuf.Parser<ContactResponse> getParserForType() {
       return PARSER;
+    }
+
+    /**
+     * Protobuf enum {@code Com.Fuwu.MobileIM.Model.ContactResponse.ErrorCodeType}
+     */
+    public enum ErrorCodeType
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>InvalidToken = 2001;</code>
+       *
+       * <pre>
+       *token失效
+       * </pre>
+       */
+      InvalidToken(0, 2001),
+      ;
+
+      /**
+       * <code>InvalidToken = 2001;</code>
+       *
+       * <pre>
+       *token失效
+       * </pre>
+       */
+      public static final int InvalidToken_VALUE = 2001;
+
+
+      public final int getNumber() { return value; }
+
+      public static ErrorCodeType valueOf(int value) {
+        switch (value) {
+          case 2001: return InvalidToken;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<ErrorCodeType>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static com.google.protobuf.Internal.EnumLiteMap<ErrorCodeType>
+          internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<ErrorCodeType>() {
+              public ErrorCodeType findValueByNumber(int number) {
+                return ErrorCodeType.valueOf(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(index);
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return com.fuwu.mobileim.model.Models.ContactResponse.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final ErrorCodeType[] VALUES = values();
+
+      public static ErrorCodeType valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int index;
+      private final int value;
+
+      private ErrorCodeType(int index, int value) {
+        this.index = index;
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:Com.Fuwu.MobileIM.Model.ContactResponse.ErrorCodeType)
     }
 
     private int bitField0_;
@@ -6716,10 +7234,35 @@ public final class Models {
       }
     }
 
+    // optional .Com.Fuwu.MobileIM.Model.ContactResponse.ErrorCodeType errorCode = 4;
+    public static final int ERRORCODE_FIELD_NUMBER = 4;
+    private com.fuwu.mobileim.model.Models.ContactResponse.ErrorCodeType errorCode_;
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.ContactResponse.ErrorCodeType errorCode = 4;</code>
+     *
+     * <pre>
+     *错误代码（枚举）
+     * </pre>
+     */
+    public boolean hasErrorCode() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.ContactResponse.ErrorCodeType errorCode = 4;</code>
+     *
+     * <pre>
+     *错误代码（枚举）
+     * </pre>
+     */
+    public com.fuwu.mobileim.model.Models.ContactResponse.ErrorCodeType getErrorCode() {
+      return errorCode_;
+    }
+
     private void initFields() {
       isSucceed_ = false;
       contacts_ = java.util.Collections.emptyList();
       timeStamp_ = "";
+      errorCode_ = com.fuwu.mobileim.model.Models.ContactResponse.ErrorCodeType.InvalidToken;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -6742,6 +7285,9 @@ public final class Models {
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         output.writeBytes(3, getTimeStampBytes());
       }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeEnum(4, errorCode_.getNumber());
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -6762,6 +7308,10 @@ public final class Models {
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(3, getTimeStampBytes());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(4, errorCode_.getNumber());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -6890,6 +7440,8 @@ public final class Models {
         }
         timeStamp_ = "";
         bitField0_ = (bitField0_ & ~0x00000004);
+        errorCode_ = com.fuwu.mobileim.model.Models.ContactResponse.ErrorCodeType.InvalidToken;
+        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
 
@@ -6935,6 +7487,10 @@ public final class Models {
           to_bitField0_ |= 0x00000002;
         }
         result.timeStamp_ = timeStamp_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.errorCode_ = errorCode_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -6984,6 +7540,9 @@ public final class Models {
           bitField0_ |= 0x00000004;
           timeStamp_ = other.timeStamp_;
           onChanged();
+        }
+        if (other.hasErrorCode()) {
+          setErrorCode(other.getErrorCode());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -7355,6 +7914,58 @@ public final class Models {
   }
   bitField0_ |= 0x00000004;
         timeStamp_ = value;
+        onChanged();
+        return this;
+      }
+
+      // optional .Com.Fuwu.MobileIM.Model.ContactResponse.ErrorCodeType errorCode = 4;
+      private com.fuwu.mobileim.model.Models.ContactResponse.ErrorCodeType errorCode_ = com.fuwu.mobileim.model.Models.ContactResponse.ErrorCodeType.InvalidToken;
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.ContactResponse.ErrorCodeType errorCode = 4;</code>
+       *
+       * <pre>
+       *错误代码（枚举）
+       * </pre>
+       */
+      public boolean hasErrorCode() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.ContactResponse.ErrorCodeType errorCode = 4;</code>
+       *
+       * <pre>
+       *错误代码（枚举）
+       * </pre>
+       */
+      public com.fuwu.mobileim.model.Models.ContactResponse.ErrorCodeType getErrorCode() {
+        return errorCode_;
+      }
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.ContactResponse.ErrorCodeType errorCode = 4;</code>
+       *
+       * <pre>
+       *错误代码（枚举）
+       * </pre>
+       */
+      public Builder setErrorCode(com.fuwu.mobileim.model.Models.ContactResponse.ErrorCodeType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000008;
+        errorCode_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.ContactResponse.ErrorCodeType errorCode = 4;</code>
+       *
+       * <pre>
+       *错误代码（枚举）
+       * </pre>
+       */
+      public Builder clearErrorCode() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        errorCode_ = com.fuwu.mobileim.model.Models.ContactResponse.ErrorCodeType.InvalidToken;
         onChanged();
         return this;
       }
@@ -8116,6 +8727,24 @@ public final class Models {
      * <code>optional bool isBlocked = 3;</code>
      */
     boolean getIsBlocked();
+
+    // optional .Com.Fuwu.MobileIM.Model.BlockContactResponse.ErrorCodeType errorCode = 4;
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.BlockContactResponse.ErrorCodeType errorCode = 4;</code>
+     *
+     * <pre>
+     *错误代码（枚举）
+     * </pre>
+     */
+    boolean hasErrorCode();
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.BlockContactResponse.ErrorCodeType errorCode = 4;</code>
+     *
+     * <pre>
+     *错误代码（枚举）
+     * </pre>
+     */
+    com.fuwu.mobileim.model.Models.BlockContactResponse.ErrorCodeType getErrorCode();
   }
   /**
    * Protobuf type {@code Com.Fuwu.MobileIM.Model.BlockContactResponse}
@@ -8183,6 +8812,17 @@ public final class Models {
               isBlocked_ = input.readBool();
               break;
             }
+            case 32: {
+              int rawValue = input.readEnum();
+              com.fuwu.mobileim.model.Models.BlockContactResponse.ErrorCodeType value = com.fuwu.mobileim.model.Models.BlockContactResponse.ErrorCodeType.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(4, rawValue);
+              } else {
+                bitField0_ |= 0x00000008;
+                errorCode_ = value;
+              }
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -8220,6 +8860,87 @@ public final class Models {
     @java.lang.Override
     public com.google.protobuf.Parser<BlockContactResponse> getParserForType() {
       return PARSER;
+    }
+
+    /**
+     * Protobuf enum {@code Com.Fuwu.MobileIM.Model.BlockContactResponse.ErrorCodeType}
+     */
+    public enum ErrorCodeType
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>InvalidToken = 2001;</code>
+       *
+       * <pre>
+       *token失效
+       * </pre>
+       */
+      InvalidToken(0, 2001),
+      ;
+
+      /**
+       * <code>InvalidToken = 2001;</code>
+       *
+       * <pre>
+       *token失效
+       * </pre>
+       */
+      public static final int InvalidToken_VALUE = 2001;
+
+
+      public final int getNumber() { return value; }
+
+      public static ErrorCodeType valueOf(int value) {
+        switch (value) {
+          case 2001: return InvalidToken;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<ErrorCodeType>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static com.google.protobuf.Internal.EnumLiteMap<ErrorCodeType>
+          internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<ErrorCodeType>() {
+              public ErrorCodeType findValueByNumber(int number) {
+                return ErrorCodeType.valueOf(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(index);
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return com.fuwu.mobileim.model.Models.BlockContactResponse.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final ErrorCodeType[] VALUES = values();
+
+      public static ErrorCodeType valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int index;
+      private final int value;
+
+      private ErrorCodeType(int index, int value) {
+        this.index = index;
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:Com.Fuwu.MobileIM.Model.BlockContactResponse.ErrorCodeType)
     }
 
     private int bitField0_;
@@ -8271,10 +8992,35 @@ public final class Models {
       return isBlocked_;
     }
 
+    // optional .Com.Fuwu.MobileIM.Model.BlockContactResponse.ErrorCodeType errorCode = 4;
+    public static final int ERRORCODE_FIELD_NUMBER = 4;
+    private com.fuwu.mobileim.model.Models.BlockContactResponse.ErrorCodeType errorCode_;
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.BlockContactResponse.ErrorCodeType errorCode = 4;</code>
+     *
+     * <pre>
+     *错误代码（枚举）
+     * </pre>
+     */
+    public boolean hasErrorCode() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.BlockContactResponse.ErrorCodeType errorCode = 4;</code>
+     *
+     * <pre>
+     *错误代码（枚举）
+     * </pre>
+     */
+    public com.fuwu.mobileim.model.Models.BlockContactResponse.ErrorCodeType getErrorCode() {
+      return errorCode_;
+    }
+
     private void initFields() {
       isSucceed_ = false;
       contactId_ = 0;
       isBlocked_ = false;
+      errorCode_ = com.fuwu.mobileim.model.Models.BlockContactResponse.ErrorCodeType.InvalidToken;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -8297,6 +9043,9 @@ public final class Models {
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         output.writeBool(3, isBlocked_);
       }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeEnum(4, errorCode_.getNumber());
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -8317,6 +9066,10 @@ public final class Models {
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(3, isBlocked_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(4, errorCode_.getNumber());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -8440,6 +9193,8 @@ public final class Models {
         bitField0_ = (bitField0_ & ~0x00000002);
         isBlocked_ = false;
         bitField0_ = (bitField0_ & ~0x00000004);
+        errorCode_ = com.fuwu.mobileim.model.Models.BlockContactResponse.ErrorCodeType.InvalidToken;
+        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
 
@@ -8480,6 +9235,10 @@ public final class Models {
           to_bitField0_ |= 0x00000004;
         }
         result.isBlocked_ = isBlocked_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.errorCode_ = errorCode_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -8504,6 +9263,9 @@ public final class Models {
         }
         if (other.hasIsBlocked()) {
           setIsBlocked(other.getIsBlocked());
+        }
+        if (other.hasErrorCode()) {
+          setErrorCode(other.getErrorCode());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -8627,6 +9389,58 @@ public final class Models {
       public Builder clearIsBlocked() {
         bitField0_ = (bitField0_ & ~0x00000004);
         isBlocked_ = false;
+        onChanged();
+        return this;
+      }
+
+      // optional .Com.Fuwu.MobileIM.Model.BlockContactResponse.ErrorCodeType errorCode = 4;
+      private com.fuwu.mobileim.model.Models.BlockContactResponse.ErrorCodeType errorCode_ = com.fuwu.mobileim.model.Models.BlockContactResponse.ErrorCodeType.InvalidToken;
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.BlockContactResponse.ErrorCodeType errorCode = 4;</code>
+       *
+       * <pre>
+       *错误代码（枚举）
+       * </pre>
+       */
+      public boolean hasErrorCode() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.BlockContactResponse.ErrorCodeType errorCode = 4;</code>
+       *
+       * <pre>
+       *错误代码（枚举）
+       * </pre>
+       */
+      public com.fuwu.mobileim.model.Models.BlockContactResponse.ErrorCodeType getErrorCode() {
+        return errorCode_;
+      }
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.BlockContactResponse.ErrorCodeType errorCode = 4;</code>
+       *
+       * <pre>
+       *错误代码（枚举）
+       * </pre>
+       */
+      public Builder setErrorCode(com.fuwu.mobileim.model.Models.BlockContactResponse.ErrorCodeType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000008;
+        errorCode_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.BlockContactResponse.ErrorCodeType errorCode = 4;</code>
+       *
+       * <pre>
+       *错误代码（枚举）
+       * </pre>
+       */
+      public Builder clearErrorCode() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        errorCode_ = com.fuwu.mobileim.model.Models.BlockContactResponse.ErrorCodeType.InvalidToken;
         onChanged();
         return this;
       }
@@ -9301,6 +10115,24 @@ public final class Models {
      * <code>optional .Com.Fuwu.MobileIM.Model.Contact contact = 2;</code>
      */
     com.fuwu.mobileim.model.Models.ContactOrBuilder getContactOrBuilder();
+
+    // optional .Com.Fuwu.MobileIM.Model.ContactDetailResponse.ErrorCodeType errorCode = 3;
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.ContactDetailResponse.ErrorCodeType errorCode = 3;</code>
+     *
+     * <pre>
+     *错误代码（枚举）
+     * </pre>
+     */
+    boolean hasErrorCode();
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.ContactDetailResponse.ErrorCodeType errorCode = 3;</code>
+     *
+     * <pre>
+     *错误代码（枚举）
+     * </pre>
+     */
+    com.fuwu.mobileim.model.Models.ContactDetailResponse.ErrorCodeType getErrorCode();
   }
   /**
    * Protobuf type {@code Com.Fuwu.MobileIM.Model.ContactDetailResponse}
@@ -9371,6 +10203,17 @@ public final class Models {
               bitField0_ |= 0x00000002;
               break;
             }
+            case 24: {
+              int rawValue = input.readEnum();
+              com.fuwu.mobileim.model.Models.ContactDetailResponse.ErrorCodeType value = com.fuwu.mobileim.model.Models.ContactDetailResponse.ErrorCodeType.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(3, rawValue);
+              } else {
+                bitField0_ |= 0x00000004;
+                errorCode_ = value;
+              }
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -9408,6 +10251,87 @@ public final class Models {
     @java.lang.Override
     public com.google.protobuf.Parser<ContactDetailResponse> getParserForType() {
       return PARSER;
+    }
+
+    /**
+     * Protobuf enum {@code Com.Fuwu.MobileIM.Model.ContactDetailResponse.ErrorCodeType}
+     */
+    public enum ErrorCodeType
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>InvalidToken = 2001;</code>
+       *
+       * <pre>
+       *token失效
+       * </pre>
+       */
+      InvalidToken(0, 2001),
+      ;
+
+      /**
+       * <code>InvalidToken = 2001;</code>
+       *
+       * <pre>
+       *token失效
+       * </pre>
+       */
+      public static final int InvalidToken_VALUE = 2001;
+
+
+      public final int getNumber() { return value; }
+
+      public static ErrorCodeType valueOf(int value) {
+        switch (value) {
+          case 2001: return InvalidToken;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<ErrorCodeType>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static com.google.protobuf.Internal.EnumLiteMap<ErrorCodeType>
+          internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<ErrorCodeType>() {
+              public ErrorCodeType findValueByNumber(int number) {
+                return ErrorCodeType.valueOf(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(index);
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return com.fuwu.mobileim.model.Models.ContactDetailResponse.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final ErrorCodeType[] VALUES = values();
+
+      public static ErrorCodeType valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int index;
+      private final int value;
+
+      private ErrorCodeType(int index, int value) {
+        this.index = index;
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:Com.Fuwu.MobileIM.Model.ContactDetailResponse.ErrorCodeType)
     }
 
     private int bitField0_;
@@ -9449,9 +10373,34 @@ public final class Models {
       return contact_;
     }
 
+    // optional .Com.Fuwu.MobileIM.Model.ContactDetailResponse.ErrorCodeType errorCode = 3;
+    public static final int ERRORCODE_FIELD_NUMBER = 3;
+    private com.fuwu.mobileim.model.Models.ContactDetailResponse.ErrorCodeType errorCode_;
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.ContactDetailResponse.ErrorCodeType errorCode = 3;</code>
+     *
+     * <pre>
+     *错误代码（枚举）
+     * </pre>
+     */
+    public boolean hasErrorCode() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.ContactDetailResponse.ErrorCodeType errorCode = 3;</code>
+     *
+     * <pre>
+     *错误代码（枚举）
+     * </pre>
+     */
+    public com.fuwu.mobileim.model.Models.ContactDetailResponse.ErrorCodeType getErrorCode() {
+      return errorCode_;
+    }
+
     private void initFields() {
       isSucceed_ = false;
       contact_ = com.fuwu.mobileim.model.Models.Contact.getDefaultInstance();
+      errorCode_ = com.fuwu.mobileim.model.Models.ContactDetailResponse.ErrorCodeType.InvalidToken;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -9471,6 +10420,9 @@ public final class Models {
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         output.writeMessage(2, contact_);
       }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeEnum(3, errorCode_.getNumber());
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -9487,6 +10439,10 @@ public final class Models {
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, contact_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(3, errorCode_.getNumber());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -9613,6 +10569,8 @@ public final class Models {
           contactBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000002);
+        errorCode_ = com.fuwu.mobileim.model.Models.ContactDetailResponse.ErrorCodeType.InvalidToken;
+        bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
 
@@ -9653,6 +10611,10 @@ public final class Models {
         } else {
           result.contact_ = contactBuilder_.build();
         }
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.errorCode_ = errorCode_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -9674,6 +10636,9 @@ public final class Models {
         }
         if (other.hasContact()) {
           mergeContact(other.getContact());
+        }
+        if (other.hasErrorCode()) {
+          setErrorCode(other.getErrorCode());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -9850,6 +10815,58 @@ public final class Models {
           contact_ = null;
         }
         return contactBuilder_;
+      }
+
+      // optional .Com.Fuwu.MobileIM.Model.ContactDetailResponse.ErrorCodeType errorCode = 3;
+      private com.fuwu.mobileim.model.Models.ContactDetailResponse.ErrorCodeType errorCode_ = com.fuwu.mobileim.model.Models.ContactDetailResponse.ErrorCodeType.InvalidToken;
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.ContactDetailResponse.ErrorCodeType errorCode = 3;</code>
+       *
+       * <pre>
+       *错误代码（枚举）
+       * </pre>
+       */
+      public boolean hasErrorCode() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.ContactDetailResponse.ErrorCodeType errorCode = 3;</code>
+       *
+       * <pre>
+       *错误代码（枚举）
+       * </pre>
+       */
+      public com.fuwu.mobileim.model.Models.ContactDetailResponse.ErrorCodeType getErrorCode() {
+        return errorCode_;
+      }
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.ContactDetailResponse.ErrorCodeType errorCode = 3;</code>
+       *
+       * <pre>
+       *错误代码（枚举）
+       * </pre>
+       */
+      public Builder setErrorCode(com.fuwu.mobileim.model.Models.ContactDetailResponse.ErrorCodeType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000004;
+        errorCode_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.ContactDetailResponse.ErrorCodeType errorCode = 3;</code>
+       *
+       * <pre>
+       *错误代码（枚举）
+       * </pre>
+       */
+      public Builder clearErrorCode() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        errorCode_ = com.fuwu.mobileim.model.Models.ContactDetailResponse.ErrorCodeType.InvalidToken;
+        onChanged();
+        return this;
       }
 
       // @@protoc_insertion_point(builder_scope:Com.Fuwu.MobileIM.Model.ContactDetailResponse)
@@ -10633,6 +11650,24 @@ public final class Models {
      * <code>optional .Com.Fuwu.MobileIM.Model.Contact contact = 2;</code>
      */
     com.fuwu.mobileim.model.Models.ContactOrBuilder getContactOrBuilder();
+
+    // optional .Com.Fuwu.MobileIM.Model.ChangeContactDetailResponse.ErrorCodeType errorCode = 3;
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.ChangeContactDetailResponse.ErrorCodeType errorCode = 3;</code>
+     *
+     * <pre>
+     *错误代码（枚举）
+     * </pre>
+     */
+    boolean hasErrorCode();
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.ChangeContactDetailResponse.ErrorCodeType errorCode = 3;</code>
+     *
+     * <pre>
+     *错误代码（枚举）
+     * </pre>
+     */
+    com.fuwu.mobileim.model.Models.ChangeContactDetailResponse.ErrorCodeType getErrorCode();
   }
   /**
    * Protobuf type {@code Com.Fuwu.MobileIM.Model.ChangeContactDetailResponse}
@@ -10703,6 +11738,17 @@ public final class Models {
               bitField0_ |= 0x00000002;
               break;
             }
+            case 24: {
+              int rawValue = input.readEnum();
+              com.fuwu.mobileim.model.Models.ChangeContactDetailResponse.ErrorCodeType value = com.fuwu.mobileim.model.Models.ChangeContactDetailResponse.ErrorCodeType.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(3, rawValue);
+              } else {
+                bitField0_ |= 0x00000004;
+                errorCode_ = value;
+              }
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -10740,6 +11786,87 @@ public final class Models {
     @java.lang.Override
     public com.google.protobuf.Parser<ChangeContactDetailResponse> getParserForType() {
       return PARSER;
+    }
+
+    /**
+     * Protobuf enum {@code Com.Fuwu.MobileIM.Model.ChangeContactDetailResponse.ErrorCodeType}
+     */
+    public enum ErrorCodeType
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>InvalidToken = 2001;</code>
+       *
+       * <pre>
+       *token失效
+       * </pre>
+       */
+      InvalidToken(0, 2001),
+      ;
+
+      /**
+       * <code>InvalidToken = 2001;</code>
+       *
+       * <pre>
+       *token失效
+       * </pre>
+       */
+      public static final int InvalidToken_VALUE = 2001;
+
+
+      public final int getNumber() { return value; }
+
+      public static ErrorCodeType valueOf(int value) {
+        switch (value) {
+          case 2001: return InvalidToken;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<ErrorCodeType>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static com.google.protobuf.Internal.EnumLiteMap<ErrorCodeType>
+          internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<ErrorCodeType>() {
+              public ErrorCodeType findValueByNumber(int number) {
+                return ErrorCodeType.valueOf(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(index);
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return com.fuwu.mobileim.model.Models.ChangeContactDetailResponse.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final ErrorCodeType[] VALUES = values();
+
+      public static ErrorCodeType valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int index;
+      private final int value;
+
+      private ErrorCodeType(int index, int value) {
+        this.index = index;
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:Com.Fuwu.MobileIM.Model.ChangeContactDetailResponse.ErrorCodeType)
     }
 
     private int bitField0_;
@@ -10781,9 +11908,34 @@ public final class Models {
       return contact_;
     }
 
+    // optional .Com.Fuwu.MobileIM.Model.ChangeContactDetailResponse.ErrorCodeType errorCode = 3;
+    public static final int ERRORCODE_FIELD_NUMBER = 3;
+    private com.fuwu.mobileim.model.Models.ChangeContactDetailResponse.ErrorCodeType errorCode_;
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.ChangeContactDetailResponse.ErrorCodeType errorCode = 3;</code>
+     *
+     * <pre>
+     *错误代码（枚举）
+     * </pre>
+     */
+    public boolean hasErrorCode() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.ChangeContactDetailResponse.ErrorCodeType errorCode = 3;</code>
+     *
+     * <pre>
+     *错误代码（枚举）
+     * </pre>
+     */
+    public com.fuwu.mobileim.model.Models.ChangeContactDetailResponse.ErrorCodeType getErrorCode() {
+      return errorCode_;
+    }
+
     private void initFields() {
       isSucceed_ = false;
       contact_ = com.fuwu.mobileim.model.Models.Contact.getDefaultInstance();
+      errorCode_ = com.fuwu.mobileim.model.Models.ChangeContactDetailResponse.ErrorCodeType.InvalidToken;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -10803,6 +11955,9 @@ public final class Models {
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         output.writeMessage(2, contact_);
       }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeEnum(3, errorCode_.getNumber());
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -10819,6 +11974,10 @@ public final class Models {
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, contact_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(3, errorCode_.getNumber());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -10945,6 +12104,8 @@ public final class Models {
           contactBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000002);
+        errorCode_ = com.fuwu.mobileim.model.Models.ChangeContactDetailResponse.ErrorCodeType.InvalidToken;
+        bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
 
@@ -10985,6 +12146,10 @@ public final class Models {
         } else {
           result.contact_ = contactBuilder_.build();
         }
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.errorCode_ = errorCode_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -11006,6 +12171,9 @@ public final class Models {
         }
         if (other.hasContact()) {
           mergeContact(other.getContact());
+        }
+        if (other.hasErrorCode()) {
+          setErrorCode(other.getErrorCode());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -11182,6 +12350,58 @@ public final class Models {
           contact_ = null;
         }
         return contactBuilder_;
+      }
+
+      // optional .Com.Fuwu.MobileIM.Model.ChangeContactDetailResponse.ErrorCodeType errorCode = 3;
+      private com.fuwu.mobileim.model.Models.ChangeContactDetailResponse.ErrorCodeType errorCode_ = com.fuwu.mobileim.model.Models.ChangeContactDetailResponse.ErrorCodeType.InvalidToken;
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.ChangeContactDetailResponse.ErrorCodeType errorCode = 3;</code>
+       *
+       * <pre>
+       *错误代码（枚举）
+       * </pre>
+       */
+      public boolean hasErrorCode() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.ChangeContactDetailResponse.ErrorCodeType errorCode = 3;</code>
+       *
+       * <pre>
+       *错误代码（枚举）
+       * </pre>
+       */
+      public com.fuwu.mobileim.model.Models.ChangeContactDetailResponse.ErrorCodeType getErrorCode() {
+        return errorCode_;
+      }
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.ChangeContactDetailResponse.ErrorCodeType errorCode = 3;</code>
+       *
+       * <pre>
+       *错误代码（枚举）
+       * </pre>
+       */
+      public Builder setErrorCode(com.fuwu.mobileim.model.Models.ChangeContactDetailResponse.ErrorCodeType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000004;
+        errorCode_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.ChangeContactDetailResponse.ErrorCodeType errorCode = 3;</code>
+       *
+       * <pre>
+       *错误代码（枚举）
+       * </pre>
+       */
+      public Builder clearErrorCode() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        errorCode_ = com.fuwu.mobileim.model.Models.ChangeContactDetailResponse.ErrorCodeType.InvalidToken;
+        onChanged();
+        return this;
       }
 
       // @@protoc_insertion_point(builder_scope:Com.Fuwu.MobileIM.Model.ChangeContactDetailResponse)
@@ -13816,6 +15036,24 @@ public final class Models {
      * <code>optional .Com.Fuwu.MobileIM.Model.Profile profile = 2;</code>
      */
     com.fuwu.mobileim.model.Models.ProfileOrBuilder getProfileOrBuilder();
+
+    // optional .Com.Fuwu.MobileIM.Model.ProfileResponse.ErrorCodeType errorCode = 3;
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.ProfileResponse.ErrorCodeType errorCode = 3;</code>
+     *
+     * <pre>
+     *错误代码（枚举）
+     * </pre>
+     */
+    boolean hasErrorCode();
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.ProfileResponse.ErrorCodeType errorCode = 3;</code>
+     *
+     * <pre>
+     *错误代码（枚举）
+     * </pre>
+     */
+    com.fuwu.mobileim.model.Models.ProfileResponse.ErrorCodeType getErrorCode();
   }
   /**
    * Protobuf type {@code Com.Fuwu.MobileIM.Model.ProfileResponse}
@@ -13886,6 +15124,17 @@ public final class Models {
               bitField0_ |= 0x00000002;
               break;
             }
+            case 24: {
+              int rawValue = input.readEnum();
+              com.fuwu.mobileim.model.Models.ProfileResponse.ErrorCodeType value = com.fuwu.mobileim.model.Models.ProfileResponse.ErrorCodeType.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(3, rawValue);
+              } else {
+                bitField0_ |= 0x00000004;
+                errorCode_ = value;
+              }
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -13923,6 +15172,87 @@ public final class Models {
     @java.lang.Override
     public com.google.protobuf.Parser<ProfileResponse> getParserForType() {
       return PARSER;
+    }
+
+    /**
+     * Protobuf enum {@code Com.Fuwu.MobileIM.Model.ProfileResponse.ErrorCodeType}
+     */
+    public enum ErrorCodeType
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>InvalidToken = 2001;</code>
+       *
+       * <pre>
+       *token失效
+       * </pre>
+       */
+      InvalidToken(0, 2001),
+      ;
+
+      /**
+       * <code>InvalidToken = 2001;</code>
+       *
+       * <pre>
+       *token失效
+       * </pre>
+       */
+      public static final int InvalidToken_VALUE = 2001;
+
+
+      public final int getNumber() { return value; }
+
+      public static ErrorCodeType valueOf(int value) {
+        switch (value) {
+          case 2001: return InvalidToken;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<ErrorCodeType>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static com.google.protobuf.Internal.EnumLiteMap<ErrorCodeType>
+          internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<ErrorCodeType>() {
+              public ErrorCodeType findValueByNumber(int number) {
+                return ErrorCodeType.valueOf(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(index);
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return com.fuwu.mobileim.model.Models.ProfileResponse.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final ErrorCodeType[] VALUES = values();
+
+      public static ErrorCodeType valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int index;
+      private final int value;
+
+      private ErrorCodeType(int index, int value) {
+        this.index = index;
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:Com.Fuwu.MobileIM.Model.ProfileResponse.ErrorCodeType)
     }
 
     private int bitField0_;
@@ -13964,9 +15294,34 @@ public final class Models {
       return profile_;
     }
 
+    // optional .Com.Fuwu.MobileIM.Model.ProfileResponse.ErrorCodeType errorCode = 3;
+    public static final int ERRORCODE_FIELD_NUMBER = 3;
+    private com.fuwu.mobileim.model.Models.ProfileResponse.ErrorCodeType errorCode_;
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.ProfileResponse.ErrorCodeType errorCode = 3;</code>
+     *
+     * <pre>
+     *错误代码（枚举）
+     * </pre>
+     */
+    public boolean hasErrorCode() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.ProfileResponse.ErrorCodeType errorCode = 3;</code>
+     *
+     * <pre>
+     *错误代码（枚举）
+     * </pre>
+     */
+    public com.fuwu.mobileim.model.Models.ProfileResponse.ErrorCodeType getErrorCode() {
+      return errorCode_;
+    }
+
     private void initFields() {
       isSucceed_ = false;
       profile_ = com.fuwu.mobileim.model.Models.Profile.getDefaultInstance();
+      errorCode_ = com.fuwu.mobileim.model.Models.ProfileResponse.ErrorCodeType.InvalidToken;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -13986,6 +15341,9 @@ public final class Models {
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         output.writeMessage(2, profile_);
       }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeEnum(3, errorCode_.getNumber());
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -14002,6 +15360,10 @@ public final class Models {
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, profile_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(3, errorCode_.getNumber());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -14128,6 +15490,8 @@ public final class Models {
           profileBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000002);
+        errorCode_ = com.fuwu.mobileim.model.Models.ProfileResponse.ErrorCodeType.InvalidToken;
+        bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
 
@@ -14168,6 +15532,10 @@ public final class Models {
         } else {
           result.profile_ = profileBuilder_.build();
         }
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.errorCode_ = errorCode_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -14189,6 +15557,9 @@ public final class Models {
         }
         if (other.hasProfile()) {
           mergeProfile(other.getProfile());
+        }
+        if (other.hasErrorCode()) {
+          setErrorCode(other.getErrorCode());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -14365,6 +15736,58 @@ public final class Models {
           profile_ = null;
         }
         return profileBuilder_;
+      }
+
+      // optional .Com.Fuwu.MobileIM.Model.ProfileResponse.ErrorCodeType errorCode = 3;
+      private com.fuwu.mobileim.model.Models.ProfileResponse.ErrorCodeType errorCode_ = com.fuwu.mobileim.model.Models.ProfileResponse.ErrorCodeType.InvalidToken;
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.ProfileResponse.ErrorCodeType errorCode = 3;</code>
+       *
+       * <pre>
+       *错误代码（枚举）
+       * </pre>
+       */
+      public boolean hasErrorCode() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.ProfileResponse.ErrorCodeType errorCode = 3;</code>
+       *
+       * <pre>
+       *错误代码（枚举）
+       * </pre>
+       */
+      public com.fuwu.mobileim.model.Models.ProfileResponse.ErrorCodeType getErrorCode() {
+        return errorCode_;
+      }
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.ProfileResponse.ErrorCodeType errorCode = 3;</code>
+       *
+       * <pre>
+       *错误代码（枚举）
+       * </pre>
+       */
+      public Builder setErrorCode(com.fuwu.mobileim.model.Models.ProfileResponse.ErrorCodeType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000004;
+        errorCode_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.ProfileResponse.ErrorCodeType errorCode = 3;</code>
+       *
+       * <pre>
+       *错误代码（枚举）
+       * </pre>
+       */
+      public Builder clearErrorCode() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        errorCode_ = com.fuwu.mobileim.model.Models.ProfileResponse.ErrorCodeType.InvalidToken;
+        onChanged();
+        return this;
       }
 
       // @@protoc_insertion_point(builder_scope:Com.Fuwu.MobileIM.Model.ProfileResponse)
@@ -15684,6 +17107,24 @@ public final class Models {
      * <code>optional .Com.Fuwu.MobileIM.Model.Profile profile = 2;</code>
      */
     com.fuwu.mobileim.model.Models.ProfileOrBuilder getProfileOrBuilder();
+
+    // optional .Com.Fuwu.MobileIM.Model.ChangeProfileResponse.ErrorCodeType errorCode = 3;
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.ChangeProfileResponse.ErrorCodeType errorCode = 3;</code>
+     *
+     * <pre>
+     *错误代码（枚举）
+     * </pre>
+     */
+    boolean hasErrorCode();
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.ChangeProfileResponse.ErrorCodeType errorCode = 3;</code>
+     *
+     * <pre>
+     *错误代码（枚举）
+     * </pre>
+     */
+    com.fuwu.mobileim.model.Models.ChangeProfileResponse.ErrorCodeType getErrorCode();
   }
   /**
    * Protobuf type {@code Com.Fuwu.MobileIM.Model.ChangeProfileResponse}
@@ -15754,6 +17195,17 @@ public final class Models {
               bitField0_ |= 0x00000002;
               break;
             }
+            case 24: {
+              int rawValue = input.readEnum();
+              com.fuwu.mobileim.model.Models.ChangeProfileResponse.ErrorCodeType value = com.fuwu.mobileim.model.Models.ChangeProfileResponse.ErrorCodeType.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(3, rawValue);
+              } else {
+                bitField0_ |= 0x00000004;
+                errorCode_ = value;
+              }
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -15791,6 +17243,87 @@ public final class Models {
     @java.lang.Override
     public com.google.protobuf.Parser<ChangeProfileResponse> getParserForType() {
       return PARSER;
+    }
+
+    /**
+     * Protobuf enum {@code Com.Fuwu.MobileIM.Model.ChangeProfileResponse.ErrorCodeType}
+     */
+    public enum ErrorCodeType
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>InvalidToken = 2001;</code>
+       *
+       * <pre>
+       *token失效
+       * </pre>
+       */
+      InvalidToken(0, 2001),
+      ;
+
+      /**
+       * <code>InvalidToken = 2001;</code>
+       *
+       * <pre>
+       *token失效
+       * </pre>
+       */
+      public static final int InvalidToken_VALUE = 2001;
+
+
+      public final int getNumber() { return value; }
+
+      public static ErrorCodeType valueOf(int value) {
+        switch (value) {
+          case 2001: return InvalidToken;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<ErrorCodeType>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static com.google.protobuf.Internal.EnumLiteMap<ErrorCodeType>
+          internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<ErrorCodeType>() {
+              public ErrorCodeType findValueByNumber(int number) {
+                return ErrorCodeType.valueOf(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(index);
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return com.fuwu.mobileim.model.Models.ChangeProfileResponse.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final ErrorCodeType[] VALUES = values();
+
+      public static ErrorCodeType valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int index;
+      private final int value;
+
+      private ErrorCodeType(int index, int value) {
+        this.index = index;
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:Com.Fuwu.MobileIM.Model.ChangeProfileResponse.ErrorCodeType)
     }
 
     private int bitField0_;
@@ -15832,9 +17365,34 @@ public final class Models {
       return profile_;
     }
 
+    // optional .Com.Fuwu.MobileIM.Model.ChangeProfileResponse.ErrorCodeType errorCode = 3;
+    public static final int ERRORCODE_FIELD_NUMBER = 3;
+    private com.fuwu.mobileim.model.Models.ChangeProfileResponse.ErrorCodeType errorCode_;
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.ChangeProfileResponse.ErrorCodeType errorCode = 3;</code>
+     *
+     * <pre>
+     *错误代码（枚举）
+     * </pre>
+     */
+    public boolean hasErrorCode() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.ChangeProfileResponse.ErrorCodeType errorCode = 3;</code>
+     *
+     * <pre>
+     *错误代码（枚举）
+     * </pre>
+     */
+    public com.fuwu.mobileim.model.Models.ChangeProfileResponse.ErrorCodeType getErrorCode() {
+      return errorCode_;
+    }
+
     private void initFields() {
       isSucceed_ = false;
       profile_ = com.fuwu.mobileim.model.Models.Profile.getDefaultInstance();
+      errorCode_ = com.fuwu.mobileim.model.Models.ChangeProfileResponse.ErrorCodeType.InvalidToken;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -15854,6 +17412,9 @@ public final class Models {
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         output.writeMessage(2, profile_);
       }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeEnum(3, errorCode_.getNumber());
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -15870,6 +17431,10 @@ public final class Models {
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, profile_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(3, errorCode_.getNumber());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -15996,6 +17561,8 @@ public final class Models {
           profileBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000002);
+        errorCode_ = com.fuwu.mobileim.model.Models.ChangeProfileResponse.ErrorCodeType.InvalidToken;
+        bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
 
@@ -16036,6 +17603,10 @@ public final class Models {
         } else {
           result.profile_ = profileBuilder_.build();
         }
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.errorCode_ = errorCode_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -16057,6 +17628,9 @@ public final class Models {
         }
         if (other.hasProfile()) {
           mergeProfile(other.getProfile());
+        }
+        if (other.hasErrorCode()) {
+          setErrorCode(other.getErrorCode());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -16233,6 +17807,58 @@ public final class Models {
           profile_ = null;
         }
         return profileBuilder_;
+      }
+
+      // optional .Com.Fuwu.MobileIM.Model.ChangeProfileResponse.ErrorCodeType errorCode = 3;
+      private com.fuwu.mobileim.model.Models.ChangeProfileResponse.ErrorCodeType errorCode_ = com.fuwu.mobileim.model.Models.ChangeProfileResponse.ErrorCodeType.InvalidToken;
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.ChangeProfileResponse.ErrorCodeType errorCode = 3;</code>
+       *
+       * <pre>
+       *错误代码（枚举）
+       * </pre>
+       */
+      public boolean hasErrorCode() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.ChangeProfileResponse.ErrorCodeType errorCode = 3;</code>
+       *
+       * <pre>
+       *错误代码（枚举）
+       * </pre>
+       */
+      public com.fuwu.mobileim.model.Models.ChangeProfileResponse.ErrorCodeType getErrorCode() {
+        return errorCode_;
+      }
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.ChangeProfileResponse.ErrorCodeType errorCode = 3;</code>
+       *
+       * <pre>
+       *错误代码（枚举）
+       * </pre>
+       */
+      public Builder setErrorCode(com.fuwu.mobileim.model.Models.ChangeProfileResponse.ErrorCodeType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000004;
+        errorCode_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.ChangeProfileResponse.ErrorCodeType errorCode = 3;</code>
+       *
+       * <pre>
+       *错误代码（枚举）
+       * </pre>
+       */
+      public Builder clearErrorCode() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        errorCode_ = com.fuwu.mobileim.model.Models.ChangeProfileResponse.ErrorCodeType.InvalidToken;
+        onChanged();
+        return this;
       }
 
       // @@protoc_insertion_point(builder_scope:Com.Fuwu.MobileIM.Model.ChangeProfileResponse)
@@ -18990,6 +20616,24 @@ public final class Models {
      */
     com.google.protobuf.ByteString
         getTimeStampBytes();
+
+    // optional .Com.Fuwu.MobileIM.Model.MessageResponse.ErrorCodeType errorCode = 4;
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.MessageResponse.ErrorCodeType errorCode = 4;</code>
+     *
+     * <pre>
+     *错误代码（枚举）
+     * </pre>
+     */
+    boolean hasErrorCode();
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.MessageResponse.ErrorCodeType errorCode = 4;</code>
+     *
+     * <pre>
+     *错误代码（枚举）
+     * </pre>
+     */
+    com.fuwu.mobileim.model.Models.MessageResponse.ErrorCodeType getErrorCode();
   }
   /**
    * Protobuf type {@code Com.Fuwu.MobileIM.Model.MessageResponse}
@@ -19060,6 +20704,17 @@ public final class Models {
               timeStamp_ = input.readBytes();
               break;
             }
+            case 32: {
+              int rawValue = input.readEnum();
+              com.fuwu.mobileim.model.Models.MessageResponse.ErrorCodeType value = com.fuwu.mobileim.model.Models.MessageResponse.ErrorCodeType.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(4, rawValue);
+              } else {
+                bitField0_ |= 0x00000004;
+                errorCode_ = value;
+              }
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -19100,6 +20755,87 @@ public final class Models {
     @java.lang.Override
     public com.google.protobuf.Parser<MessageResponse> getParserForType() {
       return PARSER;
+    }
+
+    /**
+     * Protobuf enum {@code Com.Fuwu.MobileIM.Model.MessageResponse.ErrorCodeType}
+     */
+    public enum ErrorCodeType
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>InvalidToken = 2001;</code>
+       *
+       * <pre>
+       *token失效
+       * </pre>
+       */
+      InvalidToken(0, 2001),
+      ;
+
+      /**
+       * <code>InvalidToken = 2001;</code>
+       *
+       * <pre>
+       *token失效
+       * </pre>
+       */
+      public static final int InvalidToken_VALUE = 2001;
+
+
+      public final int getNumber() { return value; }
+
+      public static ErrorCodeType valueOf(int value) {
+        switch (value) {
+          case 2001: return InvalidToken;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<ErrorCodeType>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static com.google.protobuf.Internal.EnumLiteMap<ErrorCodeType>
+          internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<ErrorCodeType>() {
+              public ErrorCodeType findValueByNumber(int number) {
+                return ErrorCodeType.valueOf(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(index);
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return com.fuwu.mobileim.model.Models.MessageResponse.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final ErrorCodeType[] VALUES = values();
+
+      public static ErrorCodeType valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int index;
+      private final int value;
+
+      private ErrorCodeType(int index, int value) {
+        this.index = index;
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:Com.Fuwu.MobileIM.Model.MessageResponse.ErrorCodeType)
     }
 
     private int bitField0_;
@@ -19198,10 +20934,35 @@ public final class Models {
       }
     }
 
+    // optional .Com.Fuwu.MobileIM.Model.MessageResponse.ErrorCodeType errorCode = 4;
+    public static final int ERRORCODE_FIELD_NUMBER = 4;
+    private com.fuwu.mobileim.model.Models.MessageResponse.ErrorCodeType errorCode_;
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.MessageResponse.ErrorCodeType errorCode = 4;</code>
+     *
+     * <pre>
+     *错误代码（枚举）
+     * </pre>
+     */
+    public boolean hasErrorCode() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>optional .Com.Fuwu.MobileIM.Model.MessageResponse.ErrorCodeType errorCode = 4;</code>
+     *
+     * <pre>
+     *错误代码（枚举）
+     * </pre>
+     */
+    public com.fuwu.mobileim.model.Models.MessageResponse.ErrorCodeType getErrorCode() {
+      return errorCode_;
+    }
+
     private void initFields() {
       isSucceed_ = false;
       messageLists_ = java.util.Collections.emptyList();
       timeStamp_ = "";
+      errorCode_ = com.fuwu.mobileim.model.Models.MessageResponse.ErrorCodeType.InvalidToken;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -19224,6 +20985,9 @@ public final class Models {
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         output.writeBytes(3, getTimeStampBytes());
       }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeEnum(4, errorCode_.getNumber());
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -19244,6 +21008,10 @@ public final class Models {
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(3, getTimeStampBytes());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(4, errorCode_.getNumber());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -19372,6 +21140,8 @@ public final class Models {
         }
         timeStamp_ = "";
         bitField0_ = (bitField0_ & ~0x00000004);
+        errorCode_ = com.fuwu.mobileim.model.Models.MessageResponse.ErrorCodeType.InvalidToken;
+        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
 
@@ -19417,6 +21187,10 @@ public final class Models {
           to_bitField0_ |= 0x00000002;
         }
         result.timeStamp_ = timeStamp_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.errorCode_ = errorCode_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -19466,6 +21240,9 @@ public final class Models {
           bitField0_ |= 0x00000004;
           timeStamp_ = other.timeStamp_;
           onChanged();
+        }
+        if (other.hasErrorCode()) {
+          setErrorCode(other.getErrorCode());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -19837,6 +21614,58 @@ public final class Models {
   }
   bitField0_ |= 0x00000004;
         timeStamp_ = value;
+        onChanged();
+        return this;
+      }
+
+      // optional .Com.Fuwu.MobileIM.Model.MessageResponse.ErrorCodeType errorCode = 4;
+      private com.fuwu.mobileim.model.Models.MessageResponse.ErrorCodeType errorCode_ = com.fuwu.mobileim.model.Models.MessageResponse.ErrorCodeType.InvalidToken;
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.MessageResponse.ErrorCodeType errorCode = 4;</code>
+       *
+       * <pre>
+       *错误代码（枚举）
+       * </pre>
+       */
+      public boolean hasErrorCode() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.MessageResponse.ErrorCodeType errorCode = 4;</code>
+       *
+       * <pre>
+       *错误代码（枚举）
+       * </pre>
+       */
+      public com.fuwu.mobileim.model.Models.MessageResponse.ErrorCodeType getErrorCode() {
+        return errorCode_;
+      }
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.MessageResponse.ErrorCodeType errorCode = 4;</code>
+       *
+       * <pre>
+       *错误代码（枚举）
+       * </pre>
+       */
+      public Builder setErrorCode(com.fuwu.mobileim.model.Models.MessageResponse.ErrorCodeType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000008;
+        errorCode_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional .Com.Fuwu.MobileIM.Model.MessageResponse.ErrorCodeType errorCode = 4;</code>
+       *
+       * <pre>
+       *错误代码（枚举）
+       * </pre>
+       */
+      public Builder clearErrorCode() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        errorCode_ = com.fuwu.mobileim.model.Models.MessageResponse.ErrorCodeType.InvalidToken;
         onChanged();
         return this;
       }
@@ -20624,15 +22453,23 @@ public final class Models {
     com.google.protobuf.ByteString
         getSendTimeBytes();
 
-    // optional int32 errorCode = 3;
+    // optional .Com.Fuwu.MobileIM.Model.SendMessageResponse.ErrorCodeType errorCode = 3;
     /**
-     * <code>optional int32 errorCode = 3;</code>
+     * <code>optional .Com.Fuwu.MobileIM.Model.SendMessageResponse.ErrorCodeType errorCode = 3;</code>
+     *
+     * <pre>
+     *错误代码（枚举）
+     * </pre>
      */
     boolean hasErrorCode();
     /**
-     * <code>optional int32 errorCode = 3;</code>
+     * <code>optional .Com.Fuwu.MobileIM.Model.SendMessageResponse.ErrorCodeType errorCode = 3;</code>
+     *
+     * <pre>
+     *错误代码（枚举）
+     * </pre>
      */
-    int getErrorCode();
+    com.fuwu.mobileim.model.Models.SendMessageResponse.ErrorCodeType getErrorCode();
   }
   /**
    * Protobuf type {@code Com.Fuwu.MobileIM.Model.SendMessageResponse}
@@ -20696,8 +22533,14 @@ public final class Models {
               break;
             }
             case 24: {
-              bitField0_ |= 0x00000004;
-              errorCode_ = input.readInt32();
+              int rawValue = input.readEnum();
+              com.fuwu.mobileim.model.Models.SendMessageResponse.ErrorCodeType value = com.fuwu.mobileim.model.Models.SendMessageResponse.ErrorCodeType.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(3, rawValue);
+              } else {
+                bitField0_ |= 0x00000004;
+                errorCode_ = value;
+              }
               break;
             }
           }
@@ -20737,6 +22580,87 @@ public final class Models {
     @java.lang.Override
     public com.google.protobuf.Parser<SendMessageResponse> getParserForType() {
       return PARSER;
+    }
+
+    /**
+     * Protobuf enum {@code Com.Fuwu.MobileIM.Model.SendMessageResponse.ErrorCodeType}
+     */
+    public enum ErrorCodeType
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>InvalidToken = 2001;</code>
+       *
+       * <pre>
+       *token失效
+       * </pre>
+       */
+      InvalidToken(0, 2001),
+      ;
+
+      /**
+       * <code>InvalidToken = 2001;</code>
+       *
+       * <pre>
+       *token失效
+       * </pre>
+       */
+      public static final int InvalidToken_VALUE = 2001;
+
+
+      public final int getNumber() { return value; }
+
+      public static ErrorCodeType valueOf(int value) {
+        switch (value) {
+          case 2001: return InvalidToken;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<ErrorCodeType>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static com.google.protobuf.Internal.EnumLiteMap<ErrorCodeType>
+          internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<ErrorCodeType>() {
+              public ErrorCodeType findValueByNumber(int number) {
+                return ErrorCodeType.valueOf(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(index);
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return com.fuwu.mobileim.model.Models.SendMessageResponse.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final ErrorCodeType[] VALUES = values();
+
+      public static ErrorCodeType valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int index;
+      private final int value;
+
+      private ErrorCodeType(int index, int value) {
+        this.index = index;
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:Com.Fuwu.MobileIM.Model.SendMessageResponse.ErrorCodeType)
     }
 
     private int bitField0_;
@@ -20799,26 +22723,34 @@ public final class Models {
       }
     }
 
-    // optional int32 errorCode = 3;
+    // optional .Com.Fuwu.MobileIM.Model.SendMessageResponse.ErrorCodeType errorCode = 3;
     public static final int ERRORCODE_FIELD_NUMBER = 3;
-    private int errorCode_;
+    private com.fuwu.mobileim.model.Models.SendMessageResponse.ErrorCodeType errorCode_;
     /**
-     * <code>optional int32 errorCode = 3;</code>
+     * <code>optional .Com.Fuwu.MobileIM.Model.SendMessageResponse.ErrorCodeType errorCode = 3;</code>
+     *
+     * <pre>
+     *错误代码（枚举）
+     * </pre>
      */
     public boolean hasErrorCode() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>optional int32 errorCode = 3;</code>
+     * <code>optional .Com.Fuwu.MobileIM.Model.SendMessageResponse.ErrorCodeType errorCode = 3;</code>
+     *
+     * <pre>
+     *错误代码（枚举）
+     * </pre>
      */
-    public int getErrorCode() {
+    public com.fuwu.mobileim.model.Models.SendMessageResponse.ErrorCodeType getErrorCode() {
       return errorCode_;
     }
 
     private void initFields() {
       isSucceed_ = false;
       sendTime_ = "";
-      errorCode_ = 0;
+      errorCode_ = com.fuwu.mobileim.model.Models.SendMessageResponse.ErrorCodeType.InvalidToken;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -20839,7 +22771,7 @@ public final class Models {
         output.writeBytes(2, getSendTimeBytes());
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeInt32(3, errorCode_);
+        output.writeEnum(3, errorCode_.getNumber());
       }
       getUnknownFields().writeTo(output);
     }
@@ -20860,7 +22792,7 @@ public final class Models {
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(3, errorCode_);
+          .computeEnumSize(3, errorCode_.getNumber());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -20982,7 +22914,7 @@ public final class Models {
         bitField0_ = (bitField0_ & ~0x00000001);
         sendTime_ = "";
         bitField0_ = (bitField0_ & ~0x00000002);
-        errorCode_ = 0;
+        errorCode_ = com.fuwu.mobileim.model.Models.SendMessageResponse.ErrorCodeType.InvalidToken;
         bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
@@ -21185,35 +23117,54 @@ public final class Models {
         return this;
       }
 
-      // optional int32 errorCode = 3;
-      private int errorCode_ ;
+      // optional .Com.Fuwu.MobileIM.Model.SendMessageResponse.ErrorCodeType errorCode = 3;
+      private com.fuwu.mobileim.model.Models.SendMessageResponse.ErrorCodeType errorCode_ = com.fuwu.mobileim.model.Models.SendMessageResponse.ErrorCodeType.InvalidToken;
       /**
-       * <code>optional int32 errorCode = 3;</code>
+       * <code>optional .Com.Fuwu.MobileIM.Model.SendMessageResponse.ErrorCodeType errorCode = 3;</code>
+       *
+       * <pre>
+       *错误代码（枚举）
+       * </pre>
        */
       public boolean hasErrorCode() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
-       * <code>optional int32 errorCode = 3;</code>
+       * <code>optional .Com.Fuwu.MobileIM.Model.SendMessageResponse.ErrorCodeType errorCode = 3;</code>
+       *
+       * <pre>
+       *错误代码（枚举）
+       * </pre>
        */
-      public int getErrorCode() {
+      public com.fuwu.mobileim.model.Models.SendMessageResponse.ErrorCodeType getErrorCode() {
         return errorCode_;
       }
       /**
-       * <code>optional int32 errorCode = 3;</code>
+       * <code>optional .Com.Fuwu.MobileIM.Model.SendMessageResponse.ErrorCodeType errorCode = 3;</code>
+       *
+       * <pre>
+       *错误代码（枚举）
+       * </pre>
        */
-      public Builder setErrorCode(int value) {
+      public Builder setErrorCode(com.fuwu.mobileim.model.Models.SendMessageResponse.ErrorCodeType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
         bitField0_ |= 0x00000004;
         errorCode_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional int32 errorCode = 3;</code>
+       * <code>optional .Com.Fuwu.MobileIM.Model.SendMessageResponse.ErrorCodeType errorCode = 3;</code>
+       *
+       * <pre>
+       *错误代码（枚举）
+       * </pre>
        */
       public Builder clearErrorCode() {
         bitField0_ = (bitField0_ & ~0x00000004);
-        errorCode_ = 0;
+        errorCode_ = com.fuwu.mobileim.model.Models.SendMessageResponse.ErrorCodeType.InvalidToken;
         onChanged();
         return this;
       }
@@ -34192,7 +36143,7 @@ public final class Models {
       "se.ErrorCodeType\"j\n\rErrorCodeType\022\016\n\nBad" +
       "Request\020\001\022\021\n\rInvalidUserId\020\002\022\020\n\014InvalidT" +
       "oken\020\003\022\017\n\013InvalidUser\020\004\022\023\n\017InvalidDataba" +
-      "se\020\005\"\201\003\n\007Contact\022\021\n\tcontactId\030\001 \001(\005\022\014\n\004n" +
+      "se\020\005\"\247\003\n\007Contact\022\021\n\tcontactId\030\001 \001(\005\022\014\n\004n" +
       "ame\030\002 \001(\t\022\022\n\ncustomName\030\003 \001(\t\022\016\n\006pinyin\030",
       "\004 \001(\t\022\021\n\tisBlocked\030\005 \001(\010\022\027\n\017lastContactT" +
       "ime\030\006 \001(\t\022;\n\006gender\030\007 \001(\0162+.Com.Fuwu.Mob" +
@@ -34200,136 +36151,160 @@ public final class Models {
       "\030\010 \001(\005\022\017\n\007tileUrl\030\t \001(\t\022\022\n\nisProvider\030\n " +
       "\001(\010\022\017\n\007lisence\030\013 \001(\t\022\030\n\020individualResume" +
       "\030\014 \001(\t\022\r\n\005fuzhi\030\r \001(\t\022\021\n\torderTime\030\016 \001(\t" +
-      "\022\025\n\rsubscribeTime\030\017 \001(\t\"/\n\nGenderType\022\010\n" +
-      "\004Male\020\000\022\n\n\006Female\020\001\022\013\n\007Privacy\020\002\"B\n\016Cont" +
-      "actRequest\022\r\n\005token\030\001 \001(\t\022\016\n\006userId\030\002 \001(" +
-      "\005\022\021\n\ttimeStamp\030\003 \001(\t\"k\n\017ContactResponse\022",
-      "\021\n\tisSucceed\030\001 \001(\010\0222\n\010contacts\030\002 \003(\0132 .C" +
-      "om.Fuwu.MobileIM.Model.Contact\022\021\n\ttimeSt" +
-      "amp\030\003 \001(\t\"Z\n\023BlockContactRequest\022\r\n\005toke" +
-      "n\030\001 \001(\t\022\016\n\006userId\030\002 \001(\005\022\021\n\tcontactId\030\003 \001" +
-      "(\005\022\021\n\tisBlocked\030\004 \001(\010\"O\n\024BlockContactRes" +
-      "ponse\022\021\n\tisSucceed\030\001 \001(\010\022\021\n\tcontactId\030\002 " +
-      "\001(\005\022\021\n\tisBlocked\030\003 \001(\010\"H\n\024ContactDetailR" +
-      "equest\022\r\n\005token\030\001 \001(\t\022\016\n\006userId\030\002 \001(\005\022\021\n" +
-      "\tcontactId\030\003 \001(\005\"]\n\025ContactDetailRespons" +
-      "e\022\021\n\tisSucceed\030\001 \001(\010\0221\n\007contact\030\002 \001(\0132 .",
-      "Com.Fuwu.MobileIM.Model.Contact\"n\n\032Chang" +
-      "eContactDetailRequest\022\r\n\005token\030\001 \001(\t\022\016\n\006" +
-      "userId\030\002 \001(\005\0221\n\007contact\030\003 \001(\0132 .Com.Fuwu" +
-      ".MobileIM.Model.Contact\"c\n\033ChangeContact" +
-      "DetailResponse\022\021\n\tisSucceed\030\001 \001(\010\0221\n\007con" +
-      "tact\030\002 \001(\0132 .Com.Fuwu.MobileIM.Model.Con" +
-      "tact\"\277\002\n\007Profile\022\016\n\006userId\030\001 \001(\005\022\014\n\004name" +
-      "\030\002 \001(\t\022\020\n\010nickName\030\003 \001(\t\022;\n\006gender\030\004 \001(\016" +
-      "2+.Com.Fuwu.MobileIM.Model.Profile.Gende" +
-      "rType\022\026\n\016mobilePhoneNum\030\005 \001(\t\022\r\n\005email\030\006",
-      " \001(\t\022\020\n\010birthday\030\007 \001(\t\022\017\n\007tileUrl\030\010 \001(\t\022" +
-      "\022\n\nisProvider\030\t \001(\010\022\017\n\007lisence\030\n \001(\t\022\030\n\020" +
-      "isAuthentication\030\013 \001(\010\022\r\n\005fuzhi\030\014 \001(\t\"/\n" +
-      "\nGenderType\022\010\n\004Male\020\000\022\n\n\006Female\020\001\022\013\n\007Pri" +
-      "vacy\020\002\"/\n\016ProfileRequest\022\r\n\005token\030\001 \001(\t\022" +
-      "\016\n\006userId\030\002 \001(\005\"W\n\017ProfileResponse\022\021\n\tis" +
-      "Succeed\030\001 \001(\010\0221\n\007profile\030\002 \001(\0132 .Com.Fuw" +
-      "u.MobileIM.Model.Profile\"~\n\024ChangeProfil" +
-      "eRequest\022\r\n\005token\030\001 \001(\t\022\016\n\006userId\030\002 \001(\005\022" +
-      "\021\n\tsignature\030\003 \001(\t\022\r\n\005tiles\030\004 \001(\014\022\023\n\013con",
-      "tentType\030\005 \001(\t\022\020\n\010nickName\030\006 \001(\t\"]\n\025Chan" +
-      "geProfileResponse\022\021\n\tisSucceed\030\001 \001(\010\0221\n\007" +
-      "profile\030\002 \001(\0132 .Com.Fuwu.MobileIM.Model." +
-      "Profile\"\264\002\n\007Message\022\016\n\006userId\030\001 \001(\005\022\021\n\tc" +
-      "ontactId\030\002 \001(\005\022A\n\013contentType\030\003 \001(\0162,.Co" +
-      "m.Fuwu.MobileIM.Model.Message.ContentTyp" +
-      "e\022\017\n\007content\030\004 \001(\t\022\020\n\010sendTime\030\005 \001(\t\022=\n\t" +
-      "imageType\030\006 \001(\0162*.Com.Fuwu.MobileIM.Mode" +
-      "l.Message.ImageType\022\025\n\rbinaryContent\030\007 \001" +
-      "(\014\"\"\n\013ContentType\022\010\n\004Text\020\000\022\t\n\005Image\020\001\"&",
-      "\n\tImageType\022\007\n\003JPG\020\000\022\007\n\003PNG\020\001\022\007\n\003GIF\020\002\"T" +
-      "\n\013MessageList\022\021\n\tcontactId\030\001 \001(\005\0222\n\010mess" +
-      "ages\030\002 \003(\0132 .Com.Fuwu.MobileIM.Model.Mes" +
-      "sage\"B\n\016MessageRequest\022\r\n\005token\030\001 \001(\t\022\016\n" +
-      "\006userId\030\002 \001(\005\022\021\n\ttimeStamp\030\003 \001(\t\"s\n\017Mess" +
-      "ageResponse\022\021\n\tisSucceed\030\001 \001(\010\022:\n\014messag" +
-      "eLists\030\002 \003(\0132$.Com.Fuwu.MobileIM.Model.M" +
-      "essageList\022\021\n\ttimeStamp\030\003 \001(\t\"f\n\022SendMes" +
-      "sageRequest\022\r\n\005token\030\001 \001(\t\022\016\n\006userId\030\002 \001" +
-      "(\005\0221\n\007message\030\003 \001(\0132 .Com.Fuwu.MobileIM.",
-      "Model.Message\"M\n\023SendMessageResponse\022\021\n\t" +
-      "isSucceed\030\001 \001(\010\022\020\n\010sendTime\030\002 \001(\t\022\021\n\terr" +
-      "orCode\030\003 \001(\005\"m\n\017RegisterRequest\022\031\n\021mobil" +
-      "ePhoneNumber\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\022\027\n\017" +
-      "passwordConfirm\030\003 \001(\t\022\024\n\014validateCode\030\004 " +
-      "\001(\t\"\336\002\n\020RegisterResponse\022\021\n\tisSucceed\030\001 " +
-      "\001(\010\022\016\n\006userId\030\002 \001(\005\022\r\n\005token\030\003 \001(\t\022J\n\ter" +
-      "rorCode\030\004 \001(\01627.Com.Fuwu.MobileIM.Model." +
-      "RegisterResponse.ErrorCodeType\"\313\001\n\rError" +
-      "CodeType\022\016\n\nBadRequest\020\001\022\023\n\017InvalidDatab",
-      "ase\020\002\022\034\n\030InvalidMobilePhoneNumber\020\003\022\023\n\017E" +
-      "xistingUserYes\020\004\022\023\n\017InvalidPassword\020\005\022\032\n" +
-      "\026InvalidConfirmPassword\020\006\022\030\n\024InvalidMatc" +
-      "hPassword\020\007\022\027\n\023InvalidValidateCode\020\010\"\221\001\n" +
-      "\025ChangePasswordRequest\022\r\n\005token\030\001 \001(\t\022\016\n" +
-      "\006userId\030\002 \001(\005\022\024\n\014validateCode\030\003 \001(\t\022\030\n\020o" +
-      "riginalPassword\030\004 \001(\t\022\020\n\010password\030\005 \001(\t\022" +
-      "\027\n\017passwordConfirm\030\006 \001(\t\"\377\002\n\026ChangePassw" +
-      "ordResponse\022\021\n\tisSucceed\030\001 \001(\010\022P\n\terrorC" +
-      "ode\030\002 \001(\0162=.Com.Fuwu.MobileIM.Model.Chan",
-      "gePasswordResponse.ErrorCodeType\"\377\001\n\rErr" +
-      "orCodeType\022\016\n\nBadRequest\020\001\022\021\n\rInvalidUse" +
-      "rId\020\002\022\020\n\014InvalidToken\020\003\022\017\n\013InvalidUser\020\004" +
-      "\022\023\n\017InvalidDatabase\020\005\022\022\n\016ExistingUserNo\020" +
-      "\006\022\033\n\027InvalidOriginalPassword\020\007\022\023\n\017Invali" +
-      "dPassword\020\010\022\032\n\026InvalidConfirmPassword\020\t\022" +
-      "\030\n\024InvalidMatchPassword\020\n\022\027\n\023InvalidVali" +
-      "dateCode\020\013\"l\n\024ResetPasswordRequest\022\023\n\013ph" +
-      "oneNumber\030\001 \001(\t\022\024\n\014validateCode\030\002 \001(\t\022\020\n" +
-      "\010password\030\003 \001(\t\022\027\n\017passwordConfirm\030\004 \001(\t",
-      "\"\302\002\n\025ResetPasswordResponse\022\021\n\tisSucceed\030" +
-      "\001 \001(\010\022O\n\terrorCode\030\002 \001(\0162<.Com.Fuwu.Mobi" +
-      "leIM.Model.ResetPasswordResponse.ErrorCo" +
-      "deType\"\304\001\n\rErrorCodeType\022\016\n\nBadRequest\020\001" +
-      "\022\023\n\017InvalidDatabase\020\002\022\026\n\022InvalidPhoneNum" +
-      "ber\020\003\022\023\n\017InvalidPassword\020\004\022\032\n\026InvalidPas" +
-      "swordConfirm\020\005\022\030\n\024InvalidMatchPassword\020\006" +
-      "\022\027\n\023InvalidValidateCode\020\007\022\022\n\016ExistingUse" +
-      "rNo\020\010\"\270\001\n\023ValidateCodeRequest\022\023\n\013phoneNu" +
-      "mber\030\001 \001(\t\022G\n\004type\030\002 \001(\01629.Com.Fuwu.Mobi",
-      "leIM.Model.ValidateCodeRequest.ValidateT" +
-      "ype\"C\n\014ValidateType\022\014\n\010Register\020\001\022\022\n\016Cha" +
-      "ngePassword\020\002\022\021\n\rResetPassword\020\003\"\212\002\n\024Val" +
-      "idateCodeResponse\022\021\n\tisSucceed\030\001 \001(\010\022N\n\t" +
-      "errorCode\030\002 \001(\0162;.Com.Fuwu.MobileIM.Mode" +
-      "l.ValidateCodeResponse.ErrorCodeType\"\216\001\n" +
-      "\rErrorCodeType\022\016\n\nBadRequest\020\001\022\026\n\022Invali" +
-      "dPhoneNumber\020\002\022\017\n\013InvalidType\020\003\022\023\n\017Exist" +
-      "ingUserYes\020\004\022\022\n\016ExistingUserNo\020\005\022\014\n\010Lock" +
-      "Time\020\006\022\r\n\tSendError\020\007\"\206\002\n\nClientInfo\022\020\n\010",
-      "deviceId\030\001 \001(\t\022:\n\006osType\030\002 \001(\0162*.Com.Fuw" +
-      "u.MobileIM.Model.ClientInfo.OSType\022\021\n\tOS" +
-      "Version\030\003 \001(\t\022\016\n\006userId\030\004 \001(\005\022\017\n\007channel" +
-      "\030\005 \001(\005\022\025\n\rclientVersion\030\006 \001(\t\022\024\n\014isPushE" +
-      "nable\030\007 \001(\010\"I\n\006OSType\022\n\n\006Others\020\000\022\007\n\003IOS" +
-      "\020\001\022\013\n\007Android\020\002\022\020\n\014WindowsPhone\020\003\022\013\n\007Sym" +
-      "bian\020\004\"k\n\021ClientInfoRequest\022\016\n\006userId\030\001 " +
-      "\001(\005\022\r\n\005token\030\002 \001(\t\0227\n\nclientInfo\030\003 \001(\0132#" +
-      ".Com.Fuwu.MobileIM.Model.ClientInfo\"\234\002\n\022" +
-      "ClientInfoResponse\022\021\n\tisSucceed\030\001 \001(\010\022L\n",
-      "\terrorCode\030\002 \001(\01629.Com.Fuwu.MobileIM.Mod" +
-      "el.ClientInfoResponse.ErrorCodeType\022\034\n\024i" +
-      "sNewVersionRequired\030\003 \001(\010\022\030\n\020newClientVe" +
-      "rsion\030\004 \001(\t\022\021\n\tclientUrl\030\005 \001(\t\022\025\n\rhasNew" +
-      "Version\030\006 \001(\010\"C\n\rErrorCodeType\022\021\n\rInvali" +
-      "dUserId\020\001\022\020\n\014InvalidToken\020\002\022\r\n\tAuthError" +
-      "\020\003\"i\n\013MessagePush\022\020\n\010senderId\030\001 \001(\005\022\021\n\tc" +
-      "ontactId\030\002 \001(\005\022\022\n\nsenderName\030\003 \001(\t\022\017\n\007co" +
-      "ntent\030\004 \001(\t\022\020\n\010sendTime\030\005 \001(\t\"\014\n\nNoticeP" +
-      "ush\"\347\001\n\013PushRequest\022?\n\010pushType\030\001 \001(\0162-.",
-      "Com.Fuwu.MobileIM.Model.PushRequest.Push" +
-      "Type\0229\n\013messagePush\030\002 \001(\0132$.Com.Fuwu.Mob" +
-      "ileIM.Model.MessagePush\0227\n\nnoticePush\030\003 " +
-      "\001(\0132#.Com.Fuwu.MobileIM.Model.NoticePush" +
-      "\"#\n\010PushType\022\013\n\007Message\020\000\022\n\n\006Notice\020\001B\031\n" +
-      "\027com.fuwu.mobileim.model"
+      "\022\025\n\rsubscribeTime\030\017 \001(\t\022\020\n\010location\030\020 \001(" +
+      "\t\022\022\n\ncenterLink\030\021 \001(\t\"/\n\nGenderType\022\010\n\004M" +
+      "ale\020\000\022\n\n\006Female\020\001\022\013\n\007Privacy\020\002\"B\n\016Contac" +
+      "tRequest\022\r\n\005token\030\001 \001(\t\022\016\n\006userId\030\002 \001(\005\022",
+      "\021\n\ttimeStamp\030\003 \001(\t\"\332\001\n\017ContactResponse\022\021" +
+      "\n\tisSucceed\030\001 \001(\010\0222\n\010contacts\030\002 \003(\0132 .Co" +
+      "m.Fuwu.MobileIM.Model.Contact\022\021\n\ttimeSta" +
+      "mp\030\003 \001(\t\022I\n\terrorCode\030\004 \001(\01626.Com.Fuwu.M" +
+      "obileIM.Model.ContactResponse.ErrorCodeT" +
+      "ype\"\"\n\rErrorCodeType\022\021\n\014InvalidToken\020\321\017\"" +
+      "Z\n\023BlockContactRequest\022\r\n\005token\030\001 \001(\t\022\016\n" +
+      "\006userId\030\002 \001(\005\022\021\n\tcontactId\030\003 \001(\005\022\021\n\tisBl" +
+      "ocked\030\004 \001(\010\"\303\001\n\024BlockContactResponse\022\021\n\t" +
+      "isSucceed\030\001 \001(\010\022\021\n\tcontactId\030\002 \001(\005\022\021\n\tis",
+      "Blocked\030\003 \001(\010\022N\n\terrorCode\030\004 \001(\0162;.Com.F" +
+      "uwu.MobileIM.Model.BlockContactResponse." +
+      "ErrorCodeType\"\"\n\rErrorCodeType\022\021\n\014Invali" +
+      "dToken\020\321\017\"H\n\024ContactDetailRequest\022\r\n\005tok" +
+      "en\030\001 \001(\t\022\016\n\006userId\030\002 \001(\005\022\021\n\tcontactId\030\003 " +
+      "\001(\005\"\322\001\n\025ContactDetailResponse\022\021\n\tisSucce" +
+      "ed\030\001 \001(\010\0221\n\007contact\030\002 \001(\0132 .Com.Fuwu.Mob" +
+      "ileIM.Model.Contact\022O\n\terrorCode\030\003 \001(\0162<" +
+      ".Com.Fuwu.MobileIM.Model.ContactDetailRe" +
+      "sponse.ErrorCodeType\"\"\n\rErrorCodeType\022\021\n",
+      "\014InvalidToken\020\321\017\"n\n\032ChangeContactDetailR" +
+      "equest\022\r\n\005token\030\001 \001(\t\022\016\n\006userId\030\002 \001(\005\0221\n" +
+      "\007contact\030\003 \001(\0132 .Com.Fuwu.MobileIM.Model" +
+      ".Contact\"\336\001\n\033ChangeContactDetailResponse" +
+      "\022\021\n\tisSucceed\030\001 \001(\010\0221\n\007contact\030\002 \001(\0132 .C" +
+      "om.Fuwu.MobileIM.Model.Contact\022U\n\terrorC" +
+      "ode\030\003 \001(\0162B.Com.Fuwu.MobileIM.Model.Chan" +
+      "geContactDetailResponse.ErrorCodeType\"\"\n" +
+      "\rErrorCodeType\022\021\n\014InvalidToken\020\321\017\"\277\002\n\007Pr" +
+      "ofile\022\016\n\006userId\030\001 \001(\005\022\014\n\004name\030\002 \001(\t\022\020\n\010n",
+      "ickName\030\003 \001(\t\022;\n\006gender\030\004 \001(\0162+.Com.Fuwu" +
+      ".MobileIM.Model.Profile.GenderType\022\026\n\016mo" +
+      "bilePhoneNum\030\005 \001(\t\022\r\n\005email\030\006 \001(\t\022\020\n\010bir" +
+      "thday\030\007 \001(\t\022\017\n\007tileUrl\030\010 \001(\t\022\022\n\nisProvid" +
+      "er\030\t \001(\010\022\017\n\007lisence\030\n \001(\t\022\030\n\020isAuthentic" +
+      "ation\030\013 \001(\010\022\r\n\005fuzhi\030\014 \001(\t\"/\n\nGenderType" +
+      "\022\010\n\004Male\020\000\022\n\n\006Female\020\001\022\013\n\007Privacy\020\002\"/\n\016P" +
+      "rofileRequest\022\r\n\005token\030\001 \001(\t\022\016\n\006userId\030\002" +
+      " \001(\005\"\306\001\n\017ProfileResponse\022\021\n\tisSucceed\030\001 " +
+      "\001(\010\0221\n\007profile\030\002 \001(\0132 .Com.Fuwu.MobileIM",
+      ".Model.Profile\022I\n\terrorCode\030\003 \001(\01626.Com." +
+      "Fuwu.MobileIM.Model.ProfileResponse.Erro" +
+      "rCodeType\"\"\n\rErrorCodeType\022\021\n\014InvalidTok" +
+      "en\020\321\017\"~\n\024ChangeProfileRequest\022\r\n\005token\030\001" +
+      " \001(\t\022\016\n\006userId\030\002 \001(\005\022\021\n\tsignature\030\003 \001(\t\022" +
+      "\r\n\005tiles\030\004 \001(\014\022\023\n\013contentType\030\005 \001(\t\022\020\n\010n" +
+      "ickName\030\006 \001(\t\"\322\001\n\025ChangeProfileResponse\022" +
+      "\021\n\tisSucceed\030\001 \001(\010\0221\n\007profile\030\002 \001(\0132 .Co" +
+      "m.Fuwu.MobileIM.Model.Profile\022O\n\terrorCo" +
+      "de\030\003 \001(\0162<.Com.Fuwu.MobileIM.Model.Chang",
+      "eProfileResponse.ErrorCodeType\"\"\n\rErrorC" +
+      "odeType\022\021\n\014InvalidToken\020\321\017\"\264\002\n\007Message\022\016" +
+      "\n\006userId\030\001 \001(\005\022\021\n\tcontactId\030\002 \001(\005\022A\n\013con" +
+      "tentType\030\003 \001(\0162,.Com.Fuwu.MobileIM.Model" +
+      ".Message.ContentType\022\017\n\007content\030\004 \001(\t\022\020\n" +
+      "\010sendTime\030\005 \001(\t\022=\n\timageType\030\006 \001(\0162*.Com" +
+      ".Fuwu.MobileIM.Model.Message.ImageType\022\025" +
+      "\n\rbinaryContent\030\007 \001(\014\"\"\n\013ContentType\022\010\n\004" +
+      "Text\020\000\022\t\n\005Image\020\001\"&\n\tImageType\022\007\n\003JPG\020\000\022" +
+      "\007\n\003PNG\020\001\022\007\n\003GIF\020\002\"T\n\013MessageList\022\021\n\tcont",
+      "actId\030\001 \001(\005\0222\n\010messages\030\002 \003(\0132 .Com.Fuwu" +
+      ".MobileIM.Model.Message\"B\n\016MessageReques" +
+      "t\022\r\n\005token\030\001 \001(\t\022\016\n\006userId\030\002 \001(\005\022\021\n\ttime" +
+      "Stamp\030\003 \001(\t\"\342\001\n\017MessageResponse\022\021\n\tisSuc" +
+      "ceed\030\001 \001(\010\022:\n\014messageLists\030\002 \003(\0132$.Com.F" +
+      "uwu.MobileIM.Model.MessageList\022\021\n\ttimeSt" +
+      "amp\030\003 \001(\t\022I\n\terrorCode\030\004 \001(\01626.Com.Fuwu." +
+      "MobileIM.Model.MessageResponse.ErrorCode" +
+      "Type\"\"\n\rErrorCodeType\022\021\n\014InvalidToken\020\321\017" +
+      "\"f\n\022SendMessageRequest\022\r\n\005token\030\001 \001(\t\022\016\n",
+      "\006userId\030\002 \001(\005\0221\n\007message\030\003 \001(\0132 .Com.Fuw" +
+      "u.MobileIM.Model.Message\"\255\001\n\023SendMessage" +
+      "Response\022\021\n\tisSucceed\030\001 \001(\010\022\020\n\010sendTime\030" +
+      "\002 \001(\t\022M\n\terrorCode\030\003 \001(\0162:.Com.Fuwu.Mobi" +
+      "leIM.Model.SendMessageResponse.ErrorCode" +
+      "Type\"\"\n\rErrorCodeType\022\021\n\014InvalidToken\020\321\017" +
+      "\"m\n\017RegisterRequest\022\031\n\021mobilePhoneNumber" +
+      "\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\022\027\n\017passwordConf" +
+      "irm\030\003 \001(\t\022\024\n\014validateCode\030\004 \001(\t\"\336\002\n\020Regi" +
+      "sterResponse\022\021\n\tisSucceed\030\001 \001(\010\022\016\n\006userI",
+      "d\030\002 \001(\005\022\r\n\005token\030\003 \001(\t\022J\n\terrorCode\030\004 \001(" +
+      "\01627.Com.Fuwu.MobileIM.Model.RegisterResp" +
+      "onse.ErrorCodeType\"\313\001\n\rErrorCodeType\022\016\n\n" +
+      "BadRequest\020\001\022\023\n\017InvalidDatabase\020\002\022\034\n\030Inv" +
+      "alidMobilePhoneNumber\020\003\022\023\n\017ExistingUserY" +
+      "es\020\004\022\023\n\017InvalidPassword\020\005\022\032\n\026InvalidConf" +
+      "irmPassword\020\006\022\030\n\024InvalidMatchPassword\020\007\022" +
+      "\027\n\023InvalidValidateCode\020\010\"\221\001\n\025ChangePassw" +
+      "ordRequest\022\r\n\005token\030\001 \001(\t\022\016\n\006userId\030\002 \001(" +
+      "\005\022\024\n\014validateCode\030\003 \001(\t\022\030\n\020originalPassw",
+      "ord\030\004 \001(\t\022\020\n\010password\030\005 \001(\t\022\027\n\017passwordC" +
+      "onfirm\030\006 \001(\t\"\377\002\n\026ChangePasswordResponse\022" +
+      "\021\n\tisSucceed\030\001 \001(\010\022P\n\terrorCode\030\002 \001(\0162=." +
+      "Com.Fuwu.MobileIM.Model.ChangePasswordRe" +
+      "sponse.ErrorCodeType\"\377\001\n\rErrorCodeType\022\016" +
+      "\n\nBadRequest\020\001\022\021\n\rInvalidUserId\020\002\022\020\n\014Inv" +
+      "alidToken\020\003\022\017\n\013InvalidUser\020\004\022\023\n\017InvalidD" +
+      "atabase\020\005\022\022\n\016ExistingUserNo\020\006\022\033\n\027Invalid" +
+      "OriginalPassword\020\007\022\023\n\017InvalidPassword\020\010\022" +
+      "\032\n\026InvalidConfirmPassword\020\t\022\030\n\024InvalidMa",
+      "tchPassword\020\n\022\027\n\023InvalidValidateCode\020\013\"l" +
+      "\n\024ResetPasswordRequest\022\023\n\013phoneNumber\030\001 " +
+      "\001(\t\022\024\n\014validateCode\030\002 \001(\t\022\020\n\010password\030\003 " +
+      "\001(\t\022\027\n\017passwordConfirm\030\004 \001(\t\"\302\002\n\025ResetPa" +
+      "sswordResponse\022\021\n\tisSucceed\030\001 \001(\010\022O\n\terr" +
+      "orCode\030\002 \001(\0162<.Com.Fuwu.MobileIM.Model.R" +
+      "esetPasswordResponse.ErrorCodeType\"\304\001\n\rE" +
+      "rrorCodeType\022\016\n\nBadRequest\020\001\022\023\n\017InvalidD" +
+      "atabase\020\002\022\026\n\022InvalidPhoneNumber\020\003\022\023\n\017Inv" +
+      "alidPassword\020\004\022\032\n\026InvalidPasswordConfirm",
+      "\020\005\022\030\n\024InvalidMatchPassword\020\006\022\027\n\023InvalidV" +
+      "alidateCode\020\007\022\022\n\016ExistingUserNo\020\010\"\270\001\n\023Va" +
+      "lidateCodeRequest\022\023\n\013phoneNumber\030\001 \001(\t\022G" +
+      "\n\004type\030\002 \001(\01629.Com.Fuwu.MobileIM.Model.V" +
+      "alidateCodeRequest.ValidateType\"C\n\014Valid" +
+      "ateType\022\014\n\010Register\020\001\022\022\n\016ChangePassword\020" +
+      "\002\022\021\n\rResetPassword\020\003\"\212\002\n\024ValidateCodeRes" +
+      "ponse\022\021\n\tisSucceed\030\001 \001(\010\022N\n\terrorCode\030\002 " +
+      "\001(\0162;.Com.Fuwu.MobileIM.Model.ValidateCo" +
+      "deResponse.ErrorCodeType\"\216\001\n\rErrorCodeTy",
+      "pe\022\016\n\nBadRequest\020\001\022\026\n\022InvalidPhoneNumber" +
+      "\020\002\022\017\n\013InvalidType\020\003\022\023\n\017ExistingUserYes\020\004" +
+      "\022\022\n\016ExistingUserNo\020\005\022\014\n\010LockTime\020\006\022\r\n\tSe" +
+      "ndError\020\007\"\206\002\n\nClientInfo\022\020\n\010deviceId\030\001 \001" +
+      "(\t\022:\n\006osType\030\002 \001(\0162*.Com.Fuwu.MobileIM.M" +
+      "odel.ClientInfo.OSType\022\021\n\tOSVersion\030\003 \001(" +
+      "\t\022\016\n\006userId\030\004 \001(\005\022\017\n\007channel\030\005 \001(\005\022\025\n\rcl" +
+      "ientVersion\030\006 \001(\t\022\024\n\014isPushEnable\030\007 \001(\010\"" +
+      "I\n\006OSType\022\n\n\006Others\020\000\022\007\n\003IOS\020\001\022\013\n\007Androi" +
+      "d\020\002\022\020\n\014WindowsPhone\020\003\022\013\n\007Symbian\020\004\"k\n\021Cl",
+      "ientInfoRequest\022\016\n\006userId\030\001 \001(\005\022\r\n\005token" +
+      "\030\002 \001(\t\0227\n\nclientInfo\030\003 \001(\0132#.Com.Fuwu.Mo" +
+      "bileIM.Model.ClientInfo\"\234\002\n\022ClientInfoRe" +
+      "sponse\022\021\n\tisSucceed\030\001 \001(\010\022L\n\terrorCode\030\002" +
+      " \001(\01629.Com.Fuwu.MobileIM.Model.ClientInf" +
+      "oResponse.ErrorCodeType\022\034\n\024isNewVersionR" +
+      "equired\030\003 \001(\010\022\030\n\020newClientVersion\030\004 \001(\t\022" +
+      "\021\n\tclientUrl\030\005 \001(\t\022\025\n\rhasNewVersion\030\006 \001(" +
+      "\010\"C\n\rErrorCodeType\022\021\n\rInvalidUserId\020\001\022\020\n" +
+      "\014InvalidToken\020\002\022\r\n\tAuthError\020\003\"i\n\013Messag",
+      "ePush\022\020\n\010senderId\030\001 \001(\005\022\021\n\tcontactId\030\002 \001" +
+      "(\005\022\022\n\nsenderName\030\003 \001(\t\022\017\n\007content\030\004 \001(\t\022" +
+      "\020\n\010sendTime\030\005 \001(\t\"\014\n\nNoticePush\"\347\001\n\013Push" +
+      "Request\022?\n\010pushType\030\001 \001(\0162-.Com.Fuwu.Mob" +
+      "ileIM.Model.PushRequest.PushType\0229\n\013mess" +
+      "agePush\030\002 \001(\0132$.Com.Fuwu.MobileIM.Model." +
+      "MessagePush\0227\n\nnoticePush\030\003 \001(\0132#.Com.Fu" +
+      "wu.MobileIM.Model.NoticePush\"#\n\010PushType" +
+      "\022\013\n\007Message\020\000\022\n\n\006Notice\020\001B\031\n\027com.fuwu.mo" +
+      "bileim.model"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -34365,7 +36340,7 @@ public final class Models {
           internal_static_Com_Fuwu_MobileIM_Model_Contact_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_Com_Fuwu_MobileIM_Model_Contact_descriptor,
-              new java.lang.String[] { "ContactId", "Name", "CustomName", "Pinyin", "IsBlocked", "LastContactTime", "Gender", "Source", "TileUrl", "IsProvider", "Lisence", "IndividualResume", "Fuzhi", "OrderTime", "SubscribeTime", });
+              new java.lang.String[] { "ContactId", "Name", "CustomName", "Pinyin", "IsBlocked", "LastContactTime", "Gender", "Source", "TileUrl", "IsProvider", "Lisence", "IndividualResume", "Fuzhi", "OrderTime", "SubscribeTime", "Location", "CenterLink", });
           internal_static_Com_Fuwu_MobileIM_Model_ContactRequest_descriptor =
             getDescriptor().getMessageTypes().get(5);
           internal_static_Com_Fuwu_MobileIM_Model_ContactRequest_fieldAccessorTable = new
@@ -34377,7 +36352,7 @@ public final class Models {
           internal_static_Com_Fuwu_MobileIM_Model_ContactResponse_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_Com_Fuwu_MobileIM_Model_ContactResponse_descriptor,
-              new java.lang.String[] { "IsSucceed", "Contacts", "TimeStamp", });
+              new java.lang.String[] { "IsSucceed", "Contacts", "TimeStamp", "ErrorCode", });
           internal_static_Com_Fuwu_MobileIM_Model_BlockContactRequest_descriptor =
             getDescriptor().getMessageTypes().get(7);
           internal_static_Com_Fuwu_MobileIM_Model_BlockContactRequest_fieldAccessorTable = new
@@ -34389,7 +36364,7 @@ public final class Models {
           internal_static_Com_Fuwu_MobileIM_Model_BlockContactResponse_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_Com_Fuwu_MobileIM_Model_BlockContactResponse_descriptor,
-              new java.lang.String[] { "IsSucceed", "ContactId", "IsBlocked", });
+              new java.lang.String[] { "IsSucceed", "ContactId", "IsBlocked", "ErrorCode", });
           internal_static_Com_Fuwu_MobileIM_Model_ContactDetailRequest_descriptor =
             getDescriptor().getMessageTypes().get(9);
           internal_static_Com_Fuwu_MobileIM_Model_ContactDetailRequest_fieldAccessorTable = new
@@ -34401,7 +36376,7 @@ public final class Models {
           internal_static_Com_Fuwu_MobileIM_Model_ContactDetailResponse_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_Com_Fuwu_MobileIM_Model_ContactDetailResponse_descriptor,
-              new java.lang.String[] { "IsSucceed", "Contact", });
+              new java.lang.String[] { "IsSucceed", "Contact", "ErrorCode", });
           internal_static_Com_Fuwu_MobileIM_Model_ChangeContactDetailRequest_descriptor =
             getDescriptor().getMessageTypes().get(11);
           internal_static_Com_Fuwu_MobileIM_Model_ChangeContactDetailRequest_fieldAccessorTable = new
@@ -34413,7 +36388,7 @@ public final class Models {
           internal_static_Com_Fuwu_MobileIM_Model_ChangeContactDetailResponse_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_Com_Fuwu_MobileIM_Model_ChangeContactDetailResponse_descriptor,
-              new java.lang.String[] { "IsSucceed", "Contact", });
+              new java.lang.String[] { "IsSucceed", "Contact", "ErrorCode", });
           internal_static_Com_Fuwu_MobileIM_Model_Profile_descriptor =
             getDescriptor().getMessageTypes().get(13);
           internal_static_Com_Fuwu_MobileIM_Model_Profile_fieldAccessorTable = new
@@ -34431,7 +36406,7 @@ public final class Models {
           internal_static_Com_Fuwu_MobileIM_Model_ProfileResponse_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_Com_Fuwu_MobileIM_Model_ProfileResponse_descriptor,
-              new java.lang.String[] { "IsSucceed", "Profile", });
+              new java.lang.String[] { "IsSucceed", "Profile", "ErrorCode", });
           internal_static_Com_Fuwu_MobileIM_Model_ChangeProfileRequest_descriptor =
             getDescriptor().getMessageTypes().get(16);
           internal_static_Com_Fuwu_MobileIM_Model_ChangeProfileRequest_fieldAccessorTable = new
@@ -34443,7 +36418,7 @@ public final class Models {
           internal_static_Com_Fuwu_MobileIM_Model_ChangeProfileResponse_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_Com_Fuwu_MobileIM_Model_ChangeProfileResponse_descriptor,
-              new java.lang.String[] { "IsSucceed", "Profile", });
+              new java.lang.String[] { "IsSucceed", "Profile", "ErrorCode", });
           internal_static_Com_Fuwu_MobileIM_Model_Message_descriptor =
             getDescriptor().getMessageTypes().get(18);
           internal_static_Com_Fuwu_MobileIM_Model_Message_fieldAccessorTable = new
@@ -34467,7 +36442,7 @@ public final class Models {
           internal_static_Com_Fuwu_MobileIM_Model_MessageResponse_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_Com_Fuwu_MobileIM_Model_MessageResponse_descriptor,
-              new java.lang.String[] { "IsSucceed", "MessageLists", "TimeStamp", });
+              new java.lang.String[] { "IsSucceed", "MessageLists", "TimeStamp", "ErrorCode", });
           internal_static_Com_Fuwu_MobileIM_Model_SendMessageRequest_descriptor =
             getDescriptor().getMessageTypes().get(22);
           internal_static_Com_Fuwu_MobileIM_Model_SendMessageRequest_fieldAccessorTable = new
