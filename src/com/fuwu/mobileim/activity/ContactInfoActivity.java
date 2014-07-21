@@ -1,6 +1,7 @@
 ﻿package com.fuwu.mobileim.activity;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -48,6 +49,7 @@ import com.fuwu.mobileim.model.Models.ChangeContactDetailResponse;
 import com.fuwu.mobileim.model.Models.Contact;
 import com.fuwu.mobileim.model.Models.ContactDetailRequest;
 import com.fuwu.mobileim.model.Models.ContactDetailResponse;
+import com.fuwu.mobileim.model.Models.License;
 import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FuXunTools;
@@ -61,8 +63,8 @@ import com.fuwu.mobileim.view.SlipButton.OnChangedListener;
  * @时间 创建时间：2014-6-16 下午5:30:51
  */
 public class ContactInfoActivity extends Activity implements OnClickListener,
-		OnTouchListener, OnChangedListener {
-	private TextView name, lisence, sign, fuzhi, sex, location;
+		OnTouchListener {
+	private TextView name, sign, fuzhi, sex, location;
 	private ImageView img;
 	private ContactPojo cp = null;
 	private int user_id;
@@ -100,10 +102,6 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 							.getCurrentFocus().getWindowToken(),
 							InputMethodManager.HIDE_NOT_ALWAYS);
 				}
-				findViewById(R.id.personal_info_customName).setFocusable(true);
-				findViewById(R.id.personal_info_customName)
-						.setFocusableInTouchMode(true);
-				findViewById(R.id.personal_info_customName).requestFocus();
 				// info_ok.setClickable(false);
 				// info_ok.setTextColor(getResources().getColor(
 				// R.color.system_textColor2));
@@ -175,7 +173,7 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.personal_info);
 		ViewGroup vg = (ViewGroup) findViewById(R.id.personal_info_main);
-//		FuXunTools.changeFonts(vg, ContactInfoActivity.this);
+		// FuXunTools.changeFonts(vg, ContactInfoActivity.this);
 		db = new DBManager(this);
 		fxApplication = (FxApplication) getApplication();
 		fxApplication.getActivityList().add(this);
@@ -211,11 +209,8 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 		mOther = (ImageView) findViewById(R.id.chat_other);
 		mOther.setOnTouchListener(this);
 		mOther.setOnClickListener(this);
-		lisence = (TextView) findViewById(R.id.info_lisence);// 认证行业
 		sign = (TextView) findViewById(R.id.info_sign);// 个人简介
-   
-   
-   
+
 		fuzhi = (TextView) findViewById(R.id.info_fuzhi); // 福指
 		img = (ImageView) findViewById(R.id.info_img); // 头像
 		sex = (TextView) findViewById(R.id.info_sex); // 性别
@@ -277,7 +272,7 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 			name.setText(cp.getName());
 		}
 		// 认证行业
-		lisence.setText("" + cp.getLisence());
+
 		// 个人简介
 		sign.setText("" + cp.getIndividualResume());
 		// 福指
@@ -296,13 +291,45 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 		mSpannableStringBuilder.setSpan(span_1, index, fuzhiStr.length(),
 				Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
 		fuzhi.setText(mSpannableStringBuilder);
-		
-		if (cp.getIsProvider()==1) {
+
+		if (cp.getIsProvider() == 1) { // 福师
 			findViewById(R.id.personal_info_fz).setVisibility(View.VISIBLE);
-			findViewById(R.id.personal_info_gerenjianjie).setVisibility(View.VISIBLE);
+			findViewById(R.id.personal_info_gerenjianjie).setVisibility(
+					View.VISIBLE);
 			findViewById(R.id.personal_info_hangye).setVisibility(View.VISIBLE);
+
+			// if (cp.getLicenses().size()!=0) { // 福师认证了行业
+			//
+			// }else { // 福师未认证行业
+			// findViewById(R.id.personal_info_relativeLayout2)
+			// .setBackgroundResource(R.drawable.unauthorized_bg);
+			// // img.
+			// }
+			String lis = cp.getLisence();
+			if (lis.length() > 0) { // 福师认证了行业
+
+				FuXunTools.setIdentity_bg(
+						findViewById(R.id.personal_info_relativeLayout2), lis);
+				// 行业认证图标
+				List imageviewList = new ArrayList<View>();
+				for (int i = 0; i < FuXunTools.image_id.length; i++) {
+					imageviewList.add(findViewById(FuXunTools.image_id[i]));
+				}
+				FuXunTools.setItem_bg((ArrayList<View>) imageviewList, lis);
+				
+
+			} else { // 福师未认证行业
+				findViewById(R.id.personal_info_relativeLayout2)
+						.setBackgroundResource(R.drawable.unauthorized_bg);
+				// img.
+			}
+
+		} else {
+			// 设置福客 背景
+			findViewById(R.id.personal_info_relativeLayout2)
+					.setBackgroundResource(R.drawable.fuke_bg);
 		}
-		
+
 	}
 
 	class GetContactDetail extends Thread {
@@ -351,11 +378,12 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 						String individualResume = contact.getIndividualResume();
 						String fuzhi = contact.getFuzhi();
 						String location = contact.getLocation();
-//						contact.getLicensesList()
+						List<License> license = contact.getLicensesList();
 						cp = new ContactPojo(contactId, sortKey, name,
 								customName, userface_url, sex, source,
 								lastContactTime, isBlocked, isProvider,
-								lisence, individualResume, fuzhi, location);
+								lisence, individualResume, fuzhi, location,
+								license);
 						handler.sendEmptyMessage(1);
 						Log.i("FuWu", "contact:" + cp.toString());
 					} else {
@@ -452,42 +480,6 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 
 		case R.id.chat_other:
 			menu_press();
-			break;
-		}
-	}
-
-	@Override
-	public void onChanged(boolean checkState, View v) {
-		switch (v.getId()) {
-		case R.id.personal_info_shielding:
-			if (checkState) {
-
-				if (FuXunTools.isConnect(ContactInfoActivity.this)) {
-					pd = new ProgressDialog(this);
-					pd.setMessage("正在屏蔽联系人...");
-					pd.setCanceledOnTouchOutside(false);
-					pd.show();
-					shielding = true;
-					Thread thread = new Thread(new BlockContact());
-					thread.start();
-				} else {
-					handler.sendEmptyMessage(11);
-				}
-
-			} else {
-
-				if (FuXunTools.isConnect(ContactInfoActivity.this)) {
-					pd = new ProgressDialog(this);
-					pd.setMessage("取消屏蔽...");
-					pd.setCanceledOnTouchOutside(false);
-					pd.show();
-					shielding = false;
-					Thread thread = new Thread(new BlockContact());
-					thread.start();
-				} else {
-					handler.sendEmptyMessage(11);
-				}
-			}
 			break;
 		}
 	}

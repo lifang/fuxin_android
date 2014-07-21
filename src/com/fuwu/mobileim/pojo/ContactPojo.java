@@ -1,5 +1,9 @@
 package com.fuwu.mobileim.pojo;
 
+import java.util.List;
+
+import com.fuwu.mobileim.model.Models.License;
+
 
 /**
  * @作者 丁作强
@@ -22,6 +26,7 @@ public class ContactPojo {
     private String individualResume ; //  个人简介
     private String fuzhi;
     private String location;
+    private List<License> licenses;
 	public ContactPojo() {
 	}
 	
@@ -66,6 +71,40 @@ public class ContactPojo {
 		this.individualResume = individualResume;
 		this.fuzhi = fuzhi;
 		this.location = location;
+	}
+
+
+	public ContactPojo(int contactId, String sortKey, String name,
+			String customName, String userface_url, int sex, int source,
+			String lastContactTime, int isBlocked, int isProvider,
+			String lisence, String individualResume, String fuzhi,
+			String location, List<License> licenses) {
+		super();
+		this.contactId = contactId;
+		this.sortKey = sortKey;
+		this.name = name;
+		this.customName = customName;
+		this.userface_url = userface_url;
+		this.sex = sex;
+		this.source = source;
+		this.lastContactTime = lastContactTime;
+		this.isBlocked = isBlocked;
+		this.isProvider = isProvider;
+		this.lisence = lisence;
+		this.individualResume = individualResume;
+		this.fuzhi = fuzhi;
+		this.location = location;
+		this.licenses = licenses;
+	}
+
+
+	public List<License> getLicenses() {
+		return licenses;
+	}
+
+
+	public void setLicenses(List<License> licenses) {
+		this.licenses = licenses;
 	}
 
 

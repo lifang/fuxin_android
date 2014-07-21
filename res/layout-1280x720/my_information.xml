@@ -34,30 +34,29 @@
         <RelativeLayout
             android:id="@+id/personal_info_relativeLayout2"
             android:layout_width="fill_parent"
-            android:layout_height="80dp"
-            android:background="@drawable/bbj"
+            android:layout_height="105dp"
             android:orientation="vertical" >
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/personal_info_relativeLayout3"
             android:layout_width="wrap_content"
-            android:layout_height="85dp"
-            android:layout_marginTop="35dp"
+            android:layout_height="98dp"
+            android:layout_marginTop="55dp"
             android:orientation="horizontal" >
 
             <RelativeLayout
                 android:id="@+id/info_img_layout"
-                android:layout_width="77dp"
-                android:layout_height="77dp"
+                android:layout_width="87dp"
+                android:layout_height="87dp"
                 android:layout_marginLeft="15dp"
                 android:background="@drawable/face_bg"
                 android:orientation="horizontal" >
 
                 <ImageView
                     android:id="@+id/myinfo_userface"
-                    android:layout_width="65dp"
-                    android:layout_height="65dp"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true" />
             </RelativeLayout>
@@ -67,6 +66,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@id/info_img_layout"
+                android:layout_marginBottom="2dp"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/info_img_layout"
                 android:maxWidth="100dp"
@@ -79,8 +79,8 @@
                 android:id="@+id/myinfo_nickname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/info_img_layout"
-                android:layout_marginLeft="10dp"
+                android:layout_alignBottom="@id/myinfo_name"
+                android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@+id/myinfo_name"
                 android:maxWidth="100dp"
                 android:singleLine="true"
@@ -90,10 +90,9 @@
 
             <ImageView
                 android:id="@+id/myinfo_modifynickname"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_alignBottom="@id/info_img_layout"
-                android:layout_marginBottom="-2dp"
+                android:layout_width="23dp"
+                android:layout_height="23dp"
+                android:layout_alignBottom="@id/myinfo_name"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/myinfo_nickname"
                 android:background="@drawable/pen" />
@@ -320,8 +319,8 @@
         android:id="@+id/myinfo_hangye_layout"
         android:layout_width="fill_parent"
         android:layout_height="47dip"
-        android:visibility="gone"
-        android:background="@color/white" >
+        android:background="@color/white"
+        android:visibility="gone" >
 
         <TextView
             android:id="@+id/hangye"
@@ -333,18 +332,80 @@
             android:textColor="@color/text_color"
             android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/myinfo_certification"
-            android:layout_width="fill_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="15dp"
-            android:layout_toRightOf="@+id/hangye"
-            android:gravity="right"
-            android:singleLine="true"
-            android:textColor="#999999"
-            android:textSize="17sp" />
+            android:layout_marginRight="5dp"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="10dp" >
+
+                <ImageView
+                    android:id="@+id/info_face5"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="10dp" >
+
+                <ImageView
+                    android:id="@+id/info_face4"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="10dp" >
+
+                <ImageView
+                    android:id="@+id/info_face3"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="10dp" >
+
+                <ImageView
+                    android:id="@+id/info_face2"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="10dp" >
+
+                <ImageView
+                    android:id="@+id/info_face1"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="10dp" >
+
+                <ImageView
+                    android:id="@+id/info_face0"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp" />
+            </LinearLayout>
+        </LinearLayout>
 
         <View
             android:layout_width="fill_parent"
@@ -359,8 +420,8 @@
         android:id="@+id/myinfo_fuzhi_layout"
         android:layout_width="fill_parent"
         android:layout_height="47dip"
-        android:visibility="gone"
-        android:background="@color/white" >
+        android:background="@color/white"
+        android:visibility="gone" >
 
         <TextView
             android:id="@+id/fuzhi_text"
@@ -398,8 +459,8 @@
         android:id="@+id/myinfo_gerenjianjie_layout"
         android:layout_width="fill_parent"
         android:layout_height="83dp"
-        android:visibility="gone"
-        android:background="@color/white" >
+        android:background="@color/white"
+        android:visibility="gone" >
 
         <TextView
             android:id="@+id/info_sign_text"

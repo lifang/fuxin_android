@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,7 +17,6 @@ import android.app.ActivityManager;
 import android.app.ActivityManager.RunningTaskInfo;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
@@ -27,7 +27,6 @@ import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
@@ -38,10 +37,7 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.pojo.ShortContactPojo;
@@ -56,6 +52,18 @@ import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListene
 public class FuXunTools {
 	private static CharacterParser characterParser = CharacterParser
 			.getInstance();
+	private static String[] arr = { "教育培训", "医疗健康", "法律咨询", "金融财经", "生活百科",
+			"公益慈善" };
+	private static int[] arr_bg = { R.drawable.education_and_training,
+			R.drawable.health, R.drawable.legal_consultation,
+			R.drawable.financial_finance, R.drawable.encyclopedia_of_life,
+			R.drawable.charity };
+	private static int[] arr_item = { R.drawable.education_and_training1,
+			R.drawable.health1, R.drawable.legal_consultation1,
+			R.drawable.financial_finance1, R.drawable.encyclopedia_of_life1,
+			R.drawable.charity1 };
+	public static int[] image_id = { R.id.info_face0, R.id.info_face1,
+			R.id.info_face2, R.id.info_face3, R.id.info_face4, R.id.info_face5 };
 	private static Bitmap bm = null;
 	protected static ImageLoader imageLoader = ImageLoader.getInstance();
 	static DisplayImageOptions options = new DisplayImageOptions.Builder()
@@ -578,93 +586,134 @@ public class FuXunTools {
 	}
 
 	/**
-	* Get root content view.
-	* @param act
-	* @return
-	*/
-	public static ViewGroup getContentView(Activity act){
-	ViewGroup systemContent = (ViewGroup)act.getWindow().getDecorView().findViewById(android.R.id.content);
-	ViewGroup content = null;
-	if(systemContent.getChildCount() > 0 && systemContent.getChildAt(0) instanceof ViewGroup){
-	content = (ViewGroup)systemContent.getChildAt(0);
+	 * Get root content view.
+	 * 
+	 * @param act
+	 * @return
+	 */
+	public static ViewGroup getContentView(Activity act) {
+		ViewGroup systemContent = (ViewGroup) act.getWindow().getDecorView()
+				.findViewById(android.R.id.content);
+		ViewGroup content = null;
+		if (systemContent.getChildCount() > 0
+				&& systemContent.getChildAt(0) instanceof ViewGroup) {
+			content = (ViewGroup) systemContent.getChildAt(0);
+		}
+		return content;
 	}
-	return content;
+
+	// /**
+	// * 适用于包含多个组件的 view
+	// * */
+	// public static void changeFonts(ViewGroup root, Activity act) {
+	//
+	// Typeface tf = Typeface.createFromAsset(act.getAssets(),
+	// "fonts/FZLTHJW.TTF");
+	//
+	// for (int i = 0; i < root.getChildCount(); i++) {
+	// View v = root.getChildAt(i);
+	// if (v instanceof TextView) {
+	// ((TextView) v).setTypeface(tf);
+	// } else if (v instanceof Button) {
+	// ((Button) v).setTypeface(tf);
+	// } else if (v instanceof EditText) {
+	// ((EditText) v).setTypeface(tf);
+	// } else if (v instanceof ViewGroup) {
+	// changeFonts((ViewGroup) v, act);
+	// }
+	// }
+	// }
+	// /**
+	// * 适用于包含多个组件的 view
+	// * */
+	// public static void changeFonts(ViewGroup root, Context act) {
+	//
+	// Typeface tf = Typeface.createFromAsset(act.getAssets(),
+	// "fonts/FZLTHJW.TTF");
+	//
+	// for (int i = 0; i < root.getChildCount(); i++) {
+	// View v = root.getChildAt(i);
+	// if (v instanceof TextView) {
+	// ((TextView) v).setTypeface(tf);
+	// } else if (v instanceof Button) {
+	// ((Button) v).setTypeface(tf);
+	// } else if (v instanceof EditText) {
+	// ((EditText) v).setTypeface(tf);
+	// } else if (v instanceof ViewGroup) {
+	// changeFonts((ViewGroup) v, act);
+	// }
+	// }
+	// }
+	// /**
+	// * 适用于单个组件
+	// * */
+	// public static void changeFonts_one(View v, Activity act) {
+	//
+	// Typeface tf = Typeface.createFromAsset(act.getAssets(),
+	// "fonts/FZLTHJW.TTF");
+	//
+	// if (v instanceof TextView) {
+	// ((TextView) v).setTypeface(tf);
+	// } else if (v instanceof Button) {
+	// ((Button) v).setTypeface(tf);
+	// } else if (v instanceof EditText) {
+	// ((EditText) v).setTypeface(tf);
+	// } else if (v instanceof ViewGroup) {
+	// changeFonts_one((ViewGroup) v, act);
+	// }
+	// }
+	// /**
+	// * 适用于单个组件
+	// * */
+	// public static void changeFonts_one(View v, Context act) {
+	//
+	// Typeface tf = Typeface.createFromAsset(act.getAssets(),
+	// "fonts/FZLTHJW.TTF");
+	//
+	// if (v instanceof TextView) {
+	// ((TextView) v).setTypeface(tf);
+	// } else if (v instanceof Button) {
+	// ((Button) v).setTypeface(tf);
+	// } else if (v instanceof EditText) {
+	// ((EditText) v).setTypeface(tf);
+	// } else if (v instanceof ViewGroup) {
+	// changeFonts_one((ViewGroup) v, act);
+	// }
+	// }
+
+	public static int getNumber(String str) {
+		int index = -1;
+
+		for (int i = 0; i < arr.length; i++) {
+			if (str.equals(arr[i])) {
+				index = i;
+			}
+		}
+		return index;
 	}
 
+	// 设置个人认证背景
+	public static void setIdentity_bg(View view, String str) {
+		if (str.indexOf("、") != -1) {
+			str = str.substring(0, str.indexOf("、"));
+		} else {
+			str = str.substring(0, str.length());
+		}
 
+		view.setBackgroundResource(arr_bg[getNumber(str)]);
+	}
 
-//	/**
-//	 * 适用于包含多个组件的 view
-//	 * */
-//	public static void changeFonts(ViewGroup root, Activity act) {
-//
-//		Typeface tf = Typeface.createFromAsset(act.getAssets(), "fonts/FZLTHJW.TTF");
-//
-//		for (int i = 0; i < root.getChildCount(); i++) {
-//			View v = root.getChildAt(i);
-//			if (v instanceof TextView) {
-//				((TextView) v).setTypeface(tf);
-//			} else if (v instanceof Button) {
-//				((Button) v).setTypeface(tf);
-//			} else if (v instanceof EditText) {
-//				((EditText) v).setTypeface(tf);
-//			} else if (v instanceof ViewGroup) {
-//				changeFonts((ViewGroup) v, act);
-//			}
-//		}
-//	}
-//	/**
-//	 * 适用于包含多个组件的 view
-//	 * */
-//	public static void changeFonts(ViewGroup root, Context act) {
-//
-//		Typeface tf = Typeface.createFromAsset(act.getAssets(), "fonts/FZLTHJW.TTF");
-//
-//		for (int i = 0; i < root.getChildCount(); i++) {
-//			View v = root.getChildAt(i);
-//			if (v instanceof TextView) {
-//				((TextView) v).setTypeface(tf);
-//			} else if (v instanceof Button) {
-//				((Button) v).setTypeface(tf);
-//			} else if (v instanceof EditText) {
-//				((EditText) v).setTypeface(tf);
-//			} else if (v instanceof ViewGroup) {
-//				changeFonts((ViewGroup) v, act);
-//			}
-//		}
-//	}
-//	/**
-//	 * 适用于单个组件
-//	 * */
-//	public static void changeFonts_one(View v, Activity act) {
-//
-//		Typeface tf = Typeface.createFromAsset(act.getAssets(), "fonts/FZLTHJW.TTF");
-//
-//		if (v instanceof TextView) {
-//			((TextView) v).setTypeface(tf);
-//		} else if (v instanceof Button) {
-//			((Button) v).setTypeface(tf);
-//		} else if (v instanceof EditText) {
-//			((EditText) v).setTypeface(tf);
-//		} else if (v instanceof ViewGroup) {
-//			changeFonts_one((ViewGroup) v, act);
-//		}
-//	}
-//	/**
-//	 * 适用于单个组件
-//	 * */
-//	public static void changeFonts_one(View v, Context act) {
-//
-//		Typeface tf = Typeface.createFromAsset(act.getAssets(), "fonts/FZLTHJW.TTF");
-//
-//		if (v instanceof TextView) {
-//			((TextView) v).setTypeface(tf);
-//		} else if (v instanceof Button) {
-//			((Button) v).setTypeface(tf);
-//		} else if (v instanceof EditText) {
-//			((EditText) v).setTypeface(tf);
-//		} else if (v instanceof ViewGroup) {
-//			changeFonts_one((ViewGroup) v, act);
-//		}
-//	}
+	// 设置个人认证行业图标
+	public static void setItem_bg(ArrayList<View> imageviewList, String str) {
+		String[] strarr;
+		strarr = str.split("、");
+		for (int i = 0; i < strarr.length; i++) {
+			for (int j = 0; j < arr.length; j++) {
+				if (strarr[i].equals(arr[j])) {
+					imageviewList.get(i).setBackgroundResource(arr_item[i]);
+				}
+			}
+		}
+
+	}
 }

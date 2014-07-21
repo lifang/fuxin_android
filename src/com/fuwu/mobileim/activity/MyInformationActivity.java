@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -31,16 +32,15 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.model.Models.ChangeProfileRequest;
 import com.fuwu.mobileim.model.Models.ChangeProfileResponse;
+import com.fuwu.mobileim.model.Models.License;
 import com.fuwu.mobileim.model.Models.ProfileRequest;
 import com.fuwu.mobileim.model.Models.ProfileResponse;
 import com.fuwu.mobileim.pojo.ProfilePojo;
@@ -49,8 +49,6 @@ import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.ImageCacheUtil;
 import com.fuwu.mobileim.util.Urlinterface;
-import com.fuwu.mobileim.view.CircularImage;
-import com.fuwu.mobileim.view.MyDialog;
 import com.google.protobuf.ByteString;
 
 public class MyInformationActivity extends Activity implements OnTouchListener {
@@ -59,9 +57,9 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 	private ImageButton my_info_back;// 返回按钮
 	private ProfilePojo profilePojo;
 	private ImageView myinfo_userface, myinfo_modifynickname;
-	private TextView myinfo_certification, myinfo_mobile, myinfo_email,
-			myinfo_birthday, myinfo_fuzhi, myinfo_location, myinfo_sign,
-			myinfo_nickname, myinfo_name;
+	private TextView myinfo_mobile, myinfo_email, myinfo_birthday,
+			myinfo_fuzhi, myinfo_location, myinfo_sign, myinfo_nickname,
+			myinfo_name;
 	String uri;
 	Bitmap bm = null;
 	private Handler handler = new Handler() {
@@ -175,7 +173,6 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 		myinfo_userface = (ImageView) findViewById(R.id.myinfo_userface);// 头像
 		myinfo_name = (TextView) findViewById(R.id.myinfo_name);// 名称
 		myinfo_nickname = (TextView) findViewById(R.id.myinfo_nickname);// 昵称
-		myinfo_certification = (TextView) findViewById(R.id.myinfo_certification); // 行业认证
 		myinfo_mobile = (TextView) findViewById(R.id.myinfo_mobile); // 手机
 		myinfo_email = (TextView) findViewById(R.id.myinfo_email); // 邮箱
 		myinfo_birthday = (TextView) findViewById(R.id.myinfo_birthday); // 生日
@@ -262,9 +259,6 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 		mSpannableStringBuilder.setSpan(span_1, index, fuzhiStr.length(),
 				Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
 		myinfo_fuzhi.setText(mSpannableStringBuilder);
-		// 设置认证行业
-		String str1 = profilePojo.getLisence();
-		myinfo_certification.setText(str1);
 
 		// 手机
 		String str3 = profilePojo.getMobile();
@@ -279,10 +273,41 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 		myinfo_sign.setText(profilePojo.getDescription());
 		// 设置所在地
 		myinfo_location.setText(profilePojo.getLocation());
-		if (profilePojo.getIsProvider()) {
+		if (profilePojo.getIsProvider()) {// 福师
 			findViewById(R.id.myinfo_hangye_layout).setVisibility(View.VISIBLE);
 			findViewById(R.id.myinfo_fuzhi_layout).setVisibility(View.VISIBLE);
-			findViewById(R.id.myinfo_gerenjianjie_layout).setVisibility(View.VISIBLE);
+			findViewById(R.id.myinfo_gerenjianjie_layout).setVisibility(
+					View.VISIBLE);
+			// if (profilePojo.getLicenses().size()!=0) { // 福师认证了行业
+			//
+			// }else { // 福师未认证行业
+			// findViewById(R.id.personal_info_relativeLayout2)
+			// .setBackgroundResource(R.drawable.unauthorized_bg);
+			// }
+
+			if (profilePojo.getLisence().length() > 0) { // 福师认证了行业
+				FuXunTools.setIdentity_bg(
+						findViewById(R.id.personal_info_relativeLayout2),
+						profilePojo.getLisence());
+				
+				// 行业认证图标
+				List imageviewList = new ArrayList<View>();
+				for (int i = 0; i < FuXunTools.image_id.length; i++) {
+					imageviewList.add(findViewById(FuXunTools.image_id[i]));
+				}
+				FuXunTools.setItem_bg((ArrayList<View>) imageviewList, profilePojo.getLisence());
+				
+ 				
+			} else { // 福师未认证行业
+				findViewById(R.id.personal_info_relativeLayout2)
+						.setBackgroundResource(R.drawable.unauthorized_bg);
+			}
+
+		} else {
+			// 设置福客 背景
+			findViewById(R.id.personal_info_relativeLayout2)
+					.setBackgroundResource(R.drawable.fuke_bg);
+
 		}
 	}
 
@@ -503,11 +528,12 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 						String fuzhi = res.getProfile().getFuzhi();// 福值
 						String location = res.getProfile().getLocation();// 所在地
 						String description = res.getProfile().getDescription();// 福师简介
-
+						List<License> license = res.getProfile()
+								.getLicensesList();
 						profilePojo = new ProfilePojo(userId, name, nickName,
 								gender, tileUrl, isProvider, lisence, mobile,
 								email, birthday, isAuthentication, fuzhi,
-								location, description);
+								location, description, license);
 						Log.i("linshi", "  --nickName" + nickName
 								+ "  --gender" + gender + "  --tileUrl"
 								+ tileUrl + "  --lisence" + lisence

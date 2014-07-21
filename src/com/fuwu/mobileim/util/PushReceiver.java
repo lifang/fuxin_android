@@ -30,6 +30,7 @@ public class PushReceiver extends BroadcastReceiver {
 	public Context mContext;
 	private NotificationManager nm;
 	private int TID = 8888;
+
 	public void onReceive(Context context, Intent intent) {
 		mContext = context;
 		fx = (FxApplication) context.getApplicationContext();
@@ -59,16 +60,17 @@ public class PushReceiver extends BroadcastReceiver {
 							intent.setClass(context, FragmengtActivity.class); // 点击该通知后要跳转的Activity
 						}
 						byte[] byteArray = Base64.decode(data, Base64.DEFAULT);
-						Log.i("Max", byteArray.toString());
+						String con = new String(byteArray);
 						try {
-//							PushRequest pr = PushRequest.parseFrom(byteArray);
-//							Log.i("Max", "收到推送");
-//							MessagePush mp = pr.getMessagePush();
-//							MyNotification("福务网",
-//									mp.getSenderName() + ":" + mp.getContent(),
-//									context, intent, mp.getSendTime());
-							MyNotification("福务网",byteArray.toString(),context,intent);
-							
+							// PushRequest pr =
+							// PushRequest.parseFrom(byteArray);
+							// Log.i("Max", "收到推送");
+							// MessagePush mp = pr.getMessagePush();
+							// MyNotification("福务网",
+							// mp.getSenderName() + ":" + mp.getContent(),
+							// context, intent, mp.getSendTime());
+							MyNotification("福务网", con, context, intent);
+
 						} catch (Exception e) {
 							e.printStackTrace();
 						}

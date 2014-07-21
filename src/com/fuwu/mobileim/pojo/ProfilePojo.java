@@ -1,5 +1,9 @@
 package com.fuwu.mobileim.pojo;
 
+import java.util.List;
+
+import com.fuwu.mobileim.model.Models.License;
+
 public class ProfilePojo {
 
 	private int userId;// 用户id
@@ -17,6 +21,7 @@ public class ProfilePojo {
 	private String location;//  //所在地
 	private String description;// 福师简介
 //	private String lisences;// 行业认证（非纯汉字，小图标）
+	private List<License> licenses;
 	public ProfilePojo() {
 	}
 
@@ -60,6 +65,37 @@ public class ProfilePojo {
 		this.description = description;
 	}
 
+
+	public ProfilePojo(int userId, String name, String nickName, int gender,
+			String tileUrl, boolean isProvider, String lisence, String mobile,
+			String email, String birthday, boolean isAuthentication,
+			String fuZhi, String location, String description,
+			List<License> licenses) {
+		super();
+		this.userId = userId;
+		this.name = name;
+		this.nickName = nickName;
+		this.gender = gender;
+		this.tileUrl = tileUrl;
+		this.isProvider = isProvider;
+		this.lisence = lisence;
+		this.mobile = mobile;
+		this.email = email;
+		this.birthday = birthday;
+		this.isAuthentication = isAuthentication;
+		this.fuZhi = fuZhi;
+		this.location = location;
+		this.description = description;
+		this.licenses = licenses;
+	}
+
+	public List<License> getLicenses() {
+		return licenses;
+	}
+
+	public void setLicenses(List<License> licenses) {
+		this.licenses = licenses;
+	}
 
 	public String getLocation() {
 		return location;
