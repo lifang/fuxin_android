@@ -13,36 +13,25 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnTouchListener;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fuwu.mobileim.R;
-import com.fuwu.mobileim.activity.MyInformationActivity.modifyProfile;
-import com.fuwu.mobileim.model.Models.ChangeContactDetailRequest;
-import com.fuwu.mobileim.model.Models.ChangeContactDetailResponse;
 import com.fuwu.mobileim.model.Models.ChangeProfileRequest;
 import com.fuwu.mobileim.model.Models.ChangeProfileResponse;
-import com.fuwu.mobileim.model.Models.Contact;
-import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.Urlinterface;
-import com.google.protobuf.ByteString;
 
 public class ModifyNickNameActivity extends Activity implements OnTouchListener {
 	// private MyDialog dialog;
@@ -95,6 +84,25 @@ public class ModifyNickNameActivity extends Activity implements OnTouchListener 
 						clearActivity();
 					}
 				}, 3500);
+				preferences
+						.edit()
+						.putInt("exit_user_id",
+								preferences.getInt("user_id", 0)).commit();
+				preferences
+						.edit()
+						.putString("exit_Token",
+								preferences.getString("Token", "null"))
+						.commit();
+				preferences
+						.edit()
+						.putString("exit_clientid",
+								preferences.getString("clientid", "")).commit();
+				preferences.edit().putInt("user_id", 0).commit();
+				preferences.edit().putString("Token", "null").commit();
+				preferences.edit().putString("pwd", "").commit();
+				preferences.edit().putString("clientid", "").commit();
+				preferences.edit().putString("profile_user", "").commit();
+				fxApplication.initData();
 				Toast.makeText(getApplicationContext(), "您的账号已在其他手机登陆",
 						Toast.LENGTH_LONG).show();
 				break;
@@ -147,10 +155,10 @@ public class ModifyNickNameActivity extends Activity implements OnTouchListener 
 			} else if (reply_edit.length() > 32) {
 				Toast.makeText(getApplicationContext(), "昵称过长，请重新输入",
 						Toast.LENGTH_SHORT).show();
-			}else if (reply_edit.equals(nickName)) {
+			} else if (reply_edit.equals(nickName)) {
 				Toast.makeText(getApplicationContext(), "昵称没有变化",
 						Toast.LENGTH_SHORT).show();
-			}  else {
+			} else {
 				if (FuXunTools.isConnect(ModifyNickNameActivity.this)) {
 					pd = new ProgressDialog(ModifyNickNameActivity.this);
 					pd.setMessage("正在发送请求...");

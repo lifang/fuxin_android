@@ -216,7 +216,6 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 				.findViewById(R.id.setting_userface);// 头像
 		// setting_userface.setOnClickListener(listener2);
 		name = (TextView) rootView.findViewById(R.id.setting_name);// 显示级别为：备注名>真实姓名>昵称
-
 		setting_exitBtn = (Button) rootView.findViewById(R.id.setting_exitBtn);// 退出账户
 		setting_exitBtn.setOnClickListener(listener0);// 给退出账户 设置监听
 		setting_top.setOnClickListener(listener1);// 给个人信息部分设置监听

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/update_pwd_act"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -8,18 +9,18 @@
     <RelativeLayout
         android:id="@+id/title"
         android:layout_width="fill_parent"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:background="@color/red" >
 
         <ImageView
-            android:id="@+id/exit"
+            android:id="@+id/update_pwd_exit"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:contentDescription="@string/app_name"
-            android:src="@drawable/back" />
+            android:background="@drawable/back"
+            android:contentDescription="@string/app_name" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -27,20 +28,23 @@
             android:layout_centerInParent="true"
             android:text="@string/update_title"
             android:textColor="@color/white"
-            android:textSize="18sp" />
+            android:textSize="20sp" />
     </RelativeLayout>
 
-     <ScrollView
+    <ScrollView
         android:id="@+id/scrol"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" >
+
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:orientation="vertical"
-            android:padding="20dp" >
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp" >
 
             <RelativeLayout
                 android:layout_width="fill_parent"
@@ -51,13 +55,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_marginRight="20dp"
                     android:background="@null"
-                    android:hint="请填写原密码"
-                    android:inputType="textPassword" android:textSize="17sp" 
+                    android:hint="输入原密码"
+                    android:inputType="textPassword"
                     android:textColor="#333333"
-                    android:textColorHint="@color/qianhui" />
+                    android:textColorHint="@color/qianhui"
+                    android:textSize="19sp" />
 
                 <TextView
                     android:id="@+id/old_pwd_tag"
@@ -86,13 +91,14 @@
                     android:id="@+id/new_pwd"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_marginTop="10dp"
-                    android:background="@null" android:textSize="17sp" 
+                    android:background="@null"
                     android:hint="输入新密码"
                     android:inputType="textPassword"
                     android:textColor="#333333"
-                    android:textColorHint="@color/qianhui" />
+                    android:textColorHint="@color/qianhui"
+                    android:textSize="19sp" />
 
                 <TextView
                     android:id="@+id/new_pwd_tag"
@@ -121,13 +127,14 @@
                     android:id="@+id/new_pwds"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp" android:textSize="17sp" 
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
                     android:background="@null"
                     android:hint="确认新密码"
                     android:inputType="textPassword"
                     android:textColor="#333333"
-                    android:textColorHint="@color/qianhui" />
+                    android:textColorHint="@color/qianhui"
+                    android:textSize="19sp" />
 
                 <TextView
                     android:id="@+id/new_pwds_tag"
@@ -162,14 +169,15 @@
                         android:layout_width="150dp"
                         android:layout_height="40dp"
                         android:layout_alignParentLeft="true"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp" android:textSize="17sp" 
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="10dp"
                         android:background="@null"
                         android:gravity="center_vertical"
                         android:hint="输入手机号码"
                         android:inputType="phone"
                         android:textColor="#333333"
-                        android:textColorHint="@color/qianhui" />
+                        android:textColorHint="@color/qianhui"
+                        android:textSize="19sp" />
 
                     <Button
                         android:id="@+id/phone_ok"
@@ -208,14 +216,15 @@
                     android:layout_height="40dp"
                     android:layout_alignParentLeft="true"
                     android:layout_below="@id/view"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp" android:textSize="17sp" 
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:hint="输入验证码"
                     android:inputType="text"
                     android:textColor="#333333"
-                    android:textColorHint="@color/qianhui" />
+                    android:textColorHint="@color/qianhui"
+                    android:textSize="19sp" />
 
                 <Button
                     android:id="@+id/yz_send"
@@ -281,7 +290,7 @@
                 android:background="@drawable/regist_btn"
                 android:text="@string/regist_over"
                 android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:textSize="19sp" />
         </LinearLayout>
     </ScrollView>
 

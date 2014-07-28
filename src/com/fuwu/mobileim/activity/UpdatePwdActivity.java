@@ -1,5 +1,7 @@
 package com.fuwu.mobileim.activity;
 
+import java.util.List;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -13,9 +15,11 @@ import android.os.Handler;
 import android.os.Message;
 import android.telephony.SmsMessage;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
+import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -40,7 +44,7 @@ import com.fuwu.mobileim.view.MyDialog;
  * 作者: 张秀楠 时间：2014-5-27 下午3:23:31
  */
 public class UpdatePwdActivity extends Activity implements OnClickListener,
-		OnFocusChangeListener {
+		OnFocusChangeListener, OnTouchListener {
 
 	private EditText old_pwd;
 	private EditText new_pwd;
@@ -119,6 +123,33 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 			case 5:
 				scrol.scrollTo(0, 500);
 				break;
+			case 9:
+				prodialog.dismiss();
+				new Handler().postDelayed(new Runnable() {
+					public void run() {
+						Intent intent = new Intent(UpdatePwdActivity.this,
+								LoginActivity.class);
+						startActivity(intent);
+						clearActivity();
+					}
+				}, 3500);
+				spf.edit().putInt("exit_user_id", spf.getInt("user_id", 0))
+						.commit();
+				spf.edit()
+						.putString("exit_Token", spf.getString("Token", "null"))
+						.commit();
+				spf.edit()
+						.putString("exit_clientid",
+								spf.getString("clientid", "")).commit();
+				spf.edit().putInt("user_id", 0).commit();
+				spf.edit().putString("Token", "null").commit();
+				spf.edit().putString("pwd", "").commit();
+				spf.edit().putString("clientid", "").commit();
+				spf.edit().putString("profile_user", "").commit();
+				fx.initData();
+				Toast.makeText(getApplicationContext(), "您的账号已在其他手机登陆",
+						Toast.LENGTH_LONG).show();
+				break;
 			}
 		}
 	};
@@ -127,13 +158,15 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.update_pwd);
 		fx = (FxApplication) getApplication();
+		fx.getActivityList().add(this);
 		spf = getSharedPreferences(Urlinterface.SHARED, 0);
 		initialize();
 	}
 
 	// 初始化
 	public void initialize() {
-		findViewById(R.id.exit).setOnClickListener(this);
+		findViewById(R.id.update_pwd_exit).setOnClickListener(this);
+		findViewById(R.id.update_pwd_exit).setOnTouchListener(this);
 		old_pwd = (EditText) findViewById(R.id.old_pwd);
 		new_pwd = (EditText) findViewById(R.id.new_pwd);
 		new_pwds = (EditText) findViewById(R.id.new_pwds);
@@ -178,8 +211,13 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 				ValidateCodeResponse response = ValidateCodeResponse
 						.parseFrom(httpReturn);
 				if (!response.getIsSucceed()) {
-					error_code = response.getErrorCode().toString();
-					handler.sendEmptyMessage(2);
+					int ErrorCode = response.getErrorCode().getNumber();
+					if (ErrorCode == 2001) {
+						handler.sendEmptyMessage(9);
+					} else {
+						error_code = response.getErrorCode().toString();
+						handler.sendEmptyMessage(2);
+					}
 				}
 
 			} catch (Exception e) {
@@ -209,8 +247,13 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 				if (response.getIsSucceed()) {
 					handler.sendEmptyMessage(1);
 				} else {
-					error_code = response.getErrorCode().toString();
-					handler.sendEmptyMessage(3);
+					int ErrorCode = response.getErrorCode().getNumber();
+					if (ErrorCode == 2001) {
+						handler.sendEmptyMessage(9);
+					} else {
+						error_code = response.getErrorCode().toString();
+						handler.sendEmptyMessage(1);
+					}
 				}
 			} catch (Exception e) {
 				handler.sendEmptyMessage(4);
@@ -247,7 +290,7 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 
 	public void onClick(View arg0) {
 		switch (arg0.getId()) {
-		case R.id.exit:
+		case R.id.update_pwd_exit:
 			this.finish();
 			break;
 		case R.id.update_over:
@@ -419,5 +462,36 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 		 * 不能与StatService.onPageStart一级onPageEnd函数交叉使用
 		 */
 		StatService.onPause(this);
+	}
+
+	@Override
+	public boolean onTouch(View v, MotionEvent event) {
+		if (event.getAction() == MotionEvent.ACTION_DOWN) {
+			switch (v.getId()) {
+			case R.id.update_pwd_exit:
+				Log.i("linshi",
+						"onTouchonTouchonTouchonTouch--modify_nickname_back");
+				findViewById(R.id.update_pwd_exit).getBackground().setAlpha(70);
+				break;
+			}
+		} else if (event.getAction() == MotionEvent.ACTION_UP) {
+			switch (v.getId()) {
+			case R.id.update_pwd_exit:
+				findViewById(R.id.update_pwd_exit).getBackground()
+						.setAlpha(255);
+				break;
+			}
+		}
+
+		return false;
+	}
+
+	// 关闭界面
+	public void clearActivity() {
+		List<Activity> activityList = fx.getActivityList();
+		for (int i = 0; i < activityList.size(); i++) {
+			activityList.get(i).finish();
+		}
+		fx.setActivityList();
 	}
 }

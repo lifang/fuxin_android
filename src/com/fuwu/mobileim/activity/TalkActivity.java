@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -31,6 +32,7 @@ import com.fuwu.mobileim.model.Models.ChangeContactDetailResponse;
 import com.fuwu.mobileim.model.Models.Contact;
 import com.fuwu.mobileim.pojo.TalkPojo;
 import com.fuwu.mobileim.util.DBManager;
+import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.PushReceiver;
@@ -85,6 +87,39 @@ public class TalkActivity extends Fragment {
 			case 6:
 				Toast.makeText(getActivity(), "修改备注失败", Toast.LENGTH_SHORT)
 						.show();
+				break;
+			case 9:
+				prodialog.dismiss();
+				new Handler().postDelayed(new Runnable() {
+					public void run() {
+						Intent intent = new Intent(
+								getActivity(),
+								LoginActivity.class);
+						startActivity(intent);
+						clearActivity();
+					}
+				}, 3500);
+				sp
+						.edit()
+						.putInt("exit_user_id",
+								sp.getInt("user_id", 0)).commit();
+				sp
+						.edit()
+						.putString("exit_Token",
+								sp.getString("Token", "null"))
+						.commit();
+				sp
+						.edit()
+						.putString("exit_clientid",
+								sp.getString("clientid", "")).commit();
+				sp.edit().putInt("user_id", 0).commit();
+				sp.edit().putString("Token", "null").commit();
+				sp.edit().putString("pwd", "").commit();
+				sp.edit().putString("clientid", "").commit();
+				sp.edit().putString("profile_user", "").commit();
+				fx.initData();
+				Toast.makeText(getActivity(), "您的账号已在其他手机登陆",
+						Toast.LENGTH_LONG).show();
 				break;
 			}
 		}
@@ -184,7 +219,12 @@ public class TalkActivity extends Fragment {
 					if (res.getIsSucceed()) {
 						handler.sendEmptyMessage(5);
 					} else {
-						handler.sendEmptyMessage(6);
+						int ErrorCode = res.getErrorCode().getNumber();
+						if (ErrorCode == 2001) {
+							handler.sendEmptyMessage(9);
+						} else {
+							handler.sendEmptyMessage(6);}
+						
 					}
 				} else {
 					handler.sendEmptyMessage(2);
@@ -227,4 +267,12 @@ public class TalkActivity extends Fragment {
 			db.closeDB();
 		}
 	}
+	// 关闭界面
+		public void clearActivity() {
+			List<Activity> activityList = fx.getActivityList();
+			for (int i = 0; i < activityList.size(); i++) {
+				activityList.get(i).finish();
+			}
+			fx.setActivityList();
+		}
 }

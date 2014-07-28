@@ -51,6 +51,7 @@ import android.widget.PopupWindow;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.baidu.mobstat.StatService;
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.adapter.FaceAdapter;
@@ -188,6 +189,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.chat);
+
 		initData();
 		initView();
 		initFacePage();
@@ -439,6 +441,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 	public void menu_press() {
 		View view = getLayoutInflater().inflate(R.layout.chat_other, null);
 		view.findViewById(R.id.chatset_clear).setOnClickListener(this);
+
 		// view.findViewById(R.id.chatset_block).setOnClickListener(this);
 		// view.findViewById(R.id.chatset_beizhu).setOnClickListener(this);
 		menuWindow = new PopupWindow(view, LayoutParams.WRAP_CONTENT,

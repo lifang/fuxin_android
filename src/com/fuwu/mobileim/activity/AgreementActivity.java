@@ -3,8 +3,10 @@ package com.fuwu.mobileim.activity;
 import android.app.Activity;
 import android.net.http.SslError;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -13,7 +15,7 @@ import com.baidu.mobstat.StatService;
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.util.Urlinterface;
 
-public class AgreementActivity extends Activity implements OnClickListener {
+public class AgreementActivity extends Activity implements OnClickListener,OnTouchListener {
 
 	public WebView webview;
 
@@ -21,7 +23,9 @@ public class AgreementActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.agreement);
 		findViewById(R.id.exit).setOnClickListener(this);
+		findViewById(R.id.exit).setOnTouchListener(this);
 		webview = (WebView) findViewById(R.id.webview);
+//		webview.getSettings().set
 		webview.setWebViewClient(new WebViewClient() {
 			public void onReceivedSslError(WebView view,
 					SslErrorHandler handler, SslError error) {
@@ -54,5 +58,22 @@ public class AgreementActivity extends Activity implements OnClickListener {
 		 * 不能与StatService.onPageStart一级onPageEnd函数交叉使用
 		 */
 		StatService.onPause(this);
+	}
+	@Override
+	public boolean onTouch(View v, MotionEvent event) {
+		if (event.getAction() == MotionEvent.ACTION_DOWN) {
+			switch (v.getId()) {
+			case R.id.exit:
+				findViewById(R.id.exit).getBackground().setAlpha(70);
+				break;
+			}
+		} else if (event.getAction() == MotionEvent.ACTION_UP) {
+			switch (v.getId()) {
+			case R.id.exit:
+				findViewById(R.id.exit).getBackground().setAlpha(255);
+				break;
+			}
+		}
+		return false;
 	}
 }

@@ -1,5 +1,7 @@
 package com.fuwu.mobileim.activity;
 
+import java.util.List;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -13,9 +15,11 @@ import android.os.Handler;
 import android.os.Message;
 import android.telephony.SmsMessage;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
+import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -38,7 +42,7 @@ import com.fuwu.mobileim.view.MyDialog;
 import com.google.protobuf.InvalidProtocolBufferException;
 
 public class ResetPasswordActicity extends Activity implements OnClickListener,
-		OnFocusChangeListener {
+		OnFocusChangeListener, OnTouchListener {
 	public EditText pwd_text;
 	public EditText pwds_text;
 	public EditText phone_text;
@@ -110,6 +114,33 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 			case 5:
 				scrol.scrollTo(0, 500);
 				break;
+			case 9:
+				prodialog.dismiss();
+				new Handler().postDelayed(new Runnable() {
+					public void run() {
+						Intent intent = new Intent(ResetPasswordActicity.this,
+								LoginActivity.class);
+						startActivity(intent);
+						clearActivity();
+					}
+				}, 3500);
+				spf.edit().putInt("exit_user_id", spf.getInt("user_id", 0))
+						.commit();
+				spf.edit()
+						.putString("exit_Token", spf.getString("Token", "null"))
+						.commit();
+				spf.edit()
+						.putString("exit_clientid",
+								spf.getString("clientid", "")).commit();
+				spf.edit().putInt("user_id", 0).commit();
+				spf.edit().putString("Token", "null").commit();
+				spf.edit().putString("pwd", "").commit();
+				spf.edit().putString("clientid", "").commit();
+				spf.edit().putString("profile_user", "").commit();
+				fx.initData();
+				Toast.makeText(getApplicationContext(), "您的账号已在其他手机登陆",
+						Toast.LENGTH_LONG).show();
+				break;
 			}
 		}
 	};
@@ -118,6 +149,7 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.resetpassword);
 		fx = (FxApplication) getApplication();
+		fx.getActivityList().add(this);
 		spf = getSharedPreferences(Urlinterface.SHARED, 0);
 		initialize();
 	}
@@ -125,6 +157,7 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 	// 初始化
 	public void initialize() {
 		findViewById(R.id.exit).setOnClickListener(this);
+		findViewById(R.id.exit).setOnTouchListener(this);
 		pwd_text = (EditText) findViewById(R.id.pwd);
 		pwds_text = (EditText) findViewById(R.id.pwds);
 		phone_text = (EditText) findViewById(R.id.phone);
@@ -180,8 +213,13 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 						.parseFrom(HttpUtil.sendHttps(request.toByteArray(),
 								Urlinterface.ValidateCode, "POST"));
 				if (!response.getIsSucceed()) {
-					error_code = response.getErrorCode().toString();
-					handler.sendEmptyMessage(3);
+					int ErrorCode = response.getErrorCode().getNumber();
+					if (ErrorCode == 2001) {
+						handler.sendEmptyMessage(9);
+					} else {
+						error_code = response.getErrorCode().toString();
+						handler.sendEmptyMessage(3);
+					}
 				}
 			} catch (InvalidProtocolBufferException e) {
 				e.printStackTrace();
@@ -396,5 +434,32 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 		 * 不能与StatService.onPageStart一级onPageEnd函数交叉使用
 		 */
 		StatService.onPause(this);
+	}
+
+	@Override
+	public boolean onTouch(View v, MotionEvent event) {
+		if (event.getAction() == MotionEvent.ACTION_DOWN) {
+			switch (v.getId()) {
+			case R.id.exit:
+				findViewById(R.id.exit).getBackground().setAlpha(70);
+				break;
+			}
+		} else if (event.getAction() == MotionEvent.ACTION_UP) {
+			switch (v.getId()) {
+			case R.id.exit:
+				findViewById(R.id.exit).getBackground().setAlpha(255);
+				break;
+			}
+		}
+		return false;
+	}
+
+	// 关闭界面
+	public void clearActivity() {
+		List<Activity> activityList = fx.getActivityList();
+		for (int i = 0; i < activityList.size(); i++) {
+			activityList.get(i).finish();
+		}
+		fx.setActivityList();
 	}
 }

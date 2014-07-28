@@ -55,7 +55,6 @@ import android.widget.Toast;
 
 import com.baidu.mobstat.StatService;
 import com.fuwu.mobileim.R;
-import com.fuwu.mobileim.adapter.ContactAdapter;
 import com.fuwu.mobileim.adapter.FragmentViewPagerAdapter;
 import com.fuwu.mobileim.adapter.SearchContactAdapter;
 import com.fuwu.mobileim.model.Models.ContactRequest;
@@ -131,13 +130,12 @@ public class FragmengtActivity extends FragmentActivity {
 						user_number2 = user_number2 + 1;
 					}
 				}
-				
+
 				if (user_number2 > 0) {
 					getUserBitmap();
 				} else {
 					getProfile();
 				}
-				
 
 				break;
 			case 1:
@@ -150,7 +148,7 @@ public class FragmengtActivity extends FragmentActivity {
 				fxApplication.setUser_exit(true);
 				putProfile(profilePojo);
 				getBitmap_url(profilePojo.getTileUrl(), profilePojo.getUserId());// 加载个人头像
-				
+
 				break;
 			case 3:
 				prodialog.dismiss();
@@ -194,6 +192,20 @@ public class FragmengtActivity extends FragmentActivity {
 						FragmengtActivity.this.finish();
 					}
 				}, 3500);
+				spf.edit().putInt("exit_user_id", spf.getInt("user_id", 0))
+						.commit();
+				spf.edit()
+						.putString("exit_Token", spf.getString("Token", "null"))
+						.commit();
+				spf.edit()
+						.putString("exit_clientid",
+								spf.getString("clientid", "")).commit();
+				spf.edit().putInt("user_id", 0).commit();
+				spf.edit().putString("Token", "null").commit();
+				spf.edit().putString("pwd", "").commit();
+				spf.edit().putString("clientid", "").commit();
+				spf.edit().putString("profile_user", "").commit();
+				fxApplication.initData();
 				Toast.makeText(getApplicationContext(), "您的账号已在其他手机登陆",
 						Toast.LENGTH_LONG).show();
 				break;
@@ -297,37 +309,37 @@ public class FragmengtActivity extends FragmentActivity {
 			}
 		} else {
 			Log.i("Ax", "加载本地联系人");
-			if (spf.getString("profile_user", "").equals(user_id+"")) {
+			if (spf.getString("profile_user", "").equals(user_id + "")) {
 				Intent i = new Intent();
 				i.setClass(this, RequstService.class);
 				startService(i);
-			}else {
+			} else {
 				if (FuXunTools.isConnect(this)) {
-					prodialog =new ProgressDialog(FragmengtActivity.this);
+					prodialog = new ProgressDialog(FragmengtActivity.this);
 					prodialog.setMessage("正在加载数据，请稍后...");
 					prodialog.setCanceledOnTouchOutside(false);
 					prodialog.show();
 					getProfile();
 				} else {
-					Toast.makeText(FragmengtActivity.this, R.string.no_internet,
-							Toast.LENGTH_SHORT).show();
+					Toast.makeText(FragmengtActivity.this,
+							R.string.no_internet, Toast.LENGTH_SHORT).show();
 					Intent i = new Intent();
 					i.setClass(this, RequstService.class);
 					startService(i);
 				}
 			}
 
-
 		}
 
 	}
 
-	private void getProfile(){
-		
+	private void getProfile() {
+
 		Thread thread = new Thread(new getProfile());
 		thread.start();
-		
+
 	}
+
 	/**
 	 * 加载联系人头像，并保存到本地
 	 * 
@@ -479,12 +491,12 @@ public class FragmengtActivity extends FragmentActivity {
 						handler.sendMessage(msg);
 					} else {
 						int ErrorCode = res.getErrorCode().getNumber();
-						if (ErrorCode==2001) {
+						if (ErrorCode == 2001) {
 							handler.sendEmptyMessage(9);
-						}else {
-							handler.sendEmptyMessage(5);	
+						} else {
+							handler.sendEmptyMessage(5);
 						}
-						
+
 					}
 
 				} else {
@@ -588,21 +600,17 @@ public class FragmengtActivity extends FragmentActivity {
 		String tv_str = (String) tv.getText().toString();
 		SpannableStringBuilder style2 = new SpannableStringBuilder(tv_str);
 
-		if (height == 1280 && width == 720) {
-			style2.setSpan(new AbsoluteSizeSpan(40), 0, 3,
-					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-		} else if (height == 854 && width == 480) {
+		 if (height == 854 && width == 480) {
 			style2.setSpan(new AbsoluteSizeSpan(27), 0, 3,
 					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+			tv.setText(style2);
 		} else if (height >= 1750 && height <= 1920 && width == 1080) {
 			style2.setSpan(new AbsoluteSizeSpan(60), 0, 3,
 					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-		} else {
-			style2.setSpan(new AbsoluteSizeSpan(40), 0, 3,
-					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+			tv.setText(style2);
 		}
 
-		tv.setText(style2);
+		
 
 	}
 
@@ -747,7 +755,8 @@ public class FragmengtActivity extends FragmentActivity {
 
 						profilePojo = new ProfilePojo(userId, name, nickName,
 								gender, tileUrl, isProvider, lisence, mobile,
-								email, birthday, isAuthentication, fuzhi,location,description);
+								email, birthday, isAuthentication, fuzhi,
+								location, description);
 						Log.i("linshi", "  --nickName" + nickName
 								+ "  --gender" + gender + "  --tileUrl"
 								+ tileUrl + "  --lisence" + lisence
@@ -759,16 +768,16 @@ public class FragmengtActivity extends FragmentActivity {
 						msg.what = 2;
 						handler.sendMessage(msg);
 					} else {
-						
+
 						int ErrorCode = res.getErrorCode().getNumber();
-						if (ErrorCode==2001) {
+						if (ErrorCode == 2001) {
 							handler.sendEmptyMessage(9);
-						}else {
-							handler.sendEmptyMessage(3);	
+						} else {
+							handler.sendEmptyMessage(3);
 						}
-						
+
 					}
-				}else {
+				} else {
 					handler.sendEmptyMessage(3);
 				}
 
@@ -799,56 +808,55 @@ public class FragmengtActivity extends FragmentActivity {
 		editor.putString("profile_fuZhi", pro.getFuZhi());
 		editor.putString("profile_location", pro.getLocation());
 		editor.putString("profile_description", pro.getDescription());
-		editor.putString("profile_user", pro.getUserId()+"");//  用于判断本地是否有当前用户的信息
+		editor.putString("profile_user", pro.getUserId() + "");// 用于判断本地是否有当前用户的信息
 		editor.commit();
 		dataNumber = 1;
 	}
-	
-	public  void getBitmap_url(final String url,final int id) {
+
+	public void getBitmap_url(final String url, final int id) {
 
 		Thread thread = new Thread() {
 			public void run() {
 				try {
 
-						URL myurl = new URL(url);
-						// 获得连接
-						HttpURLConnection conn = (HttpURLConnection) myurl
-								.openConnection();
-						conn.setConnectTimeout(6000);// 设置超时
-						conn.setDoInput(true);
-						conn.setUseCaches(false);// 不缓存
-						conn.connect();
-						InputStream is = conn.getInputStream();// 获得图片的数据流
-						// bm =decodeSampledBitmapFromStream(is,150,150);
+					URL myurl = new URL(url);
+					// 获得连接
+					HttpURLConnection conn = (HttpURLConnection) myurl
+							.openConnection();
+					conn.setConnectTimeout(6000);// 设置超时
+					conn.setDoInput(true);
+					conn.setUseCaches(false);// 不缓存
+					conn.connect();
+					InputStream is = conn.getInputStream();// 获得图片的数据流
+					// bm =decodeSampledBitmapFromStream(is,150,150);
 
-						BitmapFactory.Options options = new BitmapFactory.Options();
-						options.inJustDecodeBounds = false;
-						options.inSampleSize = 1;
-						bm = BitmapFactory.decodeStream(is, null, options);
-						Log.i("linshi", bm.getWidth() + "---" + bm.getHeight());
-						is.close();
-						if (bm != null) {
-							Log.i("linshi",
-									bm.getWidth() + "---2---" + bm.getHeight());
-							File f = new File(Urlinterface.head_pic,
-									id + "");
+					BitmapFactory.Options options = new BitmapFactory.Options();
+					options.inJustDecodeBounds = false;
+					options.inSampleSize = 1;
+					bm = BitmapFactory.decodeStream(is, null, options);
+					Log.i("linshi", bm.getWidth() + "---" + bm.getHeight());
+					is.close();
+					if (bm != null) {
+						Log.i("linshi",
+								bm.getWidth() + "---2---" + bm.getHeight());
+						File f = new File(Urlinterface.head_pic, id + "");
 
-							if (f.exists()) {
-								f.delete();
-							}
-							if (!f.getParentFile().exists()) {
-								f.getParentFile().mkdirs();
-							}
-							Log.i("linshi", "----1");
-							FileOutputStream out = new FileOutputStream(f);
-							Log.i("linshi", "----6");
-							bm.compress(Bitmap.CompressFormat.PNG, 90, out);
-							out.flush();
-							out.close();
-
-							Log.i("linshi", "已经保存");
+						if (f.exists()) {
+							f.delete();
 						}
-						handler.sendEmptyMessage(3);
+						if (!f.getParentFile().exists()) {
+							f.getParentFile().mkdirs();
+						}
+						Log.i("linshi", "----1");
+						FileOutputStream out = new FileOutputStream(f);
+						Log.i("linshi", "----6");
+						bm.compress(Bitmap.CompressFormat.PNG, 90, out);
+						out.flush();
+						out.close();
+
+						Log.i("linshi", "已经保存");
+					}
+					handler.sendEmptyMessage(3);
 				} catch (Exception e) {
 					Log.i("linshi", "发生异常");
 					handler.sendEmptyMessage(3);
@@ -857,6 +865,7 @@ public class FragmengtActivity extends FragmentActivity {
 		};
 		thread.start();
 	}
+
 	public List<ShortContactPojo> findSimilarContacts(String et) {
 		contactsLists = new ArrayList<ShortContactPojo>();
 		if (et.length() > 0) {

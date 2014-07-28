@@ -13,9 +13,11 @@ import android.os.Handler;
 import android.os.Message;
 import android.telephony.SmsMessage;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
+import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -42,7 +44,7 @@ import com.fuwu.mobileim.util.Urlinterface;
  * 作者: 张秀楠 时间：2014-5-24 下午3:21:40
  */
 public class RegistActivity extends Activity implements OnClickListener,
-		OnFocusChangeListener, OnCheckedChangeListener {
+		OnFocusChangeListener, OnCheckedChangeListener, OnTouchListener {
 	public EditText name_text;
 	public EditText pwd_text;
 	public EditText pwds_text;
@@ -127,6 +129,7 @@ public class RegistActivity extends Activity implements OnClickListener,
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.regist);
+
 		fx = (FxApplication) getApplication();
 		spf = getSharedPreferences(Urlinterface.SHARED, 0);
 		initialize();
@@ -135,6 +138,7 @@ public class RegistActivity extends Activity implements OnClickListener,
 	// 初始化
 	public void initialize() {
 		findViewById(R.id.exit).setOnClickListener(this);
+		findViewById(R.id.exit).setOnTouchListener(this);
 		findViewById(R.id.xy).setOnClickListener(this);
 		name_text = (EditText) findViewById(R.id.name);
 		pwd_text = (EditText) findViewById(R.id.pwd);
@@ -420,5 +424,23 @@ public class RegistActivity extends Activity implements OnClickListener,
 		 * 不能与StatService.onPageStart一级onPageEnd函数交叉使用
 		 */
 		StatService.onPause(this);
+	}
+
+	@Override
+	public boolean onTouch(View v, MotionEvent event) {
+		if (event.getAction() == MotionEvent.ACTION_DOWN) {
+			switch (v.getId()) {
+			case R.id.exit:
+				findViewById(R.id.exit).getBackground().setAlpha(70);
+				break;
+			}
+		} else if (event.getAction() == MotionEvent.ACTION_UP) {
+			switch (v.getId()) {
+			case R.id.exit:
+				findViewById(R.id.exit).getBackground().setAlpha(255);
+				break;
+			}
+		}
+		return false;
 	}
 }

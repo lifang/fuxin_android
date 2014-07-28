@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/regist_act"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -8,18 +9,18 @@
     <RelativeLayout
         android:id="@+id/title"
         android:layout_width="fill_parent"
-        android:layout_height="60dp"
+        android:layout_height="40dp"
         android:background="@color/red" >
 
         <ImageView
             android:id="@+id/exit"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:contentDescription="@string/app_name"
-            android:src="@drawable/back" />
+            android:background="@drawable/back" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -41,7 +42,9 @@
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:orientation="vertical"
-            android:padding="20dp" >
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp"  >
 
             <RelativeLayout
                 android:layout_width="fill_parent"
@@ -52,7 +55,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_marginRight="20dp"
                     android:background="@null"
                     android:hint="输入昵称,建议6到8个字符"
@@ -88,7 +91,7 @@
                     android:id="@+id/pwd"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_marginTop="10dp"
                     android:background="@null"
                     android:hint="输入密码"
@@ -124,7 +127,7 @@
                     android:id="@+id/pwds"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_marginTop="10dp"
                     android:background="@null"
                     android:hint="确认密码"
@@ -166,7 +169,7 @@
                         android:layout_width="150dp"
                         android:layout_height="40dp"
                         android:layout_alignParentLeft="true"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="5dp"
                         android:layout_marginTop="10dp"
                         android:background="@null"
                         android:gravity="center_vertical"
@@ -213,7 +216,7 @@
                     android:layout_height="40dp"
                     android:layout_alignParentLeft="true"
                     android:layout_below="@id/view"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_marginTop="10dp"
                     android:background="@null"
                     android:gravity="center_vertical"
@@ -265,7 +268,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
                     android:text="@string/validate"
                     android:textColor="@color/qianhui"
                     android:textSize="16sp" />

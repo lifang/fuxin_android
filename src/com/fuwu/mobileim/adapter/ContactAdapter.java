@@ -66,7 +66,6 @@ public class ContactAdapter extends BaseAdapter implements SectionIndexer {
 					R.layout.contact_adapter_item, null);
 			viewHolder.contact_name = (TextView) view
 					.findViewById(R.id.contact_name);
-//			FuXunTools.changeFonts_one(viewHolder.contact_name, mContext);
 
 			viewHolder.contact_user_face = (CircularImage) view
 					.findViewById(R.id.contact_user_face);

@@ -43,7 +43,7 @@
                 android:singleLine="true"
                 android:text=""
                 android:textColor="#333333"
-                android:textSize="16sp" />
+                android:textSize="17sp" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -87,6 +87,6 @@
         android:background="@drawable/exit_btn"
         android:text="退出登录"
         android:textColor="@color/black"
-        android:textSize="18sp" />
+        android:textSize="17sp" />
 
 </LinearLayout>

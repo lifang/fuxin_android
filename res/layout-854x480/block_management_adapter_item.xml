@@ -39,7 +39,7 @@
             android:layout_toRightOf="@+id/block_face"
             android:layout_toLeftOf="@+id/block_restore"
             android:textColor="#333333"
-            android:textSize="17sp" />
+            android:textSize="18sp" />
     </RelativeLayout>
 
     <View

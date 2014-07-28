@@ -5,12 +5,24 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.security.SecureRandom;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -40,6 +52,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.fuwu.mobileim.R;
+import com.fuwu.mobileim.model.Models.License;
 import com.fuwu.mobileim.pojo.ShortContactPojo;
 import com.fuwu.mobileim.view.CharacterParser;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -50,8 +63,13 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 public class FuXunTools {
+	static int index = 0;
+	static int index2 = 0;
+	static ArrayList<ImageView> imageviewList0;
+	static List<License> licenses0;
 	private static CharacterParser characterParser = CharacterParser
 			.getInstance();
+	private static String fonts = "fonts/aaa.TTF";
 	private static String[] arr = { "教育培训", "医疗健康", "法律咨询", "金融财经", "生活百科",
 			"公益慈善" };
 	private static int[] arr_bg = { R.drawable.education_and_training,
@@ -250,6 +268,7 @@ public class FuXunTools {
 				try {
 					Log.i("linshi------------", url);
 					URL myurl = new URL(url);
+					// initTrustSSL();
 					// 获得连接
 					HttpURLConnection conn = (HttpURLConnection) myurl
 							.openConnection();
@@ -264,7 +283,7 @@ public class FuXunTools {
 					options.inJustDecodeBounds = false;
 					// options.outWidth = 159;
 					// options.outHeight = 159;
-					options.inSampleSize = 2;
+					options.inSampleSize = 1;
 					bm = BitmapFactory.decodeStream(is, null, options);
 					Log.i("linshi", bm.getWidth() + "---" + bm.getHeight());
 					is.close();
@@ -602,118 +621,268 @@ public class FuXunTools {
 		return content;
 	}
 
-	// /**
-	// * 适用于包含多个组件的 view
-	// * */
-	// public static void changeFonts(ViewGroup root, Activity act) {
-	//
-	// Typeface tf = Typeface.createFromAsset(act.getAssets(),
-	// "fonts/FZLTHJW.TTF");
-	//
-	// for (int i = 0; i < root.getChildCount(); i++) {
-	// View v = root.getChildAt(i);
-	// if (v instanceof TextView) {
-	// ((TextView) v).setTypeface(tf);
-	// } else if (v instanceof Button) {
-	// ((Button) v).setTypeface(tf);
-	// } else if (v instanceof EditText) {
-	// ((EditText) v).setTypeface(tf);
-	// } else if (v instanceof ViewGroup) {
-	// changeFonts((ViewGroup) v, act);
-	// }
-	// }
-	// }
-	// /**
-	// * 适用于包含多个组件的 view
-	// * */
-	// public static void changeFonts(ViewGroup root, Context act) {
-	//
-	// Typeface tf = Typeface.createFromAsset(act.getAssets(),
-	// "fonts/FZLTHJW.TTF");
-	//
-	// for (int i = 0; i < root.getChildCount(); i++) {
-	// View v = root.getChildAt(i);
-	// if (v instanceof TextView) {
-	// ((TextView) v).setTypeface(tf);
-	// } else if (v instanceof Button) {
-	// ((Button) v).setTypeface(tf);
-	// } else if (v instanceof EditText) {
-	// ((EditText) v).setTypeface(tf);
-	// } else if (v instanceof ViewGroup) {
-	// changeFonts((ViewGroup) v, act);
-	// }
-	// }
-	// }
-	// /**
-	// * 适用于单个组件
-	// * */
-	// public static void changeFonts_one(View v, Activity act) {
-	//
-	// Typeface tf = Typeface.createFromAsset(act.getAssets(),
-	// "fonts/FZLTHJW.TTF");
-	//
-	// if (v instanceof TextView) {
-	// ((TextView) v).setTypeface(tf);
-	// } else if (v instanceof Button) {
-	// ((Button) v).setTypeface(tf);
-	// } else if (v instanceof EditText) {
-	// ((EditText) v).setTypeface(tf);
-	// } else if (v instanceof ViewGroup) {
-	// changeFonts_one((ViewGroup) v, act);
-	// }
-	// }
-	// /**
-	// * 适用于单个组件
-	// * */
-	// public static void changeFonts_one(View v, Context act) {
-	//
-	// Typeface tf = Typeface.createFromAsset(act.getAssets(),
-	// "fonts/FZLTHJW.TTF");
-	//
-	// if (v instanceof TextView) {
-	// ((TextView) v).setTypeface(tf);
-	// } else if (v instanceof Button) {
-	// ((Button) v).setTypeface(tf);
-	// } else if (v instanceof EditText) {
-	// ((EditText) v).setTypeface(tf);
-	// } else if (v instanceof ViewGroup) {
-	// changeFonts_one((ViewGroup) v, act);
-	// }
-	// }
-
 	public static int getNumber(String str) {
 		int index = -1;
 
 		for (int i = 0; i < arr.length; i++) {
 			if (str.equals(arr[i])) {
 				index = i;
+				return index;
 			}
 		}
 		return index;
 	}
 
-	// 设置个人认证背景
-	public static void setIdentity_bg(View view, String str) {
-		if (str.indexOf("、") != -1) {
-			str = str.substring(0, str.indexOf("、"));
-		} else {
-			str = str.substring(0, str.length());
-		}
+	// // 设置个人认证背景
+	// public static void setIdentity_bg(View view, String str) {
+	// if (str.indexOf("、") != -1) {
+	// str = str.substring(0, str.indexOf("、"));
+	// } else {
+	// str = str.substring(0, str.length());
+	// }
+	// view.setBackgroundResource(arr_bg[getNumber(str)]);
+	// }
 
-		view.setBackgroundResource(arr_bg[getNumber(str)]);
-	}
+	final static Handler mHandler = new Handler() {
+		public void handleMessage(android.os.Message msg) {
+			switch (msg.what) {
+			case 1:
+				index = index + 1;
 
-	// 设置个人认证行业图标
-	public static void setItem_bg(ArrayList<View> imageviewList, String str) {
-		String[] strarr;
-		strarr = str.split("、");
-		for (int i = 0; i < strarr.length; i++) {
-			for (int j = 0; j < arr.length; j++) {
-				if (strarr[i].equals(arr[j])) {
-					imageviewList.get(i).setBackgroundResource(arr_item[i]);
+				String name = licenses0.get(index - 1).getName() + ".png";
+				File f = new File(Urlinterface.head_pic, name);
+				if (f.exists()) {
+					imageviewList0.get(index - 1).setBackgroundDrawable(
+							new BitmapDrawable(FuXunTools
+									.createRoundConerImage(BitmapFactory
+											.decodeFile(Urlinterface.head_pic
+													+ name))));
+
 				}
+				// if (index == index2) {
+				// for (int i = 0; i < licenses0.size(); i++) {
+				// String str = licenses0.get(i).getIconUrl();
+				// String name = licenses0.get(i).getName() + ".png";
+				// File f = new File(Urlinterface.head_pic, name);
+				// if (f.exists()) {
+				// imageviewList0
+				// .get(i)
+				// .setBackgroundDrawable(
+				// new BitmapDrawable(
+				// FuXunTools
+				// .createRoundConerImage(BitmapFactory
+				// .decodeFile(Urlinterface.head_pic
+				// + name))));
+				//
+				// } else {
+				// // set_item_bk(name, str, (ImageView)
+				// // imageviewList0.get(i));
+				// }
+				// }
+				// }
+
+				break;
+			default:
+				break;
 			}
 		}
+	};
+	static String url;
+	static String name;
 
+	// 设置个人认证行业图标
+	public static void setItem_bg(ArrayList<ImageView> imageviewList,
+			List<License> licenses) {
+		index = 0;
+		index2 = licenses.size();
+		imageviewList0 = imageviewList;
+		licenses0 = licenses;
+		getUserBitmap(licenses);
+
+		// for (int i = 0; i < licenses.size(); i++) {
+		// url = licenses.get(i).getIconUrl();
+		// name = licenses.get(i).getName() + ".png";
+		// File f = new File(Urlinterface.head_pic, name + "");
+		// if (f.exists()) {
+		// imageviewList.get(i).setImageDrawable(new BitmapDrawable(
+		// FuXunTools.createRoundConerImage(BitmapFactory
+		// .decodeFile(Urlinterface.head_pic + name))));
+		// }else {
+		// set_item_bk(name,url,imageviewList.get(i));
+		// }
+		//
+		// }
+	}
+
+	private static void getUserBitmap(List<License> licenses) {
+		ExecutorService singleThreadExecutor = Executors
+				.newSingleThreadExecutor();
+		for (int i = 0; i < licenses.size(); i++) {
+			final String url = licenses.get(i).getIconUrl();
+			final String name = licenses.get(i).getName() + ".png";
+			File f = new File(Urlinterface.head_pic, name + "");
+
+			if (f.exists()) {
+				mHandler.sendEmptyMessage(1);
+			} else {
+
+				singleThreadExecutor.execute(new Runnable() {
+
+					@Override
+					public void run() {
+						try {
+							URL myurl = new URL(url);
+							initTrustSSL();
+							// 获得连接
+							HttpURLConnection conn = (HttpURLConnection) myurl
+									.openConnection();
+							conn.setConnectTimeout(6000);// 设置超时
+							conn.setDoInput(true);
+							conn.setUseCaches(false);// 不缓存
+							conn.connect();
+							InputStream is = conn.getInputStream();// 获得图片的数据流
+
+							BitmapFactory.Options options = new BitmapFactory.Options();
+							options.inJustDecodeBounds = false;
+							options.inSampleSize = 1;
+							bm = BitmapFactory.decodeStream(is, null, options);
+							Log.i("linshi",
+									bm.getWidth() + "---" + bm.getHeight());
+							is.close();
+							if (bm != null) {
+								Log.i("linshi",
+										bm.getWidth() + "---2---"
+												+ bm.getHeight());
+								File f = new File(Urlinterface.head_pic, name
+										+ "");
+
+								if (f.exists()) {
+									f.delete();
+								}
+								if (!f.getParentFile().exists()) {
+									f.getParentFile().mkdirs();
+								}
+								Log.i("linshi", "----1");
+								FileOutputStream out = new FileOutputStream(f);
+								Log.i("linshi", "----6");
+								bm.compress(Bitmap.CompressFormat.PNG, 90, out);
+								out.flush();
+								out.close();
+								Log.i("linshi", "已经保存");
+
+							}
+							mHandler.sendEmptyMessage(1);
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							mHandler.sendEmptyMessage(1);
+						}
+					}
+				});
+			}
+		}
+	}
+
+	public static void set_item_bk(final String name, final String url,
+			final ImageView imageView) {
+
+		final Handler mHandler = new Handler() {
+			public void handleMessage(android.os.Message msg) {
+				switch (msg.what) {
+				case 0:
+					Drawable drawable = (Drawable) msg.obj;
+					imageView.setImageDrawable(drawable);
+					break;
+				default:
+					break;
+				}
+			}
+		};
+
+		Thread thread = new Thread() {
+			public void run() {
+				Drawable face_drawable;
+				try {
+					Log.i("linshi------------", url);
+					URL myurl = new URL(url);
+					initTrustSSL();
+					// 获得连接
+					HttpURLConnection conn = (HttpURLConnection) myurl
+							.openConnection();
+					conn.setConnectTimeout(6000);// 设置超时
+					conn.setDoInput(true);
+					conn.setUseCaches(false);// 不缓存
+					conn.connect();
+					InputStream is = conn.getInputStream();// 获得图片的数据流
+
+					BitmapFactory.Options options = new BitmapFactory.Options();
+					options.inJustDecodeBounds = false;
+					options.inSampleSize = 1;
+					bm = BitmapFactory.decodeStream(is, null, options);
+					Log.i("linshi", bm.getWidth() + "---" + bm.getHeight());
+					is.close();
+					if (bm != null) {
+						Log.i("linshi",
+								bm.getWidth() + "---2---" + bm.getHeight());
+						File f = new File(Urlinterface.head_pic, name);
+
+						if (f.exists()) {
+							f.delete();
+						}
+						if (!f.getParentFile().exists()) {
+							f.getParentFile().mkdirs();
+						}
+						FileOutputStream out = new FileOutputStream(f);
+						bm.compress(Bitmap.CompressFormat.PNG, 90, out);
+						out.flush();
+						out.close();
+
+						face_drawable = new BitmapDrawable(bm);
+						Message msg = new Message();// 创建Message 对象
+						msg.what = 0;
+						msg.obj = face_drawable;
+						mHandler.sendMessage(msg);
+					}
+
+				} catch (Exception e) {
+					Log.i("linshi", "发生异常");
+					// Log.i("linshi", url);
+				}
+
+			}
+		};
+
+		thread.start();
+
+	}
+
+	private static void initTrustSSL() {
+		try {
+			SSLContext sslCtx = SSLContext.getInstance("TLS");
+			sslCtx.init(null, new TrustManager[] { new X509TrustManager() {
+				// do nothing, let the check pass.
+				public void checkClientTrusted(X509Certificate[] chain,
+						String authType) throws CertificateException {
+				}
+
+				public void checkServerTrusted(X509Certificate[] chain,
+						String authType) throws CertificateException {
+				}
+
+				public X509Certificate[] getAcceptedIssuers() {
+					return null;
+				}
+			} }, new SecureRandom());
+
+			HttpsURLConnection.setDefaultSSLSocketFactory(sslCtx
+					.getSocketFactory());
+			HttpsURLConnection
+					.setDefaultHostnameVerifier(new HostnameVerifier() {
+						public boolean verify(String hostname,
+								SSLSession session) {
+							return true;
+						}
+					});
+		} catch (Exception E) {
+		}
 	}
 }

@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.widget.Toast;
 
 import com.baidu.mobstat.StatService;
@@ -15,7 +17,7 @@ import com.fuwu.mobileim.view.SlipButton;
 import com.fuwu.mobileim.view.SlipButton.OnChangedListener;
 
 public class PushSettingActivity extends Activity implements OnClickListener,
-		OnChangedListener {
+		OnChangedListener,OnTouchListener {
 
 	private SlipButton pushsetting_sound;
 	private SlipButton pushsetting_music;
@@ -32,6 +34,7 @@ public class PushSettingActivity extends Activity implements OnClickListener,
 	public void initialize() {
 		sf = getSharedPreferences(Urlinterface.SHARED, 0);
 		findViewById(R.id.exit).setOnClickListener(this);
+		findViewById(R.id.exit).setOnTouchListener(this);
 		pushsetting_sound = (SlipButton) findViewById(R.id.pushsetting_sound);
 		pushsetting_music = (SlipButton) findViewById(R.id.pushsetting_music);
 		pushsetting_shake = (SlipButton) findViewById(R.id.pushsetting_shake);
@@ -100,5 +103,23 @@ public class PushSettingActivity extends Activity implements OnClickListener,
 		 * 不能与StatService.onPageStart一级onPageEnd函数交叉使用
 		 */
 		StatService.onPause(this);
+	}
+
+	@Override
+	public boolean onTouch(View v, MotionEvent event) {
+		if (event.getAction() == MotionEvent.ACTION_DOWN) {
+			switch (v.getId()) {
+			case R.id.exit:
+				findViewById(R.id.exit).getBackground().setAlpha(70);
+				break;
+			}
+		} else if (event.getAction() == MotionEvent.ACTION_UP) {
+			switch (v.getId()) {
+			case R.id.exit:
+				findViewById(R.id.exit).getBackground().setAlpha(255);
+				break;
+			}
+		}
+		return false;
 	}
 }

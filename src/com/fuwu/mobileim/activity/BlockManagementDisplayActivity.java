@@ -82,12 +82,32 @@ public class BlockManagementDisplayActivity extends Activity {
 				prodialog.dismiss();
 				new Handler().postDelayed(new Runnable() {
 					public void run() {
-						Intent intent = new Intent(BlockManagementDisplayActivity.this,
+						Intent intent = new Intent(
+								BlockManagementDisplayActivity.this,
 								LoginActivity.class);
 						startActivity(intent);
 						clearActivity();
 					}
 				}, 3500);
+				preferences
+						.edit()
+						.putInt("exit_user_id",
+								preferences.getInt("user_id", 0)).commit();
+				preferences
+						.edit()
+						.putString("exit_Token",
+								preferences.getString("Token", "null"))
+						.commit();
+				preferences
+						.edit()
+						.putString("exit_clientid",
+								preferences.getString("clientid", "")).commit();
+				preferences.edit().putInt("user_id", 0).commit();
+				preferences.edit().putString("Token", "null").commit();
+				preferences.edit().putString("pwd", "").commit();
+				preferences.edit().putString("clientid", "").commit();
+				preferences.edit().putString("profile_user", "").commit();
+				fxApplication.initData();
 				Toast.makeText(getApplicationContext(), "您的账号已在其他手机登陆",
 						Toast.LENGTH_LONG).show();
 				break;
@@ -100,6 +120,7 @@ public class BlockManagementDisplayActivity extends Activity {
 	int user_id = -1;
 	String Token = "";
 	private FxApplication fxApplication;
+
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -116,7 +137,6 @@ public class BlockManagementDisplayActivity extends Activity {
 		Token = preferences.getString("Token", "");
 		Intent intent = getIntent();//
 		contactId = intent.getIntExtra("contactId", -1);
-	
 		contact = db.queryContact(user_id, contactId);
 		setRelatedData();
 
@@ -127,7 +147,7 @@ public class BlockManagementDisplayActivity extends Activity {
 		Display d = m.getDefaultDisplay(); // 为获取屏幕宽、高
 
 		android.view.WindowManager.LayoutParams p = getWindow().getAttributes(); // 获取对话框当前的参数值
-//		p.height = (int) (d.getHeight() * s); // 高度设置
+		// p.height = (int) (d.getHeight() * s); // 高度设置
 		p.width = (int) (d.getWidth() * 0.9); // 宽度设置
 		p.alpha = 1.0f; // 设置本 身透明度
 		p.dimAmount = 0.8f; // 设置黑暗度
@@ -146,7 +166,7 @@ public class BlockManagementDisplayActivity extends Activity {
 
 		// 设置头像
 		String face_str = contact.getUserface_url();
-		if (face_str!=null&&face_str.length() > 4) {
+		if (face_str != null && face_str.length() > 4) {
 			File f = new File(Urlinterface.head_pic, contact.getContactId()
 					+ "");
 			if (f.exists()) {
@@ -160,7 +180,7 @@ public class BlockManagementDisplayActivity extends Activity {
 			}
 		}
 
-		//  显示级别为：备注名>真实姓名>昵称
+		// 显示级别为：备注名>真实姓名>昵称
 
 		String customname = contact.getCustomName();
 		if (customname != null && customname.length() > 0) {
@@ -168,32 +188,32 @@ public class BlockManagementDisplayActivity extends Activity {
 		} else {
 			block_display_name.setText(contact.getName());
 		}
-//		// 设置名称
-//		block_display_name.setText(contact.getName());
-//		// 设置备注
-//		block_display_notename.setText(contact.getCustomName());
-//		// 设置性别
-//		int sex = contact.getSex();
-//		if (sex == 0) { // 男
-//			block_display_sex_item.setBackgroundResource(R.drawable.nan);
-//		} else if (sex == 1) {
-//			block_display_sex_item.setBackgroundResource(R.drawable.nv);
-//		} else {
-//			block_display_sex_item.setVisibility(View.GONE);
-//		}
-//
-//		// 设置交易订阅
-//		String str = FuXunTools.toNumber(contact.getSource());
-//		if (FuXunTools.isExist(str, 0, 1)) {
-//			block_display_yue.setVisibility(View.VISIBLE);
-//		} else {
-//			block_display_yue.setVisibility(View.GONE);
-//		}
-//		if (FuXunTools.isExist(str, 2, 3)) {
-//			block_display_gou.setVisibility(View.VISIBLE);
-//		} else {
-//			block_display_gou.setVisibility(View.GONE);
-//		}
+		// // 设置名称
+		// block_display_name.setText(contact.getName());
+		// // 设置备注
+		// block_display_notename.setText(contact.getCustomName());
+		// // 设置性别
+		// int sex = contact.getSex();
+		// if (sex == 0) { // 男
+		// block_display_sex_item.setBackgroundResource(R.drawable.nan);
+		// } else if (sex == 1) {
+		// block_display_sex_item.setBackgroundResource(R.drawable.nv);
+		// } else {
+		// block_display_sex_item.setVisibility(View.GONE);
+		// }
+		//
+		// // 设置交易订阅
+		// String str = FuXunTools.toNumber(contact.getSource());
+		// if (FuXunTools.isExist(str, 0, 1)) {
+		// block_display_yue.setVisibility(View.VISIBLE);
+		// } else {
+		// block_display_yue.setVisibility(View.GONE);
+		// }
+		// if (FuXunTools.isExist(str, 2, 3)) {
+		// block_display_gou.setVisibility(View.VISIBLE);
+		// } else {
+		// block_display_gou.setVisibility(View.GONE);
+		// }
 		// 接收此人消息
 		block_display_restore.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -246,10 +266,10 @@ public class BlockManagementDisplayActivity extends Activity {
 						handler.sendEmptyMessage(0);
 					} else {
 						int ErrorCode = res.getErrorCode().getNumber();
-						if (ErrorCode==2001) {
+						if (ErrorCode == 2001) {
 							handler.sendEmptyMessage(9);
-						}else {
-							handler.sendEmptyMessage(1);	
+						} else {
+							handler.sendEmptyMessage(1);
 						}
 					}
 				} else {
@@ -262,15 +282,14 @@ public class BlockManagementDisplayActivity extends Activity {
 			}
 		}
 	}
-	
-	
+
 	// 关闭界面
-				public void clearActivity() {
-					List<Activity> activityList = fxApplication.getActivityList();
-					for (int i = 0; i < activityList.size(); i++) {
-						activityList.get(i).finish();
-					}
-					fxApplication.setActivityList();
-				}
+	public void clearActivity() {
+		List<Activity> activityList = fxApplication.getActivityList();
+		for (int i = 0; i < activityList.size(); i++) {
+			activityList.get(i).finish();
+		}
+		fxApplication.setActivityList();
+	}
 
 }

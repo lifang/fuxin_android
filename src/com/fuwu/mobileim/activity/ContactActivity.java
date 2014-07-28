@@ -146,6 +146,25 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 						getActivity().finish();
 					}
 				}, 3500);
+				preferences
+						.edit()
+						.putInt("exit_user_id",
+								preferences.getInt("user_id", 0)).commit();
+				preferences
+						.edit()
+						.putString("exit_Token",
+								preferences.getString("Token", "null"))
+						.commit();
+				preferences
+						.edit()
+						.putString("exit_clientid",
+								preferences.getString("clientid", "")).commit();
+				preferences.edit().putInt("user_id", 0).commit();
+				preferences.edit().putString("Token", "null").commit();
+				preferences.edit().putString("pwd", "").commit();
+				preferences.edit().putString("clientid", "").commit();
+				preferences.edit().putString("profile_user", "").commit();
+				fxApplication.initData();
 				Toast.makeText(getActivity(), "您的账号已在其他手机登陆", Toast.LENGTH_LONG)
 						.show();
 				break;
@@ -159,8 +178,6 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 			Bundle savedInstanceState) {
 		rootView = inflater
 				.inflate(R.layout.contact_activity, container, false);
-		ViewGroup vg = (ViewGroup)rootView. findViewById(R.id.contact_layout_main);
-//		FuXunTools.changeFonts(vg, getActivity());
 		fxApplication = (FxApplication) getActivity().getApplication();
 		adapter2 = new ContactAdapter(getActivity(), contactsList);
 		db = new DBManager(getActivity());
@@ -181,9 +198,9 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 	public void onStart() {
 		super.onStart();
 		Log.i("Test", "onStart");
-//		if (buttonNumber == 0) {
-//			handler.sendEmptyMessage(0);
-//		}
+		// if (buttonNumber == 0) {
+		// handler.sendEmptyMessage(0);
+		// }
 		switchButton(buttonNumber);
 	}
 

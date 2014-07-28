@@ -36,11 +36,10 @@ import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
-import com.fuwu.mobileim.util.ImageCacheUtil;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CircularImage;
 
-public class BlockManagementActivity extends Activity  {
+public class BlockManagementActivity extends Activity {
 	private DBManager db;
 	private ProgressDialog prodialog;
 	private int index = -1;
@@ -100,12 +99,32 @@ public class BlockManagementActivity extends Activity  {
 				prodialog.dismiss();
 				new Handler().postDelayed(new Runnable() {
 					public void run() {
-						Intent intent = new Intent(BlockManagementActivity.this,
+						Intent intent = new Intent(
+								BlockManagementActivity.this,
 								LoginActivity.class);
 						startActivity(intent);
 						clearActivity();
 					}
 				}, 3500);
+				preferences
+						.edit()
+						.putInt("exit_user_id",
+								preferences.getInt("user_id", 0)).commit();
+				preferences
+						.edit()
+						.putString("exit_Token",
+								preferences.getString("Token", "null"))
+						.commit();
+				preferences
+						.edit()
+						.putString("exit_clientid",
+								preferences.getString("clientid", "")).commit();
+				preferences.edit().putInt("user_id", 0).commit();
+				preferences.edit().putString("Token", "null").commit();
+				preferences.edit().putString("pwd", "").commit();
+				preferences.edit().putString("clientid", "").commit();
+				preferences.edit().putString("profile_user", "").commit();
+				fxApplication.initData();
 				Toast.makeText(getApplicationContext(), "您的账号已在其他手机登陆",
 						Toast.LENGTH_LONG).show();
 				break;
@@ -116,9 +135,11 @@ public class BlockManagementActivity extends Activity  {
 	int user_id = -1;
 	String Token = "";
 	private FxApplication fxApplication;
+
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.block_management);
+
 		db = new DBManager(this);
 		fxApplication = (FxApplication) getApplication();
 		fxApplication.getActivityList().add(this);
@@ -135,21 +156,17 @@ public class BlockManagementActivity extends Activity  {
 		}
 
 		block_management_back = (ImageButton) findViewById(R.id.block_management_back);
-		block_management_back.setOnTouchListener(new View.OnTouchListener()
-		{
-		    @Override             
-		    public boolean onTouch(View v, MotionEvent event)
-		    {              
-		        if(event.getAction()==MotionEvent.ACTION_DOWN)
-		        {                
-		        	block_management_back.getBackground().setAlpha(70);//设置图片透明度0~255，0完全透明，255不透明                    imgButton.invalidate();             
-		        }              
-		        else if (event.getAction() == MotionEvent.ACTION_UP) 
-		        {                  
-		        	block_management_back.getBackground().setAlpha(255);//还原图片 
-		        }               
-		        return false;         
-		    }     
+		block_management_back.setOnTouchListener(new View.OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				if (event.getAction() == MotionEvent.ACTION_DOWN) {
+					block_management_back.getBackground().setAlpha(70);// 设置图片透明度0~255，0完全透明，255不透明
+																		// imgButton.invalidate();
+				} else if (event.getAction() == MotionEvent.ACTION_UP) {
+					block_management_back.getBackground().setAlpha(255);// 还原图片
+				}
+				return false;
+			}
 		});
 		mListView = (ListView) findViewById(R.id.block_management_listView);
 		mListView.setDivider(null);
@@ -194,10 +211,10 @@ public class BlockManagementActivity extends Activity  {
 						handler.sendEmptyMessage(0);
 					} else {
 						int ErrorCode = res.getErrorCode().getNumber();
-						if (ErrorCode==2001) {
+						if (ErrorCode == 2001) {
 							handler.sendEmptyMessage(9);
-						}else {
-							handler.sendEmptyMessage(1);	
+						} else {
+							handler.sendEmptyMessage(1);
 						}
 					}
 				} else {
@@ -255,15 +272,14 @@ public class BlockManagementActivity extends Activity  {
 			if (face_str != null && face_str.length() > 4) {
 				File f = new File(Urlinterface.head_pic, contact.getContactId()
 						+ "");
-				
+
 				if (f.exists()) {
 					Log.i("linshi------------", "加载本地图片");
-					head.setImageDrawable(new BitmapDrawable(
-							BitmapFactory.decodeFile(Urlinterface.head_pic
+					head.setImageDrawable(new BitmapDrawable(BitmapFactory
+							.decodeFile(Urlinterface.head_pic
 									+ contact.getContactId())));
 				} else {
-					FuXunTools.set_bk(contact.getContactId(), face_str,
-							head);
+					FuXunTools.set_bk(contact.getContactId(), face_str, head);
 				}
 			}
 			TextView name = (TextView) layout.findViewById(R.id.block_name);
@@ -274,7 +290,8 @@ public class BlockManagementActivity extends Activity  {
 			} else {
 				name.setText(contact.getName());
 			}
-			final Button restore = (Button) layout.findViewById(R.id.block_restore);
+			final Button restore = (Button) layout
+					.findViewById(R.id.block_restore);
 			restore.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
 					index = arg0;
@@ -291,23 +308,19 @@ public class BlockManagementActivity extends Activity  {
 					}
 				}
 			});
-			restore.setOnTouchListener(new View.OnTouchListener()
-			{
-			    @Override             
-			    public boolean onTouch(View v, MotionEvent event)
-			    {              
-			        if(event.getAction()==MotionEvent.ACTION_DOWN)
-			        {                
-			        	restore.getBackground().setAlpha(70);//设置图片透明度0~255，0完全透明，255不透明                    imgButton.invalidate();             
-			        	restore.setTextColor(Color.GRAY);
-			        }              
-			        else if (event.getAction() == MotionEvent.ACTION_UP) 
-			        {                  
-			        	restore.getBackground().setAlpha(255);//还原图片 
-			        	restore.setTextColor(Color.BLACK);
-			        }               
-			        return false;         
-			    }     
+			restore.setOnTouchListener(new View.OnTouchListener() {
+				@Override
+				public boolean onTouch(View v, MotionEvent event) {
+					if (event.getAction() == MotionEvent.ACTION_DOWN) {
+						restore.getBackground().setAlpha(70);// 设置图片透明度0~255，0完全透明，255不透明
+																// imgButton.invalidate();
+						restore.setTextColor(Color.GRAY);
+					} else if (event.getAction() == MotionEvent.ACTION_UP) {
+						restore.getBackground().setAlpha(255);// 还原图片
+						restore.setTextColor(Color.BLACK);
+					}
+					return false;
+				}
 			});
 			layout.setOnClickListener(new View.OnClickListener() {
 
@@ -324,8 +337,6 @@ public class BlockManagementActivity extends Activity  {
 		}
 	}
 
-	
-	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -343,13 +354,12 @@ public class BlockManagementActivity extends Activity  {
 	}
 
 	// 关闭界面
-			public void clearActivity() {
-				List<Activity> activityList = fxApplication.getActivityList();
-				for (int i = 0; i < activityList.size(); i++) {
-					activityList.get(i).finish();
-				}
-				fxApplication.setActivityList();
-			}
-
+	public void clearActivity() {
+		List<Activity> activityList = fxApplication.getActivityList();
+		for (int i = 0; i < activityList.size(); i++) {
+			activityList.get(i).finish();
+		}
+		fxApplication.setActivityList();
+	}
 
 }

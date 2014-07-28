@@ -39,7 +39,7 @@
                 android:text=""
                  android:layout_gravity="center_vertical"
                 android:textColor="#333333"
-                android:textSize="17sp" />
+                android:textSize="18sp" />
 
         </RelativeLayout>
     </RelativeLayout>
@@ -56,6 +56,6 @@
         android:layout_height="50dp"
         android:background="@drawable/button_bottom_shape"
         android:text="@string/receive_mess"
-        android:textSize="17sp" />
+        android:textSize="18sp" />
 
 </LinearLayout>

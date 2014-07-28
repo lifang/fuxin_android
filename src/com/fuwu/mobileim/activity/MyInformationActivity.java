@@ -128,6 +128,25 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 						clearActivity();
 					}
 				}, 3500);
+				preferences
+						.edit()
+						.putInt("exit_user_id",
+								preferences.getInt("user_id", 0)).commit();
+				preferences
+						.edit()
+						.putString("exit_Token",
+								preferences.getString("Token", "null"))
+						.commit();
+				preferences
+						.edit()
+						.putString("exit_clientid",
+								preferences.getString("clientid", "")).commit();
+				preferences.edit().putInt("user_id", 0).commit();
+				preferences.edit().putString("Token", "null").commit();
+				preferences.edit().putString("pwd", "").commit();
+				preferences.edit().putString("clientid", "").commit();
+				preferences.edit().putString("profile_user", "").commit();
+				fxApplication.initData();
 				Toast.makeText(getApplicationContext(), "您的账号已在其他手机登陆",
 						Toast.LENGTH_LONG).show();
 				break;
@@ -146,6 +165,12 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 				Context.MODE_PRIVATE);
 		fxApplication = (FxApplication) getApplication();
 		fxApplication.getActivityList().add(this);
+		myinfo_userface = (ImageView) findViewById(R.id.myinfo_userface);// 头像
+		Drawable drawable = getResources().getDrawable(R.drawable.moren);
+		BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+		Bitmap bitmap = bitmapDrawable.getBitmap();
+		myinfo_userface.setImageDrawable(new BitmapDrawable(FuXunTools
+				.createRoundConerImage(bitmap)));
 		if (fxApplication.getUser_exit()) {
 			profilePojo = getProfilePojo();// 获得本地中的个人信息
 			init();
@@ -278,26 +303,20 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 			findViewById(R.id.myinfo_fuzhi_layout).setVisibility(View.VISIBLE);
 			findViewById(R.id.myinfo_gerenjianjie_layout).setVisibility(
 					View.VISIBLE);
-			// if (profilePojo.getLicenses().size()!=0) { // 福师认证了行业
-			//
-			// }else { // 福师未认证行业
-			// findViewById(R.id.personal_info_relativeLayout2)
-			// .setBackgroundResource(R.drawable.unauthorized_bg);
-			// }
 
-			if (profilePojo.getLisence().length() > 0) { // 福师认证了行业
-				FuXunTools.setIdentity_bg(
-						findViewById(R.id.personal_info_relativeLayout2),
-						profilePojo.getLisence());
-				
+			if (profilePojo.getLicenses().size()!=0) { // 福师认证了行业
+//				FuXunTools.setIdentity_bg(
+//						findViewById(R.id.personal_info_relativeLayout2),
+//						profilePojo.getLisence());
+
 				// 行业认证图标
-				List imageviewList = new ArrayList<View>();
+				List imageviewList = new ArrayList<ImageView>();
 				for (int i = 0; i < FuXunTools.image_id.length; i++) {
 					imageviewList.add(findViewById(FuXunTools.image_id[i]));
 				}
-				FuXunTools.setItem_bg((ArrayList<View>) imageviewList, profilePojo.getLisence());
-				
- 				
+				FuXunTools.setItem_bg( (ArrayList<ImageView>) imageviewList,
+						profilePojo.getLicenses());
+
 			} else { // 福师未认证行业
 				findViewById(R.id.personal_info_relativeLayout2)
 						.setBackgroundResource(R.drawable.unauthorized_bg);

@@ -19,7 +19,7 @@
             android:layout_gravity="center"
             android:textColor="@color/white"
             android:background="@drawable/left_shape_red"
-            android:textSize="17dp" 
+            android:textSize="16sp" 
             android:layout_marginLeft="1dp"
             android:text="@string/button_recently" />
 
@@ -38,7 +38,7 @@
             android:layout_gravity="center_vertical"
             android:textColor="@color/red_block"
             android:background="@drawable/middle_shape_white"
-            android:textSize="17dp" 
+            android:textSize="16sp" 
             android:text="@string/button_trading" />
 
         <Button
@@ -55,7 +55,7 @@
             android:layout_gravity="center_vertical"
             android:textColor="@color/red_block"
             android:background="@drawable/right_shape_white"
-            android:textSize="17dp" 
+            android:textSize="16sp" 
             android:text="@string/button_subscription" />
     </LinearLayout>
 

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/modify_nickname_act"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/white"
@@ -49,9 +49,9 @@
             android:id="@+id/tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="备注名："
+            android:text="昵称："
             android:textColor="@color/text_color"
-            android:textSize="20sp" />
+            android:textSize="19sp" />
 
         <ImageView
             android:id="@+id/input_empty"
@@ -67,10 +67,11 @@
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/input_empty"
             android:layout_toRightOf="@+id/tv"
+            android:layout_marginRight="5dp"
             android:background="@null"
             android:maxLength="32"
             android:singleLine="true"
-            android:textSize="20sp" >
+            android:textSize="19sp" >
         </EditText>
     </RelativeLayout>
 
