@@ -27,6 +27,7 @@ public class ContactPojo {
     private String fuzhi;
     private String location;
     private List<License> licenses;
+    private String backgroundUrl ; //  个人详情背景
 	public ContactPojo() {
 	}
 	
@@ -95,6 +96,42 @@ public class ContactPojo {
 		this.fuzhi = fuzhi;
 		this.location = location;
 		this.licenses = licenses;
+	}
+
+
+	
+	public ContactPojo(int contactId, String sortKey, String name,
+			String customName, String userface_url, int sex, int source,
+			String lastContactTime, int isBlocked, int isProvider,
+			String lisence, String individualResume, String fuzhi,
+			String location, List<License> licenses, String backgroundUrl) {
+		super();
+		this.contactId = contactId;
+		this.sortKey = sortKey;
+		this.name = name;
+		this.customName = customName;
+		this.userface_url = userface_url;
+		this.sex = sex;
+		this.source = source;
+		this.lastContactTime = lastContactTime;
+		this.isBlocked = isBlocked;
+		this.isProvider = isProvider;
+		this.lisence = lisence;
+		this.individualResume = individualResume;
+		this.fuzhi = fuzhi;
+		this.location = location;
+		this.licenses = licenses;
+		this.backgroundUrl = backgroundUrl;
+	}
+
+
+	public String getBackgroundUrl() {
+		return backgroundUrl;
+	}
+
+
+	public void setBackgroundUrl(String backgroundUrl) {
+		this.backgroundUrl = backgroundUrl;
 	}
 
 

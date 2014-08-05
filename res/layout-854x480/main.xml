@@ -110,10 +110,10 @@
                 android:orientation="horizontal" >
 
                  <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="center"
+                    android:gravity="right"
                     android:orientation="horizontal" >
 
                     <TextView
@@ -123,22 +123,22 @@
                         android:gravity="center"
                         android:text="@string/talk"
                         android:textColor="@color/red_block"
-                        android:textSize="17dp" />
+                        android:textSize="17sp" />
 
                     <LinearLayout
                         android:id="@+id/main_countLinear"
                         android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:layout_marginLeft="2dp"
-                        android:background="@drawable/yuan"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="15dp"
                         android:gravity="center"
-                        android:visibility="gone" >
+                        android:visibility="invisible" >
 
                         <TextView
                             android:id="@+id/main_count"
                             android:layout_width="fill_parent"
                             android:layout_height="fill_parent"
                             android:gravity="center"
+                            android:background="@drawable/yuan"
                             android:textColor="@color/white"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -146,7 +146,7 @@
 
                 <TextView
                     android:id="@+id/menu_address_book"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="30dp"
                     android:layout_weight="1"
                     android:gravity="center"
@@ -156,7 +156,7 @@
 
                 <TextView
                     android:id="@+id/menu_settings"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="30dp"
                     android:layout_weight="1"
                     android:gravity="center"

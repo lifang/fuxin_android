@@ -94,25 +94,7 @@ public class OpenInputMethod extends Activity implements OnTouchListener {
 						clearActivity();
 					}
 				}, 3500);
-				preferences
-						.edit()
-						.putInt("exit_user_id",
-								preferences.getInt("user_id", 0)).commit();
-				preferences
-						.edit()
-						.putString("exit_Token",
-								preferences.getString("Token", "null"))
-						.commit();
-				preferences
-						.edit()
-						.putString("exit_clientid",
-								preferences.getString("clientid", "")).commit();
-				preferences.edit().putInt("user_id", 0).commit();
-				preferences.edit().putString("Token", "null").commit();
-				preferences.edit().putString("pwd", "").commit();
-				preferences.edit().putString("clientid", "").commit();
-				preferences.edit().putString("profile_user", "").commit();
-				fxApplication.initData();
+				FuXunTools.initdate(preferences, fxApplication);
 				Toast.makeText(getApplicationContext(), "您的账号已在其他手机登陆",
 						Toast.LENGTH_LONG).show();
 				break;
@@ -279,28 +261,10 @@ public class OpenInputMethod extends Activity implements OnTouchListener {
 
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			// spf.edit().putString("Token", "null").commit();
-			Dialog dialog = new AlertDialog.Builder(OpenInputMethod.this)
-					.setTitle("提示")
-					.setMessage("您确认要退出应用么?")
-					.setPositiveButton("确认",
-							new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which) {
-									clearActivity();
-								}
-							})
-					.setNegativeButton("取消",
-							new DialogInterface.OnClickListener() {
-
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which) {
-									dialog.dismiss();
-								}
-							}).create();
-			dialog.show();
+			Intent intent2 = new Intent();
+			intent2.putExtra("customName", customName);
+			OpenInputMethod.this.setResult(-11, intent2);
+			OpenInputMethod.this.finish();
 
 			return true;
 		}

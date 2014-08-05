@@ -17,6 +17,10 @@ public class TimeUtil {
 		SimpleDateFormat format = new SimpleDateFormat("HH:mm");
 		return format.format(new Date(time));
 	}
+	public static String getYearMonthDay(long time) {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		return format.format(new Date(time));
+	}
 
 	public static String getTodayTime(long time) {
 		SimpleDateFormat sdf = new SimpleDateFormat("HH");
@@ -84,6 +88,45 @@ public class TimeUtil {
 		return result;
 	}
 
+	public static String getTalkTime(String date) {
+		String result = "";
+		try {
+			SimpleDateFormat format = new SimpleDateFormat(
+					"yyyy-MM-dd HH:mm:ss");
+			Date today = new Date(System.currentTimeMillis());
+			Date sendDay = format.parse(date);
+			int temp = (int) ((today.getTime() - sendDay.getTime()) / 86400000);
+
+			if (sendDay.getTime() <= 0) {
+				return "未知";
+			}
+			if (temp <= 1) {
+				SimpleDateFormat sdf = new SimpleDateFormat("dd");
+				int day = Integer.parseInt(sdf.format(today))
+						- Integer.parseInt(sdf.format(sendDay));
+				if (day == 1) {
+					return "昨天";
+				} else if (day == 2) {
+					return getWeekOfDate(sendDay.getTime());
+				}else if (day == 0) {
+					return getTodayTime(sendDay.getTime()) + ""
+							+ getHourAndMin(sendDay.getTime());
+				}
+			}
+			if (temp > 7) {
+				result = getYearMonthDay(sendDay.getTime());
+			} else if (temp > 1) {
+				result = getWeekOfDate(sendDay.getTime());
+			} else if (temp == 1) {
+				result = "昨天";
+			} else {
+				result = getTodayTime(sendDay.getTime()) + ""
+						+ getHourAndMin(sendDay.getTime());
+			}
+		} catch (ParseException e) {
+		}
+		return result;
+	}
 	public static String getCurrentTime() {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		return format.format(new Date(System.currentTimeMillis()));

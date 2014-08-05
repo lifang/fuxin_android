@@ -60,8 +60,9 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 	private TextView myinfo_mobile, myinfo_email, myinfo_birthday,
 			myinfo_fuzhi, myinfo_location, myinfo_sign, myinfo_nickname,
 			myinfo_name;
-	String uri;
-	Bitmap bm = null;
+	private String uri;
+	private View personal_info_relativeLayout2; // 背景
+	private Bitmap bm = null;
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
@@ -103,8 +104,8 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 				break;
 			case 2:
 				prodialog.dismiss();
-				fxApplication.setUser_exit(true);
-				putProfile(profilePojo);
+				fxApplication.setUser_exist(true);
+				FuXunTools.putProfile(profilePojo,preferences,fxApplication);
 				init();
 				break;
 			case 6:
@@ -128,25 +129,7 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 						clearActivity();
 					}
 				}, 3500);
-				preferences
-						.edit()
-						.putInt("exit_user_id",
-								preferences.getInt("user_id", 0)).commit();
-				preferences
-						.edit()
-						.putString("exit_Token",
-								preferences.getString("Token", "null"))
-						.commit();
-				preferences
-						.edit()
-						.putString("exit_clientid",
-								preferences.getString("clientid", "")).commit();
-				preferences.edit().putInt("user_id", 0).commit();
-				preferences.edit().putString("Token", "null").commit();
-				preferences.edit().putString("pwd", "").commit();
-				preferences.edit().putString("clientid", "").commit();
-				preferences.edit().putString("profile_user", "").commit();
-				fxApplication.initData();
+				FuXunTools.initdate(preferences, fxApplication);
 				Toast.makeText(getApplicationContext(), "您的账号已在其他手机登陆",
 						Toast.LENGTH_LONG).show();
 				break;
@@ -171,8 +154,8 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 		Bitmap bitmap = bitmapDrawable.getBitmap();
 		myinfo_userface.setImageDrawable(new BitmapDrawable(FuXunTools
 				.createRoundConerImage(bitmap)));
-		if (fxApplication.getUser_exit()) {
-			profilePojo = getProfilePojo();// 获得本地中的个人信息
+		if (fxApplication.getUser_exist()) {
+			profilePojo = FuXunTools.getProfilePojo(preferences, fxApplication);// 获得本地中的个人信息
 			init();
 		} else {
 			if (FuXunTools.isConnect(this)) {
@@ -206,6 +189,8 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 		myinfo_location = (TextView) findViewById(R.id.myinfo_location); // 所在地
 		myinfo_userface.setOnClickListener(listener);
 		myinfo_modifynickname.setOnClickListener(listener3);
+		personal_info_relativeLayout2 = findViewById(R.id.personal_info_relativeLayout2);
+
 		// 设置头像
 		String face_str = profilePojo.getTileUrl();
 		Log.i("linshi1", "修改前----" + face_str);
@@ -304,29 +289,49 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 			findViewById(R.id.myinfo_gerenjianjie_layout).setVisibility(
 					View.VISIBLE);
 
-			if (profilePojo.getLicenses().size()!=0) { // 福师认证了行业
-//				FuXunTools.setIdentity_bg(
-//						findViewById(R.id.personal_info_relativeLayout2),
-//						profilePojo.getLisence());
-
+			if (profilePojo.getLicenses().size() != 0) { // 福师认证了行业
 				// 行业认证图标
 				List imageviewList = new ArrayList<ImageView>();
 				for (int i = 0; i < FuXunTools.image_id.length; i++) {
 					imageviewList.add(findViewById(FuXunTools.image_id[i]));
 				}
-				FuXunTools.setItem_bg( (ArrayList<ImageView>) imageviewList,
+				FuXunTools.setItem_bg((ArrayList<ImageView>) imageviewList,
 						profilePojo.getLicenses());
-
-			} else { // 福师未认证行业
-				findViewById(R.id.personal_info_relativeLayout2)
-						.setBackgroundResource(R.drawable.unauthorized_bg);
 			}
+		}
 
+		// 设置背景
+		String backgroundUrl = profilePojo.getBackgroundUrl();
+		String backgroundUrl_filename = backgroundUrl.substring(
+				backgroundUrl.lastIndexOf("/") + 1, backgroundUrl.length());
+		backgroundUrl_filename = backgroundUrl_filename.substring(0,
+				backgroundUrl_filename.indexOf(".")) + ".jpg";
+		if (backgroundUrl != null && backgroundUrl.length() > 4) {
+			File f = new File(Urlinterface.head_pic, backgroundUrl_filename
+					+ "");
+			if (f.exists()) {
+				personal_info_relativeLayout2
+						.setBackgroundDrawable(new BitmapDrawable(BitmapFactory
+								.decodeFile(Urlinterface.head_pic
+										+ backgroundUrl_filename)));
+
+			} else {
+				int provider = 0;
+				if (profilePojo.getIsProvider()) { // 福师
+					provider = 1;
+				}
+				FuXunTools.set_view_bk(provider, backgroundUrl_filename,
+						backgroundUrl, personal_info_relativeLayout2);
+			}
 		} else {
-			// 设置福客 背景
-			findViewById(R.id.personal_info_relativeLayout2)
-					.setBackgroundResource(R.drawable.fuke_bg);
-
+			if (profilePojo.getIsProvider()) { // 福师
+				// 福师未认证行业
+				personal_info_relativeLayout2
+						.setBackgroundResource(R.drawable.unauthorized_bg);
+			} else { // 设置福客 背景
+				findViewById(R.id.personal_info_relativeLayout2)
+						.setBackgroundResource(R.drawable.fuke_bg);
+			}
 		}
 	}
 
@@ -372,7 +377,7 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 						Log.i("linshi1", "修改后---"
 								+ res.getProfile().getTileUrl());
 						profilePojo.setTileUrl(res.getProfile().getTileUrl());
-						putProfile(profilePojo);
+						FuXunTools.putProfile(profilePojo,preferences,fxApplication);
 						handler.sendEmptyMessage(0);
 					} else {
 						int ErrorCode = res.getErrorCode().getNumber();
@@ -445,7 +450,8 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 			String nickName = bundle.getString("nickName");
 			if (nickName != null && !nickName.equals(profilePojo.getNickName())) {
 				profilePojo.setNickName(nickName);
-				putProfile(profilePojo);
+				// putProfile(profilePojo);
+				FuXunTools.putProfile(profilePojo, preferences, fxApplication);
 				init();
 			}
 			break;
@@ -457,57 +463,7 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 
 	}
 
-	/**
-	 * 获得本地存储的 个人信息
-	 */
-	private ProfilePojo getProfilePojo() {
 
-		SharedPreferences preferences = getSharedPreferences(
-				Urlinterface.SHARED, Context.MODE_PRIVATE);
-
-		int profile_userid = preferences.getInt("profile_userid", -1);
-		String name = preferences.getString("profile_name", "");// 名称
-		String nickName = preferences.getString("profile_nickName", "");// 昵称
-		int gender = preferences.getInt("profile_gender", -1);// 性别
-		String tileUrl = preferences.getString("profile_tileUrl", "");// 头像
-		Boolean isProvider = preferences
-				.getBoolean("profile_isProvider", false);//
-		String lisence = preferences.getString("profile_lisence", "");// 行业认证
-		String mobile = preferences.getString("profile_mobile", "");// 手机号码
-		String email = preferences.getString("profile_email", "");// 邮箱
-		String birthday = preferences.getString("profile_birthday", "");// 生日
-		Boolean isAuthentication = preferences.getBoolean(
-				"profile_isAuthentication", false);// 实名认证
-		String fuzhi = preferences.getString("profile_fuZhi", "");// 福指
-		String location = preferences.getString("profile_location", "");// 所在地
-		String description = preferences.getString("profile_description", "");// 福师简介
-		profilePojo = new ProfilePojo(profile_userid, name, nickName, gender,
-				tileUrl, isProvider, lisence, mobile, email, birthday,
-				isAuthentication, fuzhi, location, description);
-		return profilePojo;
-	}
-
-	private void putProfile(ProfilePojo pro) {
-		SharedPreferences preferences = getSharedPreferences(
-				Urlinterface.SHARED, Context.MODE_PRIVATE);
-		Editor editor = preferences.edit();
-		editor.putInt("profile_userid", pro.getUserId());
-		editor.putString("profile_name", pro.getName());
-		editor.putString("profile_nickName", pro.getNickName());
-		editor.putInt("profile_gender", pro.getGender());
-		editor.putString("profile_tileUrl", pro.getTileUrl());
-		editor.putBoolean("profile_isProvider", pro.getIsProvider());
-		editor.putString("profile_lisence", pro.getLisence());
-		editor.putString("profile_mobile", pro.getMobile());
-		editor.putString("profile_email", pro.getEmail());
-		editor.putString("profile_birthday", pro.getBirthday());
-		editor.putBoolean("profile_isAuthentication", pro.getIsAuthentication());
-		editor.putString("profile_fuZhi", pro.getFuZhi());
-		editor.putString("profile_location", pro.getLocation());
-		editor.putString("profile_description", pro.getDescription());
-		editor.commit();
-
-	}
 
 	/**
 	 * 
@@ -549,10 +505,12 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 						String description = res.getProfile().getDescription();// 福师简介
 						List<License> license = res.getProfile()
 								.getLicensesList();
+						String backgroundUrl = res.getProfile()
+								.getBackgroundUrl();
 						profilePojo = new ProfilePojo(userId, name, nickName,
 								gender, tileUrl, isProvider, lisence, mobile,
 								email, birthday, isAuthentication, fuzhi,
-								location, description, license);
+								location, description, license, backgroundUrl);
 						Log.i("linshi", "  --nickName" + nickName
 								+ "  --gender" + gender + "  --tileUrl"
 								+ tileUrl + "  --lisence" + lisence
@@ -601,30 +559,10 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			// spf.edit().putString("Token", "null").commit();
-			Dialog dialog = new AlertDialog.Builder(MyInformationActivity.this)
-					.setTitle("提示")
-					.setMessage("您确认要退出应用么?")
-					.setPositiveButton("确认",
-							new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which) {
 
-									clearActivity();
-								}
-							})
-					.setNegativeButton("取消",
-							new DialogInterface.OnClickListener() {
-
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which) {
-									dialog.dismiss();
-								}
-							}).create();
-			dialog.show();
-
+			Intent intent2 = new Intent();
+			MyInformationActivity.this.setResult(-11, intent2);
+			MyInformationActivity.this.finish();
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);

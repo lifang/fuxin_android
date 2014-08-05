@@ -133,20 +133,7 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 						clearActivity();
 					}
 				}, 3500);
-				spf.edit().putInt("exit_user_id", spf.getInt("user_id", 0))
-						.commit();
-				spf.edit()
-						.putString("exit_Token", spf.getString("Token", "null"))
-						.commit();
-				spf.edit()
-						.putString("exit_clientid",
-								spf.getString("clientid", "")).commit();
-				spf.edit().putInt("user_id", 0).commit();
-				spf.edit().putString("Token", "null").commit();
-				spf.edit().putString("pwd", "").commit();
-				spf.edit().putString("clientid", "").commit();
-				spf.edit().putString("profile_user", "").commit();
-				fx.initData();
+				FuXunTools.initdate(spf, fx);
 				Toast.makeText(getApplicationContext(), "您的账号已在其他手机登陆",
 						Toast.LENGTH_LONG).show();
 				break;

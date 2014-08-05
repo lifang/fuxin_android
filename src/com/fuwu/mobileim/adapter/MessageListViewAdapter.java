@@ -1,5 +1,6 @@
 package com.fuwu.mobileim.adapter;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -11,6 +12,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Handler;
 import android.os.Message;
 import android.text.SpannableString;
@@ -58,7 +60,7 @@ import com.fuwu.mobileim.view.MyDialog;
  * @时间 2014-5-16 上午10:48:52
  */
 public class MessageListViewAdapter extends BaseAdapter {
-
+	public String time_sign; //  时间标志
 	public String customName;
 	private int user_id;
 	private String token;
@@ -73,6 +75,7 @@ public class MessageListViewAdapter extends BaseAdapter {
 	private TextView rem;
 	private EditText remInfo;
 	private Button ok;
+	private File f;
 	private ProgressDialog pd;
 	private Handler handler = new Handler() {
 		@Override
@@ -155,13 +158,17 @@ public class MessageListViewAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		final MessagePojo mp = list.get(position);
+		if (position==0) {
+			time_sign = "";
+		}
+		
 		ViewHolder holder = null;
 		if (convertView == null
 				|| convertView.getTag(R.drawable.ic_launcher + position) == null) {
 			holder = new ViewHolder();
-			if (mp.getIsComMeg() == 0) {
+			if (mp.getIsComMeg() == 0) {  //  别人发的消息
 				convertView = mInflater.inflate(R.layout.chat_item_left, null);
-			} else {
+			} else {//  自己发的消息
 				convertView = mInflater.inflate(R.layout.chat_item_right, null);
 				holder.load = (ProgressBar) convertView
 						.findViewById(R.id.loadingcircle);
@@ -181,16 +188,29 @@ public class MessageListViewAdapter extends BaseAdapter {
 					+ position);
 		}
 
-		if (mp.getSendTime() != null && !mp.getSendTime().equals("")) {
-			holder.time.setText(TimeUtil.getChatTime(mp.getSendTime()));
-			holder.time.setVisibility(View.VISIBLE);
+//		if (mp.getSendTime() != null && !mp.getSendTime().equals("")) {
+//			holder.time.setText(TimeUtil.getChatTime(mp.getSendTime()));
+//			holder.time.setVisibility(View.VISIBLE);
+//		}
+		holder.time.setText(TimeUtil.getChatTime(mp.getSendTime()));
+		if (!TimeUtil.isFiveMin(time_sign, mp.getSendTime())) {
+			holder.time.setVisibility(View.GONE);
+			
+		}else {
+			time_sign = mp.getSendTime();	
 		}
 		if (mp.getIsComMeg() == 0) {
-			holder.img.setTag(Urlinterface.head_pic + cp.getContactId());
-			if (!ImageCacheUtil.IMAGE_CACHE.get(
-					Urlinterface.head_pic + cp.getContactId(), holder.img)) {
-				holder.img.setImageDrawable(null);
+			f = new File(Urlinterface.head_pic, cp.getContactId() + "");
+			if (f.exists()) {
+				holder.img.setTag(Urlinterface.head_pic + cp.getContactId());
+				if (!ImageCacheUtil.IMAGE_CACHE.get(
+						Urlinterface.head_pic + cp.getContactId(), holder.img)) {
+					holder.img.setImageDrawable(null);
+				}
+			} else {
+				holder.img.setImageResource(R.drawable.moren);
 			}
+
 			// ImageCacheUtil.IMAGE_CACHE.get(
 			// Urlinterface.head_pic + cp.getContactId(), holder.img);
 			holder.img.setOnClickListener(new OnClickListener() {
@@ -207,11 +227,23 @@ public class MessageListViewAdapter extends BaseAdapter {
 			} else if (mp.getStatus() == 2) {
 				holder.load.setVisibility(View.GONE);
 				holder.sendFail.setVisibility(View.VISIBLE);
+				holder.sendFail.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						v.setVisibility(View.GONE);
+					}
+				});
 			}
-			holder.img.setTag(Urlinterface.head_pic + user_id);
-			if (!ImageCacheUtil.IMAGE_CACHE.get(
-					Urlinterface.head_pic + user_id, holder.img)) {
-				holder.img.setImageDrawable(null);
+
+			f = new File(Urlinterface.head_pic, user_id + "");
+			if (f.exists()) {
+				holder.img.setTag(Urlinterface.head_pic + user_id);
+				if (!ImageCacheUtil.IMAGE_CACHE.get(
+						Urlinterface.head_pic + user_id, holder.img)) {
+					holder.img.setImageDrawable(null);
+				}
+			} else {
+				holder.img.setImageResource(R.drawable.moren);
 			}
 			// ImageCacheUtil.IMAGE_CACHE.get(Urlinterface.head_pic + user_id,
 			// holder.img);
@@ -355,69 +387,7 @@ public class MessageListViewAdapter extends BaseAdapter {
 		}
 	}
 
-	class GetContactDetail extends Thread {
-		public void run() {
-			try {
-				ContactDetailRequest.Builder builder = ContactDetailRequest
-						.newBuilder();
-				builder.setUserId(user_id);
-				builder.setContactId(cp.getContactId());
-				builder.setToken(token);
-				ContactDetailRequest response = builder.build();
-				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
-						Urlinterface.ContactDetail, "POST");
-				if (by != null && by.length > 0) {
-					ContactDetailResponse res = ContactDetailResponse
-							.parseFrom(by);
-					if (res.getIsSucceed()) {
-						Contact contact = res.getContact();
-						int contactId = contact.getContactId();
-						String name = contact.getName();
-						String customName = contact.getCustomName();
-						String sortKey = "";
-						if (customName != null && customName.length() > 0) {
-							sortKey = FuXunTools.findSortKey(customName);
-						} else {
-							sortKey = FuXunTools.findSortKey(name);
-						}
-						String userface_url = contact.getTileUrl();
-						int sex = contact.getGender().getNumber();
-						int source = contact.getSource();
-						String lastContactTime = contact.getLastContactTime();
-						boolean isblocked = contact.getIsBlocked();
-						boolean isprovider = contact.getIsProvider();
-						int isBlocked = -1, isProvider = -1;
-						if (isblocked == true) {
-							isBlocked = 1;
-						} else if (isblocked == false) {
-							isBlocked = 0;
-						}
-						if (isprovider == true) {
-							isProvider = 1;
-						} else if (isprovider == false) {
-							isProvider = 0;
-						}
-						String lisence = contact.getLisence();
-						String individualResume = contact.getIndividualResume();
-						String fuzhi = contact.getFuzhi();
-						contactDetail = new ContactPojo(contactId, sortKey,
-								name, customName, userface_url, sex, source,
-								lastContactTime, isBlocked, isProvider,
-								lisence, individualResume);
-						contactDetail.setFuzhi(fuzhi);
-						ContactCache.cp = contactDetail;
-						handler.sendEmptyMessage(3);
-						Log.i("FuWu", "contact:" + contactDetail.toString());
-					} else {
-						handler.sendEmptyMessage(4);
-					}
-				} else {
-					handler.sendEmptyMessage(4);
-				}
-			} catch (Exception e) {
-			}
-		}
-	}
+
 
 	private CharSequence convertNormalStringToSpannableString(String message) {
 		String hackTxt;

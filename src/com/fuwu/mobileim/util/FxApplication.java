@@ -1,5 +1,6 @@
 package com.fuwu.mobileim.util;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -11,6 +12,8 @@ import android.app.Activity;
 import android.app.Application;
 
 import com.fuwu.mobileim.R;
+import com.fuwu.mobileim.model.Models.License;
+import com.fuwu.mobileim.pojo.MessagePojo;
 import com.fuwu.mobileim.pojo.ProfilePojo;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
@@ -34,15 +37,17 @@ public class FxApplication extends Application {
 	private List<Activity> activityList = new LinkedList<Activity>();
 	private int width = 0; // 屏幕宽度
 	private int height = 0; // 屏幕宽度
-	private boolean user_exit = false;
+	private boolean user_exist = false;
+	private List<License> licenses=null;
 	public synchronized static FxApplication getInstance() {
 		return mApplication;
 	}
 
 	public void initData() {
-		user_exit = false;
+		user_exist = false;
 		profilePojo = new ProfilePojo();
 	}
+
 
 	public FxApplication() {
 	}
@@ -82,12 +87,20 @@ public class FxApplication extends Application {
 		initFaceMap();
 	}
 
-	public boolean getUser_exit() {
-		return user_exit;
+	public List<License> getLicenses() {
+		return licenses;
 	}
 
-	public void setUser_exit(boolean user_exit) {
-		this.user_exit = user_exit;
+	public void setLicenses(List<License> licenses) {
+		this.licenses = licenses;
+	}
+
+	public boolean getUser_exist() {
+		return user_exist;
+	}
+
+	public void setUser_exist(boolean user_exist) {
+		this.user_exist = user_exist;
 	}
 
 	public int getWidth() {

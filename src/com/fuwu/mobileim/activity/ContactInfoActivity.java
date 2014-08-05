@@ -64,6 +64,7 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 		OnTouchListener {
 	private TextView name, sign, fuzhi, sex, location;
 	private ImageView img;
+	private View personal_info_relativeLayout2; // 背景
 	private ContactPojo cp = null;
 	private int user_id;
 	private int contact_id;
@@ -100,11 +101,6 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 							.getCurrentFocus().getWindowToken(),
 							InputMethodManager.HIDE_NOT_ALWAYS);
 				}
-				// info_ok.setClickable(false);
-				// info_ok.setTextColor(getResources().getColor(
-				// R.color.system_textColor2));
-				// String str = rem.getText().toString();
-				// db.updateContactRem(user_id, cp.getContactId(), str);
 				Toast.makeText(getApplicationContext(), "修改备注成功!", 0).show();
 				break;
 			case 4:
@@ -159,25 +155,7 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 						clearActivity();
 					}
 				}, 3500);
-				preferences
-						.edit()
-						.putInt("exit_user_id",
-								preferences.getInt("user_id", 0)).commit();
-				preferences
-						.edit()
-						.putString("exit_Token",
-								preferences.getString("Token", "null"))
-						.commit();
-				preferences
-						.edit()
-						.putString("exit_clientid",
-								preferences.getString("clientid", "")).commit();
-				preferences.edit().putInt("user_id", 0).commit();
-				preferences.edit().putString("Token", "null").commit();
-				preferences.edit().putString("pwd", "").commit();
-				preferences.edit().putString("clientid", "").commit();
-				preferences.edit().putString("profile_user", "").commit();
-				fxApplication.initData();
+				FuXunTools.initdate(preferences, fxApplication);
 				Toast.makeText(getApplicationContext(), "您的账号已在其他手机登陆",
 						Toast.LENGTH_LONG).show();
 				break;
@@ -221,6 +199,7 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 		findViewById(R.id.contact_info_back).setOnClickListener(this);
 		findViewById(R.id.contact_info_back).setOnTouchListener(this);
 		findViewById(R.id.chat_other).setOnTouchListener(this);
+		personal_info_relativeLayout2 = findViewById(R.id.personal_info_relativeLayout2);
 		name = (TextView) findViewById(R.id.info_name);
 		mOther = (ImageView) findViewById(R.id.chat_other);
 		mOther.setOnTouchListener(this);
@@ -320,29 +299,50 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 			findViewById(R.id.personal_info_hangye).setVisibility(View.VISIBLE);
 
 			String lis = cp.getLisence();
-			if (cp.getLicenses().size()!=0) { // 福师认证了行业
+			if (cp.getLicenses().size() != 0) { // 福师认证了行业
 
-//				FuXunTools.setIdentity_bg(
-//						findViewById(R.id.personal_info_relativeLayout2), lis);
 				// 行业认证图标
 				List imageviewList = new ArrayList<ImageView>();
 				for (int i = 0; i < FuXunTools.image_id.length; i++) {
 					imageviewList.add(findViewById(FuXunTools.image_id[i]));
 				}
-				FuXunTools.setItem_bg( (ArrayList<ImageView>) imageviewList, cp.getLicenses());
+				FuXunTools.setItem_bg((ArrayList<ImageView>) imageviewList,
+						cp.getLicenses());
 
-			} else { // 福师未认证行业
-				findViewById(R.id.personal_info_relativeLayout2)
-						.setBackgroundResource(R.drawable.unauthorized_bg);
-				// img.
 			}
-
-		} else {
-			// 设置福客 背景
-			findViewById(R.id.personal_info_relativeLayout2)
-					.setBackgroundResource(R.drawable.fuke_bg);
 		}
 
+		// 设置背景
+		String backgroundUrl = cp.getBackgroundUrl();
+		String backgroundUrl_filename = backgroundUrl.substring(
+				backgroundUrl.lastIndexOf("/") + 1, backgroundUrl.length());
+		backgroundUrl_filename = backgroundUrl_filename.substring(0,
+				backgroundUrl_filename.indexOf(".")) + ".jpg";
+		if (backgroundUrl != null && backgroundUrl.length() > 4) {
+			File f = new File(Urlinterface.head_pic, backgroundUrl_filename
+					+ "");
+			if (f.exists()) {
+				personal_info_relativeLayout2
+						.setBackgroundDrawable(new BitmapDrawable(BitmapFactory
+								.decodeFile(Urlinterface.head_pic
+										+ backgroundUrl_filename)));
+
+			} else {
+				FuXunTools.set_view_bk(cp.getIsProvider(),
+						backgroundUrl_filename, backgroundUrl,
+						personal_info_relativeLayout2);
+			}
+		} else {
+			if (cp.getIsProvider() == 1) { // 福师
+				// 福师未认证行业
+				personal_info_relativeLayout2
+						.setBackgroundResource(R.drawable.unauthorized_bg);
+			} else { // 设置福客 背景
+				findViewById(R.id.personal_info_relativeLayout2)
+						.setBackgroundResource(R.drawable.fuke_bg);
+			}
+
+		}
 
 	}
 
@@ -366,11 +366,11 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 						String name = contact.getName();
 						String customName = contact.getCustomName();
 						String sortKey = "";
-//						if (customName != null && customName.length() > 0) {
-//							sortKey = FuXunTools.findSortKey(customName);
-//						} else {
-//							sortKey = FuXunTools.findSortKey(name);
-//						}
+						// if (customName != null && customName.length() > 0) {
+						// sortKey = FuXunTools.findSortKey(customName);
+						// } else {
+						// sortKey = FuXunTools.findSortKey(name);
+						// }
 						String userface_url = contact.getTileUrl();
 						int sex = contact.getGender().getNumber();
 						int source = contact.getSource();
@@ -393,11 +393,13 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 						String fuzhi = contact.getFuzhi();
 						String location = contact.getLocation();
 						List<License> licenses = contact.getLicensesList();
+						String backgroundUrl = contact.getBackgroundUrl();
+
 						cp = new ContactPojo(contactId, sortKey, name,
 								customName, userface_url, sex, source,
 								lastContactTime, isBlocked, isProvider,
 								lisence, individualResume, fuzhi, location,
-								licenses);
+								licenses, backgroundUrl);
 						handler.sendEmptyMessage(1);
 						Log.i("FuWu", "contact:" + cp.toString());
 					} else {
@@ -459,6 +461,7 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 		switch (v.getId()) {
 		case R.id.info_sendBtn:
 			this.finish();
+			db.clearTalkMesCount(user_id, contact_id);
 			intent = new Intent();
 			intent.setClass(ContactInfoActivity.this, ChatActivity.class);
 			startActivity(intent);
@@ -605,36 +608,36 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 		fxApplication.setActivityList();
 	}
 
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			// spf.edit().putString("Token", "null").commit();
-			Dialog dialog = new AlertDialog.Builder(ContactInfoActivity.this)
-					.setTitle("提示")
-					.setMessage("您确认要退出应用么?")
-					.setPositiveButton("确认",
-							new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which) {
-
-									clearActivity();
-								}
-							})
-					.setNegativeButton("取消",
-							new DialogInterface.OnClickListener() {
-
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which) {
-									dialog.dismiss();
-								}
-							}).create();
-			dialog.show();
-
-			return true;
-		}
-		return super.onKeyDown(keyCode, event);
-	}
+//	public boolean onKeyDown(int keyCode, KeyEvent event) {
+//		if (keyCode == KeyEvent.KEYCODE_BACK) {
+//			// spf.edit().putString("Token", "null").commit();
+//			Dialog dialog = new AlertDialog.Builder(ContactInfoActivity.this)
+//					.setTitle("提示")
+//					.setMessage("您确认要退出应用么?")
+//					.setPositiveButton("确认",
+//							new DialogInterface.OnClickListener() {
+//								@Override
+//								public void onClick(DialogInterface dialog,
+//										int which) {
+//
+//									clearActivity();
+//								}
+//							})
+//					.setNegativeButton("取消",
+//							new DialogInterface.OnClickListener() {
+//
+//								@Override
+//								public void onClick(DialogInterface dialog,
+//										int which) {
+//									dialog.dismiss();
+//								}
+//							}).create();
+//			dialog.show();
+//
+//			return true;
+//		}
+//		return super.onKeyDown(keyCode, event);
+//	}
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -656,5 +659,5 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 		super.onActivityResult(requestCode, resultCode, data);
 
 	}
-	
+
 }

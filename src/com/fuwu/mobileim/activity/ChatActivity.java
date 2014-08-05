@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -17,8 +19,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
@@ -30,24 +34,32 @@ import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.Editable;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextWatcher;
+import android.text.style.ImageSpan;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -56,11 +68,14 @@ import com.baidu.mobstat.StatService;
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.adapter.FaceAdapter;
 import com.fuwu.mobileim.adapter.FacePageAdapter;
-import com.fuwu.mobileim.adapter.MessageListViewAdapter;
+import com.fuwu.mobileim.model.Models.ChangeContactDetailRequest;
+import com.fuwu.mobileim.model.Models.ChangeContactDetailResponse;
+import com.fuwu.mobileim.model.Models.Contact;
 import com.fuwu.mobileim.model.Models.Message.ContentType;
 import com.fuwu.mobileim.model.Models.Message.ImageType;
 import com.fuwu.mobileim.model.Models.SendMessageRequest;
 import com.fuwu.mobileim.model.Models.SendMessageResponse;
+import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.pojo.MessagePojo;
 import com.fuwu.mobileim.pojo.ShortContactPojo;
 import com.fuwu.mobileim.pojo.TalkPojo;
@@ -69,10 +84,12 @@ import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
+import com.fuwu.mobileim.util.ImageCacheUtil;
 import com.fuwu.mobileim.util.ImageUtil;
 import com.fuwu.mobileim.util.TimeUtil;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CirclePageIndicator;
+import com.fuwu.mobileim.view.MyDialog;
 import com.fuwu.mobileim.view.XListView;
 import com.fuwu.mobileim.view.XListView.IXListViewListener;
 import com.google.protobuf.ByteString;
@@ -86,10 +103,13 @@ import com.google.protobuf.InvalidProtocolBufferException;
 public class ChatActivity extends Activity implements OnClickListener,
 		OnTouchListener, TextWatcher, IXListViewListener {
 
-	private String[] itemName = new String[] { "图片", "拍摄" };
+	private String[] itemName = new String[] { " ", " " };
 	private int[] itemImg = new int[] { R.drawable.pic, R.drawable.camera };
 	private int mMesPageNum = 1;
 	private int mMesCount = 0;
+	private int newMessage = 0; // 用于统计历史数据数量
+	private List<MessagePojo> newMessageList; // 新消息集合
+	private int sendAgain_postion = 0;
 	private int user_id = 1;
 	private int contact_id = 1;
 	private float height = 0;
@@ -129,9 +149,9 @@ public class ChatActivity extends Activity implements OnClickListener,
 		@Override
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
-			if (msg.what == 5 || msg.what == 6 || msg.what == 7) {
-				progressDialogDismiss();
-			}
+			// if (msg.what == 5 || msg.what == 6 || msg.what == 7) {
+			progressDialogDismiss();
+			// }
 			switch (msg.what) {
 			case 0:
 				Toast.makeText(getApplicationContext(), "请求失败!", 0).show();
@@ -141,7 +161,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 				break;
 			case 2:
 				updateMessageData();
-				mMessageAdapter.updMessageList(list);
+				mMessageAdapter.notifyDataSetChanged();
 				mListView.stopRefresh();
 				break;
 			case 3:
@@ -156,9 +176,10 @@ public class ChatActivity extends Activity implements OnClickListener,
 				break;
 			case 6:
 				mMessageAdapter.notifyDataSetChanged();
+				Log.i("FuWu", "发送消息后newMessage---" + newMessage);
 				break;
 			case 7:
-				mMessageAdapter.updMessage(mp);
+				// mMessageAdapter.updMessage(mp);
 				mListView.setSelection(list.size() - 1);
 				break;
 			case 8:
@@ -181,15 +202,39 @@ public class ChatActivity extends Activity implements OnClickListener,
 				ContactCache.flag = true;
 				pd.dismiss();
 				break;
+			case 13:
+				new Handler().postDelayed(new Runnable() {
+					public void run() {
+						Intent intent = new Intent(ChatActivity.this,
+								LoginActivity.class);
+						startActivity(intent);
+						clearActivity();
+					}
+				}, 3500);
+				FuXunTools.initdate(sp, fxApplication);
+				Toast.makeText(getApplicationContext(), "您的账号已在其他手机登陆",
+						Toast.LENGTH_LONG).show();
+				break;
+			case 14: //  加载更多消息
+				loadMoreMessageData();
+				mMessageAdapter.notifyDataSetChanged();
+				mListView.stopRefresh();
+				break;
+			case 15:
+				mMessageAdapter.notifyDataSetChanged();
+				mListView.setSelection(list.size() - 1);
+				break;
 			}
 		}
 	};
+	private FxApplication fxApplication;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.chat);
-
+		fxApplication = (FxApplication) getApplication();
+		fxApplication.getActivityList().add(this);
 		initData();
 		initView();
 		initFacePage();
@@ -211,15 +256,57 @@ public class ChatActivity extends Activity implements OnClickListener,
 		token = sp.getString("Token", "token");
 
 		cp = db.queryContact(user_id, contact_id);
+		mMesCount = db.getMesCount(user_id, contact_id);
 		updateMessageData();
+		newMessageList = new ArrayList<MessagePojo>();
 	}
 
+	// 获取最近的 15条消息
 	public void updateMessageData() {
-		mMesCount = db.getMesCount(user_id, contact_id);
+
 		db.clearTalkMesCount(user_id, contact_id);
 		list = db.queryMessageList(user_id, contact_id,
-				(mMesCount - mMesPageNum * 15), mMesCount);
-		mMesPageNum++;
+				(mMesCount - mMesPageNum * 15), 15);
+		newMessage = mMesCount;
+		Log.i("FuWu", "newMessage---" + newMessage);
+		mMesPageNum = 2;
+	}
+
+	// 获取老消息
+	public void loadMoreMessageData() {
+		db.clearTalkMesCount(user_id, contact_id);
+		Log.i("FuWu", "mMesCount---" + mMesCount);
+		Log.i("FuWu", "(mMesCount - mMesPageNum * 15)---"
+				+ (mMesCount - mMesPageNum * 15));
+		Log.i("FuWu", "(mMesCount - (mMesPageNum - 1) * 15)---"
+				+ (mMesCount - (mMesPageNum - 1) * 15));
+		Log.i("FuWu", "mMesPageNum---" + mMesPageNum);
+		if ((mMesCount - (mMesPageNum - 1) * 15) > 0) { // 为负数时会获取全部消息
+
+			List<MessagePojo> loadMoreList = db.queryMessageList(user_id,
+					contact_id, (mMesCount - mMesPageNum * 15), 15);
+			for (int i = loadMoreList.size() - 1; i >= 0; i--) {
+				list.add(0, loadMoreList.get(i));
+			}
+			Log.i("FuWu", "loadMoreList.size()---" + loadMoreList.size());
+			mMesPageNum++;
+		}
+	}
+
+	// 获取新消息
+	public void loadNewMessageData() {
+
+		int allMesCount = db.getMesCount(user_id, contact_id);
+		db.clearTalkMesCount(user_id, contact_id);
+		newMessageList = db.queryMessageList(user_id, contact_id, newMessage,
+				allMesCount-newMessage);
+
+		for (int i = 0; i < newMessageList.size(); i++) {
+			if (newMessageList.get(i).getIsComMeg() == 0) {
+				list.add(newMessageList.get(i));
+			}
+		}
+		newMessage = allMesCount;
 	}
 
 	public void initView() {
@@ -285,8 +372,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 		pd = new ProgressDialog(this);
 		pd.setCanceledOnTouchOutside(false);
 		pd.setMessage("正在发送图片...");
-		mMessageAdapter = new MessageListViewAdapter(getResources(), this,
-				list, cp, user_id, token);
+		mMessageAdapter = new MessageListViewAdapter(getResources(), this);
 		mListView.setAdapter(mMessageAdapter);
 		mListView.setOnTouchListener(this);
 		mListView.setSelection(list.size() - 1);
@@ -482,7 +568,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 				builder.setUserId(user_id);
 				com.fuwu.mobileim.model.Models.Message.Builder mes = com.fuwu.mobileim.model.Models.Message
 						.newBuilder();
-				mes.setSendTime("");
+				mes.setSendTime(messagePojo.getSendTime());
 				mes.setContactId(contact_id);
 				mes.setUserId(user_id);
 				if (type == 1) {
@@ -503,66 +589,31 @@ public class ChatActivity extends Activity implements OnClickListener,
 							.parseFrom(b);
 					if (response.getIsSucceed()) {
 						sendTime = response.getSendTime();
-						String time = "";
-						if (TimeUtil.isFiveMin(
-								db.getLastTime(user_id, contact_id), sendTime)) {
-							time = sendTime;
-						}
-						messagePojo.setSendTime(time);
+						Log.i("FuWu", "sendTime-2:" + sendTime);
+						// messagePojo.setSendTime(sendTime);
 						messagePojo.setStatus(0);
-						db.addMessage(messagePojo);
 						db.updateContactlastContactTime(user_id, contact_id,
 								TimeUtil.getCurrentTime());
-						if (type == 1) {
-							tp = new TalkPojo(user_id, contact_id,
-									getContactName(), cp.getUserface_url(),
-									message, sendTime, 0);
-						} else {
-							tp = new TalkPojo(user_id, contact_id,
-									getContactName(), cp.getUserface_url(),
-									"[图片]", sendTime, 0);
-							mp = messagePojo;
-							handler.sendEmptyMessage(7);
-						}
-						db.addTalk(tp);
 						handler.sendEmptyMessage(6);
+
 					} else {
-						messagePojo.setStatus(2);
-						handler.sendEmptyMessage(5);
+
+						int ErrorCode = response.getErrorCode().getNumber();
+						if (ErrorCode == 2001) {
+							handler.sendEmptyMessage(13);
+						} else {
+							messagePojo.setStatus(2);
+							handler.sendEmptyMessage(5);
+						}
+
 					}
 				} else {
+					messagePojo.setStatus(2);
 					handler.sendEmptyMessage(5);
 				}
 			} catch (InvalidProtocolBufferException e) {
 				e.printStackTrace();
 			}
-		}
-	}
-
-	class LoadImage extends Thread {
-		private String path;
-
-		public LoadImage(String path) {
-			super();
-			this.path = path;
-		}
-
-		@Override
-		public void run() {
-			super.run();
-			Bitmap photo = ImageUtil.compressImage(path);
-			String fileName = System.currentTimeMillis() + "";
-			ImageUtil.saveBitmap(fileName, "JPG", photo);
-			String time = "";
-			String sendTime = TimeUtil.getCurrentTime();
-			if (TimeUtil.isFiveMin(db.getLastTime(user_id, contact_id),
-					sendTime)) {
-				time = sendTime;
-			}
-			mp = new MessagePojo(user_id, contact_id, time, fileName + ".jpg",
-					1, 2);
-			sendMessageExecutor.execute(new SendMessageThread(
-					Bitmap2Bytes(photo), null, 2, mp));
 		}
 	}
 
@@ -620,14 +671,13 @@ public class ChatActivity extends Activity implements OnClickListener,
 						handler.sendEmptyMessage(1);
 						String time = "";
 						String sendTime = TimeUtil.getCurrentTime();
-						if (TimeUtil.isFiveMin(
-								db.getLastTime(user_id, contact_id), sendTime)) {
-							time = sendTime;
-						}
+						time = sendTime;
 						mp = new MessagePojo(user_id, contact_id, time, str, 1,
 								1);
 						mp.setStatus(1);
-						mMessageAdapter.updMessage(mp);
+						list.add(mp);
+						mMessageAdapter.notifyDataSetChanged();
+						// mMessageAdapter.updMessage(mp);
 						mListView.setSelection(list.size() - 1);
 						sendMessageExecutor.execute(new SendMessageThread(null,
 								str, 1, mp));
@@ -749,10 +799,20 @@ public class ChatActivity extends Activity implements OnClickListener,
 		super.onActivityResult(requestCode, resultCode, data);
 		if (FuXunTools.isConnect(this)) {
 			if (resultCode == RESULT_OK) {
+				Bitmap photo = null;
 				pd.setMessage("正在发送图片...");
+				String fileName = System.currentTimeMillis() + "";
+				String sendTime = TimeUtil.getCurrentTime();
+				Log.i("FuWu", "sendTime-1:" + sendTime);
+				mp = new MessagePojo(user_id, contact_id, sendTime, fileName
+						+ ".jpg", 1, 2);
+				mp.setStatus(1);
+				// mMessageAdapter.updMessage(mp);
+				list.add(mp);
+				mMessageAdapter.notifyDataSetChanged();
 				switch (requestCode) {
 				case 1:
-					pd.show();
+					// pd.show();
 					Uri imgUri = data.getData();
 					String[] proj = { MediaStore.Images.Media.DATA };
 					Cursor cursor = managedQuery(imgUri, proj, null, null, null);
@@ -760,14 +820,47 @@ public class ChatActivity extends Activity implements OnClickListener,
 							.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
 					cursor.moveToFirst();
 					String path = cursor.getString(column_index);
-					loadImageExecutor.execute(new LoadImage(path));
+					photo = ImageUtil.compressImage(path);
+					ImageUtil.saveBitmap(fileName, "JPG", photo);
+					sendMessageExecutor.execute(new SendMessageThread(
+							Bitmap2Bytes(photo), null, 2, mp));
 					break;
 				case 2:
-					pd.show();
-					loadImageExecutor.execute(new LoadImage(Urlinterface.SDCARD
-							+ "camera.jpg"));
+					// pd.show();
+					photo = ImageUtil.compressImage(Urlinterface.SDCARD
+							+ "camera.jpg");
+					ImageUtil.saveBitmap(fileName, "JPG", photo);
+					sendMessageExecutor.execute(new SendMessageThread(
+							Bitmap2Bytes(photo), null, 2, mp));
 					break;
 				}
+			}
+		} else {
+			handler.sendEmptyMessage(8);
+		}
+	}
+
+	// 重新发送
+	public void sendAgain_method(int postion) {
+		if (FuXunTools.isConnect(this)) {
+			Bitmap photo = null;
+			list.get(postion).setStatus(1);
+			mMessageAdapter.notifyDataSetChanged();
+			MessagePojo mp = list.get(postion);
+			switch (mp.getMsgType()) {
+			case 1: // 文本
+				sendMessageExecutor.execute(new SendMessageThread(null, mp
+						.getContent(), 1, mp));
+				break;
+			case 2: // 图片
+				photo = ImageUtil.compressImage(Urlinterface.SDCARD
+						+ mp.getContent());
+				sendMessageExecutor.execute(new SendMessageThread(
+						Bitmap2Bytes(photo), null, 2, mp));
+				break;
+
+			default:
+				break;
 			}
 		} else {
 			handler.sendEmptyMessage(8);
@@ -785,14 +878,277 @@ public class ChatActivity extends Activity implements OnClickListener,
 
 	@Override
 	public void onRefresh() {
-		handler.sendEmptyMessage(2);
+
+		handler.sendEmptyMessage(14);
 	}
 
 	class RequstReceiver extends BroadcastReceiver {
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			handler.sendEmptyMessage(2);
+			loadNewMessageData();
+			handler.sendEmptyMessage(15);
 		}
+	}
+
+	// 关闭界面
+	public void clearActivity() {
+		List<Activity> activityList = fxApplication.getActivityList();
+		for (int i = 0; i < activityList.size(); i++) {
+			activityList.get(i).finish();
+		}
+		fxApplication.setActivityList();
+	}
+
+	public class MessageListViewAdapter extends BaseAdapter {
+		public String time_sign; // 时间标志
+		public String time_sign2; // 时间标志
+		public String customName;
+		public final Pattern EMOTION_URL = Pattern.compile("\\[(\\S+?)\\]");
+		private Context mContext;
+		private Resources res;
+		private LayoutInflater mInflater;
+		private DBManager db;
+		private File f;
+		private ProgressDialog pd;
+		public List timearr = new ArrayList<String>();
+
+		public MessageListViewAdapter(Resources res, Context mContext) {
+			super();
+			this.mContext = mContext;
+			this.res = res;
+			this.mInflater = LayoutInflater.from(mContext);
+			db = new DBManager(mContext);
+			pd = new ProgressDialog(mContext);
+			pd.setMessage("正在加载详细信息...");
+			if (list.size() != 0) {
+				time_sign2 = list.get(0).getSendTime();
+				timearr.add(list.get(0).getSendTime());
+			}
+			for (int i = 1; i < list.size(); i++) {
+
+				if (TimeUtil.isFiveMin(time_sign2, list.get(i).getSendTime())) {
+					timearr.add(list.get(i).getSendTime());
+					time_sign2 = list.get(i).getSendTime();
+				} else {
+					timearr.add("");
+				}
+
+			}
+		}
+
+		@Override
+		public void notifyDataSetChanged() {
+			// TODO Auto-generated method stub
+			timearr = new ArrayList<String>();
+			if (list.size() != 0) {
+				time_sign2 = list.get(0).getSendTime();
+				timearr.add(list.get(0).getSendTime());
+			}
+			for (int i = 1; i < list.size(); i++) {
+
+				if (TimeUtil.isFiveMin(time_sign2, list.get(i).getSendTime())) {
+					timearr.add(list.get(i).getSendTime());
+					time_sign2 = list.get(i).getSendTime();
+				} else {
+					timearr.add("");
+				}
+
+			}
+
+			super.notifyDataSetChanged();
+		}
+
+		public void updMessage(MessagePojo cp) {
+			list.add(cp);
+			notifyDataSetChanged();
+		}
+
+		public void closeDB() {
+			if (db != null) {
+				db.closeDB();
+			}
+		}
+
+		@Override
+		public int getCount() {
+			return list.size();
+		}
+
+		@Override
+		public Object getItem(int arg0) {
+			return null;
+		}
+
+		@Override
+		public long getItemId(int arg0) {
+			return 0;
+		}
+
+		@Override
+		public View getView(final int position, View convertView,
+				ViewGroup parent) {
+			final MessagePojo mp = list.get(position);
+			if (position == 0) {
+				time_sign = "";
+			}
+
+			ViewHolder holder = null;
+			if (convertView == null
+					|| convertView.getTag(R.drawable.ic_launcher + position) == null) {
+				holder = new ViewHolder();
+				if (mp.getIsComMeg() == 0) { // 别人发的消息
+					convertView = mInflater.inflate(R.layout.chat_item_left,
+							null);
+				} else {// 自己发的消息
+					convertView = mInflater.inflate(R.layout.chat_item_right,
+							null);
+					holder.load = (ProgressBar) convertView
+							.findViewById(R.id.loadingcircle);
+					holder.sendFail = (ImageView) convertView
+							.findViewById(R.id.sendfail);
+				}
+				holder.time = (TextView) convertView
+						.findViewById(R.id.chat_datetime);
+				holder.mes = (TextView) convertView
+						.findViewById(R.id.chat_textView2);
+				holder.img = (ImageView) convertView
+						.findViewById(R.id.chat_icon);
+				holder.sendImg = (ImageView) convertView
+						.findViewById(R.id.chat_img);
+				convertView.setTag(R.drawable.ic_launcher + position);
+			} else {
+				holder = (ViewHolder) convertView.getTag(R.drawable.ic_launcher
+						+ position);
+			}
+
+			holder.time.setText(TimeUtil.getChatTime(mp.getSendTime()));
+			// if (!TimeUtil.isFiveMin(time_sign, mp.getSendTime())) {
+			// holder.time.setVisibility(View.GONE);
+			//
+			// }else {
+			// time_sign = mp.getSendTime();
+			// }
+			if (timearr.get(position).equals("")) {
+				holder.time.setVisibility(View.GONE);
+			} else {
+				holder.time.setVisibility(View.VISIBLE);
+			}
+			if (mp.getIsComMeg() == 0) {
+				f = new File(Urlinterface.head_pic, cp.getContactId() + "");
+				if (f.exists()) {
+					holder.img
+							.setTag(Urlinterface.head_pic + cp.getContactId());
+					if (!ImageCacheUtil.IMAGE_CACHE.get(Urlinterface.head_pic
+							+ cp.getContactId(), holder.img)) {
+						holder.img.setImageDrawable(null);
+					}
+				} else {
+					holder.img.setImageResource(R.drawable.moren);
+				}
+
+				// ImageCacheUtil.IMAGE_CACHE.get(
+				// Urlinterface.head_pic + cp.getContactId(), holder.img);
+				holder.img.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						Intent i = new Intent();
+						i.setClass(mContext, ContactInfoActivity.class);
+						mContext.startActivity(i);
+					}
+				});
+			} else {
+				if (mp.getStatus() == 0) {
+					holder.load.setVisibility(View.GONE);
+				} else if (mp.getStatus() == 2) {
+					holder.load.setVisibility(View.GONE);
+					holder.sendFail.setVisibility(View.VISIBLE);
+					holder.sendFail.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							sendAgain_postion = position;
+							sendAgain_method(sendAgain_postion);
+						}
+					});
+				}
+
+				f = new File(Urlinterface.head_pic, user_id + "");
+				if (f.exists()) {
+					holder.img.setTag(Urlinterface.head_pic + user_id);
+					if (!ImageCacheUtil.IMAGE_CACHE.get(Urlinterface.head_pic
+							+ user_id, holder.img)) {
+						holder.img.setImageDrawable(null);
+					}
+				} else {
+					holder.img.setImageResource(R.drawable.moren);
+				}
+				// ImageCacheUtil.IMAGE_CACHE.get(Urlinterface.head_pic +
+				// user_id,
+				// holder.img);
+			}
+			if (mp.getMsgType() == 1) {
+				holder.mes.setText(convertNormalStringToSpannableString(mp
+						.getContent()));
+			} else {
+				holder.sendImg.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						Intent intent = new Intent();
+						intent.setClass(mContext, ZoomImageActivity.class);
+						intent.putExtra("image_path",
+								Urlinterface.SDCARD + mp.getContent());
+						mContext.startActivity(intent);
+					}
+				});
+				holder.mes.setVisibility(View.GONE);
+				holder.sendImg.setVisibility(View.VISIBLE);
+				holder.sendImg.setImageBitmap(ImageUtil.createImageThumbnail(
+						Urlinterface.SDCARD + mp.getContent(), 720));
+			}
+			return convertView;
+		}
+
+		public class ViewHolder {
+			public TextView time;
+			public TextView mes;
+			public TextView order;
+			public ImageView img;
+			public ImageView sendImg;
+			public ProgressBar load;
+			public ImageView sendFail;
+		}
+
+		private CharSequence convertNormalStringToSpannableString(String message) {
+			String hackTxt;
+			if (message.startsWith("[") && message.endsWith("]")) {
+				hackTxt = message + " ";
+			} else {
+				hackTxt = message;
+			}
+			SpannableString value = SpannableString.valueOf(hackTxt);
+
+			Matcher localMatcher = EMOTION_URL.matcher(value);
+			while (localMatcher.find()) {
+				String str2 = localMatcher.group(0);
+				int k = localMatcher.start();
+				int m = localMatcher.end();
+				if (m - k < 8) {
+					if (FxApplication.getInstance().getFaceMap()
+							.containsKey(str2)) {
+						int face = FxApplication.getInstance().getFaceMap()
+								.get(str2);
+						Bitmap bitmap = BitmapFactory.decodeResource(res, face);
+						if (bitmap != null) {
+							ImageSpan localImageSpan = new ImageSpan(mContext,
+									bitmap, ImageSpan.ALIGN_BASELINE);
+							value.setSpan(localImageSpan, k, m,
+									Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+						}
+					}
+				}
+			}
+			return value;
+		}
+
 	}
 
 }

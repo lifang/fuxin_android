@@ -59,6 +59,7 @@ import com.fuwu.mobileim.adapter.FragmentViewPagerAdapter;
 import com.fuwu.mobileim.adapter.SearchContactAdapter;
 import com.fuwu.mobileim.model.Models.ContactRequest;
 import com.fuwu.mobileim.model.Models.ContactResponse;
+import com.fuwu.mobileim.model.Models.License;
 import com.fuwu.mobileim.model.Models.ProfileRequest;
 import com.fuwu.mobileim.model.Models.ProfileResponse;
 import com.fuwu.mobileim.pojo.ProfilePojo;
@@ -145,8 +146,9 @@ public class FragmengtActivity extends FragmentActivity {
 				}
 				break;
 			case 2:
-				fxApplication.setUser_exit(true);
-				putProfile(profilePojo);
+				fxApplication.setUser_exist(true);
+				dataNumber = 1;
+				FuXunTools.putProfile(profilePojo,spf,fxApplication);
 				getBitmap_url(profilePojo.getTileUrl(), profilePojo.getUserId());// 加载个人头像
 
 				break;
@@ -179,7 +181,7 @@ public class FragmengtActivity extends FragmentActivity {
 					countLinear.setVisibility(View.VISIBLE);
 					countText.setText(count + "");
 				} else {
-					countLinear.setVisibility(View.GONE);
+					countLinear.setVisibility(View.INVISIBLE);
 				}
 				break;
 			case 9:
@@ -192,20 +194,7 @@ public class FragmengtActivity extends FragmentActivity {
 						FragmengtActivity.this.finish();
 					}
 				}, 3500);
-				spf.edit().putInt("exit_user_id", spf.getInt("user_id", 0))
-						.commit();
-				spf.edit()
-						.putString("exit_Token", spf.getString("Token", "null"))
-						.commit();
-				spf.edit()
-						.putString("exit_clientid",
-								spf.getString("clientid", "")).commit();
-				spf.edit().putInt("user_id", 0).commit();
-				spf.edit().putString("Token", "null").commit();
-				spf.edit().putString("pwd", "").commit();
-				spf.edit().putString("clientid", "").commit();
-				spf.edit().putString("profile_user", "").commit();
-				fxApplication.initData();
+				FuXunTools.initdate(spf, fxApplication);
 				Toast.makeText(getApplicationContext(), "您的账号已在其他手机登陆",
 						Toast.LENGTH_LONG).show();
 				break;
@@ -282,7 +271,7 @@ public class FragmengtActivity extends FragmentActivity {
 
 		// 个推SDK初始化
 		PushManager.getInstance().initialize(this.getApplicationContext());
-		handler.sendEmptyMessage(8);
+		handler.sendEmptyMessage(8); // 
 	}
 
 	/**
@@ -570,7 +559,7 @@ public class FragmengtActivity extends FragmentActivity {
 		getWindowManager().getDefaultDisplay().getMetrics(dm);
 		cursorW = cursor.getWidth();
 		int screenW = dm.widthPixels;// 获取分辨率宽度
-		offset = (screenW / 3 - cursorW) / 2;// 计算偏移量
+		offset = screenW / 3;// 计算偏移量
 		Matrix matrix = new Matrix();
 		matrix.postTranslate(offset, 0);
 		cursor.setImageMatrix(matrix);// 设置动画初始位置
@@ -578,7 +567,7 @@ public class FragmengtActivity extends FragmentActivity {
 
 	// 自定义更改图片位置
 	public void changeLocation(int index) {
-		int one = offset * 2 + cursorW;// 页卡1 -> 页卡2 偏移量
+		int one = offset;// 页卡1 -> 页卡2 偏移量
 		Animation animation = new TranslateAnimation(one * currIndex, one
 				* index, 0, 0);// 显然这个比较简洁，只有一行代码。
 		animation.setFillAfter(true);// True:图片停在动画结束位置
@@ -753,10 +742,13 @@ public class FragmengtActivity extends FragmentActivity {
 						String location = res.getProfile().getLocation();// 所在地
 						String description = res.getProfile().getDescription();// 福师简介
 
+						List<License> license = res.getProfile()
+								.getLicensesList();
+						String backgroundUrl = res.getProfile().getBackgroundUrl();
 						profilePojo = new ProfilePojo(userId, name, nickName,
 								gender, tileUrl, isProvider, lisence, mobile,
 								email, birthday, isAuthentication, fuzhi,
-								location, description);
+								location, description, license,backgroundUrl);
 						Log.i("linshi", "  --nickName" + nickName
 								+ "  --gender" + gender + "  --tileUrl"
 								+ tileUrl + "  --lisence" + lisence
@@ -790,28 +782,6 @@ public class FragmengtActivity extends FragmentActivity {
 		}
 	}
 
-	private void putProfile(ProfilePojo pro) {
-		SharedPreferences preferences = getSharedPreferences(
-				Urlinterface.SHARED, Context.MODE_PRIVATE);
-		Editor editor = preferences.edit();
-		editor.putInt("profile_userid", pro.getUserId());
-		editor.putString("profile_name", pro.getName());
-		editor.putString("profile_nickName", pro.getNickName());
-		editor.putInt("profile_gender", pro.getGender());
-		editor.putString("profile_tileUrl", pro.getTileUrl());
-		editor.putBoolean("profile_isProvider", pro.getIsProvider());
-		editor.putString("profile_lisence", pro.getLisence());
-		editor.putString("profile_mobile", pro.getMobile());
-		editor.putString("profile_email", pro.getEmail());
-		editor.putString("profile_birthday", pro.getBirthday());
-		editor.putBoolean("profile_isAuthentication", pro.getIsAuthentication());
-		editor.putString("profile_fuZhi", pro.getFuZhi());
-		editor.putString("profile_location", pro.getLocation());
-		editor.putString("profile_description", pro.getDescription());
-		editor.putString("profile_user", pro.getUserId() + "");// 用于判断本地是否有当前用户的信息
-		editor.commit();
-		dataNumber = 1;
-	}
 
 	public void getBitmap_url(final String url, final int id) {
 

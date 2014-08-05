@@ -93,7 +93,7 @@ public class TalkListViewAdapter extends BaseAdapter {
 			holder.name.setText("暂未设置昵称");
 		}
 		holder.content.setText(list.get(arg0).getContent());
-		holder.dath.setText(TimeUtil.getChatTime(list.get(arg0).getTime()));
+		holder.dath.setText(TimeUtil.getTalkTime(list.get(arg0).getTime()));
 		// ImageCacheUtil.IMAGE_CACHE.get("/sdcard/fuxin/1.jpg", holder.head);
 		File f = new File(Urlinterface.head_pic, list.get(arg0).getContact_id()
 				+ "");

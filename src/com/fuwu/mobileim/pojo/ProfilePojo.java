@@ -22,55 +22,16 @@ public class ProfilePojo {
 	private String description;// 福师简介
 //	private String lisences;// 行业认证（非纯汉字，小图标）
 	private List<License> licenses;
+	private String backgroundUrl ; //  背景
 	public ProfilePojo() {
-	}
-
-	public ProfilePojo(int userId, String name, String nickName, int gender,
-			String tileUrl, boolean isProvider, String lisence, String mobile,
-			String email, String birthday, boolean isAuthentication , String fuZhi) {
-		super();
-		this.userId = userId;
-		this.name = name;
-		this.nickName = nickName;
-		this.gender = gender;
-		this.tileUrl = tileUrl;
-		this.isProvider = isProvider;
-		this.lisence = lisence;
-		this.mobile = mobile;
-		this.email = email;
-		this.birthday = birthday;
-		this.isAuthentication = isAuthentication;
-		this.fuZhi = fuZhi;
 	}
 
 	
 	public ProfilePojo(int userId, String name, String nickName, int gender,
 			String tileUrl, boolean isProvider, String lisence, String mobile,
 			String email, String birthday, boolean isAuthentication,
-			String fuZhi,  String location, String description) {
-		super();
-		this.userId = userId;
-		this.name = name;
-		this.nickName = nickName;
-		this.gender = gender;
-		this.tileUrl = tileUrl;
-		this.isProvider = isProvider;
-		this.lisence = lisence;
-		this.mobile = mobile;
-		this.email = email;
-		this.birthday = birthday;
-		this.isAuthentication = isAuthentication;
-		this.fuZhi = fuZhi;
-		this.location = location;
-		this.description = description;
-	}
-
-
-	public ProfilePojo(int userId, String name, String nickName, int gender,
-			String tileUrl, boolean isProvider, String lisence, String mobile,
-			String email, String birthday, boolean isAuthentication,
 			String fuZhi, String location, String description,
-			List<License> licenses) {
+			List<License> licenses, String backgroundUrl) {
 		super();
 		this.userId = userId;
 		this.name = name;
@@ -87,6 +48,15 @@ public class ProfilePojo {
 		this.location = location;
 		this.description = description;
 		this.licenses = licenses;
+		this.backgroundUrl = backgroundUrl;
+	}
+
+	public String getBackgroundUrl() {
+		return backgroundUrl;
+	}
+
+	public void setBackgroundUrl(String backgroundUrl) {
+		this.backgroundUrl = backgroundUrl;
 	}
 
 	public List<License> getLicenses() {

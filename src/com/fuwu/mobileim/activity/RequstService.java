@@ -1,6 +1,7 @@
 package com.fuwu.mobileim.activity;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -27,14 +28,19 @@ import com.fuwu.mobileim.pojo.ShortContactPojo;
 import com.fuwu.mobileim.pojo.TalkPojo;
 import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FuXunTools;
+import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.ImageUtil;
+import com.fuwu.mobileim.util.SendDataComparator;
 import com.fuwu.mobileim.util.TimeUtil;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.google.protobuf.InvalidProtocolBufferException;
 
 public class RequstService extends Service {
-
+	/**
+	 * 根据消息时间来排序
+	 */
+	private SendDataComparator sendDataComparator = new SendDataComparator();
 	private boolean flag = false;
 	private int time = 25;
 	private SharedPreferences sp;
@@ -46,7 +52,9 @@ public class RequstService extends Service {
 	private DBManager db;
 	private Context context;
 	private int user_id;
+	private int contact_id;
 	private String token;
+	private int isComMeg = 0;// 0接收/1发送 消息
 
 	public IBinder onBind(Intent intent) {
 		return binder;
@@ -69,6 +77,7 @@ public class RequstService extends Service {
 			sp = getSharedPreferences(Urlinterface.SHARED, Context.MODE_PRIVATE);
 			user_id = sp.getInt("user_id", 0);
 			token = sp.getString("Token", "");
+			contact_id = sp.getInt("contact_id", 1);
 			db = new DBManager(this);
 			Log.i("FuWu", "type---" + intent.getIntExtra("type", 0));
 			if (intent.getIntExtra("type", 0) == 1) {
@@ -114,18 +123,20 @@ public class RequstService extends Service {
 		private String time;
 		private String url;
 		private String token;
+		private String fileName;
 
 		public DownloadImageThread() {
 		}
 
 		public DownloadImageThread(int user_id, int contact_id, String time,
-				String url, String token) {
+				String url, String token, String fileName) {
 			super();
 			this.user_id = user_id;
 			this.contact_id = contact_id;
 			this.time = time;
 			this.url = url;
 			this.token = token;
+			this.fileName = fileName;
 		}
 
 		@Override
@@ -134,14 +145,9 @@ public class RequstService extends Service {
 			String imgUrl = url + "&userId=" + user_id + "&token=" + token;
 			Log.i("FuWu", imgUrl);
 			Bitmap bitmap = ImageUtil.getBitmapFromUrl(imgUrl, 10 * 1000);
-			String fileName = System.currentTimeMillis() + "";
 			if (bitmap != null && bitmap.getWidth() > 0
 					&& bitmap.getHeight() > 0) {
 				ImageUtil.saveBitmap(fileName, "JPG", bitmap);
-				MessagePojo mp = new MessagePojo(user_id, contact_id, time,
-						fileName + ".jpg", 0, 2);
-				Log.i("FuWu", "imgMP:" + mp.toString());
-				db.addMessage(mp);
 				Intent intnet = new Intent("com.comdosoft.fuxun.REQUEST_ACTION");
 				sendBroadcast(intnet);
 			}
@@ -171,64 +177,67 @@ public class RequstService extends Service {
 							Urlinterface.Message, "POST");
 					if (b != null && b.length > 0) {
 						MessageResponse mr = MessageResponse.parseFrom(b);
-						setTimeStamp(mr.getTimeStamp());
-						int contactCount = mr.getMessageListsCount();
-						for (int i = 0; i < contactCount; i++) {
-							MessageList mes = mr.getMessageLists(i);
-							int mesCount = mes.getMessagesCount();
-							List<MessagePojo> list = new ArrayList<MessagePojo>();
-							Log.i("Ax", "messageCount:" + mesCount);
-							for (int j = mesCount - 1; j >= 0; j--) {
-								Message m = mes.getMessages(j);
-								MessagePojo mp = null;
-								int user_id = m.getUserId();
-								int contact_id = m.getContactId();
-								String time = "";
-								Log.i("Ax", "sendTime:" + m.getSendTime());
-								if (TimeUtil.isFiveMin(
-										db.getLastTime(user_id, contact_id),
-										m.getSendTime())) {
-									time = m.getSendTime();
-								}
-								if (m.getContentType() == ContentType.Text) {
-									mp = new MessagePojo(user_id, contact_id,
-											time, m.getContent(), 0, 1);
-									Log.i("FuWu", "serviceMP:" + mp.toString());
-									list.add(mp);
-								} else {
-									fixedThreadPool
-											.execute(new DownloadImageThread(
-													user_id, contact_id, time,
-													m.getContent(), token));
-								}
-								// 对话列表
-								if (j == 0) {
-									String str = m.getContent();
-									if (m.getContentType() == ContentType.Image) {
-										str = "[图片]";
+						if (mr.getIsSucceed()) {
+							setTimeStamp(mr.getTimeStamp());
+							int contactCount = mr.getMessageListsCount();
+							if (contactCount != 0) {
+
+								// // 自己发送的消息
+								// List<MessagePojo> userSenderList = new
+								// ArrayList<MessagePojo>();
+								// for (int i = 0; i < contactCount; i++) {
+								// MessageList mes = mr.getMessageLists(i);
+								// if (mes.getContactId() == user_id) {
+								// int mesCount = mes.getMessagesCount();
+								// for (int j = mesCount - 1; j >= 0; j--) {
+								// Message m = mes.getMessages(j);
+								// addMessagePojo(userSenderList, m, 1);
+								//
+								// }
+								//
+								// }
+								//
+								// }
+
+								// 别人发送+自自发
+								Log.i("FuWu",
+										" mr.getMessageListsCount()--------"
+												+ contactCount);
+								for (int i = 0; i < contactCount; i++) {
+									MessageList mes = mr.getMessageLists(i);
+									if (mes.getContactId() != user_id) {
+										int mesCount = mes.getMessagesCount();
+										List<MessagePojo> list = new ArrayList<MessagePojo>();
+										for (int j = mesCount - 1; j >= 0; j--) {
+											Message m = mes.getMessages(j);
+											addMessagePojo(list, m);
+										}
+
+										// 找出 自己发给当前用户的消息
+										// for (int k = 0; k < userSenderList
+										// .size(); k++) {
+										// if (userSenderList.get(k)
+										// .getContactId() == list
+										// .get(0).getContactId()) {
+										// list.add(userSenderList.get(k));
+										// userSenderList.remove(k);
+										// k--;
+										// }
+										// }
+										// 排序
+										Collections.sort(list,
+												sendDataComparator);
+										// 更新本地数据库
+										updataDb(list);
+
 									}
-									ShortContactPojo cp = db.queryContact(
-											user_id, contact_id);
-									String name = cp.getName();
-									if (cp.getCustomName() != null
-											&& !cp.getCustomName().equals("")) {
-										name = cp.getCustomName();
-									}
-									TalkPojo tp = new TalkPojo(user_id,
-											contact_id, name,
-											cp.getUserface_url(), str,
-											m.getSendTime(), mesCount);
-									db.addTalk(tp);
-									db.updateContactlastContactTime(user_id,
-											contact_id,
-											TimeUtil.getCurrentTime());
 								}
+
+								Intent intnet = new Intent(
+										"com.comdosoft.fuxun.REQUEST_ACTION");
+								sendBroadcast(intnet);
 							}
-							db.addMessageList(list);
 						}
-						Intent intnet = new Intent(
-								"com.comdosoft.fuxun.REQUEST_ACTION");
-						sendBroadcast(intnet);
 					}
 				}
 			} catch (InvalidProtocolBufferException e) {
@@ -244,5 +253,81 @@ public class RequstService extends Service {
 				}
 			}
 		}
+	}
+
+	/**
+	 * 
+	 * 将数据进行处理，生成 MessagePojo对象，插入数组 isComMeg 0 别人发的消息（包含自己给对方发的），1 纯自己发的消息
+	 * */
+	void addMessagePojo(List<MessagePojo> list, Message m) {
+		int isComMeg;
+		MessagePojo mp = null;
+		int userid = m.getUserId();
+		int contactid = m.getContactId();
+		if (m.getContactId() == user_id) {
+			userid = m.getContactId();
+			contactid = m.getUserId();
+			isComMeg = 1;
+		} else {
+			isComMeg = 0;
+		}
+		String time = "";
+		Log.i("Ax", "sendTime:" + m.getSendTime());
+		time = m.getSendTime();
+		Log.i("FuWu", "sendTime-3:" + time);
+		if (m.getContentType() == ContentType.Text) {
+			mp = new MessagePojo(userid, contactid, time, m.getContent(),
+					isComMeg, 1);
+			Log.i("FuWu", "serviceMP-:" + mp.toString());
+		} else {
+			String fileName = System.currentTimeMillis() + "";
+			fixedThreadPool.execute(new DownloadImageThread(userid, contactid,
+					time, m.getContent(), token, fileName));
+
+			mp = new MessagePojo(user_id, contactid, time, fileName + ".jpg",
+					isComMeg, 2);
+		}
+		list.add(mp);
+
+	}
+
+	/**
+	 * 
+	 * 更新本地数据库
+	 * 
+	 * */
+	void updataDb(List<MessagePojo> list) {
+		int len = list.size();
+		TalkPojo tp;
+		MessagePojo msp;
+		int contactid2;
+		String str;
+		ShortContactPojo cp;
+		String name;
+
+		msp = list.get(len - 1);
+		contactid2 = msp.getContactId();
+		str = list.get(len - 1).getContent();
+		if (msp.getMsgType() == 2) {
+			str = "[图片]";
+		}
+		cp = db.queryContact(user_id, contactid2);
+		name = cp.getName();
+		if (cp.getCustomName() != null && !cp.getCustomName().equals("")) {
+			name = cp.getCustomName();
+		}
+		int num = 0;
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i).getIsComMeg() == 1) {
+				num = num + 1;
+			}
+		}
+
+		tp = new TalkPojo(user_id, contactid2, name, cp.getUserface_url(), str,
+				msp.getSendTime(), len - num);
+		db.addTalk(tp);
+		db.updateContactlastContactTime(user_id, contactid2, msp.getSendTime());
+		db.addMessageList(list);
+
 	}
 }

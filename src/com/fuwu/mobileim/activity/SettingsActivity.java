@@ -47,6 +47,7 @@ import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.model.Models.ClientInfo;
 import com.fuwu.mobileim.model.Models.ClientInfoRequest;
 import com.fuwu.mobileim.model.Models.ClientInfoResponse;
+import com.fuwu.mobileim.model.Models.License;
 import com.fuwu.mobileim.model.Models.ProfileRequest;
 import com.fuwu.mobileim.model.Models.ProfileResponse;
 import com.fuwu.mobileim.pojo.ProfilePojo;
@@ -94,8 +95,8 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 			switch (msg.what) {
 			case 0:
 				// fxApplication.setProfilePojo(profilePojo);
-//				putProfile(profilePojo);
-//				setData();
+				// putProfile(profilePojo);
+				// setData();
 				break;
 			case 5:
 				prodialog.dismiss();
@@ -189,17 +190,17 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 			}
 		});
 		int user_id = preferences.getInt("user_id", -1);
+		setting_exitBtn = (Button) rootView.findViewById(R.id.setting_exitBtn);// 退出账户
+		setting_exitBtn.setOnClickListener(listener0);// 给退出账户 设置监听
 
 		if (preferences.getString("profile_user", "").equals(user_id + "")) {
 			init();
-			profilePojo = getProfilePojo();
+			profilePojo = FuXunTools.getProfilePojo(preferences, fxApplication);
 			setData();
 		}
 
 		return rootView;
 	}
-
-	
 
 	/**
 	 * 
@@ -216,8 +217,6 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 				.findViewById(R.id.setting_userface);// 头像
 		// setting_userface.setOnClickListener(listener2);
 		name = (TextView) rootView.findViewById(R.id.setting_name);// 显示级别为：备注名>真实姓名>昵称
-		setting_exitBtn = (Button) rootView.findViewById(R.id.setting_exitBtn);// 退出账户
-		setting_exitBtn.setOnClickListener(listener0);// 给退出账户 设置监听
 		setting_top.setOnClickListener(listener1);// 给个人信息部分设置监听
 	}
 
@@ -259,30 +258,15 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 	private View.OnClickListener listener0 = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			preferences.edit()
-					.putInt("exit_user_id", preferences.getInt("user_id", 0))
-					.commit();
-			preferences
-					.edit()
-					.putString("exit_Token",
-							preferences.getString("Token", "null")).commit();
-			preferences
-					.edit()
-					.putString("exit_clientid",
-							preferences.getString("clientid", "")).commit();
+
+			FuXunTools.initdate(preferences, fxApplication);
 			Intent intent = new Intent();
 			intent.setClass(getActivity(), ExitService.class);
 			getActivity().startService(intent);
-			preferences.edit().putInt("user_id", 0).commit();
-			preferences.edit().putString("Token", "null").commit();
-			preferences.edit().putString("pwd", "").commit();
-			preferences.edit().putString("clientid", "").commit();
-			preferences.edit().putString("profile_user", "").commit();
 
 			intent.setClass(getActivity(), LoginActivity.class);
 			startActivity(intent);
 			clearActivity();
-			fxApplication.initData();
 		}
 	};
 	private View.OnClickListener listener1 = new View.OnClickListener() {
@@ -649,44 +633,13 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		startActivity(i);
 	}
 
-	/**
-	 * 获得本地存储的 个人信息
-	 */
-	private ProfilePojo getProfilePojo() {
-
-		SharedPreferences preferences = getActivity().getSharedPreferences(
-				Urlinterface.SHARED, Context.MODE_PRIVATE);
-
-		int profile_userid = preferences.getInt("profile_userid", -1);
-		String name = preferences.getString("profile_name", "");// 名称
-		String nickName = preferences.getString("profile_nickName", "");// 昵称
-		int gender = preferences.getInt("profile_gender", -1);// 性别
-		String tileUrl = preferences.getString("profile_tileUrl", "");// 头像
-		Boolean isProvider = preferences
-				.getBoolean("profile_isProvider", false);//
-		String lisence = preferences.getString("profile_lisence", "");// 行业认证
-		String mobile = preferences.getString("profile_mobile", "");// 手机号码
-		String email = preferences.getString("profile_email", "");// 邮箱
-		String birthday = preferences.getString("profile_birthday", "");// 生日
-		Boolean isAuthentication = preferences.getBoolean(
-				"profile_isAuthentication", false);// 实名认证
-		String fuzhi = preferences.getString("profile_fuZhi", "");// 福指
-		String location = preferences.getString("profile_location", "");// 所在地
-		String description = preferences.getString("profile_description", "");// 福师简介
-		profilePojo = new ProfilePojo(profile_userid, name, nickName, gender,
-				tileUrl, isProvider, lisence, mobile, email, birthday,
-				isAuthentication, fuzhi, location, description);
-		return profilePojo;
-	}
-
-
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 		switch (resultCode) {
 		case -11:
-			profilePojo = getProfilePojo();
+			profilePojo = FuXunTools.getProfilePojo(preferences, fxApplication);;
 			// handler.sendEmptyMessage(0);
 			setData();
 			break;

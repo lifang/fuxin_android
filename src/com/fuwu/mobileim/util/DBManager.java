@@ -435,7 +435,7 @@ public class DBManager {
 			int max) {
 		Cursor c = db
 				.rawQuery(
-						"SELECT * FROM message where user_id = ? and contact_id = ? limit ?,?",
+						"SELECT * FROM message where user_id = ? and contact_id = ?  limit ?,? ",
 						new String[] { user_id + "", contact_id + "", num + "",
 								max + "" });
 		return c;
@@ -451,8 +451,8 @@ public class DBManager {
 
 	public Cursor queryTalkCursor(int user_id) {
 		Cursor c = db.rawQuery(
-				"SELECT * FROM talk where user_id = ? order by time desc",
-				new String[] { user_id + "" });
+				"SELECT * FROM talk where user_id = ? and contact_id !=? order by time desc",
+				new String[] { user_id + "" ,user_id + ""});
 		return c;
 	}
 

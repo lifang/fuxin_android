@@ -89,25 +89,7 @@ public class BlockManagementDisplayActivity extends Activity {
 						clearActivity();
 					}
 				}, 3500);
-				preferences
-						.edit()
-						.putInt("exit_user_id",
-								preferences.getInt("user_id", 0)).commit();
-				preferences
-						.edit()
-						.putString("exit_Token",
-								preferences.getString("Token", "null"))
-						.commit();
-				preferences
-						.edit()
-						.putString("exit_clientid",
-								preferences.getString("clientid", "")).commit();
-				preferences.edit().putInt("user_id", 0).commit();
-				preferences.edit().putString("Token", "null").commit();
-				preferences.edit().putString("pwd", "").commit();
-				preferences.edit().putString("clientid", "").commit();
-				preferences.edit().putString("profile_user", "").commit();
-				fxApplication.initData();
+				FuXunTools.initdate(preferences, fxApplication);
 				Toast.makeText(getApplicationContext(), "您的账号已在其他手机登陆",
 						Toast.LENGTH_LONG).show();
 				break;

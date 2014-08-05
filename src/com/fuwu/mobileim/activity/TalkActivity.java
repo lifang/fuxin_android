@@ -92,34 +92,15 @@ public class TalkActivity extends Fragment {
 				prodialog.dismiss();
 				new Handler().postDelayed(new Runnable() {
 					public void run() {
-						Intent intent = new Intent(
-								getActivity(),
+						Intent intent = new Intent(getActivity(),
 								LoginActivity.class);
 						startActivity(intent);
 						clearActivity();
 					}
 				}, 3500);
-				sp
-						.edit()
-						.putInt("exit_user_id",
-								sp.getInt("user_id", 0)).commit();
-				sp
-						.edit()
-						.putString("exit_Token",
-								sp.getString("Token", "null"))
-						.commit();
-				sp
-						.edit()
-						.putString("exit_clientid",
-								sp.getString("clientid", "")).commit();
-				sp.edit().putInt("user_id", 0).commit();
-				sp.edit().putString("Token", "null").commit();
-				sp.edit().putString("pwd", "").commit();
-				sp.edit().putString("clientid", "").commit();
-				sp.edit().putString("profile_user", "").commit();
-				fx.initData();
-				Toast.makeText(getActivity(), "您的账号已在其他手机登陆",
-						Toast.LENGTH_LONG).show();
+				FuXunTools.initdate(sp, fx);
+				Toast.makeText(getActivity(), "您的账号已在其他手机登陆", Toast.LENGTH_LONG)
+						.show();
 				break;
 			}
 		}
@@ -141,11 +122,12 @@ public class TalkActivity extends Fragment {
 				Log.i("Max", "uid->" + uid + "    contact_id->"
 						+ list.get(arg2).getContact_id());
 				sp.edit().putInt("contact_id", list.get(arg2).getContact_id())
-				.commit();
-				Intent intent = new Intent(getActivity(),PushReceiver.class);
-				intent.putExtra(PushConsts.CMD_ACTION, Urlinterface.Receiver_code);
-				getActivity().sendBroadcast(intent); 
-				
+						.commit();
+				Intent intent = new Intent(getActivity(), PushReceiver.class);
+				intent.putExtra(PushConsts.CMD_ACTION,
+						Urlinterface.Receiver_code);
+				getActivity().sendBroadcast(intent);
+
 				db.clearTalkMesCount(uid, list.get(arg2).getContact_id());
 				intent.putExtra("contact_id", list.get(arg2).getContact_id());
 				intent.setClass(getActivity(), ChatActivity.class);
@@ -223,8 +205,9 @@ public class TalkActivity extends Fragment {
 						if (ErrorCode == 2001) {
 							handler.sendEmptyMessage(9);
 						} else {
-							handler.sendEmptyMessage(6);}
-						
+							handler.sendEmptyMessage(6);
+						}
+
 					}
 				} else {
 					handler.sendEmptyMessage(2);
@@ -267,12 +250,13 @@ public class TalkActivity extends Fragment {
 			db.closeDB();
 		}
 	}
+
 	// 关闭界面
-		public void clearActivity() {
-			List<Activity> activityList = fx.getActivityList();
-			for (int i = 0; i < activityList.size(); i++) {
-				activityList.get(i).finish();
-			}
-			fx.setActivityList();
+	public void clearActivity() {
+		List<Activity> activityList = fx.getActivityList();
+		for (int i = 0; i < activityList.size(); i++) {
+			activityList.get(i).finish();
 		}
+		fx.setActivityList();
+	}
 }

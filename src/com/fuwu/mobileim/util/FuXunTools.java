@@ -29,6 +29,8 @@ import android.app.ActivityManager;
 import android.app.ActivityManager.RunningTaskInfo;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
@@ -53,6 +55,7 @@ import android.widget.ImageView;
 
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.model.Models.License;
+import com.fuwu.mobileim.pojo.ProfilePojo;
 import com.fuwu.mobileim.pojo.ShortContactPojo;
 import com.fuwu.mobileim.view.CharacterParser;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -72,10 +75,6 @@ public class FuXunTools {
 	private static String fonts = "fonts/aaa.TTF";
 	private static String[] arr = { "教育培训", "医疗健康", "法律咨询", "金融财经", "生活百科",
 			"公益慈善" };
-	private static int[] arr_bg = { R.drawable.education_and_training,
-			R.drawable.health, R.drawable.legal_consultation,
-			R.drawable.financial_finance, R.drawable.encyclopedia_of_life,
-			R.drawable.charity };
 	private static int[] arr_item = { R.drawable.education_and_training1,
 			R.drawable.health1, R.drawable.legal_consultation1,
 			R.drawable.financial_finance1, R.drawable.encyclopedia_of_life1,
@@ -201,7 +200,7 @@ public class FuXunTools {
 					options.inJustDecodeBounds = false;
 					// options.outWidth = 159;
 					// options.outHeight = 159;
-					options.inSampleSize = 2;
+					options.inSampleSize = 1;
 					bm = BitmapFactory.decodeStream(is, null, options);
 					Log.i("linshi", bm.getWidth() + "---" + bm.getHeight());
 					is.close();
@@ -223,8 +222,6 @@ public class FuXunTools {
 						out.flush();
 						out.close();
 						Log.i("linshi", "已经保存");
-						Log.i("linshi", "----6");
-						Log.i("linshi", "已经保存2");
 
 						face_drawable = new BitmapDrawable(bm);
 						Message msg = new Message();// 创建Message 对象
@@ -604,35 +601,6 @@ public class FuXunTools {
 		return target;
 	}
 
-	/**
-	 * Get root content view.
-	 * 
-	 * @param act
-	 * @return
-	 */
-	public static ViewGroup getContentView(Activity act) {
-		ViewGroup systemContent = (ViewGroup) act.getWindow().getDecorView()
-				.findViewById(android.R.id.content);
-		ViewGroup content = null;
-		if (systemContent.getChildCount() > 0
-				&& systemContent.getChildAt(0) instanceof ViewGroup) {
-			content = (ViewGroup) systemContent.getChildAt(0);
-		}
-		return content;
-	}
-
-	public static int getNumber(String str) {
-		int index = -1;
-
-		for (int i = 0; i < arr.length; i++) {
-			if (str.equals(arr[i])) {
-				index = i;
-				return index;
-			}
-		}
-		return index;
-	}
-
 	// // 设置个人认证背景
 	// public static void setIdentity_bg(View view, String str) {
 	// if (str.indexOf("、") != -1) {
@@ -659,27 +627,6 @@ public class FuXunTools {
 													+ name))));
 
 				}
-				// if (index == index2) {
-				// for (int i = 0; i < licenses0.size(); i++) {
-				// String str = licenses0.get(i).getIconUrl();
-				// String name = licenses0.get(i).getName() + ".png";
-				// File f = new File(Urlinterface.head_pic, name);
-				// if (f.exists()) {
-				// imageviewList0
-				// .get(i)
-				// .setBackgroundDrawable(
-				// new BitmapDrawable(
-				// FuXunTools
-				// .createRoundConerImage(BitmapFactory
-				// .decodeFile(Urlinterface.head_pic
-				// + name))));
-				//
-				// } else {
-				// // set_item_bk(name, str, (ImageView)
-				// // imageviewList0.get(i));
-				// }
-				// }
-				// }
 
 				break;
 			default:
@@ -699,19 +646,6 @@ public class FuXunTools {
 		licenses0 = licenses;
 		getUserBitmap(licenses);
 
-		// for (int i = 0; i < licenses.size(); i++) {
-		// url = licenses.get(i).getIconUrl();
-		// name = licenses.get(i).getName() + ".png";
-		// File f = new File(Urlinterface.head_pic, name + "");
-		// if (f.exists()) {
-		// imageviewList.get(i).setImageDrawable(new BitmapDrawable(
-		// FuXunTools.createRoundConerImage(BitmapFactory
-		// .decodeFile(Urlinterface.head_pic + name))));
-		// }else {
-		// set_item_bk(name,url,imageviewList.get(i));
-		// }
-		//
-		// }
 	}
 
 	private static void getUserBitmap(List<License> licenses) {
@@ -782,15 +716,24 @@ public class FuXunTools {
 		}
 	}
 
-	public static void set_item_bk(final String name, final String url,
-			final ImageView imageView) {
+	public static void set_view_bk(final int provider, final String name,
+			final String url, final View view) {
 
 		final Handler mHandler = new Handler() {
 			public void handleMessage(android.os.Message msg) {
 				switch (msg.what) {
 				case 0:
 					Drawable drawable = (Drawable) msg.obj;
-					imageView.setImageDrawable(drawable);
+					view.setBackgroundDrawable(drawable);
+					break;
+				case 1:// 下载失败
+					if (provider == 1) {
+						view.setBackgroundResource(R.drawable.unauthorized_bg);
+					}
+					if (provider == 0) {
+						view.setBackgroundResource(R.drawable.fuke_bg);
+					}
+
 					break;
 				default:
 					break;
@@ -831,8 +774,9 @@ public class FuXunTools {
 						if (!f.getParentFile().exists()) {
 							f.getParentFile().mkdirs();
 						}
+						f.createNewFile();
 						FileOutputStream out = new FileOutputStream(f);
-						bm.compress(Bitmap.CompressFormat.PNG, 90, out);
+						bm.compress(Bitmap.CompressFormat.JPEG, 90, out);
 						out.flush();
 						out.close();
 
@@ -841,11 +785,13 @@ public class FuXunTools {
 						msg.what = 0;
 						msg.obj = face_drawable;
 						mHandler.sendMessage(msg);
+					} else {
+						mHandler.sendEmptyMessage(1);
 					}
 
 				} catch (Exception e) {
 					Log.i("linshi", "发生异常");
-					// Log.i("linshi", url);
+					mHandler.sendEmptyMessage(1);
 				}
 
 			}
@@ -885,4 +831,79 @@ public class FuXunTools {
 		} catch (Exception E) {
 		}
 	}
+
+	/**
+	 * 获得本地存储的 个人信息
+	 */
+	public static ProfilePojo getProfilePojo(SharedPreferences preferences,
+			FxApplication fxApplication) {
+		ProfilePojo profilePojo;
+		int profile_userid = preferences.getInt("profile_userid", -1);
+		String name = preferences.getString("profile_name", "");// 名称
+		String nickName = preferences.getString("profile_nickName", "");// 昵称
+		int gender = preferences.getInt("profile_gender", -1);// 性别
+		String tileUrl = preferences.getString("profile_tileUrl", "");// 头像
+		Boolean isProvider = preferences
+				.getBoolean("profile_isProvider", false);//
+		String lisence = preferences.getString("profile_lisence", "");// 行业认证
+		String mobile = preferences.getString("profile_mobile", "");// 手机号码
+		String email = preferences.getString("profile_email", "");// 邮箱
+		String birthday = preferences.getString("profile_birthday", "");// 生日
+		Boolean isAuthentication = preferences.getBoolean(
+				"profile_isAuthentication", false);// 实名认证
+		String fuzhi = preferences.getString("profile_fuZhi", "");// 福指
+		String location = preferences.getString("profile_location", "");// 所在地
+		String description = preferences.getString("profile_description", "");// 福师简介
+		String backgroundUrl = preferences.getString("backgroundUrl", "");// 背景
+		List<License> licenses = fxApplication.getLicenses();
+		profilePojo = new ProfilePojo(profile_userid, name, nickName, gender,
+				tileUrl, isProvider, lisence, mobile, email, birthday,
+				isAuthentication, fuzhi, location, description, licenses,
+				backgroundUrl);
+		return profilePojo;
+	}
+
+	public static void putProfile(ProfilePojo pro,
+			SharedPreferences preferences, FxApplication fxApplication) {
+		Editor editor = preferences.edit();
+		editor.putInt("profile_userid", pro.getUserId());
+		editor.putString("profile_name", pro.getName());
+		editor.putString("profile_nickName", pro.getNickName());
+		editor.putInt("profile_gender", pro.getGender());
+		editor.putString("profile_tileUrl", pro.getTileUrl());
+		editor.putBoolean("profile_isProvider", pro.getIsProvider());
+		editor.putString("profile_lisence", pro.getLisence());
+		editor.putString("profile_mobile", pro.getMobile());
+		editor.putString("profile_email", pro.getEmail());
+		editor.putString("profile_birthday", pro.getBirthday());
+		editor.putBoolean("profile_isAuthentication", pro.getIsAuthentication());
+		editor.putString("profile_fuZhi", pro.getFuZhi());
+		editor.putString("profile_location", pro.getLocation());
+		editor.putString("profile_description", pro.getDescription());
+		editor.putString("backgroundUrl", pro.getBackgroundUrl());
+		editor.putString("profile_user", pro.getUserId() + "");// 用于判断本地是否有当前用户的信息
+		editor.commit();
+		fxApplication.setLicenses(pro.getLicenses());
+	}
+
+	public static void initdate(SharedPreferences preferences,
+			FxApplication fxApplication) {
+		Editor editor = preferences.edit();
+		editor.putInt("exit_user_id", preferences.getInt("user_id", 0))
+				.commit();
+		editor.putString("exit_Token", preferences.getString("Token", "null"))
+				.commit();
+		editor.putString("exit_clientid", preferences.getString("clientid", ""))
+				.commit();
+		editor.putInt("user_id", 0).commit();
+		editor.putString("Token", "null").commit();
+		editor.putString("pwd", "").commit();
+		editor.putString("clientid", "").commit();
+		editor.putString("profile_user", "").commit();
+
+		// 用于判断本地是否有当前用户的信息
+		editor.commit();
+		fxApplication.initData();
+	}
+
 }
