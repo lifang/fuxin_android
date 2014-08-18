@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+     android:background="#000000"
+    android:orientation="vertical" >
+
+    <!-- com.fuwu.mobileim.view.DragImageView图片已保存在相册的fuwu文件夹中 -->
+
+    <com.fuwu.mobileim.view.DragImageView
+        android:id="@+id/chat_zoom_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:scaleType="fitCenter" />
+
+    <Button
+        android:id="@+id/save_btn"
+        android:layout_width="100dp"
+        android:layout_height="30dip"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/save_btn"
+        android:text="保存图片"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+</RelativeLayout>

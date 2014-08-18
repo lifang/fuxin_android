@@ -85,7 +85,10 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 
 			switch (msg.what) {
 			case 1:
-				pd.dismiss();
+				if (pd.isShowing()) {
+					pd.dismiss();
+				}
+
 				updateData();
 				break;
 			case 2:
@@ -159,6 +162,16 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 				Toast.makeText(getApplicationContext(), "您的账号已在其他手机登陆",
 						Toast.LENGTH_LONG).show();
 				break;
+			case 13:
+				updateData();
+				break;
+			case 14:
+				Toast.makeText(getApplicationContext(), "此联系人不可以修改备注。", 0)
+						.show();
+				break;
+			case 15:
+				Toast.makeText(getApplicationContext(), "此联系人不可以屏蔽。", 0).show();
+				break;
 			}
 		}
 	};
@@ -180,16 +193,21 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 		user_id = preferences.getInt("user_id", 1);
 		contact_id = preferences.getInt("contact_id", 1);
 		token = preferences.getString("Token", "token");
+		if (contact_id != 0) {
+			if (FuXunTools.isConnect(ContactInfoActivity.this)) {
+				pd = new ProgressDialog(this);
+				pd.setMessage("正在加载详细信息...");
+				pd.setCanceledOnTouchOutside(false);
+				pd.show();
 
-		if (FuXunTools.isConnect(ContactInfoActivity.this)) {
-			pd = new ProgressDialog(this);
-			pd.setMessage("正在加载详细信息...");
-			pd.setCanceledOnTouchOutside(false);
-			pd.show();
-
-			new GetContactDetail().start();
+				new GetContactDetail().start();
+			} else {
+				handler.sendEmptyMessage(7);
+			}
 		} else {
-			handler.sendEmptyMessage(7);
+			cp = new ContactPojo(0, "", "系统消息", "系统消息", "", 2, 0, "", 0, 0, "",
+					"随时、随地、随需", "", "上海", null, "");
+			handler.sendEmptyMessage(13);
 		}
 
 	}
@@ -247,6 +265,10 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 
 		} else {
 			Drawable drawable = getResources().getDrawable(R.drawable.moren);
+			if (cp.getContactId() == 0) {
+				drawable = getResources().getDrawable(
+						R.drawable.system_user_face);
+			}
 			BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
 			Bitmap bitmap = bitmapDrawable.getBitmap();
 			img.setImageDrawable(new BitmapDrawable(FuXunTools
@@ -274,7 +296,15 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 		// 认证行业
 
 		// 个人简介
-		sign.setText("" + cp.getIndividualResume());
+		String IndividualResume = cp.getIndividualResume();
+		if (IndividualResume != null && IndividualResume.length() > 0
+				&& !IndividualResume.equals("null")) {
+			sign.setText("" + cp.getIndividualResume());
+		} else {
+			sign.setText("此福师尚未编写信息");
+//			findViewById(R.id.info_sign_null).setVisibility(View.VISIBLE);
+		}
+
 		// 福指
 		String fuzhiStr = cp.getFuzhi();
 		if ("".equals(fuzhiStr)) {
@@ -314,11 +344,12 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 
 		// 设置背景
 		String backgroundUrl = cp.getBackgroundUrl();
-		String backgroundUrl_filename = backgroundUrl.substring(
-				backgroundUrl.lastIndexOf("/") + 1, backgroundUrl.length());
-		backgroundUrl_filename = backgroundUrl_filename.substring(0,
-				backgroundUrl_filename.indexOf(".")) + ".jpg";
+
 		if (backgroundUrl != null && backgroundUrl.length() > 4) {
+			String backgroundUrl_filename = backgroundUrl.substring(
+					backgroundUrl.lastIndexOf("/") + 1, backgroundUrl.length());
+			backgroundUrl_filename = backgroundUrl_filename.substring(0,
+					backgroundUrl_filename.indexOf(".")) + ".jpg";
 			File f = new File(Urlinterface.head_pic, backgroundUrl_filename
 					+ "");
 			if (f.exists()) {
@@ -333,15 +364,22 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 						personal_info_relativeLayout2);
 			}
 		} else {
-			if (cp.getIsProvider() == 1) { // 福师
-				// 福师未认证行业
-				personal_info_relativeLayout2
-						.setBackgroundResource(R.drawable.unauthorized_bg);
-			} else { // 设置福客 背景
-				findViewById(R.id.personal_info_relativeLayout2)
-						.setBackgroundResource(R.drawable.fuke_bg);
-			}
+			if (cp.getContactId() != 0) {
 
+				if (cp.getIsProvider() == 1) { // 福师
+					// 福师未认证行业
+					personal_info_relativeLayout2
+							.setBackgroundResource(R.drawable.unauthorized_bg);
+				} else { // 设置福客 背景
+					findViewById(R.id.personal_info_relativeLayout2)
+							.setBackgroundResource(R.drawable.fuke_bg);
+				}
+			} else { // 设置系统消息 个人简介、 背景
+				findViewById(R.id.personal_info_gerenjianjie).setVisibility(
+						View.VISIBLE);
+				findViewById(R.id.personal_info_relativeLayout2)
+						.setBackgroundResource(R.drawable.system_user_bg);
+			}
 		}
 
 	}
@@ -473,22 +511,30 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 			if (menuWindow.isShowing()) {
 				menuWindow.dismiss();
 			}
-			intent = new Intent();
-			intent.putExtra("customName", cp.getCustomName());
-			intent.setClass(ContactInfoActivity.this, OpenInputMethod.class);
-			startActivityForResult(intent, 0);
+			if (cp.getContactId() != 0) {
+				intent = new Intent();
+				intent.putExtra("customName", cp.getCustomName());
+				intent.setClass(ContactInfoActivity.this, OpenInputMethod.class);
+				startActivityForResult(intent, 0);
+			} else {
+				handler.sendEmptyMessage(14);
+			}
 			break;
 		case R.id.personal_info_other_shielding: // 屏蔽此人
-			if (FuXunTools.isConnect(ContactInfoActivity.this)) {
-				pd = new ProgressDialog(this);
-				pd.setMessage("正在屏蔽联系人...");
-				pd.setCanceledOnTouchOutside(false);
-				pd.show();
-				shielding = true;
-				Thread thread = new Thread(new BlockContact());
-				thread.start();
+			if (cp.getContactId() != 0) {
+				if (FuXunTools.isConnect(ContactInfoActivity.this)) {
+					pd = new ProgressDialog(this);
+					pd.setMessage("正在屏蔽联系人...");
+					pd.setCanceledOnTouchOutside(false);
+					pd.show();
+					shielding = true;
+					Thread thread = new Thread(new BlockContact());
+					thread.start();
+				} else {
+					handler.sendEmptyMessage(11);
+				}
 			} else {
-				handler.sendEmptyMessage(11);
+				handler.sendEmptyMessage(15);
 			}
 			if (menuWindow.isShowing()) {
 				menuWindow.dismiss();
@@ -608,36 +654,36 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 		fxApplication.setActivityList();
 	}
 
-//	public boolean onKeyDown(int keyCode, KeyEvent event) {
-//		if (keyCode == KeyEvent.KEYCODE_BACK) {
-//			// spf.edit().putString("Token", "null").commit();
-//			Dialog dialog = new AlertDialog.Builder(ContactInfoActivity.this)
-//					.setTitle("提示")
-//					.setMessage("您确认要退出应用么?")
-//					.setPositiveButton("确认",
-//							new DialogInterface.OnClickListener() {
-//								@Override
-//								public void onClick(DialogInterface dialog,
-//										int which) {
-//
-//									clearActivity();
-//								}
-//							})
-//					.setNegativeButton("取消",
-//							new DialogInterface.OnClickListener() {
-//
-//								@Override
-//								public void onClick(DialogInterface dialog,
-//										int which) {
-//									dialog.dismiss();
-//								}
-//							}).create();
-//			dialog.show();
-//
-//			return true;
-//		}
-//		return super.onKeyDown(keyCode, event);
-//	}
+	// public boolean onKeyDown(int keyCode, KeyEvent event) {
+	// if (keyCode == KeyEvent.KEYCODE_BACK) {
+	// // spf.edit().putString("Token", "null").commit();
+	// Dialog dialog = new AlertDialog.Builder(ContactInfoActivity.this)
+	// .setTitle("提示")
+	// .setMessage("您确认要退出应用么?")
+	// .setPositiveButton("确认",
+	// new DialogInterface.OnClickListener() {
+	// @Override
+	// public void onClick(DialogInterface dialog,
+	// int which) {
+	//
+	// clearActivity();
+	// }
+	// })
+	// .setNegativeButton("取消",
+	// new DialogInterface.OnClickListener() {
+	//
+	// @Override
+	// public void onClick(DialogInterface dialog,
+	// int which) {
+	// dialog.dismiss();
+	// }
+	// }).create();
+	// dialog.show();
+	//
+	// return true;
+	// }
+	// return super.onKeyDown(keyCode, event);
+	// }
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {

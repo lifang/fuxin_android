@@ -68,5 +68,6 @@
     <string name="personal_info">个人信息</string>
     <string name="set_customname">设置备注</string>
     <string name="modify_nickname">修改昵称</string>
+    <string name="quit_message">您确认要退出应用吗?</string>
 
 </resources>

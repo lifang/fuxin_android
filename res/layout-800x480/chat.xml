@@ -1,0 +1,164 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/chat_main"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ebebeb"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="40dip"
+        android:background="#d11b21" >
+
+        <ImageButton
+            android:id="@+id/chat_back"
+            android:layout_width="30dip"
+            android:layout_height="30dip"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10.0dip"
+            android:background="@drawable/back" />
+
+        <TextView
+            android:id="@+id/chat_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:maxWidth="200dp"
+            android:singleLine="true"
+            android:textColor="#ffffff"
+            android:textSize="16sp" />
+
+        <ImageButton
+            android:id="@+id/chat_other"
+            android:layout_width="30dip"
+            android:layout_height="30dip"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dip"
+            android:background="@drawable/other" />
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0.0dip"
+        android:layout_weight="1.0" >
+
+        <com.fuwu.mobileim.view.XListView
+            android:id="@+id/chat_listView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:cacheColorHint="#00000000"
+            android:divider="@null"
+            android:listSelector="@android:color/transparent"
+            android:transcriptMode="normal" />
+    </FrameLayout>
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#b2b2b2" />
+
+    <LinearLayout
+        android:id="@+id/inputBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#FAFAFA"
+        android:gravity="center_vertical" >
+
+        <ImageButton
+            android:id="@+id/face_btn"
+            android:layout_width="50dip"
+            android:layout_height="50dip"
+            android:background="@android:color/transparent"
+            android:paddingLeft="5.0dip"
+            android:paddingRight="5.0dip"
+            android:src="@drawable/pop_btn_face_selector" />
+
+        <EditText
+            android:id="@+id/msg_et"
+            android:layout_width="0.0dip"
+            android:layout_height="40dip"
+            android:layout_marginBottom="6.0dip"
+            android:layout_marginTop="6.0dip"
+            android:layout_weight="1.0"
+            android:background="@drawable/chat_editview_style"
+            android:inputType="textMultiLine"
+            android:maxHeight="68.0dip"
+            android:paddingBottom="4.0dip"
+            android:paddingLeft="4.0dip"
+            android:paddingRight="4.0dip"
+            android:paddingTop="4.0dip"
+            android:textSize="16.0sp" />
+
+        <ImageButton
+            android:id="@+id/plus_btn"
+            android:layout_width="50dip"
+            android:layout_height="50dip"
+            android:background="@android:color/transparent"
+            android:paddingLeft="5.0dip"
+            android:paddingRight="5.0dip"
+            android:src="@drawable/plus" />
+
+        <Button
+            android:id="@+id/send_btn"
+            android:layout_width="42.0dip"
+            android:layout_height="34.0dip"
+            android:layout_marginLeft="4.0dip"
+            android:layout_marginRight="4.0dip"
+            android:background="@drawable/chat_bottombar_btn_selector"
+            android:shadowColor="#ff568ab5"
+            android:shadowDx="0.0"
+            android:shadowDy="-1.0"
+            android:shadowRadius="0.2"
+            android:text="@string/send"
+            android:textColor="#333333"
+            android:textSize="14.0sp"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/face_ll"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff0f0f0"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <android.support.v4.view.ViewPager
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/face_pager"
+            android:layout_width="fill_parent"
+            android:layout_height="140.0dip"
+            android:layout_marginLeft="5dip"
+            android:layout_marginRight="5dip"
+            android:background="#0000"
+            android:flipInterval="30"
+            android:persistentDrawingCache="animation" />
+
+        <com.fuwu.mobileim.view.CirclePageIndicator
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/indicator"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="#FAFAFA"
+            android:padding="10dip" />
+    </LinearLayout>
+
+    <GridView
+        android:id="@+id/chat_plus_panel"
+        android:layout_width="fill_parent"
+        android:layout_height="102.0dip"
+        android:background="#FAFAFA"
+        android:gravity="center"
+        android:listSelector="#FAFAFA"
+        android:numColumns="2"
+        android:paddingLeft="11.0dip"
+        android:paddingRight="11.0dip"
+        android:paddingTop="14.0dip"
+        android:scrollbars="none"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="14.0dip"
+        android:visibility="gone" />
+
+</LinearLayout>

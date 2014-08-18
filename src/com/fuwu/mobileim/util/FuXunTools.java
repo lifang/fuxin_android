@@ -9,8 +9,6 @@ import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -24,7 +22,6 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
-import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningTaskInfo;
 import android.content.ComponentName;
@@ -50,65 +47,22 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.model.Models.License;
 import com.fuwu.mobileim.pojo.ProfilePojo;
 import com.fuwu.mobileim.pojo.ShortContactPojo;
-import com.fuwu.mobileim.view.CharacterParser;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 public class FuXunTools {
 	static int index = 0;
 	static int index2 = 0;
 	static ArrayList<ImageView> imageviewList0;
 	static List<License> licenses0;
-	private static CharacterParser characterParser = CharacterParser
-			.getInstance();
-	private static String fonts = "fonts/aaa.TTF";
-	private static String[] arr = { "教育培训", "医疗健康", "法律咨询", "金融财经", "生活百科",
-			"公益慈善" };
-	private static int[] arr_item = { R.drawable.education_and_training1,
-			R.drawable.health1, R.drawable.legal_consultation1,
-			R.drawable.financial_finance1, R.drawable.encyclopedia_of_life1,
-			R.drawable.charity1 };
 	public static int[] image_id = { R.id.info_face0, R.id.info_face1,
 			R.id.info_face2, R.id.info_face3, R.id.info_face4, R.id.info_face5 };
 	private static Bitmap bm = null;
-	protected static ImageLoader imageLoader = ImageLoader.getInstance();
-	static DisplayImageOptions options = new DisplayImageOptions.Builder()
-			.showImageOnLoading(R.drawable.moren)
-			.showImageForEmptyUri(R.drawable.moren)
-			.showImageOnFail(R.drawable.moren).cacheInMemory(true)
-			.cacheOnDisk(true).considerExifParams(true)
-			.displayer(new RoundedBitmapDisplayer(20)).build();
-	private static ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
 
-	private static class AnimateFirstDisplayListener extends
-			SimpleImageLoadingListener {
-
-		static final List<String> displayedImages = Collections
-				.synchronizedList(new LinkedList<String>());
-
-		public void onLoadingComplete(String imageUri, View view,
-				Bitmap loadedImage) {
-			if (loadedImage != null) {
-				ImageView imageView = (ImageView) view;
-				boolean firstDisplay = !displayedImages.contains(imageUri);
-				if (firstDisplay) {
-					FadeInBitmapDisplayer.animate(imageView, 500);
-					displayedImages.add(imageUri);
-				}
-			}
-		}
-	}
 
 	// 判断应用前台还是后台
 	public static boolean isApplicationBroughtToBackground(final Context context) {
@@ -386,10 +340,6 @@ public class FuXunTools {
 		return output;
 	}
 
-	public static void setBackground(final String url, final ImageView imageView) {
-		imageLoader.displayImage(url, imageView, options, animateFirstListener);
-	}
-
 	/*
 	 * 获得头像并以个人的id 作为文件名，保存到 /fuXun/head_pic/ 中
 	 */
@@ -503,31 +453,14 @@ public class FuXunTools {
 	public static String getSortKey(String customName, String name) {
 
 		String sortKey = null;
-		if (customName != null && customName.length() > 0) {
-			sortKey = findSortKey(customName);
-		} else {
-			sortKey = findSortKey(name);
-		}
+//		if (customName != null && customName.length() > 0) {
+//			sortKey = findSortKey(customName);
+//		} else {
+//			sortKey = findSortKey(name);
+//		}
 		return sortKey;
 	}
 
-	/**
-	 * 获得首字母
-	 */
-	public static String findSortKey(String str) {
-		if (str.length() > 0) {
-			String pinyin = characterParser.getSelling(str);
-			String sortString = pinyin.substring(0, 1).toUpperCase();
-			// 正则表达式，判断首字母是否是英文字母
-			if (sortString.matches("[A-Z]")) {
-				return sortString.toUpperCase();
-			} else {
-				return "#";
-			}
-		} else {
-			return "#";
-		}
-	}
 
 	public static void getBitmap_url(final String url, final int id) {
 
@@ -895,7 +828,6 @@ public class FuXunTools {
 				.commit();
 		editor.putString("exit_clientid", preferences.getString("clientid", ""))
 				.commit();
-		editor.putInt("user_id", 0).commit();
 		editor.putString("Token", "null").commit();
 		editor.putString("pwd", "").commit();
 		editor.putString("clientid", "").commit();
@@ -905,5 +837,10 @@ public class FuXunTools {
 		editor.commit();
 		fxApplication.initData();
 	}
-
+	public static String del_tag(String str) {// 去除HTML标签
+		Pattern p_html = Pattern.compile("<[^>]+>", Pattern.CASE_INSENSITIVE);
+		Matcher m_html = p_html.matcher(str);
+		String content = m_html.replaceAll(""); // 过滤html标签
+		return content;
+	}
 }

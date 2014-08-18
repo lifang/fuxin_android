@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
@@ -63,14 +64,17 @@ public class PushReceiver extends BroadcastReceiver {
 						byte[] byteArray = Base64.decode(data, Base64.DEFAULT);
 						String con = new String(byteArray);
 						try {
-							 PushRequest pr =
-							 PushRequest.parseFrom(byteArray);
-							 Log.i("Max", "收到推送");
-							 MessagePush mp = pr.getMessagePush();
-							 MyNotification("福务网",
-							 mp.getSenderName() + ":" + mp.getContent(),
-							 context, intent);
-//							MyNotification("福务网", con, context, intent);
+							PushRequest pr = PushRequest.parseFrom(byteArray);
+							Log.i("Max", "收到推送");
+							MessagePush mp = pr.getMessagePush();
+							// MyNotification("福务网",
+							// mp.getSenderName() + ":" + mp.getContent(),
+							// context, intent);
+							int n = getMessageNumber();
+							MyNotification("手机福务网", "您收到" + n + "条消息", context,
+									intent);
+							setMessageNumber(n);
+							// MyNotification("福务网", con, context, intent);
 
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -109,7 +113,7 @@ public class PushReceiver extends BroadcastReceiver {
 			Intent startIntent) {
 		// 1.得到NotificationManager
 		// 2.实例化一个通知，指定图标、概要、时间
-		Notification notification = new Notification(R.drawable.moren, "福务网",
+		Notification notification = new Notification(R.drawable.moren, "手机福务网",
 				System.currentTimeMillis());
 		// notification.defaults = Notification.DEFAULT_LIGHTS;
 		if (sf.getBoolean("pushsetting_music", true)) {
@@ -119,21 +123,22 @@ public class PushReceiver extends BroadcastReceiver {
 		if (sf.getBoolean("pushsetting_shake", true)) {
 			notification.defaults |= Notification.DEFAULT_VIBRATE;// 震动
 		}
-//		notification.number += 1;
+		// notification.number += 1;
 		// notification.defaults |= Notification.DEFAULT_LIGHTS;
 		notification.flags |= Notification.FLAG_AUTO_CANCEL;// 点击后删除通知
 		// CharSequence contentTitle = title; // 通知栏标题
 		// CharSequence contentText = content; // 通知栏内容
 		PendingIntent contentItent = PendingIntent.getActivity(context, 0,
 				startIntent, 0);
-		notification.setLatestEventInfo(context, title, content, contentItent);//  功能： 显示在拉伸状态栏中的Notification属性，点击后将发送PendingIntent对象
+		notification.setLatestEventInfo(context, title, content, contentItent);// 功能：
+																				// 显示在拉伸状态栏中的Notification属性，点击后将发送PendingIntent对象
 		nm.notify(TID, notification);// 执行一个notification的消息；
 	}
 
 	// 删除通知取
 	private void clearNotification() {
 		// 启动后删除之前我们定义的通知
-		nm.cancel(TID);//消一个notificatioin的消息；
+		nm.cancel(TID);// 消一个notificatioin的消息；
 	}
 
 	// 发送ClientID
@@ -180,4 +185,14 @@ public class PushReceiver extends BroadcastReceiver {
 		}
 	}
 
+	public void setMessageNumber(int num) {
+		Editor editor = sf.edit();
+		editor.putInt("MessageNumber", num);
+		editor.commit();
+	}
+
+	public int getMessageNumber() {
+		int time = sf.getInt("MessageNumber", 0);
+		return time + 1;
+	}
 }

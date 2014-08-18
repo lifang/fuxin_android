@@ -10,12 +10,10 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -41,6 +39,7 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
@@ -70,14 +69,15 @@ import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.ImageCacheUtil;
 import com.fuwu.mobileim.util.Urlinterface;
-import com.fuwu.mobileim.view.CharacterParser;
+import com.fuwu.mobileim.view.MyDialog;
 import com.igexin.sdk.PushManager;
 
 /**
  * @作者 马龙
  * @时间 创建时间：2014-5-27 下午6:36:44
  */
-public class FragmengtActivity extends FragmentActivity {
+public class FragmengtActivity extends FragmentActivity implements
+		OnTouchListener {
 	private ProfilePojo profilePojo = new ProfilePojo();
 	private int user_id;
 	private String token;
@@ -102,7 +102,6 @@ public class FragmengtActivity extends FragmentActivity {
 	private int cursorW = 0;
 	private List<TextView> btnList = new ArrayList<TextView>();
 	private TextView menu_talk, menu_address_book, menu_settings;
-	private CharacterParser characterParser;
 	private DBManager db;
 	private List<ShortContactPojo> contactsLists = new ArrayList<ShortContactPojo>(); // 联系人arraylist数组
 	private ProgressDialog prodialog;
@@ -112,6 +111,8 @@ public class FragmengtActivity extends FragmentActivity {
 	private SharedPreferences spf;
 	int dataNumber = 0; // 0 数据没加载完，1 数据加载完
 	int version;
+	private TextView quit_cancel;
+	private TextView quit_ok;
 	private Handler handler = new Handler() {
 		/*
 		 * (non-Javadoc)
@@ -122,7 +123,6 @@ public class FragmengtActivity extends FragmentActivity {
 			switch (msg.what) {
 			case 0://
 					// prodialog.dismiss();
-
 				for (int i = 0; i < contactsLists.size(); i++) {
 					String face_str = contactsLists.get(i).getUserface_url();
 					db.addContact(spf.getInt("user_id", 0),
@@ -148,7 +148,7 @@ public class FragmengtActivity extends FragmentActivity {
 			case 2:
 				fxApplication.setUser_exist(true);
 				dataNumber = 1;
-				FuXunTools.putProfile(profilePojo,spf,fxApplication);
+				FuXunTools.putProfile(profilePojo, spf, fxApplication);
 				getBitmap_url(profilePojo.getTileUrl(), profilePojo.getUserId());// 加载个人头像
 
 				break;
@@ -158,11 +158,6 @@ public class FragmengtActivity extends FragmentActivity {
 				i.setClass(FragmengtActivity.this, RequstService.class);
 				startService(i);
 				list.get(1).onStart();
-				break;
-			case 5:
-				prodialog.dismiss();
-				Toast.makeText(getApplicationContext(), "当前用户没有联系人",
-						Toast.LENGTH_SHORT).show();
 				break;
 			case 6:
 				prodialog.dismiss();
@@ -207,9 +202,10 @@ public class FragmengtActivity extends FragmentActivity {
 		super.onCreate(arg0);
 		setContentView(R.layout.main);
 		getButton();
+		spf = getSharedPreferences(Urlinterface.SHARED, 0);
 		countLinear = (LinearLayout) findViewById(R.id.main_countLinear);
 		countText = (TextView) findViewById(R.id.main_count);
-		spf = getSharedPreferences(Urlinterface.SHARED, 0);
+
 		user_id = spf.getInt("user_id", 0);
 		token = spf.getString("Token", "");
 		vp = (ViewPager) findViewById(R.id.main_viewPager);
@@ -271,17 +267,13 @@ public class FragmengtActivity extends FragmentActivity {
 
 		// 个推SDK初始化
 		PushManager.getInstance().initialize(this.getApplicationContext());
-		handler.sendEmptyMessage(8); // 
+		handler.sendEmptyMessage(8); //
 	}
 
 	/**
 	 * 查询本地联系人信息，没有的话，则请求服务器并保存到本地
-	 * 
-	 * 
 	 */
 	private void contactInformation() {
-		// 实例化汉字转拼音类
-		characterParser = CharacterParser.getInstance();
 		contactsLists = db.queryContactList(spf.getInt("user_id", 0));
 		Log.i("11", contactsLists.size() + "-----------1");
 		if (contactsLists.size() == 0) {
@@ -312,9 +304,6 @@ public class FragmengtActivity extends FragmentActivity {
 				} else {
 					Toast.makeText(FragmengtActivity.this,
 							R.string.no_internet, Toast.LENGTH_SHORT).show();
-					Intent i = new Intent();
-					i.setClass(this, RequstService.class);
-					startService(i);
 				}
 			}
 
@@ -322,17 +311,17 @@ public class FragmengtActivity extends FragmentActivity {
 
 	}
 
+	/**
+	 * 
+	 * 加载个人信息
+	 * */
 	private void getProfile() {
-
 		Thread thread = new Thread(new getProfile());
 		thread.start();
-
 	}
 
 	/**
 	 * 加载联系人头像，并保存到本地
-	 * 
-	 * 
 	 */
 	private void getUserBitmap() {
 		ExecutorService singleThreadExecutor = Executors
@@ -342,7 +331,6 @@ public class FragmengtActivity extends FragmentActivity {
 			final int contactId = contactsLists.get(i).getContactId();
 			final String url = contactsLists.get(i).getUserface_url();
 			singleThreadExecutor.execute(new Runnable() {
-
 				@Override
 				public void run() {
 					try {
@@ -381,11 +369,9 @@ public class FragmengtActivity extends FragmentActivity {
 							out.flush();
 							out.close();
 							Log.i("linshi", "已经保存");
-
 						}
 						handler.sendEmptyMessage(1);
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
 						handler.sendEmptyMessage(1);
 					}
 				}
@@ -394,12 +380,8 @@ public class FragmengtActivity extends FragmentActivity {
 	}
 
 	/**
-	 * 
 	 * 第一次 获得所有联系人
-	 * 
-	 * 
 	 */
-
 	class getContacts implements Runnable {
 		public void run() {
 			try {
@@ -417,7 +399,6 @@ public class FragmengtActivity extends FragmentActivity {
 
 					ContactResponse res = ContactResponse.parseFrom(by);
 					if (res.getIsSucceed()) {
-
 						for (int i = 0; i < res.getContactsCount(); i++) {
 							Log.i("linshi", res.getContactsCount() + "---" + i
 									+ "---" + res.getContacts(i).getName());
@@ -426,11 +407,6 @@ public class FragmengtActivity extends FragmentActivity {
 							String customName = res.getContacts(i)
 									.getCustomName();
 							String sortKey = null;
-							if (customName != null && customName.length() > 0) {
-								sortKey = findSortKey(customName);
-							} else {
-								sortKey = findSortKey(name);
-							}
 							String userface_url = res.getContacts(i)
 									.getTileUrl();
 							int sex = res.getContacts(i).getGender()
@@ -468,7 +444,6 @@ public class FragmengtActivity extends FragmentActivity {
 							contactsLists.add(coPojo);
 
 						}
-
 						SharedPreferences preferences = getSharedPreferences(
 								Urlinterface.SHARED, Context.MODE_PRIVATE);
 						Editor editor = preferences.edit();
@@ -483,38 +458,15 @@ public class FragmengtActivity extends FragmentActivity {
 						if (ErrorCode == 2001) {
 							handler.sendEmptyMessage(9);
 						} else {
-							handler.sendEmptyMessage(5);
+							handler.sendEmptyMessage(6);
 						}
-
 					}
-
 				} else {
 					handler.sendEmptyMessage(6);
 				}
-
 			} catch (Exception e) {
 				handler.sendEmptyMessage(7);
 			}
-		}
-	}
-
-	/**
-	 * 获得首字母
-	 */
-	public String findSortKey(String str) {
-		if (str.length() > 0) {
-
-			String pinyin = characterParser.getSelling(str);
-			String sortString = pinyin.substring(0, 1).toUpperCase();
-
-			// 正则表达式，判断首字母是否是英文字母
-			if (sortString.matches("[A-Z]")) {
-				return sortString.toUpperCase();
-			} else {
-				return "#";
-			}
-		} else {
-			return "#";
 		}
 	}
 
@@ -545,7 +497,6 @@ public class FragmengtActivity extends FragmentActivity {
 			} else {
 				btnList.get(i).setTextColor(
 						this.getResources().getColor(R.color.text_color));
-
 			}
 		}
 	}
@@ -578,7 +529,7 @@ public class FragmengtActivity extends FragmentActivity {
 	}
 
 	/**
-	 * 改变“褔务网v1.0” 的 样式
+	 * 改变“褔务网” 的 样式
 	 */
 	public void changeTitleStyle() {
 		Display display = getWindowManager().getDefaultDisplay();
@@ -589,7 +540,7 @@ public class FragmengtActivity extends FragmentActivity {
 		String tv_str = (String) tv.getText().toString();
 		SpannableStringBuilder style2 = new SpannableStringBuilder(tv_str);
 
-		 if (height == 854 && width == 480) {
+		if (height == 854 && width == 480) {
 			style2.setSpan(new AbsoluteSizeSpan(27), 0, 3,
 					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 			tv.setText(style2);
@@ -598,8 +549,6 @@ public class FragmengtActivity extends FragmentActivity {
 					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 			tv.setText(style2);
 		}
-
-		
 
 	}
 
@@ -639,9 +588,7 @@ public class FragmengtActivity extends FragmentActivity {
 						contact_search_edittext.setText("");
 					}
 				});
-
 	}
-
 	/*
 	 * 搜索按妞
 	 */
@@ -650,15 +597,16 @@ public class FragmengtActivity extends FragmentActivity {
 			vp.setVisibility(View.GONE);
 			main_search.setVisibility(View.VISIBLE);
 			contacts_search_linearLayout.setVisibility(View.VISIBLE);
-
 			final Animation translateAnimation = new TranslateAnimation(720, 0,
 					0, 0); // 移动动画效果
-
 			translateAnimation.setDuration(100); // 设置动画持续时间
 			main_search.setAnimation(translateAnimation); // 设置动画效果
 			translateAnimation.startNow(); // 启动动画
 			// 模拟
 			SourceDateList = db.queryContactList(spf.getInt("user_id", 0));
+			// ShortContactPojo coPojo = new ShortContactPojo(0, "", "系统消息",
+			// "系统消息", "", 2, 0, "", 0, "", "");
+			// SourceDateList.add(0,coPojo);
 		}
 	};
 	/*
@@ -704,12 +652,8 @@ public class FragmengtActivity extends FragmentActivity {
 	}
 
 	/**
-	 * 
 	 * 获得个人详细信息
-	 * 
-	 * 
 	 */
-
 	class getProfile implements Runnable {
 		public void run() {
 			try {
@@ -744,44 +688,32 @@ public class FragmengtActivity extends FragmentActivity {
 
 						List<License> license = res.getProfile()
 								.getLicensesList();
-						String backgroundUrl = res.getProfile().getBackgroundUrl();
+						String backgroundUrl = res.getProfile()
+								.getBackgroundUrl();
 						profilePojo = new ProfilePojo(userId, name, nickName,
 								gender, tileUrl, isProvider, lisence, mobile,
 								email, birthday, isAuthentication, fuzhi,
-								location, description, license,backgroundUrl);
-						Log.i("linshi", "  --nickName" + nickName
-								+ "  --gender" + gender + "  --tileUrl"
-								+ tileUrl + "  --lisence" + lisence
-								+ "  --mobile" + mobile + "  --email" + email
-								+ "  birthday--" + birthday);
+								location, description, license, backgroundUrl);
 						Log.i("linshi------------",
 								"profileprofileprofileprofile网络shuju");
-						Message msg = new Message();// 创建Message 对象
-						msg.what = 2;
-						handler.sendMessage(msg);
+						handler.sendEmptyMessage(2);
 					} else {
-
 						int ErrorCode = res.getErrorCode().getNumber();
 						if (ErrorCode == 2001) {
 							handler.sendEmptyMessage(9);
 						} else {
-							handler.sendEmptyMessage(3);
+							handler.sendEmptyMessage(6);
 						}
-
 					}
 				} else {
-					handler.sendEmptyMessage(3);
+					handler.sendEmptyMessage(6);
 				}
-
-				// handler.sendEmptyMessage(0);
 			} catch (Exception e) {
-				// prodialog.dismiss();
 				Log.i("error", e.toString());
 				handler.sendEmptyMessage(7);
 			}
 		}
 	}
-
 
 	public void getBitmap_url(final String url, final int id) {
 
@@ -799,7 +731,6 @@ public class FragmengtActivity extends FragmentActivity {
 					conn.connect();
 					InputStream is = conn.getInputStream();// 获得图片的数据流
 					// bm =decodeSampledBitmapFromStream(is,150,150);
-
 					BitmapFactory.Options options = new BitmapFactory.Options();
 					options.inJustDecodeBounds = false;
 					options.inSampleSize = 1;
@@ -823,10 +754,11 @@ public class FragmengtActivity extends FragmentActivity {
 						bm.compress(Bitmap.CompressFormat.PNG, 90, out);
 						out.flush();
 						out.close();
-
 						Log.i("linshi", "已经保存");
+						handler.sendEmptyMessage(3);
+					} else {
+						handler.sendEmptyMessage(3);
 					}
-					handler.sendEmptyMessage(3);
 				} catch (Exception e) {
 					Log.i("linshi", "发生异常");
 					handler.sendEmptyMessage(3);
@@ -871,6 +803,11 @@ public class FragmengtActivity extends FragmentActivity {
 				"com.comdosoft.fuxun.REQUEST_ACTION"));
 		handler.sendEmptyMessage(8);
 		StatService.onResume(this);
+		Editor editor = spf.edit();
+		editor.putInt("MessageNumber", 0);
+		editor.commit();
+		NotificationManager nm = (NotificationManager) getSystemService(android.content.Context.NOTIFICATION_SERVICE);
+		nm.cancel(Urlinterface.Receiver_code);
 	}
 
 	protected void onPause() {
@@ -888,32 +825,63 @@ public class FragmengtActivity extends FragmentActivity {
 
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			// spf.edit().putString("Token", "null").commit();
-			Dialog dialog = new AlertDialog.Builder(FragmengtActivity.this)
-					.setTitle("提示")
-					.setMessage("您确认要退出应用么?")
-					.setPositiveButton("确认",
-							new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which) {
-
-									System.exit(0);
-								}
-							})
-					.setNegativeButton("取消",
-							new DialogInterface.OnClickListener() {
-
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which) {
-									dialog.dismiss();
-								}
-							}).create();
-			dialog.show();
-
+			showLoginDialog();
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
+	}
+
+	private void showLoginDialog() {
+		View view = getLayoutInflater().inflate(R.layout.quit_builder, null);
+		quit_cancel = (TextView) view.findViewById(R.id.quit_cancel);
+		quit_ok = (TextView) view.findViewById(R.id.quit_ok);
+		quit_ok.setOnTouchListener(this);
+		quit_cancel.setOnTouchListener(this);
+		if (version < 4) {
+			quit_cancel
+					.setBackgroundResource(R.drawable.quit_button_cancel_shape2);
+			quit_ok.setBackgroundResource(R.drawable.quit_button_ok_shape2);
+		}
+		final MyDialog builder = new MyDialog(FragmengtActivity.this, 0, view,
+				R.style.mydialog);
+		quit_cancel.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View arg0) {
+				builder.dismiss();
+			}
+		});
+		quit_ok.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View arg0) {
+				System.exit(0);
+			}
+		});
+		builder.show();
+	}
+
+	@Override
+	public boolean onTouch(View v, MotionEvent event) {
+		if (event.getAction() == MotionEvent.ACTION_DOWN) {
+			switch (v.getId()) {
+			case R.id.quit_cancel:
+				quit_cancel.setTextColor(this.getResources().getColor(
+						R.color.system_textColor2));
+				break;
+			case R.id.quit_ok:
+				quit_ok.setTextColor(this.getResources().getColor(
+						R.color.system_textColor2));
+				break;
+			}
+		} else if (event.getAction() == MotionEvent.ACTION_UP) {
+			switch (v.getId()) {
+			case R.id.quit_cancel:
+				quit_cancel.setTextColor(this.getResources().getColor(
+						R.color.system_textColor));
+				break;
+			case R.id.quit_ok:
+				quit_ok.setTextColor(this.getResources().getColor(
+						R.color.system_textColor));
+				break;
+			}
+		}
+		return false;
 	}
 }

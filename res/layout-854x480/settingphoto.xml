@@ -1,35 +1,57 @@
-﻿    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/set_photolayout"
+﻿<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/set_photolayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/block_display_shape"
+    android:orientation="vertical" >
+
+    <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="#e0000000"
-        
-        android:orientation="vertical"
-        >
+        android:layout_height="wrap_content"
+        android:background="@drawable/block_display_shape"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/lookphoto"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/block_display_shape"
+            android:gravity="center"
+            android:onClick="set_lookphoto"
+            android:text="@string/lookphoto"
+            android:textColor="@color/text_color"
+            android:textSize="18sp" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#CFCFCF" />
 
         <Button
             android:id="@+id/paizhaoshangchuan"
-            android:layout_width="200dp"
+            android:layout_width="fill_parent"
             android:layout_height="50dp"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:background="@color/red_block"
+            android:background="@color/white"
             android:gravity="center"
             android:onClick="set_paizhaoshangchuan"
             android:text="@string/takephoto"
-            android:textColor="#FFFFFF"
-            android:textSize="21dp" />
+            android:textColor="@color/text_color"
+            android:textSize="18sp" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#CFCFCF" />
 
         <Button
             android:id="@+id/congxiangce"
-             android:layout_width="200dp"
+            android:layout_width="fill_parent"
             android:layout_height="50dp"
-            android:layout_below="@+id/paizhaoshangchuan"
-            android:background="@color/red_block"
-            android:layout_marginTop="20dp"
-            android:layout_centerHorizontal="true"
+            android:background="@drawable/block_display_shape"
             android:onClick="set_congxiangce"
             android:text="@string/fromphotostore"
-            android:textColor="#FFFFFF"
-            android:textSize="21dp" />
-    </RelativeLayout>
+            android:textColor="@color/text_color"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import com.fuwu.mobileim.R;
@@ -25,7 +24,7 @@ import com.fuwu.mobileim.view.CircularImage;
  * @作者 丁作强
  * @时间 2014-5-22 下午4:39:09
  */
-public class SearchContactAdapter extends BaseAdapter implements SectionIndexer {
+public class SearchContactAdapter extends BaseAdapter {
 	private List<ShortContactPojo> list = null;
 	private Context mContext;
 
@@ -103,6 +102,9 @@ public class SearchContactAdapter extends BaseAdapter implements SectionIndexer 
 			}
 		} else {
 			viewHolder.contact_user_face.setImageResource(R.drawable.moren);
+			if ("0".equals(ContactId)) {
+				viewHolder.contact_user_face.setImageResource(R.drawable.system_user_face);	
+			}
 		}
 
 		String customname = contact.getCustomName();
@@ -121,46 +123,7 @@ public class SearchContactAdapter extends BaseAdapter implements SectionIndexer 
 		CircularImage contact_user_face; // 头像
 	}
 
-	/**
-	 * 根据ListView的当前位置获取分类的首字母的Char ascii值
-	 */
-	public int getSectionForPosition(int position) {
-		return list.get(position).getSortKey().charAt(0);
-	}
 
-	/**
-	 * 根据分类的首字母的Char ascii值获取其第一次出现该首字母的位置
-	 */
-	public int getPositionForSection(int section) {
-		for (int i = 0; i < getCount(); i++) {
-			String sortStr = list.get(i).getSortKey();
-			char firstChar = sortStr.toUpperCase().charAt(0);
-			if (firstChar == section) {
-				return i;
-			}
-		}
 
-		return -1;
-	}
-
-	/**
-	 * 返回单个分组的大小。
-	 * 
-	 * @param str
-	 */
-	public int getNumber(String str) {
-		int a = 0;
-		for (int i = 0; i < list.size(); i++) {
-			if (list.get(i).getSortKey().equals(str)) {
-				a = a + 1;
-			}
-		}
-		return a;
-	}
-
-	@Override
-	public Object[] getSections() {
-		return null;
-	}
 
 }

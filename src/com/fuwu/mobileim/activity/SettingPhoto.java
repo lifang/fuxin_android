@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -19,9 +20,12 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Display;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.baidu.mobstat.StatService;
@@ -33,7 +37,7 @@ import com.fuwu.mobileim.util.Urlinterface;
  * @作者 丁作强
  * @时间 2014-4-12 上午9:35:06
  */
-public class SettingPhoto extends Activity implements Urlinterface {
+public class SettingPhoto extends Activity implements Urlinterface,OnTouchListener {
 
 	// 设置 界面
 	String delUri = "";
@@ -44,6 +48,7 @@ public class SettingPhoto extends Activity implements Urlinterface {
 	/* 头像名称 */
 	private static final String IMAGE_FILE_NAME = "faceImage.jpg";
 	SharedPreferences preferences;
+	private int version = 0;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
@@ -53,6 +58,15 @@ public class SettingPhoto extends Activity implements Urlinterface {
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.settingphoto);
 		Setwindow(0.19f);// 设置窗口化
+		findViewById(R.id.lookphoto).setOnTouchListener(this);
+		findViewById(R.id.paizhaoshangchuan).setOnTouchListener(this);
+		findViewById(R.id.congxiangce).setOnTouchListener(this);
+		String release = android.os.Build.VERSION.RELEASE; // android系统版本号
+//		version = Integer.parseInt(release.substring(0, 1));
+//		if (version < 4) {
+//			findViewById(R.id.set_photolayout).setBackgroundResource(
+//					R.drawable.photo_shape2);
+//		}
 		preferences = getSharedPreferences(Urlinterface.SHARED,
 				Context.MODE_PRIVATE);
 		File file = new File(photoStr);
@@ -275,5 +289,33 @@ public class SettingPhoto extends Activity implements Urlinterface {
 		 * 不能与StatService.onPageStart一级onPageEnd函数交叉使用
 		 */
 		StatService.onPause(this);
+	}
+
+	@Override
+	public boolean onTouch(View v, MotionEvent event) {
+		// TODO Auto-generated method stub
+		
+		if (event.getAction() == MotionEvent.ACTION_DOWN) {
+			switch (v.getId()) {
+			case R.id.lookphoto:
+			case R.id.paizhaoshangchuan:
+			case R.id.congxiangce:
+				
+				Button b= (Button) findViewById(v.getId());
+				b.setTextColor(this.getResources().getColor(R.color.system_textColor2));
+				
+				break;
+			}
+		} else if (event.getAction() == MotionEvent.ACTION_UP) {
+			switch (v.getId()) {
+			case R.id.lookphoto:
+			case R.id.paizhaoshangchuan:
+			case R.id.congxiangce:
+				Button b= (Button) findViewById(v.getId());
+				b.setTextColor(this.getResources().getColor(R.color.system_textColor));
+				break;
+			}
+		}
+		return false;
 	}
 }

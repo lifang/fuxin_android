@@ -5,6 +5,7 @@ import java.io.File;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
@@ -18,6 +19,7 @@ import android.view.Display;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -136,8 +138,8 @@ public class LoginActivity extends Activity implements OnClickListener,
 		int width = display.getWidth();
 		int height = display.getHeight();
 		Log.i("linshi", "getHeight().getWidth():" + height + "x" + width);
-		// Toast.makeText(this, width + "/" + height,
-		// Toast.LENGTH_SHORT).show();
+//		 Toast.makeText(this, width + "/" + height,
+//		 Toast.LENGTH_SHORT).show();
 		fx.setWidth(width);
 		fx.setHeight(height);
 		initialize();// 初始化
@@ -145,7 +147,7 @@ public class LoginActivity extends Activity implements OnClickListener,
 		StatService.setOn(this, StatService.EXCEPTION_LOG);
 		int id = spf.getInt("user_id", 0);
 		String tken = spf.getString("Token", "null");
-		if (id != 0 || !tken.equals("null")) {
+		if ( !tken.equals("null")) {
 			Intent intent = new Intent();
 			intent.setClass(LoginActivity.this, FragmengtActivity.class);
 			startActivity(intent);
@@ -173,8 +175,8 @@ public class LoginActivity extends Activity implements OnClickListener,
 		pwd_text.setOnFocusChangeListener(this);
 		user_text.setOnFocusChangeListener(this);
 		CircularImage head = (CircularImage) findViewById(R.id.head);
-		int uid = spf.getInt("user_id", 0);
-		if (uid != 0) {
+		int uid = spf.getInt("user_id", -1);
+		if (uid != -1) {
 			File file = new File(Urlinterface.head_pic, uid + "");
 			if (file.exists()) {
 				Drawable dra = new BitmapDrawable(
@@ -213,6 +215,13 @@ public class LoginActivity extends Activity implements OnClickListener,
 			this.finish();
 			break;
 		case R.id.login_btn:
+			InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+			boolean isOpen = imm.isActive();
+			if (isOpen) {
+				imm.hideSoftInputFromWindow(LoginActivity.this
+						.getCurrentFocus().getWindowToken(),
+						InputMethodManager.HIDE_NOT_ALWAYS);
+			}
 			if (FuXunTools.isConnect(this)) {
 				user = user_text.getText().toString();
 				pwd = pwd_text.getText().toString();

@@ -20,6 +20,7 @@ import android.util.Log;
 
 import com.fuwu.mobileim.model.Models.Message;
 import com.fuwu.mobileim.model.Models.Message.ContentType;
+import com.fuwu.mobileim.model.Models.MessageConfirmedRequest;
 import com.fuwu.mobileim.model.Models.MessageList;
 import com.fuwu.mobileim.model.Models.MessageRequest;
 import com.fuwu.mobileim.model.Models.MessageResponse;
@@ -28,11 +29,9 @@ import com.fuwu.mobileim.pojo.ShortContactPojo;
 import com.fuwu.mobileim.pojo.TalkPojo;
 import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FuXunTools;
-import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.ImageUtil;
 import com.fuwu.mobileim.util.SendDataComparator;
-import com.fuwu.mobileim.util.TimeUtil;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.google.protobuf.InvalidProtocolBufferException;
 
@@ -182,23 +181,6 @@ public class RequstService extends Service {
 							int contactCount = mr.getMessageListsCount();
 							if (contactCount != 0) {
 
-								// // 自己发送的消息
-								// List<MessagePojo> userSenderList = new
-								// ArrayList<MessagePojo>();
-								// for (int i = 0; i < contactCount; i++) {
-								// MessageList mes = mr.getMessageLists(i);
-								// if (mes.getContactId() == user_id) {
-								// int mesCount = mes.getMessagesCount();
-								// for (int j = mesCount - 1; j >= 0; j--) {
-								// Message m = mes.getMessages(j);
-								// addMessagePojo(userSenderList, m, 1);
-								//
-								// }
-								//
-								// }
-								//
-								// }
-
 								// 别人发送+自自发
 								Log.i("FuWu",
 										" mr.getMessageListsCount()--------"
@@ -211,19 +193,8 @@ public class RequstService extends Service {
 										for (int j = mesCount - 1; j >= 0; j--) {
 											Message m = mes.getMessages(j);
 											addMessagePojo(list, m);
+											Log.i("FuWu1",m.getContent()+"--"+m.getSendTime());
 										}
-
-										// 找出 自己发给当前用户的消息
-										// for (int k = 0; k < userSenderList
-										// .size(); k++) {
-										// if (userSenderList.get(k)
-										// .getContactId() == list
-										// .get(0).getContactId()) {
-										// list.add(userSenderList.get(k));
-										// userSenderList.remove(k);
-										// k--;
-										// }
-										// }
 										// 排序
 										Collections.sort(list,
 												sendDataComparator);
@@ -274,18 +245,22 @@ public class RequstService extends Service {
 		String time = "";
 		Log.i("Ax", "sendTime:" + m.getSendTime());
 		time = m.getSendTime();
-		Log.i("FuWu", "sendTime-3:" + time);
+//		Log.i("FuWu", "sendTime-3:" + time);
 		if (m.getContentType() == ContentType.Text) {
 			mp = new MessagePojo(userid, contactid, time, m.getContent(),
 					isComMeg, 1);
-			Log.i("FuWu", "serviceMP-:" + mp.toString());
-		} else {
+//			Log.i("FuWu", "serviceMP-:" + mp.toString());
+		} else if (m.getContentType() == ContentType.Image) {
 			String fileName = System.currentTimeMillis() + "";
 			fixedThreadPool.execute(new DownloadImageThread(userid, contactid,
 					time, m.getContent(), token, fileName));
 
 			mp = new MessagePojo(user_id, contactid, time, fileName + ".jpg",
 					isComMeg, 2);
+		}else if (m.getContentType() == ContentType.Notice) {
+
+			mp = new MessagePojo(user_id, contactid, time,  FuXunTools.del_tag(m.getContent()),
+					isComMeg, 3);
 		}
 		list.add(mp);
 
@@ -298,12 +273,12 @@ public class RequstService extends Service {
 	 * */
 	void updataDb(List<MessagePojo> list) {
 		int len = list.size();
-		TalkPojo tp;
+		TalkPojo tp = null;
 		MessagePojo msp;
 		int contactid2;
 		String str;
-		ShortContactPojo cp;
-		String name;
+		ShortContactPojo cp = null;
+		String name = null;
 
 		msp = list.get(len - 1);
 		contactid2 = msp.getContactId();
@@ -311,23 +286,30 @@ public class RequstService extends Service {
 		if (msp.getMsgType() == 2) {
 			str = "[图片]";
 		}
-		cp = db.queryContact(user_id, contactid2);
-		name = cp.getName();
-		if (cp.getCustomName() != null && !cp.getCustomName().equals("")) {
-			name = cp.getCustomName();
-		}
 		int num = 0;
 		for (int i = 0; i < list.size(); i++) {
 			if (list.get(i).getIsComMeg() == 1) {
 				num = num + 1;
 			}
 		}
+		if (contactid2==0) { // 系统消息
+			tp = new TalkPojo(user_id, contactid2, "系统消息", "", str,
+					msp.getSendTime(), len - num);
+		}else {
+			cp = db.queryContact(user_id, contactid2);
+			name = cp.getName();
+			if (cp.getCustomName() != null && !cp.getCustomName().equals("")) {
+				name = cp.getCustomName();
+			}
+			tp = new TalkPojo(user_id, contactid2, name, cp.getUserface_url(), str,
+					msp.getSendTime(), len - num);
+		}
+		
 
-		tp = new TalkPojo(user_id, contactid2, name, cp.getUserface_url(), str,
-				msp.getSendTime(), len - num);
 		db.addTalk(tp);
 		db.updateContactlastContactTime(user_id, contactid2, msp.getSendTime());
 		db.addMessageList(list);
 
 	}
+
 }

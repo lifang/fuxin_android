@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/t"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingTop="7dp" >
+
+        <TextView
+            android:id="@+id/personal_info_other_moifyCustomname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="修改备注"
+            android:textColor="#ffffff"
+            android:layout_marginTop="10dp"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/personal_info_other_shielding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="屏蔽此人"
+            android:layout_marginTop="10dp"
+            android:textColor="#ffffff"
+            android:layout_marginBottom="10dp"
+            android:textSize="16dp" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -459,7 +459,7 @@
     <RelativeLayout
         android:id="@+id/myinfo_gerenjianjie_layout"
         android:layout_width="fill_parent"
-        android:layout_height="83dp"
+        android:layout_height="79dp"
         android:background="@color/white"
         android:visibility="gone" >
 
@@ -477,9 +477,8 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:layout_marginLeft="8dp"
             android:layout_marginRight="15dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="7dp"
             android:layout_toRightOf="@+id/info_sign_text"
             android:cacheColorHint="#00000000"
             android:fadingEdge="none"
@@ -490,11 +489,25 @@
                 android:id="@+id/myinfo_sign"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:gravity="right"
                 android:text=""
+                android:gravity="right"
                 android:textColor="#999999"
                 android:textSize="17sp" />
         </ScrollView>
+
+        <TextView
+            android:id="@+id/info_sign_null"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="7dp"
+            android:layout_toRightOf="@+id/info_sign_text"
+            android:gravity="center"
+            android:text="(此福师尚未编写信息)"
+            android:textColor="#999999"
+            android:textSize="17dp"
+            android:visibility="gone" />
 
         <View
             android:layout_width="fill_parent"

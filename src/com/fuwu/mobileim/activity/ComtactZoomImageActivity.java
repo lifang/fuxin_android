@@ -3,6 +3,8 @@ package com.fuwu.mobileim.activity;
 import java.io.File;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
@@ -17,6 +19,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.fuwu.mobileim.R;
+import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.DragImageView;
 
 /**
@@ -49,16 +52,22 @@ public class ComtactZoomImageActivity extends Activity implements
 		window_width = manager.getDefaultDisplay().getWidth();
 		window_height = manager.getDefaultDisplay().getHeight();
 		dragImageView = (DragImageView) findViewById(R.id.chat_zoom_image);
-
-		File f = new File(path);
-		if (f.exists()) {
-//			ImageCacheUtil.IMAGE_CACHE.get(path, dragImageView);
-			dragImageView.setImageDrawable(new BitmapDrawable(
-					BitmapFactory.decodeFile(path)));
+		SharedPreferences sp = getSharedPreferences(Urlinterface.SHARED,
+				Context.MODE_PRIVATE);
+		int contact_id = sp.getInt("contact_id", 1);
+		if (contact_id == 0) {
+			dragImageView.setImageResource(R.drawable.system_user_face);
 		} else {
-			dragImageView.setImageResource(R.drawable.moren);
-		}
 
+			File f = new File(path);
+			if (f.exists()) {
+				// ImageCacheUtil.IMAGE_CACHE.get(path, dragImageView);
+				dragImageView.setImageDrawable(new BitmapDrawable(BitmapFactory
+						.decodeFile(path)));
+			} else {
+				dragImageView.setImageResource(R.drawable.moren);
+			}
+		}
 		// 设置图片
 		dragImageView.setmActivity(this);// 注入Activity.
 		/** 测量状态栏高度 **/

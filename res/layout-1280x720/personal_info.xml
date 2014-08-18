@@ -311,10 +311,10 @@
         <RelativeLayout
             android:id="@+id/personal_info_gerenjianjie"
             android:layout_width="fill_parent"
-            android:layout_height="88dp"
+            android:layout_height="84dp"
             android:layout_below="@+id/personal_info_location"
-            android:background="@color/white"
-            android:visibility="gone" >
+            android:visibility="gone" 
+            android:background="@color/white" >
 
             <TextView
                 android:id="@+id/info_sign_text"
@@ -330,9 +330,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:layout_marginLeft="8dp"
                 android:layout_marginRight="15dp"
-                android:layout_marginTop="17dp"
+                android:layout_marginTop="13dp"
                 android:layout_toRightOf="@+id/info_sign_text"
                 android:cacheColorHint="#00000000"
                 android:fadingEdge="none"
@@ -343,11 +342,25 @@
                     android:id="@+id/info_sign"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
                     android:text=""
+                    android:gravity="right"
                     android:textColor="#999999"
                     android:textSize="17dp" />
             </ScrollView>
+
+            <TextView
+                android:id="@+id/info_sign_null"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="13dp"
+                android:layout_toRightOf="@+id/info_sign_text"
+                android:gravity="center"
+                android:visibility="gone" 
+                android:text="(此福师尚未编写信息)"
+                android:textColor="#999999"
+                android:textSize="17dp" />
 
             <View
                 android:layout_width="fill_parent"
@@ -363,12 +376,12 @@
         android:id="@+id/info_sendBtn"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
-        android:layout_below="@+id/personal_info_relativeLayout5"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginBottom="30dp"
         android:background="@drawable/login_btn"
         android:text="发送消息"
+        android:layout_alignParentBottom="true"
         android:textColor="@color/white"
         android:textSize="19sp" />
 

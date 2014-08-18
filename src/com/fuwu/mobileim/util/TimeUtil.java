@@ -17,11 +17,33 @@ public class TimeUtil {
 		SimpleDateFormat format = new SimpleDateFormat("HH:mm");
 		return format.format(new Date(time));
 	}
-	public static String getYearMonthDay(long time) {
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		return format.format(new Date(time));
+	public static String getYear(long time) {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy年");
+		String md = format.format(new Date(time));
+		return md;
 	}
-
+	public static String getMonth(long time) {
+		SimpleDateFormat format = new SimpleDateFormat("MM月");
+		String md = format.format(new Date(time));
+		if ((md.charAt(0)+"").endsWith("0")) {
+			md = md.substring(1, md.length());
+		}
+		return md;
+	}
+	public static String getDay(long time) {
+		SimpleDateFormat format = new SimpleDateFormat("dd日");
+		String md = format.format(new Date(time));
+		if ((md.charAt(0)+"").endsWith("0")) {
+			md = md.substring(1, md.length());
+		}
+		return md;
+	}
+	public static String getYearMonthDay(long time) {//yyyy年MM月dd日
+		return getYear(time)+getMonth(time)+getDay(time);
+	}
+	public static String getMonthDay(long time) {//MM月dd日
+		return getMonth(time)+getDay(time);
+	}
 	public static String getTodayTime(long time) {
 		SimpleDateFormat sdf = new SimpleDateFormat("HH");
 		Date date = new Date(time);
@@ -47,6 +69,29 @@ public class TimeUtil {
 			w = 0;
 
 		return weekDays[w];
+	}
+
+	public static String getWeekOfDate(long time, long todaytime) {
+		Date dt = new Date(time);
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(dt);
+
+		int w = cal.get(Calendar.DAY_OF_WEEK) - 1;
+		if (w < 0)
+			w = 0;
+		Date dt2 = new Date(todaytime);
+		cal.setTime(dt2);
+
+		int w2 = cal.get(Calendar.DAY_OF_WEEK) - 1;
+		if (w2 < 0)
+			w2 = 0;
+
+		if (w >= w2) {
+			return getMonthDay(time);
+		} else {
+			return weekDays[w];
+		}
+
 	}
 
 	public static String getChatTime(String date) {
@@ -100,40 +145,49 @@ public class TimeUtil {
 			if (sendDay.getTime() <= 0) {
 				return "未知";
 			}
-			if (temp <= 1) {
-				SimpleDateFormat sdf = new SimpleDateFormat("dd");
-				int day = Integer.parseInt(sdf.format(today))
-						- Integer.parseInt(sdf.format(sendDay));
-				if (day == 1) {
-					return "昨天";
-				} else if (day == 2) {
-					return getWeekOfDate(sendDay.getTime());
-				}else if (day == 0) {
-					return getTodayTime(sendDay.getTime()) + ""
-							+ getHourAndMin(sendDay.getTime());
+			SimpleDateFormat sdf_year = new SimpleDateFormat("yyyy");
+			int year = Integer.parseInt(sdf_year.format(today))
+					- Integer.parseInt(sdf_year.format(sendDay));
+
+			if (year == 0) {
+
+				if (temp <= 1) {
+					SimpleDateFormat sdf = new SimpleDateFormat("dd");
+					int day = Integer.parseInt(sdf.format(today))
+							- Integer.parseInt(sdf.format(sendDay));
+					if (day == 1) {
+						return "昨天 " + getHourAndMin(sendDay.getTime());
+					} else if (day == 2) {
+						return getWeekOfDate(sendDay.getTime())+ " "
+								+ getHourAndMin(sendDay.getTime());
+					} else if (day == 0) {
+						return getTodayTime(sendDay.getTime()) + " "
+								+ getHourAndMin(sendDay.getTime());
+					}
 				}
+				if (temp > 7) {
+					result = getMonthDay(sendDay.getTime())+ " " + getHourAndMin(sendDay.getTime());
+				} else if (temp > 1) {
+					result = getWeekOfDate(sendDay.getTime(), today.getTime())
+							+ " " + getHourAndMin(sendDay.getTime());
+				}
+
+			}else {
+				result = getYearMonthDay(sendDay.getTime());	
 			}
-			if (temp > 7) {
-				result = getYearMonthDay(sendDay.getTime());
-			} else if (temp > 1) {
-				result = getWeekOfDate(sendDay.getTime());
-			} else if (temp == 1) {
-				result = "昨天";
-			} else {
-				result = getTodayTime(sendDay.getTime()) + ""
-						+ getHourAndMin(sendDay.getTime());
-			}
+
 		} catch (ParseException e) {
 		}
 		return result;
 	}
+
 	public static String getCurrentTime() {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		return format.format(new Date(System.currentTimeMillis()));
 	}
 
 	public static long getLongTime(String time) {
-		if (time == null || time.equals("")||time.equals("null")) {
+		if (time == null || time.equals("") || time.equals("null")) {
 			return 0;
 		}
 		try {

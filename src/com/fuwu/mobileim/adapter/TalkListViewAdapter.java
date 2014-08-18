@@ -95,6 +95,9 @@ public class TalkListViewAdapter extends BaseAdapter {
 		holder.content.setText(list.get(arg0).getContent());
 		holder.dath.setText(TimeUtil.getTalkTime(list.get(arg0).getTime()));
 		// ImageCacheUtil.IMAGE_CACHE.get("/sdcard/fuxin/1.jpg", holder.head);
+		if (list.get(arg0).getContact_id() == 0) {
+			holder.head.setImageResource(R.drawable.system_user_face);
+		} else {
 		File f = new File(Urlinterface.head_pic, list.get(arg0).getContact_id()
 				+ "");
 		if (f.exists()) {
@@ -105,13 +108,10 @@ public class TalkListViewAdapter extends BaseAdapter {
 					+ list.get(arg0).getContact_id(), holder.head)) {
 				holder.head.setImageDrawable(null);
 			}
-			// ImageCacheUtil.IMAGE_CACHE.get(
-			// Urlinterface.head_pic + list.get(arg0).getContact_id(),
-			// holder.head);
 		} else {
 			holder.head.setImageResource(R.drawable.moren);
 		}
-		// FuXunTools.set_img(list.get(arg0).getContact_id(), holder.head);
+		}
 		return arg1;
 	}
 

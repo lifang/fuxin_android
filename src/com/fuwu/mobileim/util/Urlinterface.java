@@ -13,8 +13,8 @@ public interface Urlinterface {
 	static final String SHARED = "FuXun";
 	static final String current_version = "1.0.0.1";// 应用版本号
 	static final int Receiver_code = 8888;
-//	 static final String IP = "https://118.242.18.189/IMApi/";
-	static final String IP = "https://i.fuwu.com/IMApi/";
+	static final String IP = "https://118.242.18.189/IMApi/";
+//	static final String IP = "https://i.fuwu.com/IMApi/";
 	// static final String IP = "https://192.168.1.161/IMApi/";
 
 	static String filename = "fuwu.apk";
@@ -46,5 +46,6 @@ public interface Urlinterface {
 	static final String ContactDetail = IP + "api/ContactDetail";
 	//
 	static final String Client = IP + "api/Client";
-
+	// 确认获取 消息
+	static final String MessageConfirmed = IP + "api/MessageConfirmed";
 }

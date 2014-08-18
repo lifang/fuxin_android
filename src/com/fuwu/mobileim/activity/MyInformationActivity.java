@@ -280,7 +280,15 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 		myinfo_birthday.setText(profilePojo.getBirthday());
 		//
 		// 设置个人简介
-		myinfo_sign.setText(profilePojo.getDescription());
+		String description = profilePojo.getDescription();
+		if (description != null && description.length() > 0
+				&& !description.equals("null")) {
+			myinfo_sign.setText(description);
+		}else {
+			myinfo_sign.setText("此福师尚未编写信息");
+//			findViewById(R.id.info_sign_null).setVisibility(View.VISIBLE);
+		}
+		
 		// 设置所在地
 		myinfo_location.setText(profilePojo.getLocation());
 		if (profilePojo.getIsProvider()) {// 福师

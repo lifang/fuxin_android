@@ -34,9 +34,11 @@ import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.Editable;
+import android.text.Html;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextWatcher;
+import android.text.method.LinkMovementMethod;
 import android.text.style.ImageSpan;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -45,7 +47,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnFocusChangeListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
@@ -68,14 +69,12 @@ import com.baidu.mobstat.StatService;
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.adapter.FaceAdapter;
 import com.fuwu.mobileim.adapter.FacePageAdapter;
-import com.fuwu.mobileim.model.Models.ChangeContactDetailRequest;
-import com.fuwu.mobileim.model.Models.ChangeContactDetailResponse;
-import com.fuwu.mobileim.model.Models.Contact;
 import com.fuwu.mobileim.model.Models.Message.ContentType;
 import com.fuwu.mobileim.model.Models.Message.ImageType;
+import com.fuwu.mobileim.model.Models.MessageConfirmedRequest;
+import com.fuwu.mobileim.model.Models.MessageConfirmedResponse;
 import com.fuwu.mobileim.model.Models.SendMessageRequest;
 import com.fuwu.mobileim.model.Models.SendMessageResponse;
-import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.pojo.MessagePojo;
 import com.fuwu.mobileim.pojo.ShortContactPojo;
 import com.fuwu.mobileim.pojo.TalkPojo;
@@ -89,7 +88,6 @@ import com.fuwu.mobileim.util.ImageUtil;
 import com.fuwu.mobileim.util.TimeUtil;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CirclePageIndicator;
-import com.fuwu.mobileim.view.MyDialog;
 import com.fuwu.mobileim.view.XListView;
 import com.fuwu.mobileim.view.XListView.IXListViewListener;
 import com.google.protobuf.ByteString;
@@ -215,7 +213,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 				Toast.makeText(getApplicationContext(), "您的账号已在其他手机登陆",
 						Toast.LENGTH_LONG).show();
 				break;
-			case 14: //  加载更多消息
+			case 14: // 加载更多消息
 				loadMoreMessageData();
 				mMessageAdapter.notifyDataSetChanged();
 				mListView.stopRefresh();
@@ -223,6 +221,11 @@ public class ChatActivity extends Activity implements OnClickListener,
 			case 15:
 				mMessageAdapter.notifyDataSetChanged();
 				mListView.setSelection(list.size() - 1);
+				break;
+			case 16:
+				Toast.makeText(getApplicationContext(),
+						"此联系人尚未开通接收消息功能，如需帮助请拨打福务热线：400-000-5555。",
+						Toast.LENGTH_LONG).show();
 				break;
 			}
 		}
@@ -239,6 +242,9 @@ public class ChatActivity extends Activity implements OnClickListener,
 		initView();
 		initFacePage();
 		initPlusGridView();
+		if (FuXunTools.isConnect(ChatActivity.this)) {
+			new MessageConfirmed().start();
+		}
 	}
 
 	public void initData() {
@@ -254,8 +260,13 @@ public class ChatActivity extends Activity implements OnClickListener,
 		user_id = sp.getInt("user_id", 1);
 		contact_id = sp.getInt("contact_id", 1);
 		token = sp.getString("Token", "token");
+		if (contact_id == 0) {
+			cp = new ShortContactPojo(0, "", "系统消息", "系统消息", "", 2, 0, "", 0,
+					"", "");
+		} else {
+			cp = db.queryContact(user_id, contact_id);
+		}
 
-		cp = db.queryContact(user_id, contact_id);
 		mMesCount = db.getMesCount(user_id, contact_id);
 		updateMessageData();
 		newMessageList = new ArrayList<MessagePojo>();
@@ -299,13 +310,19 @@ public class ChatActivity extends Activity implements OnClickListener,
 		int allMesCount = db.getMesCount(user_id, contact_id);
 		db.clearTalkMesCount(user_id, contact_id);
 		newMessageList = db.queryMessageList(user_id, contact_id, newMessage,
-				allMesCount-newMessage);
+				allMesCount - newMessage);
 
 		for (int i = 0; i < newMessageList.size(); i++) {
 			if (newMessageList.get(i).getIsComMeg() == 0) {
 				list.add(newMessageList.get(i));
 			}
 		}
+		if (newMessageList.size()!=0) {
+			if (FuXunTools.isConnect(ChatActivity.this)) {
+				new MessageConfirmed().start();
+			}
+		}
+
 		newMessage = allMesCount;
 	}
 
@@ -506,7 +523,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 	}
 
 	public String getContactName() {
-		if (cp.getCustomName() != null && !cp.getCustomName().isEmpty()) {
+		if (cp.getCustomName() != null && cp.getCustomName().length()!=0) {
 			return cp.getCustomName();
 		}
 		return cp.getName();
@@ -662,27 +679,33 @@ public class ChatActivity extends Activity implements OnClickListener,
 			break;
 		case R.id.send_btn:
 			String str = msgEt.getText().toString();
-			if (str != null && !str.isEmpty()) {
+			if (str != null && str.length()!=0) {
 				if (str.length() > 300) {
 					Toast.makeText(getApplicationContext(),
 							"信息内容限制300字,请分段输入.", 0).show();
 				} else {
-					if (FuXunTools.isConnect(this)) {
-						handler.sendEmptyMessage(1);
-						String time = "";
-						String sendTime = TimeUtil.getCurrentTime();
-						time = sendTime;
-						mp = new MessagePojo(user_id, contact_id, time, str, 1,
-								1);
-						mp.setStatus(1);
-						list.add(mp);
-						mMessageAdapter.notifyDataSetChanged();
-						// mMessageAdapter.updMessage(mp);
-						mListView.setSelection(list.size() - 1);
-						sendMessageExecutor.execute(new SendMessageThread(null,
-								str, 1, mp));
+					if (contact_id == 0) {
+						handler.sendEmptyMessage(16);
 					} else {
-						handler.sendEmptyMessage(8);
+
+						if (FuXunTools.isConnect(this)) {
+							handler.sendEmptyMessage(1);
+							String time = "";
+							String sendTime = TimeUtil.getCurrentTime();
+							time = sendTime;
+							mp = new MessagePojo(user_id, contact_id, time,
+									str, 1, 1);
+							mp.setStatus(1);
+							list.add(mp);
+							mMessageAdapter.notifyDataSetChanged();
+							// mMessageAdapter.updMessage(mp);
+							mListView.setSelection(list.size() - 1);
+							sendMessageExecutor.execute(new SendMessageThread(
+									null, str, 1, mp));
+						} else {
+							handler.sendEmptyMessage(8);
+						}
+
 					}
 				}
 			}
@@ -797,46 +820,52 @@ public class ChatActivity extends Activity implements OnClickListener,
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		if (FuXunTools.isConnect(this)) {
-			if (resultCode == RESULT_OK) {
-				Bitmap photo = null;
-				pd.setMessage("正在发送图片...");
-				String fileName = System.currentTimeMillis() + "";
-				String sendTime = TimeUtil.getCurrentTime();
-				Log.i("FuWu", "sendTime-1:" + sendTime);
-				mp = new MessagePojo(user_id, contact_id, sendTime, fileName
-						+ ".jpg", 1, 2);
-				mp.setStatus(1);
-				// mMessageAdapter.updMessage(mp);
-				list.add(mp);
-				mMessageAdapter.notifyDataSetChanged();
-				switch (requestCode) {
-				case 1:
-					// pd.show();
-					Uri imgUri = data.getData();
-					String[] proj = { MediaStore.Images.Media.DATA };
-					Cursor cursor = managedQuery(imgUri, proj, null, null, null);
-					int column_index = cursor
-							.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-					cursor.moveToFirst();
-					String path = cursor.getString(column_index);
-					photo = ImageUtil.compressImage(path);
-					ImageUtil.saveBitmap(fileName, "JPG", photo);
-					sendMessageExecutor.execute(new SendMessageThread(
-							Bitmap2Bytes(photo), null, 2, mp));
-					break;
-				case 2:
-					// pd.show();
-					photo = ImageUtil.compressImage(Urlinterface.SDCARD
-							+ "camera.jpg");
-					ImageUtil.saveBitmap(fileName, "JPG", photo);
-					sendMessageExecutor.execute(new SendMessageThread(
-							Bitmap2Bytes(photo), null, 2, mp));
-					break;
-				}
-			}
+		if (contact_id == 0) {
+			handler.sendEmptyMessage(16);
 		} else {
-			handler.sendEmptyMessage(8);
+
+			if (FuXunTools.isConnect(this)) {
+				if (resultCode == RESULT_OK) {
+					Bitmap photo = null;
+					pd.setMessage("正在发送图片...");
+					String fileName = System.currentTimeMillis() + "";
+					String sendTime = TimeUtil.getCurrentTime();
+					Log.i("FuWu", "sendTime-1:" + sendTime);
+					mp = new MessagePojo(user_id, contact_id, sendTime,
+							fileName + ".jpg", 1, 2);
+					mp.setStatus(1);
+					// mMessageAdapter.updMessage(mp);
+					list.add(mp);
+					mMessageAdapter.notifyDataSetChanged();
+					switch (requestCode) {
+					case 1:
+						// pd.show();
+						Uri imgUri = data.getData();
+						String[] proj = { MediaStore.Images.Media.DATA };
+						Cursor cursor = managedQuery(imgUri, proj, null, null,
+								null);
+						int column_index = cursor
+								.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+						cursor.moveToFirst();
+						String path = cursor.getString(column_index);
+						photo = ImageUtil.compressImage(path);
+						ImageUtil.saveBitmap(fileName, "JPG", photo);
+						sendMessageExecutor.execute(new SendMessageThread(
+								Bitmap2Bytes(photo), null, 2, mp));
+						break;
+					case 2:
+						// pd.show();
+						photo = ImageUtil.compressImage(Urlinterface.SDCARD
+								+ "camera.jpg");
+						ImageUtil.saveBitmap(fileName, "JPG", photo);
+						sendMessageExecutor.execute(new SendMessageThread(
+								Bitmap2Bytes(photo), null, 2, mp));
+						break;
+					}
+				}
+			} else {
+				handler.sendEmptyMessage(8);
+			}
 		}
 	}
 
@@ -887,6 +916,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 		public void onReceive(Context context, Intent intent) {
 			loadNewMessageData();
 			handler.sendEmptyMessage(15);
+
 		}
 	}
 
@@ -1021,31 +1051,29 @@ public class ChatActivity extends Activity implements OnClickListener,
 						+ position);
 			}
 
-			holder.time.setText(TimeUtil.getChatTime(mp.getSendTime()));
-			// if (!TimeUtil.isFiveMin(time_sign, mp.getSendTime())) {
-			// holder.time.setVisibility(View.GONE);
-			//
-			// }else {
-			// time_sign = mp.getSendTime();
-			// }
+			holder.time.setText(TimeUtil.getTalkTime(mp.getSendTime()));
 			if (timearr.get(position).equals("")) {
 				holder.time.setVisibility(View.GONE);
 			} else {
 				holder.time.setVisibility(View.VISIBLE);
 			}
-			if (mp.getIsComMeg() == 0) {
-				f = new File(Urlinterface.head_pic, cp.getContactId() + "");
-				if (f.exists()) {
-					holder.img
-							.setTag(Urlinterface.head_pic + cp.getContactId());
-					if (!ImageCacheUtil.IMAGE_CACHE.get(Urlinterface.head_pic
-							+ cp.getContactId(), holder.img)) {
-						holder.img.setImageDrawable(null);
-					}
+			if (mp.getIsComMeg() == 0) { // 别人发送的消息
+				if (mp.getContactId() == 0) {
+					holder.img.setImageResource(R.drawable.system_user_face);
 				} else {
-					holder.img.setImageResource(R.drawable.moren);
+					f = new File(Urlinterface.head_pic, cp.getContactId() + "");
+					if (f.exists()) {
+						holder.img.setTag(Urlinterface.head_pic
+								+ cp.getContactId());
+						if (!ImageCacheUtil.IMAGE_CACHE.get(
+								Urlinterface.head_pic + cp.getContactId(),
+								holder.img)) {
+							holder.img.setImageDrawable(null);
+						}
+					} else {
+						holder.img.setImageResource(R.drawable.moren);
+					}
 				}
-
 				// ImageCacheUtil.IMAGE_CACHE.get(
 				// Urlinterface.head_pic + cp.getContactId(), holder.img);
 				holder.img.setOnClickListener(new OnClickListener() {
@@ -1056,7 +1084,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 						mContext.startActivity(i);
 					}
 				});
-			} else {
+			} else { // 自己
 				if (mp.getStatus() == 0) {
 					holder.load.setVisibility(View.GONE);
 				} else if (mp.getStatus() == 2) {
@@ -1088,7 +1116,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 			if (mp.getMsgType() == 1) {
 				holder.mes.setText(convertNormalStringToSpannableString(mp
 						.getContent()));
-			} else {
+			} else if (mp.getMsgType() == 2) {
 				holder.sendImg.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
@@ -1103,6 +1131,13 @@ public class ChatActivity extends Activity implements OnClickListener,
 				holder.sendImg.setVisibility(View.VISIBLE);
 				holder.sendImg.setImageBitmap(ImageUtil.createImageThumbnail(
 						Urlinterface.SDCARD + mp.getContent(), 720));
+			} else if (mp.getMsgType() == 3) {
+				String str = mp.getContent();
+				if (str.indexOf("\"www") != -1) {
+					str = str.replaceAll("\"www", "\"http://www");
+				}
+				holder.mes.setText(Html.fromHtml(str));
+				holder.mes.setMovementMethod(LinkMovementMethod.getInstance());
 			}
 			return convertView;
 		}
@@ -1151,4 +1186,46 @@ public class ChatActivity extends Activity implements OnClickListener,
 
 	}
 
+	class MessageConfirmed extends Thread {
+		@Override
+		public void run() {
+			super.run();
+			try {
+				MessageConfirmedRequest.Builder builder = MessageConfirmedRequest
+						.newBuilder();
+				Log.i("Ax", "timeStamp:" + getTimeStamp());
+				builder.setUserId(user_id);
+				builder.setToken(token);
+				builder.setTimeStamp(getTimeStamp());
+				builder.setContactId(contact_id);
+				MessageConfirmedRequest request = builder.build();
+				Log.i("FuWu1", "-----------");
+				Log.i("FuWu1", Urlinterface.MessageConfirmed + "--");
+				byte[] b = HttpUtil.sendHttps(request.toByteArray(),
+						Urlinterface.MessageConfirmed, "POST");
+				Log.i("FuWu1", b.toString() + "--");
+				if (b != null && b.length > 0) {
+					MessageConfirmedResponse response = MessageConfirmedResponse
+							.parseFrom(b);
+					if (response.getIsSucceed()) {
+						Log.i("FuWu1", response.getIsSucceed() + "--");
+					} else {
+						int ErrorCode = response.getErrorCode().getNumber();
+						if (ErrorCode == 2001) {
+							handler.sendEmptyMessage(13);
+						}
+					}
+				}
+			} catch (Exception e) {
+			}
+		}
+	}
+
+	public String getTimeStamp() {
+		String time = sp.getString("sendTime", "");
+		if (time != null && !time.equals("")) {
+			return time;
+		}
+		return "";
+	}
 }

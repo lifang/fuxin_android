@@ -19,7 +19,7 @@
         android:background="@drawable/chat_time_block"
         android:gravity="center"
         android:textColor="@color/chat_time"
-        android:textSize="10.0sp"
+        android:textSize="13.0sp"
       />
 
     <LinearLayout

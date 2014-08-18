@@ -41,7 +41,14 @@
                 android:layout_height="90dp"
                 android:layout_marginTop="20dp"
                 android:scaleType="centerInside"
-                android:src="@drawable/touxiang" />
+                android:src="@drawable/moren" />
+
+            <ImageView
+                android:layout_width="90dp"
+                android:layout_height="90.5dp"
+                android:layout_marginTop="-91dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/circle_quit" />
         </LinearLayout>
 
         <LinearLayout
