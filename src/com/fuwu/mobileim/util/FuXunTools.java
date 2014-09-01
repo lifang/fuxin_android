@@ -38,6 +38,7 @@ import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
@@ -46,13 +47,17 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewTreeObserver.OnPreDrawListener;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.model.Models.License;
 import com.fuwu.mobileim.pojo.ProfilePojo;
 import com.fuwu.mobileim.pojo.ShortContactPojo;
+import com.fuwu.mobileim.view.MyDialog;
 
 public class FuXunTools {
 	static int index = 0;
@@ -62,7 +67,6 @@ public class FuXunTools {
 	public static int[] image_id = { R.id.info_face0, R.id.info_face1,
 			R.id.info_face2, R.id.info_face3, R.id.info_face4, R.id.info_face5 };
 	private static Bitmap bm = null;
-
 
 	// 判断应用前台还是后台
 	public static boolean isApplicationBroughtToBackground(final Context context) {
@@ -349,7 +353,6 @@ public class FuXunTools {
 			public void run() {
 				try {
 					for (int i = 0; i < contactsList.size(); i++) {
-
 						URL myurl = new URL(contactsList.get(i)
 								.getUserface_url());
 						// 获得连接
@@ -360,8 +363,6 @@ public class FuXunTools {
 						conn.setUseCaches(false);// 不缓存
 						conn.connect();
 						InputStream is = conn.getInputStream();// 获得图片的数据流
-						// bm =decodeSampledBitmapFromStream(is,150,150);
-
 						BitmapFactory.Options options = new BitmapFactory.Options();
 						options.inJustDecodeBounds = false;
 						options.inSampleSize = 1;
@@ -369,24 +370,18 @@ public class FuXunTools {
 						Log.i("linshi", bm.getWidth() + "---" + bm.getHeight());
 						is.close();
 						if (bm != null) {
-							Log.i("linshi",
-									bm.getWidth() + "---2---" + bm.getHeight());
 							File f = new File(Urlinterface.head_pic,
 									contactsList.get(i).getContactId() + "");
-
 							if (f.exists()) {
 								f.delete();
 							}
 							if (!f.getParentFile().exists()) {
 								f.getParentFile().mkdirs();
 							}
-							Log.i("linshi", "----1");
 							FileOutputStream out = new FileOutputStream(f);
-							Log.i("linshi", "----6");
 							bm.compress(Bitmap.CompressFormat.PNG, 90, out);
 							out.flush();
 							out.close();
-
 							Log.i("linshi", "已经保存");
 						}
 					}
@@ -453,14 +448,13 @@ public class FuXunTools {
 	public static String getSortKey(String customName, String name) {
 
 		String sortKey = null;
-//		if (customName != null && customName.length() > 0) {
-//			sortKey = findSortKey(customName);
-//		} else {
-//			sortKey = findSortKey(name);
-//		}
+		// if (customName != null && customName.length() > 0) {
+		// sortKey = findSortKey(customName);
+		// } else {
+		// sortKey = findSortKey(name);
+		// }
 		return sortKey;
 	}
-
 
 	public static void getBitmap_url(final String url, final int id) {
 
@@ -586,6 +580,7 @@ public class FuXunTools {
 				.newSingleThreadExecutor();
 		for (int i = 0; i < licenses.size(); i++) {
 			final String url = licenses.get(i).getIconUrl();
+			Log.i("FuWu", "url---" + licenses.get(i).getIconUrl());
 			final String name = licenses.get(i).getName() + ".png";
 			File f = new File(Urlinterface.head_pic, name + "");
 
@@ -734,7 +729,7 @@ public class FuXunTools {
 
 	}
 
-	private static void initTrustSSL() {
+	public static void initTrustSSL() {
 		try {
 			SSLContext sslCtx = SSLContext.getInstance("TLS");
 			sslCtx.init(null, new TrustManager[] { new X509TrustManager() {
@@ -832,15 +827,39 @@ public class FuXunTools {
 		editor.putString("pwd", "").commit();
 		editor.putString("clientid", "").commit();
 		editor.putString("profile_user", "").commit();
+		editor.putString("NewVersionUrl", "").commit();
 
 		// 用于判断本地是否有当前用户的信息
 		editor.commit();
 		fxApplication.initData();
 	}
+
 	public static String del_tag(String str) {// 去除HTML标签
 		Pattern p_html = Pattern.compile("<[^>]+>", Pattern.CASE_INSENSITIVE);
 		Matcher m_html = p_html.matcher(str);
 		String content = m_html.replaceAll(""); // 过滤html标签
 		return content;
+	}
+
+	public static MyDialog showLoading(LayoutInflater li, Context context,
+			String str) {
+		View view = li.inflate(R.layout.loading_main, null);
+		ImageView iv = (ImageView) view.findViewById(R.id.loading_iv);
+		final AnimationDrawable loadingDw = ((AnimationDrawable) iv
+				.getBackground());
+		// loadingDw.start();
+		iv.getViewTreeObserver().addOnPreDrawListener(new OnPreDrawListener() {
+			@Override
+			public boolean onPreDraw() {
+				loadingDw.start();
+				return true; // 必须要有这个true返回
+			}
+		});
+		TextView tv = (TextView) view.findViewById(R.id.loading_tv);
+		tv.setText(str);
+		MyDialog builder = new MyDialog(context, 3, view, R.style.mydialog);
+		builder.setCanceledOnTouchOutside(false);
+		builder.show();
+		return builder;
 	}
 }

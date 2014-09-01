@@ -1,5 +1,10 @@
 package com.fuwu.mobileim.activity;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -14,16 +19,26 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Binder;
+import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
+import android.view.View;
 
+import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.model.Models.Message;
 import com.fuwu.mobileim.model.Models.Message.ContentType;
-import com.fuwu.mobileim.model.Models.MessageConfirmedRequest;
+import com.fuwu.mobileim.model.Models.Contact;
+import com.fuwu.mobileim.model.Models.ContactDetailRequest;
+import com.fuwu.mobileim.model.Models.ContactDetailResponse;
+import com.fuwu.mobileim.model.Models.License;
 import com.fuwu.mobileim.model.Models.MessageList;
 import com.fuwu.mobileim.model.Models.MessageRequest;
 import com.fuwu.mobileim.model.Models.MessageResponse;
+import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.pojo.MessagePojo;
 import com.fuwu.mobileim.pojo.ShortContactPojo;
 import com.fuwu.mobileim.pojo.TalkPojo;
@@ -36,26 +51,40 @@ import com.fuwu.mobileim.util.Urlinterface;
 import com.google.protobuf.InvalidProtocolBufferException;
 
 public class RequstService extends Service {
+	private static Thread GetContactDetail;
 	/**
 	 * 根据消息时间来排序
 	 */
 	private SendDataComparator sendDataComparator = new SendDataComparator();
 	private boolean flag = false;
 	private int time = 25;
-	private SharedPreferences sp;
+	private static SharedPreferences sp;
 	private IBinder binder = new RequstService.RequstBinder();
 	private ScheduledExecutorService scheduledThreadPool = Executors
 			.newScheduledThreadPool(2);
 	private ExecutorService fixedThreadPool = Executors.newFixedThreadPool(2);
 	private ExecutorService pushThreadPool = Executors.newFixedThreadPool(2);
-	private DBManager db;
+	private static DBManager db;
 	private Context context;
 	private int user_id;
 	private int contact_id;
 	private String token;
+	private static ShortContactPojo cp = null;
 	private int isComMeg = 0;// 0接收/1发送 消息
+	private Handler handler = new Handler() {
+		public void handleMessage(android.os.Message msg) {
+			switch (msg.what) {
+			case 0:
+				break;
+			case 1:
+				break;
+
+			}
+		}
+	};
 
 	public IBinder onBind(Intent intent) {
+		// 一个客户端通过bindService()绑定到这个service  
 		return binder;
 	}
 
@@ -70,6 +99,7 @@ public class RequstService extends Service {
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
+		// service 正在启动，在调用startService()期间被调用  
 		context = this;
 		// 防止intent为null时异常
 		if (intent != null) {
@@ -166,7 +196,7 @@ public class RequstService extends Service {
 					flag = false;
 					MessageRequest.Builder builder = MessageRequest
 							.newBuilder();
-					Log.i("Ax", "timeStamp:" + getTimeStamp());
+					Log.i("RequstThread", "timeStamp:" + getTimeStamp());
 					builder.setUserId(user_id);
 					builder.setToken(token);
 					builder.setTimeStamp(getTimeStamp());
@@ -193,7 +223,8 @@ public class RequstService extends Service {
 										for (int j = mesCount - 1; j >= 0; j--) {
 											Message m = mes.getMessages(j);
 											addMessagePojo(list, m);
-											Log.i("FuWu1",m.getContent()+"--"+m.getSendTime());
+											Log.i("FuWu1", m.getContent()
+													+ "--" + m.getSendTime());
 										}
 										// 排序
 										Collections.sort(list,
@@ -208,6 +239,7 @@ public class RequstService extends Service {
 										"com.comdosoft.fuxun.REQUEST_ACTION");
 								sendBroadcast(intnet);
 							}
+							
 						}
 					}
 				}
@@ -245,11 +277,11 @@ public class RequstService extends Service {
 		String time = "";
 		Log.i("Ax", "sendTime:" + m.getSendTime());
 		time = m.getSendTime();
-//		Log.i("FuWu", "sendTime-3:" + time);
+		// Log.i("FuWu", "sendTime-3:" + time);
 		if (m.getContentType() == ContentType.Text) {
 			mp = new MessagePojo(userid, contactid, time, m.getContent(),
 					isComMeg, 1);
-//			Log.i("FuWu", "serviceMP-:" + mp.toString());
+			// Log.i("FuWu", "serviceMP-:" + mp.toString());
 		} else if (m.getContentType() == ContentType.Image) {
 			String fileName = System.currentTimeMillis() + "";
 			fixedThreadPool.execute(new DownloadImageThread(userid, contactid,
@@ -257,10 +289,10 @@ public class RequstService extends Service {
 
 			mp = new MessagePojo(user_id, contactid, time, fileName + ".jpg",
 					isComMeg, 2);
-		}else if (m.getContentType() == ContentType.Notice) {
+		} else if (m.getContentType() == ContentType.Notice) {
 
-			mp = new MessagePojo(user_id, contactid, time,  FuXunTools.del_tag(m.getContent()),
-					isComMeg, 3);
+			mp = new MessagePojo(user_id, contactid, time, m
+					.getContent(), isComMeg, 3);
 		}
 		list.add(mp);
 
@@ -292,23 +324,146 @@ public class RequstService extends Service {
 				num = num + 1;
 			}
 		}
-		if (contactid2==0) { // 系统消息
-			tp = new TalkPojo(user_id, contactid2, "系统消息", "", str,
+		if (contactid2 == 0) { // 系统消息
+			tp = new TalkPojo(user_id, contactid2, "系统消息", "", FuXunTools.del_tag(str),
 					msp.getSendTime(), len - num);
-		}else {
+			db.addTalk(tp);
+			db.updateContactlastContactTime(user_id, contactid2,
+					msp.getSendTime());
+			db.addMessageList(list);
+		} else {
 			cp = db.queryContact(user_id, contactid2);
-			name = cp.getName();
-			if (cp.getCustomName() != null && !cp.getCustomName().equals("")) {
-				name = cp.getCustomName();
+			if (cp.getContactId() == 0) { // 本地没有该用户
+				db.addMessageList(list);
+				get_new_contact(contactid2, msp.getSendTime(), str, len - num,
+						list);
+			} else {
+				name = cp.getName();
+				if (cp.getCustomName() != null
+						&& !cp.getCustomName().equals("")) {
+					name = cp.getCustomName();
+				}
+				tp = new TalkPojo(user_id, contactid2, name,
+						cp.getUserface_url(), str, msp.getSendTime(), len - num);
+				db.addTalk(tp);
+				db.updateContactlastContactTime(user_id, contactid2,
+						msp.getSendTime());
+				db.addMessageList(list);
 			}
-			tp = new TalkPojo(user_id, contactid2, name, cp.getUserface_url(), str,
-					msp.getSendTime(), len - num);
-		}
-		
 
-		db.addTalk(tp);
-		db.updateContactlastContactTime(user_id, contactid2, msp.getSendTime());
-		db.addMessageList(list);
+		}
+
+	}
+
+	public static void get_new_contact(final int contact_id,
+			final String SendTime, final String content, final int len,
+			final List<MessagePojo> list) {
+
+		final Handler mHandler = new Handler() {
+			public void handleMessage(android.os.Message msg) {
+				TalkPojo tp = null;
+				switch (msg.what) {
+				case 0:
+					ShortContactPojo cp = (ShortContactPojo) msg.obj;
+					FuXunTools.getBitmap_url(cp.getUserface_url(), contact_id);
+					String name = cp.getName();
+					if (cp.getCustomName() != null
+							&& !cp.getCustomName().equals("")) {
+						name = cp.getCustomName();
+					}
+					tp = new TalkPojo(sp.getInt("user_id", 0), contact_id,
+							name, cp.getUserface_url(), content, SendTime, len);
+					db.addTalk(tp);
+					db.addContact(sp.getInt("user_id", 0), cp);
+					
+					break;
+				case 1:
+
+					break;
+				case 2:
+					tp = new TalkPojo(sp.getInt("user_id", 0), contact_id,
+							"暂未设置昵称", "", content, SendTime, len);
+					db.addTalk(tp);
+					break;
+				default:
+					break;
+				}
+			}
+		};
+
+		Thread GetContactDetail = new Thread() {
+			public void run() {
+				try {
+					ContactDetailRequest.Builder builder = ContactDetailRequest
+							.newBuilder();
+					builder.setUserId(sp.getInt("user_id", 0));
+					builder.setContactId(contact_id);
+					builder.setToken(sp.getString("Token", ""));
+					ContactDetailRequest response = builder.build();
+					byte[] by = HttpUtil.sendHttps(response.toByteArray(),
+							Urlinterface.ContactDetail, "POST");
+					if (by != null && by.length > 0) {
+						ContactDetailResponse res = ContactDetailResponse
+								.parseFrom(by);
+						if (res.getIsSucceed()) {
+							Contact contact = res.getContact();
+							int contactId = contact.getContactId();
+							String name = contact.getName();
+							String customName = contact.getCustomName();
+							String sortKey = "";
+							String userface_url = contact.getTileUrl();
+							int sex = contact.getGender().getNumber();
+							int source = contact.getSource();
+							String lastContactTime = contact
+									.getLastContactTime();
+							boolean isblocked = contact.getIsBlocked();
+							boolean isprovider = contact.getIsProvider();
+							int isBlocked = -1, isProvider = -1;
+							if (isblocked == true) {
+								isBlocked = 1;
+							} else if (isblocked == false) {
+								isBlocked = 0;
+							}
+							if (isprovider == true) {
+								isProvider = 1;
+							} else if (isprovider == false) {
+								isProvider = 0;
+							}
+							String orderTime = contact.getOrderTime();
+							String subscribeTime = contact.getSubscribeTime();
+							ShortContactPojo cp = new ShortContactPojo(
+									contactId, sortKey, name, customName,
+									userface_url, sex, source, lastContactTime,
+									isBlocked, orderTime, subscribeTime);
+//							android.os.Message me = new android.os.Message();
+//							me.what = 0;
+//							me.obj = cp;
+//							mHandler.sendMessage(me);
+							Log.i("Ax", "contact:" + cp.toString());
+							
+							String name2 = cp.getName();
+							if (cp.getCustomName() != null
+									&& !cp.getCustomName().equals("")) {
+								name2 = cp.getCustomName();
+							}
+							TalkPojo	tp = new TalkPojo(sp.getInt("user_id", 0), contact_id,
+									name2, cp.getUserface_url(), content, SendTime, len);
+							db.addTalk(tp);
+							db.addContact(sp.getInt("user_id", 0), cp);
+							FuXunTools.getBitmap_url(cp.getUserface_url(), contact_id);
+							Log.i("Ax", "contact2:" + cp.toString());
+						} else {
+							mHandler.sendEmptyMessage(2);
+						}
+					} else {
+						mHandler.sendEmptyMessage(2);
+					}
+				} catch (Exception e) {
+					mHandler.sendEmptyMessage(2);
+				}
+			}
+		};
+		GetContactDetail.start();
 
 	}
 

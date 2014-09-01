@@ -8,17 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -32,6 +28,7 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.view.ViewTreeObserver.OnPreDrawListener;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -49,11 +46,11 @@ import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.ImageCacheUtil;
 import com.fuwu.mobileim.util.Urlinterface;
+import com.fuwu.mobileim.view.MyDialog;
 import com.google.protobuf.ByteString;
 
 public class MyInformationActivity extends Activity implements OnTouchListener {
 	byte[] buf = null;
-	private ProgressDialog prodialog;
 	private ImageButton my_info_back;// 返回按钮
 	private ProfilePojo profilePojo;
 	private ImageView myinfo_userface, myinfo_modifynickname;
@@ -67,7 +64,7 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 0:
-				prodialog.dismiss();
+				builder.dismiss();
 				ImageCacheUtil.IMAGE_CACHE.clear();
 				Toast.makeText(getApplicationContext(), "修改成功",
 						Toast.LENGTH_SHORT).show();
@@ -98,29 +95,29 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 				buf = null;
 				break;
 			case 1:
-				prodialog.dismiss();
+				builder.dismiss();
 				Toast.makeText(getApplicationContext(), "修改失败",
 						Toast.LENGTH_SHORT).show();
 				break;
 			case 2:
-				prodialog.dismiss();
+				builder.dismiss();
 				fxApplication.setUser_exist(true);
 				FuXunTools.putProfile(profilePojo,preferences,fxApplication);
 				init();
 				break;
 			case 6:
-				prodialog.dismiss();
+				builder.dismiss();
 				Toast.makeText(getApplicationContext(), "请求失败",
 						Toast.LENGTH_SHORT).show();
 				break;
 
 			case 7:
-				prodialog.dismiss();
+				builder.dismiss();
 				Toast.makeText(getApplicationContext(), "网络错误",
 						Toast.LENGTH_SHORT).show();
 				break;
 			case 9:
-				prodialog.dismiss();
+				builder.dismiss();
 				new Handler().postDelayed(new Runnable() {
 					public void run() {
 						Intent intent = new Intent(MyInformationActivity.this,
@@ -138,7 +135,7 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 	};
 	SharedPreferences preferences;
 	private FxApplication fxApplication;
-
+	private MyDialog builder;
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.my_information);
@@ -159,10 +156,7 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 			init();
 		} else {
 			if (FuXunTools.isConnect(this)) {
-				prodialog = new ProgressDialog(MyInformationActivity.this);
-				prodialog.setMessage("正在加载数据，请稍后...");
-				prodialog.setCanceledOnTouchOutside(false);
-				prodialog.show();
+				builder= FuXunTools.showLoading(getLayoutInflater(),MyInformationActivity.this,"正在加载数据，请稍后..");
 				Thread thread = new Thread(new getProfile());
 				thread.start();
 			} else {
@@ -299,11 +293,11 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 
 			if (profilePojo.getLicenses().size() != 0) { // 福师认证了行业
 				// 行业认证图标
-				List imageviewList = new ArrayList<ImageView>();
+				ArrayList<ImageView> imageviewList = new ArrayList<ImageView>();
 				for (int i = 0; i < FuXunTools.image_id.length; i++) {
-					imageviewList.add(findViewById(FuXunTools.image_id[i]));
+					imageviewList.add((ImageView) findViewById(FuXunTools.image_id[i]));
 				}
-				FuXunTools.setItem_bg((ArrayList<ImageView>) imageviewList,
+				FuXunTools.setItem_bg(imageviewList,
 						profilePojo.getLicenses());
 			}
 		}
@@ -441,10 +435,7 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 			// myinfo_userface.setImageDrawable(new BitmapDrawable(FuXunTools
 			// .createRoundConerImage(b)));
 			if (FuXunTools.isConnect(MyInformationActivity.this)) {
-				prodialog = new ProgressDialog(MyInformationActivity.this);
-				prodialog.setMessage("正在修改...");
-				prodialog.setCanceledOnTouchOutside(false);
-				prodialog.show();
+				builder= FuXunTools.showLoading(getLayoutInflater(),MyInformationActivity.this,"正在修改，请稍后..");
 				Thread thread = new Thread(new modifyProfile());
 				thread.start();
 			} else {
@@ -584,5 +575,6 @@ public class MyInformationActivity extends Activity implements OnTouchListener {
 		}
 		fxApplication.setActivityList();
 	}
+	
 
 }

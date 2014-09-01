@@ -5,16 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -26,35 +23,31 @@ import android.text.style.ForegroundColorSpan;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
-import android.view.inputmethod.InputMethodManager;
+import android.view.ViewTreeObserver.OnPreDrawListener;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.model.Models.BlockContactRequest;
 import com.fuwu.mobileim.model.Models.BlockContactResponse;
-import com.fuwu.mobileim.model.Models.ChangeContactDetailRequest;
-import com.fuwu.mobileim.model.Models.ChangeContactDetailResponse;
 import com.fuwu.mobileim.model.Models.Contact;
 import com.fuwu.mobileim.model.Models.ContactDetailRequest;
 import com.fuwu.mobileim.model.Models.ContactDetailResponse;
 import com.fuwu.mobileim.model.Models.License;
 import com.fuwu.mobileim.pojo.ContactPojo;
 import com.fuwu.mobileim.util.DBManager;
-import com.fuwu.mobileim.util.ExitService;
 import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.Urlinterface;
+import com.fuwu.mobileim.view.MyDialog;
 
 /**
  * @作者 马龙
@@ -68,16 +61,14 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 	private ContactPojo cp = null;
 	private int user_id;
 	private int contact_id;
-	private RelativeLayout personal_info_relativeLayout5;
 	private String token;
-	private ProgressDialog pd;
 	private DBManager db;
 	private boolean shielding;
 	private FxApplication fxApplication;
 	private PopupWindow menuWindow;
-	private boolean isPlusShow = false;
 	private ImageView mOther; // 右上方按钮
 	private float height = 0;
+
 	private Handler handler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
@@ -85,41 +76,19 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 
 			switch (msg.what) {
 			case 1:
-				if (pd.isShowing()) {
-					pd.dismiss();
-				}
-
+				builder.dismiss();
 				updateData();
 				break;
 			case 2:
-				pd.dismiss();
+				builder.dismiss();
 				Toast.makeText(getApplicationContext(), "获取详细信息失败!", 0).show();
-				break;
-			case 3:
-				pd.dismiss();
-				InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-				boolean isOpen = imm.isActive();
-				if (isOpen) {
-					imm.hideSoftInputFromWindow(ContactInfoActivity.this
-							.getCurrentFocus().getWindowToken(),
-							InputMethodManager.HIDE_NOT_ALWAYS);
-				}
-				Toast.makeText(getApplicationContext(), "修改备注成功!", 0).show();
-				break;
-			case 4:
-				pd.dismiss();
-				Toast.makeText(getApplicationContext(), "修改备注失败!", 0).show();
-				break;
-			case 6:
-				Toast.makeText(getApplicationContext(), "请求失败",
-						Toast.LENGTH_SHORT).show();
 				break;
 			case 7:
 				Toast.makeText(getApplicationContext(), R.string.no_internet,
 						Toast.LENGTH_SHORT).show();
 				break;
 			case 9:
-				pd.dismiss();
+				builder.dismiss();
 				db = new DBManager(ContactInfoActivity.this);
 				if (!db.isOpen()) {
 					db = new DBManager(ContactInfoActivity.this);
@@ -137,7 +106,7 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 				}
 				break;
 			case 10:
-				pd.dismiss();
+				builder.dismiss();
 				if (shielding) {
 					Toast.makeText(getApplicationContext(), "屏蔽失败",
 							Toast.LENGTH_SHORT).show();
@@ -149,7 +118,7 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 			case 11:
 				break;
 			case 12:
-				pd.dismiss();
+				builder.dismiss();
 				new Handler().postDelayed(new Runnable() {
 					public void run() {
 						Intent intent = new Intent(ContactInfoActivity.this,
@@ -175,7 +144,10 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 			}
 		}
 	};
-	SharedPreferences preferences;
+	private SharedPreferences preferences;
+	private MyDialog builder;
+	// 行业认证图标
+	private ArrayList<ImageView> imageviewList;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -195,18 +167,14 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 		token = preferences.getString("Token", "token");
 		if (contact_id != 0) {
 			if (FuXunTools.isConnect(ContactInfoActivity.this)) {
-				pd = new ProgressDialog(this);
-				pd.setMessage("正在加载详细信息...");
-				pd.setCanceledOnTouchOutside(false);
-				pd.show();
-
+				builder= FuXunTools.showLoading(getLayoutInflater(),ContactInfoActivity.this,"正在加载详细信息..");
 				new GetContactDetail().start();
 			} else {
 				handler.sendEmptyMessage(7);
 			}
 		} else {
 			cp = new ContactPojo(0, "", "系统消息", "系统消息", "", 2, 0, "", 0, 0, "",
-					"随时、随地、随需", "", "上海", null, "");
+					"随时、随地、随需", "", "上海", null, "",false);
 			handler.sendEmptyMessage(13);
 		}
 
@@ -293,8 +261,6 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 		} else {
 			name.setText(cp.getName());
 		}
-		// 认证行业
-
 		// 个人简介
 		String IndividualResume = cp.getIndividualResume();
 		if (IndividualResume != null && IndividualResume.length() > 0
@@ -302,7 +268,7 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 			sign.setText("" + cp.getIndividualResume());
 		} else {
 			sign.setText("此福师尚未编写信息");
-//			findViewById(R.id.info_sign_null).setVisibility(View.VISIBLE);
+			// findViewById(R.id.info_sign_null).setVisibility(View.VISIBLE);
 		}
 
 		// 福指
@@ -321,27 +287,66 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 		mSpannableStringBuilder.setSpan(span_1, index, fuzhiStr.length(),
 				Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
 		fuzhi.setText(mSpannableStringBuilder);
-
+		// 行业认证图标
+		imageviewList = new ArrayList<ImageView>();
+		for (int i = 0; i < FuXunTools.image_id.length; i++) {
+			imageviewList.add((ImageView) findViewById(FuXunTools.image_id[i]));
+		}
 		if (cp.getIsProvider() == 1) { // 福师
 			findViewById(R.id.personal_info_fz).setVisibility(View.VISIBLE);
 			findViewById(R.id.personal_info_gerenjianjie).setVisibility(
 					View.VISIBLE);
 			findViewById(R.id.personal_info_hangye).setVisibility(View.VISIBLE);
 
-			String lis = cp.getLisence();
 			if (cp.getLicenses().size() != 0) { // 福师认证了行业
 
-				// 行业认证图标
-				List imageviewList = new ArrayList<ImageView>();
-				for (int i = 0; i < FuXunTools.image_id.length; i++) {
-					imageviewList.add(findViewById(FuXunTools.image_id[i]));
+				FuXunTools.setItem_bg(imageviewList, cp.getLicenses());
+				for (int i = 0; i < cp.getLicenses().size(); i++) {
+					final int num = i;
+					imageviewList.get(i).setOnClickListener(
+							new OnClickListener() {
+
+								@Override
+								public void onClick(View v) {
+									// TODO Auto-generated method stub
+									int[] location = new int[2];
+									v.getLocationOnScreen(location);
+									int x = location[0]-2*v.getWidth();
+									int y = (int) (location[1]-v.getWidth()*0.5);
+									authentication_dis(x, y, cp.getLicenses()
+											.get(num).getName());
+//									Toast.makeText(getApplicationContext(), ""+v.getWidth(), 0).show();
+								}
+							});
 				}
-				FuXunTools.setItem_bg((ArrayList<ImageView>) imageviewList,
-						cp.getLicenses());
 
 			}
 		}
+		if (cp.getContactId() != 0) {
+		int size = cp.getLicenses().size();
+		if (size == 6) {
+			imageviewList.add((ImageView) findViewById(R.id.info_face6));
+			size = size + 1;
+		}
+		// 实名认证
+		
+		if (cp.isAuthentication()) {
+			findViewById(R.id.personal_info_hangye).setVisibility(View.VISIBLE);
+			imageviewList.get(size).setBackgroundResource(R.drawable.real_name);
+			imageviewList.get(size).setOnClickListener(new OnClickListener() {
 
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					int[] location = new int[2];
+					v.getLocationOnScreen(location);
+					int x = location[0]-2*v.getWidth();
+					int y = (int) (location[1]-v.getWidth()*0.5);
+					authentication_dis(x, y, "实名认证");
+				}
+			});
+		}
+		}
 		// 设置背景
 		String backgroundUrl = cp.getBackgroundUrl();
 
@@ -432,12 +437,13 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 						String location = contact.getLocation();
 						List<License> licenses = contact.getLicensesList();
 						String backgroundUrl = contact.getBackgroundUrl();
-
+						boolean  isAuthentication = contact.getIsAuthentication();
+						Log.i("FuWu", "isAuthentication:" + isAuthentication);
 						cp = new ContactPojo(contactId, sortKey, name,
 								customName, userface_url, sex, source,
 								lastContactTime, isBlocked, isProvider,
 								lisence, individualResume, fuzhi, location,
-								licenses, backgroundUrl);
+								licenses, backgroundUrl,isAuthentication);
 						handler.sendEmptyMessage(1);
 						Log.i("FuWu", "contact:" + cp.toString());
 					} else {
@@ -453,42 +459,6 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 				}
 			} catch (Exception e) {
 
-			}
-		}
-	}
-
-	class UpdateContactRem extends Thread {
-		public void run() {
-			try {
-				ChangeContactDetailRequest.Builder builder = ChangeContactDetailRequest
-						.newBuilder();
-				builder.setUserId(user_id);
-				builder.setToken(token);
-				Contact.Builder cb = Contact.newBuilder();
-				cb.setContactId(cp.getContactId());
-				String str = "";
-				cb.setCustomName(str);
-				builder.setContact(cb);
-				ChangeContactDetailRequest response = builder.build();
-				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
-						Urlinterface.ContactDetail, "PUT");
-				if (by != null && by.length > 0) {
-					ChangeContactDetailResponse res = ChangeContactDetailResponse
-							.parseFrom(by);
-					if (res.getIsSucceed()) {
-						handler.sendEmptyMessage(3);
-					} else {
-						int ErrorCode = res.getErrorCode().getNumber();
-						if (ErrorCode == 2001) {
-							handler.sendEmptyMessage(12);
-						} else {
-							handler.sendEmptyMessage(4);
-						}
-					}
-				} else {
-					handler.sendEmptyMessage(4);
-				}
-			} catch (Exception e) {
 			}
 		}
 	}
@@ -523,10 +493,7 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 		case R.id.personal_info_other_shielding: // 屏蔽此人
 			if (cp.getContactId() != 0) {
 				if (FuXunTools.isConnect(ContactInfoActivity.this)) {
-					pd = new ProgressDialog(this);
-					pd.setMessage("正在屏蔽联系人...");
-					pd.setCanceledOnTouchOutside(false);
-					pd.show();
+					builder= FuXunTools.showLoading(getLayoutInflater(),ContactInfoActivity.this,"正在屏蔽联系人..");
 					shielding = true;
 					Thread thread = new Thread(new BlockContact());
 					thread.start();
@@ -654,37 +621,6 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 		fxApplication.setActivityList();
 	}
 
-	// public boolean onKeyDown(int keyCode, KeyEvent event) {
-	// if (keyCode == KeyEvent.KEYCODE_BACK) {
-	// // spf.edit().putString("Token", "null").commit();
-	// Dialog dialog = new AlertDialog.Builder(ContactInfoActivity.this)
-	// .setTitle("提示")
-	// .setMessage("您确认要退出应用么?")
-	// .setPositiveButton("确认",
-	// new DialogInterface.OnClickListener() {
-	// @Override
-	// public void onClick(DialogInterface dialog,
-	// int which) {
-	//
-	// clearActivity();
-	// }
-	// })
-	// .setNegativeButton("取消",
-	// new DialogInterface.OnClickListener() {
-	//
-	// @Override
-	// public void onClick(DialogInterface dialog,
-	// int which) {
-	// dialog.dismiss();
-	// }
-	// }).create();
-	// dialog.show();
-	//
-	// return true;
-	// }
-	// return super.onKeyDown(keyCode, event);
-	// }
-
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -704,6 +640,25 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 		}
 		super.onActivityResult(requestCode, resultCode, data);
 
+	}
+
+
+
+	@SuppressWarnings("deprecation")
+	public void authentication_dis(int x, int y, String content) {
+		View view = getLayoutInflater().inflate(
+				R.layout.authentication_display, null);
+		TextView tv = (TextView) view.findViewById(R.id.authentication_text);
+		tv.setText(content);
+		menuWindow = new PopupWindow(view, LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT);
+		menuWindow.setFocusable(true);
+		menuWindow.setOutsideTouchable(true);
+		menuWindow.update();
+		menuWindow.setBackgroundDrawable(new BitmapDrawable());
+		// 设置layout在PopupWindow中显示的位置
+		menuWindow.showAtLocation(this.findViewById(R.id.personal_info_main),
+				Gravity.TOP | Gravity.LEFT, x, y);
 	}
 
 }

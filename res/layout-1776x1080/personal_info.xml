@@ -48,7 +48,7 @@
 
     <RelativeLayout
         android:id="@+id/personal_info_relativeLayout3"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="98dp"
         android:layout_below="@+id/personal_info_top"
         android:layout_marginTop="55dp"
@@ -83,6 +83,14 @@
             android:text=""
             android:textColor="#333333"
             android:textSize="19sp" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="#CFCFCF" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -100,21 +108,13 @@
             android:background="@color/white"
             android:visibility="gone" >
 
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:background="#CFCFCF" />
-
             <TextView
                 android:id="@+id/hangye_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
-                android:text="行业认证"
+                android:text="认证"
                 android:textColor="@color/text_color"
                 android:textSize="19sp" />
 
@@ -125,6 +125,17 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="5dp"
                 android:orientation="horizontal" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="10dp" >
+
+                    <ImageView
+                        android:id="@+id/info_face6"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -228,6 +239,14 @@
                 android:layout_marginRight="15dp"
                 android:textColor="#999999"
                 android:textSize="17sp" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="#CFCFCF" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -236,14 +255,6 @@
             android:layout_height="50dip"
             android:layout_below="@+id/personal_info_fz"
             android:background="@color/white" >
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:background="#CFCFCF" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -313,8 +324,8 @@
             android:layout_width="fill_parent"
             android:layout_height="84dp"
             android:layout_below="@+id/personal_info_location"
-            android:visibility="gone" 
-            android:background="@color/white" >
+            android:background="@color/white"
+            android:visibility="gone" >
 
             <TextView
                 android:id="@+id/info_sign_text"
@@ -342,8 +353,8 @@
                     android:id="@+id/info_sign"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text=""
                     android:gravity="right"
+                    android:text=""
                     android:textColor="#999999"
                     android:textSize="17dp" />
             </ScrollView>
@@ -357,10 +368,10 @@
                 android:layout_marginTop="13dp"
                 android:layout_toRightOf="@+id/info_sign_text"
                 android:gravity="center"
-                android:visibility="gone" 
                 android:text="(此福师尚未编写信息)"
                 android:textColor="#999999"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:visibility="gone" />
 
             <View
                 android:layout_width="fill_parent"
@@ -376,12 +387,12 @@
         android:id="@+id/info_sendBtn"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="15dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-         android:layout_marginBottom="15dp"
         android:background="@drawable/login_btn"
         android:text="发送消息"
-        android:layout_alignParentBottom="true"
         android:textColor="@color/white"
         android:textSize="19sp" />
 

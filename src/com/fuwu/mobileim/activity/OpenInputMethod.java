@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -21,6 +22,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnTouchListener;
+import android.view.ViewTreeObserver.OnPreDrawListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,6 +42,7 @@ import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.Urlinterface;
+import com.fuwu.mobileim.view.MyDialog;
 
 public class OpenInputMethod extends Activity implements OnTouchListener {
 	// private MyDialog dialog;
@@ -48,7 +51,6 @@ public class OpenInputMethod extends Activity implements OnTouchListener {
 	private ImageButton my_info_confirm;// 保存按钮
 	SharedPreferences preferences;
 	private FxApplication fxApplication;
-	private ProgressDialog pd;
 	private DBManager db;
 	private int user_id;
 	private int contact_id;
@@ -63,7 +65,7 @@ public class OpenInputMethod extends Activity implements OnTouchListener {
 			switch (msg.what) {
 
 			case 3:
-				pd.dismiss();
+				builder.dismiss();
 				InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 				boolean isOpen = imm.isActive();
 				if (isOpen) {
@@ -77,7 +79,7 @@ public class OpenInputMethod extends Activity implements OnTouchListener {
 				Toast.makeText(getApplicationContext(), "修改备注成功!", 0).show();
 				break;
 			case 4:
-				pd.dismiss();
+				builder.dismiss();
 				Toast.makeText(getApplicationContext(), "修改备注失败!", 0).show();
 				break;
 			case 7:
@@ -85,7 +87,7 @@ public class OpenInputMethod extends Activity implements OnTouchListener {
 						Toast.LENGTH_SHORT).show();
 				break;
 			case 12:
-				pd.dismiss();
+				builder.dismiss();
 				new Handler().postDelayed(new Runnable() {
 					public void run() {
 						Intent intent = new Intent(OpenInputMethod.this,
@@ -101,7 +103,7 @@ public class OpenInputMethod extends Activity implements OnTouchListener {
 			}
 		}
 	};
-
+	private MyDialog builder;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -152,17 +154,8 @@ public class OpenInputMethod extends Activity implements OnTouchListener {
 				Toast.makeText(getApplicationContext(), "备注没有变化",
 						Toast.LENGTH_SHORT).show();
 			} else {
-				// Intent intent2 = new Intent();
-				// intent2.putExtra("content", reply_edit);
-				// // 通过调用setResult方法返回结果给前一个activity。
-				// OpenInputMethod.this.setResult(5, intent2);
-				// // 关闭当前activity
-				// OpenInputMethod.this.finish();
 				if (FuXunTools.isConnect(OpenInputMethod.this)) {
-					pd = new ProgressDialog(OpenInputMethod.this);
-					pd.setMessage("正在发送请求...");
-					pd.setCanceledOnTouchOutside(false);
-					pd.show();
+					builder= FuXunTools.showLoading(getLayoutInflater(),OpenInputMethod.this,"正在修改，请稍后..");
 					new UpdateContactRem().start();
 				} else {
 					handler.sendEmptyMessage(7);
@@ -270,4 +263,5 @@ public class OpenInputMethod extends Activity implements OnTouchListener {
 		}
 		return super.onKeyDown(keyCode, event);
 	}
+
 }

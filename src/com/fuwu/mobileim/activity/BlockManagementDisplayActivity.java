@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,7 +20,9 @@ import android.view.Display;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.ViewTreeObserver.OnPreDrawListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,12 +38,10 @@ import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CircularImage;
+import com.fuwu.mobileim.view.MyDialog;
 
 public class BlockManagementDisplayActivity extends Activity {
-	private ProgressDialog prodialog;
-	private ListView mListView;
 	private DBManager db;
-	private List<ContactPojo> list = new ArrayList<ContactPojo>();
 
 	private Handler handler = new Handler() {
 		/*
@@ -51,7 +52,7 @@ public class BlockManagementDisplayActivity extends Activity {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 0:
-				prodialog.dismiss();
+				builder.dismiss();
 				Toast.makeText(getApplicationContext(), "恢复成功",
 						Toast.LENGTH_SHORT).show();
 
@@ -62,24 +63,18 @@ public class BlockManagementDisplayActivity extends Activity {
 				BlockManagementDisplayActivity.this.finish();
 
 				break;
-			case 1:
-				prodialog.dismiss();
-				Toast.makeText(getApplicationContext(), "恢复失败",
-						Toast.LENGTH_SHORT).show();
-				break;
 			case 6:
-				prodialog.dismiss();
+				builder.dismiss();
 				Toast.makeText(getApplicationContext(), "恢复失败",
 						Toast.LENGTH_SHORT).show();
 				break;
 
 			case 7:
-				prodialog.dismiss();
 				Toast.makeText(getApplicationContext(), R.string.no_internet,
 						Toast.LENGTH_SHORT).show();
 				break;
 			case 9:
-				prodialog.dismiss();
+				builder.dismiss();
 				new Handler().postDelayed(new Runnable() {
 					public void run() {
 						Intent intent = new Intent(
@@ -102,7 +97,7 @@ public class BlockManagementDisplayActivity extends Activity {
 	int user_id = -1;
 	String Token = "";
 	private FxApplication fxApplication;
-
+	private MyDialog builder;
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -200,16 +195,11 @@ public class BlockManagementDisplayActivity extends Activity {
 		block_display_restore.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				if (FuXunTools.isConnect(BlockManagementDisplayActivity.this)) {
-					prodialog = new ProgressDialog(
-							BlockManagementDisplayActivity.this);
-					prodialog.setMessage("正在恢复...");
-					prodialog.setCanceledOnTouchOutside(false);
-					prodialog.show();
+					builder= FuXunTools.showLoading(getLayoutInflater(),BlockManagementDisplayActivity.this,"正在恢复..");
 					Thread thread = new Thread(new BlockContact());
 					thread.start();
 				} else {
-					Toast.makeText(BlockManagementDisplayActivity.this,
-							R.string.no_internet, Toast.LENGTH_SHORT).show();
+					handler.sendEmptyMessage(7);
 				}
 
 			}
@@ -251,7 +241,7 @@ public class BlockManagementDisplayActivity extends Activity {
 						if (ErrorCode == 2001) {
 							handler.sendEmptyMessage(9);
 						} else {
-							handler.sendEmptyMessage(1);
+							handler.sendEmptyMessage(6);
 						}
 					}
 				} else {
@@ -260,7 +250,7 @@ public class BlockManagementDisplayActivity extends Activity {
 
 				//
 			} catch (Exception e) {
-				handler.sendEmptyMessage(7);
+				handler.sendEmptyMessage(6);
 			}
 		}
 	}

@@ -449,8 +449,6 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 		switch (buttonNumber) {
 		case 0:
 			setButtonColor(buttonNumber);
-
-			
 			contactsList1 = db.queryContactList(user_id);
 			Collections.sort(contactsList1, longDataComparator);
 			contactsList.clear();
@@ -463,9 +461,9 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 					contactsList.add(contactsList1.get(i));
 				}
 			}
-//			ShortContactPojo coPojo = new ShortContactPojo(0, "", "系统消息",
-//					"系统消息", "", 2, 0, "", 0, "", "");
-//			contactsList.add(0, coPojo);
+			ShortContactPojo coPojo = new ShortContactPojo(0, "", "系统消息",
+					"系统消息", "", 2, 0, "", 0, "", "");
+			contactsList.add(0, coPojo);
 			adapter2.updateListView(contactsList);
 			xListView.setSelection(index);
 			onRefresh_number = true;

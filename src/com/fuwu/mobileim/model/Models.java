@@ -16,7 +16,7 @@ public final class Models {
      * <code>optional string userName = 1;</code>
      *
      * <pre>
-     *ç”¨æˆ·è´¦å·
+     *ÓÃ»§ÕËºÅ
      * </pre>
      */
     boolean hasUserName();
@@ -24,7 +24,7 @@ public final class Models {
      * <code>optional string userName = 1;</code>
      *
      * <pre>
-     *ç”¨æˆ·è´¦å·
+     *ÓÃ»§ÕËºÅ
      * </pre>
      */
     java.lang.String getUserName();
@@ -32,7 +32,7 @@ public final class Models {
      * <code>optional string userName = 1;</code>
      *
      * <pre>
-     *ç”¨æˆ·è´¦å·
+     *ÓÃ»§ÕËºÅ
      * </pre>
      */
     com.google.protobuf.ByteString
@@ -43,7 +43,7 @@ public final class Models {
      * <code>optional string password = 2;</code>
      *
      * <pre>
-     *ç™»å½•å¯†ç 
+     *µÇÂ¼ÃÜÂë
      * </pre>
      */
     boolean hasPassword();
@@ -51,7 +51,7 @@ public final class Models {
      * <code>optional string password = 2;</code>
      *
      * <pre>
-     *ç™»å½•å¯†ç 
+     *µÇÂ¼ÃÜÂë
      * </pre>
      */
     java.lang.String getPassword();
@@ -59,7 +59,7 @@ public final class Models {
      * <code>optional string password = 2;</code>
      *
      * <pre>
-     *ç™»å½•å¯†ç 
+     *µÇÂ¼ÃÜÂë
      * </pre>
      */
     com.google.protobuf.ByteString
@@ -173,7 +173,7 @@ public final class Models {
      * <code>optional string userName = 1;</code>
      *
      * <pre>
-     *ç”¨æˆ·è´¦å·
+     *ÓÃ»§ÕËºÅ
      * </pre>
      */
     public boolean hasUserName() {
@@ -183,7 +183,7 @@ public final class Models {
      * <code>optional string userName = 1;</code>
      *
      * <pre>
-     *ç”¨æˆ·è´¦å·
+     *ÓÃ»§ÕËºÅ
      * </pre>
      */
     public java.lang.String getUserName() {
@@ -204,7 +204,7 @@ public final class Models {
      * <code>optional string userName = 1;</code>
      *
      * <pre>
-     *ç”¨æˆ·è´¦å·
+     *ÓÃ»§ÕËºÅ
      * </pre>
      */
     public com.google.protobuf.ByteString
@@ -228,7 +228,7 @@ public final class Models {
      * <code>optional string password = 2;</code>
      *
      * <pre>
-     *ç™»å½•å¯†ç 
+     *µÇÂ¼ÃÜÂë
      * </pre>
      */
     public boolean hasPassword() {
@@ -238,7 +238,7 @@ public final class Models {
      * <code>optional string password = 2;</code>
      *
      * <pre>
-     *ç™»å½•å¯†ç 
+     *µÇÂ¼ÃÜÂë
      * </pre>
      */
     public java.lang.String getPassword() {
@@ -259,7 +259,7 @@ public final class Models {
      * <code>optional string password = 2;</code>
      *
      * <pre>
-     *ç™»å½•å¯†ç 
+     *µÇÂ¼ÃÜÂë
      * </pre>
      */
     public com.google.protobuf.ByteString
@@ -530,7 +530,7 @@ public final class Models {
        * <code>optional string userName = 1;</code>
        *
        * <pre>
-       *ç”¨æˆ·è´¦å·
+       *ÓÃ»§ÕËºÅ
        * </pre>
        */
       public boolean hasUserName() {
@@ -540,7 +540,7 @@ public final class Models {
        * <code>optional string userName = 1;</code>
        *
        * <pre>
-       *ç”¨æˆ·è´¦å·
+       *ÓÃ»§ÕËºÅ
        * </pre>
        */
       public java.lang.String getUserName() {
@@ -558,7 +558,7 @@ public final class Models {
        * <code>optional string userName = 1;</code>
        *
        * <pre>
-       *ç”¨æˆ·è´¦å·
+       *ÓÃ»§ÕËºÅ
        * </pre>
        */
       public com.google.protobuf.ByteString
@@ -578,7 +578,7 @@ public final class Models {
        * <code>optional string userName = 1;</code>
        *
        * <pre>
-       *ç”¨æˆ·è´¦å·
+       *ÓÃ»§ÕËºÅ
        * </pre>
        */
       public Builder setUserName(
@@ -595,7 +595,7 @@ public final class Models {
        * <code>optional string userName = 1;</code>
        *
        * <pre>
-       *ç”¨æˆ·è´¦å·
+       *ÓÃ»§ÕËºÅ
        * </pre>
        */
       public Builder clearUserName() {
@@ -608,7 +608,7 @@ public final class Models {
        * <code>optional string userName = 1;</code>
        *
        * <pre>
-       *ç”¨æˆ·è´¦å·
+       *ÓÃ»§ÕËºÅ
        * </pre>
        */
       public Builder setUserNameBytes(
@@ -628,7 +628,7 @@ public final class Models {
        * <code>optional string password = 2;</code>
        *
        * <pre>
-       *ç™»å½•å¯†ç 
+       *µÇÂ¼ÃÜÂë
        * </pre>
        */
       public boolean hasPassword() {
@@ -638,7 +638,7 @@ public final class Models {
        * <code>optional string password = 2;</code>
        *
        * <pre>
-       *ç™»å½•å¯†ç 
+       *µÇÂ¼ÃÜÂë
        * </pre>
        */
       public java.lang.String getPassword() {
@@ -656,7 +656,7 @@ public final class Models {
        * <code>optional string password = 2;</code>
        *
        * <pre>
-       *ç™»å½•å¯†ç 
+       *µÇÂ¼ÃÜÂë
        * </pre>
        */
       public com.google.protobuf.ByteString
@@ -676,7 +676,7 @@ public final class Models {
        * <code>optional string password = 2;</code>
        *
        * <pre>
-       *ç™»å½•å¯†ç 
+       *µÇÂ¼ÃÜÂë
        * </pre>
        */
       public Builder setPassword(
@@ -693,7 +693,7 @@ public final class Models {
        * <code>optional string password = 2;</code>
        *
        * <pre>
-       *ç™»å½•å¯†ç 
+       *µÇÂ¼ÃÜÂë
        * </pre>
        */
       public Builder clearPassword() {
@@ -706,7 +706,7 @@ public final class Models {
        * <code>optional string password = 2;</code>
        *
        * <pre>
-       *ç™»å½•å¯†ç 
+       *µÇÂ¼ÃÜÂë
        * </pre>
        */
       public Builder setPasswordBytes(
@@ -749,7 +749,7 @@ public final class Models {
      * <code>optional int32 userId = 2;</code>
      *
      * <pre>
-     *ç”¨æˆ·ID
+     *ÓÃ»§ID
      * </pre>
      */
     boolean hasUserId();
@@ -757,7 +757,7 @@ public final class Models {
      * <code>optional int32 userId = 2;</code>
      *
      * <pre>
-     *ç”¨æˆ·ID
+     *ÓÃ»§ID
      * </pre>
      */
     int getUserId();
@@ -767,7 +767,7 @@ public final class Models {
      * <code>optional string token = 3;</code>
      *
      * <pre>
-     *ç”¨æˆ·Token
+     *ÓÃ»§Token
      * </pre>
      */
     boolean hasToken();
@@ -775,7 +775,7 @@ public final class Models {
      * <code>optional string token = 3;</code>
      *
      * <pre>
-     *ç”¨æˆ·Token
+     *ÓÃ»§Token
      * </pre>
      */
     java.lang.String getToken();
@@ -783,7 +783,7 @@ public final class Models {
      * <code>optional string token = 3;</code>
      *
      * <pre>
-     *ç”¨æˆ·Token
+     *ÓÃ»§Token
      * </pre>
      */
     com.google.protobuf.ByteString
@@ -794,7 +794,7 @@ public final class Models {
      * <code>optional int32 passwordFailCount = 4;</code>
      *
      * <pre>
-     *å¯†ç é”™è¯¯æ¬¡æ•°
+     *ÃÜÂë´íÎó´ÎÊı
      * </pre>
      */
     boolean hasPasswordFailCount();
@@ -802,7 +802,7 @@ public final class Models {
      * <code>optional int32 passwordFailCount = 4;</code>
      *
      * <pre>
-     *å¯†ç é”™è¯¯æ¬¡æ•°
+     *ÃÜÂë´íÎó´ÎÊı
      * </pre>
      */
     int getPasswordFailCount();
@@ -812,7 +812,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.AuthenticationResponse.ErrorCodeType errorCode = 5;</code>
      *
      * <pre>
-     *é”™è¯¯ç±»å‹ï¼ˆæšä¸¾ï¼‰
+     *´íÎóÀàĞÍ£¨Ã¶¾Ù£©
      * </pre>
      */
     boolean hasErrorCode();
@@ -820,7 +820,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.AuthenticationResponse.ErrorCodeType errorCode = 5;</code>
      *
      * <pre>
-     *é”™è¯¯ç±»å‹ï¼ˆæšä¸¾ï¼‰
+     *´íÎóÀàĞÍ£¨Ã¶¾Ù£©
      * </pre>
      */
     com.fuwu.mobileim.model.Models.AuthenticationResponse.ErrorCodeType getErrorCode();
@@ -950,7 +950,7 @@ public final class Models {
      * Protobuf enum {@code com.fuwu.mobileim.model.AuthenticationResponse.ErrorCodeType}
      *
      * <pre>
-     *é”™è¯¯ç±»å‹æšä¸¾ç±»
+     *´íÎóÀàĞÍÃ¶¾ÙÀà
      * </pre>
      */
     public enum ErrorCodeType
@@ -959,7 +959,7 @@ public final class Models {
        * <code>BadRequest = 1;</code>
        *
        * <pre>
-       *åºåˆ—åŒ–å‚æ•°å‡ºé”™
+       *ĞòÁĞ»¯²ÎÊı³ö´í
        * </pre>
        */
       BadRequest(0, 1),
@@ -967,7 +967,7 @@ public final class Models {
        * <code>InvalidUserName = 2;</code>
        *
        * <pre>
-       *ç”¨æˆ·è´¦å·æœ‰è¯¯
+       *ÓÃ»§ÕËºÅÓĞÎó
        * </pre>
        */
       InvalidUserName(1, 2),
@@ -975,7 +975,7 @@ public final class Models {
        * <code>InvalidPassword = 3;</code>
        *
        * <pre>
-       *ç”¨æˆ·å¯†ç æœ‰è¯¯
+       *ÓÃ»§ÃÜÂëÓĞÎó
        * </pre>
        */
       InvalidPassword(2, 3),
@@ -983,7 +983,7 @@ public final class Models {
        * <code>InvalidPasswordExceedCount = 4;</code>
        *
        * <pre>
-       *å¯†ç é”™è¯¯æ¬¡æ•°è¶…å‡ºé™å®šæ¬¡æ•°
+       *ÃÜÂë´íÎó´ÎÊı³¬³öÏŞ¶¨´ÎÊı
        * </pre>
        */
       InvalidPasswordExceedCount(3, 4),
@@ -991,7 +991,7 @@ public final class Models {
        * <code>NotActivate = 5;</code>
        *
        * <pre>
-       *ç”¨æˆ·æœªæ¿€æ´»
+       *ÓÃ»§Î´¼¤»î
        * </pre>
        */
       NotActivate(4, 5),
@@ -1001,7 +1001,7 @@ public final class Models {
        * <code>BadRequest = 1;</code>
        *
        * <pre>
-       *åºåˆ—åŒ–å‚æ•°å‡ºé”™
+       *ĞòÁĞ»¯²ÎÊı³ö´í
        * </pre>
        */
       public static final int BadRequest_VALUE = 1;
@@ -1009,7 +1009,7 @@ public final class Models {
        * <code>InvalidUserName = 2;</code>
        *
        * <pre>
-       *ç”¨æˆ·è´¦å·æœ‰è¯¯
+       *ÓÃ»§ÕËºÅÓĞÎó
        * </pre>
        */
       public static final int InvalidUserName_VALUE = 2;
@@ -1017,7 +1017,7 @@ public final class Models {
        * <code>InvalidPassword = 3;</code>
        *
        * <pre>
-       *ç”¨æˆ·å¯†ç æœ‰è¯¯
+       *ÓÃ»§ÃÜÂëÓĞÎó
        * </pre>
        */
       public static final int InvalidPassword_VALUE = 3;
@@ -1025,7 +1025,7 @@ public final class Models {
        * <code>InvalidPasswordExceedCount = 4;</code>
        *
        * <pre>
-       *å¯†ç é”™è¯¯æ¬¡æ•°è¶…å‡ºé™å®šæ¬¡æ•°
+       *ÃÜÂë´íÎó´ÎÊı³¬³öÏŞ¶¨´ÎÊı
        * </pre>
        */
       public static final int InvalidPasswordExceedCount_VALUE = 4;
@@ -1033,7 +1033,7 @@ public final class Models {
        * <code>NotActivate = 5;</code>
        *
        * <pre>
-       *ç”¨æˆ·æœªæ¿€æ´»
+       *ÓÃ»§Î´¼¤»î
        * </pre>
        */
       public static final int NotActivate_VALUE = 5;
@@ -1123,7 +1123,7 @@ public final class Models {
      * <code>optional int32 userId = 2;</code>
      *
      * <pre>
-     *ç”¨æˆ·ID
+     *ÓÃ»§ID
      * </pre>
      */
     public boolean hasUserId() {
@@ -1133,7 +1133,7 @@ public final class Models {
      * <code>optional int32 userId = 2;</code>
      *
      * <pre>
-     *ç”¨æˆ·ID
+     *ÓÃ»§ID
      * </pre>
      */
     public int getUserId() {
@@ -1147,7 +1147,7 @@ public final class Models {
      * <code>optional string token = 3;</code>
      *
      * <pre>
-     *ç”¨æˆ·Token
+     *ÓÃ»§Token
      * </pre>
      */
     public boolean hasToken() {
@@ -1157,7 +1157,7 @@ public final class Models {
      * <code>optional string token = 3;</code>
      *
      * <pre>
-     *ç”¨æˆ·Token
+     *ÓÃ»§Token
      * </pre>
      */
     public java.lang.String getToken() {
@@ -1178,7 +1178,7 @@ public final class Models {
      * <code>optional string token = 3;</code>
      *
      * <pre>
-     *ç”¨æˆ·Token
+     *ÓÃ»§Token
      * </pre>
      */
     public com.google.protobuf.ByteString
@@ -1202,7 +1202,7 @@ public final class Models {
      * <code>optional int32 passwordFailCount = 4;</code>
      *
      * <pre>
-     *å¯†ç é”™è¯¯æ¬¡æ•°
+     *ÃÜÂë´íÎó´ÎÊı
      * </pre>
      */
     public boolean hasPasswordFailCount() {
@@ -1212,7 +1212,7 @@ public final class Models {
      * <code>optional int32 passwordFailCount = 4;</code>
      *
      * <pre>
-     *å¯†ç é”™è¯¯æ¬¡æ•°
+     *ÃÜÂë´íÎó´ÎÊı
      * </pre>
      */
     public int getPasswordFailCount() {
@@ -1226,7 +1226,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.AuthenticationResponse.ErrorCodeType errorCode = 5;</code>
      *
      * <pre>
-     *é”™è¯¯ç±»å‹ï¼ˆæšä¸¾ï¼‰
+     *´íÎóÀàĞÍ£¨Ã¶¾Ù£©
      * </pre>
      */
     public boolean hasErrorCode() {
@@ -1236,7 +1236,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.AuthenticationResponse.ErrorCodeType errorCode = 5;</code>
      *
      * <pre>
-     *é”™è¯¯ç±»å‹ï¼ˆæšä¸¾ï¼‰
+     *´íÎóÀàĞÍ£¨Ã¶¾Ù£©
      * </pre>
      */
     public com.fuwu.mobileim.model.Models.AuthenticationResponse.ErrorCodeType getErrorCode() {
@@ -1579,7 +1579,7 @@ public final class Models {
        * <code>optional int32 userId = 2;</code>
        *
        * <pre>
-       *ç”¨æˆ·ID
+       *ÓÃ»§ID
        * </pre>
        */
       public boolean hasUserId() {
@@ -1589,7 +1589,7 @@ public final class Models {
        * <code>optional int32 userId = 2;</code>
        *
        * <pre>
-       *ç”¨æˆ·ID
+       *ÓÃ»§ID
        * </pre>
        */
       public int getUserId() {
@@ -1599,7 +1599,7 @@ public final class Models {
        * <code>optional int32 userId = 2;</code>
        *
        * <pre>
-       *ç”¨æˆ·ID
+       *ÓÃ»§ID
        * </pre>
        */
       public Builder setUserId(int value) {
@@ -1612,7 +1612,7 @@ public final class Models {
        * <code>optional int32 userId = 2;</code>
        *
        * <pre>
-       *ç”¨æˆ·ID
+       *ÓÃ»§ID
        * </pre>
        */
       public Builder clearUserId() {
@@ -1628,7 +1628,7 @@ public final class Models {
        * <code>optional string token = 3;</code>
        *
        * <pre>
-       *ç”¨æˆ·Token
+       *ÓÃ»§Token
        * </pre>
        */
       public boolean hasToken() {
@@ -1638,7 +1638,7 @@ public final class Models {
        * <code>optional string token = 3;</code>
        *
        * <pre>
-       *ç”¨æˆ·Token
+       *ÓÃ»§Token
        * </pre>
        */
       public java.lang.String getToken() {
@@ -1656,7 +1656,7 @@ public final class Models {
        * <code>optional string token = 3;</code>
        *
        * <pre>
-       *ç”¨æˆ·Token
+       *ÓÃ»§Token
        * </pre>
        */
       public com.google.protobuf.ByteString
@@ -1676,7 +1676,7 @@ public final class Models {
        * <code>optional string token = 3;</code>
        *
        * <pre>
-       *ç”¨æˆ·Token
+       *ÓÃ»§Token
        * </pre>
        */
       public Builder setToken(
@@ -1693,7 +1693,7 @@ public final class Models {
        * <code>optional string token = 3;</code>
        *
        * <pre>
-       *ç”¨æˆ·Token
+       *ÓÃ»§Token
        * </pre>
        */
       public Builder clearToken() {
@@ -1706,7 +1706,7 @@ public final class Models {
        * <code>optional string token = 3;</code>
        *
        * <pre>
-       *ç”¨æˆ·Token
+       *ÓÃ»§Token
        * </pre>
        */
       public Builder setTokenBytes(
@@ -1726,7 +1726,7 @@ public final class Models {
        * <code>optional int32 passwordFailCount = 4;</code>
        *
        * <pre>
-       *å¯†ç é”™è¯¯æ¬¡æ•°
+       *ÃÜÂë´íÎó´ÎÊı
        * </pre>
        */
       public boolean hasPasswordFailCount() {
@@ -1736,7 +1736,7 @@ public final class Models {
        * <code>optional int32 passwordFailCount = 4;</code>
        *
        * <pre>
-       *å¯†ç é”™è¯¯æ¬¡æ•°
+       *ÃÜÂë´íÎó´ÎÊı
        * </pre>
        */
       public int getPasswordFailCount() {
@@ -1746,7 +1746,7 @@ public final class Models {
        * <code>optional int32 passwordFailCount = 4;</code>
        *
        * <pre>
-       *å¯†ç é”™è¯¯æ¬¡æ•°
+       *ÃÜÂë´íÎó´ÎÊı
        * </pre>
        */
       public Builder setPasswordFailCount(int value) {
@@ -1759,7 +1759,7 @@ public final class Models {
        * <code>optional int32 passwordFailCount = 4;</code>
        *
        * <pre>
-       *å¯†ç é”™è¯¯æ¬¡æ•°
+       *ÃÜÂë´íÎó´ÎÊı
        * </pre>
        */
       public Builder clearPasswordFailCount() {
@@ -1775,7 +1775,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.AuthenticationResponse.ErrorCodeType errorCode = 5;</code>
        *
        * <pre>
-       *é”™è¯¯ç±»å‹ï¼ˆæšä¸¾ï¼‰
+       *´íÎóÀàĞÍ£¨Ã¶¾Ù£©
        * </pre>
        */
       public boolean hasErrorCode() {
@@ -1785,7 +1785,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.AuthenticationResponse.ErrorCodeType errorCode = 5;</code>
        *
        * <pre>
-       *é”™è¯¯ç±»å‹ï¼ˆæšä¸¾ï¼‰
+       *´íÎóÀàĞÍ£¨Ã¶¾Ù£©
        * </pre>
        */
       public com.fuwu.mobileim.model.Models.AuthenticationResponse.ErrorCodeType getErrorCode() {
@@ -1795,7 +1795,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.AuthenticationResponse.ErrorCodeType errorCode = 5;</code>
        *
        * <pre>
-       *é”™è¯¯ç±»å‹ï¼ˆæšä¸¾ï¼‰
+       *´íÎóÀàĞÍ£¨Ã¶¾Ù£©
        * </pre>
        */
       public Builder setErrorCode(com.fuwu.mobileim.model.Models.AuthenticationResponse.ErrorCodeType value) {
@@ -1811,7 +1811,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.AuthenticationResponse.ErrorCodeType errorCode = 5;</code>
        *
        * <pre>
-       *é”™è¯¯ç±»å‹ï¼ˆæšä¸¾ï¼‰
+       *´íÎóÀàĞÍ£¨Ã¶¾Ù£©
        * </pre>
        */
       public Builder clearErrorCode() {
@@ -1840,7 +1840,7 @@ public final class Models {
      * <code>optional string token = 1;</code>
      *
      * <pre>
-     *ç”¨æˆ·token
+     *ÓÃ»§token
      * </pre>
      */
     boolean hasToken();
@@ -1848,7 +1848,7 @@ public final class Models {
      * <code>optional string token = 1;</code>
      *
      * <pre>
-     *ç”¨æˆ·token
+     *ÓÃ»§token
      * </pre>
      */
     java.lang.String getToken();
@@ -1856,7 +1856,7 @@ public final class Models {
      * <code>optional string token = 1;</code>
      *
      * <pre>
-     *ç”¨æˆ·token
+     *ÓÃ»§token
      * </pre>
      */
     com.google.protobuf.ByteString
@@ -1867,7 +1867,7 @@ public final class Models {
      * <code>optional int32 userId = 2;</code>
      *
      * <pre>
-     *ç”¨æˆ·ID
+     *ÓÃ»§ID
      * </pre>
      */
     boolean hasUserId();
@@ -1875,7 +1875,7 @@ public final class Models {
      * <code>optional int32 userId = 2;</code>
      *
      * <pre>
-     *ç”¨æˆ·ID
+     *ÓÃ»§ID
      * </pre>
      */
     int getUserId();
@@ -1988,7 +1988,7 @@ public final class Models {
      * <code>optional string token = 1;</code>
      *
      * <pre>
-     *ç”¨æˆ·token
+     *ÓÃ»§token
      * </pre>
      */
     public boolean hasToken() {
@@ -1998,7 +1998,7 @@ public final class Models {
      * <code>optional string token = 1;</code>
      *
      * <pre>
-     *ç”¨æˆ·token
+     *ÓÃ»§token
      * </pre>
      */
     public java.lang.String getToken() {
@@ -2019,7 +2019,7 @@ public final class Models {
      * <code>optional string token = 1;</code>
      *
      * <pre>
-     *ç”¨æˆ·token
+     *ÓÃ»§token
      * </pre>
      */
     public com.google.protobuf.ByteString
@@ -2043,7 +2043,7 @@ public final class Models {
      * <code>optional int32 userId = 2;</code>
      *
      * <pre>
-     *ç”¨æˆ·ID
+     *ÓÃ»§ID
      * </pre>
      */
     public boolean hasUserId() {
@@ -2053,7 +2053,7 @@ public final class Models {
      * <code>optional int32 userId = 2;</code>
      *
      * <pre>
-     *ç”¨æˆ·ID
+     *ÓÃ»§ID
      * </pre>
      */
     public int getUserId() {
@@ -2312,7 +2312,7 @@ public final class Models {
        * <code>optional string token = 1;</code>
        *
        * <pre>
-       *ç”¨æˆ·token
+       *ÓÃ»§token
        * </pre>
        */
       public boolean hasToken() {
@@ -2322,7 +2322,7 @@ public final class Models {
        * <code>optional string token = 1;</code>
        *
        * <pre>
-       *ç”¨æˆ·token
+       *ÓÃ»§token
        * </pre>
        */
       public java.lang.String getToken() {
@@ -2340,7 +2340,7 @@ public final class Models {
        * <code>optional string token = 1;</code>
        *
        * <pre>
-       *ç”¨æˆ·token
+       *ÓÃ»§token
        * </pre>
        */
       public com.google.protobuf.ByteString
@@ -2360,7 +2360,7 @@ public final class Models {
        * <code>optional string token = 1;</code>
        *
        * <pre>
-       *ç”¨æˆ·token
+       *ÓÃ»§token
        * </pre>
        */
       public Builder setToken(
@@ -2377,7 +2377,7 @@ public final class Models {
        * <code>optional string token = 1;</code>
        *
        * <pre>
-       *ç”¨æˆ·token
+       *ÓÃ»§token
        * </pre>
        */
       public Builder clearToken() {
@@ -2390,7 +2390,7 @@ public final class Models {
        * <code>optional string token = 1;</code>
        *
        * <pre>
-       *ç”¨æˆ·token
+       *ÓÃ»§token
        * </pre>
        */
       public Builder setTokenBytes(
@@ -2410,7 +2410,7 @@ public final class Models {
        * <code>optional int32 userId = 2;</code>
        *
        * <pre>
-       *ç”¨æˆ·ID
+       *ÓÃ»§ID
        * </pre>
        */
       public boolean hasUserId() {
@@ -2420,7 +2420,7 @@ public final class Models {
        * <code>optional int32 userId = 2;</code>
        *
        * <pre>
-       *ç”¨æˆ·ID
+       *ÓÃ»§ID
        * </pre>
        */
       public int getUserId() {
@@ -2430,7 +2430,7 @@ public final class Models {
        * <code>optional int32 userId = 2;</code>
        *
        * <pre>
-       *ç”¨æˆ·ID
+       *ÓÃ»§ID
        * </pre>
        */
       public Builder setUserId(int value) {
@@ -2443,7 +2443,7 @@ public final class Models {
        * <code>optional int32 userId = 2;</code>
        *
        * <pre>
-       *ç”¨æˆ·ID
+       *ÓÃ»§ID
        * </pre>
        */
       public Builder clearUserId() {
@@ -2492,7 +2492,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.UnAuthenticationResponse.ErrorCodeType errorCode = 3;</code>
      *
      * <pre>
-     *é”™è¯¯ç±»å‹ï¼ˆæšä¸¾ï¼‰
+     *´íÎóÀàĞÍ£¨Ã¶¾Ù£©
      * </pre>
      */
     boolean hasErrorCode();
@@ -2500,7 +2500,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.UnAuthenticationResponse.ErrorCodeType errorCode = 3;</code>
      *
      * <pre>
-     *é”™è¯¯ç±»å‹ï¼ˆæšä¸¾ï¼‰
+     *´íÎóÀàĞÍ£¨Ã¶¾Ù£©
      * </pre>
      */
     com.fuwu.mobileim.model.Models.UnAuthenticationResponse.ErrorCodeType getErrorCode();
@@ -2620,7 +2620,7 @@ public final class Models {
      * Protobuf enum {@code com.fuwu.mobileim.model.UnAuthenticationResponse.ErrorCodeType}
      *
      * <pre>
-     *é”™è¯¯ç±»å‹æšä¸¾ç±»
+     *´íÎóÀàĞÍÃ¶¾ÙÀà
      * </pre>
      */
     public enum ErrorCodeType
@@ -2629,7 +2629,7 @@ public final class Models {
        * <code>BadRequest = 1;</code>
        *
        * <pre>
-       *åºåˆ—åŒ–å‚æ•°å‡ºé”™
+       *ĞòÁĞ»¯²ÎÊı³ö´í
        * </pre>
        */
       BadRequest(0, 1),
@@ -2637,7 +2637,7 @@ public final class Models {
        * <code>InvalidUserId = 2;</code>
        *
        * <pre>
-       *UserIdå‚æ•°æœ‰è¯¯
+       *UserId²ÎÊıÓĞÎó
        * </pre>
        */
       InvalidUserId(1, 2),
@@ -2645,7 +2645,7 @@ public final class Models {
        * <code>InvalidToken = 3;</code>
        *
        * <pre>
-       *Tokenå‚æ•°æœ‰è¯¯
+       *Token²ÎÊıÓĞÎó
        * </pre>
        */
       InvalidToken(2, 3),
@@ -2653,7 +2653,7 @@ public final class Models {
        * <code>InvalidUser = 4;</code>
        *
        * <pre>
-       *èº«ä»½éªŒè¯å¤±è´¥
+       *Éí·İÑéÖ¤Ê§°Ü
        * </pre>
        */
       InvalidUser(3, 4),
@@ -2661,7 +2661,7 @@ public final class Models {
        * <code>InvalidDatabase = 5;</code>
        *
        * <pre>
-       *æ•°æ®åº“è¿æ¥é”™è¯¯
+       *Êı¾İ¿âÁ¬½Ó´íÎó
        * </pre>
        */
       InvalidDatabase(4, 5),
@@ -2671,7 +2671,7 @@ public final class Models {
        * <code>BadRequest = 1;</code>
        *
        * <pre>
-       *åºåˆ—åŒ–å‚æ•°å‡ºé”™
+       *ĞòÁĞ»¯²ÎÊı³ö´í
        * </pre>
        */
       public static final int BadRequest_VALUE = 1;
@@ -2679,7 +2679,7 @@ public final class Models {
        * <code>InvalidUserId = 2;</code>
        *
        * <pre>
-       *UserIdå‚æ•°æœ‰è¯¯
+       *UserId²ÎÊıÓĞÎó
        * </pre>
        */
       public static final int InvalidUserId_VALUE = 2;
@@ -2687,7 +2687,7 @@ public final class Models {
        * <code>InvalidToken = 3;</code>
        *
        * <pre>
-       *Tokenå‚æ•°æœ‰è¯¯
+       *Token²ÎÊıÓĞÎó
        * </pre>
        */
       public static final int InvalidToken_VALUE = 3;
@@ -2695,7 +2695,7 @@ public final class Models {
        * <code>InvalidUser = 4;</code>
        *
        * <pre>
-       *èº«ä»½éªŒè¯å¤±è´¥
+       *Éí·İÑéÖ¤Ê§°Ü
        * </pre>
        */
       public static final int InvalidUser_VALUE = 4;
@@ -2703,7 +2703,7 @@ public final class Models {
        * <code>InvalidDatabase = 5;</code>
        *
        * <pre>
-       *æ•°æ®åº“è¿æ¥é”™è¯¯
+       *Êı¾İ¿âÁ¬½Ó´íÎó
        * </pre>
        */
       public static final int InvalidDatabase_VALUE = 5;
@@ -2809,7 +2809,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.UnAuthenticationResponse.ErrorCodeType errorCode = 3;</code>
      *
      * <pre>
-     *é”™è¯¯ç±»å‹ï¼ˆæšä¸¾ï¼‰
+     *´íÎóÀàĞÍ£¨Ã¶¾Ù£©
      * </pre>
      */
     public boolean hasErrorCode() {
@@ -2819,7 +2819,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.UnAuthenticationResponse.ErrorCodeType errorCode = 3;</code>
      *
      * <pre>
-     *é”™è¯¯ç±»å‹ï¼ˆæšä¸¾ï¼‰
+     *´íÎóÀàĞÍ£¨Ã¶¾Ù£©
      * </pre>
      */
     public com.fuwu.mobileim.model.Models.UnAuthenticationResponse.ErrorCodeType getErrorCode() {
@@ -3159,7 +3159,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.UnAuthenticationResponse.ErrorCodeType errorCode = 3;</code>
        *
        * <pre>
-       *é”™è¯¯ç±»å‹ï¼ˆæšä¸¾ï¼‰
+       *´íÎóÀàĞÍ£¨Ã¶¾Ù£©
        * </pre>
        */
       public boolean hasErrorCode() {
@@ -3169,7 +3169,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.UnAuthenticationResponse.ErrorCodeType errorCode = 3;</code>
        *
        * <pre>
-       *é”™è¯¯ç±»å‹ï¼ˆæšä¸¾ï¼‰
+       *´íÎóÀàĞÍ£¨Ã¶¾Ù£©
        * </pre>
        */
       public com.fuwu.mobileim.model.Models.UnAuthenticationResponse.ErrorCodeType getErrorCode() {
@@ -3179,7 +3179,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.UnAuthenticationResponse.ErrorCodeType errorCode = 3;</code>
        *
        * <pre>
-       *é”™è¯¯ç±»å‹ï¼ˆæšä¸¾ï¼‰
+       *´íÎóÀàĞÍ£¨Ã¶¾Ù£©
        * </pre>
        */
       public Builder setErrorCode(com.fuwu.mobileim.model.Models.UnAuthenticationResponse.ErrorCodeType value) {
@@ -3195,7 +3195,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.UnAuthenticationResponse.ErrorCodeType errorCode = 3;</code>
        *
        * <pre>
-       *é”™è¯¯ç±»å‹ï¼ˆæšä¸¾ï¼‰
+       *´íÎóÀàĞÍ£¨Ã¶¾Ù£©
        * </pre>
        */
       public Builder clearErrorCode() {
@@ -3304,7 +3304,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.Contact.GenderType gender = 7;</code>
      *
      * <pre>
-     * ContactSourceTypeçš„å€¼çš„ç´¯åŠ 
+     * ContactSourceTypeµÄÖµµÄÀÛ¼Ó
      * </pre>
      */
     boolean hasGender();
@@ -3312,7 +3312,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.Contact.GenderType gender = 7;</code>
      *
      * <pre>
-     * ContactSourceTypeçš„å€¼çš„ç´¯åŠ 
+     * ContactSourceTypeµÄÖµµÄÀÛ¼Ó
      * </pre>
      */
     com.fuwu.mobileim.model.Models.Contact.GenderType getGender();
@@ -3402,7 +3402,7 @@ public final class Models {
      * <code>optional string orderTime = 14;</code>
      *
      * <pre>
-     *æœ€åäº§ç”Ÿè®¢å•æ—¶é—´
+     *×îºó²úÉú¶©µ¥Ê±¼ä
      * </pre>
      */
     boolean hasOrderTime();
@@ -3410,7 +3410,7 @@ public final class Models {
      * <code>optional string orderTime = 14;</code>
      *
      * <pre>
-     *æœ€åäº§ç”Ÿè®¢å•æ—¶é—´
+     *×îºó²úÉú¶©µ¥Ê±¼ä
      * </pre>
      */
     java.lang.String getOrderTime();
@@ -3418,7 +3418,7 @@ public final class Models {
      * <code>optional string orderTime = 14;</code>
      *
      * <pre>
-     *æœ€åäº§ç”Ÿè®¢å•æ—¶é—´
+     *×îºó²úÉú¶©µ¥Ê±¼ä
      * </pre>
      */
     com.google.protobuf.ByteString
@@ -3429,7 +3429,7 @@ public final class Models {
      * <code>optional string subscribeTime = 15;</code>
      *
      * <pre>
-     *æœ€åè®¢é˜…æ—¶é—´
+     *×îºó¶©ÔÄÊ±¼ä
      * </pre>
      */
     boolean hasSubscribeTime();
@@ -3437,7 +3437,7 @@ public final class Models {
      * <code>optional string subscribeTime = 15;</code>
      *
      * <pre>
-     *æœ€åè®¢é˜…æ—¶é—´
+     *×îºó¶©ÔÄÊ±¼ä
      * </pre>
      */
     java.lang.String getSubscribeTime();
@@ -3445,7 +3445,7 @@ public final class Models {
      * <code>optional string subscribeTime = 15;</code>
      *
      * <pre>
-     *æœ€åè®¢é˜…æ—¶é—´
+     *×îºó¶©ÔÄÊ±¼ä
      * </pre>
      */
     com.google.protobuf.ByteString
@@ -3456,7 +3456,7 @@ public final class Models {
      * <code>optional string location = 16;</code>
      *
      * <pre>
-     *æ‰€åœ¨åœ°
+     *ËùÔÚµØ
      * </pre>
      */
     boolean hasLocation();
@@ -3464,7 +3464,7 @@ public final class Models {
      * <code>optional string location = 16;</code>
      *
      * <pre>
-     *æ‰€åœ¨åœ°
+     *ËùÔÚµØ
      * </pre>
      */
     java.lang.String getLocation();
@@ -3472,7 +3472,7 @@ public final class Models {
      * <code>optional string location = 16;</code>
      *
      * <pre>
-     *æ‰€åœ¨åœ°
+     *ËùÔÚµØ
      * </pre>
      */
     com.google.protobuf.ByteString
@@ -3483,7 +3483,7 @@ public final class Models {
      * <code>optional string centerLink = 17;</code>
      *
      * <pre>
-     *ç¦å¸ˆä»‹ç»ä¸­å¿ƒé“¾æ¥
+     *¸£Ê¦½éÉÜÖĞĞÄÁ´½Ó
      * </pre>
      */
     boolean hasCenterLink();
@@ -3491,7 +3491,7 @@ public final class Models {
      * <code>optional string centerLink = 17;</code>
      *
      * <pre>
-     *ç¦å¸ˆä»‹ç»ä¸­å¿ƒé“¾æ¥
+     *¸£Ê¦½éÉÜÖĞĞÄÁ´½Ó
      * </pre>
      */
     java.lang.String getCenterLink();
@@ -3499,7 +3499,7 @@ public final class Models {
      * <code>optional string centerLink = 17;</code>
      *
      * <pre>
-     *ç¦å¸ˆä»‹ç»ä¸­å¿ƒé“¾æ¥
+     *¸£Ê¦½éÉÜÖĞĞÄÁ´½Ó
      * </pre>
      */
     com.google.protobuf.ByteString
@@ -3510,7 +3510,7 @@ public final class Models {
      * <code>repeated .com.fuwu.mobileim.model.License licenses = 18;</code>
      *
      * <pre>
-     *è¡Œä¸šè®¤è¯
+     *ĞĞÒµÈÏÖ¤
      * </pre>
      */
     java.util.List<com.fuwu.mobileim.model.Models.License> 
@@ -3519,7 +3519,7 @@ public final class Models {
      * <code>repeated .com.fuwu.mobileim.model.License licenses = 18;</code>
      *
      * <pre>
-     *è¡Œä¸šè®¤è¯
+     *ĞĞÒµÈÏÖ¤
      * </pre>
      */
     com.fuwu.mobileim.model.Models.License getLicenses(int index);
@@ -3527,7 +3527,7 @@ public final class Models {
      * <code>repeated .com.fuwu.mobileim.model.License licenses = 18;</code>
      *
      * <pre>
-     *è¡Œä¸šè®¤è¯
+     *ĞĞÒµÈÏÖ¤
      * </pre>
      */
     int getLicensesCount();
@@ -3535,7 +3535,7 @@ public final class Models {
      * <code>repeated .com.fuwu.mobileim.model.License licenses = 18;</code>
      *
      * <pre>
-     *è¡Œä¸šè®¤è¯
+     *ĞĞÒµÈÏÖ¤
      * </pre>
      */
     java.util.List<? extends com.fuwu.mobileim.model.Models.LicenseOrBuilder> 
@@ -3544,7 +3544,7 @@ public final class Models {
      * <code>repeated .com.fuwu.mobileim.model.License licenses = 18;</code>
      *
      * <pre>
-     *è¡Œä¸šè®¤è¯
+     *ĞĞÒµÈÏÖ¤
      * </pre>
      */
     com.fuwu.mobileim.model.Models.LicenseOrBuilder getLicensesOrBuilder(
@@ -3564,6 +3564,24 @@ public final class Models {
      */
     com.google.protobuf.ByteString
         getBackgroundUrlBytes();
+
+    // optional bool isAuthentication = 20;
+    /**
+     * <code>optional bool isAuthentication = 20;</code>
+     *
+     * <pre>
+     *ÓÃ»§ÊÇ·ñÍ¨¹ıÊµÃûÈÏÖ¤
+     * </pre>
+     */
+    boolean hasIsAuthentication();
+    /**
+     * <code>optional bool isAuthentication = 20;</code>
+     *
+     * <pre>
+     *ÓÃ»§ÊÇ·ñÍ¨¹ıÊµÃûÈÏÖ¤
+     * </pre>
+     */
+    boolean getIsAuthentication();
   }
   /**
    * Protobuf type {@code com.fuwu.mobileim.model.Contact}
@@ -3720,6 +3738,11 @@ public final class Models {
               backgroundUrl_ = input.readBytes();
               break;
             }
+            case 160: {
+              bitField0_ |= 0x00040000;
+              isAuthentication_ = input.readBool();
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -3771,7 +3794,7 @@ public final class Models {
        * <code>Male = 0;</code>
        *
        * <pre>
-       *ç”·
+       *ÄĞ
        * </pre>
        */
       Male(0, 0),
@@ -3779,7 +3802,7 @@ public final class Models {
        * <code>Female = 1;</code>
        *
        * <pre>
-       *å¥³
+       *Å®
        * </pre>
        */
       Female(1, 1),
@@ -3787,7 +3810,7 @@ public final class Models {
        * <code>Privacy = 2;</code>
        *
        * <pre>
-       *ä¿å¯†
+       *±£ÃÜ
        * </pre>
        */
       Privacy(2, 2),
@@ -3797,7 +3820,7 @@ public final class Models {
        * <code>Male = 0;</code>
        *
        * <pre>
-       *ç”·
+       *ÄĞ
        * </pre>
        */
       public static final int Male_VALUE = 0;
@@ -3805,7 +3828,7 @@ public final class Models {
        * <code>Female = 1;</code>
        *
        * <pre>
-       *å¥³
+       *Å®
        * </pre>
        */
       public static final int Female_VALUE = 1;
@@ -3813,7 +3836,7 @@ public final class Models {
        * <code>Privacy = 2;</code>
        *
        * <pre>
-       *ä¿å¯†
+       *±£ÃÜ
        * </pre>
        */
       public static final int Privacy_VALUE = 2;
@@ -4089,7 +4112,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.Contact.GenderType gender = 7;</code>
      *
      * <pre>
-     * ContactSourceTypeçš„å€¼çš„ç´¯åŠ 
+     * ContactSourceTypeµÄÖµµÄÀÛ¼Ó
      * </pre>
      */
     public boolean hasGender() {
@@ -4099,7 +4122,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.Contact.GenderType gender = 7;</code>
      *
      * <pre>
-     * ContactSourceTypeçš„å€¼çš„ç´¯åŠ 
+     * ContactSourceTypeµÄÖµµÄÀÛ¼Ó
      * </pre>
      */
     public com.fuwu.mobileim.model.Models.Contact.GenderType getGender() {
@@ -4317,7 +4340,7 @@ public final class Models {
      * <code>optional string orderTime = 14;</code>
      *
      * <pre>
-     *æœ€åäº§ç”Ÿè®¢å•æ—¶é—´
+     *×îºó²úÉú¶©µ¥Ê±¼ä
      * </pre>
      */
     public boolean hasOrderTime() {
@@ -4327,7 +4350,7 @@ public final class Models {
      * <code>optional string orderTime = 14;</code>
      *
      * <pre>
-     *æœ€åäº§ç”Ÿè®¢å•æ—¶é—´
+     *×îºó²úÉú¶©µ¥Ê±¼ä
      * </pre>
      */
     public java.lang.String getOrderTime() {
@@ -4348,7 +4371,7 @@ public final class Models {
      * <code>optional string orderTime = 14;</code>
      *
      * <pre>
-     *æœ€åäº§ç”Ÿè®¢å•æ—¶é—´
+     *×îºó²úÉú¶©µ¥Ê±¼ä
      * </pre>
      */
     public com.google.protobuf.ByteString
@@ -4372,7 +4395,7 @@ public final class Models {
      * <code>optional string subscribeTime = 15;</code>
      *
      * <pre>
-     *æœ€åè®¢é˜…æ—¶é—´
+     *×îºó¶©ÔÄÊ±¼ä
      * </pre>
      */
     public boolean hasSubscribeTime() {
@@ -4382,7 +4405,7 @@ public final class Models {
      * <code>optional string subscribeTime = 15;</code>
      *
      * <pre>
-     *æœ€åè®¢é˜…æ—¶é—´
+     *×îºó¶©ÔÄÊ±¼ä
      * </pre>
      */
     public java.lang.String getSubscribeTime() {
@@ -4403,7 +4426,7 @@ public final class Models {
      * <code>optional string subscribeTime = 15;</code>
      *
      * <pre>
-     *æœ€åè®¢é˜…æ—¶é—´
+     *×îºó¶©ÔÄÊ±¼ä
      * </pre>
      */
     public com.google.protobuf.ByteString
@@ -4427,7 +4450,7 @@ public final class Models {
      * <code>optional string location = 16;</code>
      *
      * <pre>
-     *æ‰€åœ¨åœ°
+     *ËùÔÚµØ
      * </pre>
      */
     public boolean hasLocation() {
@@ -4437,7 +4460,7 @@ public final class Models {
      * <code>optional string location = 16;</code>
      *
      * <pre>
-     *æ‰€åœ¨åœ°
+     *ËùÔÚµØ
      * </pre>
      */
     public java.lang.String getLocation() {
@@ -4458,7 +4481,7 @@ public final class Models {
      * <code>optional string location = 16;</code>
      *
      * <pre>
-     *æ‰€åœ¨åœ°
+     *ËùÔÚµØ
      * </pre>
      */
     public com.google.protobuf.ByteString
@@ -4482,7 +4505,7 @@ public final class Models {
      * <code>optional string centerLink = 17;</code>
      *
      * <pre>
-     *ç¦å¸ˆä»‹ç»ä¸­å¿ƒé“¾æ¥
+     *¸£Ê¦½éÉÜÖĞĞÄÁ´½Ó
      * </pre>
      */
     public boolean hasCenterLink() {
@@ -4492,7 +4515,7 @@ public final class Models {
      * <code>optional string centerLink = 17;</code>
      *
      * <pre>
-     *ç¦å¸ˆä»‹ç»ä¸­å¿ƒé“¾æ¥
+     *¸£Ê¦½éÉÜÖĞĞÄÁ´½Ó
      * </pre>
      */
     public java.lang.String getCenterLink() {
@@ -4513,7 +4536,7 @@ public final class Models {
      * <code>optional string centerLink = 17;</code>
      *
      * <pre>
-     *ç¦å¸ˆä»‹ç»ä¸­å¿ƒé“¾æ¥
+     *¸£Ê¦½éÉÜÖĞĞÄÁ´½Ó
      * </pre>
      */
     public com.google.protobuf.ByteString
@@ -4537,7 +4560,7 @@ public final class Models {
      * <code>repeated .com.fuwu.mobileim.model.License licenses = 18;</code>
      *
      * <pre>
-     *è¡Œä¸šè®¤è¯
+     *ĞĞÒµÈÏÖ¤
      * </pre>
      */
     public java.util.List<com.fuwu.mobileim.model.Models.License> getLicensesList() {
@@ -4547,7 +4570,7 @@ public final class Models {
      * <code>repeated .com.fuwu.mobileim.model.License licenses = 18;</code>
      *
      * <pre>
-     *è¡Œä¸šè®¤è¯
+     *ĞĞÒµÈÏÖ¤
      * </pre>
      */
     public java.util.List<? extends com.fuwu.mobileim.model.Models.LicenseOrBuilder> 
@@ -4558,7 +4581,7 @@ public final class Models {
      * <code>repeated .com.fuwu.mobileim.model.License licenses = 18;</code>
      *
      * <pre>
-     *è¡Œä¸šè®¤è¯
+     *ĞĞÒµÈÏÖ¤
      * </pre>
      */
     public int getLicensesCount() {
@@ -4568,7 +4591,7 @@ public final class Models {
      * <code>repeated .com.fuwu.mobileim.model.License licenses = 18;</code>
      *
      * <pre>
-     *è¡Œä¸šè®¤è¯
+     *ĞĞÒµÈÏÖ¤
      * </pre>
      */
     public com.fuwu.mobileim.model.Models.License getLicenses(int index) {
@@ -4578,7 +4601,7 @@ public final class Models {
      * <code>repeated .com.fuwu.mobileim.model.License licenses = 18;</code>
      *
      * <pre>
-     *è¡Œä¸šè®¤è¯
+     *ĞĞÒµÈÏÖ¤
      * </pre>
      */
     public com.fuwu.mobileim.model.Models.LicenseOrBuilder getLicensesOrBuilder(
@@ -4629,6 +4652,30 @@ public final class Models {
       }
     }
 
+    // optional bool isAuthentication = 20;
+    public static final int ISAUTHENTICATION_FIELD_NUMBER = 20;
+    private boolean isAuthentication_;
+    /**
+     * <code>optional bool isAuthentication = 20;</code>
+     *
+     * <pre>
+     *ÓÃ»§ÊÇ·ñÍ¨¹ıÊµÃûÈÏÖ¤
+     * </pre>
+     */
+    public boolean hasIsAuthentication() {
+      return ((bitField0_ & 0x00040000) == 0x00040000);
+    }
+    /**
+     * <code>optional bool isAuthentication = 20;</code>
+     *
+     * <pre>
+     *ÓÃ»§ÊÇ·ñÍ¨¹ıÊµÃûÈÏÖ¤
+     * </pre>
+     */
+    public boolean getIsAuthentication() {
+      return isAuthentication_;
+    }
+
     private void initFields() {
       contactId_ = 0;
       name_ = "";
@@ -4649,6 +4696,7 @@ public final class Models {
       centerLink_ = "";
       licenses_ = java.util.Collections.emptyList();
       backgroundUrl_ = "";
+      isAuthentication_ = false;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -4718,6 +4766,9 @@ public final class Models {
       }
       if (((bitField0_ & 0x00020000) == 0x00020000)) {
         output.writeBytes(19, getBackgroundUrlBytes());
+      }
+      if (((bitField0_ & 0x00040000) == 0x00040000)) {
+        output.writeBool(20, isAuthentication_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -4803,6 +4854,10 @@ public final class Models {
       if (((bitField0_ & 0x00020000) == 0x00020000)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(19, getBackgroundUrlBytes());
+      }
+      if (((bitField0_ & 0x00040000) == 0x00040000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(20, isAuthentication_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -4963,6 +5018,8 @@ public final class Models {
         }
         backgroundUrl_ = "";
         bitField0_ = (bitField0_ & ~0x00040000);
+        isAuthentication_ = false;
+        bitField0_ = (bitField0_ & ~0x00080000);
         return this;
       }
 
@@ -5072,6 +5129,10 @@ public final class Models {
           to_bitField0_ |= 0x00020000;
         }
         result.backgroundUrl_ = backgroundUrl_;
+        if (((from_bitField0_ & 0x00080000) == 0x00080000)) {
+          to_bitField0_ |= 0x00040000;
+        }
+        result.isAuthentication_ = isAuthentication_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -5193,6 +5254,9 @@ public final class Models {
           bitField0_ |= 0x00040000;
           backgroundUrl_ = other.backgroundUrl_;
           onChanged();
+        }
+        if (other.hasIsAuthentication()) {
+          setIsAuthentication(other.getIsAuthentication());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -5589,7 +5653,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.Contact.GenderType gender = 7;</code>
        *
        * <pre>
-       * ContactSourceTypeçš„å€¼çš„ç´¯åŠ 
+       * ContactSourceTypeµÄÖµµÄÀÛ¼Ó
        * </pre>
        */
       public boolean hasGender() {
@@ -5599,7 +5663,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.Contact.GenderType gender = 7;</code>
        *
        * <pre>
-       * ContactSourceTypeçš„å€¼çš„ç´¯åŠ 
+       * ContactSourceTypeµÄÖµµÄÀÛ¼Ó
        * </pre>
        */
       public com.fuwu.mobileim.model.Models.Contact.GenderType getGender() {
@@ -5609,7 +5673,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.Contact.GenderType gender = 7;</code>
        *
        * <pre>
-       * ContactSourceTypeçš„å€¼çš„ç´¯åŠ 
+       * ContactSourceTypeµÄÖµµÄÀÛ¼Ó
        * </pre>
        */
       public Builder setGender(com.fuwu.mobileim.model.Models.Contact.GenderType value) {
@@ -5625,7 +5689,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.Contact.GenderType gender = 7;</code>
        *
        * <pre>
-       * ContactSourceTypeçš„å€¼çš„ç´¯åŠ 
+       * ContactSourceTypeµÄÖµµÄÀÛ¼Ó
        * </pre>
        */
       public Builder clearGender() {
@@ -6003,7 +6067,7 @@ public final class Models {
        * <code>optional string orderTime = 14;</code>
        *
        * <pre>
-       *æœ€åäº§ç”Ÿè®¢å•æ—¶é—´
+       *×îºó²úÉú¶©µ¥Ê±¼ä
        * </pre>
        */
       public boolean hasOrderTime() {
@@ -6013,7 +6077,7 @@ public final class Models {
        * <code>optional string orderTime = 14;</code>
        *
        * <pre>
-       *æœ€åäº§ç”Ÿè®¢å•æ—¶é—´
+       *×îºó²úÉú¶©µ¥Ê±¼ä
        * </pre>
        */
       public java.lang.String getOrderTime() {
@@ -6031,7 +6095,7 @@ public final class Models {
        * <code>optional string orderTime = 14;</code>
        *
        * <pre>
-       *æœ€åäº§ç”Ÿè®¢å•æ—¶é—´
+       *×îºó²úÉú¶©µ¥Ê±¼ä
        * </pre>
        */
       public com.google.protobuf.ByteString
@@ -6051,7 +6115,7 @@ public final class Models {
        * <code>optional string orderTime = 14;</code>
        *
        * <pre>
-       *æœ€åäº§ç”Ÿè®¢å•æ—¶é—´
+       *×îºó²úÉú¶©µ¥Ê±¼ä
        * </pre>
        */
       public Builder setOrderTime(
@@ -6068,7 +6132,7 @@ public final class Models {
        * <code>optional string orderTime = 14;</code>
        *
        * <pre>
-       *æœ€åäº§ç”Ÿè®¢å•æ—¶é—´
+       *×îºó²úÉú¶©µ¥Ê±¼ä
        * </pre>
        */
       public Builder clearOrderTime() {
@@ -6081,7 +6145,7 @@ public final class Models {
        * <code>optional string orderTime = 14;</code>
        *
        * <pre>
-       *æœ€åäº§ç”Ÿè®¢å•æ—¶é—´
+       *×îºó²úÉú¶©µ¥Ê±¼ä
        * </pre>
        */
       public Builder setOrderTimeBytes(
@@ -6101,7 +6165,7 @@ public final class Models {
        * <code>optional string subscribeTime = 15;</code>
        *
        * <pre>
-       *æœ€åè®¢é˜…æ—¶é—´
+       *×îºó¶©ÔÄÊ±¼ä
        * </pre>
        */
       public boolean hasSubscribeTime() {
@@ -6111,7 +6175,7 @@ public final class Models {
        * <code>optional string subscribeTime = 15;</code>
        *
        * <pre>
-       *æœ€åè®¢é˜…æ—¶é—´
+       *×îºó¶©ÔÄÊ±¼ä
        * </pre>
        */
       public java.lang.String getSubscribeTime() {
@@ -6129,7 +6193,7 @@ public final class Models {
        * <code>optional string subscribeTime = 15;</code>
        *
        * <pre>
-       *æœ€åè®¢é˜…æ—¶é—´
+       *×îºó¶©ÔÄÊ±¼ä
        * </pre>
        */
       public com.google.protobuf.ByteString
@@ -6149,7 +6213,7 @@ public final class Models {
        * <code>optional string subscribeTime = 15;</code>
        *
        * <pre>
-       *æœ€åè®¢é˜…æ—¶é—´
+       *×îºó¶©ÔÄÊ±¼ä
        * </pre>
        */
       public Builder setSubscribeTime(
@@ -6166,7 +6230,7 @@ public final class Models {
        * <code>optional string subscribeTime = 15;</code>
        *
        * <pre>
-       *æœ€åè®¢é˜…æ—¶é—´
+       *×îºó¶©ÔÄÊ±¼ä
        * </pre>
        */
       public Builder clearSubscribeTime() {
@@ -6179,7 +6243,7 @@ public final class Models {
        * <code>optional string subscribeTime = 15;</code>
        *
        * <pre>
-       *æœ€åè®¢é˜…æ—¶é—´
+       *×îºó¶©ÔÄÊ±¼ä
        * </pre>
        */
       public Builder setSubscribeTimeBytes(
@@ -6199,7 +6263,7 @@ public final class Models {
        * <code>optional string location = 16;</code>
        *
        * <pre>
-       *æ‰€åœ¨åœ°
+       *ËùÔÚµØ
        * </pre>
        */
       public boolean hasLocation() {
@@ -6209,7 +6273,7 @@ public final class Models {
        * <code>optional string location = 16;</code>
        *
        * <pre>
-       *æ‰€åœ¨åœ°
+       *ËùÔÚµØ
        * </pre>
        */
       public java.lang.String getLocation() {
@@ -6227,7 +6291,7 @@ public final class Models {
        * <code>optional string location = 16;</code>
        *
        * <pre>
-       *æ‰€åœ¨åœ°
+       *ËùÔÚµØ
        * </pre>
        */
       public com.google.protobuf.ByteString
@@ -6247,7 +6311,7 @@ public final class Models {
        * <code>optional string location = 16;</code>
        *
        * <pre>
-       *æ‰€åœ¨åœ°
+       *ËùÔÚµØ
        * </pre>
        */
       public Builder setLocation(
@@ -6264,7 +6328,7 @@ public final class Models {
        * <code>optional string location = 16;</code>
        *
        * <pre>
-       *æ‰€åœ¨åœ°
+       *ËùÔÚµØ
        * </pre>
        */
       public Builder clearLocation() {
@@ -6277,7 +6341,7 @@ public final class Models {
        * <code>optional string location = 16;</code>
        *
        * <pre>
-       *æ‰€åœ¨åœ°
+       *ËùÔÚµØ
        * </pre>
        */
       public Builder setLocationBytes(
@@ -6297,7 +6361,7 @@ public final class Models {
        * <code>optional string centerLink = 17;</code>
        *
        * <pre>
-       *ç¦å¸ˆä»‹ç»ä¸­å¿ƒé“¾æ¥
+       *¸£Ê¦½éÉÜÖĞĞÄÁ´½Ó
        * </pre>
        */
       public boolean hasCenterLink() {
@@ -6307,7 +6371,7 @@ public final class Models {
        * <code>optional string centerLink = 17;</code>
        *
        * <pre>
-       *ç¦å¸ˆä»‹ç»ä¸­å¿ƒé“¾æ¥
+       *¸£Ê¦½éÉÜÖĞĞÄÁ´½Ó
        * </pre>
        */
       public java.lang.String getCenterLink() {
@@ -6325,7 +6389,7 @@ public final class Models {
        * <code>optional string centerLink = 17;</code>
        *
        * <pre>
-       *ç¦å¸ˆä»‹ç»ä¸­å¿ƒé“¾æ¥
+       *¸£Ê¦½éÉÜÖĞĞÄÁ´½Ó
        * </pre>
        */
       public com.google.protobuf.ByteString
@@ -6345,7 +6409,7 @@ public final class Models {
        * <code>optional string centerLink = 17;</code>
        *
        * <pre>
-       *ç¦å¸ˆä»‹ç»ä¸­å¿ƒé“¾æ¥
+       *¸£Ê¦½éÉÜÖĞĞÄÁ´½Ó
        * </pre>
        */
       public Builder setCenterLink(
@@ -6362,7 +6426,7 @@ public final class Models {
        * <code>optional string centerLink = 17;</code>
        *
        * <pre>
-       *ç¦å¸ˆä»‹ç»ä¸­å¿ƒé“¾æ¥
+       *¸£Ê¦½éÉÜÖĞĞÄÁ´½Ó
        * </pre>
        */
       public Builder clearCenterLink() {
@@ -6375,7 +6439,7 @@ public final class Models {
        * <code>optional string centerLink = 17;</code>
        *
        * <pre>
-       *ç¦å¸ˆä»‹ç»ä¸­å¿ƒé“¾æ¥
+       *¸£Ê¦½éÉÜÖĞĞÄÁ´½Ó
        * </pre>
        */
       public Builder setCenterLinkBytes(
@@ -6406,7 +6470,7 @@ public final class Models {
        * <code>repeated .com.fuwu.mobileim.model.License licenses = 18;</code>
        *
        * <pre>
-       *è¡Œä¸šè®¤è¯
+       *ĞĞÒµÈÏÖ¤
        * </pre>
        */
       public java.util.List<com.fuwu.mobileim.model.Models.License> getLicensesList() {
@@ -6420,7 +6484,7 @@ public final class Models {
        * <code>repeated .com.fuwu.mobileim.model.License licenses = 18;</code>
        *
        * <pre>
-       *è¡Œä¸šè®¤è¯
+       *ĞĞÒµÈÏÖ¤
        * </pre>
        */
       public int getLicensesCount() {
@@ -6434,7 +6498,7 @@ public final class Models {
        * <code>repeated .com.fuwu.mobileim.model.License licenses = 18;</code>
        *
        * <pre>
-       *è¡Œä¸šè®¤è¯
+       *ĞĞÒµÈÏÖ¤
        * </pre>
        */
       public com.fuwu.mobileim.model.Models.License getLicenses(int index) {
@@ -6448,7 +6512,7 @@ public final class Models {
        * <code>repeated .com.fuwu.mobileim.model.License licenses = 18;</code>
        *
        * <pre>
-       *è¡Œä¸šè®¤è¯
+       *ĞĞÒµÈÏÖ¤
        * </pre>
        */
       public Builder setLicenses(
@@ -6469,7 +6533,7 @@ public final class Models {
        * <code>repeated .com.fuwu.mobileim.model.License licenses = 18;</code>
        *
        * <pre>
-       *è¡Œä¸šè®¤è¯
+       *ĞĞÒµÈÏÖ¤
        * </pre>
        */
       public Builder setLicenses(
@@ -6487,7 +6551,7 @@ public final class Models {
        * <code>repeated .com.fuwu.mobileim.model.License licenses = 18;</code>
        *
        * <pre>
-       *è¡Œä¸šè®¤è¯
+       *ĞĞÒµÈÏÖ¤
        * </pre>
        */
       public Builder addLicenses(com.fuwu.mobileim.model.Models.License value) {
@@ -6507,7 +6571,7 @@ public final class Models {
        * <code>repeated .com.fuwu.mobileim.model.License licenses = 18;</code>
        *
        * <pre>
-       *è¡Œä¸šè®¤è¯
+       *ĞĞÒµÈÏÖ¤
        * </pre>
        */
       public Builder addLicenses(
@@ -6528,7 +6592,7 @@ public final class Models {
        * <code>repeated .com.fuwu.mobileim.model.License licenses = 18;</code>
        *
        * <pre>
-       *è¡Œä¸šè®¤è¯
+       *ĞĞÒµÈÏÖ¤
        * </pre>
        */
       public Builder addLicenses(
@@ -6546,7 +6610,7 @@ public final class Models {
        * <code>repeated .com.fuwu.mobileim.model.License licenses = 18;</code>
        *
        * <pre>
-       *è¡Œä¸šè®¤è¯
+       *ĞĞÒµÈÏÖ¤
        * </pre>
        */
       public Builder addLicenses(
@@ -6564,7 +6628,7 @@ public final class Models {
        * <code>repeated .com.fuwu.mobileim.model.License licenses = 18;</code>
        *
        * <pre>
-       *è¡Œä¸šè®¤è¯
+       *ĞĞÒµÈÏÖ¤
        * </pre>
        */
       public Builder addAllLicenses(
@@ -6582,7 +6646,7 @@ public final class Models {
        * <code>repeated .com.fuwu.mobileim.model.License licenses = 18;</code>
        *
        * <pre>
-       *è¡Œä¸šè®¤è¯
+       *ĞĞÒµÈÏÖ¤
        * </pre>
        */
       public Builder clearLicenses() {
@@ -6599,7 +6663,7 @@ public final class Models {
        * <code>repeated .com.fuwu.mobileim.model.License licenses = 18;</code>
        *
        * <pre>
-       *è¡Œä¸šè®¤è¯
+       *ĞĞÒµÈÏÖ¤
        * </pre>
        */
       public Builder removeLicenses(int index) {
@@ -6616,7 +6680,7 @@ public final class Models {
        * <code>repeated .com.fuwu.mobileim.model.License licenses = 18;</code>
        *
        * <pre>
-       *è¡Œä¸šè®¤è¯
+       *ĞĞÒµÈÏÖ¤
        * </pre>
        */
       public com.fuwu.mobileim.model.Models.License.Builder getLicensesBuilder(
@@ -6627,7 +6691,7 @@ public final class Models {
        * <code>repeated .com.fuwu.mobileim.model.License licenses = 18;</code>
        *
        * <pre>
-       *è¡Œä¸šè®¤è¯
+       *ĞĞÒµÈÏÖ¤
        * </pre>
        */
       public com.fuwu.mobileim.model.Models.LicenseOrBuilder getLicensesOrBuilder(
@@ -6641,7 +6705,7 @@ public final class Models {
        * <code>repeated .com.fuwu.mobileim.model.License licenses = 18;</code>
        *
        * <pre>
-       *è¡Œä¸šè®¤è¯
+       *ĞĞÒµÈÏÖ¤
        * </pre>
        */
       public java.util.List<? extends com.fuwu.mobileim.model.Models.LicenseOrBuilder> 
@@ -6656,7 +6720,7 @@ public final class Models {
        * <code>repeated .com.fuwu.mobileim.model.License licenses = 18;</code>
        *
        * <pre>
-       *è¡Œä¸šè®¤è¯
+       *ĞĞÒµÈÏÖ¤
        * </pre>
        */
       public com.fuwu.mobileim.model.Models.License.Builder addLicensesBuilder() {
@@ -6667,7 +6731,7 @@ public final class Models {
        * <code>repeated .com.fuwu.mobileim.model.License licenses = 18;</code>
        *
        * <pre>
-       *è¡Œä¸šè®¤è¯
+       *ĞĞÒµÈÏÖ¤
        * </pre>
        */
       public com.fuwu.mobileim.model.Models.License.Builder addLicensesBuilder(
@@ -6679,7 +6743,7 @@ public final class Models {
        * <code>repeated .com.fuwu.mobileim.model.License licenses = 18;</code>
        *
        * <pre>
-       *è¡Œä¸šè®¤è¯
+       *ĞĞÒµÈÏÖ¤
        * </pre>
        */
       public java.util.List<com.fuwu.mobileim.model.Models.License.Builder> 
@@ -6771,6 +6835,55 @@ public final class Models {
   }
   bitField0_ |= 0x00040000;
         backgroundUrl_ = value;
+        onChanged();
+        return this;
+      }
+
+      // optional bool isAuthentication = 20;
+      private boolean isAuthentication_ ;
+      /**
+       * <code>optional bool isAuthentication = 20;</code>
+       *
+       * <pre>
+       *ÓÃ»§ÊÇ·ñÍ¨¹ıÊµÃûÈÏÖ¤
+       * </pre>
+       */
+      public boolean hasIsAuthentication() {
+        return ((bitField0_ & 0x00080000) == 0x00080000);
+      }
+      /**
+       * <code>optional bool isAuthentication = 20;</code>
+       *
+       * <pre>
+       *ÓÃ»§ÊÇ·ñÍ¨¹ıÊµÃûÈÏÖ¤
+       * </pre>
+       */
+      public boolean getIsAuthentication() {
+        return isAuthentication_;
+      }
+      /**
+       * <code>optional bool isAuthentication = 20;</code>
+       *
+       * <pre>
+       *ÓÃ»§ÊÇ·ñÍ¨¹ıÊµÃûÈÏÖ¤
+       * </pre>
+       */
+      public Builder setIsAuthentication(boolean value) {
+        bitField0_ |= 0x00080000;
+        isAuthentication_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional bool isAuthentication = 20;</code>
+       *
+       * <pre>
+       *ÓÃ»§ÊÇ·ñÍ¨¹ıÊµÃûÈÏÖ¤
+       * </pre>
+       */
+      public Builder clearIsAuthentication() {
+        bitField0_ = (bitField0_ & ~0x00080000);
+        isAuthentication_ = false;
         onChanged();
         return this;
       }
@@ -7552,7 +7665,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.ContactResponse.ErrorCodeType errorCode = 4;</code>
      *
      * <pre>
-     *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+     *´íÎó´úÂë£¨Ã¶¾Ù£©
      * </pre>
      */
     boolean hasErrorCode();
@@ -7560,7 +7673,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.ContactResponse.ErrorCodeType errorCode = 4;</code>
      *
      * <pre>
-     *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+     *´íÎó´úÂë£¨Ã¶¾Ù£©
      * </pre>
      */
     com.fuwu.mobileim.model.Models.ContactResponse.ErrorCodeType getErrorCode();
@@ -7696,7 +7809,7 @@ public final class Models {
        * <code>InvalidToken = 2001;</code>
        *
        * <pre>
-       *tokenå¤±æ•ˆ 
+       *tokenÊ§Ğ§ 
        * </pre>
        */
       InvalidToken(0, 2001),
@@ -7706,7 +7819,7 @@ public final class Models {
        * <code>InvalidToken = 2001;</code>
        *
        * <pre>
-       *tokenå¤±æ•ˆ 
+       *tokenÊ§Ğ§ 
        * </pre>
        */
       public static final int InvalidToken_VALUE = 2001;
@@ -7871,7 +7984,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.ContactResponse.ErrorCodeType errorCode = 4;</code>
      *
      * <pre>
-     *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+     *´íÎó´úÂë£¨Ã¶¾Ù£©
      * </pre>
      */
     public boolean hasErrorCode() {
@@ -7881,7 +7994,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.ContactResponse.ErrorCodeType errorCode = 4;</code>
      *
      * <pre>
-     *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+     *´íÎó´úÂë£¨Ã¶¾Ù£©
      * </pre>
      */
     public com.fuwu.mobileim.model.Models.ContactResponse.ErrorCodeType getErrorCode() {
@@ -8554,7 +8667,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.ContactResponse.ErrorCodeType errorCode = 4;</code>
        *
        * <pre>
-       *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+       *´íÎó´úÂë£¨Ã¶¾Ù£©
        * </pre>
        */
       public boolean hasErrorCode() {
@@ -8564,7 +8677,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.ContactResponse.ErrorCodeType errorCode = 4;</code>
        *
        * <pre>
-       *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+       *´íÎó´úÂë£¨Ã¶¾Ù£©
        * </pre>
        */
       public com.fuwu.mobileim.model.Models.ContactResponse.ErrorCodeType getErrorCode() {
@@ -8574,7 +8687,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.ContactResponse.ErrorCodeType errorCode = 4;</code>
        *
        * <pre>
-       *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+       *´íÎó´úÂë£¨Ã¶¾Ù£©
        * </pre>
        */
       public Builder setErrorCode(com.fuwu.mobileim.model.Models.ContactResponse.ErrorCodeType value) {
@@ -8590,7 +8703,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.ContactResponse.ErrorCodeType errorCode = 4;</code>
        *
        * <pre>
-       *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+       *´íÎó´úÂë£¨Ã¶¾Ù£©
        * </pre>
        */
       public Builder clearErrorCode() {
@@ -9363,7 +9476,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.BlockContactResponse.ErrorCodeType errorCode = 4;</code>
      *
      * <pre>
-     *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+     *´íÎó´úÂë£¨Ã¶¾Ù£©
      * </pre>
      */
     boolean hasErrorCode();
@@ -9371,7 +9484,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.BlockContactResponse.ErrorCodeType errorCode = 4;</code>
      *
      * <pre>
-     *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+     *´íÎó´úÂë£¨Ã¶¾Ù£©
      * </pre>
      */
     com.fuwu.mobileim.model.Models.BlockContactResponse.ErrorCodeType getErrorCode();
@@ -9501,7 +9614,7 @@ public final class Models {
        * <code>InvalidToken = 2001;</code>
        *
        * <pre>
-       *tokenå¤±æ•ˆ
+       *tokenÊ§Ğ§
        * </pre>
        */
       InvalidToken(0, 2001),
@@ -9511,7 +9624,7 @@ public final class Models {
        * <code>InvalidToken = 2001;</code>
        *
        * <pre>
-       *tokenå¤±æ•ˆ
+       *tokenÊ§Ğ§
        * </pre>
        */
       public static final int InvalidToken_VALUE = 2001;
@@ -9629,7 +9742,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.BlockContactResponse.ErrorCodeType errorCode = 4;</code>
      *
      * <pre>
-     *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+     *´íÎó´úÂë£¨Ã¶¾Ù£©
      * </pre>
      */
     public boolean hasErrorCode() {
@@ -9639,7 +9752,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.BlockContactResponse.ErrorCodeType errorCode = 4;</code>
      *
      * <pre>
-     *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+     *´íÎó´úÂë£¨Ã¶¾Ù£©
      * </pre>
      */
     public com.fuwu.mobileim.model.Models.BlockContactResponse.ErrorCodeType getErrorCode() {
@@ -10029,7 +10142,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.BlockContactResponse.ErrorCodeType errorCode = 4;</code>
        *
        * <pre>
-       *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+       *´íÎó´úÂë£¨Ã¶¾Ù£©
        * </pre>
        */
       public boolean hasErrorCode() {
@@ -10039,7 +10152,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.BlockContactResponse.ErrorCodeType errorCode = 4;</code>
        *
        * <pre>
-       *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+       *´íÎó´úÂë£¨Ã¶¾Ù£©
        * </pre>
        */
       public com.fuwu.mobileim.model.Models.BlockContactResponse.ErrorCodeType getErrorCode() {
@@ -10049,7 +10162,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.BlockContactResponse.ErrorCodeType errorCode = 4;</code>
        *
        * <pre>
-       *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+       *´íÎó´úÂë£¨Ã¶¾Ù£©
        * </pre>
        */
       public Builder setErrorCode(com.fuwu.mobileim.model.Models.BlockContactResponse.ErrorCodeType value) {
@@ -10065,7 +10178,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.BlockContactResponse.ErrorCodeType errorCode = 4;</code>
        *
        * <pre>
-       *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+       *´íÎó´úÂë£¨Ã¶¾Ù£©
        * </pre>
        */
       public Builder clearErrorCode() {
@@ -10751,7 +10864,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.ContactDetailResponse.ErrorCodeType errorCode = 3;</code>
      *
      * <pre>
-     *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+     *´íÎó´úÂë£¨Ã¶¾Ù£©
      * </pre>
      */
     boolean hasErrorCode();
@@ -10759,7 +10872,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.ContactDetailResponse.ErrorCodeType errorCode = 3;</code>
      *
      * <pre>
-     *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+     *´íÎó´úÂë£¨Ã¶¾Ù£©
      * </pre>
      */
     com.fuwu.mobileim.model.Models.ContactDetailResponse.ErrorCodeType getErrorCode();
@@ -10892,7 +11005,7 @@ public final class Models {
        * <code>InvalidToken = 2001;</code>
        *
        * <pre>
-       *tokenå¤±æ•ˆ
+       *tokenÊ§Ğ§
        * </pre>
        */
       InvalidToken(0, 2001),
@@ -10902,7 +11015,7 @@ public final class Models {
        * <code>InvalidToken = 2001;</code>
        *
        * <pre>
-       *tokenå¤±æ•ˆ
+       *tokenÊ§Ğ§
        * </pre>
        */
       public static final int InvalidToken_VALUE = 2001;
@@ -11010,7 +11123,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.ContactDetailResponse.ErrorCodeType errorCode = 3;</code>
      *
      * <pre>
-     *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+     *´íÎó´úÂë£¨Ã¶¾Ù£©
      * </pre>
      */
     public boolean hasErrorCode() {
@@ -11020,7 +11133,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.ContactDetailResponse.ErrorCodeType errorCode = 3;</code>
      *
      * <pre>
-     *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+     *´íÎó´úÂë£¨Ã¶¾Ù£©
      * </pre>
      */
     public com.fuwu.mobileim.model.Models.ContactDetailResponse.ErrorCodeType getErrorCode() {
@@ -11453,7 +11566,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.ContactDetailResponse.ErrorCodeType errorCode = 3;</code>
        *
        * <pre>
-       *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+       *´íÎó´úÂë£¨Ã¶¾Ù£©
        * </pre>
        */
       public boolean hasErrorCode() {
@@ -11463,7 +11576,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.ContactDetailResponse.ErrorCodeType errorCode = 3;</code>
        *
        * <pre>
-       *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+       *´íÎó´úÂë£¨Ã¶¾Ù£©
        * </pre>
        */
       public com.fuwu.mobileim.model.Models.ContactDetailResponse.ErrorCodeType getErrorCode() {
@@ -11473,7 +11586,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.ContactDetailResponse.ErrorCodeType errorCode = 3;</code>
        *
        * <pre>
-       *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+       *´íÎó´úÂë£¨Ã¶¾Ù£©
        * </pre>
        */
       public Builder setErrorCode(com.fuwu.mobileim.model.Models.ContactDetailResponse.ErrorCodeType value) {
@@ -11489,7 +11602,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.ContactDetailResponse.ErrorCodeType errorCode = 3;</code>
        *
        * <pre>
-       *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+       *´íÎó´úÂë£¨Ã¶¾Ù£©
        * </pre>
        */
       public Builder clearErrorCode() {
@@ -12286,7 +12399,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.ChangeContactDetailResponse.ErrorCodeType errorCode = 3;</code>
      *
      * <pre>
-     *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+     *´íÎó´úÂë£¨Ã¶¾Ù£©
      * </pre>
      */
     boolean hasErrorCode();
@@ -12294,7 +12407,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.ChangeContactDetailResponse.ErrorCodeType errorCode = 3;</code>
      *
      * <pre>
-     *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+     *´íÎó´úÂë£¨Ã¶¾Ù£©
      * </pre>
      */
     com.fuwu.mobileim.model.Models.ChangeContactDetailResponse.ErrorCodeType getErrorCode();
@@ -12427,7 +12540,7 @@ public final class Models {
        * <code>InvalidToken = 2001;</code>
        *
        * <pre>
-       *tokenå¤±æ•ˆ
+       *tokenÊ§Ğ§
        * </pre>
        */
       InvalidToken(0, 2001),
@@ -12437,7 +12550,7 @@ public final class Models {
        * <code>InvalidToken = 2001;</code>
        *
        * <pre>
-       *tokenå¤±æ•ˆ
+       *tokenÊ§Ğ§
        * </pre>
        */
       public static final int InvalidToken_VALUE = 2001;
@@ -12545,7 +12658,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.ChangeContactDetailResponse.ErrorCodeType errorCode = 3;</code>
      *
      * <pre>
-     *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+     *´íÎó´úÂë£¨Ã¶¾Ù£©
      * </pre>
      */
     public boolean hasErrorCode() {
@@ -12555,7 +12668,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.ChangeContactDetailResponse.ErrorCodeType errorCode = 3;</code>
      *
      * <pre>
-     *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+     *´íÎó´úÂë£¨Ã¶¾Ù£©
      * </pre>
      */
     public com.fuwu.mobileim.model.Models.ChangeContactDetailResponse.ErrorCodeType getErrorCode() {
@@ -12988,7 +13101,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.ChangeContactDetailResponse.ErrorCodeType errorCode = 3;</code>
        *
        * <pre>
-       *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+       *´íÎó´úÂë£¨Ã¶¾Ù£©
        * </pre>
        */
       public boolean hasErrorCode() {
@@ -12998,7 +13111,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.ChangeContactDetailResponse.ErrorCodeType errorCode = 3;</code>
        *
        * <pre>
-       *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+       *´íÎó´úÂë£¨Ã¶¾Ù£©
        * </pre>
        */
       public com.fuwu.mobileim.model.Models.ChangeContactDetailResponse.ErrorCodeType getErrorCode() {
@@ -13008,7 +13121,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.ChangeContactDetailResponse.ErrorCodeType errorCode = 3;</code>
        *
        * <pre>
-       *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+       *´íÎó´úÂë£¨Ã¶¾Ù£©
        * </pre>
        */
       public Builder setErrorCode(com.fuwu.mobileim.model.Models.ChangeContactDetailResponse.ErrorCodeType value) {
@@ -13024,7 +13137,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.ChangeContactDetailResponse.ErrorCodeType errorCode = 3;</code>
        *
        * <pre>
-       *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+       *´íÎó´úÂë£¨Ã¶¾Ù£©
        * </pre>
        */
       public Builder clearErrorCode() {
@@ -13188,7 +13301,7 @@ public final class Models {
      * <code>optional bool isAuthentication = 11;</code>
      *
      * <pre>
-     *ç”¨æˆ·æ˜¯å¦é€šè¿‡å®åè®¤è¯
+     *ÓÃ»§ÊÇ·ñÍ¨¹ıÊµÃûÈÏÖ¤
      * </pre>
      */
     boolean hasIsAuthentication();
@@ -13196,7 +13309,7 @@ public final class Models {
      * <code>optional bool isAuthentication = 11;</code>
      *
      * <pre>
-     *ç”¨æˆ·æ˜¯å¦é€šè¿‡å®åè®¤è¯
+     *ÓÃ»§ÊÇ·ñÍ¨¹ıÊµÃûÈÏÖ¤
      * </pre>
      */
     boolean getIsAuthentication();
@@ -13221,7 +13334,7 @@ public final class Models {
      * <code>repeated .com.fuwu.mobileim.model.License licenses = 13;</code>
      *
      * <pre>
-     *è¡Œä¸šè®¤è¯
+     *ĞĞÒµÈÏÖ¤
      * </pre>
      */
     java.util.List<com.fuwu.mobileim.model.Models.License> 
@@ -13230,7 +13343,7 @@ public final class Models {
      * <code>repeated .com.fuwu.mobileim.model.License licenses = 13;</code>
      *
      * <pre>
-     *è¡Œä¸šè®¤è¯
+     *ĞĞÒµÈÏÖ¤
      * </pre>
      */
     com.fuwu.mobileim.model.Models.License getLicenses(int index);
@@ -13238,7 +13351,7 @@ public final class Models {
      * <code>repeated .com.fuwu.mobileim.model.License licenses = 13;</code>
      *
      * <pre>
-     *è¡Œä¸šè®¤è¯
+     *ĞĞÒµÈÏÖ¤
      * </pre>
      */
     int getLicensesCount();
@@ -13246,7 +13359,7 @@ public final class Models {
      * <code>repeated .com.fuwu.mobileim.model.License licenses = 13;</code>
      *
      * <pre>
-     *è¡Œä¸šè®¤è¯
+     *ĞĞÒµÈÏÖ¤
      * </pre>
      */
     java.util.List<? extends com.fuwu.mobileim.model.Models.LicenseOrBuilder> 
@@ -13255,7 +13368,7 @@ public final class Models {
      * <code>repeated .com.fuwu.mobileim.model.License licenses = 13;</code>
      *
      * <pre>
-     *è¡Œä¸šè®¤è¯
+     *ĞĞÒµÈÏÖ¤
      * </pre>
      */
     com.fuwu.mobileim.model.Models.LicenseOrBuilder getLicensesOrBuilder(
@@ -13266,7 +13379,7 @@ public final class Models {
      * <code>optional string location = 14;</code>
      *
      * <pre>
-     *æ‰€åœ¨åœ°
+     *ËùÔÚµØ
      * </pre>
      */
     boolean hasLocation();
@@ -13274,7 +13387,7 @@ public final class Models {
      * <code>optional string location = 14;</code>
      *
      * <pre>
-     *æ‰€åœ¨åœ°
+     *ËùÔÚµØ
      * </pre>
      */
     java.lang.String getLocation();
@@ -13282,7 +13395,7 @@ public final class Models {
      * <code>optional string location = 14;</code>
      *
      * <pre>
-     *æ‰€åœ¨åœ°
+     *ËùÔÚµØ
      * </pre>
      */
     com.google.protobuf.ByteString
@@ -13293,7 +13406,7 @@ public final class Models {
      * <code>optional string description = 15;</code>
      *
      * <pre>
-     *ç¦å¸ˆç®€ä»‹
+     *¸£Ê¦¼ò½é
      * </pre>
      */
     boolean hasDescription();
@@ -13301,7 +13414,7 @@ public final class Models {
      * <code>optional string description = 15;</code>
      *
      * <pre>
-     *ç¦å¸ˆç®€ä»‹
+     *¸£Ê¦¼ò½é
      * </pre>
      */
     java.lang.String getDescription();
@@ -13309,7 +13422,7 @@ public final class Models {
      * <code>optional string description = 15;</code>
      *
      * <pre>
-     *ç¦å¸ˆç®€ä»‹
+     *¸£Ê¦¼ò½é
      * </pre>
      */
     com.google.protobuf.ByteString
@@ -13521,7 +13634,7 @@ public final class Models {
        * <code>Male = 0;</code>
        *
        * <pre>
-       *ç”·
+       *ÄĞ
        * </pre>
        */
       Male(0, 0),
@@ -13529,7 +13642,7 @@ public final class Models {
        * <code>Female = 1;</code>
        *
        * <pre>
-       *å¥³
+       *Å®
        * </pre>
        */
       Female(1, 1),
@@ -13537,7 +13650,7 @@ public final class Models {
        * <code>Privacy = 2;</code>
        *
        * <pre>
-       *ä¿å¯†
+       *±£ÃÜ
        * </pre>
        */
       Privacy(2, 2),
@@ -13547,7 +13660,7 @@ public final class Models {
        * <code>Male = 0;</code>
        *
        * <pre>
-       *ç”·
+       *ÄĞ
        * </pre>
        */
       public static final int Male_VALUE = 0;
@@ -13555,7 +13668,7 @@ public final class Models {
        * <code>Female = 1;</code>
        *
        * <pre>
-       *å¥³
+       *Å®
        * </pre>
        */
       public static final int Female_VALUE = 1;
@@ -13563,7 +13676,7 @@ public final class Models {
        * <code>Privacy = 2;</code>
        *
        * <pre>
-       *ä¿å¯†
+       *±£ÃÜ
        * </pre>
        */
       public static final int Privacy_VALUE = 2;
@@ -13984,7 +14097,7 @@ public final class Models {
      * <code>optional bool isAuthentication = 11;</code>
      *
      * <pre>
-     *ç”¨æˆ·æ˜¯å¦é€šè¿‡å®åè®¤è¯
+     *ÓÃ»§ÊÇ·ñÍ¨¹ıÊµÃûÈÏÖ¤
      * </pre>
      */
     public boolean hasIsAuthentication() {
@@ -13994,7 +14107,7 @@ public final class Models {
      * <code>optional bool isAuthentication = 11;</code>
      *
      * <pre>
-     *ç”¨æˆ·æ˜¯å¦é€šè¿‡å®åè®¤è¯
+     *ÓÃ»§ÊÇ·ñÍ¨¹ıÊµÃûÈÏÖ¤
      * </pre>
      */
     public boolean getIsAuthentication() {
@@ -14051,7 +14164,7 @@ public final class Models {
      * <code>repeated .com.fuwu.mobileim.model.License licenses = 13;</code>
      *
      * <pre>
-     *è¡Œä¸šè®¤è¯
+     *ĞĞÒµÈÏÖ¤
      * </pre>
      */
     public java.util.List<com.fuwu.mobileim.model.Models.License> getLicensesList() {
@@ -14061,7 +14174,7 @@ public final class Models {
      * <code>repeated .com.fuwu.mobileim.model.License licenses = 13;</code>
      *
      * <pre>
-     *è¡Œä¸šè®¤è¯
+     *ĞĞÒµÈÏÖ¤
      * </pre>
      */
     public java.util.List<? extends com.fuwu.mobileim.model.Models.LicenseOrBuilder> 
@@ -14072,7 +14185,7 @@ public final class Models {
      * <code>repeated .com.fuwu.mobileim.model.License licenses = 13;</code>
      *
      * <pre>
-     *è¡Œä¸šè®¤è¯
+     *ĞĞÒµÈÏÖ¤
      * </pre>
      */
     public int getLicensesCount() {
@@ -14082,7 +14195,7 @@ public final class Models {
      * <code>repeated .com.fuwu.mobileim.model.License licenses = 13;</code>
      *
      * <pre>
-     *è¡Œä¸šè®¤è¯
+     *ĞĞÒµÈÏÖ¤
      * </pre>
      */
     public com.fuwu.mobileim.model.Models.License getLicenses(int index) {
@@ -14092,7 +14205,7 @@ public final class Models {
      * <code>repeated .com.fuwu.mobileim.model.License licenses = 13;</code>
      *
      * <pre>
-     *è¡Œä¸šè®¤è¯
+     *ĞĞÒµÈÏÖ¤
      * </pre>
      */
     public com.fuwu.mobileim.model.Models.LicenseOrBuilder getLicensesOrBuilder(
@@ -14107,7 +14220,7 @@ public final class Models {
      * <code>optional string location = 14;</code>
      *
      * <pre>
-     *æ‰€åœ¨åœ°
+     *ËùÔÚµØ
      * </pre>
      */
     public boolean hasLocation() {
@@ -14117,7 +14230,7 @@ public final class Models {
      * <code>optional string location = 14;</code>
      *
      * <pre>
-     *æ‰€åœ¨åœ°
+     *ËùÔÚµØ
      * </pre>
      */
     public java.lang.String getLocation() {
@@ -14138,7 +14251,7 @@ public final class Models {
      * <code>optional string location = 14;</code>
      *
      * <pre>
-     *æ‰€åœ¨åœ°
+     *ËùÔÚµØ
      * </pre>
      */
     public com.google.protobuf.ByteString
@@ -14162,7 +14275,7 @@ public final class Models {
      * <code>optional string description = 15;</code>
      *
      * <pre>
-     *ç¦å¸ˆç®€ä»‹
+     *¸£Ê¦¼ò½é
      * </pre>
      */
     public boolean hasDescription() {
@@ -14172,7 +14285,7 @@ public final class Models {
      * <code>optional string description = 15;</code>
      *
      * <pre>
-     *ç¦å¸ˆç®€ä»‹
+     *¸£Ê¦¼ò½é
      * </pre>
      */
     public java.lang.String getDescription() {
@@ -14193,7 +14306,7 @@ public final class Models {
      * <code>optional string description = 15;</code>
      *
      * <pre>
-     *ç¦å¸ˆç®€ä»‹
+     *¸£Ê¦¼ò½é
      * </pre>
      */
     public com.google.protobuf.ByteString
@@ -15416,7 +15529,7 @@ public final class Models {
        * <code>optional bool isAuthentication = 11;</code>
        *
        * <pre>
-       *ç”¨æˆ·æ˜¯å¦é€šè¿‡å®åè®¤è¯
+       *ÓÃ»§ÊÇ·ñÍ¨¹ıÊµÃûÈÏÖ¤
        * </pre>
        */
       public boolean hasIsAuthentication() {
@@ -15426,7 +15539,7 @@ public final class Models {
        * <code>optional bool isAuthentication = 11;</code>
        *
        * <pre>
-       *ç”¨æˆ·æ˜¯å¦é€šè¿‡å®åè®¤è¯
+       *ÓÃ»§ÊÇ·ñÍ¨¹ıÊµÃûÈÏÖ¤
        * </pre>
        */
       public boolean getIsAuthentication() {
@@ -15436,7 +15549,7 @@ public final class Models {
        * <code>optional bool isAuthentication = 11;</code>
        *
        * <pre>
-       *ç”¨æˆ·æ˜¯å¦é€šè¿‡å®åè®¤è¯
+       *ÓÃ»§ÊÇ·ñÍ¨¹ıÊµÃûÈÏÖ¤
        * </pre>
        */
       public Builder setIsAuthentication(boolean value) {
@@ -15449,7 +15562,7 @@ public final class Models {
        * <code>optional bool isAuthentication = 11;</code>
        *
        * <pre>
-       *ç”¨æˆ·æ˜¯å¦é€šè¿‡å®åè®¤è¯
+       *ÓÃ»§ÊÇ·ñÍ¨¹ıÊµÃûÈÏÖ¤
        * </pre>
        */
       public Builder clearIsAuthentication() {
@@ -15550,7 +15663,7 @@ public final class Models {
        * <code>repeated .com.fuwu.mobileim.model.License licenses = 13;</code>
        *
        * <pre>
-       *è¡Œä¸šè®¤è¯
+       *ĞĞÒµÈÏÖ¤
        * </pre>
        */
       public java.util.List<com.fuwu.mobileim.model.Models.License> getLicensesList() {
@@ -15564,7 +15677,7 @@ public final class Models {
        * <code>repeated .com.fuwu.mobileim.model.License licenses = 13;</code>
        *
        * <pre>
-       *è¡Œä¸šè®¤è¯
+       *ĞĞÒµÈÏÖ¤
        * </pre>
        */
       public int getLicensesCount() {
@@ -15578,7 +15691,7 @@ public final class Models {
        * <code>repeated .com.fuwu.mobileim.model.License licenses = 13;</code>
        *
        * <pre>
-       *è¡Œä¸šè®¤è¯
+       *ĞĞÒµÈÏÖ¤
        * </pre>
        */
       public com.fuwu.mobileim.model.Models.License getLicenses(int index) {
@@ -15592,7 +15705,7 @@ public final class Models {
        * <code>repeated .com.fuwu.mobileim.model.License licenses = 13;</code>
        *
        * <pre>
-       *è¡Œä¸šè®¤è¯
+       *ĞĞÒµÈÏÖ¤
        * </pre>
        */
       public Builder setLicenses(
@@ -15613,7 +15726,7 @@ public final class Models {
        * <code>repeated .com.fuwu.mobileim.model.License licenses = 13;</code>
        *
        * <pre>
-       *è¡Œä¸šè®¤è¯
+       *ĞĞÒµÈÏÖ¤
        * </pre>
        */
       public Builder setLicenses(
@@ -15631,7 +15744,7 @@ public final class Models {
        * <code>repeated .com.fuwu.mobileim.model.License licenses = 13;</code>
        *
        * <pre>
-       *è¡Œä¸šè®¤è¯
+       *ĞĞÒµÈÏÖ¤
        * </pre>
        */
       public Builder addLicenses(com.fuwu.mobileim.model.Models.License value) {
@@ -15651,7 +15764,7 @@ public final class Models {
        * <code>repeated .com.fuwu.mobileim.model.License licenses = 13;</code>
        *
        * <pre>
-       *è¡Œä¸šè®¤è¯
+       *ĞĞÒµÈÏÖ¤
        * </pre>
        */
       public Builder addLicenses(
@@ -15672,7 +15785,7 @@ public final class Models {
        * <code>repeated .com.fuwu.mobileim.model.License licenses = 13;</code>
        *
        * <pre>
-       *è¡Œä¸šè®¤è¯
+       *ĞĞÒµÈÏÖ¤
        * </pre>
        */
       public Builder addLicenses(
@@ -15690,7 +15803,7 @@ public final class Models {
        * <code>repeated .com.fuwu.mobileim.model.License licenses = 13;</code>
        *
        * <pre>
-       *è¡Œä¸šè®¤è¯
+       *ĞĞÒµÈÏÖ¤
        * </pre>
        */
       public Builder addLicenses(
@@ -15708,7 +15821,7 @@ public final class Models {
        * <code>repeated .com.fuwu.mobileim.model.License licenses = 13;</code>
        *
        * <pre>
-       *è¡Œä¸šè®¤è¯
+       *ĞĞÒµÈÏÖ¤
        * </pre>
        */
       public Builder addAllLicenses(
@@ -15726,7 +15839,7 @@ public final class Models {
        * <code>repeated .com.fuwu.mobileim.model.License licenses = 13;</code>
        *
        * <pre>
-       *è¡Œä¸šè®¤è¯
+       *ĞĞÒµÈÏÖ¤
        * </pre>
        */
       public Builder clearLicenses() {
@@ -15743,7 +15856,7 @@ public final class Models {
        * <code>repeated .com.fuwu.mobileim.model.License licenses = 13;</code>
        *
        * <pre>
-       *è¡Œä¸šè®¤è¯
+       *ĞĞÒµÈÏÖ¤
        * </pre>
        */
       public Builder removeLicenses(int index) {
@@ -15760,7 +15873,7 @@ public final class Models {
        * <code>repeated .com.fuwu.mobileim.model.License licenses = 13;</code>
        *
        * <pre>
-       *è¡Œä¸šè®¤è¯
+       *ĞĞÒµÈÏÖ¤
        * </pre>
        */
       public com.fuwu.mobileim.model.Models.License.Builder getLicensesBuilder(
@@ -15771,7 +15884,7 @@ public final class Models {
        * <code>repeated .com.fuwu.mobileim.model.License licenses = 13;</code>
        *
        * <pre>
-       *è¡Œä¸šè®¤è¯
+       *ĞĞÒµÈÏÖ¤
        * </pre>
        */
       public com.fuwu.mobileim.model.Models.LicenseOrBuilder getLicensesOrBuilder(
@@ -15785,7 +15898,7 @@ public final class Models {
        * <code>repeated .com.fuwu.mobileim.model.License licenses = 13;</code>
        *
        * <pre>
-       *è¡Œä¸šè®¤è¯
+       *ĞĞÒµÈÏÖ¤
        * </pre>
        */
       public java.util.List<? extends com.fuwu.mobileim.model.Models.LicenseOrBuilder> 
@@ -15800,7 +15913,7 @@ public final class Models {
        * <code>repeated .com.fuwu.mobileim.model.License licenses = 13;</code>
        *
        * <pre>
-       *è¡Œä¸šè®¤è¯
+       *ĞĞÒµÈÏÖ¤
        * </pre>
        */
       public com.fuwu.mobileim.model.Models.License.Builder addLicensesBuilder() {
@@ -15811,7 +15924,7 @@ public final class Models {
        * <code>repeated .com.fuwu.mobileim.model.License licenses = 13;</code>
        *
        * <pre>
-       *è¡Œä¸šè®¤è¯
+       *ĞĞÒµÈÏÖ¤
        * </pre>
        */
       public com.fuwu.mobileim.model.Models.License.Builder addLicensesBuilder(
@@ -15823,7 +15936,7 @@ public final class Models {
        * <code>repeated .com.fuwu.mobileim.model.License licenses = 13;</code>
        *
        * <pre>
-       *è¡Œä¸šè®¤è¯
+       *ĞĞÒµÈÏÖ¤
        * </pre>
        */
       public java.util.List<com.fuwu.mobileim.model.Models.License.Builder> 
@@ -15851,7 +15964,7 @@ public final class Models {
        * <code>optional string location = 14;</code>
        *
        * <pre>
-       *æ‰€åœ¨åœ°
+       *ËùÔÚµØ
        * </pre>
        */
       public boolean hasLocation() {
@@ -15861,7 +15974,7 @@ public final class Models {
        * <code>optional string location = 14;</code>
        *
        * <pre>
-       *æ‰€åœ¨åœ°
+       *ËùÔÚµØ
        * </pre>
        */
       public java.lang.String getLocation() {
@@ -15879,7 +15992,7 @@ public final class Models {
        * <code>optional string location = 14;</code>
        *
        * <pre>
-       *æ‰€åœ¨åœ°
+       *ËùÔÚµØ
        * </pre>
        */
       public com.google.protobuf.ByteString
@@ -15899,7 +16012,7 @@ public final class Models {
        * <code>optional string location = 14;</code>
        *
        * <pre>
-       *æ‰€åœ¨åœ°
+       *ËùÔÚµØ
        * </pre>
        */
       public Builder setLocation(
@@ -15916,7 +16029,7 @@ public final class Models {
        * <code>optional string location = 14;</code>
        *
        * <pre>
-       *æ‰€åœ¨åœ°
+       *ËùÔÚµØ
        * </pre>
        */
       public Builder clearLocation() {
@@ -15929,7 +16042,7 @@ public final class Models {
        * <code>optional string location = 14;</code>
        *
        * <pre>
-       *æ‰€åœ¨åœ°
+       *ËùÔÚµØ
        * </pre>
        */
       public Builder setLocationBytes(
@@ -15949,7 +16062,7 @@ public final class Models {
        * <code>optional string description = 15;</code>
        *
        * <pre>
-       *ç¦å¸ˆç®€ä»‹
+       *¸£Ê¦¼ò½é
        * </pre>
        */
       public boolean hasDescription() {
@@ -15959,7 +16072,7 @@ public final class Models {
        * <code>optional string description = 15;</code>
        *
        * <pre>
-       *ç¦å¸ˆç®€ä»‹
+       *¸£Ê¦¼ò½é
        * </pre>
        */
       public java.lang.String getDescription() {
@@ -15977,7 +16090,7 @@ public final class Models {
        * <code>optional string description = 15;</code>
        *
        * <pre>
-       *ç¦å¸ˆç®€ä»‹
+       *¸£Ê¦¼ò½é
        * </pre>
        */
       public com.google.protobuf.ByteString
@@ -15997,7 +16110,7 @@ public final class Models {
        * <code>optional string description = 15;</code>
        *
        * <pre>
-       *ç¦å¸ˆç®€ä»‹
+       *¸£Ê¦¼ò½é
        * </pre>
        */
       public Builder setDescription(
@@ -16014,7 +16127,7 @@ public final class Models {
        * <code>optional string description = 15;</code>
        *
        * <pre>
-       *ç¦å¸ˆç®€ä»‹
+       *¸£Ê¦¼ò½é
        * </pre>
        */
       public Builder clearDescription() {
@@ -16027,7 +16140,7 @@ public final class Models {
        * <code>optional string description = 15;</code>
        *
        * <pre>
-       *ç¦å¸ˆç®€ä»‹
+       *¸£Ê¦¼ò½é
        * </pre>
        */
       public Builder setDescriptionBytes(
@@ -16710,7 +16823,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.ProfileResponse.ErrorCodeType errorCode = 3;</code>
      *
      * <pre>
-     *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+     *´íÎó´úÂë£¨Ã¶¾Ù£©
      * </pre>
      */
     boolean hasErrorCode();
@@ -16718,7 +16831,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.ProfileResponse.ErrorCodeType errorCode = 3;</code>
      *
      * <pre>
-     *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+     *´íÎó´úÂë£¨Ã¶¾Ù£©
      * </pre>
      */
     com.fuwu.mobileim.model.Models.ProfileResponse.ErrorCodeType getErrorCode();
@@ -16851,7 +16964,7 @@ public final class Models {
        * <code>InvalidToken = 2001;</code>
        *
        * <pre>
-       *tokenå¤±æ•ˆ
+       *tokenÊ§Ğ§
        * </pre>
        */
       InvalidToken(0, 2001),
@@ -16861,7 +16974,7 @@ public final class Models {
        * <code>InvalidToken = 2001;</code>
        *
        * <pre>
-       *tokenå¤±æ•ˆ
+       *tokenÊ§Ğ§
        * </pre>
        */
       public static final int InvalidToken_VALUE = 2001;
@@ -16969,7 +17082,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.ProfileResponse.ErrorCodeType errorCode = 3;</code>
      *
      * <pre>
-     *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+     *´íÎó´úÂë£¨Ã¶¾Ù£©
      * </pre>
      */
     public boolean hasErrorCode() {
@@ -16979,7 +17092,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.ProfileResponse.ErrorCodeType errorCode = 3;</code>
      *
      * <pre>
-     *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+     *´íÎó´úÂë£¨Ã¶¾Ù£©
      * </pre>
      */
     public com.fuwu.mobileim.model.Models.ProfileResponse.ErrorCodeType getErrorCode() {
@@ -17412,7 +17525,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.ProfileResponse.ErrorCodeType errorCode = 3;</code>
        *
        * <pre>
-       *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+       *´íÎó´úÂë£¨Ã¶¾Ù£©
        * </pre>
        */
       public boolean hasErrorCode() {
@@ -17422,7 +17535,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.ProfileResponse.ErrorCodeType errorCode = 3;</code>
        *
        * <pre>
-       *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+       *´íÎó´úÂë£¨Ã¶¾Ù£©
        * </pre>
        */
       public com.fuwu.mobileim.model.Models.ProfileResponse.ErrorCodeType getErrorCode() {
@@ -17432,7 +17545,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.ProfileResponse.ErrorCodeType errorCode = 3;</code>
        *
        * <pre>
-       *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+       *´íÎó´úÂë£¨Ã¶¾Ù£©
        * </pre>
        */
       public Builder setErrorCode(com.fuwu.mobileim.model.Models.ProfileResponse.ErrorCodeType value) {
@@ -17448,7 +17561,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.ProfileResponse.ErrorCodeType errorCode = 3;</code>
        *
        * <pre>
-       *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+       *´íÎó´úÂë£¨Ã¶¾Ù£©
        * </pre>
        */
       public Builder clearErrorCode() {
@@ -17502,7 +17615,7 @@ public final class Models {
      * <code>optional string signature = 3;</code>
      *
      * <pre>
-     *ä¸ªæ€§ç­¾å
+     *¸öĞÔÇ©Ãû
      * </pre>
      */
     boolean hasSignature();
@@ -17510,7 +17623,7 @@ public final class Models {
      * <code>optional string signature = 3;</code>
      *
      * <pre>
-     *ä¸ªæ€§ç­¾å
+     *¸öĞÔÇ©Ãû
      * </pre>
      */
     java.lang.String getSignature();
@@ -17518,7 +17631,7 @@ public final class Models {
      * <code>optional string signature = 3;</code>
      *
      * <pre>
-     *ä¸ªæ€§ç­¾å
+     *¸öĞÔÇ©Ãû
      * </pre>
      */
     com.google.protobuf.ByteString
@@ -17529,7 +17642,7 @@ public final class Models {
      * <code>optional bytes tiles = 4;</code>
      *
      * <pre>
-     *å¤´åƒ
+     *Í·Ïñ
      * </pre>
      */
     boolean hasTiles();
@@ -17537,7 +17650,7 @@ public final class Models {
      * <code>optional bytes tiles = 4;</code>
      *
      * <pre>
-     *å¤´åƒ
+     *Í·Ïñ
      * </pre>
      */
     com.google.protobuf.ByteString getTiles();
@@ -17547,7 +17660,7 @@ public final class Models {
      * <code>optional string contentType = 5;</code>
      *
      * <pre>
-     *å›¾ç‰‡ç±»å‹
+     *Í¼Æ¬ÀàĞÍ
      * </pre>
      */
     boolean hasContentType();
@@ -17555,7 +17668,7 @@ public final class Models {
      * <code>optional string contentType = 5;</code>
      *
      * <pre>
-     *å›¾ç‰‡ç±»å‹
+     *Í¼Æ¬ÀàĞÍ
      * </pre>
      */
     java.lang.String getContentType();
@@ -17563,7 +17676,7 @@ public final class Models {
      * <code>optional string contentType = 5;</code>
      *
      * <pre>
-     *å›¾ç‰‡ç±»å‹
+     *Í¼Æ¬ÀàĞÍ
      * </pre>
      */
     com.google.protobuf.ByteString
@@ -17574,7 +17687,7 @@ public final class Models {
      * <code>optional string nickName = 6;</code>
      *
      * <pre>
-     *æ˜µç§°
+     *êÇ³Æ
      * </pre>
      */
     boolean hasNickName();
@@ -17582,7 +17695,7 @@ public final class Models {
      * <code>optional string nickName = 6;</code>
      *
      * <pre>
-     *æ˜µç§°
+     *êÇ³Æ
      * </pre>
      */
     java.lang.String getNickName();
@@ -17590,7 +17703,7 @@ public final class Models {
      * <code>optional string nickName = 6;</code>
      *
      * <pre>
-     *æ˜µç§°
+     *êÇ³Æ
      * </pre>
      */
     com.google.protobuf.ByteString
@@ -17783,7 +17896,7 @@ public final class Models {
      * <code>optional string signature = 3;</code>
      *
      * <pre>
-     *ä¸ªæ€§ç­¾å
+     *¸öĞÔÇ©Ãû
      * </pre>
      */
     public boolean hasSignature() {
@@ -17793,7 +17906,7 @@ public final class Models {
      * <code>optional string signature = 3;</code>
      *
      * <pre>
-     *ä¸ªæ€§ç­¾å
+     *¸öĞÔÇ©Ãû
      * </pre>
      */
     public java.lang.String getSignature() {
@@ -17814,7 +17927,7 @@ public final class Models {
      * <code>optional string signature = 3;</code>
      *
      * <pre>
-     *ä¸ªæ€§ç­¾å
+     *¸öĞÔÇ©Ãû
      * </pre>
      */
     public com.google.protobuf.ByteString
@@ -17838,7 +17951,7 @@ public final class Models {
      * <code>optional bytes tiles = 4;</code>
      *
      * <pre>
-     *å¤´åƒ
+     *Í·Ïñ
      * </pre>
      */
     public boolean hasTiles() {
@@ -17848,7 +17961,7 @@ public final class Models {
      * <code>optional bytes tiles = 4;</code>
      *
      * <pre>
-     *å¤´åƒ
+     *Í·Ïñ
      * </pre>
      */
     public com.google.protobuf.ByteString getTiles() {
@@ -17862,7 +17975,7 @@ public final class Models {
      * <code>optional string contentType = 5;</code>
      *
      * <pre>
-     *å›¾ç‰‡ç±»å‹
+     *Í¼Æ¬ÀàĞÍ
      * </pre>
      */
     public boolean hasContentType() {
@@ -17872,7 +17985,7 @@ public final class Models {
      * <code>optional string contentType = 5;</code>
      *
      * <pre>
-     *å›¾ç‰‡ç±»å‹
+     *Í¼Æ¬ÀàĞÍ
      * </pre>
      */
     public java.lang.String getContentType() {
@@ -17893,7 +18006,7 @@ public final class Models {
      * <code>optional string contentType = 5;</code>
      *
      * <pre>
-     *å›¾ç‰‡ç±»å‹
+     *Í¼Æ¬ÀàĞÍ
      * </pre>
      */
     public com.google.protobuf.ByteString
@@ -17917,7 +18030,7 @@ public final class Models {
      * <code>optional string nickName = 6;</code>
      *
      * <pre>
-     *æ˜µç§°
+     *êÇ³Æ
      * </pre>
      */
     public boolean hasNickName() {
@@ -17927,7 +18040,7 @@ public final class Models {
      * <code>optional string nickName = 6;</code>
      *
      * <pre>
-     *æ˜µç§°
+     *êÇ³Æ
      * </pre>
      */
     public java.lang.String getNickName() {
@@ -17948,7 +18061,7 @@ public final class Models {
      * <code>optional string nickName = 6;</code>
      *
      * <pre>
-     *æ˜µç§°
+     *êÇ³Æ
      * </pre>
      */
     public com.google.protobuf.ByteString
@@ -18398,7 +18511,7 @@ public final class Models {
        * <code>optional string signature = 3;</code>
        *
        * <pre>
-       *ä¸ªæ€§ç­¾å
+       *¸öĞÔÇ©Ãû
        * </pre>
        */
       public boolean hasSignature() {
@@ -18408,7 +18521,7 @@ public final class Models {
        * <code>optional string signature = 3;</code>
        *
        * <pre>
-       *ä¸ªæ€§ç­¾å
+       *¸öĞÔÇ©Ãû
        * </pre>
        */
       public java.lang.String getSignature() {
@@ -18426,7 +18539,7 @@ public final class Models {
        * <code>optional string signature = 3;</code>
        *
        * <pre>
-       *ä¸ªæ€§ç­¾å
+       *¸öĞÔÇ©Ãû
        * </pre>
        */
       public com.google.protobuf.ByteString
@@ -18446,7 +18559,7 @@ public final class Models {
        * <code>optional string signature = 3;</code>
        *
        * <pre>
-       *ä¸ªæ€§ç­¾å
+       *¸öĞÔÇ©Ãû
        * </pre>
        */
       public Builder setSignature(
@@ -18463,7 +18576,7 @@ public final class Models {
        * <code>optional string signature = 3;</code>
        *
        * <pre>
-       *ä¸ªæ€§ç­¾å
+       *¸öĞÔÇ©Ãû
        * </pre>
        */
       public Builder clearSignature() {
@@ -18476,7 +18589,7 @@ public final class Models {
        * <code>optional string signature = 3;</code>
        *
        * <pre>
-       *ä¸ªæ€§ç­¾å
+       *¸öĞÔÇ©Ãû
        * </pre>
        */
       public Builder setSignatureBytes(
@@ -18496,7 +18609,7 @@ public final class Models {
        * <code>optional bytes tiles = 4;</code>
        *
        * <pre>
-       *å¤´åƒ
+       *Í·Ïñ
        * </pre>
        */
       public boolean hasTiles() {
@@ -18506,7 +18619,7 @@ public final class Models {
        * <code>optional bytes tiles = 4;</code>
        *
        * <pre>
-       *å¤´åƒ
+       *Í·Ïñ
        * </pre>
        */
       public com.google.protobuf.ByteString getTiles() {
@@ -18516,7 +18629,7 @@ public final class Models {
        * <code>optional bytes tiles = 4;</code>
        *
        * <pre>
-       *å¤´åƒ
+       *Í·Ïñ
        * </pre>
        */
       public Builder setTiles(com.google.protobuf.ByteString value) {
@@ -18532,7 +18645,7 @@ public final class Models {
        * <code>optional bytes tiles = 4;</code>
        *
        * <pre>
-       *å¤´åƒ
+       *Í·Ïñ
        * </pre>
        */
       public Builder clearTiles() {
@@ -18548,7 +18661,7 @@ public final class Models {
        * <code>optional string contentType = 5;</code>
        *
        * <pre>
-       *å›¾ç‰‡ç±»å‹
+       *Í¼Æ¬ÀàĞÍ
        * </pre>
        */
       public boolean hasContentType() {
@@ -18558,7 +18671,7 @@ public final class Models {
        * <code>optional string contentType = 5;</code>
        *
        * <pre>
-       *å›¾ç‰‡ç±»å‹
+       *Í¼Æ¬ÀàĞÍ
        * </pre>
        */
       public java.lang.String getContentType() {
@@ -18576,7 +18689,7 @@ public final class Models {
        * <code>optional string contentType = 5;</code>
        *
        * <pre>
-       *å›¾ç‰‡ç±»å‹
+       *Í¼Æ¬ÀàĞÍ
        * </pre>
        */
       public com.google.protobuf.ByteString
@@ -18596,7 +18709,7 @@ public final class Models {
        * <code>optional string contentType = 5;</code>
        *
        * <pre>
-       *å›¾ç‰‡ç±»å‹
+       *Í¼Æ¬ÀàĞÍ
        * </pre>
        */
       public Builder setContentType(
@@ -18613,7 +18726,7 @@ public final class Models {
        * <code>optional string contentType = 5;</code>
        *
        * <pre>
-       *å›¾ç‰‡ç±»å‹
+       *Í¼Æ¬ÀàĞÍ
        * </pre>
        */
       public Builder clearContentType() {
@@ -18626,7 +18739,7 @@ public final class Models {
        * <code>optional string contentType = 5;</code>
        *
        * <pre>
-       *å›¾ç‰‡ç±»å‹
+       *Í¼Æ¬ÀàĞÍ
        * </pre>
        */
       public Builder setContentTypeBytes(
@@ -18646,7 +18759,7 @@ public final class Models {
        * <code>optional string nickName = 6;</code>
        *
        * <pre>
-       *æ˜µç§°
+       *êÇ³Æ
        * </pre>
        */
       public boolean hasNickName() {
@@ -18656,7 +18769,7 @@ public final class Models {
        * <code>optional string nickName = 6;</code>
        *
        * <pre>
-       *æ˜µç§°
+       *êÇ³Æ
        * </pre>
        */
       public java.lang.String getNickName() {
@@ -18674,7 +18787,7 @@ public final class Models {
        * <code>optional string nickName = 6;</code>
        *
        * <pre>
-       *æ˜µç§°
+       *êÇ³Æ
        * </pre>
        */
       public com.google.protobuf.ByteString
@@ -18694,7 +18807,7 @@ public final class Models {
        * <code>optional string nickName = 6;</code>
        *
        * <pre>
-       *æ˜µç§°
+       *êÇ³Æ
        * </pre>
        */
       public Builder setNickName(
@@ -18711,7 +18824,7 @@ public final class Models {
        * <code>optional string nickName = 6;</code>
        *
        * <pre>
-       *æ˜µç§°
+       *êÇ³Æ
        * </pre>
        */
       public Builder clearNickName() {
@@ -18724,7 +18837,7 @@ public final class Models {
        * <code>optional string nickName = 6;</code>
        *
        * <pre>
-       *æ˜µç§°
+       *êÇ³Æ
        * </pre>
        */
       public Builder setNickNameBytes(
@@ -18781,7 +18894,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.ChangeProfileResponse.ErrorCodeType errorCode = 3;</code>
      *
      * <pre>
-     *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+     *´íÎó´úÂë£¨Ã¶¾Ù£©
      * </pre>
      */
     boolean hasErrorCode();
@@ -18789,7 +18902,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.ChangeProfileResponse.ErrorCodeType errorCode = 3;</code>
      *
      * <pre>
-     *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+     *´íÎó´úÂë£¨Ã¶¾Ù£©
      * </pre>
      */
     com.fuwu.mobileim.model.Models.ChangeProfileResponse.ErrorCodeType getErrorCode();
@@ -18922,7 +19035,7 @@ public final class Models {
        * <code>InvalidToken = 2001;</code>
        *
        * <pre>
-       *tokenå¤±æ•ˆ
+       *tokenÊ§Ğ§
        * </pre>
        */
       InvalidToken(0, 2001),
@@ -18932,7 +19045,7 @@ public final class Models {
        * <code>InvalidToken = 2001;</code>
        *
        * <pre>
-       *tokenå¤±æ•ˆ
+       *tokenÊ§Ğ§
        * </pre>
        */
       public static final int InvalidToken_VALUE = 2001;
@@ -19040,7 +19153,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.ChangeProfileResponse.ErrorCodeType errorCode = 3;</code>
      *
      * <pre>
-     *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+     *´íÎó´úÂë£¨Ã¶¾Ù£©
      * </pre>
      */
     public boolean hasErrorCode() {
@@ -19050,7 +19163,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.ChangeProfileResponse.ErrorCodeType errorCode = 3;</code>
      *
      * <pre>
-     *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+     *´íÎó´úÂë£¨Ã¶¾Ù£©
      * </pre>
      */
     public com.fuwu.mobileim.model.Models.ChangeProfileResponse.ErrorCodeType getErrorCode() {
@@ -19483,7 +19596,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.ChangeProfileResponse.ErrorCodeType errorCode = 3;</code>
        *
        * <pre>
-       *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+       *´íÎó´úÂë£¨Ã¶¾Ù£©
        * </pre>
        */
       public boolean hasErrorCode() {
@@ -19493,7 +19606,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.ChangeProfileResponse.ErrorCodeType errorCode = 3;</code>
        *
        * <pre>
-       *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+       *´íÎó´úÂë£¨Ã¶¾Ù£©
        * </pre>
        */
       public com.fuwu.mobileim.model.Models.ChangeProfileResponse.ErrorCodeType getErrorCode() {
@@ -19503,7 +19616,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.ChangeProfileResponse.ErrorCodeType errorCode = 3;</code>
        *
        * <pre>
-       *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+       *´íÎó´úÂë£¨Ã¶¾Ù£©
        * </pre>
        */
       public Builder setErrorCode(com.fuwu.mobileim.model.Models.ChangeProfileResponse.ErrorCodeType value) {
@@ -19519,7 +19632,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.ChangeProfileResponse.ErrorCodeType errorCode = 3;</code>
        *
        * <pre>
-       *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+       *´íÎó´úÂë£¨Ã¶¾Ù£©
        * </pre>
        */
       public Builder clearErrorCode() {
@@ -22299,7 +22412,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.MessageResponse.ErrorCodeType errorCode = 4;</code>
      *
      * <pre>
-     *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+     *´íÎó´úÂë£¨Ã¶¾Ù£©
      * </pre>
      */
     boolean hasErrorCode();
@@ -22307,7 +22420,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.MessageResponse.ErrorCodeType errorCode = 4;</code>
      *
      * <pre>
-     *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+     *´íÎó´úÂë£¨Ã¶¾Ù£©
      * </pre>
      */
     com.fuwu.mobileim.model.Models.MessageResponse.ErrorCodeType getErrorCode();
@@ -22443,7 +22556,7 @@ public final class Models {
        * <code>InvalidToken = 2001;</code>
        *
        * <pre>
-       *tokenå¤±æ•ˆ
+       *tokenÊ§Ğ§
        * </pre>
        */
       InvalidToken(0, 2001),
@@ -22453,7 +22566,7 @@ public final class Models {
        * <code>InvalidToken = 2001;</code>
        *
        * <pre>
-       *tokenå¤±æ•ˆ
+       *tokenÊ§Ğ§
        * </pre>
        */
       public static final int InvalidToken_VALUE = 2001;
@@ -22618,7 +22731,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.MessageResponse.ErrorCodeType errorCode = 4;</code>
      *
      * <pre>
-     *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+     *´íÎó´úÂë£¨Ã¶¾Ù£©
      * </pre>
      */
     public boolean hasErrorCode() {
@@ -22628,7 +22741,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.MessageResponse.ErrorCodeType errorCode = 4;</code>
      *
      * <pre>
-     *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+     *´íÎó´úÂë£¨Ã¶¾Ù£©
      * </pre>
      */
     public com.fuwu.mobileim.model.Models.MessageResponse.ErrorCodeType getErrorCode() {
@@ -23301,7 +23414,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.MessageResponse.ErrorCodeType errorCode = 4;</code>
        *
        * <pre>
-       *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+       *´íÎó´úÂë£¨Ã¶¾Ù£©
        * </pre>
        */
       public boolean hasErrorCode() {
@@ -23311,7 +23424,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.MessageResponse.ErrorCodeType errorCode = 4;</code>
        *
        * <pre>
-       *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+       *´íÎó´úÂë£¨Ã¶¾Ù£©
        * </pre>
        */
       public com.fuwu.mobileim.model.Models.MessageResponse.ErrorCodeType getErrorCode() {
@@ -23321,7 +23434,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.MessageResponse.ErrorCodeType errorCode = 4;</code>
        *
        * <pre>
-       *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+       *´íÎó´úÂë£¨Ã¶¾Ù£©
        * </pre>
        */
       public Builder setErrorCode(com.fuwu.mobileim.model.Models.MessageResponse.ErrorCodeType value) {
@@ -23337,7 +23450,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.MessageResponse.ErrorCodeType errorCode = 4;</code>
        *
        * <pre>
-       *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+       *´íÎó´úÂë£¨Ã¶¾Ù£©
        * </pre>
        */
       public Builder clearErrorCode() {
@@ -24135,7 +24248,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.SendMessageResponse.ErrorCodeType errorCode = 3;</code>
      *
      * <pre>
-     *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+     *´íÎó´úÂë£¨Ã¶¾Ù£©
      * </pre>
      */
     boolean hasErrorCode();
@@ -24143,7 +24256,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.SendMessageResponse.ErrorCodeType errorCode = 3;</code>
      *
      * <pre>
-     *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+     *´íÎó´úÂë£¨Ã¶¾Ù£©
      * </pre>
      */
     com.fuwu.mobileim.model.Models.SendMessageResponse.ErrorCodeType getErrorCode();
@@ -24268,7 +24381,7 @@ public final class Models {
        * <code>InvalidToken = 2001;</code>
        *
        * <pre>
-       *tokenå¤±æ•ˆ
+       *tokenÊ§Ğ§
        * </pre>
        */
       InvalidToken(0, 2001),
@@ -24278,7 +24391,7 @@ public final class Models {
        * <code>InvalidToken = 2001;</code>
        *
        * <pre>
-       *tokenå¤±æ•ˆ
+       *tokenÊ§Ğ§
        * </pre>
        */
       public static final int InvalidToken_VALUE = 2001;
@@ -24407,7 +24520,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.SendMessageResponse.ErrorCodeType errorCode = 3;</code>
      *
      * <pre>
-     *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+     *´íÎó´úÂë£¨Ã¶¾Ù£©
      * </pre>
      */
     public boolean hasErrorCode() {
@@ -24417,7 +24530,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.SendMessageResponse.ErrorCodeType errorCode = 3;</code>
      *
      * <pre>
-     *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+     *´íÎó´úÂë£¨Ã¶¾Ù£©
      * </pre>
      */
     public com.fuwu.mobileim.model.Models.SendMessageResponse.ErrorCodeType getErrorCode() {
@@ -24800,7 +24913,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.SendMessageResponse.ErrorCodeType errorCode = 3;</code>
        *
        * <pre>
-       *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+       *´íÎó´úÂë£¨Ã¶¾Ù£©
        * </pre>
        */
       public boolean hasErrorCode() {
@@ -24810,7 +24923,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.SendMessageResponse.ErrorCodeType errorCode = 3;</code>
        *
        * <pre>
-       *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+       *´íÎó´úÂë£¨Ã¶¾Ù£©
        * </pre>
        */
       public com.fuwu.mobileim.model.Models.SendMessageResponse.ErrorCodeType getErrorCode() {
@@ -24820,7 +24933,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.SendMessageResponse.ErrorCodeType errorCode = 3;</code>
        *
        * <pre>
-       *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+       *´íÎó´úÂë£¨Ã¶¾Ù£©
        * </pre>
        */
       public Builder setErrorCode(com.fuwu.mobileim.model.Models.SendMessageResponse.ErrorCodeType value) {
@@ -24836,7 +24949,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.SendMessageResponse.ErrorCodeType errorCode = 3;</code>
        *
        * <pre>
-       *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+       *´íÎó´úÂë£¨Ã¶¾Ù£©
        * </pre>
        */
       public Builder clearErrorCode() {
@@ -24865,7 +24978,7 @@ public final class Models {
      * <code>optional string mobilePhoneNumber = 1;</code>
      *
      * <pre>
-     *æ‰‹æœºå·ç 
+     *ÊÖ»úºÅÂë
      * </pre>
      */
     boolean hasMobilePhoneNumber();
@@ -24873,7 +24986,7 @@ public final class Models {
      * <code>optional string mobilePhoneNumber = 1;</code>
      *
      * <pre>
-     *æ‰‹æœºå·ç 
+     *ÊÖ»úºÅÂë
      * </pre>
      */
     java.lang.String getMobilePhoneNumber();
@@ -24881,7 +24994,7 @@ public final class Models {
      * <code>optional string mobilePhoneNumber = 1;</code>
      *
      * <pre>
-     *æ‰‹æœºå·ç 
+     *ÊÖ»úºÅÂë
      * </pre>
      */
     com.google.protobuf.ByteString
@@ -24892,7 +25005,7 @@ public final class Models {
      * <code>optional string password = 2;</code>
      *
      * <pre>
-     *å¯†ç 
+     *ÃÜÂë
      * </pre>
      */
     boolean hasPassword();
@@ -24900,7 +25013,7 @@ public final class Models {
      * <code>optional string password = 2;</code>
      *
      * <pre>
-     *å¯†ç 
+     *ÃÜÂë
      * </pre>
      */
     java.lang.String getPassword();
@@ -24908,7 +25021,7 @@ public final class Models {
      * <code>optional string password = 2;</code>
      *
      * <pre>
-     *å¯†ç 
+     *ÃÜÂë
      * </pre>
      */
     com.google.protobuf.ByteString
@@ -24919,7 +25032,7 @@ public final class Models {
      * <code>optional string passwordConfirm = 3;</code>
      *
      * <pre>
-     *ç¡®è®¤å¯†ç 
+     *È·ÈÏÃÜÂë
      * </pre>
      */
     boolean hasPasswordConfirm();
@@ -24927,7 +25040,7 @@ public final class Models {
      * <code>optional string passwordConfirm = 3;</code>
      *
      * <pre>
-     *ç¡®è®¤å¯†ç 
+     *È·ÈÏÃÜÂë
      * </pre>
      */
     java.lang.String getPasswordConfirm();
@@ -24935,7 +25048,7 @@ public final class Models {
      * <code>optional string passwordConfirm = 3;</code>
      *
      * <pre>
-     *ç¡®è®¤å¯†ç 
+     *È·ÈÏÃÜÂë
      * </pre>
      */
     com.google.protobuf.ByteString
@@ -24946,7 +25059,7 @@ public final class Models {
      * <code>optional string validateCode = 4;</code>
      *
      * <pre>
-     *éªŒè¯ç 
+     *ÑéÖ¤Âë
      * </pre>
      */
     boolean hasValidateCode();
@@ -24954,7 +25067,7 @@ public final class Models {
      * <code>optional string validateCode = 4;</code>
      *
      * <pre>
-     *éªŒè¯ç 
+     *ÑéÖ¤Âë
      * </pre>
      */
     java.lang.String getValidateCode();
@@ -24962,7 +25075,7 @@ public final class Models {
      * <code>optional string validateCode = 4;</code>
      *
      * <pre>
-     *éªŒè¯ç 
+     *ÑéÖ¤Âë
      * </pre>
      */
     com.google.protobuf.ByteString
@@ -25086,7 +25199,7 @@ public final class Models {
      * <code>optional string mobilePhoneNumber = 1;</code>
      *
      * <pre>
-     *æ‰‹æœºå·ç 
+     *ÊÖ»úºÅÂë
      * </pre>
      */
     public boolean hasMobilePhoneNumber() {
@@ -25096,7 +25209,7 @@ public final class Models {
      * <code>optional string mobilePhoneNumber = 1;</code>
      *
      * <pre>
-     *æ‰‹æœºå·ç 
+     *ÊÖ»úºÅÂë
      * </pre>
      */
     public java.lang.String getMobilePhoneNumber() {
@@ -25117,7 +25230,7 @@ public final class Models {
      * <code>optional string mobilePhoneNumber = 1;</code>
      *
      * <pre>
-     *æ‰‹æœºå·ç 
+     *ÊÖ»úºÅÂë
      * </pre>
      */
     public com.google.protobuf.ByteString
@@ -25141,7 +25254,7 @@ public final class Models {
      * <code>optional string password = 2;</code>
      *
      * <pre>
-     *å¯†ç 
+     *ÃÜÂë
      * </pre>
      */
     public boolean hasPassword() {
@@ -25151,7 +25264,7 @@ public final class Models {
      * <code>optional string password = 2;</code>
      *
      * <pre>
-     *å¯†ç 
+     *ÃÜÂë
      * </pre>
      */
     public java.lang.String getPassword() {
@@ -25172,7 +25285,7 @@ public final class Models {
      * <code>optional string password = 2;</code>
      *
      * <pre>
-     *å¯†ç 
+     *ÃÜÂë
      * </pre>
      */
     public com.google.protobuf.ByteString
@@ -25196,7 +25309,7 @@ public final class Models {
      * <code>optional string passwordConfirm = 3;</code>
      *
      * <pre>
-     *ç¡®è®¤å¯†ç 
+     *È·ÈÏÃÜÂë
      * </pre>
      */
     public boolean hasPasswordConfirm() {
@@ -25206,7 +25319,7 @@ public final class Models {
      * <code>optional string passwordConfirm = 3;</code>
      *
      * <pre>
-     *ç¡®è®¤å¯†ç 
+     *È·ÈÏÃÜÂë
      * </pre>
      */
     public java.lang.String getPasswordConfirm() {
@@ -25227,7 +25340,7 @@ public final class Models {
      * <code>optional string passwordConfirm = 3;</code>
      *
      * <pre>
-     *ç¡®è®¤å¯†ç 
+     *È·ÈÏÃÜÂë
      * </pre>
      */
     public com.google.protobuf.ByteString
@@ -25251,7 +25364,7 @@ public final class Models {
      * <code>optional string validateCode = 4;</code>
      *
      * <pre>
-     *éªŒè¯ç 
+     *ÑéÖ¤Âë
      * </pre>
      */
     public boolean hasValidateCode() {
@@ -25261,7 +25374,7 @@ public final class Models {
      * <code>optional string validateCode = 4;</code>
      *
      * <pre>
-     *éªŒè¯ç 
+     *ÑéÖ¤Âë
      * </pre>
      */
     public java.lang.String getValidateCode() {
@@ -25282,7 +25395,7 @@ public final class Models {
      * <code>optional string validateCode = 4;</code>
      *
      * <pre>
-     *éªŒè¯ç 
+     *ÑéÖ¤Âë
      * </pre>
      */
     public com.google.protobuf.ByteString
@@ -25591,7 +25704,7 @@ public final class Models {
        * <code>optional string mobilePhoneNumber = 1;</code>
        *
        * <pre>
-       *æ‰‹æœºå·ç 
+       *ÊÖ»úºÅÂë
        * </pre>
        */
       public boolean hasMobilePhoneNumber() {
@@ -25601,7 +25714,7 @@ public final class Models {
        * <code>optional string mobilePhoneNumber = 1;</code>
        *
        * <pre>
-       *æ‰‹æœºå·ç 
+       *ÊÖ»úºÅÂë
        * </pre>
        */
       public java.lang.String getMobilePhoneNumber() {
@@ -25619,7 +25732,7 @@ public final class Models {
        * <code>optional string mobilePhoneNumber = 1;</code>
        *
        * <pre>
-       *æ‰‹æœºå·ç 
+       *ÊÖ»úºÅÂë
        * </pre>
        */
       public com.google.protobuf.ByteString
@@ -25639,7 +25752,7 @@ public final class Models {
        * <code>optional string mobilePhoneNumber = 1;</code>
        *
        * <pre>
-       *æ‰‹æœºå·ç 
+       *ÊÖ»úºÅÂë
        * </pre>
        */
       public Builder setMobilePhoneNumber(
@@ -25656,7 +25769,7 @@ public final class Models {
        * <code>optional string mobilePhoneNumber = 1;</code>
        *
        * <pre>
-       *æ‰‹æœºå·ç 
+       *ÊÖ»úºÅÂë
        * </pre>
        */
       public Builder clearMobilePhoneNumber() {
@@ -25669,7 +25782,7 @@ public final class Models {
        * <code>optional string mobilePhoneNumber = 1;</code>
        *
        * <pre>
-       *æ‰‹æœºå·ç 
+       *ÊÖ»úºÅÂë
        * </pre>
        */
       public Builder setMobilePhoneNumberBytes(
@@ -25689,7 +25802,7 @@ public final class Models {
        * <code>optional string password = 2;</code>
        *
        * <pre>
-       *å¯†ç 
+       *ÃÜÂë
        * </pre>
        */
       public boolean hasPassword() {
@@ -25699,7 +25812,7 @@ public final class Models {
        * <code>optional string password = 2;</code>
        *
        * <pre>
-       *å¯†ç 
+       *ÃÜÂë
        * </pre>
        */
       public java.lang.String getPassword() {
@@ -25717,7 +25830,7 @@ public final class Models {
        * <code>optional string password = 2;</code>
        *
        * <pre>
-       *å¯†ç 
+       *ÃÜÂë
        * </pre>
        */
       public com.google.protobuf.ByteString
@@ -25737,7 +25850,7 @@ public final class Models {
        * <code>optional string password = 2;</code>
        *
        * <pre>
-       *å¯†ç 
+       *ÃÜÂë
        * </pre>
        */
       public Builder setPassword(
@@ -25754,7 +25867,7 @@ public final class Models {
        * <code>optional string password = 2;</code>
        *
        * <pre>
-       *å¯†ç 
+       *ÃÜÂë
        * </pre>
        */
       public Builder clearPassword() {
@@ -25767,7 +25880,7 @@ public final class Models {
        * <code>optional string password = 2;</code>
        *
        * <pre>
-       *å¯†ç 
+       *ÃÜÂë
        * </pre>
        */
       public Builder setPasswordBytes(
@@ -25787,7 +25900,7 @@ public final class Models {
        * <code>optional string passwordConfirm = 3;</code>
        *
        * <pre>
-       *ç¡®è®¤å¯†ç 
+       *È·ÈÏÃÜÂë
        * </pre>
        */
       public boolean hasPasswordConfirm() {
@@ -25797,7 +25910,7 @@ public final class Models {
        * <code>optional string passwordConfirm = 3;</code>
        *
        * <pre>
-       *ç¡®è®¤å¯†ç 
+       *È·ÈÏÃÜÂë
        * </pre>
        */
       public java.lang.String getPasswordConfirm() {
@@ -25815,7 +25928,7 @@ public final class Models {
        * <code>optional string passwordConfirm = 3;</code>
        *
        * <pre>
-       *ç¡®è®¤å¯†ç 
+       *È·ÈÏÃÜÂë
        * </pre>
        */
       public com.google.protobuf.ByteString
@@ -25835,7 +25948,7 @@ public final class Models {
        * <code>optional string passwordConfirm = 3;</code>
        *
        * <pre>
-       *ç¡®è®¤å¯†ç 
+       *È·ÈÏÃÜÂë
        * </pre>
        */
       public Builder setPasswordConfirm(
@@ -25852,7 +25965,7 @@ public final class Models {
        * <code>optional string passwordConfirm = 3;</code>
        *
        * <pre>
-       *ç¡®è®¤å¯†ç 
+       *È·ÈÏÃÜÂë
        * </pre>
        */
       public Builder clearPasswordConfirm() {
@@ -25865,7 +25978,7 @@ public final class Models {
        * <code>optional string passwordConfirm = 3;</code>
        *
        * <pre>
-       *ç¡®è®¤å¯†ç 
+       *È·ÈÏÃÜÂë
        * </pre>
        */
       public Builder setPasswordConfirmBytes(
@@ -25885,7 +25998,7 @@ public final class Models {
        * <code>optional string validateCode = 4;</code>
        *
        * <pre>
-       *éªŒè¯ç 
+       *ÑéÖ¤Âë
        * </pre>
        */
       public boolean hasValidateCode() {
@@ -25895,7 +26008,7 @@ public final class Models {
        * <code>optional string validateCode = 4;</code>
        *
        * <pre>
-       *éªŒè¯ç 
+       *ÑéÖ¤Âë
        * </pre>
        */
       public java.lang.String getValidateCode() {
@@ -25913,7 +26026,7 @@ public final class Models {
        * <code>optional string validateCode = 4;</code>
        *
        * <pre>
-       *éªŒè¯ç 
+       *ÑéÖ¤Âë
        * </pre>
        */
       public com.google.protobuf.ByteString
@@ -25933,7 +26046,7 @@ public final class Models {
        * <code>optional string validateCode = 4;</code>
        *
        * <pre>
-       *éªŒè¯ç 
+       *ÑéÖ¤Âë
        * </pre>
        */
       public Builder setValidateCode(
@@ -25950,7 +26063,7 @@ public final class Models {
        * <code>optional string validateCode = 4;</code>
        *
        * <pre>
-       *éªŒè¯ç 
+       *ÑéÖ¤Âë
        * </pre>
        */
       public Builder clearValidateCode() {
@@ -25963,7 +26076,7 @@ public final class Models {
        * <code>optional string validateCode = 4;</code>
        *
        * <pre>
-       *éªŒè¯ç 
+       *ÑéÖ¤Âë
        * </pre>
        */
       public Builder setValidateCodeBytes(
@@ -26031,7 +26144,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.RegisterResponse.ErrorCodeType errorCode = 4;</code>
      *
      * <pre>
-     *é”™è¯¯ç±»å‹ï¼ˆæšä¸¾ï¼‰
+     *´íÎóÀàĞÍ£¨Ã¶¾Ù£©
      * </pre>
      */
     boolean hasErrorCode();
@@ -26039,7 +26152,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.RegisterResponse.ErrorCodeType errorCode = 4;</code>
      *
      * <pre>
-     *é”™è¯¯ç±»å‹ï¼ˆæšä¸¾ï¼‰
+     *´íÎóÀàĞÍ£¨Ã¶¾Ù£©
      * </pre>
      */
     com.fuwu.mobileim.model.Models.RegisterResponse.ErrorCodeType getErrorCode();
@@ -26164,7 +26277,7 @@ public final class Models {
      * Protobuf enum {@code com.fuwu.mobileim.model.RegisterResponse.ErrorCodeType}
      *
      * <pre>
-     *é”™è¯¯ç±»å‹æšä¸¾ç±»
+     *´íÎóÀàĞÍÃ¶¾ÙÀà
      * </pre>
      */
     public enum ErrorCodeType
@@ -26173,7 +26286,7 @@ public final class Models {
        * <code>BadRequest = 1;</code>
        *
        * <pre>
-       *åºåˆ—åŒ–å‚æ•°å‡ºé”™
+       *ĞòÁĞ»¯²ÎÊı³ö´í
        * </pre>
        */
       BadRequest(0, 1),
@@ -26181,7 +26294,7 @@ public final class Models {
        * <code>InvalidDatabase = 2;</code>
        *
        * <pre>
-       *æ•°æ®åº“è¿æ¥é”™è¯¯
+       *Êı¾İ¿âÁ¬½Ó´íÎó
        * </pre>
        */
       InvalidDatabase(1, 2),
@@ -26189,7 +26302,7 @@ public final class Models {
        * <code>InvalidMobilePhoneNumber = 3;</code>
        *
        * <pre>
-       *æ‰‹æœºå·ç æœ‰è¯¯
+       *ÊÖ»úºÅÂëÓĞÎó
        * </pre>
        */
       InvalidMobilePhoneNumber(2, 3),
@@ -26197,7 +26310,7 @@ public final class Models {
        * <code>ExistingUserYes = 4;</code>
        *
        * <pre>
-       *ç”¨æˆ·å·²å­˜åœ¨
+       *ÓÃ»§ÒÑ´æÔÚ
        * </pre>
        */
       ExistingUserYes(3, 4),
@@ -26205,7 +26318,7 @@ public final class Models {
        * <code>InvalidPassword = 5;</code>
        *
        * <pre>
-       *å¯†ç æœ‰è¯¯
+       *ÃÜÂëÓĞÎó
        * </pre>
        */
       InvalidPassword(4, 5),
@@ -26213,7 +26326,7 @@ public final class Models {
        * <code>InvalidConfirmPassword = 6;</code>
        *
        * <pre>
-       *ç¡®è®¤å¯†ç æœ‰è¯¯
+       *È·ÈÏÃÜÂëÓĞÎó
        * </pre>
        */
       InvalidConfirmPassword(5, 6),
@@ -26221,7 +26334,7 @@ public final class Models {
        * <code>InvalidMatchPassword = 7;</code>
        *
        * <pre>
-       *ä¸¤æ¬¡å¯†ç ä¸ä¸€è‡´
+       *Á½´ÎÃÜÂë²»Ò»ÖÂ
        * </pre>
        */
       InvalidMatchPassword(6, 7),
@@ -26229,7 +26342,7 @@ public final class Models {
        * <code>InvalidValidateCode = 8;</code>
        *
        * <pre>
-       *éªŒè¯ç æœ‰è¯¯
+       *ÑéÖ¤ÂëÓĞÎó
        * </pre>
        */
       InvalidValidateCode(7, 8),
@@ -26239,7 +26352,7 @@ public final class Models {
        * <code>BadRequest = 1;</code>
        *
        * <pre>
-       *åºåˆ—åŒ–å‚æ•°å‡ºé”™
+       *ĞòÁĞ»¯²ÎÊı³ö´í
        * </pre>
        */
       public static final int BadRequest_VALUE = 1;
@@ -26247,7 +26360,7 @@ public final class Models {
        * <code>InvalidDatabase = 2;</code>
        *
        * <pre>
-       *æ•°æ®åº“è¿æ¥é”™è¯¯
+       *Êı¾İ¿âÁ¬½Ó´íÎó
        * </pre>
        */
       public static final int InvalidDatabase_VALUE = 2;
@@ -26255,7 +26368,7 @@ public final class Models {
        * <code>InvalidMobilePhoneNumber = 3;</code>
        *
        * <pre>
-       *æ‰‹æœºå·ç æœ‰è¯¯
+       *ÊÖ»úºÅÂëÓĞÎó
        * </pre>
        */
       public static final int InvalidMobilePhoneNumber_VALUE = 3;
@@ -26263,7 +26376,7 @@ public final class Models {
        * <code>ExistingUserYes = 4;</code>
        *
        * <pre>
-       *ç”¨æˆ·å·²å­˜åœ¨
+       *ÓÃ»§ÒÑ´æÔÚ
        * </pre>
        */
       public static final int ExistingUserYes_VALUE = 4;
@@ -26271,7 +26384,7 @@ public final class Models {
        * <code>InvalidPassword = 5;</code>
        *
        * <pre>
-       *å¯†ç æœ‰è¯¯
+       *ÃÜÂëÓĞÎó
        * </pre>
        */
       public static final int InvalidPassword_VALUE = 5;
@@ -26279,7 +26392,7 @@ public final class Models {
        * <code>InvalidConfirmPassword = 6;</code>
        *
        * <pre>
-       *ç¡®è®¤å¯†ç æœ‰è¯¯
+       *È·ÈÏÃÜÂëÓĞÎó
        * </pre>
        */
       public static final int InvalidConfirmPassword_VALUE = 6;
@@ -26287,7 +26400,7 @@ public final class Models {
        * <code>InvalidMatchPassword = 7;</code>
        *
        * <pre>
-       *ä¸¤æ¬¡å¯†ç ä¸ä¸€è‡´
+       *Á½´ÎÃÜÂë²»Ò»ÖÂ
        * </pre>
        */
       public static final int InvalidMatchPassword_VALUE = 7;
@@ -26295,7 +26408,7 @@ public final class Models {
        * <code>InvalidValidateCode = 8;</code>
        *
        * <pre>
-       *éªŒè¯ç æœ‰è¯¯
+       *ÑéÖ¤ÂëÓĞÎó
        * </pre>
        */
       public static final int InvalidValidateCode_VALUE = 8;
@@ -26447,7 +26560,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.RegisterResponse.ErrorCodeType errorCode = 4;</code>
      *
      * <pre>
-     *é”™è¯¯ç±»å‹ï¼ˆæšä¸¾ï¼‰
+     *´íÎóÀàĞÍ£¨Ã¶¾Ù£©
      * </pre>
      */
     public boolean hasErrorCode() {
@@ -26457,7 +26570,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.RegisterResponse.ErrorCodeType errorCode = 4;</code>
      *
      * <pre>
-     *é”™è¯¯ç±»å‹ï¼ˆæšä¸¾ï¼‰
+     *´íÎóÀàĞÍ£¨Ã¶¾Ù£©
      * </pre>
      */
     public com.fuwu.mobileim.model.Models.RegisterResponse.ErrorCodeType getErrorCode() {
@@ -26890,7 +27003,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.RegisterResponse.ErrorCodeType errorCode = 4;</code>
        *
        * <pre>
-       *é”™è¯¯ç±»å‹ï¼ˆæšä¸¾ï¼‰
+       *´íÎóÀàĞÍ£¨Ã¶¾Ù£©
        * </pre>
        */
       public boolean hasErrorCode() {
@@ -26900,7 +27013,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.RegisterResponse.ErrorCodeType errorCode = 4;</code>
        *
        * <pre>
-       *é”™è¯¯ç±»å‹ï¼ˆæšä¸¾ï¼‰
+       *´íÎóÀàĞÍ£¨Ã¶¾Ù£©
        * </pre>
        */
       public com.fuwu.mobileim.model.Models.RegisterResponse.ErrorCodeType getErrorCode() {
@@ -26910,7 +27023,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.RegisterResponse.ErrorCodeType errorCode = 4;</code>
        *
        * <pre>
-       *é”™è¯¯ç±»å‹ï¼ˆæšä¸¾ï¼‰
+       *´íÎóÀàĞÍ£¨Ã¶¾Ù£©
        * </pre>
        */
       public Builder setErrorCode(com.fuwu.mobileim.model.Models.RegisterResponse.ErrorCodeType value) {
@@ -26926,7 +27039,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.RegisterResponse.ErrorCodeType errorCode = 4;</code>
        *
        * <pre>
-       *é”™è¯¯ç±»å‹ï¼ˆæšä¸¾ï¼‰
+       *´íÎóÀàĞÍ£¨Ã¶¾Ù£©
        * </pre>
        */
       public Builder clearErrorCode() {
@@ -26955,7 +27068,7 @@ public final class Models {
      * <code>optional string token = 1;</code>
      *
      * <pre>
-     *ç”¨æˆ·token
+     *ÓÃ»§token
      * </pre>
      */
     boolean hasToken();
@@ -26963,7 +27076,7 @@ public final class Models {
      * <code>optional string token = 1;</code>
      *
      * <pre>
-     *ç”¨æˆ·token
+     *ÓÃ»§token
      * </pre>
      */
     java.lang.String getToken();
@@ -26971,7 +27084,7 @@ public final class Models {
      * <code>optional string token = 1;</code>
      *
      * <pre>
-     *ç”¨æˆ·token
+     *ÓÃ»§token
      * </pre>
      */
     com.google.protobuf.ByteString
@@ -26982,7 +27095,7 @@ public final class Models {
      * <code>optional int32 userId = 2;</code>
      *
      * <pre>
-     *ç”¨æˆ·ID
+     *ÓÃ»§ID
      * </pre>
      */
     boolean hasUserId();
@@ -26990,7 +27103,7 @@ public final class Models {
      * <code>optional int32 userId = 2;</code>
      *
      * <pre>
-     *ç”¨æˆ·ID
+     *ÓÃ»§ID
      * </pre>
      */
     int getUserId();
@@ -27000,7 +27113,7 @@ public final class Models {
      * <code>optional string validateCode = 3;</code>
      *
      * <pre>
-     *éªŒè¯ç 
+     *ÑéÖ¤Âë
      * </pre>
      */
     boolean hasValidateCode();
@@ -27008,7 +27121,7 @@ public final class Models {
      * <code>optional string validateCode = 3;</code>
      *
      * <pre>
-     *éªŒè¯ç 
+     *ÑéÖ¤Âë
      * </pre>
      */
     java.lang.String getValidateCode();
@@ -27016,7 +27129,7 @@ public final class Models {
      * <code>optional string validateCode = 3;</code>
      *
      * <pre>
-     *éªŒè¯ç 
+     *ÑéÖ¤Âë
      * </pre>
      */
     com.google.protobuf.ByteString
@@ -27027,7 +27140,7 @@ public final class Models {
      * <code>optional string originalPassword = 4;</code>
      *
      * <pre>
-     *æ—§å¯†ç 
+     *¾ÉÃÜÂë
      * </pre>
      */
     boolean hasOriginalPassword();
@@ -27035,7 +27148,7 @@ public final class Models {
      * <code>optional string originalPassword = 4;</code>
      *
      * <pre>
-     *æ—§å¯†ç 
+     *¾ÉÃÜÂë
      * </pre>
      */
     java.lang.String getOriginalPassword();
@@ -27043,7 +27156,7 @@ public final class Models {
      * <code>optional string originalPassword = 4;</code>
      *
      * <pre>
-     *æ—§å¯†ç 
+     *¾ÉÃÜÂë
      * </pre>
      */
     com.google.protobuf.ByteString
@@ -27054,7 +27167,7 @@ public final class Models {
      * <code>optional string password = 5;</code>
      *
      * <pre>
-     *æ–°å¯†ç 
+     *ĞÂÃÜÂë
      * </pre>
      */
     boolean hasPassword();
@@ -27062,7 +27175,7 @@ public final class Models {
      * <code>optional string password = 5;</code>
      *
      * <pre>
-     *æ–°å¯†ç 
+     *ĞÂÃÜÂë
      * </pre>
      */
     java.lang.String getPassword();
@@ -27070,7 +27183,7 @@ public final class Models {
      * <code>optional string password = 5;</code>
      *
      * <pre>
-     *æ–°å¯†ç 
+     *ĞÂÃÜÂë
      * </pre>
      */
     com.google.protobuf.ByteString
@@ -27081,7 +27194,7 @@ public final class Models {
      * <code>optional string passwordConfirm = 6;</code>
      *
      * <pre>
-     *ç¡®è®¤æ–°å¯†ç 
+     *È·ÈÏĞÂÃÜÂë
      * </pre>
      */
     boolean hasPasswordConfirm();
@@ -27089,7 +27202,7 @@ public final class Models {
      * <code>optional string passwordConfirm = 6;</code>
      *
      * <pre>
-     *ç¡®è®¤æ–°å¯†ç 
+     *È·ÈÏĞÂÃÜÂë
      * </pre>
      */
     java.lang.String getPasswordConfirm();
@@ -27097,7 +27210,7 @@ public final class Models {
      * <code>optional string passwordConfirm = 6;</code>
      *
      * <pre>
-     *ç¡®è®¤æ–°å¯†ç 
+     *È·ÈÏĞÂÃÜÂë
      * </pre>
      */
     com.google.protobuf.ByteString
@@ -27231,7 +27344,7 @@ public final class Models {
      * <code>optional string token = 1;</code>
      *
      * <pre>
-     *ç”¨æˆ·token
+     *ÓÃ»§token
      * </pre>
      */
     public boolean hasToken() {
@@ -27241,7 +27354,7 @@ public final class Models {
      * <code>optional string token = 1;</code>
      *
      * <pre>
-     *ç”¨æˆ·token
+     *ÓÃ»§token
      * </pre>
      */
     public java.lang.String getToken() {
@@ -27262,7 +27375,7 @@ public final class Models {
      * <code>optional string token = 1;</code>
      *
      * <pre>
-     *ç”¨æˆ·token
+     *ÓÃ»§token
      * </pre>
      */
     public com.google.protobuf.ByteString
@@ -27286,7 +27399,7 @@ public final class Models {
      * <code>optional int32 userId = 2;</code>
      *
      * <pre>
-     *ç”¨æˆ·ID
+     *ÓÃ»§ID
      * </pre>
      */
     public boolean hasUserId() {
@@ -27296,7 +27409,7 @@ public final class Models {
      * <code>optional int32 userId = 2;</code>
      *
      * <pre>
-     *ç”¨æˆ·ID
+     *ÓÃ»§ID
      * </pre>
      */
     public int getUserId() {
@@ -27310,7 +27423,7 @@ public final class Models {
      * <code>optional string validateCode = 3;</code>
      *
      * <pre>
-     *éªŒè¯ç 
+     *ÑéÖ¤Âë
      * </pre>
      */
     public boolean hasValidateCode() {
@@ -27320,7 +27433,7 @@ public final class Models {
      * <code>optional string validateCode = 3;</code>
      *
      * <pre>
-     *éªŒè¯ç 
+     *ÑéÖ¤Âë
      * </pre>
      */
     public java.lang.String getValidateCode() {
@@ -27341,7 +27454,7 @@ public final class Models {
      * <code>optional string validateCode = 3;</code>
      *
      * <pre>
-     *éªŒè¯ç 
+     *ÑéÖ¤Âë
      * </pre>
      */
     public com.google.protobuf.ByteString
@@ -27365,7 +27478,7 @@ public final class Models {
      * <code>optional string originalPassword = 4;</code>
      *
      * <pre>
-     *æ—§å¯†ç 
+     *¾ÉÃÜÂë
      * </pre>
      */
     public boolean hasOriginalPassword() {
@@ -27375,7 +27488,7 @@ public final class Models {
      * <code>optional string originalPassword = 4;</code>
      *
      * <pre>
-     *æ—§å¯†ç 
+     *¾ÉÃÜÂë
      * </pre>
      */
     public java.lang.String getOriginalPassword() {
@@ -27396,7 +27509,7 @@ public final class Models {
      * <code>optional string originalPassword = 4;</code>
      *
      * <pre>
-     *æ—§å¯†ç 
+     *¾ÉÃÜÂë
      * </pre>
      */
     public com.google.protobuf.ByteString
@@ -27420,7 +27533,7 @@ public final class Models {
      * <code>optional string password = 5;</code>
      *
      * <pre>
-     *æ–°å¯†ç 
+     *ĞÂÃÜÂë
      * </pre>
      */
     public boolean hasPassword() {
@@ -27430,7 +27543,7 @@ public final class Models {
      * <code>optional string password = 5;</code>
      *
      * <pre>
-     *æ–°å¯†ç 
+     *ĞÂÃÜÂë
      * </pre>
      */
     public java.lang.String getPassword() {
@@ -27451,7 +27564,7 @@ public final class Models {
      * <code>optional string password = 5;</code>
      *
      * <pre>
-     *æ–°å¯†ç 
+     *ĞÂÃÜÂë
      * </pre>
      */
     public com.google.protobuf.ByteString
@@ -27475,7 +27588,7 @@ public final class Models {
      * <code>optional string passwordConfirm = 6;</code>
      *
      * <pre>
-     *ç¡®è®¤æ–°å¯†ç 
+     *È·ÈÏĞÂÃÜÂë
      * </pre>
      */
     public boolean hasPasswordConfirm() {
@@ -27485,7 +27598,7 @@ public final class Models {
      * <code>optional string passwordConfirm = 6;</code>
      *
      * <pre>
-     *ç¡®è®¤æ–°å¯†ç 
+     *È·ÈÏĞÂÃÜÂë
      * </pre>
      */
     public java.lang.String getPasswordConfirm() {
@@ -27506,7 +27619,7 @@ public final class Models {
      * <code>optional string passwordConfirm = 6;</code>
      *
      * <pre>
-     *ç¡®è®¤æ–°å¯†ç 
+     *È·ÈÏĞÂÃÜÂë
      * </pre>
      */
     public com.google.protobuf.ByteString
@@ -27851,7 +27964,7 @@ public final class Models {
        * <code>optional string token = 1;</code>
        *
        * <pre>
-       *ç”¨æˆ·token
+       *ÓÃ»§token
        * </pre>
        */
       public boolean hasToken() {
@@ -27861,7 +27974,7 @@ public final class Models {
        * <code>optional string token = 1;</code>
        *
        * <pre>
-       *ç”¨æˆ·token
+       *ÓÃ»§token
        * </pre>
        */
       public java.lang.String getToken() {
@@ -27879,7 +27992,7 @@ public final class Models {
        * <code>optional string token = 1;</code>
        *
        * <pre>
-       *ç”¨æˆ·token
+       *ÓÃ»§token
        * </pre>
        */
       public com.google.protobuf.ByteString
@@ -27899,7 +28012,7 @@ public final class Models {
        * <code>optional string token = 1;</code>
        *
        * <pre>
-       *ç”¨æˆ·token
+       *ÓÃ»§token
        * </pre>
        */
       public Builder setToken(
@@ -27916,7 +28029,7 @@ public final class Models {
        * <code>optional string token = 1;</code>
        *
        * <pre>
-       *ç”¨æˆ·token
+       *ÓÃ»§token
        * </pre>
        */
       public Builder clearToken() {
@@ -27929,7 +28042,7 @@ public final class Models {
        * <code>optional string token = 1;</code>
        *
        * <pre>
-       *ç”¨æˆ·token
+       *ÓÃ»§token
        * </pre>
        */
       public Builder setTokenBytes(
@@ -27949,7 +28062,7 @@ public final class Models {
        * <code>optional int32 userId = 2;</code>
        *
        * <pre>
-       *ç”¨æˆ·ID
+       *ÓÃ»§ID
        * </pre>
        */
       public boolean hasUserId() {
@@ -27959,7 +28072,7 @@ public final class Models {
        * <code>optional int32 userId = 2;</code>
        *
        * <pre>
-       *ç”¨æˆ·ID
+       *ÓÃ»§ID
        * </pre>
        */
       public int getUserId() {
@@ -27969,7 +28082,7 @@ public final class Models {
        * <code>optional int32 userId = 2;</code>
        *
        * <pre>
-       *ç”¨æˆ·ID
+       *ÓÃ»§ID
        * </pre>
        */
       public Builder setUserId(int value) {
@@ -27982,7 +28095,7 @@ public final class Models {
        * <code>optional int32 userId = 2;</code>
        *
        * <pre>
-       *ç”¨æˆ·ID
+       *ÓÃ»§ID
        * </pre>
        */
       public Builder clearUserId() {
@@ -27998,7 +28111,7 @@ public final class Models {
        * <code>optional string validateCode = 3;</code>
        *
        * <pre>
-       *éªŒè¯ç 
+       *ÑéÖ¤Âë
        * </pre>
        */
       public boolean hasValidateCode() {
@@ -28008,7 +28121,7 @@ public final class Models {
        * <code>optional string validateCode = 3;</code>
        *
        * <pre>
-       *éªŒè¯ç 
+       *ÑéÖ¤Âë
        * </pre>
        */
       public java.lang.String getValidateCode() {
@@ -28026,7 +28139,7 @@ public final class Models {
        * <code>optional string validateCode = 3;</code>
        *
        * <pre>
-       *éªŒè¯ç 
+       *ÑéÖ¤Âë
        * </pre>
        */
       public com.google.protobuf.ByteString
@@ -28046,7 +28159,7 @@ public final class Models {
        * <code>optional string validateCode = 3;</code>
        *
        * <pre>
-       *éªŒè¯ç 
+       *ÑéÖ¤Âë
        * </pre>
        */
       public Builder setValidateCode(
@@ -28063,7 +28176,7 @@ public final class Models {
        * <code>optional string validateCode = 3;</code>
        *
        * <pre>
-       *éªŒè¯ç 
+       *ÑéÖ¤Âë
        * </pre>
        */
       public Builder clearValidateCode() {
@@ -28076,7 +28189,7 @@ public final class Models {
        * <code>optional string validateCode = 3;</code>
        *
        * <pre>
-       *éªŒè¯ç 
+       *ÑéÖ¤Âë
        * </pre>
        */
       public Builder setValidateCodeBytes(
@@ -28096,7 +28209,7 @@ public final class Models {
        * <code>optional string originalPassword = 4;</code>
        *
        * <pre>
-       *æ—§å¯†ç 
+       *¾ÉÃÜÂë
        * </pre>
        */
       public boolean hasOriginalPassword() {
@@ -28106,7 +28219,7 @@ public final class Models {
        * <code>optional string originalPassword = 4;</code>
        *
        * <pre>
-       *æ—§å¯†ç 
+       *¾ÉÃÜÂë
        * </pre>
        */
       public java.lang.String getOriginalPassword() {
@@ -28124,7 +28237,7 @@ public final class Models {
        * <code>optional string originalPassword = 4;</code>
        *
        * <pre>
-       *æ—§å¯†ç 
+       *¾ÉÃÜÂë
        * </pre>
        */
       public com.google.protobuf.ByteString
@@ -28144,7 +28257,7 @@ public final class Models {
        * <code>optional string originalPassword = 4;</code>
        *
        * <pre>
-       *æ—§å¯†ç 
+       *¾ÉÃÜÂë
        * </pre>
        */
       public Builder setOriginalPassword(
@@ -28161,7 +28274,7 @@ public final class Models {
        * <code>optional string originalPassword = 4;</code>
        *
        * <pre>
-       *æ—§å¯†ç 
+       *¾ÉÃÜÂë
        * </pre>
        */
       public Builder clearOriginalPassword() {
@@ -28174,7 +28287,7 @@ public final class Models {
        * <code>optional string originalPassword = 4;</code>
        *
        * <pre>
-       *æ—§å¯†ç 
+       *¾ÉÃÜÂë
        * </pre>
        */
       public Builder setOriginalPasswordBytes(
@@ -28194,7 +28307,7 @@ public final class Models {
        * <code>optional string password = 5;</code>
        *
        * <pre>
-       *æ–°å¯†ç 
+       *ĞÂÃÜÂë
        * </pre>
        */
       public boolean hasPassword() {
@@ -28204,7 +28317,7 @@ public final class Models {
        * <code>optional string password = 5;</code>
        *
        * <pre>
-       *æ–°å¯†ç 
+       *ĞÂÃÜÂë
        * </pre>
        */
       public java.lang.String getPassword() {
@@ -28222,7 +28335,7 @@ public final class Models {
        * <code>optional string password = 5;</code>
        *
        * <pre>
-       *æ–°å¯†ç 
+       *ĞÂÃÜÂë
        * </pre>
        */
       public com.google.protobuf.ByteString
@@ -28242,7 +28355,7 @@ public final class Models {
        * <code>optional string password = 5;</code>
        *
        * <pre>
-       *æ–°å¯†ç 
+       *ĞÂÃÜÂë
        * </pre>
        */
       public Builder setPassword(
@@ -28259,7 +28372,7 @@ public final class Models {
        * <code>optional string password = 5;</code>
        *
        * <pre>
-       *æ–°å¯†ç 
+       *ĞÂÃÜÂë
        * </pre>
        */
       public Builder clearPassword() {
@@ -28272,7 +28385,7 @@ public final class Models {
        * <code>optional string password = 5;</code>
        *
        * <pre>
-       *æ–°å¯†ç 
+       *ĞÂÃÜÂë
        * </pre>
        */
       public Builder setPasswordBytes(
@@ -28292,7 +28405,7 @@ public final class Models {
        * <code>optional string passwordConfirm = 6;</code>
        *
        * <pre>
-       *ç¡®è®¤æ–°å¯†ç 
+       *È·ÈÏĞÂÃÜÂë
        * </pre>
        */
       public boolean hasPasswordConfirm() {
@@ -28302,7 +28415,7 @@ public final class Models {
        * <code>optional string passwordConfirm = 6;</code>
        *
        * <pre>
-       *ç¡®è®¤æ–°å¯†ç 
+       *È·ÈÏĞÂÃÜÂë
        * </pre>
        */
       public java.lang.String getPasswordConfirm() {
@@ -28320,7 +28433,7 @@ public final class Models {
        * <code>optional string passwordConfirm = 6;</code>
        *
        * <pre>
-       *ç¡®è®¤æ–°å¯†ç 
+       *È·ÈÏĞÂÃÜÂë
        * </pre>
        */
       public com.google.protobuf.ByteString
@@ -28340,7 +28453,7 @@ public final class Models {
        * <code>optional string passwordConfirm = 6;</code>
        *
        * <pre>
-       *ç¡®è®¤æ–°å¯†ç 
+       *È·ÈÏĞÂÃÜÂë
        * </pre>
        */
       public Builder setPasswordConfirm(
@@ -28357,7 +28470,7 @@ public final class Models {
        * <code>optional string passwordConfirm = 6;</code>
        *
        * <pre>
-       *ç¡®è®¤æ–°å¯†ç 
+       *È·ÈÏĞÂÃÜÂë
        * </pre>
        */
       public Builder clearPasswordConfirm() {
@@ -28370,7 +28483,7 @@ public final class Models {
        * <code>optional string passwordConfirm = 6;</code>
        *
        * <pre>
-       *ç¡®è®¤æ–°å¯†ç 
+       *È·ÈÏĞÂÃÜÂë
        * </pre>
        */
       public Builder setPasswordConfirmBytes(
@@ -28413,7 +28526,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.ChangePasswordResponse.ErrorCodeType errorCode = 2;</code>
      *
      * <pre>
-     *é”™è¯¯ç±»å‹ï¼ˆæšä¸¾ï¼‰
+     *´íÎóÀàĞÍ£¨Ã¶¾Ù£©
      * </pre>
      */
     boolean hasErrorCode();
@@ -28421,7 +28534,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.ChangePasswordResponse.ErrorCodeType errorCode = 2;</code>
      *
      * <pre>
-     *é”™è¯¯ç±»å‹ï¼ˆæšä¸¾ï¼‰
+     *´íÎóÀàĞÍ£¨Ã¶¾Ù£©
      * </pre>
      */
     com.fuwu.mobileim.model.Models.ChangePasswordResponse.ErrorCodeType getErrorCode();
@@ -28536,7 +28649,7 @@ public final class Models {
      * Protobuf enum {@code com.fuwu.mobileim.model.ChangePasswordResponse.ErrorCodeType}
      *
      * <pre>
-     *é”™è¯¯ç±»å‹æšä¸¾ç±»
+     *´íÎóÀàĞÍÃ¶¾ÙÀà
      * </pre>
      */
     public enum ErrorCodeType
@@ -28545,7 +28658,7 @@ public final class Models {
        * <code>BadRequest = 1;</code>
        *
        * <pre>
-       *åºåˆ—åŒ–å‚æ•°å‡ºé”™
+       *ĞòÁĞ»¯²ÎÊı³ö´í
        * </pre>
        */
       BadRequest(0, 1),
@@ -28553,7 +28666,7 @@ public final class Models {
        * <code>InvalidUserId = 2;</code>
        *
        * <pre>
-       *UserIdå‚æ•°æœ‰è¯¯
+       *UserId²ÎÊıÓĞÎó
        * </pre>
        */
       InvalidUserId(1, 2),
@@ -28561,7 +28674,7 @@ public final class Models {
        * <code>InvalidToken = 3;</code>
        *
        * <pre>
-       *Tokenå‚æ•°æœ‰è¯¯
+       *Token²ÎÊıÓĞÎó
        * </pre>
        */
       InvalidToken(2, 3),
@@ -28569,7 +28682,7 @@ public final class Models {
        * <code>InvalidUser = 4;</code>
        *
        * <pre>
-       *èº«ä»½éªŒè¯å¤±è´¥
+       *Éí·İÑéÖ¤Ê§°Ü
        * </pre>
        */
       InvalidUser(3, 4),
@@ -28577,7 +28690,7 @@ public final class Models {
        * <code>InvalidDatabase = 5;</code>
        *
        * <pre>
-       *æ•°æ®åº“è¿æ¥é”™è¯¯
+       *Êı¾İ¿âÁ¬½Ó´íÎó
        * </pre>
        */
       InvalidDatabase(4, 5),
@@ -28585,7 +28698,7 @@ public final class Models {
        * <code>ExistingUserNo = 6;</code>
        *
        * <pre>
-       *ç”¨æˆ·ä¸å­˜åœ¨
+       *ÓÃ»§²»´æÔÚ
        * </pre>
        */
       ExistingUserNo(5, 6),
@@ -28593,7 +28706,7 @@ public final class Models {
        * <code>InvalidOriginalPassword = 7;</code>
        *
        * <pre>
-       *æ—§å¯†ç æœ‰è¯¯
+       *¾ÉÃÜÂëÓĞÎó
        * </pre>
        */
       InvalidOriginalPassword(6, 7),
@@ -28601,7 +28714,7 @@ public final class Models {
        * <code>InvalidPassword = 8;</code>
        *
        * <pre>
-       *æ–°å¯†ç æœ‰è¯¯
+       *ĞÂÃÜÂëÓĞÎó
        * </pre>
        */
       InvalidPassword(7, 8),
@@ -28609,7 +28722,7 @@ public final class Models {
        * <code>InvalidConfirmPassword = 9;</code>
        *
        * <pre>
-       *ç¡®è®¤å¯†ç æœ‰è¯¯
+       *È·ÈÏÃÜÂëÓĞÎó
        * </pre>
        */
       InvalidConfirmPassword(8, 9),
@@ -28617,7 +28730,7 @@ public final class Models {
        * <code>InvalidMatchPassword = 10;</code>
        *
        * <pre>
-       *ä¸¤æ¬¡æ–°å¯†ç ä¸ä¸€è‡´
+       *Á½´ÎĞÂÃÜÂë²»Ò»ÖÂ
        * </pre>
        */
       InvalidMatchPassword(9, 10),
@@ -28625,7 +28738,7 @@ public final class Models {
        * <code>InvalidValidateCode = 11;</code>
        *
        * <pre>
-       *éªŒè¯ç æœ‰è¯¯
+       *ÑéÖ¤ÂëÓĞÎó
        * </pre>
        */
       InvalidValidateCode(10, 11),
@@ -28635,7 +28748,7 @@ public final class Models {
        * <code>BadRequest = 1;</code>
        *
        * <pre>
-       *åºåˆ—åŒ–å‚æ•°å‡ºé”™
+       *ĞòÁĞ»¯²ÎÊı³ö´í
        * </pre>
        */
       public static final int BadRequest_VALUE = 1;
@@ -28643,7 +28756,7 @@ public final class Models {
        * <code>InvalidUserId = 2;</code>
        *
        * <pre>
-       *UserIdå‚æ•°æœ‰è¯¯
+       *UserId²ÎÊıÓĞÎó
        * </pre>
        */
       public static final int InvalidUserId_VALUE = 2;
@@ -28651,7 +28764,7 @@ public final class Models {
        * <code>InvalidToken = 3;</code>
        *
        * <pre>
-       *Tokenå‚æ•°æœ‰è¯¯
+       *Token²ÎÊıÓĞÎó
        * </pre>
        */
       public static final int InvalidToken_VALUE = 3;
@@ -28659,7 +28772,7 @@ public final class Models {
        * <code>InvalidUser = 4;</code>
        *
        * <pre>
-       *èº«ä»½éªŒè¯å¤±è´¥
+       *Éí·İÑéÖ¤Ê§°Ü
        * </pre>
        */
       public static final int InvalidUser_VALUE = 4;
@@ -28667,7 +28780,7 @@ public final class Models {
        * <code>InvalidDatabase = 5;</code>
        *
        * <pre>
-       *æ•°æ®åº“è¿æ¥é”™è¯¯
+       *Êı¾İ¿âÁ¬½Ó´íÎó
        * </pre>
        */
       public static final int InvalidDatabase_VALUE = 5;
@@ -28675,7 +28788,7 @@ public final class Models {
        * <code>ExistingUserNo = 6;</code>
        *
        * <pre>
-       *ç”¨æˆ·ä¸å­˜åœ¨
+       *ÓÃ»§²»´æÔÚ
        * </pre>
        */
       public static final int ExistingUserNo_VALUE = 6;
@@ -28683,7 +28796,7 @@ public final class Models {
        * <code>InvalidOriginalPassword = 7;</code>
        *
        * <pre>
-       *æ—§å¯†ç æœ‰è¯¯
+       *¾ÉÃÜÂëÓĞÎó
        * </pre>
        */
       public static final int InvalidOriginalPassword_VALUE = 7;
@@ -28691,7 +28804,7 @@ public final class Models {
        * <code>InvalidPassword = 8;</code>
        *
        * <pre>
-       *æ–°å¯†ç æœ‰è¯¯
+       *ĞÂÃÜÂëÓĞÎó
        * </pre>
        */
       public static final int InvalidPassword_VALUE = 8;
@@ -28699,7 +28812,7 @@ public final class Models {
        * <code>InvalidConfirmPassword = 9;</code>
        *
        * <pre>
-       *ç¡®è®¤å¯†ç æœ‰è¯¯
+       *È·ÈÏÃÜÂëÓĞÎó
        * </pre>
        */
       public static final int InvalidConfirmPassword_VALUE = 9;
@@ -28707,7 +28820,7 @@ public final class Models {
        * <code>InvalidMatchPassword = 10;</code>
        *
        * <pre>
-       *ä¸¤æ¬¡æ–°å¯†ç ä¸ä¸€è‡´
+       *Á½´ÎĞÂÃÜÂë²»Ò»ÖÂ
        * </pre>
        */
       public static final int InvalidMatchPassword_VALUE = 10;
@@ -28715,7 +28828,7 @@ public final class Models {
        * <code>InvalidValidateCode = 11;</code>
        *
        * <pre>
-       *éªŒè¯ç æœ‰è¯¯
+       *ÑéÖ¤ÂëÓĞÎó
        * </pre>
        */
       public static final int InvalidValidateCode_VALUE = 11;
@@ -28811,7 +28924,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.ChangePasswordResponse.ErrorCodeType errorCode = 2;</code>
      *
      * <pre>
-     *é”™è¯¯ç±»å‹ï¼ˆæšä¸¾ï¼‰
+     *´íÎóÀàĞÍ£¨Ã¶¾Ù£©
      * </pre>
      */
     public boolean hasErrorCode() {
@@ -28821,7 +28934,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.ChangePasswordResponse.ErrorCodeType errorCode = 2;</code>
      *
      * <pre>
-     *é”™è¯¯ç±»å‹ï¼ˆæšä¸¾ï¼‰
+     *´íÎóÀàĞÍ£¨Ã¶¾Ù£©
      * </pre>
      */
     public com.fuwu.mobileim.model.Models.ChangePasswordResponse.ErrorCodeType getErrorCode() {
@@ -29111,7 +29224,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.ChangePasswordResponse.ErrorCodeType errorCode = 2;</code>
        *
        * <pre>
-       *é”™è¯¯ç±»å‹ï¼ˆæšä¸¾ï¼‰
+       *´íÎóÀàĞÍ£¨Ã¶¾Ù£©
        * </pre>
        */
       public boolean hasErrorCode() {
@@ -29121,7 +29234,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.ChangePasswordResponse.ErrorCodeType errorCode = 2;</code>
        *
        * <pre>
-       *é”™è¯¯ç±»å‹ï¼ˆæšä¸¾ï¼‰
+       *´íÎóÀàĞÍ£¨Ã¶¾Ù£©
        * </pre>
        */
       public com.fuwu.mobileim.model.Models.ChangePasswordResponse.ErrorCodeType getErrorCode() {
@@ -29131,7 +29244,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.ChangePasswordResponse.ErrorCodeType errorCode = 2;</code>
        *
        * <pre>
-       *é”™è¯¯ç±»å‹ï¼ˆæšä¸¾ï¼‰
+       *´íÎóÀàĞÍ£¨Ã¶¾Ù£©
        * </pre>
        */
       public Builder setErrorCode(com.fuwu.mobileim.model.Models.ChangePasswordResponse.ErrorCodeType value) {
@@ -29147,7 +29260,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.ChangePasswordResponse.ErrorCodeType errorCode = 2;</code>
        *
        * <pre>
-       *é”™è¯¯ç±»å‹ï¼ˆæšä¸¾ï¼‰
+       *´íÎóÀàĞÍ£¨Ã¶¾Ù£©
        * </pre>
        */
       public Builder clearErrorCode() {
@@ -29176,7 +29289,7 @@ public final class Models {
      * <code>optional string phoneNumber = 1;</code>
      *
      * <pre>
-     *æ‰‹æœºå·ç 
+     *ÊÖ»úºÅÂë
      * </pre>
      */
     boolean hasPhoneNumber();
@@ -29184,7 +29297,7 @@ public final class Models {
      * <code>optional string phoneNumber = 1;</code>
      *
      * <pre>
-     *æ‰‹æœºå·ç 
+     *ÊÖ»úºÅÂë
      * </pre>
      */
     java.lang.String getPhoneNumber();
@@ -29192,7 +29305,7 @@ public final class Models {
      * <code>optional string phoneNumber = 1;</code>
      *
      * <pre>
-     *æ‰‹æœºå·ç 
+     *ÊÖ»úºÅÂë
      * </pre>
      */
     com.google.protobuf.ByteString
@@ -29203,7 +29316,7 @@ public final class Models {
      * <code>optional string validateCode = 2;</code>
      *
      * <pre>
-     *éªŒè¯ç 
+     *ÑéÖ¤Âë
      * </pre>
      */
     boolean hasValidateCode();
@@ -29211,7 +29324,7 @@ public final class Models {
      * <code>optional string validateCode = 2;</code>
      *
      * <pre>
-     *éªŒè¯ç 
+     *ÑéÖ¤Âë
      * </pre>
      */
     java.lang.String getValidateCode();
@@ -29219,7 +29332,7 @@ public final class Models {
      * <code>optional string validateCode = 2;</code>
      *
      * <pre>
-     *éªŒè¯ç 
+     *ÑéÖ¤Âë
      * </pre>
      */
     com.google.protobuf.ByteString
@@ -29230,7 +29343,7 @@ public final class Models {
      * <code>optional string password = 3;</code>
      *
      * <pre>
-     *å¯†ç 
+     *ÃÜÂë
      * </pre>
      */
     boolean hasPassword();
@@ -29238,7 +29351,7 @@ public final class Models {
      * <code>optional string password = 3;</code>
      *
      * <pre>
-     *å¯†ç 
+     *ÃÜÂë
      * </pre>
      */
     java.lang.String getPassword();
@@ -29246,7 +29359,7 @@ public final class Models {
      * <code>optional string password = 3;</code>
      *
      * <pre>
-     *å¯†ç 
+     *ÃÜÂë
      * </pre>
      */
     com.google.protobuf.ByteString
@@ -29257,7 +29370,7 @@ public final class Models {
      * <code>optional string passwordConfirm = 4;</code>
      *
      * <pre>
-     *ç¡®è®¤å¯†ç 
+     *È·ÈÏÃÜÂë
      * </pre>
      */
     boolean hasPasswordConfirm();
@@ -29265,7 +29378,7 @@ public final class Models {
      * <code>optional string passwordConfirm = 4;</code>
      *
      * <pre>
-     *ç¡®è®¤å¯†ç 
+     *È·ÈÏÃÜÂë
      * </pre>
      */
     java.lang.String getPasswordConfirm();
@@ -29273,7 +29386,7 @@ public final class Models {
      * <code>optional string passwordConfirm = 4;</code>
      *
      * <pre>
-     *ç¡®è®¤å¯†ç 
+     *È·ÈÏÃÜÂë
      * </pre>
      */
     com.google.protobuf.ByteString
@@ -29397,7 +29510,7 @@ public final class Models {
      * <code>optional string phoneNumber = 1;</code>
      *
      * <pre>
-     *æ‰‹æœºå·ç 
+     *ÊÖ»úºÅÂë
      * </pre>
      */
     public boolean hasPhoneNumber() {
@@ -29407,7 +29520,7 @@ public final class Models {
      * <code>optional string phoneNumber = 1;</code>
      *
      * <pre>
-     *æ‰‹æœºå·ç 
+     *ÊÖ»úºÅÂë
      * </pre>
      */
     public java.lang.String getPhoneNumber() {
@@ -29428,7 +29541,7 @@ public final class Models {
      * <code>optional string phoneNumber = 1;</code>
      *
      * <pre>
-     *æ‰‹æœºå·ç 
+     *ÊÖ»úºÅÂë
      * </pre>
      */
     public com.google.protobuf.ByteString
@@ -29452,7 +29565,7 @@ public final class Models {
      * <code>optional string validateCode = 2;</code>
      *
      * <pre>
-     *éªŒè¯ç 
+     *ÑéÖ¤Âë
      * </pre>
      */
     public boolean hasValidateCode() {
@@ -29462,7 +29575,7 @@ public final class Models {
      * <code>optional string validateCode = 2;</code>
      *
      * <pre>
-     *éªŒè¯ç 
+     *ÑéÖ¤Âë
      * </pre>
      */
     public java.lang.String getValidateCode() {
@@ -29483,7 +29596,7 @@ public final class Models {
      * <code>optional string validateCode = 2;</code>
      *
      * <pre>
-     *éªŒè¯ç 
+     *ÑéÖ¤Âë
      * </pre>
      */
     public com.google.protobuf.ByteString
@@ -29507,7 +29620,7 @@ public final class Models {
      * <code>optional string password = 3;</code>
      *
      * <pre>
-     *å¯†ç 
+     *ÃÜÂë
      * </pre>
      */
     public boolean hasPassword() {
@@ -29517,7 +29630,7 @@ public final class Models {
      * <code>optional string password = 3;</code>
      *
      * <pre>
-     *å¯†ç 
+     *ÃÜÂë
      * </pre>
      */
     public java.lang.String getPassword() {
@@ -29538,7 +29651,7 @@ public final class Models {
      * <code>optional string password = 3;</code>
      *
      * <pre>
-     *å¯†ç 
+     *ÃÜÂë
      * </pre>
      */
     public com.google.protobuf.ByteString
@@ -29562,7 +29675,7 @@ public final class Models {
      * <code>optional string passwordConfirm = 4;</code>
      *
      * <pre>
-     *ç¡®è®¤å¯†ç 
+     *È·ÈÏÃÜÂë
      * </pre>
      */
     public boolean hasPasswordConfirm() {
@@ -29572,7 +29685,7 @@ public final class Models {
      * <code>optional string passwordConfirm = 4;</code>
      *
      * <pre>
-     *ç¡®è®¤å¯†ç 
+     *È·ÈÏÃÜÂë
      * </pre>
      */
     public java.lang.String getPasswordConfirm() {
@@ -29593,7 +29706,7 @@ public final class Models {
      * <code>optional string passwordConfirm = 4;</code>
      *
      * <pre>
-     *ç¡®è®¤å¯†ç 
+     *È·ÈÏÃÜÂë
      * </pre>
      */
     public com.google.protobuf.ByteString
@@ -29902,7 +30015,7 @@ public final class Models {
        * <code>optional string phoneNumber = 1;</code>
        *
        * <pre>
-       *æ‰‹æœºå·ç 
+       *ÊÖ»úºÅÂë
        * </pre>
        */
       public boolean hasPhoneNumber() {
@@ -29912,7 +30025,7 @@ public final class Models {
        * <code>optional string phoneNumber = 1;</code>
        *
        * <pre>
-       *æ‰‹æœºå·ç 
+       *ÊÖ»úºÅÂë
        * </pre>
        */
       public java.lang.String getPhoneNumber() {
@@ -29930,7 +30043,7 @@ public final class Models {
        * <code>optional string phoneNumber = 1;</code>
        *
        * <pre>
-       *æ‰‹æœºå·ç 
+       *ÊÖ»úºÅÂë
        * </pre>
        */
       public com.google.protobuf.ByteString
@@ -29950,7 +30063,7 @@ public final class Models {
        * <code>optional string phoneNumber = 1;</code>
        *
        * <pre>
-       *æ‰‹æœºå·ç 
+       *ÊÖ»úºÅÂë
        * </pre>
        */
       public Builder setPhoneNumber(
@@ -29967,7 +30080,7 @@ public final class Models {
        * <code>optional string phoneNumber = 1;</code>
        *
        * <pre>
-       *æ‰‹æœºå·ç 
+       *ÊÖ»úºÅÂë
        * </pre>
        */
       public Builder clearPhoneNumber() {
@@ -29980,7 +30093,7 @@ public final class Models {
        * <code>optional string phoneNumber = 1;</code>
        *
        * <pre>
-       *æ‰‹æœºå·ç 
+       *ÊÖ»úºÅÂë
        * </pre>
        */
       public Builder setPhoneNumberBytes(
@@ -30000,7 +30113,7 @@ public final class Models {
        * <code>optional string validateCode = 2;</code>
        *
        * <pre>
-       *éªŒè¯ç 
+       *ÑéÖ¤Âë
        * </pre>
        */
       public boolean hasValidateCode() {
@@ -30010,7 +30123,7 @@ public final class Models {
        * <code>optional string validateCode = 2;</code>
        *
        * <pre>
-       *éªŒè¯ç 
+       *ÑéÖ¤Âë
        * </pre>
        */
       public java.lang.String getValidateCode() {
@@ -30028,7 +30141,7 @@ public final class Models {
        * <code>optional string validateCode = 2;</code>
        *
        * <pre>
-       *éªŒè¯ç 
+       *ÑéÖ¤Âë
        * </pre>
        */
       public com.google.protobuf.ByteString
@@ -30048,7 +30161,7 @@ public final class Models {
        * <code>optional string validateCode = 2;</code>
        *
        * <pre>
-       *éªŒè¯ç 
+       *ÑéÖ¤Âë
        * </pre>
        */
       public Builder setValidateCode(
@@ -30065,7 +30178,7 @@ public final class Models {
        * <code>optional string validateCode = 2;</code>
        *
        * <pre>
-       *éªŒè¯ç 
+       *ÑéÖ¤Âë
        * </pre>
        */
       public Builder clearValidateCode() {
@@ -30078,7 +30191,7 @@ public final class Models {
        * <code>optional string validateCode = 2;</code>
        *
        * <pre>
-       *éªŒè¯ç 
+       *ÑéÖ¤Âë
        * </pre>
        */
       public Builder setValidateCodeBytes(
@@ -30098,7 +30211,7 @@ public final class Models {
        * <code>optional string password = 3;</code>
        *
        * <pre>
-       *å¯†ç 
+       *ÃÜÂë
        * </pre>
        */
       public boolean hasPassword() {
@@ -30108,7 +30221,7 @@ public final class Models {
        * <code>optional string password = 3;</code>
        *
        * <pre>
-       *å¯†ç 
+       *ÃÜÂë
        * </pre>
        */
       public java.lang.String getPassword() {
@@ -30126,7 +30239,7 @@ public final class Models {
        * <code>optional string password = 3;</code>
        *
        * <pre>
-       *å¯†ç 
+       *ÃÜÂë
        * </pre>
        */
       public com.google.protobuf.ByteString
@@ -30146,7 +30259,7 @@ public final class Models {
        * <code>optional string password = 3;</code>
        *
        * <pre>
-       *å¯†ç 
+       *ÃÜÂë
        * </pre>
        */
       public Builder setPassword(
@@ -30163,7 +30276,7 @@ public final class Models {
        * <code>optional string password = 3;</code>
        *
        * <pre>
-       *å¯†ç 
+       *ÃÜÂë
        * </pre>
        */
       public Builder clearPassword() {
@@ -30176,7 +30289,7 @@ public final class Models {
        * <code>optional string password = 3;</code>
        *
        * <pre>
-       *å¯†ç 
+       *ÃÜÂë
        * </pre>
        */
       public Builder setPasswordBytes(
@@ -30196,7 +30309,7 @@ public final class Models {
        * <code>optional string passwordConfirm = 4;</code>
        *
        * <pre>
-       *ç¡®è®¤å¯†ç 
+       *È·ÈÏÃÜÂë
        * </pre>
        */
       public boolean hasPasswordConfirm() {
@@ -30206,7 +30319,7 @@ public final class Models {
        * <code>optional string passwordConfirm = 4;</code>
        *
        * <pre>
-       *ç¡®è®¤å¯†ç 
+       *È·ÈÏÃÜÂë
        * </pre>
        */
       public java.lang.String getPasswordConfirm() {
@@ -30224,7 +30337,7 @@ public final class Models {
        * <code>optional string passwordConfirm = 4;</code>
        *
        * <pre>
-       *ç¡®è®¤å¯†ç 
+       *È·ÈÏÃÜÂë
        * </pre>
        */
       public com.google.protobuf.ByteString
@@ -30244,7 +30357,7 @@ public final class Models {
        * <code>optional string passwordConfirm = 4;</code>
        *
        * <pre>
-       *ç¡®è®¤å¯†ç 
+       *È·ÈÏÃÜÂë
        * </pre>
        */
       public Builder setPasswordConfirm(
@@ -30261,7 +30374,7 @@ public final class Models {
        * <code>optional string passwordConfirm = 4;</code>
        *
        * <pre>
-       *ç¡®è®¤å¯†ç 
+       *È·ÈÏÃÜÂë
        * </pre>
        */
       public Builder clearPasswordConfirm() {
@@ -30274,7 +30387,7 @@ public final class Models {
        * <code>optional string passwordConfirm = 4;</code>
        *
        * <pre>
-       *ç¡®è®¤å¯†ç 
+       *È·ÈÏÃÜÂë
        * </pre>
        */
       public Builder setPasswordConfirmBytes(
@@ -30317,7 +30430,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.ResetPasswordResponse.ErrorCodeType errorCode = 2;</code>
      *
      * <pre>
-     *é”™è¯¯ç±»å‹ï¼ˆæšä¸¾ï¼‰
+     *´íÎóÀàĞÍ£¨Ã¶¾Ù£©
      * </pre>
      */
     boolean hasErrorCode();
@@ -30325,7 +30438,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.ResetPasswordResponse.ErrorCodeType errorCode = 2;</code>
      *
      * <pre>
-     *é”™è¯¯ç±»å‹ï¼ˆæšä¸¾ï¼‰
+     *´íÎóÀàĞÍ£¨Ã¶¾Ù£©
      * </pre>
      */
     com.fuwu.mobileim.model.Models.ResetPasswordResponse.ErrorCodeType getErrorCode();
@@ -30440,7 +30553,7 @@ public final class Models {
      * Protobuf enum {@code com.fuwu.mobileim.model.ResetPasswordResponse.ErrorCodeType}
      *
      * <pre>
-     *é”™è¯¯ç±»å‹æšä¸¾ç±»
+     *´íÎóÀàĞÍÃ¶¾ÙÀà
      * </pre>
      */
     public enum ErrorCodeType
@@ -30449,7 +30562,7 @@ public final class Models {
        * <code>BadRequest = 1;</code>
        *
        * <pre>
-       *åºåˆ—åŒ–å‚æ•°å‡ºé”™
+       *ĞòÁĞ»¯²ÎÊı³ö´í
        * </pre>
        */
       BadRequest(0, 1),
@@ -30457,7 +30570,7 @@ public final class Models {
        * <code>InvalidDatabase = 2;</code>
        *
        * <pre>
-       *æ•°æ®åº“è¿æ¥é”™è¯¯
+       *Êı¾İ¿âÁ¬½Ó´íÎó
        * </pre>
        */
       InvalidDatabase(1, 2),
@@ -30465,7 +30578,7 @@ public final class Models {
        * <code>InvalidPhoneNumber = 3;</code>
        *
        * <pre>
-       *æ‰‹æœºå·ç æœ‰è¯¯
+       *ÊÖ»úºÅÂëÓĞÎó
        * </pre>
        */
       InvalidPhoneNumber(2, 3),
@@ -30473,7 +30586,7 @@ public final class Models {
        * <code>InvalidPassword = 4;</code>
        *
        * <pre>
-       *å¯†ç æœ‰è¯¯
+       *ÃÜÂëÓĞÎó
        * </pre>
        */
       InvalidPassword(3, 4),
@@ -30481,7 +30594,7 @@ public final class Models {
        * <code>InvalidPasswordConfirm = 5;</code>
        *
        * <pre>
-       *ç¡®è®¤å¯†ç æœ‰è¯¯
+       *È·ÈÏÃÜÂëÓĞÎó
        * </pre>
        */
       InvalidPasswordConfirm(4, 5),
@@ -30489,7 +30602,7 @@ public final class Models {
        * <code>InvalidMatchPassword = 6;</code>
        *
        * <pre>
-       *ä¸¤æ¬¡å¯†ç ä¸ä¸€è‡´
+       *Á½´ÎÃÜÂë²»Ò»ÖÂ
        * </pre>
        */
       InvalidMatchPassword(5, 6),
@@ -30497,7 +30610,7 @@ public final class Models {
        * <code>InvalidValidateCode = 7;</code>
        *
        * <pre>
-       *éªŒè¯ç æœ‰è¯¯
+       *ÑéÖ¤ÂëÓĞÎó
        * </pre>
        */
       InvalidValidateCode(6, 7),
@@ -30505,7 +30618,7 @@ public final class Models {
        * <code>ExistingUserNo = 8;</code>
        *
        * <pre>
-       *ç”¨æˆ·ä¸å­˜åœ¨
+       *ÓÃ»§²»´æÔÚ
        * </pre>
        */
       ExistingUserNo(7, 8),
@@ -30515,7 +30628,7 @@ public final class Models {
        * <code>BadRequest = 1;</code>
        *
        * <pre>
-       *åºåˆ—åŒ–å‚æ•°å‡ºé”™
+       *ĞòÁĞ»¯²ÎÊı³ö´í
        * </pre>
        */
       public static final int BadRequest_VALUE = 1;
@@ -30523,7 +30636,7 @@ public final class Models {
        * <code>InvalidDatabase = 2;</code>
        *
        * <pre>
-       *æ•°æ®åº“è¿æ¥é”™è¯¯
+       *Êı¾İ¿âÁ¬½Ó´íÎó
        * </pre>
        */
       public static final int InvalidDatabase_VALUE = 2;
@@ -30531,7 +30644,7 @@ public final class Models {
        * <code>InvalidPhoneNumber = 3;</code>
        *
        * <pre>
-       *æ‰‹æœºå·ç æœ‰è¯¯
+       *ÊÖ»úºÅÂëÓĞÎó
        * </pre>
        */
       public static final int InvalidPhoneNumber_VALUE = 3;
@@ -30539,7 +30652,7 @@ public final class Models {
        * <code>InvalidPassword = 4;</code>
        *
        * <pre>
-       *å¯†ç æœ‰è¯¯
+       *ÃÜÂëÓĞÎó
        * </pre>
        */
       public static final int InvalidPassword_VALUE = 4;
@@ -30547,7 +30660,7 @@ public final class Models {
        * <code>InvalidPasswordConfirm = 5;</code>
        *
        * <pre>
-       *ç¡®è®¤å¯†ç æœ‰è¯¯
+       *È·ÈÏÃÜÂëÓĞÎó
        * </pre>
        */
       public static final int InvalidPasswordConfirm_VALUE = 5;
@@ -30555,7 +30668,7 @@ public final class Models {
        * <code>InvalidMatchPassword = 6;</code>
        *
        * <pre>
-       *ä¸¤æ¬¡å¯†ç ä¸ä¸€è‡´
+       *Á½´ÎÃÜÂë²»Ò»ÖÂ
        * </pre>
        */
       public static final int InvalidMatchPassword_VALUE = 6;
@@ -30563,7 +30676,7 @@ public final class Models {
        * <code>InvalidValidateCode = 7;</code>
        *
        * <pre>
-       *éªŒè¯ç æœ‰è¯¯
+       *ÑéÖ¤ÂëÓĞÎó
        * </pre>
        */
       public static final int InvalidValidateCode_VALUE = 7;
@@ -30571,7 +30684,7 @@ public final class Models {
        * <code>ExistingUserNo = 8;</code>
        *
        * <pre>
-       *ç”¨æˆ·ä¸å­˜åœ¨
+       *ÓÃ»§²»´æÔÚ
        * </pre>
        */
       public static final int ExistingUserNo_VALUE = 8;
@@ -30664,7 +30777,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.ResetPasswordResponse.ErrorCodeType errorCode = 2;</code>
      *
      * <pre>
-     *é”™è¯¯ç±»å‹ï¼ˆæšä¸¾ï¼‰
+     *´íÎóÀàĞÍ£¨Ã¶¾Ù£©
      * </pre>
      */
     public boolean hasErrorCode() {
@@ -30674,7 +30787,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.ResetPasswordResponse.ErrorCodeType errorCode = 2;</code>
      *
      * <pre>
-     *é”™è¯¯ç±»å‹ï¼ˆæšä¸¾ï¼‰
+     *´íÎóÀàĞÍ£¨Ã¶¾Ù£©
      * </pre>
      */
     public com.fuwu.mobileim.model.Models.ResetPasswordResponse.ErrorCodeType getErrorCode() {
@@ -30964,7 +31077,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.ResetPasswordResponse.ErrorCodeType errorCode = 2;</code>
        *
        * <pre>
-       *é”™è¯¯ç±»å‹ï¼ˆæšä¸¾ï¼‰
+       *´íÎóÀàĞÍ£¨Ã¶¾Ù£©
        * </pre>
        */
       public boolean hasErrorCode() {
@@ -30974,7 +31087,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.ResetPasswordResponse.ErrorCodeType errorCode = 2;</code>
        *
        * <pre>
-       *é”™è¯¯ç±»å‹ï¼ˆæšä¸¾ï¼‰
+       *´íÎóÀàĞÍ£¨Ã¶¾Ù£©
        * </pre>
        */
       public com.fuwu.mobileim.model.Models.ResetPasswordResponse.ErrorCodeType getErrorCode() {
@@ -30984,7 +31097,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.ResetPasswordResponse.ErrorCodeType errorCode = 2;</code>
        *
        * <pre>
-       *é”™è¯¯ç±»å‹ï¼ˆæšä¸¾ï¼‰
+       *´íÎóÀàĞÍ£¨Ã¶¾Ù£©
        * </pre>
        */
       public Builder setErrorCode(com.fuwu.mobileim.model.Models.ResetPasswordResponse.ErrorCodeType value) {
@@ -31000,7 +31113,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.ResetPasswordResponse.ErrorCodeType errorCode = 2;</code>
        *
        * <pre>
-       *é”™è¯¯ç±»å‹ï¼ˆæšä¸¾ï¼‰
+       *´íÎóÀàĞÍ£¨Ã¶¾Ù£©
        * </pre>
        */
       public Builder clearErrorCode() {
@@ -31029,7 +31142,7 @@ public final class Models {
      * <code>optional string phoneNumber = 1;</code>
      *
      * <pre>
-     *æ‰‹æœºå·ç 
+     *ÊÖ»úºÅÂë
      * </pre>
      */
     boolean hasPhoneNumber();
@@ -31037,7 +31150,7 @@ public final class Models {
      * <code>optional string phoneNumber = 1;</code>
      *
      * <pre>
-     *æ‰‹æœºå·ç 
+     *ÊÖ»úºÅÂë
      * </pre>
      */
     java.lang.String getPhoneNumber();
@@ -31045,7 +31158,7 @@ public final class Models {
      * <code>optional string phoneNumber = 1;</code>
      *
      * <pre>
-     *æ‰‹æœºå·ç 
+     *ÊÖ»úºÅÂë
      * </pre>
      */
     com.google.protobuf.ByteString
@@ -31056,7 +31169,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.ValidateCodeRequest.ValidateType type = 2;</code>
      *
      * <pre>
-     *å‘é€ç±»åˆ«
+     *·¢ËÍÀà±ğ
      * </pre>
      */
     boolean hasType();
@@ -31064,7 +31177,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.ValidateCodeRequest.ValidateType type = 2;</code>
      *
      * <pre>
-     *å‘é€ç±»åˆ«
+     *·¢ËÍÀà±ğ
      * </pre>
      */
     com.fuwu.mobileim.model.Models.ValidateCodeRequest.ValidateType getType();
@@ -31179,7 +31292,7 @@ public final class Models {
      * Protobuf enum {@code com.fuwu.mobileim.model.ValidateCodeRequest.ValidateType}
      *
      * <pre>
-     *å‘é€ç±»åˆ«æšä¸¾ç±»
+     *·¢ËÍÀà±ğÃ¶¾ÙÀà
      * </pre>
      */
     public enum ValidateType
@@ -31188,7 +31301,7 @@ public final class Models {
        * <code>Register = 1;</code>
        *
        * <pre>
-       *æ³¨å†Œ
+       *×¢²á
        * </pre>
        */
       Register(0, 1),
@@ -31196,7 +31309,7 @@ public final class Models {
        * <code>ChangePassword = 2;</code>
        *
        * <pre>
-       *ä¿®æ”¹å¯†ç 
+       *ĞŞ¸ÄÃÜÂë
        * </pre>
        */
       ChangePassword(1, 2),
@@ -31204,7 +31317,7 @@ public final class Models {
        * <code>ResetPassword = 3;</code>
        *
        * <pre>
-       *æ‰¾å›å¯†ç 
+       *ÕÒ»ØÃÜÂë
        * </pre>
        */
       ResetPassword(2, 3),
@@ -31214,7 +31327,7 @@ public final class Models {
        * <code>Register = 1;</code>
        *
        * <pre>
-       *æ³¨å†Œ
+       *×¢²á
        * </pre>
        */
       public static final int Register_VALUE = 1;
@@ -31222,7 +31335,7 @@ public final class Models {
        * <code>ChangePassword = 2;</code>
        *
        * <pre>
-       *ä¿®æ”¹å¯†ç 
+       *ĞŞ¸ÄÃÜÂë
        * </pre>
        */
       public static final int ChangePassword_VALUE = 2;
@@ -31230,7 +31343,7 @@ public final class Models {
        * <code>ResetPassword = 3;</code>
        *
        * <pre>
-       *æ‰¾å›å¯†ç 
+       *ÕÒ»ØÃÜÂë
        * </pre>
        */
       public static final int ResetPassword_VALUE = 3;
@@ -31302,7 +31415,7 @@ public final class Models {
      * <code>optional string phoneNumber = 1;</code>
      *
      * <pre>
-     *æ‰‹æœºå·ç 
+     *ÊÖ»úºÅÂë
      * </pre>
      */
     public boolean hasPhoneNumber() {
@@ -31312,7 +31425,7 @@ public final class Models {
      * <code>optional string phoneNumber = 1;</code>
      *
      * <pre>
-     *æ‰‹æœºå·ç 
+     *ÊÖ»úºÅÂë
      * </pre>
      */
     public java.lang.String getPhoneNumber() {
@@ -31333,7 +31446,7 @@ public final class Models {
      * <code>optional string phoneNumber = 1;</code>
      *
      * <pre>
-     *æ‰‹æœºå·ç 
+     *ÊÖ»úºÅÂë
      * </pre>
      */
     public com.google.protobuf.ByteString
@@ -31357,7 +31470,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.ValidateCodeRequest.ValidateType type = 2;</code>
      *
      * <pre>
-     *å‘é€ç±»åˆ«
+     *·¢ËÍÀà±ğ
      * </pre>
      */
     public boolean hasType() {
@@ -31367,7 +31480,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.ValidateCodeRequest.ValidateType type = 2;</code>
      *
      * <pre>
-     *å‘é€ç±»åˆ«
+     *·¢ËÍÀà±ğ
      * </pre>
      */
     public com.fuwu.mobileim.model.Models.ValidateCodeRequest.ValidateType getType() {
@@ -31626,7 +31739,7 @@ public final class Models {
        * <code>optional string phoneNumber = 1;</code>
        *
        * <pre>
-       *æ‰‹æœºå·ç 
+       *ÊÖ»úºÅÂë
        * </pre>
        */
       public boolean hasPhoneNumber() {
@@ -31636,7 +31749,7 @@ public final class Models {
        * <code>optional string phoneNumber = 1;</code>
        *
        * <pre>
-       *æ‰‹æœºå·ç 
+       *ÊÖ»úºÅÂë
        * </pre>
        */
       public java.lang.String getPhoneNumber() {
@@ -31654,7 +31767,7 @@ public final class Models {
        * <code>optional string phoneNumber = 1;</code>
        *
        * <pre>
-       *æ‰‹æœºå·ç 
+       *ÊÖ»úºÅÂë
        * </pre>
        */
       public com.google.protobuf.ByteString
@@ -31674,7 +31787,7 @@ public final class Models {
        * <code>optional string phoneNumber = 1;</code>
        *
        * <pre>
-       *æ‰‹æœºå·ç 
+       *ÊÖ»úºÅÂë
        * </pre>
        */
       public Builder setPhoneNumber(
@@ -31691,7 +31804,7 @@ public final class Models {
        * <code>optional string phoneNumber = 1;</code>
        *
        * <pre>
-       *æ‰‹æœºå·ç 
+       *ÊÖ»úºÅÂë
        * </pre>
        */
       public Builder clearPhoneNumber() {
@@ -31704,7 +31817,7 @@ public final class Models {
        * <code>optional string phoneNumber = 1;</code>
        *
        * <pre>
-       *æ‰‹æœºå·ç 
+       *ÊÖ»úºÅÂë
        * </pre>
        */
       public Builder setPhoneNumberBytes(
@@ -31724,7 +31837,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.ValidateCodeRequest.ValidateType type = 2;</code>
        *
        * <pre>
-       *å‘é€ç±»åˆ«
+       *·¢ËÍÀà±ğ
        * </pre>
        */
       public boolean hasType() {
@@ -31734,7 +31847,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.ValidateCodeRequest.ValidateType type = 2;</code>
        *
        * <pre>
-       *å‘é€ç±»åˆ«
+       *·¢ËÍÀà±ğ
        * </pre>
        */
       public com.fuwu.mobileim.model.Models.ValidateCodeRequest.ValidateType getType() {
@@ -31744,7 +31857,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.ValidateCodeRequest.ValidateType type = 2;</code>
        *
        * <pre>
-       *å‘é€ç±»åˆ«
+       *·¢ËÍÀà±ğ
        * </pre>
        */
       public Builder setType(com.fuwu.mobileim.model.Models.ValidateCodeRequest.ValidateType value) {
@@ -31760,7 +31873,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.ValidateCodeRequest.ValidateType type = 2;</code>
        *
        * <pre>
-       *å‘é€ç±»åˆ«
+       *·¢ËÍÀà±ğ
        * </pre>
        */
       public Builder clearType() {
@@ -31919,7 +32032,7 @@ public final class Models {
        * <code>BadRequest = 1;</code>
        *
        * <pre>
-       *åºåˆ—åŒ–å‚æ•°å‡ºé”™
+       *ĞòÁĞ»¯²ÎÊı³ö´í
        * </pre>
        */
       BadRequest(0, 1),
@@ -31927,7 +32040,7 @@ public final class Models {
        * <code>InvalidPhoneNumber = 2;</code>
        *
        * <pre>
-       *æ‰‹æœºå·ç æœ‰è¯¯
+       *ÊÖ»úºÅÂëÓĞÎó
        * </pre>
        */
       InvalidPhoneNumber(1, 2),
@@ -31935,7 +32048,7 @@ public final class Models {
        * <code>InvalidType = 3;</code>
        *
        * <pre>
-       *å‘é€ç±»å‹æœ‰è¯¯
+       *·¢ËÍÀàĞÍÓĞÎó
        * </pre>
        */
       InvalidType(2, 3),
@@ -31943,7 +32056,7 @@ public final class Models {
        * <code>ExistingUserYes = 4;</code>
        *
        * <pre>
-       *ç”¨æˆ·å·²å­˜åœ¨
+       *ÓÃ»§ÒÑ´æÔÚ
        * </pre>
        */
       ExistingUserYes(3, 4),
@@ -31951,7 +32064,7 @@ public final class Models {
        * <code>ExistingUserNo = 5;</code>
        *
        * <pre>
-       *ç”¨æˆ·ä¸å­˜åœ¨
+       *ÓÃ»§²»´æÔÚ
        * </pre>
        */
       ExistingUserNo(4, 5),
@@ -31959,7 +32072,7 @@ public final class Models {
        * <code>LockTime = 6;</code>
        *
        * <pre>
-       *é™å®šçš„æ—¶é—´å†…ä¸èƒ½é‡å¤å‘é€
+       *ÏŞ¶¨µÄÊ±¼äÄÚ²»ÄÜÖØ¸´·¢ËÍ
        * </pre>
        */
       LockTime(5, 6),
@@ -31967,7 +32080,7 @@ public final class Models {
        * <code>SendError = 7;</code>
        *
        * <pre>
-       *çŸ­ä¿¡æœåŠ¡å‡ºé”™ï¼Œå‘é€å¤±è´¥
+       *¶ÌĞÅ·şÎñ³ö´í£¬·¢ËÍÊ§°Ü
        * </pre>
        */
       SendError(6, 7),
@@ -31977,7 +32090,7 @@ public final class Models {
        * <code>BadRequest = 1;</code>
        *
        * <pre>
-       *åºåˆ—åŒ–å‚æ•°å‡ºé”™
+       *ĞòÁĞ»¯²ÎÊı³ö´í
        * </pre>
        */
       public static final int BadRequest_VALUE = 1;
@@ -31985,7 +32098,7 @@ public final class Models {
        * <code>InvalidPhoneNumber = 2;</code>
        *
        * <pre>
-       *æ‰‹æœºå·ç æœ‰è¯¯
+       *ÊÖ»úºÅÂëÓĞÎó
        * </pre>
        */
       public static final int InvalidPhoneNumber_VALUE = 2;
@@ -31993,7 +32106,7 @@ public final class Models {
        * <code>InvalidType = 3;</code>
        *
        * <pre>
-       *å‘é€ç±»å‹æœ‰è¯¯
+       *·¢ËÍÀàĞÍÓĞÎó
        * </pre>
        */
       public static final int InvalidType_VALUE = 3;
@@ -32001,7 +32114,7 @@ public final class Models {
        * <code>ExistingUserYes = 4;</code>
        *
        * <pre>
-       *ç”¨æˆ·å·²å­˜åœ¨
+       *ÓÃ»§ÒÑ´æÔÚ
        * </pre>
        */
       public static final int ExistingUserYes_VALUE = 4;
@@ -32009,7 +32122,7 @@ public final class Models {
        * <code>ExistingUserNo = 5;</code>
        *
        * <pre>
-       *ç”¨æˆ·ä¸å­˜åœ¨
+       *ÓÃ»§²»´æÔÚ
        * </pre>
        */
       public static final int ExistingUserNo_VALUE = 5;
@@ -32017,7 +32130,7 @@ public final class Models {
        * <code>LockTime = 6;</code>
        *
        * <pre>
-       *é™å®šçš„æ—¶é—´å†…ä¸èƒ½é‡å¤å‘é€
+       *ÏŞ¶¨µÄÊ±¼äÄÚ²»ÄÜÖØ¸´·¢ËÍ
        * </pre>
        */
       public static final int LockTime_VALUE = 6;
@@ -32025,7 +32138,7 @@ public final class Models {
        * <code>SendError = 7;</code>
        *
        * <pre>
-       *çŸ­ä¿¡æœåŠ¡å‡ºé”™ï¼Œå‘é€å¤±è´¥
+       *¶ÌĞÅ·şÎñ³ö´í£¬·¢ËÍÊ§°Ü
        * </pre>
        */
       public static final int SendError_VALUE = 7;
@@ -36422,7 +36535,7 @@ public final class Models {
    * Protobuf type {@code com.fuwu.mobileim.model.NoticePush}
    *
    * <pre>
-   * æš‚ä¸æ”¯æŒ
+   * Ôİ²»Ö§³Ö
    * </pre>
    */
   public static final class NoticePush extends
@@ -36616,7 +36729,7 @@ public final class Models {
      * Protobuf type {@code com.fuwu.mobileim.model.NoticePush}
      *
      * <pre>
-     * æš‚ä¸æ”¯æŒ
+     * Ôİ²»Ö§³Ö
      * </pre>
      */
     public static final class Builder extends
@@ -38410,7 +38523,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.MessageConfirmedResponse.ErrorCodeType errorCode = 2;</code>
      *
      * <pre>
-     *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+     *´íÎó´úÂë£¨Ã¶¾Ù£©
      * </pre>
      */
     boolean hasErrorCode();
@@ -38418,7 +38531,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.MessageConfirmedResponse.ErrorCodeType errorCode = 2;</code>
      *
      * <pre>
-     *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+     *´íÎó´úÂë£¨Ã¶¾Ù£©
      * </pre>
      */
     com.fuwu.mobileim.model.Models.MessageConfirmedResponse.ErrorCodeType getErrorCode();
@@ -38538,7 +38651,7 @@ public final class Models {
        * <code>InvalidToken = 2001;</code>
        *
        * <pre>
-       *tokenå¤±æ•ˆ
+       *tokenÊ§Ğ§
        * </pre>
        */
       InvalidToken(0, 2001),
@@ -38548,7 +38661,7 @@ public final class Models {
        * <code>InvalidToken = 2001;</code>
        *
        * <pre>
-       *tokenå¤±æ•ˆ
+       *tokenÊ§Ğ§
        * </pre>
        */
       public static final int InvalidToken_VALUE = 2001;
@@ -38634,7 +38747,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.MessageConfirmedResponse.ErrorCodeType errorCode = 2;</code>
      *
      * <pre>
-     *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+     *´íÎó´úÂë£¨Ã¶¾Ù£©
      * </pre>
      */
     public boolean hasErrorCode() {
@@ -38644,7 +38757,7 @@ public final class Models {
      * <code>optional .com.fuwu.mobileim.model.MessageConfirmedResponse.ErrorCodeType errorCode = 2;</code>
      *
      * <pre>
-     *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+     *´íÎó´úÂë£¨Ã¶¾Ù£©
      * </pre>
      */
     public com.fuwu.mobileim.model.Models.MessageConfirmedResponse.ErrorCodeType getErrorCode() {
@@ -38934,7 +39047,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.MessageConfirmedResponse.ErrorCodeType errorCode = 2;</code>
        *
        * <pre>
-       *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+       *´íÎó´úÂë£¨Ã¶¾Ù£©
        * </pre>
        */
       public boolean hasErrorCode() {
@@ -38944,7 +39057,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.MessageConfirmedResponse.ErrorCodeType errorCode = 2;</code>
        *
        * <pre>
-       *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+       *´íÎó´úÂë£¨Ã¶¾Ù£©
        * </pre>
        */
       public com.fuwu.mobileim.model.Models.MessageConfirmedResponse.ErrorCodeType getErrorCode() {
@@ -38954,7 +39067,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.MessageConfirmedResponse.ErrorCodeType errorCode = 2;</code>
        *
        * <pre>
-       *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+       *´íÎó´úÂë£¨Ã¶¾Ù£©
        * </pre>
        */
       public Builder setErrorCode(com.fuwu.mobileim.model.Models.MessageConfirmedResponse.ErrorCodeType value) {
@@ -38970,7 +39083,7 @@ public final class Models {
        * <code>optional .com.fuwu.mobileim.model.MessageConfirmedResponse.ErrorCodeType errorCode = 2;</code>
        *
        * <pre>
-       *é”™è¯¯ä»£ç ï¼ˆæšä¸¾ï¼‰
+       *´íÎó´úÂë£¨Ã¶¾Ù£©
        * </pre>
        */
       public Builder clearErrorCode() {
@@ -40087,7 +40200,7 @@ public final class Models {
       "se.ErrorCodeType\"j\n\rErrorCodeType\022\016\n\nBad" +
       "Request\020\001\022\021\n\rInvalidUserId\020\002\022\020\n\014InvalidT" +
       "oken\020\003\022\017\n\013InvalidUser\020\004\022\023\n\017InvalidDataba" +
-      "se\020\005\"\362\003\n\007Contact\022\021\n\tcontactId\030\001 \001(\005\022\014\n\004n" +
+      "se\020\005\"\214\004\n\007Contact\022\021\n\tcontactId\030\001 \001(\005\022\014\n\004n" +
       "ame\030\002 \001(\t\022\022\n\ncustomName\030\003 \001(\t\022\016\n\006pinyin\030",
       "\004 \001(\t\022\021\n\tisBlocked\030\005 \001(\010\022\027\n\017lastContactT" +
       "ime\030\006 \001(\t\022;\n\006gender\030\007 \001(\0162+.com.fuwu.mob" +
@@ -40098,170 +40211,171 @@ public final class Models {
       "\022\025\n\rsubscribeTime\030\017 \001(\t\022\020\n\010location\030\020 \001(" +
       "\t\022\022\n\ncenterLink\030\021 \001(\t\0222\n\010licenses\030\022 \003(\0132" +
       " .com.fuwu.mobileim.model.License\022\025\n\rbac" +
-      "kgroundUrl\030\023 \001(\t\"/\n\nGenderType\022\010\n\004Male\020\000",
-      "\022\n\n\006Female\020\001\022\013\n\007Privacy\020\002\"B\n\016ContactRequ" +
-      "est\022\r\n\005token\030\001 \001(\t\022\016\n\006userId\030\002 \001(\005\022\021\n\tti" +
-      "meStamp\030\003 \001(\t\"\332\001\n\017ContactResponse\022\021\n\tisS" +
-      "ucceed\030\001 \001(\010\0222\n\010contacts\030\002 \003(\0132 .com.fuw" +
-      "u.mobileim.model.Contact\022\021\n\ttimeStamp\030\003 " +
-      "\001(\t\022I\n\terrorCode\030\004 \001(\01626.com.fuwu.mobile" +
-      "im.model.ContactResponse.ErrorCodeType\"\"" +
-      "\n\rErrorCodeType\022\021\n\014InvalidToken\020\321\017\"Z\n\023Bl" +
-      "ockContactRequest\022\r\n\005token\030\001 \001(\t\022\016\n\006user" +
-      "Id\030\002 \001(\005\022\021\n\tcontactId\030\003 \001(\005\022\021\n\tisBlocked",
-      "\030\004 \001(\010\"\303\001\n\024BlockContactResponse\022\021\n\tisSuc" +
-      "ceed\030\001 \001(\010\022\021\n\tcontactId\030\002 \001(\005\022\021\n\tisBlock" +
-      "ed\030\003 \001(\010\022N\n\terrorCode\030\004 \001(\0162;.com.fuwu.m" +
-      "obileim.model.BlockContactResponse.Error" +
-      "CodeType\"\"\n\rErrorCodeType\022\021\n\014InvalidToke" +
-      "n\020\321\017\"H\n\024ContactDetailRequest\022\r\n\005token\030\001 " +
-      "\001(\t\022\016\n\006userId\030\002 \001(\005\022\021\n\tcontactId\030\003 \001(\005\"\322" +
-      "\001\n\025ContactDetailResponse\022\021\n\tisSucceed\030\001 " +
-      "\001(\010\0221\n\007contact\030\002 \001(\0132 .com.fuwu.mobileim" +
-      ".model.Contact\022O\n\terrorCode\030\003 \001(\0162<.com.",
-      "fuwu.mobileim.model.ContactDetailRespons" +
-      "e.ErrorCodeType\"\"\n\rErrorCodeType\022\021\n\014Inva" +
-      "lidToken\020\321\017\"n\n\032ChangeContactDetailReques" +
-      "t\022\r\n\005token\030\001 \001(\t\022\016\n\006userId\030\002 \001(\005\0221\n\007cont" +
-      "act\030\003 \001(\0132 .com.fuwu.mobileim.model.Cont" +
-      "act\"\336\001\n\033ChangeContactDetailResponse\022\021\n\ti" +
-      "sSucceed\030\001 \001(\010\0221\n\007contact\030\002 \001(\0132 .com.fu" +
-      "wu.mobileim.model.Contact\022U\n\terrorCode\030\003" +
-      " \001(\0162B.com.fuwu.mobileim.model.ChangeCon" +
-      "tactDetailResponse.ErrorCodeType\"\"\n\rErro",
-      "rCodeType\022\021\n\014InvalidToken\020\321\017\"\261\003\n\007Profile" +
-      "\022\016\n\006userId\030\001 \001(\005\022\014\n\004name\030\002 \001(\t\022\020\n\010nickNa" +
-      "me\030\003 \001(\t\022;\n\006gender\030\004 \001(\0162+.com.fuwu.mobi" +
-      "leim.model.Profile.GenderType\022\026\n\016mobileP" +
-      "honeNum\030\005 \001(\t\022\r\n\005email\030\006 \001(\t\022\020\n\010birthday" +
-      "\030\007 \001(\t\022\017\n\007tileUrl\030\010 \001(\t\022\022\n\nisProvider\030\t " +
-      "\001(\010\022\017\n\007lisence\030\n \001(\t\022\030\n\020isAuthentication" +
-      "\030\013 \001(\010\022\r\n\005fuzhi\030\014 \001(\t\0222\n\010licenses\030\r \003(\0132" +
-      " .com.fuwu.mobileim.model.License\022\020\n\010loc" +
-      "ation\030\016 \001(\t\022\023\n\013description\030\017 \001(\t\022\025\n\rback",
-      "groundUrl\030\020 \001(\t\"/\n\nGenderType\022\010\n\004Male\020\000\022" +
-      "\n\n\006Female\020\001\022\013\n\007Privacy\020\002\"/\n\016ProfileReque" +
-      "st\022\r\n\005token\030\001 \001(\t\022\016\n\006userId\030\002 \001(\005\"\306\001\n\017Pr" +
-      "ofileResponse\022\021\n\tisSucceed\030\001 \001(\010\0221\n\007prof" +
-      "ile\030\002 \001(\0132 .com.fuwu.mobileim.model.Prof" +
-      "ile\022I\n\terrorCode\030\003 \001(\01626.com.fuwu.mobile" +
-      "im.model.ProfileResponse.ErrorCodeType\"\"" +
-      "\n\rErrorCodeType\022\021\n\014InvalidToken\020\321\017\"~\n\024Ch" +
-      "angeProfileRequest\022\r\n\005token\030\001 \001(\t\022\016\n\006use" +
-      "rId\030\002 \001(\005\022\021\n\tsignature\030\003 \001(\t\022\r\n\005tiles\030\004 ",
-      "\001(\014\022\023\n\013contentType\030\005 \001(\t\022\020\n\010nickName\030\006 \001" +
-      "(\t\"\322\001\n\025ChangeProfileResponse\022\021\n\tisSuccee" +
-      "d\030\001 \001(\010\0221\n\007profile\030\002 \001(\0132 .com.fuwu.mobi" +
-      "leim.model.Profile\022O\n\terrorCode\030\003 \001(\0162<." +
-      "com.fuwu.mobileim.model.ChangeProfileRes" +
-      "ponse.ErrorCodeType\"\"\n\rErrorCodeType\022\021\n\014" +
-      "InvalidToken\020\321\017\"\300\002\n\007Message\022\016\n\006userId\030\001 " +
-      "\001(\005\022\021\n\tcontactId\030\002 \001(\005\022A\n\013contentType\030\003 " +
-      "\001(\0162,.com.fuwu.mobileim.model.Message.Co" +
-      "ntentType\022\017\n\007content\030\004 \001(\t\022\020\n\010sendTime\030\005",
-      " \001(\t\022=\n\timageType\030\006 \001(\0162*.com.fuwu.mobil" +
-      "eim.model.Message.ImageType\022\025\n\rbinaryCon" +
-      "tent\030\007 \001(\014\".\n\013ContentType\022\010\n\004Text\020\000\022\t\n\005I" +
-      "mage\020\001\022\n\n\006Notice\020\002\"&\n\tImageType\022\007\n\003JPG\020\000" +
-      "\022\007\n\003PNG\020\001\022\007\n\003GIF\020\002\"T\n\013MessageList\022\021\n\tcon" +
-      "tactId\030\001 \001(\005\0222\n\010messages\030\002 \003(\0132 .com.fuw" +
-      "u.mobileim.model.Message\"B\n\016MessageReque" +
-      "st\022\r\n\005token\030\001 \001(\t\022\016\n\006userId\030\002 \001(\005\022\021\n\ttim" +
-      "eStamp\030\003 \001(\t\"\342\001\n\017MessageResponse\022\021\n\tisSu" +
-      "cceed\030\001 \001(\010\022:\n\014messageLists\030\002 \003(\0132$.com.",
-      "fuwu.mobileim.model.MessageList\022\021\n\ttimeS" +
-      "tamp\030\003 \001(\t\022I\n\terrorCode\030\004 \001(\01626.com.fuwu" +
-      ".mobileim.model.MessageResponse.ErrorCod" +
+      "kgroundUrl\030\023 \001(\t\022\030\n\020isAuthentication\030\024 \001",
+      "(\010\"/\n\nGenderType\022\010\n\004Male\020\000\022\n\n\006Female\020\001\022\013" +
+      "\n\007Privacy\020\002\"B\n\016ContactRequest\022\r\n\005token\030\001" +
+      " \001(\t\022\016\n\006userId\030\002 \001(\005\022\021\n\ttimeStamp\030\003 \001(\t\"" +
+      "\332\001\n\017ContactResponse\022\021\n\tisSucceed\030\001 \001(\010\0222" +
+      "\n\010contacts\030\002 \003(\0132 .com.fuwu.mobileim.mod" +
+      "el.Contact\022\021\n\ttimeStamp\030\003 \001(\t\022I\n\terrorCo" +
+      "de\030\004 \001(\01626.com.fuwu.mobileim.model.Conta" +
+      "ctResponse.ErrorCodeType\"\"\n\rErrorCodeTyp" +
+      "e\022\021\n\014InvalidToken\020\321\017\"Z\n\023BlockContactRequ" +
+      "est\022\r\n\005token\030\001 \001(\t\022\016\n\006userId\030\002 \001(\005\022\021\n\tco",
+      "ntactId\030\003 \001(\005\022\021\n\tisBlocked\030\004 \001(\010\"\303\001\n\024Blo" +
+      "ckContactResponse\022\021\n\tisSucceed\030\001 \001(\010\022\021\n\t" +
+      "contactId\030\002 \001(\005\022\021\n\tisBlocked\030\003 \001(\010\022N\n\ter" +
+      "rorCode\030\004 \001(\0162;.com.fuwu.mobileim.model." +
+      "BlockContactResponse.ErrorCodeType\"\"\n\rEr" +
+      "rorCodeType\022\021\n\014InvalidToken\020\321\017\"H\n\024Contac" +
+      "tDetailRequest\022\r\n\005token\030\001 \001(\t\022\016\n\006userId\030" +
+      "\002 \001(\005\022\021\n\tcontactId\030\003 \001(\005\"\322\001\n\025ContactDeta" +
+      "ilResponse\022\021\n\tisSucceed\030\001 \001(\010\0221\n\007contact" +
+      "\030\002 \001(\0132 .com.fuwu.mobileim.model.Contact",
+      "\022O\n\terrorCode\030\003 \001(\0162<.com.fuwu.mobileim." +
+      "model.ContactDetailResponse.ErrorCodeTyp" +
+      "e\"\"\n\rErrorCodeType\022\021\n\014InvalidToken\020\321\017\"n\n" +
+      "\032ChangeContactDetailRequest\022\r\n\005token\030\001 \001" +
+      "(\t\022\016\n\006userId\030\002 \001(\005\0221\n\007contact\030\003 \001(\0132 .co" +
+      "m.fuwu.mobileim.model.Contact\"\336\001\n\033Change" +
+      "ContactDetailResponse\022\021\n\tisSucceed\030\001 \001(\010" +
+      "\0221\n\007contact\030\002 \001(\0132 .com.fuwu.mobileim.mo" +
+      "del.Contact\022U\n\terrorCode\030\003 \001(\0162B.com.fuw" +
+      "u.mobileim.model.ChangeContactDetailResp",
+      "onse.ErrorCodeType\"\"\n\rErrorCodeType\022\021\n\014I" +
+      "nvalidToken\020\321\017\"\261\003\n\007Profile\022\016\n\006userId\030\001 \001" +
+      "(\005\022\014\n\004name\030\002 \001(\t\022\020\n\010nickName\030\003 \001(\t\022;\n\006ge" +
+      "nder\030\004 \001(\0162+.com.fuwu.mobileim.model.Pro" +
+      "file.GenderType\022\026\n\016mobilePhoneNum\030\005 \001(\t\022" +
+      "\r\n\005email\030\006 \001(\t\022\020\n\010birthday\030\007 \001(\t\022\017\n\007tile" +
+      "Url\030\010 \001(\t\022\022\n\nisProvider\030\t \001(\010\022\017\n\007lisence" +
+      "\030\n \001(\t\022\030\n\020isAuthentication\030\013 \001(\010\022\r\n\005fuzh" +
+      "i\030\014 \001(\t\0222\n\010licenses\030\r \003(\0132 .com.fuwu.mob" +
+      "ileim.model.License\022\020\n\010location\030\016 \001(\t\022\023\n",
+      "\013description\030\017 \001(\t\022\025\n\rbackgroundUrl\030\020 \001(" +
+      "\t\"/\n\nGenderType\022\010\n\004Male\020\000\022\n\n\006Female\020\001\022\013\n" +
+      "\007Privacy\020\002\"/\n\016ProfileRequest\022\r\n\005token\030\001 " +
+      "\001(\t\022\016\n\006userId\030\002 \001(\005\"\306\001\n\017ProfileResponse\022" +
+      "\021\n\tisSucceed\030\001 \001(\010\0221\n\007profile\030\002 \001(\0132 .co" +
+      "m.fuwu.mobileim.model.Profile\022I\n\terrorCo" +
+      "de\030\003 \001(\01626.com.fuwu.mobileim.model.Profi" +
+      "leResponse.ErrorCodeType\"\"\n\rErrorCodeTyp" +
+      "e\022\021\n\014InvalidToken\020\321\017\"~\n\024ChangeProfileReq" +
+      "uest\022\r\n\005token\030\001 \001(\t\022\016\n\006userId\030\002 \001(\005\022\021\n\ts",
+      "ignature\030\003 \001(\t\022\r\n\005tiles\030\004 \001(\014\022\023\n\013content" +
+      "Type\030\005 \001(\t\022\020\n\010nickName\030\006 \001(\t\"\322\001\n\025ChangeP" +
+      "rofileResponse\022\021\n\tisSucceed\030\001 \001(\010\0221\n\007pro" +
+      "file\030\002 \001(\0132 .com.fuwu.mobileim.model.Pro" +
+      "file\022O\n\terrorCode\030\003 \001(\0162<.com.fuwu.mobil" +
+      "eim.model.ChangeProfileResponse.ErrorCod" +
       "eType\"\"\n\rErrorCodeType\022\021\n\014InvalidToken\020\321" +
-      "\017\"f\n\022SendMessageRequest\022\r\n\005token\030\001 \001(\t\022\016" +
-      "\n\006userId\030\002 \001(\005\0221\n\007message\030\003 \001(\0132 .com.fu" +
-      "wu.mobileim.model.Message\"\255\001\n\023SendMessag" +
-      "eResponse\022\021\n\tisSucceed\030\001 \001(\010\022\020\n\010sendTime" +
-      "\030\002 \001(\t\022M\n\terrorCode\030\003 \001(\0162:.com.fuwu.mob" +
-      "ileim.model.SendMessageResponse.ErrorCod",
-      "eType\"\"\n\rErrorCodeType\022\021\n\014InvalidToken\020\321" +
-      "\017\"m\n\017RegisterRequest\022\031\n\021mobilePhoneNumbe" +
-      "r\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\022\027\n\017passwordCon" +
-      "firm\030\003 \001(\t\022\024\n\014validateCode\030\004 \001(\t\"\336\002\n\020Reg" +
-      "isterResponse\022\021\n\tisSucceed\030\001 \001(\010\022\016\n\006user" +
-      "Id\030\002 \001(\005\022\r\n\005token\030\003 \001(\t\022J\n\terrorCode\030\004 \001" +
-      "(\01627.com.fuwu.mobileim.model.RegisterRes" +
-      "ponse.ErrorCodeType\"\313\001\n\rErrorCodeType\022\016\n" +
-      "\nBadRequest\020\001\022\023\n\017InvalidDatabase\020\002\022\034\n\030In" +
-      "validMobilePhoneNumber\020\003\022\023\n\017ExistingUser",
-      "Yes\020\004\022\023\n\017InvalidPassword\020\005\022\032\n\026InvalidCon" +
-      "firmPassword\020\006\022\030\n\024InvalidMatchPassword\020\007" +
-      "\022\027\n\023InvalidValidateCode\020\010\"\221\001\n\025ChangePass" +
-      "wordRequest\022\r\n\005token\030\001 \001(\t\022\016\n\006userId\030\002 \001" +
-      "(\005\022\024\n\014validateCode\030\003 \001(\t\022\030\n\020originalPass" +
-      "word\030\004 \001(\t\022\020\n\010password\030\005 \001(\t\022\027\n\017password" +
-      "Confirm\030\006 \001(\t\"\377\002\n\026ChangePasswordResponse" +
-      "\022\021\n\tisSucceed\030\001 \001(\010\022P\n\terrorCode\030\002 \001(\0162=" +
-      ".com.fuwu.mobileim.model.ChangePasswordR" +
-      "esponse.ErrorCodeType\"\377\001\n\rErrorCodeType\022",
-      "\016\n\nBadRequest\020\001\022\021\n\rInvalidUserId\020\002\022\020\n\014In" +
-      "validToken\020\003\022\017\n\013InvalidUser\020\004\022\023\n\017Invalid" +
-      "Database\020\005\022\022\n\016ExistingUserNo\020\006\022\033\n\027Invali" +
-      "dOriginalPassword\020\007\022\023\n\017InvalidPassword\020\010" +
-      "\022\032\n\026InvalidConfirmPassword\020\t\022\030\n\024InvalidM" +
-      "atchPassword\020\n\022\027\n\023InvalidValidateCode\020\013\"" +
-      "l\n\024ResetPasswordRequest\022\023\n\013phoneNumber\030\001" +
-      " \001(\t\022\024\n\014validateCode\030\002 \001(\t\022\020\n\010password\030\003" +
-      " \001(\t\022\027\n\017passwordConfirm\030\004 \001(\t\"\302\002\n\025ResetP" +
-      "asswordResponse\022\021\n\tisSucceed\030\001 \001(\010\022O\n\ter",
-      "rorCode\030\002 \001(\0162<.com.fuwu.mobileim.model." +
-      "ResetPasswordResponse.ErrorCodeType\"\304\001\n\r" +
-      "ErrorCodeType\022\016\n\nBadRequest\020\001\022\023\n\017Invalid" +
-      "Database\020\002\022\026\n\022InvalidPhoneNumber\020\003\022\023\n\017In" +
-      "validPassword\020\004\022\032\n\026InvalidPasswordConfir" +
-      "m\020\005\022\030\n\024InvalidMatchPassword\020\006\022\027\n\023Invalid" +
-      "ValidateCode\020\007\022\022\n\016ExistingUserNo\020\010\"\270\001\n\023V" +
-      "alidateCodeRequest\022\023\n\013phoneNumber\030\001 \001(\t\022" +
-      "G\n\004type\030\002 \001(\01629.com.fuwu.mobileim.model." +
-      "ValidateCodeRequest.ValidateType\"C\n\014Vali",
-      "dateType\022\014\n\010Register\020\001\022\022\n\016ChangePassword" +
-      "\020\002\022\021\n\rResetPassword\020\003\"\212\002\n\024ValidateCodeRe" +
-      "sponse\022\021\n\tisSucceed\030\001 \001(\010\022N\n\terrorCode\030\002" +
-      " \001(\0162;.com.fuwu.mobileim.model.ValidateC" +
-      "odeResponse.ErrorCodeType\"\216\001\n\rErrorCodeT" +
-      "ype\022\016\n\nBadRequest\020\001\022\026\n\022InvalidPhoneNumbe" +
-      "r\020\002\022\017\n\013InvalidType\020\003\022\023\n\017ExistingUserYes\020" +
-      "\004\022\022\n\016ExistingUserNo\020\005\022\014\n\010LockTime\020\006\022\r\n\tS" +
-      "endError\020\007\"\206\002\n\nClientInfo\022\020\n\010deviceId\030\001 " +
-      "\001(\t\022:\n\006osType\030\002 \001(\0162*.com.fuwu.mobileim.",
-      "model.ClientInfo.OSType\022\021\n\tOSVersion\030\003 \001" +
-      "(\t\022\016\n\006userId\030\004 \001(\005\022\017\n\007channel\030\005 \001(\005\022\025\n\rc" +
-      "lientVersion\030\006 \001(\t\022\024\n\014isPushEnable\030\007 \001(\010" +
-      "\"I\n\006OSType\022\n\n\006Others\020\000\022\007\n\003IOS\020\001\022\013\n\007Andro" +
-      "id\020\002\022\020\n\014WindowsPhone\020\003\022\013\n\007Symbian\020\004\"k\n\021C" +
-      "lientInfoRequest\022\016\n\006userId\030\001 \001(\005\022\r\n\005toke" +
-      "n\030\002 \001(\t\0227\n\nclientInfo\030\003 \001(\0132#.com.fuwu.m" +
-      "obileim.model.ClientInfo\"\234\002\n\022ClientInfoR" +
-      "esponse\022\021\n\tisSucceed\030\001 \001(\010\022L\n\terrorCode\030" +
-      "\002 \001(\01629.com.fuwu.mobileim.model.ClientIn",
-      "foResponse.ErrorCodeType\022\034\n\024isNewVersion" +
-      "Required\030\003 \001(\010\022\030\n\020newClientVersion\030\004 \001(\t" +
-      "\022\021\n\tclientUrl\030\005 \001(\t\022\025\n\rhasNewVersion\030\006 \001" +
-      "(\010\"C\n\rErrorCodeType\022\021\n\rInvalidUserId\020\001\022\020" +
-      "\n\014InvalidToken\020\002\022\r\n\tAuthError\020\003\"i\n\013Messa" +
-      "gePush\022\020\n\010senderId\030\001 \001(\005\022\021\n\tcontactId\030\002 " +
-      "\001(\005\022\022\n\nsenderName\030\003 \001(\t\022\017\n\007content\030\004 \001(\t" +
-      "\022\020\n\010sendTime\030\005 \001(\t\"\014\n\nNoticePush\"\347\001\n\013Pus" +
-      "hRequest\022?\n\010pushType\030\001 \001(\0162-.com.fuwu.mo" +
-      "bileim.model.PushRequest.PushType\0229\n\013mes",
-      "sagePush\030\002 \001(\0132$.com.fuwu.mobileim.model" +
-      ".MessagePush\0227\n\nnoticePush\030\003 \001(\0132#.com.f" +
-      "uwu.mobileim.model.NoticePush\"#\n\010PushTyp" +
-      "e\022\013\n\007Message\020\000\022\n\n\006Notice\020\001\"^\n\027MessageCon" +
-      "firmedRequest\022\016\n\006userId\030\001 \001(\005\022\r\n\005token\030\002" +
-      " \001(\t\022\021\n\tcontactId\030\003 \001(\005\022\021\n\ttimeStamp\030\004 \001" +
-      "(\t\"\245\001\n\030MessageConfirmedResponse\022\021\n\tisSuc" +
-      "ceed\030\001 \001(\010\022R\n\terrorCode\030\002 \001(\0162?.com.fuwu" +
-      ".mobileim.model.MessageConfirmedResponse" +
-      ".ErrorCodeType\"\"\n\rErrorCodeType\022\021\n\014Inval",
-      "idToken\020\321\017\"N\n\007License\022\014\n\004name\030\001 \001(\t\022\017\n\007i" +
-      "conUrl\030\002 \001(\t\022\r\n\005order\030\003 \001(\005\022\025\n\rbackgroun" +
-      "dUrl\030\004 \001(\tB\031\n\027com.fuwu.mobileim.model"
+      "\017\"\300\002\n\007Message\022\016\n\006userId\030\001 \001(\005\022\021\n\tcontact" +
+      "Id\030\002 \001(\005\022A\n\013contentType\030\003 \001(\0162,.com.fuwu" +
+      ".mobileim.model.Message.ContentType\022\017\n\007c",
+      "ontent\030\004 \001(\t\022\020\n\010sendTime\030\005 \001(\t\022=\n\timageT" +
+      "ype\030\006 \001(\0162*.com.fuwu.mobileim.model.Mess" +
+      "age.ImageType\022\025\n\rbinaryContent\030\007 \001(\014\".\n\013" +
+      "ContentType\022\010\n\004Text\020\000\022\t\n\005Image\020\001\022\n\n\006Noti" +
+      "ce\020\002\"&\n\tImageType\022\007\n\003JPG\020\000\022\007\n\003PNG\020\001\022\007\n\003G" +
+      "IF\020\002\"T\n\013MessageList\022\021\n\tcontactId\030\001 \001(\005\0222" +
+      "\n\010messages\030\002 \003(\0132 .com.fuwu.mobileim.mod" +
+      "el.Message\"B\n\016MessageRequest\022\r\n\005token\030\001 " +
+      "\001(\t\022\016\n\006userId\030\002 \001(\005\022\021\n\ttimeStamp\030\003 \001(\t\"\342" +
+      "\001\n\017MessageResponse\022\021\n\tisSucceed\030\001 \001(\010\022:\n",
+      "\014messageLists\030\002 \003(\0132$.com.fuwu.mobileim." +
+      "model.MessageList\022\021\n\ttimeStamp\030\003 \001(\t\022I\n\t" +
+      "errorCode\030\004 \001(\01626.com.fuwu.mobileim.mode" +
+      "l.MessageResponse.ErrorCodeType\"\"\n\rError" +
+      "CodeType\022\021\n\014InvalidToken\020\321\017\"f\n\022SendMessa" +
+      "geRequest\022\r\n\005token\030\001 \001(\t\022\016\n\006userId\030\002 \001(\005" +
+      "\0221\n\007message\030\003 \001(\0132 .com.fuwu.mobileim.mo" +
+      "del.Message\"\255\001\n\023SendMessageResponse\022\021\n\ti" +
+      "sSucceed\030\001 \001(\010\022\020\n\010sendTime\030\002 \001(\t\022M\n\terro" +
+      "rCode\030\003 \001(\0162:.com.fuwu.mobileim.model.Se",
+      "ndMessageResponse.ErrorCodeType\"\"\n\rError" +
+      "CodeType\022\021\n\014InvalidToken\020\321\017\"m\n\017RegisterR" +
+      "equest\022\031\n\021mobilePhoneNumber\030\001 \001(\t\022\020\n\010pas" +
+      "sword\030\002 \001(\t\022\027\n\017passwordConfirm\030\003 \001(\t\022\024\n\014" +
+      "validateCode\030\004 \001(\t\"\336\002\n\020RegisterResponse\022" +
+      "\021\n\tisSucceed\030\001 \001(\010\022\016\n\006userId\030\002 \001(\005\022\r\n\005to" +
+      "ken\030\003 \001(\t\022J\n\terrorCode\030\004 \001(\01627.com.fuwu." +
+      "mobileim.model.RegisterResponse.ErrorCod" +
+      "eType\"\313\001\n\rErrorCodeType\022\016\n\nBadRequest\020\001\022" +
+      "\023\n\017InvalidDatabase\020\002\022\034\n\030InvalidMobilePho",
+      "neNumber\020\003\022\023\n\017ExistingUserYes\020\004\022\023\n\017Inval" +
+      "idPassword\020\005\022\032\n\026InvalidConfirmPassword\020\006" +
+      "\022\030\n\024InvalidMatchPassword\020\007\022\027\n\023InvalidVal" +
+      "idateCode\020\010\"\221\001\n\025ChangePasswordRequest\022\r\n" +
+      "\005token\030\001 \001(\t\022\016\n\006userId\030\002 \001(\005\022\024\n\014validate" +
+      "Code\030\003 \001(\t\022\030\n\020originalPassword\030\004 \001(\t\022\020\n\010" +
+      "password\030\005 \001(\t\022\027\n\017passwordConfirm\030\006 \001(\t\"" +
+      "\377\002\n\026ChangePasswordResponse\022\021\n\tisSucceed\030" +
+      "\001 \001(\010\022P\n\terrorCode\030\002 \001(\0162=.com.fuwu.mobi" +
+      "leim.model.ChangePasswordResponse.ErrorC",
+      "odeType\"\377\001\n\rErrorCodeType\022\016\n\nBadRequest\020" +
+      "\001\022\021\n\rInvalidUserId\020\002\022\020\n\014InvalidToken\020\003\022\017" +
+      "\n\013InvalidUser\020\004\022\023\n\017InvalidDatabase\020\005\022\022\n\016" +
+      "ExistingUserNo\020\006\022\033\n\027InvalidOriginalPassw" +
+      "ord\020\007\022\023\n\017InvalidPassword\020\010\022\032\n\026InvalidCon" +
+      "firmPassword\020\t\022\030\n\024InvalidMatchPassword\020\n" +
+      "\022\027\n\023InvalidValidateCode\020\013\"l\n\024ResetPasswo" +
+      "rdRequest\022\023\n\013phoneNumber\030\001 \001(\t\022\024\n\014valida" +
+      "teCode\030\002 \001(\t\022\020\n\010password\030\003 \001(\t\022\027\n\017passwo" +
+      "rdConfirm\030\004 \001(\t\"\302\002\n\025ResetPasswordRespons",
+      "e\022\021\n\tisSucceed\030\001 \001(\010\022O\n\terrorCode\030\002 \001(\0162" +
+      "<.com.fuwu.mobileim.model.ResetPasswordR" +
+      "esponse.ErrorCodeType\"\304\001\n\rErrorCodeType\022" +
+      "\016\n\nBadRequest\020\001\022\023\n\017InvalidDatabase\020\002\022\026\n\022" +
+      "InvalidPhoneNumber\020\003\022\023\n\017InvalidPassword\020" +
+      "\004\022\032\n\026InvalidPasswordConfirm\020\005\022\030\n\024Invalid" +
+      "MatchPassword\020\006\022\027\n\023InvalidValidateCode\020\007" +
+      "\022\022\n\016ExistingUserNo\020\010\"\270\001\n\023ValidateCodeReq" +
+      "uest\022\023\n\013phoneNumber\030\001 \001(\t\022G\n\004type\030\002 \001(\0162" +
+      "9.com.fuwu.mobileim.model.ValidateCodeRe",
+      "quest.ValidateType\"C\n\014ValidateType\022\014\n\010Re" +
+      "gister\020\001\022\022\n\016ChangePassword\020\002\022\021\n\rResetPas" +
+      "sword\020\003\"\212\002\n\024ValidateCodeResponse\022\021\n\tisSu" +
+      "cceed\030\001 \001(\010\022N\n\terrorCode\030\002 \001(\0162;.com.fuw" +
+      "u.mobileim.model.ValidateCodeResponse.Er" +
+      "rorCodeType\"\216\001\n\rErrorCodeType\022\016\n\nBadRequ" +
+      "est\020\001\022\026\n\022InvalidPhoneNumber\020\002\022\017\n\013Invalid" +
+      "Type\020\003\022\023\n\017ExistingUserYes\020\004\022\022\n\016ExistingU" +
+      "serNo\020\005\022\014\n\010LockTime\020\006\022\r\n\tSendError\020\007\"\206\002\n" +
+      "\nClientInfo\022\020\n\010deviceId\030\001 \001(\t\022:\n\006osType\030",
+      "\002 \001(\0162*.com.fuwu.mobileim.model.ClientIn" +
+      "fo.OSType\022\021\n\tOSVersion\030\003 \001(\t\022\016\n\006userId\030\004" +
+      " \001(\005\022\017\n\007channel\030\005 \001(\005\022\025\n\rclientVersion\030\006" +
+      " \001(\t\022\024\n\014isPushEnable\030\007 \001(\010\"I\n\006OSType\022\n\n\006" +
+      "Others\020\000\022\007\n\003IOS\020\001\022\013\n\007Android\020\002\022\020\n\014Window" +
+      "sPhone\020\003\022\013\n\007Symbian\020\004\"k\n\021ClientInfoReque" +
+      "st\022\016\n\006userId\030\001 \001(\005\022\r\n\005token\030\002 \001(\t\0227\n\ncli" +
+      "entInfo\030\003 \001(\0132#.com.fuwu.mobileim.model." +
+      "ClientInfo\"\234\002\n\022ClientInfoResponse\022\021\n\tisS" +
+      "ucceed\030\001 \001(\010\022L\n\terrorCode\030\002 \001(\01629.com.fu",
+      "wu.mobileim.model.ClientInfoResponse.Err" +
+      "orCodeType\022\034\n\024isNewVersionRequired\030\003 \001(\010" +
+      "\022\030\n\020newClientVersion\030\004 \001(\t\022\021\n\tclientUrl\030" +
+      "\005 \001(\t\022\025\n\rhasNewVersion\030\006 \001(\010\"C\n\rErrorCod" +
+      "eType\022\021\n\rInvalidUserId\020\001\022\020\n\014InvalidToken" +
+      "\020\002\022\r\n\tAuthError\020\003\"i\n\013MessagePush\022\020\n\010send" +
+      "erId\030\001 \001(\005\022\021\n\tcontactId\030\002 \001(\005\022\022\n\nsenderN" +
+      "ame\030\003 \001(\t\022\017\n\007content\030\004 \001(\t\022\020\n\010sendTime\030\005" +
+      " \001(\t\"\014\n\nNoticePush\"\347\001\n\013PushRequest\022?\n\010pu" +
+      "shType\030\001 \001(\0162-.com.fuwu.mobileim.model.P",
+      "ushRequest.PushType\0229\n\013messagePush\030\002 \001(\013" +
+      "2$.com.fuwu.mobileim.model.MessagePush\0227" +
+      "\n\nnoticePush\030\003 \001(\0132#.com.fuwu.mobileim.m" +
+      "odel.NoticePush\"#\n\010PushType\022\013\n\007Message\020\000" +
+      "\022\n\n\006Notice\020\001\"^\n\027MessageConfirmedRequest\022" +
+      "\016\n\006userId\030\001 \001(\005\022\r\n\005token\030\002 \001(\t\022\021\n\tcontac" +
+      "tId\030\003 \001(\005\022\021\n\ttimeStamp\030\004 \001(\t\"\245\001\n\030Message" +
+      "ConfirmedResponse\022\021\n\tisSucceed\030\001 \001(\010\022R\n\t" +
+      "errorCode\030\002 \001(\0162?.com.fuwu.mobileim.mode" +
+      "l.MessageConfirmedResponse.ErrorCodeType",
+      "\"\"\n\rErrorCodeType\022\021\n\014InvalidToken\020\321\017\"N\n\007" +
+      "License\022\014\n\004name\030\001 \001(\t\022\017\n\007iconUrl\030\002 \001(\t\022\r" +
+      "\n\005order\030\003 \001(\005\022\025\n\rbackgroundUrl\030\004 \001(\tB\031\n\027" +
+      "com.fuwu.mobileim.model"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -40297,7 +40411,7 @@ public final class Models {
           internal_static_com_fuwu_mobileim_model_Contact_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_fuwu_mobileim_model_Contact_descriptor,
-              new java.lang.String[] { "ContactId", "Name", "CustomName", "Pinyin", "IsBlocked", "LastContactTime", "Gender", "Source", "TileUrl", "IsProvider", "Lisence", "IndividualResume", "Fuzhi", "OrderTime", "SubscribeTime", "Location", "CenterLink", "Licenses", "BackgroundUrl", });
+              new java.lang.String[] { "ContactId", "Name", "CustomName", "Pinyin", "IsBlocked", "LastContactTime", "Gender", "Source", "TileUrl", "IsProvider", "Lisence", "IndividualResume", "Fuzhi", "OrderTime", "SubscribeTime", "Location", "CenterLink", "Licenses", "BackgroundUrl", "IsAuthentication", });
           internal_static_com_fuwu_mobileim_model_ContactRequest_descriptor =
             getDescriptor().getMessageTypes().get(5);
           internal_static_com_fuwu_mobileim_model_ContactRequest_fieldAccessorTable = new

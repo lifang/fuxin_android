@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -18,11 +19,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.View.OnTouchListener;
+import android.view.ViewTreeObserver.OnPreDrawListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -39,6 +42,7 @@ import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.Urlinterface;
+import com.fuwu.mobileim.view.MyDialog;
 
 /**
  * 作者: 张秀楠 时间：2014-5-24 下午3:21:40
@@ -66,7 +70,6 @@ public class RegistActivity extends Activity implements OnClickListener,
 	private String error_code;
 	private FxApplication fx;
 	private ScrollView scrol;
-	private ProgressDialog prodialog;
 	private SharedPreferences spf;
 	private IntentFilter filter = null;
 	public static final String ACTION = "android.provider.Telephony.SMS_RECEIVED";
@@ -81,13 +84,13 @@ public class RegistActivity extends Activity implements OnClickListener,
 						Toast.LENGTH_SHORT).show();
 				break;
 			case 1:
-				prodialog.dismiss();
+				builder.dismiss();
 				intent.setClass(RegistActivity.this, FragmengtActivity.class);
 				startActivity(intent);
 				RegistActivity.this.finish();
 				break;
 			case 2:
-				prodialog.dismiss();
+				builder.dismiss();
 				if (!error_code.equals("")) {
 					String errorString = fx.error_map.get(error_code);
 					if (errorString == null) {
@@ -125,7 +128,7 @@ public class RegistActivity extends Activity implements OnClickListener,
 			}
 		}
 	};
-
+	private MyDialog builder;
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.regist);
@@ -271,10 +274,7 @@ public class RegistActivity extends Activity implements OnClickListener,
 			break;
 		case R.id.regist_over:
 			if (FuXunTools.isConnect(this)) {
-				prodialog = new ProgressDialog(RegistActivity.this);
-				prodialog.setMessage("努力登陆中..");
-				prodialog.setCanceledOnTouchOutside(false);
-				prodialog.show();
+				builder= FuXunTools.showLoading(getLayoutInflater(),RegistActivity.this,"努力注册中，请稍后..");
 				new Thread(new Regist_Post()).start();
 			} else {
 				Toast.makeText(RegistActivity.this, R.string.no_internet,
@@ -443,4 +443,5 @@ public class RegistActivity extends Activity implements OnClickListener,
 		}
 		return false;
 	}
+
 }

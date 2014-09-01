@@ -64,13 +64,13 @@ public class PushReceiver extends BroadcastReceiver {
 						byte[] byteArray = Base64.decode(data, Base64.DEFAULT);
 						String con = new String(byteArray);
 						try {
-							PushRequest pr = PushRequest.parseFrom(byteArray);
-							Log.i("Max", "收到推送");
-							MessagePush mp = pr.getMessagePush();
+//							PushRequest pr = PushRequest.parseFrom(byteArray);
+							Log.i("MyReceiver", "收到推送"+con);
+//							MessagePush mp = pr.getMessagePush();
 							// MyNotification("福务网",
 							// mp.getSenderName() + ":" + mp.getContent(),
 							// context, intent);
-							int n = getMessageNumber();
+							int n = getMessageNumber()+Integer.parseInt(con.substring(3, 4));
 							MyNotification("手机福务网", "您收到" + n + "条消息", context,
 									intent);
 							setMessageNumber(n);
@@ -90,6 +90,7 @@ public class PushReceiver extends BroadcastReceiver {
 			clientid = bundle.getString("clientid");
 			Log.i("MyReceiver", "clientid=>" + clientid);
 			if (sf.getString("clientid", "").equals("")) {
+				sf.edit().putString("clientid", clientid).commit();
 				new Thread(new ClientID_Post()).start();
 			}
 			/*
@@ -152,7 +153,7 @@ public class PushReceiver extends BroadcastReceiver {
 				Log.i("error", "2");
 				cinfo.setOSVersion(android.os.Build.VERSION.RELEASE);
 				cinfo.setUserId(fx.getUser_id());
-				cinfo.setChannel(10000);
+				cinfo.setChannel(Urlinterface.current_channel);
 				Log.i("error", "3");
 				cinfo.setClientVersion(Urlinterface.current_version + "");
 				cinfo.setIsPushEnable(true);
@@ -173,9 +174,16 @@ public class PushReceiver extends BroadcastReceiver {
 							.parseFrom(by);
 					if (response.getIsSucceed()) {
 						sf.edit().putString("clientid", clientid).commit();
-						Log.i("Max",
+						Log.i("MyReceiver",
 								response.getIsSucceed() + "/"
 										+ response.getErrorCode());
+						Log.i("MyReceiver",
+								 "response.getHasNewVersion() +"
+										+ response.getHasNewVersion() );
+						if (response.getHasNewVersion()) {
+							sf.edit().putString("newClientVersion", response.getNewClientVersion()).commit();
+							sf.edit().putString("NewVersionUrl", response.getClientUrl()).commit();
+						}
 					}
 				}
 			} catch (Exception e) {
@@ -193,6 +201,6 @@ public class PushReceiver extends BroadcastReceiver {
 
 	public int getMessageNumber() {
 		int time = sf.getInt("MessageNumber", 0);
-		return time + 1;
+		return time;
 	}
 }

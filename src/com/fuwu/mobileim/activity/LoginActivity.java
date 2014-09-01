@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -19,9 +20,12 @@ import android.view.Display;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
+import android.view.ViewTreeObserver.OnPreDrawListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.mobstat.StatService;
@@ -35,19 +39,20 @@ import com.fuwu.mobileim.util.KeyboardLayout;
 import com.fuwu.mobileim.util.KeyboardLayout.onKybdsChangeListener;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CircularImage;
+import com.fuwu.mobileim.view.MyDialog;
 
 /**
  * 作者: 张秀楠 时间：2014-5-23 下午4:34:03
  */
 public class LoginActivity extends Activity implements OnClickListener,
 		OnFocusChangeListener, Urlinterface {
+	private MyDialog builder;
 	public EditText user_text;
 	public EditText pwd_text;
 	private String user;
 	private String pwd;
 	private FxApplication fx;
-	private ProgressDialog prodialog;
-	private String error_code;
+	private String error_code="";
 	private SharedPreferences spf;
 	private LinearLayout layout;
 	private KeyboardLayout keyboardLayout1;
@@ -59,13 +64,13 @@ public class LoginActivity extends Activity implements OnClickListener,
 
 			switch (msg.what) {
 			case 0:
-				prodialog.dismiss();
+				builder.dismiss();
 				intent.setClass(LoginActivity.this, FragmengtActivity.class);
 				startActivity(intent);
 				LoginActivity.this.finish();
 				break;
 			case 1:
-				prodialog.dismiss();
+				builder.dismiss();
 				if (!error_code.equals("")) {
 					String errorString = fx.error_map.get(error_code);
 					if (errorString == null) {
@@ -78,7 +83,7 @@ public class LoginActivity extends Activity implements OnClickListener,
 				}
 				break;
 			case 2:
-				prodialog.dismiss();
+				builder.dismiss();
 				Toast.makeText(LoginActivity.this, "网络连接异常", Toast.LENGTH_SHORT)
 						.show();
 				break;
@@ -157,6 +162,8 @@ public class LoginActivity extends Activity implements OnClickListener,
 
 	// 初始化
 	public void initialize() {
+		TextView tv = (TextView) findViewById(R.id.current_version);
+		tv.setText("版本号："+Urlinterface.current_version);
 		user_text = (EditText) findViewById(R.id.user);
 		pwd_text = (EditText) findViewById(R.id.pwd);
 		layout = (LinearLayout) findViewById(R.id.layout);
@@ -229,10 +236,7 @@ public class LoginActivity extends Activity implements OnClickListener,
 					Toast.makeText(LoginActivity.this, "用户名或密码不可为空",
 							Toast.LENGTH_SHORT).show();
 				} else {
-					prodialog = new ProgressDialog(LoginActivity.this);
-					prodialog.setMessage("努力登录中..");
-					prodialog.setCanceledOnTouchOutside(false);
-					prodialog.show();
+					builder= FuXunTools.showLoading(getLayoutInflater(),LoginActivity.this,"正在登录，请稍后..");
 					new Thread(new Login_Post()).start();
 				}
 				break;
@@ -274,10 +278,10 @@ public class LoginActivity extends Activity implements OnClickListener,
 						Log.i("Max", "errorCode:" + response.getErrorCode());
 						error_code = response.getErrorCode().toString();
 						handler.sendEmptyMessage(1);
+				
 					}
 				} else {
-					Toast.makeText(LoginActivity.this, "登录失败",
-							Toast.LENGTH_SHORT).show();
+					handler.sendEmptyMessage(1);
 				}
 			} catch (Exception e) {
 				handler.sendEmptyMessage(2);
@@ -320,4 +324,5 @@ public class LoginActivity extends Activity implements OnClickListener,
 		}
 
 	}
+	
 }

@@ -28,83 +28,24 @@ public class ContactPojo {
     private String location;
     private List<License> licenses;
     private String backgroundUrl ; //  个人详情背景
+    
+    private boolean isAuthentication;//用户是否通过实名认证
+    
 	public ContactPojo() {
 	}
 	
-	
-	public ContactPojo(int contactId, String sortKey, String name,
-			String customName, String userface_url, int sex, int source,
-			String lastContactTime, int isBlocked, int isProvider,
-			String lisence, String individualResume) {
-		super();
-		this.contactId = contactId;
-		this.sortKey = sortKey;
-		this.name = name;
-		this.customName = customName;
-		this.userface_url = userface_url;
-		this.sex = sex;
-		this.source = source;
-		this.lastContactTime = lastContactTime;
-		this.isBlocked = isBlocked;
-		this.isProvider = isProvider;
-		this.lisence = lisence;
-		this.individualResume = individualResume;
-	}
+
 	
 
-	public ContactPojo(int contactId, String sortKey, String name,
-			String customName, String userface_url, int sex, int source,
-			String lastContactTime, int isBlocked, int isProvider,
-			String lisence, String individualResume, String fuzhi,
-			String location) {
-		super();
-		this.contactId = contactId;
-		this.sortKey = sortKey;
-		this.name = name;
-		this.customName = customName;
-		this.userface_url = userface_url;
-		this.sex = sex;
-		this.source = source;
-		this.lastContactTime = lastContactTime;
-		this.isBlocked = isBlocked;
-		this.isProvider = isProvider;
-		this.lisence = lisence;
-		this.individualResume = individualResume;
-		this.fuzhi = fuzhi;
-		this.location = location;
-	}
+
 
 
 	public ContactPojo(int contactId, String sortKey, String name,
 			String customName, String userface_url, int sex, int source,
 			String lastContactTime, int isBlocked, int isProvider,
 			String lisence, String individualResume, String fuzhi,
-			String location, List<License> licenses) {
-		super();
-		this.contactId = contactId;
-		this.sortKey = sortKey;
-		this.name = name;
-		this.customName = customName;
-		this.userface_url = userface_url;
-		this.sex = sex;
-		this.source = source;
-		this.lastContactTime = lastContactTime;
-		this.isBlocked = isBlocked;
-		this.isProvider = isProvider;
-		this.lisence = lisence;
-		this.individualResume = individualResume;
-		this.fuzhi = fuzhi;
-		this.location = location;
-		this.licenses = licenses;
-	}
-
-
-	
-	public ContactPojo(int contactId, String sortKey, String name,
-			String customName, String userface_url, int sex, int source,
-			String lastContactTime, int isBlocked, int isProvider,
-			String lisence, String individualResume, String fuzhi,
-			String location, List<License> licenses, String backgroundUrl) {
+			String location, List<License> licenses, String backgroundUrl,
+			boolean isAuthentication) {
 		super();
 		this.contactId = contactId;
 		this.sortKey = sortKey;
@@ -122,6 +63,22 @@ public class ContactPojo {
 		this.location = location;
 		this.licenses = licenses;
 		this.backgroundUrl = backgroundUrl;
+		this.isAuthentication = isAuthentication;
+	}
+
+
+
+
+
+
+
+	public boolean isAuthentication() {
+		return isAuthentication;
+	}
+
+
+	public void setAuthentication(boolean isAuthentication) {
+		this.isAuthentication = isAuthentication;
 	}
 
 
@@ -244,7 +201,7 @@ public class ContactPojo {
 				+ ", source=" + source + ", lastContactTime=" + lastContactTime
 				+ ", isBlocked=" + isBlocked + ", isProvider=" + isProvider
 				+ ", lisence=" + lisence + ", individualResume="
-				+ individualResume + ", fuzhi=" + fuzhi + "]";
+				+ individualResume + ", fuzhi=" + fuzhi+ ", getLicenses().size()=" + getLicenses().size() + "]";
 	}
 	
 }

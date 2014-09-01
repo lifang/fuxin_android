@@ -281,6 +281,8 @@ public class ChatActivity extends Activity implements OnClickListener,
 		newMessage = mMesCount;
 		Log.i("FuWu", "newMessage---" + newMessage);
 		mMesPageNum = 2;
+//		Toast.makeText(getApplicationContext(), list.get(0).getContent(),
+//				Toast.LENGTH_LONG).show();
 	}
 
 	// 获取老消息
@@ -827,7 +829,6 @@ public class ChatActivity extends Activity implements OnClickListener,
 			if (FuXunTools.isConnect(this)) {
 				if (resultCode == RESULT_OK) {
 					Bitmap photo = null;
-					pd.setMessage("正在发送图片...");
 					String fileName = System.currentTimeMillis() + "";
 					String sendTime = TimeUtil.getCurrentTime();
 					Log.i("FuWu", "sendTime-1:" + sendTime);

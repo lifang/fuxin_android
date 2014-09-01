@@ -2,18 +2,24 @@ package com.fuwu.mobileim.activity;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.app.Dialog;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -21,7 +27,10 @@ import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.drawable.AnimationDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
@@ -36,10 +45,12 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
+import android.view.ViewTreeObserver.OnPreDrawListener;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
@@ -48,6 +59,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -56,6 +68,9 @@ import com.baidu.mobstat.StatService;
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.adapter.FragmentViewPagerAdapter;
 import com.fuwu.mobileim.adapter.SearchContactAdapter;
+import com.fuwu.mobileim.model.Models.ClientInfo;
+import com.fuwu.mobileim.model.Models.ClientInfoRequest;
+import com.fuwu.mobileim.model.Models.ClientInfoResponse;
 import com.fuwu.mobileim.model.Models.ContactRequest;
 import com.fuwu.mobileim.model.Models.ContactResponse;
 import com.fuwu.mobileim.model.Models.License;
@@ -77,7 +92,7 @@ import com.igexin.sdk.PushManager;
  * @时间 创建时间：2014-5-27 下午6:36:44
  */
 public class FragmengtActivity extends FragmentActivity implements
-		OnTouchListener {
+		Urlinterface, OnTouchListener {
 	private ProfilePojo profilePojo = new ProfilePojo();
 	private int user_id;
 	private String token;
@@ -104,15 +119,23 @@ public class FragmengtActivity extends FragmentActivity implements
 	private TextView menu_talk, menu_address_book, menu_settings;
 	private DBManager db;
 	private List<ShortContactPojo> contactsLists = new ArrayList<ShortContactPojo>(); // 联系人arraylist数组
-	private ProgressDialog prodialog;
 	private static Bitmap bm = null;
 	private int user_number1 = 0;
 	private int user_number2 = 0;
 	private SharedPreferences spf;
 	int dataNumber = 0; // 0 数据没加载完，1 数据加载完
-	int version;
+	int version = 0;
 	private TextView quit_cancel;
 	private TextView quit_ok;
+	/* 更新进度条 */
+	private ProgressBar mProgress;
+	private Dialog DownloadDialog;
+	private boolean cancelUpdate = false;
+	/* 下载保存路径 */
+	private String SavePath;
+	/* 记录进度条数量 */
+	private int progress;
+	private String fileurl = "";
 	private Handler handler = new Handler() {
 		/*
 		 * (non-Javadoc)
@@ -122,7 +145,6 @@ public class FragmengtActivity extends FragmentActivity implements
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 0://
-					// prodialog.dismiss();
 				for (int i = 0; i < contactsLists.size(); i++) {
 					String face_str = contactsLists.get(i).getUserface_url();
 					db.addContact(spf.getInt("user_id", 0),
@@ -153,19 +175,24 @@ public class FragmengtActivity extends FragmentActivity implements
 
 				break;
 			case 3:
-				prodialog.dismiss();
+				builder.dismiss();
 				Intent i = new Intent();
 				i.setClass(FragmengtActivity.this, RequstService.class);
 				startService(i);
 				list.get(1).onStart();
+				Log.i("MyReceiver", "新版本检测clientid=>" + spf.getString("clientid", ""));
+				fileurl = spf.getString("NewVersionUrl", "");
+				Log.i("MyReceiver", "fileurl=>" + fileurl);
+				if (!fileurl.equals("")) {
+					handler.sendEmptyMessage(10);
+				}
 				break;
 			case 6:
-				prodialog.dismiss();
+				builder.dismiss();
 				Toast.makeText(getApplicationContext(), "请求失败",
 						Toast.LENGTH_SHORT).show();
 				break;
 			case 7:
-				prodialog.dismiss();
 				Toast.makeText(getApplicationContext(), R.string.no_internet,
 						Toast.LENGTH_SHORT).show();
 				break;
@@ -180,7 +207,7 @@ public class FragmengtActivity extends FragmentActivity implements
 				}
 				break;
 			case 9:
-				prodialog.dismiss();
+				builder.dismiss();
 				new Handler().postDelayed(new Runnable() {
 					public void run() {
 						Intent intent = new Intent(FragmengtActivity.this,
@@ -193,14 +220,27 @@ public class FragmengtActivity extends FragmentActivity implements
 				Toast.makeText(getApplicationContext(), "您的账号已在其他手机登陆",
 						Toast.LENGTH_LONG).show();
 				break;
+			case 10:
+//				prodialog.dismiss();
+				showVersionDialog();
+				break;
+			case 11:
+				// 设置进度条位置
+				mProgress.setProgress(progress);
+				break;
+			case 12:
+				// 安装文件
+				installApk();
 			}
 		}
 	};
-
+	private MyDialog builder;
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		setContentView(R.layout.main);
+		// 个推SDK初始化
+		PushManager.getInstance().initialize(this.getApplicationContext());
 		getButton();
 		spf = getSharedPreferences(Urlinterface.SHARED, 0);
 		countLinear = (LinearLayout) findViewById(R.id.main_countLinear);
@@ -255,8 +295,6 @@ public class FragmengtActivity extends FragmentActivity implements
 		Display display = getWindowManager().getDefaultDisplay();
 		int width = display.getWidth();
 		int a = display.getHeight();
-		Log.i("linshi", "display.getHeight()xdisplay.getWidth():" + a + "x"
-				+ width);
 		fxApplication.setWidth(width);
 		fxApplication.setHeight(a);
 		changeTitleStyle();
@@ -265,54 +303,37 @@ public class FragmengtActivity extends FragmentActivity implements
 
 		contactInformation();
 
-		// 个推SDK初始化
-		PushManager.getInstance().initialize(this.getApplicationContext());
 		handler.sendEmptyMessage(8); //
 	}
-
 	/**
 	 * 查询本地联系人信息，没有的话，则请求服务器并保存到本地
 	 */
 	private void contactInformation() {
 		contactsLists = db.queryContactList(spf.getInt("user_id", 0));
 		Log.i("11", contactsLists.size() + "-----------1");
-		if (contactsLists.size() == 0) {
-			if (FuXunTools.isConnect(this)) {
-				prodialog = new ProgressDialog(FragmengtActivity.this);
-				prodialog.setMessage("正在加载数据，请稍后...");
-				prodialog.setCanceledOnTouchOutside(false);
-				prodialog.show();
+		if (FuXunTools.isConnect(this)) {
+			if (contactsLists.size() == 0) {
+				builder= FuXunTools.showLoading(getLayoutInflater(),FragmengtActivity.this,"正在加载数据，请稍后..");
 				Thread thread = new Thread(new getContacts());
 				thread.start();
 			} else {
-				Toast.makeText(FragmengtActivity.this, R.string.no_internet,
-						Toast.LENGTH_SHORT).show();
-			}
-		} else {
-			Log.i("Ax", "加载本地联系人");
-			if (spf.getString("profile_user", "").equals(user_id + "")) {
-				Intent i = new Intent();
-				i.setClass(this, RequstService.class);
-				startService(i);
-			} else {
-				if (FuXunTools.isConnect(this)) {
-					prodialog = new ProgressDialog(FragmengtActivity.this);
-					prodialog.setMessage("正在加载数据，请稍后...");
-					prodialog.setCanceledOnTouchOutside(false);
-					prodialog.show();
-					getProfile();
+				Log.i("Ax", "加载本地联系人");
+				if (spf.getString("profile_user", "").equals(user_id + "")) {
+					Intent i = new Intent();
+					i.setClass(this, RequstService.class);
+					startService(i);
 				} else {
-					Toast.makeText(FragmengtActivity.this,
-							R.string.no_internet, Toast.LENGTH_SHORT).show();
+					builder= FuXunTools.showLoading(getLayoutInflater(),FragmengtActivity.this,"正在加载数据，请稍后..");
+					getProfile();
 				}
 			}
 
+		} else {
+			handler.sendEmptyMessage(7);
 		}
-
 	}
 
 	/**
-	 * 
 	 * 加载个人信息
 	 * */
 	private void getProfile() {
@@ -343,10 +364,9 @@ public class FragmengtActivity extends FragmentActivity implements
 						conn.setUseCaches(false);// 不缓存
 						conn.connect();
 						InputStream is = conn.getInputStream();// 获得图片的数据流
-
 						BitmapFactory.Options options = new BitmapFactory.Options();
 						options.inJustDecodeBounds = false;
-						options.inSampleSize = 2;
+						options.inSampleSize = 1;
 						bm = BitmapFactory.decodeStream(is, null, options);
 						Log.i("linshi", bm.getWidth() + "---" + bm.getHeight());
 						is.close();
@@ -355,16 +375,13 @@ public class FragmengtActivity extends FragmentActivity implements
 									bm.getWidth() + "---2---" + bm.getHeight());
 							File f = new File(Urlinterface.head_pic, contactId
 									+ "");
-
 							if (f.exists()) {
 								f.delete();
 							}
 							if (!f.getParentFile().exists()) {
 								f.getParentFile().mkdirs();
 							}
-							Log.i("linshi", "----1");
 							FileOutputStream out = new FileOutputStream(f);
-							Log.i("linshi", "----6");
 							bm.compress(Bitmap.CompressFormat.PNG, 90, out);
 							out.flush();
 							out.close();
@@ -429,10 +446,6 @@ public class FragmengtActivity extends FragmentActivity implements
 							} else if (isprovider == false) {
 								isProvider = 0;
 							}
-
-							String lisence = res.getContacts(i).getLisence();
-							String individualResume = res.getContacts(i)
-									.getIndividualResume();
 							String orderTime = res.getContacts(i)
 									.getOrderTime();
 							String subscribeTime = res.getContacts(i)
@@ -449,10 +462,7 @@ public class FragmengtActivity extends FragmentActivity implements
 						Editor editor = preferences.edit();
 						editor.putString("contactTimeStamp", res.getTimeStamp());
 						editor.commit();
-						Log.i("Max", contactsLists.size() + "");
-						Message msg = new Message();// 创建Message 对象
-						msg.what = 0;
-						handler.sendMessage(msg);
+						handler.sendEmptyMessage(0);
 					} else {
 						int ErrorCode = res.getErrorCode().getNumber();
 						if (ErrorCode == 2001) {
@@ -465,7 +475,7 @@ public class FragmengtActivity extends FragmentActivity implements
 					handler.sendEmptyMessage(6);
 				}
 			} catch (Exception e) {
-				handler.sendEmptyMessage(7);
+				handler.sendEmptyMessage(6);
 			}
 		}
 	}
@@ -589,6 +599,7 @@ public class FragmengtActivity extends FragmentActivity implements
 					}
 				});
 	}
+
 	/*
 	 * 搜索按妞
 	 */
@@ -604,9 +615,9 @@ public class FragmengtActivity extends FragmentActivity implements
 			translateAnimation.startNow(); // 启动动画
 			// 模拟
 			SourceDateList = db.queryContactList(spf.getInt("user_id", 0));
-			// ShortContactPojo coPojo = new ShortContactPojo(0, "", "系统消息",
-			// "系统消息", "", 2, 0, "", 0, "", "");
-			// SourceDateList.add(0,coPojo);
+			 ShortContactPojo coPojo = new ShortContactPojo(0, "", "系统消息",
+			 "系统消息", "", 2, 0, "", 0, "", "");
+			 SourceDateList.add(0,coPojo);
 		}
 	};
 	/*
@@ -710,7 +721,7 @@ public class FragmengtActivity extends FragmentActivity implements
 				}
 			} catch (Exception e) {
 				Log.i("error", e.toString());
-				handler.sendEmptyMessage(7);
+				handler.sendEmptyMessage(6);
 			}
 		}
 	}
@@ -738,19 +749,14 @@ public class FragmengtActivity extends FragmentActivity implements
 					Log.i("linshi", bm.getWidth() + "---" + bm.getHeight());
 					is.close();
 					if (bm != null) {
-						Log.i("linshi",
-								bm.getWidth() + "---2---" + bm.getHeight());
 						File f = new File(Urlinterface.head_pic, id + "");
-
 						if (f.exists()) {
 							f.delete();
 						}
 						if (!f.getParentFile().exists()) {
 							f.getParentFile().mkdirs();
 						}
-						Log.i("linshi", "----1");
 						FileOutputStream out = new FileOutputStream(f);
-						Log.i("linshi", "----6");
 						bm.compress(Bitmap.CompressFormat.PNG, 90, out);
 						out.flush();
 						out.close();
@@ -825,18 +831,24 @@ public class FragmengtActivity extends FragmentActivity implements
 
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			showLoginDialog();
+			showQuitDialog();
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
 	}
 
-	private void showLoginDialog() {
+	/**
+	 * 退出提示
+	 * 
+	 * */
+	private void showQuitDialog() {
 		View view = getLayoutInflater().inflate(R.layout.quit_builder, null);
 		quit_cancel = (TextView) view.findViewById(R.id.quit_cancel);
 		quit_ok = (TextView) view.findViewById(R.id.quit_ok);
 		quit_ok.setOnTouchListener(this);
 		quit_cancel.setOnTouchListener(this);
+		String release = android.os.Build.VERSION.RELEASE; // android系统版本号
+		version = Integer.parseInt(release.substring(0, 1));
 		if (version < 4) {
 			quit_cancel
 					.setBackgroundResource(R.drawable.quit_button_cancel_shape2);
@@ -854,6 +866,45 @@ public class FragmengtActivity extends FragmentActivity implements
 				System.exit(0);
 			}
 		});
+		builder.show();
+	}
+
+	/**
+	 * 新版本提示
+	 * 
+	 * */
+	private void showVersionDialog() {
+		View view = getLayoutInflater().inflate(R.layout.quit_builder, null);
+		TextView tv = (TextView) view.findViewById(R.id.quit_message);
+		tv.setText("检测到新版本,您需要更新吗？");
+		quit_cancel = (TextView) view.findViewById(R.id.quit_cancel);
+		quit_ok = (TextView) view.findViewById(R.id.quit_ok);
+		quit_cancel.setText("下次再说");
+		quit_ok.setText("确认升级");
+		quit_ok.setOnTouchListener(this);
+		quit_cancel.setOnTouchListener(this);
+		String release = android.os.Build.VERSION.RELEASE; // android系统版本号
+		version = Integer.parseInt(release.substring(0, 1));
+		if (version < 4) {
+			quit_cancel
+					.setBackgroundResource(R.drawable.quit_button_cancel_shape2);
+			quit_ok.setBackgroundResource(R.drawable.quit_button_ok_shape2);
+		}
+		final MyDialog builder = new MyDialog(FragmengtActivity.this, 0, view,
+				R.style.mydialog);
+		quit_cancel.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View arg0) {
+				builder.dismiss();
+			}
+		});
+		quit_ok.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View arg0) {
+				builder.dismiss();
+				cancelUpdate = false;
+				showDownloadDialog_table();
+			}
+		});
+		
 		builder.show();
 	}
 
@@ -884,4 +935,121 @@ public class FragmengtActivity extends FragmentActivity implements
 		}
 		return false;
 	}
+
+	public void showDownloadDialog_table() {
+		// 构造软件下载对话框
+		AlertDialog.Builder builder = new Builder(FragmengtActivity.this);
+		builder.setTitle("正在更新");
+		// 给下载对话框增加进度条
+		final LayoutInflater inflater = LayoutInflater
+				.from(FragmengtActivity.this);
+		View v = inflater.inflate(R.layout.softupdate_progress, null);
+		mProgress = (ProgressBar) v.findViewById(R.id.update_progress);
+		builder.setView(v);
+		// 取消更新
+		builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+				// 设置取消状态
+				cancelUpdate = true;
+			}
+		});
+		DownloadDialog = builder.create();
+		DownloadDialog.setCanceledOnTouchOutside(false);
+		DownloadDialog.show();
+		// 现在文件
+		downloadApk_table();
+	}
+
+	/**
+	 * 下载文件线程
+	 * 
+	 * @author coolszy
+	 * @date 2012-4-26
+	 * @blog http://blog.92coding.com
+	 */
+	public class downloadApkThread_table extends Thread {
+		@Override
+		public void run() {
+			try {
+				// 判断SD卡是否存在，并且是否具有读写权限
+				if (Environment.getExternalStorageState().equals(
+						Environment.MEDIA_MOUNTED)) {
+					// 获得存储卡的路径
+					String sdpath = Environment.getExternalStorageDirectory()
+							+ "/";
+					Log.i("suanfa", sdpath);
+					SavePath = sdpath + "download";
+					URL url = new URL(fileurl);
+					// 创建连接
+					HttpURLConnection conn = (HttpURLConnection) url
+							.openConnection();
+					conn.connect();
+					// 获取文件大小
+					int length = conn.getContentLength();
+					// 创建输入流
+					InputStream is = conn.getInputStream();
+
+					File file = new File(SavePath);
+					// 判断文件目录是否存在
+					if (!file.exists()) {
+						file.mkdir();
+					}
+					File apkFile = new File(SavePath, filename);
+					FileOutputStream fos = new FileOutputStream(apkFile);
+					int count = 0;
+					// 缓存
+					byte buf[] = new byte[1024];
+					// 写入到文件中
+					do {
+						int numread = is.read(buf);
+						count += numread;
+						// 计算进度条位置
+						progress = (int) (((float) count / length) * 100);
+						// 更新进度
+						handler.sendEmptyMessage(11);
+						if (numread <= 0) {
+							// 下载完成
+							handler.sendEmptyMessage(12);
+							break;
+						}
+						// 写入文件
+						fos.write(buf, 0, numread);
+					} while (!cancelUpdate);// 点击取消就停止下载.
+					fos.close();
+					is.close();
+				}
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			// 取消下载对话框显示
+			DownloadDialog.dismiss();
+		}
+	};
+
+	/**
+	 * 下载apk文件
+	 */
+	public void downloadApk_table() {
+		// 启动新线程下载软件
+		new downloadApkThread_table().start();
+	}
+
+	/**
+	 * 安装APK文件
+	 */
+	private void installApk() {
+		File apkfile = new File(SavePath, filename);
+		if (!apkfile.exists()) {
+			return;
+		}
+		// 通过Intent安装APK文件
+		Intent i = new Intent(Intent.ACTION_VIEW);
+		i.setDataAndType(Uri.parse("file://" + apkfile.toString()),
+				"application/vnd.android.package-archive");
+		startActivity(i);
+	}
+
 }

@@ -19,6 +19,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.fuwu.mobileim.R;
+import com.fuwu.mobileim.util.ImageUtil;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.DragImageView;
 
@@ -62,8 +63,7 @@ public class ComtactZoomImageActivity extends Activity implements
 			File f = new File(path);
 			if (f.exists()) {
 				// ImageCacheUtil.IMAGE_CACHE.get(path, dragImageView);
-				dragImageView.setImageDrawable(new BitmapDrawable(BitmapFactory
-						.decodeFile(path)));
+				dragImageView.setImageBitmap(ImageUtil.getLoacalBitmap(path));
 			} else {
 				dragImageView.setImageResource(R.drawable.moren);
 			}

@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -20,8 +21,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.View.OnTouchListener;
+import android.view.ViewTreeObserver.OnPreDrawListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -65,7 +68,6 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 	private TextView new_pwds_tag;
 	private FxApplication fx;
 	private String error_code;
-	private ProgressDialog prodialog;
 	private ScrollView scrol;
 	private SharedPreferences spf;
 	private IntentFilter filter = null;
@@ -80,7 +82,7 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 						Toast.LENGTH_SHORT).show();
 				break;
 			case 1:
-				prodialog.dismiss();
+				builder.dismiss();
 				showLoginDialog();
 				break;
 			case 2:
@@ -99,7 +101,7 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 				}
 				break;
 			case 3:
-				prodialog.dismiss();
+				builder.dismiss();
 				if (!error_code.equals("")) {
 					String errorString = fx.error_map.get(error_code);
 					if (errorString == null) {
@@ -116,7 +118,7 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 				}
 				break;
 			case 4:
-				prodialog.dismiss();
+				builder.dismiss();
 				Toast.makeText(UpdatePwdActivity.this, "请求超时",
 						Toast.LENGTH_SHORT).show();
 				break;
@@ -124,7 +126,7 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 				scrol.scrollTo(0, 500);
 				break;
 			case 9:
-				prodialog.dismiss();
+				builder.dismiss();
 				new Handler().postDelayed(new Runnable() {
 					public void run() {
 						Intent intent = new Intent(UpdatePwdActivity.this,
@@ -140,7 +142,7 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 			}
 		}
 	};
-
+	private MyDialog builder;
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.update_pwd);
@@ -282,10 +284,7 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 			break;
 		case R.id.update_over:
 			if (FuXunTools.isConnect(this)) {
-				prodialog = new ProgressDialog(UpdatePwdActivity.this);
-				prodialog.setMessage("努力连接中..");
-				prodialog.setCanceledOnTouchOutside(false);
-				prodialog.show();
+				builder= FuXunTools.showLoading(getLayoutInflater(),UpdatePwdActivity.this,"正在请求，请稍后..");
 				new Thread(new UpdatePwd_Post()).start();
 			} else {
 				Toast.makeText(UpdatePwdActivity.this, R.string.no_internet,
@@ -481,4 +480,5 @@ public class UpdatePwdActivity extends Activity implements OnClickListener,
 		}
 		fx.setActivityList();
 	}
+
 }

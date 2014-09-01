@@ -35,10 +35,12 @@ public class HttpUtil {
 
 			sc.init(null, new TrustManager[] { new MyTrustManager() },
 					new SecureRandom());
+			
 			HttpsURLConnection
 					.setDefaultSSLSocketFactory(sc.getSocketFactory());
 			HttpsURLConnection
 					.setDefaultHostnameVerifier(new MyHostnameVerifier());
+//			FuXunTools.initTrustSSL();  // 忽略证书
 			HttpsURLConnection conn = (HttpsURLConnection) new URL(url)
 					.openConnection();
 

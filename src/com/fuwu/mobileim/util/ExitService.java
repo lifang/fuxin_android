@@ -48,7 +48,7 @@ public class ExitService extends Service {
 				cinfo.setOsType(OSType.Android);
 				cinfo.setOSVersion(android.os.Build.VERSION.RELEASE);
 				cinfo.setUserId(uid);
-				cinfo.setChannel(10000);
+				cinfo.setChannel(Urlinterface.current_channel);
 				cinfo.setClientVersion(Urlinterface.current_version + "");
 				cinfo.setIsPushEnable(false);
 				ClientInfoRequest.Builder builder = ClientInfoRequest

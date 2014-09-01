@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -20,8 +21,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.View.OnTouchListener;
+import android.view.ViewTreeObserver.OnPreDrawListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -63,7 +66,6 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 	@SuppressLint("HandlerLeak")
 	private String error_code;
 	private ScrollView scrol;
-	private ProgressDialog prodialog;
 	private SharedPreferences spf;
 	private IntentFilter filter = null;
 	public static final String ACTION = "android.provider.Telephony.SMS_RECEIVED";
@@ -76,7 +78,7 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 						Toast.LENGTH_SHORT).show();
 				break;
 			case 1:
-				prodialog.dismiss();
+				builder.dismiss();
 				showLoginDialog();
 				break;
 			case 3:
@@ -95,7 +97,7 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 				}
 				break;
 			case 4:
-				prodialog.dismiss();
+				builder.dismiss();
 				if (!error_code.equals("")) {
 					String errorString = fx.error_map.get(error_code);
 					if (errorString == null) {
@@ -115,7 +117,7 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 				scrol.scrollTo(0, 500);
 				break;
 			case 9:
-				prodialog.dismiss();
+				builder.dismiss();
 				new Handler().postDelayed(new Runnable() {
 					public void run() {
 						Intent intent = new Intent(ResetPasswordActicity.this,
@@ -124,27 +126,15 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 						clearActivity();
 					}
 				}, 3500);
-				spf.edit().putInt("exit_user_id", spf.getInt("user_id", 0))
-						.commit();
-				spf.edit()
-						.putString("exit_Token", spf.getString("Token", "null"))
-						.commit();
-				spf.edit()
-						.putString("exit_clientid",
-								spf.getString("clientid", "")).commit();
-				spf.edit().putInt("user_id", 0).commit();
-				spf.edit().putString("Token", "null").commit();
-				spf.edit().putString("pwd", "").commit();
-				spf.edit().putString("clientid", "").commit();
-				spf.edit().putString("profile_user", "").commit();
-				fx.initData();
+				FuXunTools.initdate(spf, fx);
+				
 				Toast.makeText(getApplicationContext(), "您的账号已在其他手机登陆",
 						Toast.LENGTH_LONG).show();
 				break;
 			}
 		}
 	};
-
+	private MyDialog builder;
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.resetpassword);
@@ -274,10 +264,7 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 		case R.id.backpwd_over:
 			Log.i("Max", judge() + "");
 			if (FuXunTools.isConnect(this)) {
-				prodialog = new ProgressDialog(ResetPasswordActicity.this);
-				prodialog.setMessage("努力连接中..");
-				prodialog.setCanceledOnTouchOutside(false);
-				prodialog.show();
+				showLoading("努力连接中..");
 				new Thread(new Backpwd_Post()).start();
 			} else {
 				Toast.makeText(ResetPasswordActicity.this,
@@ -461,5 +448,24 @@ public class ResetPasswordActicity extends Activity implements OnClickListener,
 			activityList.get(i).finish();
 		}
 		fx.setActivityList();
+	}
+	private void showLoading(String str) {
+		View view = getLayoutInflater().inflate(R.layout.loading_main, null);
+		ImageView iv = (ImageView) view.findViewById(R.id.loading_iv);
+		final AnimationDrawable loadingDw = ((AnimationDrawable) iv
+				.getBackground());
+		// loadingDw.start();
+		iv.getViewTreeObserver().addOnPreDrawListener(new OnPreDrawListener() {
+			@Override
+			public boolean onPreDraw() {
+				loadingDw.start();
+				return true; // 必须要有这个true返回
+			}
+		});
+		TextView tv = (TextView) view.findViewById(R.id.loading_tv);
+		tv.setText(str);
+		builder = new MyDialog(this, 3, view, R.style.mydialog);
+		builder.setCanceledOnTouchOutside(false);
+		builder.show();
 	}
 }

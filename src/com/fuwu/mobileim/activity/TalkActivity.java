@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,11 +17,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver.OnPreDrawListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,8 +57,7 @@ public class TalkActivity extends Fragment {
 	private int uid;
 	private String token;
 	private String CustomName;
-	private MyDialog builder;
-	private ProgressDialog prodialog;
+	private MyDialog builder,builder2;
 	private FxApplication fx;
 	@SuppressLint("HandlerLeak")
 	private SharedPreferences sp;
@@ -77,7 +79,7 @@ public class TalkActivity extends Fragment {
 				clvAdapter.notifyDataSetChanged();
 				break;
 			case 5:
-				prodialog.dismiss();
+				builder2.dismiss();
 				Toast.makeText(getActivity(), "修改备注成功", Toast.LENGTH_SHORT)
 						.show();
 				db.updateContactRem(uid, contact_id, CustomName);
@@ -85,11 +87,12 @@ public class TalkActivity extends Fragment {
 				handler.sendEmptyMessage(2);
 				break;
 			case 6:
+				builder2.dismiss();
 				Toast.makeText(getActivity(), "修改备注失败", Toast.LENGTH_SHORT)
 						.show();
 				break;
 			case 9:
-				prodialog.dismiss();
+				builder2.dismiss();
 				new Handler().postDelayed(new Runnable() {
 					public void run() {
 						Intent intent = new Intent(getActivity(),
@@ -160,10 +163,7 @@ public class TalkActivity extends Fragment {
 		Button ok = (Button) view.findViewById(R.id.info_nickname_ok);
 		ok.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View arg0) {
-				prodialog = new ProgressDialog(getActivity());
-				prodialog.setMessage("努力修改中..");
-				prodialog.setCanceledOnTouchOutside(false);
-				prodialog.show();
+				builder2= FuXunTools.showLoading(getActivity().getLayoutInflater(),getActivity(),"努力修改中..");
 				CustomName = nickname.getText().toString();
 				new UpdateContactRem().start();
 			}
@@ -210,9 +210,12 @@ public class TalkActivity extends Fragment {
 
 					}
 				} else {
+					builder2.dismiss();
 					handler.sendEmptyMessage(2);
 				}
 			} catch (Exception e) {
+				builder2.dismiss();
+				handler.sendEmptyMessage(2);
 			}
 		}
 	}
@@ -259,4 +262,6 @@ public class TalkActivity extends Fragment {
 		}
 		fx.setActivityList();
 	}
+
+	
 }

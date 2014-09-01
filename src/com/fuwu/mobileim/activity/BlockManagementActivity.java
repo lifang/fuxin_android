@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,9 +21,11 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver.OnPreDrawListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -38,10 +41,10 @@ import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CircularImage;
+import com.fuwu.mobileim.view.MyDialog;
 
 public class BlockManagementActivity extends Activity {
 	private DBManager db;
-	private ProgressDialog prodialog;
 	private int index = -1;
 	private ListView mListView;
 	private myListViewAdapter clvAdapter;
@@ -56,7 +59,7 @@ public class BlockManagementActivity extends Activity {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 0:
-				prodialog.dismiss();
+				builder.dismiss();
 				db = new DBManager(BlockManagementActivity.this);
 				if (!db.isOpen()) {
 					db = new DBManager(BlockManagementActivity.this);
@@ -70,7 +73,7 @@ public class BlockManagementActivity extends Activity {
 				clvAdapter.notifyDataSetChanged();
 				break;
 			case 1:
-				prodialog.dismiss();
+				builder.dismiss();
 				Toast.makeText(getApplicationContext(), "恢复失败",
 						Toast.LENGTH_SHORT).show();
 				break;
@@ -86,7 +89,7 @@ public class BlockManagementActivity extends Activity {
 				clvAdapter.notifyDataSetChanged();
 				break;
 			case 6:
-				prodialog.dismiss();
+				builder.dismiss();
 				Toast.makeText(getApplicationContext(), "恢复失败",
 						Toast.LENGTH_SHORT).show();
 				break;
@@ -96,7 +99,7 @@ public class BlockManagementActivity extends Activity {
 						Toast.LENGTH_SHORT).show();
 				break;
 			case 9:
-				prodialog.dismiss();
+				builder.dismiss();
 				new Handler().postDelayed(new Runnable() {
 					public void run() {
 						Intent intent = new Intent(
@@ -117,6 +120,7 @@ public class BlockManagementActivity extends Activity {
 	int user_id = -1;
 	String Token = "";
 	private FxApplication fxApplication;
+	private MyDialog builder;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -278,11 +282,7 @@ public class BlockManagementActivity extends Activity {
 				public void onClick(View v) {
 					index = arg0;
 					if (FuXunTools.isConnect(BlockManagementActivity.this)) {
-						prodialog = new ProgressDialog(
-								BlockManagementActivity.this);
-						prodialog.setMessage("正在恢复...");
-						prodialog.setCanceledOnTouchOutside(false);
-						prodialog.show();
+						builder= FuXunTools.showLoading(getLayoutInflater(),BlockManagementActivity.this,"正在恢复..");
 						Thread thread = new Thread(new BlockContact());
 						thread.start();
 					} else {
@@ -334,7 +334,6 @@ public class BlockManagementActivity extends Activity {
 		super.onActivityResult(requestCode, resultCode, data);
 
 	}
-
 	// 关闭界面
 	public void clearActivity() {
 		List<Activity> activityList = fxApplication.getActivityList();
@@ -343,5 +342,4 @@ public class BlockManagementActivity extends Activity {
 		}
 		fxApplication.setActivityList();
 	}
-
 }

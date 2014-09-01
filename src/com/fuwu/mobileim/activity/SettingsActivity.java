@@ -19,6 +19,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -28,7 +29,10 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
+import android.view.ViewTreeObserver.OnPreDrawListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -53,12 +57,14 @@ import com.fuwu.mobileim.util.FxApplication;
 import com.fuwu.mobileim.util.HttpUtil;
 import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.CircularImage;
+import com.fuwu.mobileim.view.MyDialog;
 
 /**
  * @作者 丁作强
  * @时间 2014-6-6 下午4:48:35
  */
-public class SettingsActivity extends Fragment implements Urlinterface {
+public class SettingsActivity extends Fragment implements Urlinterface,
+		OnTouchListener {
 	private FxApplication fxApplication;
 	private ListView listview;
 	SettingBottomAdapter adapter;
@@ -78,7 +84,9 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 	private String fileurl = "";
 	private DBManager db;
 	int dataNumber = 0; // 0 数据没加载完，1 数据加载完
-	private ProgressDialog prodialog;
+	int version = 0;
+	private TextView quit_cancel;
+	private TextView quit_ok;
 	private Handler handler = new Handler() {
 		/*
 		 * (non-Javadoc)
@@ -92,45 +100,14 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 				// putProfile(profilePojo);
 				// setData();
 				break;
-			case 5:
-				prodialog.dismiss();
-				Intent intent = new Intent();
-				preferences.edit().putInt("user_id", 0).commit();
-				preferences.edit().putString("Token", "null").commit();
-				preferences.edit().putString("pwd", "").commit();
-				preferences.edit().putString("clientid", "").commit();
-				intent.setClass(getActivity(), LoginActivity.class);
-				startActivity(intent);
-				clearActivity();
-				fxApplication.initData();
-				break;
 			case 6:
-
+				builder.dismiss();
 				Toast.makeText(getActivity(), "请求失败", Toast.LENGTH_SHORT)
 						.show();
 				break;
-			case 7:
-				Toast.makeText(getActivity(), R.string.no_internet,
-						Toast.LENGTH_SHORT).show();
-				break;
 			case 8:
-				prodialog.dismiss();
-				Builder builder = new Builder(getActivity());
-				builder.setTitle("提示");
-				builder.setMessage("检测到新版本,您需要更新吗？");
-				builder.setPositiveButton("确定",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,
-									int which) {
-								showDownloadDialog_table();
-							}
-						});
-				builder.setNegativeButton("下次再说",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,
-									int which) {
-							}
-						}).show();
+				builder.dismiss();
+				showVersionDialog();
 				break;
 			case 9:
 				// 设置进度条位置
@@ -140,12 +117,12 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 				// 安装文件
 				installApk();
 			case 11:
-				prodialog.dismiss();
+				builder.dismiss();
 				Toast.makeText(getActivity(), "当前已是最新版本", Toast.LENGTH_SHORT)
 						.show();
 				break;
 			case 12:
-				prodialog.dismiss();
+				builder.dismiss();
 				new Handler().postDelayed(new Runnable() {
 					public void run() {
 						Intent intent = new Intent(getActivity(),
@@ -161,6 +138,7 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		}
 	};
 	SharedPreferences preferences;
+	private MyDialog builder;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -192,8 +170,46 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 			profilePojo = FuXunTools.getProfilePojo(preferences, fxApplication);
 			setData();
 		}
-
+		String release = android.os.Build.VERSION.RELEASE; // android系统版本号
+		version = Integer.parseInt(release.substring(0, 1));
 		return rootView;
+	}
+
+	/**
+	 * 新版本提示
+	 * 
+	 * */
+	private void showVersionDialog() {
+		View view = getActivity().getLayoutInflater().inflate(
+				R.layout.quit_builder, null);
+		TextView tv = (TextView) view.findViewById(R.id.quit_message);
+		tv.setText("检测到新版本,您需要更新吗？");
+		quit_cancel = (TextView) view.findViewById(R.id.quit_cancel);
+		quit_ok = (TextView) view.findViewById(R.id.quit_ok);
+		quit_cancel.setText("下次再说");
+		quit_ok.setText("确认升级");
+		quit_ok.setOnTouchListener(this);
+		quit_cancel.setOnTouchListener(this);
+		if (version < 4) {
+			quit_cancel
+					.setBackgroundResource(R.drawable.quit_button_cancel_shape2);
+			quit_ok.setBackgroundResource(R.drawable.quit_button_ok_shape2);
+		}
+		final MyDialog builder = new MyDialog(getActivity(), 0, view,
+				R.style.mydialog);
+		quit_cancel.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View arg0) {
+				builder.dismiss();
+			}
+		});
+		quit_ok.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View arg0) {
+				builder.dismiss();
+				cancelUpdate = false;
+				showDownloadDialog_table();
+			}
+		});
+		builder.show();
 	}
 
 	/**
@@ -266,10 +282,7 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 	private View.OnClickListener listener1 = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			// Toast.makeText(getActivity().getApplication(), "跳到个人信息页面",
-			// Toast.LENGTH_LONG).show();
 			Intent intent = new Intent();
-			// intent.putExtra("dataNumber", dataNumber);
 			intent.setClass(getActivity(), MyInformationActivity.class);
 			startActivityForResult(intent, 0);
 		}
@@ -296,10 +309,8 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		switch (num) {
 		case 0:// 新版本检测
 			if (FuXunTools.isConnect(getActivity())) {
-				prodialog = new ProgressDialog(getActivity());
-				prodialog.setMessage("正在检测新版本，请稍后..");
-				prodialog.setCanceledOnTouchOutside(false);
-				prodialog.show();
+//				showLoading("正在检测新版本，请稍后..");
+				builder= FuXunTools.showLoading(getActivity().getLayoutInflater(),getActivity(),"正在检测新版本，请稍后..");
 				new VersionChecking().start();
 			} else {
 				Toast.makeText(getActivity(), R.string.no_internet,
@@ -307,8 +318,6 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 			}
 			break;
 		case 1:// 清除全部聊天记录
-				// Toast.makeText(getActivity().getApplication(), "清除全部聊天记录",
-				// Toast.LENGTH_LONG).show();
 			deleteAllChatRecords();
 			break;
 		case 2:// 消息推送
@@ -320,20 +329,14 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 			startActivity(intent);
 			break;
 		case 4:// 屏蔽管理
-				// Toast.makeText(getActivity().getApplication(), "屏蔽管理" ,
-				// Toast.LENGTH_LONG).show();
 			intent.setClass(getActivity(), BlockManagementActivity.class);
 			startActivity(intent);
 			break;
-		// case 5:// 系统公告管理
-		// // intent.setClass(getActivity(), SystemPushActivity.class);
-		// // startActivity(intent);
-		// Toast.makeText(getActivity().getApplication(), "该功能暂不实现",
-		// Toast.LENGTH_LONG).show();
-		// break;
-		case 5:// 退出登录
+		 case 5:// 关于我们
+		  intent.setClass(getActivity(), AboutUsActivity.class);
+		  startActivity(intent);
+		 break;
 
-			break;
 		}
 	}
 
@@ -341,10 +344,11 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 
 		private int[] icon = new int[] { R.drawable.setting_image1,
 				R.drawable.setting_image2, R.drawable.setting_image3,
-				R.drawable.setting_image4, R.drawable.setting_image5 }; // icon
+				R.drawable.setting_image4, R.drawable.setting_image5,
+				R.drawable.setting_image6 }; // icon
 		// 集合
 		private String[] titleArr = new String[] { "新版本检测", "清除全部聊天记录", "消息推送",
-				"修改密码", "屏蔽管理" }; //
+				"修改密码", "屏蔽管理", "关于我们" }; //
 
 		public int getCount() {
 			return titleArr.length;
@@ -361,12 +365,6 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		@Override
 		public View getView(int position, View view, ViewGroup parent) {
 			RelativeLayout layout = null;
-			// if (convertView == null) {
-			// layout = (RelativeLayout) LayoutInflater.from(getActivity())
-			// .inflate(R.layout.setting_adapter_item, null);
-			// } else {
-			// layout = (RelativeLayout) convertView;
-			// }
 
 			ViewHolder viewHolder = null;
 			if (view == null) {
@@ -391,18 +389,7 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 			viewHolder.im.setImageResource(icon[position]);
 			viewHolder.titleStr.setText(titleArr[position]);
 
-			if (position == 4) {
-				// 如果有通知，则显示通知数目
-				if (true) {
-					// te.setText("3");
-					viewHolder.re.setVisibility(View.GONE);
-				} else {
-					viewHolder.re.setVisibility(View.GONE);
-				}
-			} else { // 当前postion 不为5时，隐藏黑色线条和圆形红色块
-				viewHolder.view.setVisibility(View.GONE);
-				viewHolder.re.setVisibility(View.GONE);
-			}
+			viewHolder.re.setVisibility(View.GONE);
 			viewHolder.view.setVisibility(View.GONE);
 			return view;
 		}
@@ -434,8 +421,6 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 				.setPositiveButton("确认", new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						// Toast.makeText(getActivity().getApplication(),
-						// "清除全部聊天记录", Toast.LENGTH_LONG).show();
 						int user_id = preferences.getInt("user_id", -1);
 						db.delMessage(user_id);
 					}
@@ -452,27 +437,20 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 	}
 
 	/**
-	 * 
 	 * 版本检测
-	 * 
 	 */
-
 	class VersionChecking extends Thread {
 		public void run() {
 			try {
-				// TelephonyManager tm = (TelephonyManager) getActivity()
-				// .getSystemService(Context.TELEPHONY_SERVICE);
 				String release = android.os.Build.VERSION.RELEASE; // android系统版本号
-
 				ClientInfo.Builder pb = ClientInfo.newBuilder();
-				// pb.setDeviceId(tm.getDeviceId());
 				String deviceId = preferences.getString("clientid", "");
 				int user_id = preferences.getInt("user_id", -1);
 				String Token = preferences.getString("Token", "");
 				pb.setDeviceId(deviceId);
 				pb.setOSVersion(release);
 				pb.setUserId(user_id);
-				pb.setChannel(10000);
+				pb.setChannel(Urlinterface.current_channel);
 				pb.setClientVersion(Urlinterface.current_version + "");
 				pb.setIsPushEnable(true);
 				Log.i("linshi", "-----------------");
@@ -482,7 +460,6 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 				builder.setToken(Token);
 				builder.setClientInfo(pb);
 				ClientInfoRequest response = builder.build();
-
 				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
 						Urlinterface.Client, "PUT");
 				if (by != null && by.length > 0) {
@@ -493,12 +470,12 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 							// 新版本提示
 							fileurl = res.getClientUrl();
 							handler.sendEmptyMessage(8);
+
 						} else {
 							handler.sendEmptyMessage(11);
 						}
 
 					} else {
-						prodialog.dismiss();
 						handler.sendEmptyMessage(6);
 					}
 				} else {
@@ -506,8 +483,7 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 				}
 				//
 			} catch (Exception e) {
-				prodialog.dismiss();
-				handler.sendEmptyMessage(7);
+				handler.sendEmptyMessage(6);
 			}
 		}
 	}
@@ -627,13 +603,13 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 		startActivity(i);
 	}
 
-
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 		switch (resultCode) {
 		case -11:
-			profilePojo = FuXunTools.getProfilePojo(preferences, fxApplication);;
+			profilePojo = FuXunTools.getProfilePojo(preferences, fxApplication);
+			;
 			// handler.sendEmptyMessage(0);
 			setData();
 			break;
@@ -652,4 +628,34 @@ public class SettingsActivity extends Fragment implements Urlinterface {
 			db.closeDB();
 		}
 	}
+
+	@Override
+	public boolean onTouch(View v, MotionEvent event) {
+		if (event.getAction() == MotionEvent.ACTION_DOWN) {
+			switch (v.getId()) {
+			case R.id.quit_cancel:
+				quit_cancel.setTextColor(this.getResources().getColor(
+						R.color.system_textColor2));
+				break;
+			case R.id.quit_ok:
+				quit_ok.setTextColor(this.getResources().getColor(
+						R.color.system_textColor2));
+				break;
+			}
+		} else if (event.getAction() == MotionEvent.ACTION_UP) {
+			switch (v.getId()) {
+			case R.id.quit_cancel:
+				quit_cancel.setTextColor(this.getResources().getColor(
+						R.color.system_textColor));
+				break;
+			case R.id.quit_ok:
+				quit_ok.setTextColor(this.getResources().getColor(
+						R.color.system_textColor));
+				break;
+			}
+		}
+		return false;
+	}
+
+	
 }

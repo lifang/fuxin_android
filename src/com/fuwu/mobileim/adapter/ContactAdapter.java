@@ -72,6 +72,7 @@ public class ContactAdapter extends BaseAdapter {
 			view.setTag(viewHolder);
 		} else {
 			viewHolder = (ViewHolder) view.getTag();
+			viewHolder.contact_user_face.setImageResource(R.drawable.moren);
 		}
 		// 设置头像
 		String face_str = contact.getUserface_url();
@@ -79,7 +80,7 @@ public class ContactAdapter extends BaseAdapter {
 		Log.i("linshi2", "加载头像---ContactId：" + ContactId);
 		viewHolder.contact_user_face.setTag(Urlinterface.head_pic
 				+ contact.getContactId());
-		if (face_str.length() > 4) {
+		if (face_str != null &&face_str.length() > 4) {
 			File f = new File(Urlinterface.head_pic, contact.getContactId()
 					+ "");
 			if (f.exists()) {
