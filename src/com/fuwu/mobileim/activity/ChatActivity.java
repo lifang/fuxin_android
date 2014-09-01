@@ -139,6 +139,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 	private TalkPojo tp;
 	private SharedPreferences sp;
 	private RequstReceiver mReuRequstReceiver;
+	private RequstReceiver2 mReuRequstReceiver2;
 	private ExecutorService sendMessageExecutor = Executors
 			.newFixedThreadPool(5);
 	private ExecutorService loadImageExecutor = Executors
@@ -250,6 +251,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 	public void initData() {
 		db = new DBManager(this);
 		mReuRequstReceiver = new RequstReceiver();
+		mReuRequstReceiver2 = new RequstReceiver2();
 		DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
 		height = displayMetrics.heightPixels;
 		Set<String> keySet = FxApplication.getInstance().getFaceMap().keySet();
@@ -809,12 +811,16 @@ public class ChatActivity extends Activity implements OnClickListener,
 		registerReceiver(mReuRequstReceiver, new IntentFilter(
 				"com.comdosoft.fuxun.REQUEST_ACTION"));
 		StatService.onResume(this);
+		registerReceiver(mReuRequstReceiver2, new IntentFilter(
+				"com.comdosoft.fuxun.REQUEST_ACTION2"));
+		StatService.onResume(this);
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
 		unregisterReceiver(mReuRequstReceiver);
+		unregisterReceiver(mReuRequstReceiver2);
 		StatService.onPause(this);
 	}
 
@@ -920,7 +926,12 @@ public class ChatActivity extends Activity implements OnClickListener,
 
 		}
 	}
-
+	class RequstReceiver2 extends BroadcastReceiver {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			handler.sendEmptyMessage(15);
+		}
+	}
 	// 关闭界面
 	public void clearActivity() {
 		List<Activity> activityList = fxApplication.getActivityList();

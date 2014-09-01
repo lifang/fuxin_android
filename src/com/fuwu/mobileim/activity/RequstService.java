@@ -177,7 +177,7 @@ public class RequstService extends Service {
 			if (bitmap != null && bitmap.getWidth() > 0
 					&& bitmap.getHeight() > 0) {
 				ImageUtil.saveBitmap(fileName, "JPG", bitmap);
-				Intent intnet = new Intent("com.comdosoft.fuxun.REQUEST_ACTION");
+				Intent intnet = new Intent("com.comdosoft.fuxun.REQUEST_ACTION2");
 				sendBroadcast(intnet);
 			}
 		}
