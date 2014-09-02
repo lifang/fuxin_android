@@ -15,6 +15,7 @@ public class WelcomeActivity extends Activity {
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		System.out.println("123");
 		setContentView(R.layout.welcome);
 		final Intent intent = new Intent(WelcomeActivity.this,
 				LoginActivity.class);
