@@ -423,6 +423,11 @@ public class FragmengtActivity extends FragmentActivity implements
 							String name = res.getContacts(i).getName();
 							String customName = res.getContacts(i)
 									.getCustomName();
+							Log.i("Max",
+									 "contactId-"
+											+ contactId+"--name-"
+											+ name+"--customName-"
+											+ customName);
 							String sortKey = null;
 							String userface_url = res.getContacts(i)
 									.getTileUrl();

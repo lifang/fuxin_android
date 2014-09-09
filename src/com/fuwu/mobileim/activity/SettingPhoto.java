@@ -94,7 +94,7 @@ public class SettingPhoto extends Activity implements Urlinterface,OnTouchListen
 	}
 	
 	/**
-	 * 拍照上传
+	 * 查看头像
 	 */
 	public void set_lookphoto(View v) {
 

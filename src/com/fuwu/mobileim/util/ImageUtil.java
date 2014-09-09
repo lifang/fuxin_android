@@ -20,6 +20,9 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.view.Display;
+import android.view.WindowManager;
+import cn.trinea.android.common.util.ImageUtils;
 
 /**
  * @作者 马龙
@@ -95,6 +98,51 @@ public class ImageUtil {
 			if (opts.outHeight > width / 3) {
 				h = width / 3;
 			}
+		}
+
+		opts.inSampleSize = computeSampleSize(opts, -1, w * h);
+		opts.inJustDecodeBounds = false;
+
+		try {
+			bitmap = BitmapFactory.decodeFile(filePath, opts);
+		} catch (Exception e) {
+		}
+		return bitmap;
+	}
+
+	/**
+	 * 根据实际需要压缩图片
+	 * 
+	 */
+	public static Bitmap createImageThumbnail(String filePath, WindowManager wm) {
+		Bitmap bitmap = null;
+		BitmapFactory.Options opts = new BitmapFactory.Options();
+		opts.inJustDecodeBounds = true;
+		BitmapFactory.decodeFile(filePath, opts);
+
+		int w = opts.outWidth;
+		int h = opts.outHeight;
+		Display display = wm.getDefaultDisplay();
+		int width = display.getWidth();
+		int height = display.getHeight();
+
+		if (w <= width && h <= height) { // 实际宽高都小于屏幕宽高,不作处理
+
+		} else if (w > width && h <= height) {// 实际宽大于屏幕宽
+			w = width;
+			h = h * (width / w);
+		} else if (w <= width && h > height) {// 实际高大于屏幕高
+			h = height;
+			w = w * (height / h);
+		} else if (w > width && h > height) {// 实际宽高都大于屏幕宽高
+			if ((height / h) < (width / w)) { // 图片的高/屏幕高 的系数 超过 图片的宽/屏幕宽 的系数
+				h = height;
+				w = w * (height / h);
+			} else {
+				w = width;
+				h = h * (width / w);
+			}
+
 		}
 
 		opts.inSampleSize = computeSampleSize(opts, -1, w * h);

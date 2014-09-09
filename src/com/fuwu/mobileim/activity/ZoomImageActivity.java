@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.util.ImageUtil;
+import com.fuwu.mobileim.util.Urlinterface;
 import com.fuwu.mobileim.view.DragImageView;
 
 /**
@@ -45,7 +46,8 @@ public class ZoomImageActivity extends Activity {
 		// if (!ImageCacheUtil.IMAGE_CACHE.get(path, dragImageView)) {
 		// dragImageView.setImageDrawable(null);
 		// }
-		dragImageView.setImageBitmap(ImageUtil.getLoacalBitmap(path));
+		dragImageView.setImageBitmap(ImageUtil.createImageThumbnail(
+				path, getWindowManager()));
 		// ImageCacheUtil.IMAGE_CACHE.get(path, dragImageView);
 		// 设置图片
 		dragImageView.setmActivity(this);// 注入Activity.

@@ -392,7 +392,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/login_btn"
-        android:text="发送消息"
+        android:text="@string/look_message"
         android:textColor="@color/white"
         android:textSize="19sp" />
 

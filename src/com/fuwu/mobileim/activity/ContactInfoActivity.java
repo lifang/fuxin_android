@@ -11,7 +11,6 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -28,7 +27,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
-import android.view.ViewTreeObserver.OnPreDrawListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -67,6 +66,7 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 	private FxApplication fxApplication;
 	private PopupWindow menuWindow;
 	private ImageView mOther; // 右上方按钮
+	private Button info_sendBtn;
 	private float height = 0;
 
 	private Handler handler = new Handler() {
@@ -181,6 +181,7 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 	}
 
 	public void InitView() {
+		info_sendBtn = (Button) findViewById(R.id.info_sendBtn);
 		findViewById(R.id.info_sendBtn).setOnClickListener(this);
 		findViewById(R.id.contact_info_back).setOnClickListener(this);
 		findViewById(R.id.contact_info_back).setOnTouchListener(this);
@@ -386,7 +387,11 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 						.setBackgroundResource(R.drawable.system_user_bg);
 			}
 		}
-
+		if (cp.getContactId() == 0) {
+			mOther.setVisibility(View.GONE);
+			info_sendBtn.setText("查看消息");
+			
+		} 
 	}
 
 	class GetContactDetail extends Thread {
@@ -599,6 +604,7 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 
 				tv.setText("此人已屏蔽");
 			}
+			
 		}
 		menuWindow = new PopupWindow(view, LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT);
