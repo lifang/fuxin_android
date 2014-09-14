@@ -8,14 +8,13 @@
         android:layout_width="fill_parent"
         android:layout_height="60dp"
         android:paddingLeft="15dp"
-        android:paddingRight="20dp"
-         >
+        android:paddingRight="20dp" >
 
         <RelativeLayout
             android:id="@+id/layout"
             android:layout_width="40dp"
-            android:layout_marginTop="10dp"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" >
 
             <com.fuwu.mobileim.view.CircularImage
                 android:id="@+id/head"
@@ -24,6 +23,15 @@
                 android:layout_alignParentLeft="true"
                 android:scaleType="centerCrop"
                 android:src="@drawable/moren" />
+            <ImageView
+                android:id="@+id/pingbi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/head"
+                android:layout_alignRight="@id/head"
+                android:scaleType="centerCrop"
+                android:src="@drawable/pingbi" />
+
 
             <LinearLayout
                 android:id="@+id/statics"
@@ -60,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:singleLine="true"
-                 android:text=""
+                android:text=""
                 android:textColor="#333333"
                 android:textSize="20sp" />
 
@@ -69,10 +77,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="40dp"
-                android:ellipsize="end"
-                android:text=""
                 android:layout_marginTop="0dp"
+                android:ellipsize="end"
                 android:singleLine="true"
+                android:text=""
                 android:textColor="#999999"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -86,10 +94,10 @@
 
             <TextView
                 android:id="@+id/dath"
-                android:text=""
-                android:textColor="#999999"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="#999999"
                 android:textSize="16sp" />
         </LinearLayout>
     </RelativeLayout>

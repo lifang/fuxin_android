@@ -141,7 +141,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 	private RequstReceiver mReuRequstReceiver;
 	private RequstReceiver2 mReuRequstReceiver2;
 	private ExecutorService sendMessageExecutor = Executors
-			.newFixedThreadPool(5);
+			.newFixedThreadPool(1);
 	private ExecutorService loadImageExecutor = Executors
 			.newSingleThreadExecutor();
 	private Handler handler = new Handler() {
@@ -610,7 +610,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 							.parseFrom(b);
 					if (response.getIsSucceed()) {
 						sendTime = response.getSendTime();
-						Log.i("FuWu", "sendTime-2:" + sendTime);
+						Log.i("FuWu", mp.getContent()+"--sendTime-2:" + sendTime);
 						// messagePojo.setSendTime(sendTime);
 						messagePojo.setStatus(0);
 						db.updateContactlastContactTime(user_id, contact_id,

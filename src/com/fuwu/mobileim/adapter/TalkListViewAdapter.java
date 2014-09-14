@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +17,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fuwu.mobileim.R;
+import com.fuwu.mobileim.pojo.ShortContactPojo;
 import com.fuwu.mobileim.pojo.TalkPojo;
+import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.ImageCacheUtil;
 import com.fuwu.mobileim.util.TimeUtil;
 import com.fuwu.mobileim.util.Urlinterface;
@@ -34,13 +37,19 @@ public class TalkListViewAdapter extends BaseAdapter {
 	private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
 	protected ImageLoader imageLoader = ImageLoader.getInstance();
 	private DisplayImageOptions options;
-
+	private static DBManager db;
+	private SharedPreferences preferences;
+	private int user_id = -1;
 	public TalkListViewAdapter(Context context, List<TalkPojo> list,
 			DisplayImageOptions options) {
 		this.mcontext = context;
 		this.mInflater = LayoutInflater.from(mcontext);
 		this.list = list;
 		this.options = options;
+		db = new DBManager(context);
+		preferences = mcontext.getSharedPreferences(Urlinterface.SHARED,
+				Context.MODE_PRIVATE);
+		user_id = preferences.getInt("user_id", -1);
 	}
 
 	public void updateList(List<TalkPojo> list) {
@@ -71,6 +80,7 @@ public class TalkListViewAdapter extends BaseAdapter {
 			holder.name = (TextView) arg1.findViewById(R.id.name);
 			holder.content = (TextView) arg1.findViewById(R.id.content);
 			holder.dath = (TextView) arg1.findViewById(R.id.dath);
+			holder.pingbi=(ImageView) arg1.findViewById(R.id.pingbi);
 			arg1.setTag(holder);
 		} else {
 			holder = (ViewHolder) arg1.getTag();
@@ -111,6 +121,14 @@ public class TalkListViewAdapter extends BaseAdapter {
 		} else {
 			holder.head.setImageResource(R.drawable.moren);
 		}
+		
+		
+		ShortContactPojo cp = db.queryContact(user_id, list.get(arg0).getContact_id());
+		if (cp.getIsBlocked()==1) {
+			holder.pingbi.setVisibility(View.VISIBLE);
+		}else {
+			holder.pingbi.setVisibility(View.GONE);
+		}
 		}
 		return arg1;
 	}
@@ -122,6 +140,7 @@ public class TalkListViewAdapter extends BaseAdapter {
 		TextView name;
 		TextView content;
 		TextView dath;
+		ImageView pingbi;
 	}
 
 	private static class AnimateFirstDisplayListener extends

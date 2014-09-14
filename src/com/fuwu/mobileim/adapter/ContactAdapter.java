@@ -4,15 +4,18 @@ import java.io.File;
 import java.util.List;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.pojo.ShortContactPojo;
+import com.fuwu.mobileim.util.DBManager;
 import com.fuwu.mobileim.util.FuXunTools;
 import com.fuwu.mobileim.util.ImageCacheUtil;
 import com.fuwu.mobileim.util.Urlinterface;
@@ -27,10 +30,16 @@ import com.fuwu.mobileim.view.CircularImage;
 public class ContactAdapter extends BaseAdapter {
 	private List<ShortContactPojo> list = null;
 	private Context mContext;
-
+	private static DBManager db;
+	private SharedPreferences preferences;
+	private int user_id = -1;
 	public ContactAdapter(Context mContext, List<ShortContactPojo> list) {
 		this.mContext = mContext;
 		this.list = list;
+		db = new DBManager(mContext);
+		preferences = mContext.getSharedPreferences(Urlinterface.SHARED,
+				Context.MODE_PRIVATE);
+		user_id = preferences.getInt("user_id", -1);
 	}
 
 	/**
@@ -68,7 +77,7 @@ public class ContactAdapter extends BaseAdapter {
 
 			viewHolder.contact_user_face = (CircularImage) view
 					.findViewById(R.id.contact_user_face);
-
+			viewHolder.pingbi=(ImageView) view.findViewById(R.id.pingbi);
 			view.setTag(viewHolder);
 		} else {
 			viewHolder = (ViewHolder) view.getTag();
@@ -110,6 +119,14 @@ public class ContactAdapter extends BaseAdapter {
 		} else {
 			viewHolder.contact_name.setText(contact.getName());
 		}
+		
+		ShortContactPojo cp = db.queryContact(user_id, list.get(position).getContactId());
+		if (cp.getIsBlocked()==1) {
+			viewHolder.pingbi.setVisibility(View.VISIBLE);
+		}else {
+			viewHolder.pingbi.setVisibility(View.GONE);
+		}
+		
 		// }
 		return view;
 
@@ -118,6 +135,7 @@ public class ContactAdapter extends BaseAdapter {
 	final static class ViewHolder {
 		TextView contact_name; // 名称
 		CircularImage contact_user_face; // 头像
+		ImageView pingbi;
 	}
 
 }

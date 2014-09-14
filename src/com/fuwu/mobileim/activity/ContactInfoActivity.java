@@ -68,7 +68,7 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 	private ImageView mOther; // 右上方按钮
 	private Button info_sendBtn;
 	private float height = 0;
-
+	private ImageView pingbi;
 	private Handler handler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
@@ -98,6 +98,7 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 							Toast.LENGTH_SHORT).show();
 					cp.setIsBlocked(1);
 					db.modifyContactBlock(1, user_id, contact_id);
+					handler.sendEmptyMessage(13);
 				} else {
 					cp.setIsBlocked(0);
 					Toast.makeText(getApplicationContext(), "取消屏蔽成功",
@@ -202,6 +203,7 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 		Bitmap bitmap = bitmapDrawable.getBitmap();
 		img.setImageDrawable(new BitmapDrawable(FuXunTools
 				.createRoundConerImage(bitmap)));
+		 pingbi = (ImageView) findViewById(R.id.pingbi); // 屏蔽
 
 	}
 
@@ -392,6 +394,11 @@ public class ContactInfoActivity extends Activity implements OnClickListener,
 			info_sendBtn.setText("查看消息");
 			
 		} 
+		if (cp.getIsBlocked()==1) {
+			pingbi.setVisibility(View.VISIBLE);
+		}else {
+			pingbi.setVisibility(View.GONE);
+		}
 	}
 
 	class GetContactDetail extends Thread {

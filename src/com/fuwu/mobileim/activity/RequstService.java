@@ -220,15 +220,15 @@ public class RequstService extends Service {
 									if (mes.getContactId() != user_id) {
 										int mesCount = mes.getMessagesCount();
 										List<MessagePojo> list = new ArrayList<MessagePojo>();
-										for (int j = mesCount - 1; j >= 0; j--) {
+										for (int j = 0; j < mesCount; j++) {
 											Message m = mes.getMessages(j);
 											addMessagePojo(list, m);
 											Log.i("FuWu1", m.getContent()
 													+ "--" + m.getSendTime());
 										}
 										// 排序
-										Collections.sort(list,
-												sendDataComparator);
+//										Collections.sort(list,
+//												sendDataComparator);
 										// 更新本地数据库
 										updataDb(list);
 

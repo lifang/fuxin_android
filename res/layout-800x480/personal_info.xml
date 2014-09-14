@@ -68,6 +68,16 @@
                 android:layout_height="65dp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true" />
+
+            <ImageView
+                android:id="@+id/pingbi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/info_img"
+                android:layout_alignRight="@id/info_img"
+                android:scaleType="centerCrop"
+                android:visibility="gone"
+                android:src="@drawable/pingbi" />
         </RelativeLayout>
 
         <TextView

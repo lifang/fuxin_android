@@ -68,6 +68,16 @@
                 android:layout_height="75dp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true" />
+
+            <ImageView
+                android:id="@+id/pingbi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/info_img"
+                android:layout_alignRight="@id/info_img"
+                android:scaleType="centerCrop"
+                android:visibility="gone"
+                android:src="@drawable/pingbi" />
         </RelativeLayout>
 
         <TextView
@@ -83,13 +93,14 @@
             android:text=""
             android:textColor="#333333"
             android:textSize="19sp" />
-                    <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:background="#CFCFCF" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="#CFCFCF" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -104,9 +115,8 @@
             android:id="@+id/personal_info_hangye"
             android:layout_width="fill_parent"
             android:layout_height="50dip"
-            android:background="@color/white" 
+            android:background="@color/white"
             android:visibility="gone" >
-
 
             <TextView
                 android:id="@+id/hangye_text"
@@ -239,7 +249,8 @@
                 android:layout_marginRight="15dp"
                 android:textColor="#999999"
                 android:textSize="17sp" />
-                        <View
+
+            <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
@@ -254,8 +265,6 @@
             android:layout_height="50dip"
             android:layout_below="@+id/personal_info_fz"
             android:background="@color/white" >
-
-           
 
             <TextView
                 android:layout_width="wrap_content"

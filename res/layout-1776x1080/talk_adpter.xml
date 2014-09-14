@@ -24,7 +24,14 @@
                 android:layout_alignParentLeft="true"
                 android:scaleType="centerCrop"
                 android:src="@drawable/moren" />
-
+            <ImageView
+                android:id="@+id/pingbi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/head"
+                android:layout_alignRight="@id/head"
+                android:scaleType="centerCrop"
+                android:src="@drawable/pingbi" />
             <LinearLayout
                 android:id="@+id/statics"
                 android:layout_width="18dp"

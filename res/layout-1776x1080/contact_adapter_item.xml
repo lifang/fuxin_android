@@ -10,14 +10,28 @@
         android:layout_height="50dip"
         android:background="#FFFFFF" >
 
-        <com.fuwu.mobileim.view.CircularImage
-            android:id="@+id/contact_user_face"
+        <RelativeLayout
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_gravity="center_vertical"
             android:layout_marginLeft="15dip"
-            android:layout_marginRight="15dip"
-            android:src="@drawable/moren" />
+            android:layout_marginRight="15dip" 
+            android:layout_gravity="center_vertical">
+
+            <com.fuwu.mobileim.view.CircularImage
+                android:id="@+id/contact_user_face"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/moren" />
+
+            <ImageView
+                android:id="@+id/pingbi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/contact_user_face"
+                android:layout_alignRight="@id/contact_user_face"
+                android:scaleType="centerCrop"
+                android:src="@drawable/pingbi" />
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/contact_name"

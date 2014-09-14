@@ -620,9 +620,9 @@ public class FragmengtActivity extends FragmentActivity implements
 			translateAnimation.startNow(); // 启动动画
 			// 模拟
 			SourceDateList = db.queryContactList(spf.getInt("user_id", 0));
-			 ShortContactPojo coPojo = new ShortContactPojo(0, "", "系统消息",
-			 "系统消息", "", 2, 0, "", 0, "", "");
-			 SourceDateList.add(0,coPojo);
+//			 ShortContactPojo coPojo = new ShortContactPojo(0, "", "系统消息",
+//			 "系统消息", "", 2, 0, "", 0, "", "");
+//			 SourceDateList.add(0,coPojo);
 		}
 	};
 	/*

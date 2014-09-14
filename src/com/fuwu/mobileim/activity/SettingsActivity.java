@@ -13,13 +13,12 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
-import android.app.ProgressDialog;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -32,7 +31,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
-import android.view.ViewTreeObserver.OnPreDrawListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -416,23 +414,41 @@ public class SettingsActivity extends Fragment implements Urlinterface,
 	 * 删除所有记录
 	 */
 	public void deleteAllChatRecords() {
-		Dialog dialog = new AlertDialog.Builder(getActivity()).setTitle("提示")
-				.setMessage("您确认要删除全部聊天记录么?")
-				.setPositiveButton("确认", new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						int user_id = preferences.getInt("user_id", -1);
-						db.delMessage(user_id);
-					}
-				})
-				.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						dialog.dismiss();
-					}
-				}).create();
-		dialog.show();
+			View view = getActivity().getLayoutInflater().inflate(
+					R.layout.quit_builder, null);
+			TextView tv = (TextView) view.findViewById(R.id.quit_message);
+			tv.setText("您确认要删除全部聊天记录吗？");
+			quit_cancel = (TextView) view.findViewById(R.id.quit_cancel);
+			quit_ok = (TextView) view.findViewById(R.id.quit_ok);
+			quit_cancel.setText("取消");
+			quit_ok.setText("确认");
+			quit_ok.setOnTouchListener(this);
+			quit_cancel.setOnTouchListener(this);
+			if (version < 4) {
+				quit_cancel
+						.setBackgroundResource(R.drawable.quit_button_cancel_shape2);
+				quit_ok.setBackgroundResource(R.drawable.quit_button_ok_shape2);
+			}
+			final MyDialog builder = new MyDialog(getActivity(), 0, view,
+					R.style.mydialog);
+			quit_cancel.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View arg0) {
+					builder.dismiss();
+				}
+			});
+			quit_ok.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View arg0) {
+					builder.dismiss();
+					int user_id = preferences.getInt("user_id", -1);
+					db.delMessage(user_id);
+					NotificationManager nm = (NotificationManager) getActivity().getSystemService(android.content.Context.NOTIFICATION_SERVICE);
+					nm.cancel(Urlinterface.Receiver_code);
+					Intent intnet = new Intent(
+							"com.comdosoft.fuxun.REQUEST_ACTION");
+					getActivity().sendBroadcast(intnet);
+				}
+			});
+			builder.show();
 
 	}
 
