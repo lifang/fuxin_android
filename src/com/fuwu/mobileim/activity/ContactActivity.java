@@ -208,7 +208,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 				try {
 
 					String timeStamp = preferences.getString(
-							"contactTimeStamp", "");
+							"contactTimeStamp"+user_id, "");
 					ContactRequest.Builder builder = ContactRequest
 							.newBuilder();
 					builder.setUserId(user_id);
@@ -282,7 +282,7 @@ public class ContactActivity extends Fragment implements IXListViewListener {
 									.getSharedPreferences(Urlinterface.SHARED,
 											Context.MODE_PRIVATE);
 							Editor editor = preferences2.edit();
-							editor.putString("contactTimeStamp",
+							editor.putString("contactTimeStamp"+user_id,
 									res.getTimeStamp());
 
 							editor.commit();

@@ -20,7 +20,7 @@
             android:text="修改备注"
             android:textColor="#ffffff"
             android:layout_marginTop="10dp"
-            android:textSize="16dp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/personal_info_other_shielding"
@@ -31,7 +31,7 @@
             android:layout_marginTop="10dp"
             android:textColor="#ffffff"
             android:layout_marginBottom="10dp"
-            android:textSize="16dp" />
+            android:textSize="16sp" />
     </LinearLayout>
 
 </LinearLayout>

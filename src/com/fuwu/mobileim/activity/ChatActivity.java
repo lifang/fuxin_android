@@ -279,7 +279,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 
 		db.clearTalkMesCount(user_id, contact_id);
 		list = db.queryMessageList(user_id, contact_id,
-				(mMesCount - mMesPageNum * 15), 15);
+				(mMesCount - mMesPageNum * 100), 100);
 		newMessage = mMesCount;
 		Log.i("FuWu", "newMessage---" + newMessage);
 		mMesPageNum = 2;
@@ -291,15 +291,15 @@ public class ChatActivity extends Activity implements OnClickListener,
 	public void loadMoreMessageData() {
 		db.clearTalkMesCount(user_id, contact_id);
 		Log.i("FuWu", "mMesCount---" + mMesCount);
-		Log.i("FuWu", "(mMesCount - mMesPageNum * 15)---"
-				+ (mMesCount - mMesPageNum * 15));
-		Log.i("FuWu", "(mMesCount - (mMesPageNum - 1) * 15)---"
-				+ (mMesCount - (mMesPageNum - 1) * 15));
+		Log.i("FuWu", "(mMesCount - mMesPageNum * 100)---"
+				+ (mMesCount - mMesPageNum * 100));
+		Log.i("FuWu", "(mMesCount - (mMesPageNum - 1) * 100)---"
+				+ (mMesCount - (mMesPageNum - 1) * 100));
 		Log.i("FuWu", "mMesPageNum---" + mMesPageNum);
-		if ((mMesCount - (mMesPageNum - 1) * 15) > 0) { // 为负数时会获取全部消息
+		if ((mMesCount - (mMesPageNum - 1) * 100) > 0) { // 为负数时会获取全部消息
 
 			List<MessagePojo> loadMoreList = db.queryMessageList(user_id,
-					contact_id, (mMesCount - mMesPageNum * 15), 15);
+					contact_id, (mMesCount - mMesPageNum * 100), 100);
 			for (int i = loadMoreList.size() - 1; i >= 0; i--) {
 				list.add(0, loadMoreList.get(i));
 			}
@@ -548,6 +548,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 	public void menu_press() {
 		View view = getLayoutInflater().inflate(R.layout.chat_other, null);
 		view.findViewById(R.id.chatset_clear).setOnClickListener(this);
+		view.findViewById(R.id.lookall_mes).setOnClickListener(this);
 
 		// view.findViewById(R.id.chatset_block).setOnClickListener(this);
 		// view.findViewById(R.id.chatset_beizhu).setOnClickListener(this);
@@ -737,6 +738,12 @@ public class ChatActivity extends Activity implements OnClickListener,
 			break;
 		case R.id.chat_other:
 			menu_press();
+			break;
+		case R.id.lookall_mes:
+			Intent intent = new Intent();
+			intent.setClass(ChatActivity.this,
+					LookAllMessageActivity.class);
+			startActivity(intent);
 			break;
 		}
 	}
@@ -1234,7 +1241,7 @@ public class ChatActivity extends Activity implements OnClickListener,
 	}
 
 	public String getTimeStamp() {
-		String time = sp.getString("sendTime", "");
+		String time = sp.getString("sendTime"+user_id, "");
 		if (time != null && !time.equals("")) {
 			return time;
 		}

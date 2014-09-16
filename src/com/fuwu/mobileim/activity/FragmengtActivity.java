@@ -16,7 +16,6 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.app.NotificationManager;
-import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -27,7 +26,6 @@ import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -36,10 +34,8 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
-import android.text.TextWatcher;
 import android.text.style.AbsoluteSizeSpan;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -50,27 +46,17 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
-import android.view.ViewTreeObserver.OnPreDrawListener;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.mobstat.StatService;
 import com.fuwu.mobileim.R;
 import com.fuwu.mobileim.adapter.FragmentViewPagerAdapter;
-import com.fuwu.mobileim.adapter.SearchContactAdapter;
-import com.fuwu.mobileim.model.Models.ClientInfo;
-import com.fuwu.mobileim.model.Models.ClientInfoRequest;
-import com.fuwu.mobileim.model.Models.ClientInfoResponse;
 import com.fuwu.mobileim.model.Models.ContactRequest;
 import com.fuwu.mobileim.model.Models.ContactResponse;
 import com.fuwu.mobileim.model.Models.License;
@@ -101,15 +87,8 @@ public class FragmengtActivity extends FragmentActivity implements
 	private LinearLayout countLinear;
 	private TextView countText;
 	private ImageView contact_search; // 搜索功能 图标
-	private RelativeLayout main_search;// 搜索框全部
-	private TextView contact_search_edittext;// 搜索框输入框
-	private ImageView contact_search_empty;// 搜索框 清空图标
-	private Button contact_search_cancel;// 搜索功能 取消按钮
-	private ListView contacts_search_listview;// 搜索到的内容 listview
-	private LinearLayout contacts_search_linearLayout;// 搜索 内容显示部分
 	private FxApplication fxApplication;
 	private List<ShortContactPojo> SourceDateList;
-	private SearchContactAdapter adapter;
 	private ImageView cursor;
 	private RequstReceiver mReuRequstReceiver;
 	private int offset = 0;
@@ -147,7 +126,7 @@ public class FragmengtActivity extends FragmentActivity implements
 			case 0://
 				for (int i = 0; i < contactsLists.size(); i++) {
 					String face_str = contactsLists.get(i).getUserface_url();
-					db.addContact(spf.getInt("user_id", 0),
+					db.modifyContact(spf.getInt("user_id", 0),
 							contactsLists.get(i));
 					if (face_str.length() > 4) {
 						user_number2 = user_number2 + 1;
@@ -182,8 +161,9 @@ public class FragmengtActivity extends FragmentActivity implements
 				list.get(1).onStart();
 				Log.i("MyReceiver", "新版本检测clientid=>" + spf.getString("clientid", ""));
 				fileurl = spf.getString("NewVersionUrl", "");
+				String hasnew = spf.getString("hasnew", "");
 				Log.i("MyReceiver", "fileurl=>" + fileurl);
-				if (!fileurl.equals("")) {
+				if (!fileurl.equals("")&&hasnew.equals("")) {
 					handler.sendEmptyMessage(10);
 				}
 				break;
@@ -298,7 +278,6 @@ public class FragmengtActivity extends FragmentActivity implements
 		fxApplication.setWidth(width);
 		fxApplication.setHeight(a);
 		changeTitleStyle();
-		setEdittextListening();
 		InitImageView();
 
 		contactInformation();
@@ -312,21 +291,25 @@ public class FragmengtActivity extends FragmentActivity implements
 		contactsLists = db.queryContactList(spf.getInt("user_id", 0));
 		Log.i("11", contactsLists.size() + "-----------1");
 		if (FuXunTools.isConnect(this)) {
-			if (contactsLists.size() == 0) {
-				builder= FuXunTools.showLoading(getLayoutInflater(),FragmengtActivity.this,"正在加载数据，请稍后..");
-				Thread thread = new Thread(new getContacts());
-				thread.start();
-			} else {
-				Log.i("Ax", "加载本地联系人");
-				if (spf.getString("profile_user", "").equals(user_id + "")) {
-					Intent i = new Intent();
-					i.setClass(this, RequstService.class);
-					startService(i);
-				} else {
-					builder= FuXunTools.showLoading(getLayoutInflater(),FragmengtActivity.this,"正在加载数据，请稍后..");
-					getProfile();
-				}
-			}
+//			if (contactsLists.size() == 0) {
+//				builder= FuXunTools.showLoading(getLayoutInflater(),FragmengtActivity.this,"正在加载数据，请稍后..");
+//				Thread thread = new Thread(new getContacts());
+//				thread.start();
+//			} else {
+//				Log.i("Ax", "加载本地联系人");
+//				if (spf.getString("profile_user", "").equals(user_id + "")) {
+//					Intent i = new Intent();
+//					i.setClass(this, RequstService.class);
+//					startService(i);
+//				} else {
+//					builder= FuXunTools.showLoading(getLayoutInflater(),FragmengtActivity.this,"正在加载数据，请稍后..");
+//					getProfile();
+//				}
+//			}
+			contactsLists = new ArrayList<ShortContactPojo>(); 
+			builder= FuXunTools.showLoading(getLayoutInflater(),FragmengtActivity.this,"正在加载数据，请稍后..");
+			Thread thread = new Thread(new getContacts());
+			thread.start();
 
 		} else {
 			handler.sendEmptyMessage(7);
@@ -368,7 +351,7 @@ public class FragmengtActivity extends FragmentActivity implements
 						options.inJustDecodeBounds = false;
 						options.inSampleSize = 1;
 						bm = BitmapFactory.decodeStream(is, null, options);
-						Log.i("linshi", bm.getWidth() + "---" + bm.getHeight());
+						Log.i("linshi", bm.getWidth() + "---" + bm.getHeight()+"contactsLists.size()"+contactsLists.size());
 						is.close();
 						if (bm != null) {
 							Log.i("linshi",
@@ -402,12 +385,19 @@ public class FragmengtActivity extends FragmentActivity implements
 	class getContacts implements Runnable {
 		public void run() {
 			try {
+				String timeStamp = spf.getString(
+						"contactTimeStamp"+user_id, "");
 				Log.i("Max",
 						spf.getInt("user_id", 0) + "/"
 								+ spf.getString("Token", "null"));
 				ContactRequest.Builder builder = ContactRequest.newBuilder();
 				builder.setUserId(spf.getInt("user_id", 0));
 				builder.setToken(spf.getString("Token", "null"));
+				if (timeStamp.equals("")) {
+
+				} else {
+					builder.setTimeStamp(timeStamp);
+				}
 				ContactRequest response = builder.build();
 
 				byte[] by = HttpUtil.sendHttps(response.toByteArray(),
@@ -424,8 +414,8 @@ public class FragmengtActivity extends FragmentActivity implements
 							String customName = res.getContacts(i)
 									.getCustomName();
 							Log.i("Max",
-									 "contactId-"
-											+ contactId+"--name-"
+									 "getContactsCount-"
+											+ res.getContactsCount()+"--name-"
 											+ name+"--customName-"
 											+ customName);
 							String sortKey = null;
@@ -465,7 +455,7 @@ public class FragmengtActivity extends FragmentActivity implements
 						SharedPreferences preferences = getSharedPreferences(
 								Urlinterface.SHARED, Context.MODE_PRIVATE);
 						Editor editor = preferences.edit();
-						editor.putString("contactTimeStamp", res.getTimeStamp());
+						editor.putString("contactTimeStamp"+user_id, res.getTimeStamp());
 						editor.commit();
 						handler.sendEmptyMessage(0);
 					} else {
@@ -571,38 +561,7 @@ public class FragmengtActivity extends FragmentActivity implements
 	 * 搜索相关设置
 	 */
 	public void searchMethod() {
-		contacts_search_linearLayout = (LinearLayout) findViewById(R.id.contacts_search_linearLayout); //
-		contacts_search_listview = (ListView) findViewById(R.id.contacts_search_list_view); // 搜索到的内容
-																							// listview
-		contact_search = (ImageView) findViewById(R.id.contact_search); // 搜索功能图标
-		main_search = (RelativeLayout) findViewById(R.id.main_search);// 搜索框全部
-		contact_search_edittext = (TextView) findViewById(R.id.contact_search_edittext);// 搜索框输入框
-		contact_search_empty = (ImageView) findViewById(R.id.contact_search_empty);// 搜索框清空图标
-		contact_search_cancel = (Button) findViewById(R.id.contact_search_cancel);// 搜索功能
-																					// 取消按钮
 		contact_search.setOnClickListener(listener1);
-		contact_search_empty.setOnClickListener(listener2);
-		contact_search_cancel.setOnClickListener(listener3);
-		contacts_search_listview.setDivider(null);
-		contacts_search_listview
-				.setOnItemClickListener(new OnItemClickListener() {
-					public void onItemClick(AdapterView<?> parent, View view,
-							int position, long id) {
-						SharedPreferences preferences = getSharedPreferences(
-								Urlinterface.SHARED, Context.MODE_PRIVATE);
-						Editor editor = preferences.edit();
-						editor.putInt("contact_id", contactsLists.get(position)
-								.getContactId());
-						editor.commit();
-						Intent intent = new Intent();
-						intent.putExtra("contact_id",
-								contactsLists.get(position).getContactId());
-						intent.setClass(FragmengtActivity.this,
-								ContactInfoActivity.class);
-						startActivity(intent);
-						contact_search_edittext.setText("");
-					}
-				});
 	}
 
 	/*
@@ -610,62 +569,12 @@ public class FragmengtActivity extends FragmentActivity implements
 	 */
 	private View.OnClickListener listener1 = new View.OnClickListener() {
 		public void onClick(View v) {
-			vp.setVisibility(View.GONE);
-			main_search.setVisibility(View.VISIBLE);
-			contacts_search_linearLayout.setVisibility(View.VISIBLE);
-			final Animation translateAnimation = new TranslateAnimation(720, 0,
-					0, 0); // 移动动画效果
-			translateAnimation.setDuration(100); // 设置动画持续时间
-			main_search.setAnimation(translateAnimation); // 设置动画效果
-			translateAnimation.startNow(); // 启动动画
-			// 模拟
-			SourceDateList = db.queryContactList(spf.getInt("user_id", 0));
-//			 ShortContactPojo coPojo = new ShortContactPojo(0, "", "系统消息",
-//			 "系统消息", "", 2, 0, "", 0, "", "");
-//			 SourceDateList.add(0,coPojo);
+			Intent intent = new Intent();
+			intent.setClass(FragmengtActivity.this,
+					SearchContactActivity.class);
+			startActivity(intent);
 		}
 	};
-	/*
-	 * 清空搜索框
-	 */
-	private View.OnClickListener listener2 = new View.OnClickListener() {
-		public void onClick(View v) {
-			contact_search_edittext.setText("");
-		}
-	};
-	/*
-	 * 取消
-	 */
-	private View.OnClickListener listener3 = new View.OnClickListener() {
-		public void onClick(View v) {
-			vp.setVisibility(View.VISIBLE);
-			main_search.setVisibility(View.GONE);
-			contacts_search_linearLayout.setVisibility(View.GONE);
-			contact_search_edittext.setText("");
-		}
-	};
-
-	/**
-	 * 搜索输入框文本监听
-	 */
-	public void setEdittextListening() {
-		contact_search_edittext.addTextChangedListener(new TextWatcher() {
-			public void onTextChanged(CharSequence s, int start, int before,
-					int count) {
-				String content = contact_search_edittext.getText().toString();
-				adapter = new SearchContactAdapter(FragmengtActivity.this,
-						findSimilarContacts(content));
-				contacts_search_listview.setAdapter(adapter);
-			}
-
-			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after) {
-			}
-
-			public void afterTextChanged(Editable s) {
-			}
-		});
-	}
 
 	/**
 	 * 获得个人详细信息
@@ -882,6 +791,9 @@ public class FragmengtActivity extends FragmentActivity implements
 		View view = getLayoutInflater().inflate(R.layout.quit_builder, null);
 		TextView tv = (TextView) view.findViewById(R.id.quit_message);
 		tv.setText("检测到新版本,您需要更新吗？");
+		Editor editor = spf.edit();
+		editor.putString("hasnew", "hasnew");
+		editor.commit();
 		quit_cancel = (TextView) view.findViewById(R.id.quit_cancel);
 		quit_ok = (TextView) view.findViewById(R.id.quit_ok);
 		quit_cancel.setText("下次再说");

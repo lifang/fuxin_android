@@ -96,80 +96,80 @@
             android:launchMode="singleTop" />
         <activity
             android:name="com.fuwu.mobileim.activity.TalkActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.fuwu.mobileim.activity.AddressBookActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.fuwu.mobileim.activity.SettingsActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.fuwu.mobileim.activity.ContactActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.fuwu.mobileim.activity.LoginActivity"
-            android:screenOrientation="portrait"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" >
         </activity>
         <activity
             android:name="com.fuwu.mobileim.activity.BlockManagementActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.fuwu.mobileim.activity.BlockManagementDisplayActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Dialog" />
         <activity
             android:name="com.fuwu.mobileim.activity.RegistActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.fuwu.mobileim.activity.BackPwdActicity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.fuwu.mobileim.activity.SystemPushActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.fuwu.mobileim.activity.UpdatePwdActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.fuwu.mobileim.activity.MyInformationActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.fuwu.mobileim.activity.ChatActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
 
         <service android:name="com.fuwu.mobileim.activity.RequstService" />
 
         <activity
             android:name="com.fuwu.mobileim.activity.FragmengtActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.fuwu.mobileim.activity.ResetPasswordActicity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.fuwu.mobileim.activity.PushSettingActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.fuwu.mobileim.activity.WelcomeActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -178,13 +178,13 @@
         </activity>
         <activity
             android:name="com.fuwu.mobileim.activity.AgreementActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.fuwu.mobileim.activity.ContactInfoActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.fuwu.mobileim.activity.ZoomImageActivity"
@@ -294,13 +294,13 @@
         <activity
             android:name="com.fuwu.mobileim.activity.SettingPhoto"
             android:screenOrientation="portrait"
-           android:theme="@style/Dialog"  >
+            android:theme="@style/Dialog" >
         </activity>
         <activity
             android:name="com.fuwu.mobileim.activity.ComtactZoomImageActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-         <activity
+        <activity
             android:name="com.fuwu.mobileim.activity.OpenInputMethod"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent" >
@@ -312,8 +312,16 @@
         </activity>
         <activity
             android:name="com.fuwu.mobileim.activity.AboutUsActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.fuwu.mobileim.activity.SearchContactActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.fuwu.mobileim.activity.LookAllMessageActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

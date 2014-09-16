@@ -133,13 +133,13 @@ public class RequstService extends Service {
 	public void setTimeStamp(String time) {
 		if (time != null && !time.equals("")) {
 			Editor editor = sp.edit();
-			editor.putString("sendTime", time);
+			editor.putString("sendTime"+user_id, time);
 			editor.commit();
 		}
 	}
 
 	public String getTimeStamp() {
-		String time = sp.getString("sendTime", "");
+		String time = sp.getString("sendTime"+user_id, "");
 		if (time != null && !time.equals("")) {
 			return time;
 		}
@@ -283,7 +283,8 @@ public class RequstService extends Service {
 					isComMeg, 1);
 			// Log.i("FuWu", "serviceMP-:" + mp.toString());
 		} else if (m.getContentType() == ContentType.Image) {
-			String fileName = System.currentTimeMillis() + "";
+			String con= m.getContent();
+			String fileName = System.currentTimeMillis() + con.substring(con.lastIndexOf("=") + 1, con.length());
 			fixedThreadPool.execute(new DownloadImageThread(userid, contactid,
 					time, m.getContent(), token, fileName));
 

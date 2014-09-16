@@ -828,7 +828,8 @@ public class FuXunTools {
 		editor.putString("clientid", "").commit();
 		editor.putString("profile_user", "").commit();
 		editor.putString("NewVersionUrl", "").commit();
-
+		editor.putString("contactTimeStamp", "").commit();
+		editor.putString("hasnew", "");
 		// 用于判断本地是否有当前用户的信息
 		editor.commit();
 		fxApplication.initData();
